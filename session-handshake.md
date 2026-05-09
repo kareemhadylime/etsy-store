@@ -43,7 +43,7 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | # | Product | Proposal | Approved |
 |---|---------|----------|---------|
 | 1 | Budget Tracker | ✅ `docs/product-proposals/budget-tracker.md` | ✅ approved |
-| 2 | Debt Payoff Planner | ❌ not started | — |
+| 2 | Debt Payoff Planner | ✅ `docs/product-proposals/debt-payoff-planner.md` | ✅ approved |
 | 3 | Sinking Funds Planner | ❌ not started | — |
 | 4 | Net Worth Tracker | ❌ not started | — |
 | 5 | Small Business Finance Kit | ❌ not started | — |
