@@ -31,7 +31,7 @@ describe('GET /api/health', () => {
           }),
         }),
       }),
-    } as any)
+    } as unknown as Awaited<ReturnType<typeof createClient>>)
 
     const { GET } = await import('../route')
     const response = await GET()
