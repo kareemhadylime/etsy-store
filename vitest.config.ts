@@ -5,13 +5,43 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
     globals: true,
     setupFiles: [],
-    environmentMatchGlobs: [
-      // Server-side code runs in node environment
-      ['src/__tests__/**', 'node'],
-      ['src/app/api/**/__tests__/**', 'node'],
+    projects: [
+      {
+        plugins: [react()],
+        test: {
+          name: 'node',
+          environment: 'node',
+          include: [
+            'src/__tests__/**/*.{test,spec}.{ts,tsx}',
+            'src/app/api/**/__tests__/**/*.{test,spec}.{ts,tsx}',
+          ],
+        },
+        resolve: {
+          alias: {
+            '@': path.resolve(__dirname, './src'),
+          },
+        },
+      },
+      {
+        plugins: [react()],
+        test: {
+          name: 'jsdom',
+          environment: 'jsdom',
+          include: ['src/**/*.{test,spec}.{ts,tsx}'],
+          exclude: [
+            'src/__tests__/**/*.{test,spec}.{ts,tsx}',
+            'src/app/api/**/__tests__/**/*.{test,spec}.{ts,tsx}',
+            '**/node_modules/**',
+          ],
+        },
+        resolve: {
+          alias: {
+            '@': path.resolve(__dirname, './src'),
+          },
+        },
+      },
     ],
   },
   resolve: {
