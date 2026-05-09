@@ -559,7 +559,37 @@ Example: *"Sinking Funds Planner | 10 Ready-Made Savings Templates | Google Shee
 
 ---
 
-## 10. Tech Stack Summary
+## 10. Spreadsheet Protection Standards
+
+All products ship with the following protections applied before delivery:
+
+### Google Sheets
+- **Formula cell locking** — all calculation cells password-protected; buyers can only edit designated input cells (visually marked in yellow/green)
+- **Hidden backend sheets** — all complex formula logic lives on hidden tabs buyers cannot access or unhide
+- **Sheet structure protection** — buyers cannot add, delete, rename, or reorder tabs
+- **"Make a Copy" delivery** — template shared via view-only link with "Make a copy" prompt; master template never editable by buyers
+- **GOOGLEFINANCE cells protected** — live price formula cells locked; buyers cannot accidentally break the feed
+
+### Excel
+- **Workbook password protection** — structure locked; sheets cannot be added, deleted, or moved
+- **Sheet password protection** — formula cells locked, only input cells editable
+- **Formula bar suppression** — formulas hidden when formula cells are selected
+- **Input cell highlighting** — only unlocked (input) cells visually marked
+
+### Both Formats — Universal Standards
+- **Copyright tab** — first tab on every product: brand name, copyright year, personal-use-only license, shop URL
+- **Tab header watermark** — shop brand name embedded in every tab header
+- **Version control** — each release tagged (v1.0, v1.1, v2.0); paid customers notified of updates; shared copies stay on old version
+- **Etsy listing language** — every listing clearly states "For personal/household use only. Resale, redistribution, and sharing prohibited."
+
+### AI Edition — Strongest Protection
+- Claude-powered features live on the Vercel web app, not inside the file
+- Sharing the spreadsheet does not grant access to AI analysis
+- Web app access is tied to the Etsy listing URL (buyer navigates from the sheet's button)
+
+---
+
+## 11. Tech Stack Summary
 
 | Layer | Technology |
 |-------|-----------|
