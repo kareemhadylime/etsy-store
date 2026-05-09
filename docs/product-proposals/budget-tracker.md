@@ -112,6 +112,6 @@ Your money, with a brain.
 ---
 
 ## Status
-- [ ] Approved by user
+- [x] Approved by user — 2026-05-10
 - [ ] Design phase
 - [ ] Build phase
