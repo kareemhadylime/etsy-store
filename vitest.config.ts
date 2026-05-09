@@ -8,6 +8,11 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: [],
+    environmentMatchGlobs: [
+      // Server-side code runs in node environment
+      ['src/__tests__/**', 'node'],
+      ['src/app/api/**/__tests__/**', 'node'],
+    ],
   },
   resolve: {
     alias: {
