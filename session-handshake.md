@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-09_
+_Last updated: 2026-05-10_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -8,6 +8,7 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - AI-enhanced finance spreadsheets listed on Etsy
 - 3 tiers per product: Essentials / Pro / AI Edition
 - All products must include AI features to differentiate
+- Plan before design: each product gets a full proposal doc before any design work begins
 
 ## Products in seed.sql (8 + 1 bundle)
 1. Budget Tracker — $12
@@ -19,18 +20,6 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 7. Investment Portfolio Tracker — $19
 8. Zakat Calculator — $12
 9. All-in-One Finance Bundle — $47 (bundle of 1–5)
-
-## Approved in last session (plan 2 backlog)
-Products 9–11 to add to seed + write full spec docs:
-- **Sadaqah & Charity Tracker** — voluntary giving tracker, annual charity goals, log recipients
-- **Halal Investment Screener** — Shariah compliance checklist (debt ratio, revenue sources, prohibited sectors)
-- **Islamic Finance Calculator** — Murabaha vs conventional mortgage comparison, Musharakah return calc
-- **Ramadan Savings Challenge** — 30-day incremental savings, seasonal spike product
-
-## Zakat Calculator tiers (reference for Islamic finance products)
-- Essentials $12 — core calc, multi-currency, Nisab auto-check
-- Pro $22 — dark mode, Hawl tracker, rental/agri/business tabs, distribution tracker
-- AI Edition $34 — AI Zakat advisor, crypto tab, pensions, annual report PDF
 
 ## Tech Stack
 - Next.js (App Router) + TypeScript
@@ -48,6 +37,19 @@ Products 9–11 to add to seed + write full spec docs:
 - [x] Market research — top Etsy sellers, pricing, gaps (2026)
 - [x] AI feature map — 1 AI feature per product, all 8 defined
 - [x] Full tier specs (Essentials / Pro / AI Edition) for all 8 products → `product-specs.md`
+- [x] Budget Tracker proposal v2 → `docs/product-proposals/budget-tracker.md`
+
+## Product Proposals Status
+| # | Product | Proposal | Approved |
+|---|---------|----------|---------|
+| 1 | Budget Tracker | ✅ `docs/product-proposals/budget-tracker.md` | ⏳ pending |
+| 2 | Debt Payoff Planner | ❌ not started | — |
+| 3 | Sinking Funds Planner | ❌ not started | — |
+| 4 | Net Worth Tracker | ❌ not started | — |
+| 5 | Small Business Finance Kit | ❌ not started | — |
+| 6 | Family & Education Planner | ❌ not started | — |
+| 7 | Investment Portfolio Tracker | ❌ not started | — |
+| 8 | Zakat Calculator | ❌ not started | — |
 
 ## Pricing Confirmed
 | Product | Essentials | Pro | AI Edition |
@@ -63,12 +65,18 @@ Products 9–11 to add to seed + write full spec docs:
 | Pro Bundle (5 products) | — | $97 | $149 |
 
 ## What's Next
-- [ ] Build actual spreadsheets (start with Budget Tracker)
-- [ ] Update seed.sql with final pricing from specs
-- [ ] Create Etsy listings for each product
-- [ ] Build storefront UI (product pages)
+- [ ] Approve Budget Tracker proposal (or revise further)
+- [ ] Write proposals for Products 2–8
+- [ ] Design phase (after all proposals approved)
+- [ ] Build actual spreadsheets
+- [ ] Update seed.sql with final pricing
+- [ ] Create Etsy listings
+- [ ] Build storefront UI
 
 ## Standing Rules
-- Save session-handshake.md after each major step
+- **After every save/commit: update session-handshake.md and commit it too**
+- Save product proposals to `docs/product-proposals/<product-name>.md`
+- Commit after every proposal save
 - AI features required in all products
+- Plan → approve → design → build (never skip planning)
 - Always check `node_modules/next/dist/docs/` before writing Next.js code
