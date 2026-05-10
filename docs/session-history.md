@@ -641,3 +641,31 @@ No designs exist for Products 9/10/11. Per standing rule "Plan → approve → d
 - TICKET-006 public storefront (`/`, `/products`, `/products/[slug]`) reads the same service helpers and fires `/api/track/etsy-click` on CTA.
 - Or: Phase 2 ticket breakdown.
 - Or: design phase for Products 9/10/11 (proposals all signed off).
+
+---
+
+## Session 2026-05-10 — Wedding design brief v1 ✅
+
+### Direction sign-offs
+- **D1 Palette:** B — Dusty rose + ivory + matte black (romantic + premium)
+- **D2 Typography:** Cormorant Garamond / Playfair Display + Inter body
+- **D3 Spreadsheet system:** Persistent top bar + rotating banner zone + category color swatches + generous white space
+- **D4 Thumbnails:** 5 images @ 2000×2000 PNG (hero / dashboard / guest+seating / AI prompts / cultural variants)
+- **D5 AI prompt PDF:** 12 pages — cover + intro + 8 prompts × 1 page + tips + back, Cormorant + dusty-rose foil treatment
+
+### New file
+`docs/product-designs/wedding-budget-planner.md` — first entry under new `product-designs/` convention mirroring `product-proposals/`. Contains:
+- Full hex palette w/ status colors (success/warning/alert/etc.)
+- Type pairing specs (display/section/body/numeric/all-caps)
+- Top-bar + banner-library + tab-structure rules
+- 5-thumbnail composition + overlay copy
+- 12-page AI Co-Pilot PDF layout
+- Cultural-variant visual restraint rules (no stereotype motifs)
+- Asset production checklist
+- 3 open production decisions (Sheets vs Excel; Canva vs Figma; PDF tool)
+- Refined build estimate: ~52h (matches proposal's ~50h)
+
+### Next session
+- Answer the 3 production decisions in the brief
+- Then either start visual production for Wedding, or move to Bundle design brief next (similar 5-direction format)
+- Recommend `/clear` between products per standing rule
