@@ -576,3 +576,34 @@ No designs exist for Products 9/10/11 yet. Per standing rule "Plan → approve �
 
 ### Next session
 Surface Notion Life OS's 5 questions with recommendations → lock proposal → THEN move to design phase for all 3 in sequence.
+
+---
+
+## Session 2026-05-10 — Notion Life OS (Product 11) signed off ✅ — ALL 11 PROPOSALS NOW APPROVED
+
+### Sign-off decisions
+1. **Scope:** MVP = Essentials-only ($29 Budget port). 25h build. Validate before committing to Pro/AI tiers (other 60h gated on 5+ sales/wk in 30 days).
+2. **AI format:** DUAL — every AI prompt ships in both Notion AI and ChatGPT/Claude flavors.
+3. **TICKET-011 timing:** PARALLEL with Wedding spreadsheet build (different rails).
+4. **Maintenance:** 12-month free refresh for AI Edition buyers only.
+5. **Pricing:** $29 / $49 / $69 confirmed.
+
+### Build envelope (MVP scope-cut)
+- Wedding: ~50h
+- Bundle: ~22h
+- Notion (Essentials only): ~25h + 12h TICKET-011 plumbing
+- **Total: ~85h** vs. original ~182h estimate (Notion full 3-SKU port deferred to v2 pending Essentials sell-through)
+
+### Status snapshot
+| # | Product | Proposal | Approved | Designs |
+|---|---|---|---|---|
+| 1–8 | (existing 8 SKUs) | ✅ v3 final | ✅ all approved | ❌ none |
+| 9 | Wedding | ✅ v1 | ✅ approved | ❌ none |
+| 10 | Bundle | ✅ v1 | ✅ approved | ❌ none |
+| 11 | Notion Life OS | ✅ v1 (MVP scope) | ✅ approved | ❌ none |
+
+### Design phase now open
+No designs exist for Products 9/10/11. Per standing rule "Plan → approve → design → build", design phase begins.
+
+### Next session
+`/clear` (cache at hardcap). Then start design phase, one product at a time per the brainstorming standing rule. Recommended order: Wedding (largest deliverable surface) → Bundle (smaller PDFs + thumbnails, depends on Wedding visual identity) → Notion (Notion-native, separate aesthetic).

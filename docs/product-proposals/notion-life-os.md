@@ -1,9 +1,20 @@
 # Product 11 — Notion Life OS
 
 _Drafted: 2026-05-10_
-_Status: Proposal v1 — pending approval_
+_Status: ✅ Approved by user — 2026-05-10_
 _Different platform: Notion (not Excel/Google Sheets)_
 _Fulfillment plumbing change required — see "Operational impact"_
+
+## Sign-off decisions (2026-05-10)
+
+1. **Scope:** MVP = ESSENTIALS-ONLY ($29 Budget Tracker port). 25h build. Validate plumbing + demand before committing to Net Worth + Investment ports. If 5+ sales/wk in first 30 days → Pro + AI tiers follow.
+2. **Notion AI requirement:** DUAL FORMAT — every AI prompt ships in both Notion AI flavor AND ChatGPT/Claude flavor. Buyer picks their stack.
+3. **TICKET-011 timing:** PARALLEL with Wedding spreadsheet build (different rails — Wedding uses TICKET-004 file delivery, Notion uses URL delivery). ~12h dev fits alongside Wedding's 30–40h spreadsheet work.
+4. **Maintenance:** 12-month FREE REFRESH for AI Edition buyers only. Essentials + Pro = one-time-buy (matches the other 8 SKUs).
+5. **Pricing:** $29 / $49 / $69 CONFIRMED. Above EHunt notion comps ($9–$36) but justified by depth; re-evaluate after 30 days of sales data.
+
+### Build envelope (MVP)
+~25h for Essentials Notion Budget port + 12h TICKET-011 plumbing (parallel with Wedding). Pro/AI tiers gated on Essentials selling through.
 
 ## Positioning
 
