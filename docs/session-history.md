@@ -733,3 +733,37 @@ All 10 backbone tickets done. End-to-end loop is demo-able:
 - TICKET-011 Notion fulfillment plumbing (parallel to Wedding build)
 - Phase 2 ticket breakdown (Klaviyo, ad pulls, reviews, Search Console, AI listing copy)
 - Or: continue Wedding/Notion/Bundle design + build per the product plan
+
+---
+
+## Session 2026-05-10 — Bundle (Product 10) design brief v1 ✅
+
+### Direction sign-offs
+- **D1 Brand identity:** B — New "Premium Finance House" identity (charcoal `#1F2A33` + warm gold `#C9A14A` + Inter-only). Wedding stays its own dusty-rose island. Life Bundle uses Finance house with single dusty-rose accent on wedding tile only. Becomes the default starting palette for the future 5 finance-product briefs.
+- **D2 Cover composition:** B — Hero stack of angled spreadsheet mockup cards (5 for Finance Bundle, 6 for Life Bundle), Net Worth dashboard front-most, "$79 SAVED" warm-gold badge, "6 PRODUCTS" charcoal pill. 4 cover variants required (Pro/AI × Finance/Life).
+- **D3 Setup Wizard PDF:** A — Linear setup-order walkthrough, 9 pages (Finance) / 10 pages (Life): cover → setup-order rationale → 1 page per product → cross-product references diagram → troubleshooting/support.
+- **D4 AI master prompt library PDF:** C — Hybrid format ~30 pages: front-loaded 10 cross-product workflows × 1 page (the unique bundle value) + dense per-product reference at back × ~15 pages (the "60+ prompts" marketing claim). Cuts page count in half vs. naive 1-prompt-per-page (which would be 60+ pages).
+- **D5 Thumbnails:** 5 @ 2000×2000 PNG: hero stack / cross-product workflow / Setup Wizard preview / AI library preview / life-stage journey timeline.
+
+### New file
+`docs/product-designs/all-in-one-premium-bundle.md` — second entry under `product-designs/` convention. Contains:
+- Full hex palette w/ status colors + Wedding accent rule (Life Bundle only)
+- Inter-only type pairing (deliberately distinct from Wedding's Cormorant)
+- Hero-stack cover spec + 4-variant table (Pro/AI × Finance/Life)
+- 10-page Setup Wizard layout + per-product page template
+- ~30-page AI prompt library layout + 10 cross-product workflow titles
+- 5-thumbnail composition + overlay copy
+- Asset production checklist
+- 3 open production decisions (Figma file structure; mockup-screenshots-now-or-later; PDF tool consistency)
+- Refined build estimate: ~33h (proposal was ~22h — overage from 4 cover variants + 2 PDF variants + Brand-Kit setup that amortizes across future finance briefs)
+
+### Why Inter-only and not Cormorant
+Wedding's Cormorant is romance-coded. The Bundle's "newlywed entrepreneur" / "pre-engagement saver" personas want spreadsheets to feel like *tools*, not wedding magazines. Inter-only also = simpler licensing, simpler PDF embedding, simpler future application across the 5 finance-product briefs.
+
+### Why Premium Finance House becomes the spine
+Bundle decisions cascade. By defining a deliberate "house brand" here (rather than ad-hoc per product), the future Budget/Debt/Sinking/Net Worth/Small Biz briefs start with palette + type already locked. Each can extend or vary, but consistency across the catalog is now a design choice not an accident.
+
+### Next session
+- `/clear` recommended (cache will be near hardcap)
+- Then either: (a) start Notion Life OS (Product 11) design brief — last brief outstanding, OR (b) answer the 3 open production decisions in the Bundle brief and start visual production
+- Recommend (a) — finish all design briefs before any visual production, per "Plan → approve → design → build" standing rule

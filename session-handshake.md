@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (TICKET-006 storefront shipped — Phase 1 COMPLETE end-to-end, all 10 tickets done)_
+_Last updated: 2026-05-10 (Bundle design brief v1 — Premium Finance House identity, hero stack covers, hybrid AI PDF)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -98,7 +98,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Notion Life OS (Product 11) signed off** — Essentials-only MVP ($29 Budget port, 25h), dual-format AI (Notion AI + ChatGPT/Claude), TICKET-011 parallel with Wedding, 12-mo refresh for AI tier ✅
 - [x] **Wedding design brief v1 ✅** — directions signed off, brief written → `docs/product-designs/wedding-budget-planner.md` (palette B, Cormorant+Inter, 5 thumbnails specced, AI prompt PDF specced, ~52h refined build estimate)
 - [x] **Wedding production decisions locked ✅** — Google Sheets (v1, Excel deferred) + Figma "Wedding Brand Kit" (thumbnails + 12-page PDF in one file). Brief Section 7 updated.
-- [ ] **DESIGN PHASE for Products 10/11** — Bundle + Notion design briefs still pending. `/clear` recommended before each.
+- [x] **Bundle design brief v1 ✅** — directions signed off, brief written → `docs/product-designs/all-in-one-premium-bundle.md` (Premium Finance House: charcoal + warm gold + Inter; hero-stack covers w/ tier+SKU variants; linear Setup Wizard PDF; hybrid AI library PDF ~30pp; 5 thumbnails; ~33h refined build estimate)
+- [ ] **DESIGN PHASE for Product 11** — Notion Life OS design brief still pending. `/clear` recommended before starting.
 - [ ] Build envelope after MVP scope-cut: ~85h total (50h Wedding + 22h Bundle + 25h Notion Essentials) vs. original ~182h estimate
 - [ ] After sign-off: Wedding build (~50h) → Bundle assembly (~22h) → Notion Life OS (~110h)
 
