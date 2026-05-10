@@ -50,6 +50,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | 6 | Family & Education Planner | ✅ `docs/product-proposals/family-education-planner.md` | ✅ approved |
 | 7 | Investment Portfolio Tracker | ✅ `docs/product-proposals/investment-portfolio-tracker.md` | ✅ approved |
 | 8 | Zakat Calculator | ✅ `docs/product-proposals/zakat-calculator.md` | ✅ approved |
+| 9 | Wedding Budget & Planner | ✅ `docs/product-proposals/wedding-budget-planner.md` | ⏳ pending |
+| 10 | All-in-One Premium Bundle (6 SKUs) | ✅ `docs/product-proposals/all-in-one-premium-bundle.md` | ⏳ pending |
+| 11 | Notion Life OS | ✅ `docs/product-proposals/notion-life-os.md` | ⏳ pending |
 
 ## Pricing Confirmed
 | Product | Essentials | Pro | AI Edition |
@@ -63,6 +66,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | Investment Portfolio Tracker | $19 | $29 | $44 |
 | Zakat Calculator | $12 | $22 | $34 |
 | Pro Bundle (5 products) | — | $97 | $149 |
+| Wedding Budget & Planner | $24 | $39 | $59 |
+| **All-in-One Premium Bundle (6 SKUs)** | — | $129 | $189 |
+| Notion Life OS | $29 | $49 | $69 |
 
 ## What's Next
 - [x] All 8 product proposals approved ✅
