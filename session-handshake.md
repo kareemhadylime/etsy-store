@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (Phase 2 broken into 12 tickets — ~140h build envelope, foundation → data pulls → synthesis → automation)_
+_Last updated: 2026-05-10 (Notion Life OS design brief v1 ✅ — all 3 design briefs done, ready for visual production)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -101,9 +101,11 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Wedding design brief v1 ✅** — directions signed off, brief written → `docs/product-designs/wedding-budget-planner.md` (palette B, Cormorant+Inter, 5 thumbnails specced, AI prompt PDF specced, ~52h refined build estimate)
 - [x] **Wedding production decisions locked ✅** — Google Sheets (v1, Excel deferred) + Figma "Wedding Brand Kit" (thumbnails + 12-page PDF in one file). Brief Section 7 updated.
 - [x] **Bundle design brief v1 ✅** — directions signed off, brief written → `docs/product-designs/all-in-one-premium-bundle.md` (Premium Finance House: charcoal + warm gold + Inter; hero-stack covers w/ tier+SKU variants; linear Setup Wizard PDF; hybrid AI library PDF ~30pp; 5 thumbnails; ~33h refined build estimate)
-- [ ] **DESIGN PHASE for Product 11** — Notion Life OS design brief still pending. `/clear` recommended before starting.
-- [ ] Build envelope after MVP scope-cut: ~85h total (50h Wedding + 22h Bundle + 25h Notion Essentials) vs. original ~182h estimate
-- [ ] After sign-off: Wedding build (~50h) → Bundle assembly (~22h) → Notion Life OS (~110h)
+- [x] **Notion Life OS design brief v1 ✅** — directions signed off, brief written → `docs/product-designs/notion-life-os.md` (Premium Finance House w/ Notion-blue accent inside workspace; charcoal→gold gradient banners + 6 custom glyphs; dashboard-first 6-page Essentials MVP; 5-page Setup PDF; 5 thumbnails w/ comparison strip; ~15h design + 25h template + 12h plumbing = ~52h MVP total)
+- [x] **All 3 design briefs DONE** — Wedding, Bundle, Notion Life OS all at v1 with directions locked. Visual production can start.
+- [ ] Build envelope after all 3 briefs locked: **~107h total** (50h Wedding + 33h Bundle + 52h Notion Essentials including 12h TICKET-011 plumbing) vs. original ~182h estimate
+- [ ] After visual production starts: Wedding build (~50h) → Bundle assembly (~33h) → Notion Life OS MVP (~52h, runs partially parallel)
+- [ ] Open production decisions still need answers across all 3 briefs before production starts — see each brief's Section 7
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.

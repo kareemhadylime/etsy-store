@@ -806,3 +806,42 @@ Bundle decisions cascade. By defining a deliberate "house brand" here (rather th
 
 ### Open question for next session
 Whether to start Phase 2 build immediately (T101 + T102 are unblocked) or finish product builds (Wedding/Notion design + Sheets/Notion build) first. Both tracks are independent; the bottleneck is human attention, not technical dependencies.
+
+---
+
+## Session 2026-05-10 — Notion Life OS (Product 11) design brief v1 ✅
+
+### Direction sign-offs
+- **D1 Visual identity:** C — Premium Finance House on Etsy/PDF surfaces, Notion-blue (`#2383E2`) accent inside the workspace. Etsy buyers see one studio across all 11 products; inside Notion the swap to Notion blue makes callouts/dividers feel native instead of bolted-on.
+- **D2 Cover + page-header treatment:** B — 1500×600 charcoal→gold linear gradient banners with a single white outlined glyph centered. No photography, no spreadsheet screenshots.
+- **D3 Workspace navigation:** A — Dashboard-first. Single Home page with toggle-collapsed sections + linked database views. 6 total pages for Essentials MVP (Home + Income + Expense + Budget + Recurring Bills + Subscriptions Audit).
+- **D4 Setup PDF:** B — 5-page walkthrough (cover → duplicate instructions → first-day actions → customization tips → troubleshooting). No video for v1 — deferred to AI Edition gate to avoid maintenance liability.
+- **D5 Etsy thumbnails:** Ship all 5 as-listed (hero browser-frame mockup / page tour / duplicate flow / feature highlight / comparison strip including pointed "$9 vs $29" defense).
+
+### New file
+`docs/product-designs/notion-life-os.md` — third entry under `product-designs/` convention. Contains:
+- Dual-secondary palette rule (warm gold for Etsy + PDF, Notion blue for in-workspace) — the cross-surface transition happens at the duplicate-URL click
+- Glyph library spec (6 custom 240×240 white-outlined vectors, 2px stroke, 4px corner radius)
+- Banner system spec (135° linear gradient + glyph at 30% opacity, no banner text — Notion's H1 carries the title)
+- Callout system — exactly 4 flavors (info/action/warning/success) using Notion's native callout block colors
+- 6-page workspace tree + dashboard-first Home layout (banner / KPI callout row / quick actions / 3 linked views / setup checklist toggle / footer)
+- 5-page Setup PDF template
+- 5-thumbnail composition including the pointed comparison strip
+- Asset production checklist
+- 3 open production decisions (glyph drawing source: Phosphor with override / template seed content: dummy data / comparison thumbnail tone: ship as-spec)
+- Refined build estimate: 15h design + 25h template (per proposal) + 12h TICKET-011 plumbing = **~52h MVP**
+- Forward-compat Section 9 documenting how Pro + AI Edition extend the same design system without redoing v1 work
+
+### Key design moves
+- **Dual-secondary across surfaces.** Warm gold inherits the Finance house identity buyers see in their Etsy purchase flow. Notion blue inside the workspace inherits Notion's own design language. The two never appear together on the same surface.
+- **Dashboard-first, not sidebar tree.** Essentials is 6 pages — a sidebar tree would feel sparse and rely on Notion's chrome (which we don't control). One scroll-down dashboard = one URL the PDF points at + instant "this is real" on duplicate.
+- **Pointed thumbnail #5.** "Why pay $29 instead of $9?" with a side-by-side. At our price (above the EHunt notion median of $11–$36) the listing must defend the gap on its own. Risk that Etsy support flags it is low (no competitor named) — softer fallback documented if needed.
+- **5-page PDF, no video.** Video adds 3h production and ongoing maintenance debt every time Notion ships a UI change. Held until AI Edition where the higher price tag amortizes the cost.
+
+### Why this brief completes the design phase
+All 11 products now have proposals at v3 final parity, and all 3 new SKUs (Wedding/Bundle/Notion) have design briefs at v1 with directions locked. Total build envelope across the 3 fresh products is now **~107h** (50h Wedding + 33h Bundle + 52h Notion Essentials including 12h TICKET-011), down from the proposal-only estimate of ~182h after MVP scope-cuts. Visual production can start.
+
+### Next session
+- `/clear` recommended (3-brief design phase compounds context heavily)
+- Then either: (a) answer the open production decisions across all 3 briefs (each brief's Section 7), OR (b) start visual production on whichever brief is first in queue, OR (c) pivot to Phase 2 backend build (T101 + T102 are unblocked per `phase-2-tickets.md`)
+- Recommend (a) → (b) sequence — locking the Figma file structure decision across Wedding/Bundle/Notion is a single conversation that unblocks all production work in parallel
