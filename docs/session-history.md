@@ -480,3 +480,29 @@ Notion Life OS requires NEW TICKET-011: Notion fulfillment plumbing (URL deliver
 - Bundle: ~22 hours (depends on Wedding shipping)
 - Notion Life OS: ~110 hours (largest)
 - Total: ~182 hours of build work after sign-off
+
+---
+
+## Session 2026-05-10 — Go-ahead to develop 9/10/11, sign-off pending
+
+### User signal
+"Ok, lets start developing Bundles 5 of 10, Wedding 4 of 10, Premium spreadsheet/Notion 2 of 10."
+
+### State check
+All 3 proposals already drafted and committed:
+- `docs/product-proposals/wedding-budget-planner.md` — v1 pending approval (4 open Qs)
+- `docs/product-proposals/all-in-one-premium-bundle.md` — v1 pending approval (4 open Qs)
+- `docs/product-proposals/notion-life-os.md` — v1 pending approval (5 open Qs)
+
+Pinned pipeline `docs/product-proposals/_pipeline-9-10-11.md` already committed (commit 84c1312). Plan → approve → design → build standing rule means sign-off must clear all 13 open questions before any build hours are spent.
+
+### Open questions surfaced this turn
+- Wedding: scope (invitations?), pricing ($24-59 vs $29-69), cultural variants, bundle inclusion
+- Bundle: keep old + new, 9-SKU mega bundle, refund policy, cross-credit logic
+- Notion: MVP scope (1 vs 3 SKU), Notion AI requirement, TICKET-011 ordering, refresh commitment, pricing
+
+### Cache state
+174% of soft cap when answered. User advised to `/clear` and tackle one proposal at a time per the brainstorming-one-product-at-a-time rule.
+
+### Next session
+`/clear` → start with Wedding sign-off (biggest validated niche) → answer the 4 Qs → mark proposal approved → only then move to design/build phase. Repeat for Bundle, then Notion.

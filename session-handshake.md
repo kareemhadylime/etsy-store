@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (T001/T002/T009 done — 3/10 Phase 1 tickets)_
+_Last updated: 2026-05-10 (Products 9/10/11 proposals drafted — 13 open Qs awaiting sign-off before build)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -79,19 +79,19 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **TICKET-001** — Schema migration written → `supabase/migrations/0002_phase1_schema.sql` ✅
 - [x] TypeScript types extended with Customer, Order, OrderItem, FulfillmentLog, ConversionEvent, PlatformCredential, AnalyticsDaily ✅
 - [x] Migration applied to Supabase project `ronfbjpqyhxipnitxrif` via MCP (2026-05-10) ✅
-- [x] **TICKET-002** Resend setup → `src/lib/email/resend.ts` + templates + tests (19/19 passing) ✅
-- [x] **TICKET-009** Seed pricing v3 → migration `0003` + idempotent seed UPSERT, applied to Supabase, 20/20 tests passing ✅
-- [ ] **TICKET-007** SEO foundation (next)
-- [ ] TICKET-003 Etsy webhook
-- [ ] TICKET-004 File delivery
-- [ ] TICKET-005 Admin UI
-- [ ] TICKET-006 Public storefront
-- [ ] TICKET-007 SEO foundation
-- [ ] TICKET-008 Server-side tracking
-- [ ] TICKET-009 Seed pricing update
-- [ ] TICKET-010 Smoke tests
+- [x] **TICKET-002** Resend setup → `src/lib/email/resend.ts` + templates + tests ✅
+- [x] **TICKET-009** Seed pricing v3 → migration `0003` + idempotent seed UPSERT, applied to Supabase ✅
+- [x] **TICKET-007** SEO foundation → `src/app/{sitemap,robots}.ts`, `llms.txt/route.ts`, `src/lib/seo/{jsonld,og}.ts` ✅
+- [x] **TICKET-008** Server-side tracking → `src/app/api/track/*` + `src/lib/tracking/*` (Meta CAPI / GA4 MP / TikTok Events API + SHA-256 PII hashing) ✅
+- [x] **TICKET-003** Etsy webhook → `src/app/api/webhooks/etsy/receipt/route.ts` + `src/lib/etsy/{verify,parse,process}.ts` (HMAC + idempotent upserts) ✅
+- [x] **TICKET-004** File delivery → `src/lib/fulfillment/deliver.ts` (signed URLs + Resend email + fulfillment_logs + purchase event) ✅
+- [x] **TICKET-010** Phase 1 smoke test → `src/__tests__/phase-1-smoke.test.ts` (E2E webhook → customer → order → fulfillment → conversion + idempotency) ✅
+- [ ] TICKET-005 Admin UI (UI work — next)
+- [ ] TICKET-006 Public storefront (UI work)
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
+- [ ] **Sign-off Products 9/10/11 proposals** — 13 open questions (Wedding: 4, Bundle: 4, Notion: 5) before any build hours spent
+- [ ] After sign-off: Wedding build (~50h) → Bundle assembly (~22h) → Notion Life OS (~110h)
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
