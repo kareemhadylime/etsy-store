@@ -432,3 +432,28 @@ Wedding Budget Tracker SKU is a serious candidate for Product 9 — Kareem's spr
 
 ### Credits used
 ~24 of 100 daily Basic-plan search credits across 8 searches.
+
+---
+
+## Session 2026-05-10 — Pipeline 9, 10, 11 sketched
+
+### Decision
+Based on EHunt high-revenue research, user approved 3 new SKU directions:
+- Product 9: Wedding Budget & Planner Spreadsheet ($24 / $39 / $59)
+- Product 10: All-in-One Premium Bundle adding Wedding ($129 / $189)
+- Product 11: Notion Life OS porting Budget+Net Worth+Investment ($29 / $49 / $69)
+
+### Build order
+Wedding first (biggest validated niche, no overlap), then Bundle, then Notion.
+
+### Output
+Pinned plan saved to `docs/product-proposals/_pipeline-9-10-11.md` with:
+- Pre-build research gaps per SKU
+- Pricing math notes (especially bundle re-derivation)
+- Fulfillment plumbing note for Notion (URL delivery ≠ file delivery)
+
+### Next session
+Invoke superpowers:brainstorming for Wedding Budget Spreadsheet → write `docs/product-proposals/wedding-budget-planner.md` → user approval before design.
+
+### Cache state
+Day at 174% of soft cap when this was committed. /clear recommended before next workstream.
