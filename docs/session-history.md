@@ -557,3 +557,22 @@ Pinned pipeline `docs/product-proposals/_pipeline-9-10-11.md` already committed 
 
 ### Next session
 Surface Bundle's 4 questions with recommendations, get answers, lock Bundle proposal. Then Notion's 5.
+
+---
+
+## Session 2026-05-10 — Bundle (Product 10) signed off ✅
+
+### Sign-off decisions
+1. **Two-bundle strategy:** KEEP BOTH — 5-SKU Premium Finance Bundle ($97/$149) AND new 6-SKU Premium Life Bundle ($129/$189). Wedding-vs-finance shopper contamination justifies separate listings.
+2. **9-SKU Mega Bundle:** DEFERRED to v2 — ship 5+6 first, validate over 90 days.
+3. **Refund policy:** ALL-OR-NOTHING — bundle refunds revoke all files.
+4. **Cross-credit:** MANUAL via email + coupon code (e.g. `BUNDLE-UPGRADE-20`) for v1; automate in Phase 2 only if volume warrants.
+
+### Build envelope unlocked
+~22 hours (after Wedding ships): 4h bundle/zip + 8h setup wizard PDF + 6h AI prompt library PDF + 4h listing copy.
+
+### Design status flagged
+No designs exist for Products 9/10/11 yet. Per standing rule "Plan → approve → design → build", design phase starts only after all 3 proposals approved. Notion (5 Qs) still pending.
+
+### Next session
+Surface Notion Life OS's 5 questions with recommendations → lock proposal → THEN move to design phase for all 3 in sequence.

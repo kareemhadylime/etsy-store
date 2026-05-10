@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (Wedding/Product 9 signed off — proposal approved with 4 decisions; Bundle + Notion sign-off remain)_
+_Last updated: 2026-05-10 (Wedding + Bundle signed off — 2 of 3 new SKUs approved; Notion sign-off remains)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -51,7 +51,7 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | 7 | Investment Portfolio Tracker | ✅ `docs/product-proposals/investment-portfolio-tracker.md` | ✅ approved |
 | 8 | Zakat Calculator | ✅ `docs/product-proposals/zakat-calculator.md` | ✅ approved |
 | 9 | Wedding Budget & Planner | ✅ `docs/product-proposals/wedding-budget-planner.md` | ✅ approved |
-| 10 | All-in-One Premium Bundle (6 SKUs) | ✅ `docs/product-proposals/all-in-one-premium-bundle.md` | ⏳ pending |
+| 10 | All-in-One Premium Bundle (6 SKUs) | ✅ `docs/product-proposals/all-in-one-premium-bundle.md` | ✅ approved |
 | 11 | Notion Life OS | ✅ `docs/product-proposals/notion-life-os.md` | ⏳ pending |
 
 ## Pricing Confirmed
@@ -92,7 +92,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
 - [x] **Wedding (Product 9) signed off** — spreadsheet-only v1, $24/$39/$59, Muslim+Hindu variants in AI Edition, both standalone + Bundle 10 ✅
-- [ ] **Sign-off Products 10/11 proposals** — 9 open questions (Bundle: 4, Notion: 5) before any build hours spent
+- [x] **Bundle (Product 10) signed off** — keep both 5-SKU + 6-SKU bundles, Mega deferred to v2, all-or-nothing refunds, manual cross-credit via coupon ✅
+- [ ] **Sign-off Notion Life OS (Product 11) proposal** — 5 open questions remain
+- [ ] No designs exist yet for Products 9/10/11 — design phase starts after all 3 approved
 - [ ] After sign-off: Wedding build (~50h) → Bundle assembly (~22h) → Notion Life OS (~110h)
 
 ## Notes

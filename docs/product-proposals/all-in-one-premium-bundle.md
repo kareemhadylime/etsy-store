@@ -1,8 +1,15 @@
 # Product 10 — All-in-One Premium Finance & Wedding Bundle
 
 _Drafted: 2026-05-10_
-_Status: Proposal v1 — pending approval_
-_Depends on: Product 9 (Wedding) approved + built_
+_Status: ✅ Approved by user — 2026-05-10_
+_Depends on: Product 9 (Wedding) approved ✅ + built (in progress)_
+
+## Sign-off decisions (2026-05-10)
+
+1. **Two-bundle strategy:** KEEP BOTH. Maintain 5-SKU "Premium Finance Bundle" ($97/$149) AND ship new 6-SKU "Premium Life Bundle" ($129/$189). Finance-only shoppers won't accept wedding tagging; two listings = two funnels.
+2. **9-SKU Mega Bundle:** DEFERRED to v2. Ship 5+6 first, watch 90 days of data, then decide whether to add Mega ($179/$249).
+3. **Refund policy:** ALL-OR-NOTHING on bundle returns. Listed in copy: "Bundle refunds revoke access to all files."
+4. **Cross-credit logic:** MANUAL via email for v1 — coupon code (e.g. `BUNDLE-UPGRADE-20`) on proof of prior purchase. Automate in Phase 2 only if volume exceeds ~10/wk.
 
 ## Positioning
 
