@@ -1,13 +1,13 @@
 # Phase 1 MVP — Implementation Tickets
-_Last updated: 2026-05-10_
-_Status: 🚧 In Progress_
+_Last updated: 2026-05-10 (T001 applied, T002 done)_
+_Status: 🚧 In Progress (2/10 done)_
 
 Each ticket is a discrete unit of work with clear acceptance criteria. Build sequentially.
 
 ---
 
 ## TICKET-001 — Extend Supabase Schema for Phase 1
-**Status:** 🚧 In progress
+**Status:** ✅ Complete (2026-05-10)
 **File:** `supabase/migrations/0002_phase1_schema.sql`
 **Tables to add:**
 - `customers` — buyer records from Etsy
@@ -19,25 +19,26 @@ Each ticket is a discrete unit of work with clear acceptance criteria. Build seq
 - `analytics_daily` — daily analytics rollup
 
 **Acceptance:**
-- [ ] Migration file written with RLS policies
-- [ ] TypeScript types updated in `src/lib/supabase/types.ts`
-- [ ] Tests added in `src/lib/supabase/__tests__/types.test.ts`
-- [ ] Migration applied to Supabase project
+- [x] Migration file written with RLS policies
+- [x] TypeScript types updated in `src/lib/supabase/types.ts`
+- [x] Tests added in `src/lib/supabase/__tests__/types.test.ts`
+- [x] Migration applied to Supabase project (`ronfbjpqyhxipnitxrif`, applied via MCP)
 
 ---
 
 ## TICKET-002 — Resend Email Setup
+**Status:** ✅ Complete (2026-05-10)
 **File:** `src/lib/email/resend.ts`
 **Tasks:**
-- Install `resend` SDK
-- Create `RESEND_API_KEY` env var
-- Build `sendTransactionalEmail({ to, subject, react })` helper
-- Build email templates (React Email): order-fulfilled, file-download
+- Install `resend` SDK ✅ (`resend@^6.12.3` + `@react-email/components`)
+- Create `RESEND_API_KEY` env var ✅ documented in `.env.example`
+- Build `sendTransactionalEmail({ to, subject, react })` helper ✅
+- Build email templates (React Email): order-fulfilled, file-download ✅
 
 **Acceptance:**
-- [ ] Env var documented in `.env.example`
-- [ ] Helper function with typed interface
-- [ ] Test email sends successfully
+- [x] Env var documented in `.env.example` (RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_REPLY_TO)
+- [x] Helper function with typed interface (returns `{ ok: true, id } | { ok: false, error }`)
+- [x] Test email sends successfully (8 unit tests with mocked SDK + 3 template render tests, all passing)
 
 ---
 
@@ -178,8 +179,8 @@ Each ticket is a discrete unit of work with clear acceptance criteria. Build seq
 ---
 
 ## Status Tracker
-- [x] TICKET-001 — Schema migration written (in progress)
-- [ ] TICKET-002 — Resend
+- [x] TICKET-001 — Schema migration written + applied ✅
+- [x] TICKET-002 — Resend setup ✅
 - [ ] TICKET-003 — Etsy webhook
 - [ ] TICKET-004 — File delivery
 - [ ] TICKET-005 — Admin UI

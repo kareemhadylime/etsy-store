@@ -332,3 +332,33 @@ Saved to docs/market-research-etsyhunt.md. Report has per-category top-10 tables
 
 ### Credits used
 ~16 of 100 daily Basic-plan search credits across the 8 keyword searches and re-sorts.
+
+---
+
+## Session 2026-05-10 (cont.) — TICKET-001 applied + TICKET-002 Resend setup
+
+### TICKET-001 — Migration applied
+- Phase-1 schema migration `0002_phase1_schema.sql` applied to Supabase project `ronfbjpqyhxipnitxrif` via Supabase MCP `apply_migration` (name: `phase1_schema`)
+- Verified via `list_tables`: 7 new tables present with RLS enabled — `customers`, `orders`, `order_items`, `fulfillment_logs`, `conversion_events`, `platform_credentials`, `analytics_daily`
+- Existing tables intact: `products` (9 rows), `bundle_products` (5 rows), `product_files`, `etsy_stats`, `sales`
+
+### TICKET-002 — Resend transactional email
+- Installed `resend@^6.12.3` and `@react-email/components` (44 packages added)
+- New `.env.example` documenting `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_REPLY_TO`, plus existing Supabase vars
+- `src/lib/email/resend.ts` — `sendTransactionalEmail({ to, subject, react, from?, replyTo?, tags? })`
+  - Lazy-cached `Resend` client; throws if `RESEND_API_KEY` is missing (caught and surfaced as `{ ok: false, error }`)
+  - Falls back to `RESEND_FROM_EMAIL` and `RESEND_REPLY_TO` env vars when overrides are not provided
+  - Returns discriminated union `{ ok: true, id } | { ok: false, error }` — caller never throws
+- React Email templates:
+  - `src/lib/email/templates/order-fulfilled.tsx` — multi-item fulfillment with download buttons per item, expiry note, support link
+  - `src/lib/email/templates/file-download.tsx` — single-product re-send link with formatted expiry
+  - Both use `@react-email/components` primitives and ship `PreviewProps` for the React Email previewer
+- Tests:
+  - `src/lib/email/__tests__/resend.test.ts` — 8 tests covering happy path, client caching, env-var fallbacks, replyTo override, Resend API errors, thrown errors, missing `RESEND_FROM_EMAIL`, missing `RESEND_API_KEY`
+  - `src/lib/email/__tests__/templates.test.tsx` — 3 tests rendering both templates and asserting content
+- Verification: `npm test` → 19/19 passing across 6 files; `npx tsc --noEmit` → exit 0
+
+### Notes for next session
+- TICKET-002 acceptance fully met (env documented, typed helper, tests pass with mocked Resend)
+- Real send test deferred until a Resend domain is verified — once `RESEND_FROM_EMAIL` is set, can run a one-off integration script
+- Next ticket per build order: **TICKET-009** (seed pricing v3) — quick win before TICKET-005/006 storefront work

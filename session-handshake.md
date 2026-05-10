@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10_
+_Last updated: 2026-05-10 (TICKET-001 applied, TICKET-002 done)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -72,8 +72,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] Phase 1 broken into 10 tickets → `docs/phase-1-tickets.md` ✅
 - [x] **TICKET-001** — Schema migration written → `supabase/migrations/0002_phase1_schema.sql` ✅
 - [x] TypeScript types extended with Customer, Order, OrderItem, FulfillmentLog, ConversionEvent, PlatformCredential, AnalyticsDaily ✅
-- [ ] Apply migration to Supabase project (manual or via CLI)
-- [ ] **TICKET-002** Resend setup (next)
+- [x] Migration applied to Supabase project `ronfbjpqyhxipnitxrif` via MCP (2026-05-10) ✅
+- [x] **TICKET-002** Resend setup → `src/lib/email/resend.ts` + templates + tests (19/19 passing) ✅
+- [ ] **TICKET-009** Seed pricing v3 (next — quick win)
 - [ ] TICKET-003 Etsy webhook
 - [ ] TICKET-004 File delivery
 - [ ] TICKET-005 Admin UI
