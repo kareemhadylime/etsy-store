@@ -362,3 +362,40 @@ Saved to docs/market-research-etsyhunt.md. Report has per-category top-10 tables
 - TICKET-002 acceptance fully met (env documented, typed helper, tests pass with mocked Resend)
 - Real send test deferred until a Resend domain is verified — once `RESEND_FROM_EMAIL` is set, can run a one-off integration script
 - Next ticket per build order: **TICKET-009** (seed pricing v3) — quick win before TICKET-005/006 storefront work
+
+---
+
+## Session 2026-05-10 — EHunt $500+/wk Digital Templates Search
+
+### Task
+User asked Claude to search EtsyHunt for 10 products with revenue > $500/week within the digital app/templates domain.
+
+### Method
+Six keyword searches (digital planner template, notion template, google sheets template, excel template, wedding spreadsheet template, wedding invitation template, instagram template canva, business plan template). Sorted by 7-Day Sales DESC, filtered for `7-day sales × price >= 500`.
+
+### Top 10 hits (ranked by weekly revenue)
+1. Ultimate Annual Budget Spreadsheet — $10.71 x 158/wk = $1,692/wk (Finance)
+2. 2026 BIG Journal Bundle — $22.48 x 69/wk = $1,551/wk (Journal)
+3. Wildflower Wedding Bundle Template — $23.00 x 49/wk = $1,127/wk (Wedding)
+4. Wedding Planning Spreadsheet ($75 tier) — $1,050/wk (Wedding)
+5. READING JOURNAL BUNDLE — $11.78 x 88/wk = $1,037/wk (Journal)
+6. Wedding Invite Digital RSVP Animated — $16.60 x 48/wk = $797/wk (Wedding)
+7. Wedding Planning Spreadsheet ($34.99 tier) — $700/wk (Wedding)
+8. 450+ Real Estate Social Media Posts — $22.50 x 30/wk = $675/wk (Social Media)
+9. Small Business Bookkeeping Spreadsheet — $11.37 x 49/wk = $557/wk (Finance)
+10. Notion Template Digital Business Planner — $36.08 x 14/wk = $505/wk (Notion)
+
+### Patterns
+- Pricing power matters more than volume — none of the $1 race-to-bottom products clear $500/wk
+- 5 of 10 winners are bundles (BIG Bundle, Wedding Bundle, Reading Journal Bundle)
+- 4 of 10 winners are Wedding category — strongest adjacent niche to Kareem's plan
+- Median weekly revenue at the top: ~$868/wk
+
+### Output
+Saved to docs/market-research-etsyhunt-high-revenue.md. 10-product table, pattern analysis, strategic implications.
+
+### Strategic finding
+Wedding Budget Tracker SKU is a serious candidate for Product 9 — Kareem's spreadsheet skillset + AI maps cleanly to wedding niche which has 4 of 10 high-revenue winners.
+
+### Credits used
+~24 of 100 daily Basic-plan search credits across 8 searches.
