@@ -457,3 +457,26 @@ Invoke superpowers:brainstorming for Wedding Budget Spreadsheet → write `docs/
 
 ### Cache state
 Day at 174% of soft cap when this was committed. /clear recommended before next workstream.
+
+---
+
+## Session 2026-05-10 — Products 9, 10, 11 proposals drafted
+
+### Done
+- `docs/product-proposals/wedding-budget-planner.md` (Product 9, $24/$39/$59, 22 tabs, 8 AI prompts)
+- `docs/product-proposals/all-in-one-premium-bundle.md` (Product 10, $129/$189, 6 SKUs incl. Wedding)
+- `docs/product-proposals/notion-life-os.md` (Product 11, $29/$49/$69, Budget+Net Worth+Investment ports)
+
+### Open questions flagged for sign-off in each proposal
+- Wedding: scope (spreadsheet-only vs. with invitations), pricing, cultural variants, bundle inclusion
+- Bundle: dual-bundle strategy (keep 5-SKU AND 6-SKU?), refund policy, cross-credit logic
+- Notion: scope (1 vs. 3 SKU MVP), Notion AI requirement, TICKET-011 priority, maintenance commitment
+
+### Operational impact
+Notion Life OS requires NEW TICKET-011: Notion fulfillment plumbing (URL delivery, not file). Different from existing TICKET-004 (Resend file links). Should run in parallel.
+
+### Build estimates
+- Wedding: ~50 hours
+- Bundle: ~22 hours (depends on Wedding shipping)
+- Notion Life OS: ~110 hours (largest)
+- Total: ~182 hours of build work after sign-off
