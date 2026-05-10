@@ -96,11 +96,19 @@ Listing cover = thumbnail #1.
 - [ ] Quick-start PDF (1 page) included in all tiers
 - [ ] Listing copy (title, description, tags) — separate doc
 
-## 7. Open production decisions for next session
+## 7. Production decisions (locked 2026-05-10)
 
-1. Will spreadsheet be built in **Google Sheets** (cloud-first, mobile-friendly) or **Excel** (offline, formula-richer)?
-2. Will thumbnails be **Canva** (faster), **Figma** (more polish), or **AI-generated then refined** (cheapest)?
-3. AI prompt PDF — built in **Figma** then exported, or **Pages/InDesign**?
+| # | Decision | Locked choice | Rationale |
+|---|---|---|---|
+| P1 | Spreadsheet platform | **Google Sheets** (v1) | Real-time co-edit on phones is the killer feature for couples/family/planner; Excel deferred to v2 if buyer demand surfaces |
+| P2 | Thumbnail tool | **Figma** | Premium $24–$59 pricing demands premium thumbnails; component library amortizes across Bundle (10) + Notion (11) thumbnails |
+| P3 | AI prompt PDF tool | **Figma → PDF export** | Same tool as thumbnails — single "Wedding Brand Kit" file holds palette, type, components, thumbnails, and PDF; coherent and re-skinnable for Bundle |
+
+### Implications for build
+- One Figma file = `Wedding Brand Kit.fig` containing: palette swatches, type styles, component library, 5 thumbnails @ 2000×2000, 12-page AI Co-Pilot PDF
+- Sheets template uses Theme Builder to mirror palette + type
+- Excel parity work: **out of scope for v1** (saves ~18h that would have gone to porting + QA)
+- Brand Kit components designed for re-skin: dusty-rose swap-out is the only variable that needs to change for Bundle's mixed-product cover or Notion's softer aesthetic
 
 ## 8. Build estimate (refined from proposal)
 

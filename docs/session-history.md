@@ -669,3 +669,24 @@ No designs exist for Products 9/10/11. Per standing rule "Plan → approve → d
 - Answer the 3 production decisions in the brief
 - Then either start visual production for Wedding, or move to Bundle design brief next (similar 5-direction format)
 - Recommend `/clear` between products per standing rule
+
+---
+
+## Session 2026-05-10 — Wedding production decisions locked
+
+### Locked
+- **P1 Spreadsheet platform:** Google Sheets only for v1. Excel deferred to v2 pending buyer demand. Saves ~18h Excel parity QA from the ~52h envelope.
+- **P2 Thumbnail tool:** Figma. Premium pricing ($24–$59) demands premium thumbnails; component library amortizes across Bundle (10) and Notion (11) thumbnails.
+- **P3 AI prompt PDF tool:** Figma → PDF export. One unified "Wedding Brand Kit" Figma file holds palette, type, components, thumbnails, and 12-page PDF.
+
+### Rationale (combined)
+Single design system in one tool minimizes context-switching and prevents palette/type drift across deliverables. Sheets-only narrows v1 surface so the ~52h estimate holds. Figma-as-monorepo-of-design pays back across the next two products.
+
+### Files changed
+- `docs/product-designs/wedding-budget-planner.md` — Section 7 rewritten from "Open production decisions" to "Production decisions (locked)" with implications-for-build subsection.
+- `session-handshake.md` — last-updated stamp + new "Wedding production decisions locked" entry under What's Next.
+
+### Next session
+- Either start Wedding visual production (set up Figma "Wedding Brand Kit" + Sheets template scaffold), OR
+- Move to Bundle design brief (Product 10) using same 5-direction format.
+- `/clear` recommended before either, per standing rule.
