@@ -66,14 +66,24 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 
 ## What's Next
 - [x] All 8 product proposals approved ✅
-- [x] All 8 proposals at v3 final parity (banners, what-doesnt-do, dated claims) ✅
-- [x] Backend Architecture Plan drafted → `docs/backend-plan.md` ✅
-- [ ] **Backend plan review & sign-off** (next session)
-- [ ] Phase 1 MVP build (4–6 weeks)
-- [ ] Design phase — Budget Tracker spreadsheet layout/visuals
+- [x] All 8 proposals at v3 final parity ✅
+- [x] Backend Architecture Plan drafted ✅
+- [x] Backend Plan approved ✅
+- [x] Phase 1 broken into 10 tickets → `docs/phase-1-tickets.md` ✅
+- [x] **TICKET-001** — Schema migration written → `supabase/migrations/0002_phase1_schema.sql` ✅
+- [x] TypeScript types extended with Customer, Order, OrderItem, FulfillmentLog, ConversionEvent, PlatformCredential, AnalyticsDaily ✅
+- [ ] Apply migration to Supabase project (manual or via CLI)
+- [ ] **TICKET-002** Resend setup (next)
+- [ ] TICKET-003 Etsy webhook
+- [ ] TICKET-004 File delivery
+- [ ] TICKET-005 Admin UI
+- [ ] TICKET-006 Public storefront
+- [ ] TICKET-007 SEO foundation
+- [ ] TICKET-008 Server-side tracking
+- [ ] TICKET-009 Seed pricing update
+- [ ] TICKET-010 Smoke tests
+- [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
-- [ ] Update seed.sql with final pricing
-- [ ] Create Etsy listings (mockups + copy + tags)
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.

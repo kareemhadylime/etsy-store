@@ -218,6 +218,47 @@ Applied to every proposal:
 3. TikTok Shop integration
 4. YouTube as a channel
 
+---
+
+## Session 2026-05-10 — Backend Approved, Phase 1 Build Started
+
+### User decision
+- ✅ Backend plan approved — proceed with building
+- Standing rule reaffirmed: save session-history + handshake after every exchange
+
+### Output
+- `docs/phase-1-tickets.md` — 10 implementation tickets with build order
+- `supabase/migrations/0002_phase1_schema.sql` — TICKET-001 schema migration
+- `src/lib/supabase/types.ts` — extended with 7 new TypeScript interfaces
+
+### Phase 1 Tickets (10)
+1. **TICKET-001** ✅ Schema migration written
+2. **TICKET-002** Resend setup
+3. **TICKET-003** Etsy order webhook
+4. **TICKET-004** File delivery flow
+5. **TICKET-005** Product Catalog admin UI
+6. **TICKET-006** Public storefront product pages
+7. **TICKET-007** SEO foundation (sitemap, robots, llms.txt, JSON-LD)
+8. **TICKET-008** Server-side tracking endpoints (Meta CAPI / GA4 MP / TikTok Events)
+9. **TICKET-009** Update seed.sql with v3 final pricing
+10. **TICKET-010** Phase 1 smoke tests
+
+### TICKET-001 Schema additions (7 new tables)
+- `customers` — buyer records, consent flags, Klaviyo sync
+- `orders` — Etsy receipts with status lifecycle
+- `order_items` — line items with tier + product file references
+- `fulfillment_logs` — delivery tracking (email_sent, file_link_generated, etc.)
+- `conversion_events` — server-side tracking log with Meta/GA4/TikTok send status
+- `platform_credentials` — encrypted OAuth tokens per platform
+- `analytics_daily` — daily aggregation per channel
+
+All tables: RLS enabled, service-role manages, admin-role reads (except platform_credentials which is service-role only).
+
+### Next session pickup
+- Apply migration to Supabase (manual step or via CLI)
+- TICKET-002: Resend email setup
+- TICKET-009: Update seed.sql pricing (quick win)
+
 ### Budget Tracker v3 (Final) — Update Log
 After comprehensive competitor research pushback (YNAB/Monarch/Copilot/Simplifi), expanded from 12 → 17 tabs:
 - New tabs: Setup Wizard, Recurring Templates, Refund Tracker, Mileage Tracker, Financial Health Score

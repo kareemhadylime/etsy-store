@@ -435,6 +435,6 @@ Ad spend dwarfs everything; tooling is cheap.
 
 ## Status
 - [x] Architecture drafted — 2026-05-10
-- [ ] User review & sign-off
-- [ ] Phase 1 plan broken into implementation tickets
-- [ ] Phase 1 build
+- [x] User approved — 2026-05-10
+- [x] Phase 1 plan broken into implementation tickets → `docs/phase-1-tickets.md`
+- [ ] Phase 1 build (in progress)
