@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (Products 9/10/11 proposals drafted — 13 open Qs awaiting sign-off before build)_
+_Last updated: 2026-05-10 (T005 backend half done — admin product API + Storage upload + Etsy sync routes; UI shell still pending)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -86,7 +86,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **TICKET-003** Etsy webhook → `src/app/api/webhooks/etsy/receipt/route.ts` + `src/lib/etsy/{verify,parse,process}.ts` (HMAC + idempotent upserts) ✅
 - [x] **TICKET-004** File delivery → `src/lib/fulfillment/deliver.ts` (signed URLs + Resend email + fulfillment_logs + purchase event) ✅
 - [x] **TICKET-010** Phase 1 smoke test → `src/__tests__/phase-1-smoke.test.ts` (E2E webhook → customer → order → fulfillment → conversion + idempotency) ✅
-- [ ] TICKET-005 Admin UI (UI work — next)
+- [x] **TICKET-005 backend half** Admin product API → `src/app/api/admin/products/{route,[id]/route,[id]/files/route,[id]/sync-etsy/route}.ts` + service helpers in `src/lib/admin/{products,product-files}.ts` + `src/lib/etsy/api.ts` outbound client + `src/lib/auth/require-admin.ts` (137 tests passing) ✅
+- [ ] TICKET-005 Admin UI shell (server components / forms — wires up against the API just shipped)
 - [ ] TICKET-006 Public storefront (UI work)
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)

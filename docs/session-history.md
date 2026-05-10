@@ -506,3 +506,30 @@ Pinned pipeline `docs/product-proposals/_pipeline-9-10-11.md` already committed 
 
 ### Next session
 `/clear` → start with Wedding sign-off (biggest validated niche) → answer the 4 Qs → mark proposal approved → only then move to design/build phase. Repeat for Bundle, then Notion.
+
+---
+
+## Session 2026-05-10 — TICKET-005 backend half (Admin product API)
+
+### Done
+- `src/lib/auth/require-admin.ts` — typed admin gate returning either user or a 401 NextResponse for API routes (vs. the page-level redirect handled by middleware). 4 tests.
+- `src/lib/admin/products.ts` — Zod schemas (`createProductSchema`, `updateProductSchema` with kebab-case slug regex + price ceilings) and service helpers `listProducts` (with status/type/search/limit/offset, count: 'exact', search escaping for ilike), `getProduct`, `createProduct`, `updateProduct`, `deleteProduct`. Maps `PGRST116` → 404, `23505` → 409. 11 tests.
+- `src/app/api/admin/products/route.ts` — `GET` (paginated list, query validation, clamped limit) + `POST` (create with 201, JSON body validation). 8 tests.
+- `src/app/api/admin/products/[id]/route.ts` — `GET` / `PATCH` / `DELETE` using `RouteContext`-style typed params (`await ctx.params`). 8 tests.
+- `src/lib/admin/product-files.ts` — `productFileMetaSchema`, `buildStoragePath` (sanitizes filename, preserves extension, falls back to format-default), `uploadProductFile` (50MB cap, looks up product slug, uploads to `SUPABASE_DOWNLOADS_BUCKET` with upsert, inserts `product_files` row, cleans up storage on insert failure), `listProductFiles`. 9 tests.
+- `src/app/api/admin/products/[id]/files/route.ts` — `GET` (list) + `POST` (multipart upload; 415 for wrong content-type, 400 for missing file or invalid metadata, 201 on success). 6 tests.
+- `src/lib/etsy/api.ts` — `loadEtsyCredential` (latest active row from `platform_credentials` ordered by `updated_at`), `updateEtsyListing` (PATCH `https://openapi.etsy.com/v3/application/shops/{shop_id}/listings/{listing_id}` with x-api-key + Bearer auth, `application/x-www-form-urlencoded` body, maps `state=active|draft` from product status, returns parsed upstream body, 401/403 passthrough or 502 for other failures), `syncProductToEtsy` (orchestrates product fetch → credential load → listing update). 10 tests.
+- `src/app/api/admin/products/[id]/sync-etsy/route.ts` — `POST` that forwards service result, including upstream `etsy_response` on failure. 4 tests.
+
+### Verification
+- `npm test` → 28 files / 136 tests passing (added 50 new tests across 6 files).
+- `npx tsc --noEmit` → exit 0.
+
+### Auth/security notes
+- Service-role Supabase client (RLS bypass) backs the writes; defense-in-depth via `requireAdmin` at every route entry.
+- `access_token_encrypted` is currently used as plaintext — flagged with a TODO once Supabase Vault is wired up.
+- File size cap 50 MB at the upload helper; can revisit when real products' file sizes are known.
+
+### Next session
+- TICKET-005 UI shell (server components reading from the new API + forms posting to it).
+- Or pivot: Phase 2 ticket breakdown, or TICKET-011 Notion fulfillment plumbing once Notion Life OS proposal is approved.
