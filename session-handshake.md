@@ -49,7 +49,7 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | 5 | Small Business Finance Kit | ✅ `docs/product-proposals/small-business-finance-kit.md` | ✅ approved |
 | 6 | Family & Education Planner | ✅ `docs/product-proposals/family-education-planner.md` | ✅ approved |
 | 7 | Investment Portfolio Tracker | ✅ `docs/product-proposals/investment-portfolio-tracker.md` | ✅ approved |
-| 8 | Zakat Calculator | ❌ not started | — |
+| 8 | Zakat Calculator | ✅ `docs/product-proposals/zakat-calculator.md` | ✅ approved |
 
 ## Pricing Confirmed
 | Product | Essentials | Pro | AI Edition |
@@ -65,12 +65,11 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | Pro Bundle (5 products) | — | $97 | $149 |
 
 ## What's Next
-- [ ] Approve Budget Tracker proposal (or revise further)
-- [ ] Write proposals for Products 2–8
-- [ ] Design phase (after all proposals approved)
-- [ ] Build actual spreadsheets
+- [x] All 8 product proposals approved ✅
+- [ ] **Design phase** — start with Budget Tracker layout/visuals
+- [ ] Build actual spreadsheets (Google Sheets templates)
 - [ ] Update seed.sql with final pricing
-- [ ] Create Etsy listings
+- [ ] Create Etsy listings (mockups + copy + tags)
 - [ ] Build storefront UI
 
 ## Standing Rules

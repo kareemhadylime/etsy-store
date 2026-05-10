@@ -93,8 +93,27 @@ _Standing rule: Append a new entry after every meaningful exchange. Commit to gi
 - AI Portfolio Intelligence with 8 prompts (institutional-grade)
 - User pushback on competitor research (Kubera, Capitally, Sharesight) → curated additions while skipping things that overlap with Net Worth Tracker or are impossible in a spreadsheet
 
-### Pending
-- Product 8: Zakat Calculator (proposal pending)
+**Product 8: Zakat Calculator** — `docs/product-proposals/zakat-calculator.md`
+- 18 tabs + AI tab, 3 tiers ($12/$22/$34)
+- Added (after pushback research): Madhhab selector, Mutual Funds/ETFs as separate category (NZF 25% proxy), Sukuk tracker (Ijarah/Musharakah/Murabahah), Property Resale & Land, EOSB & Provident Fund (DB/DC/SIPP), Cryptocurrency promoted to first-class, Qada Zakat tracker, Zakat al-Fitr calculator, Family Consolidation
+- Wealth Inventory expanded: foreign currency, refundable deposits, Hajj savings, insurance cash value
+- Stocks: speculator vs. dividend intent + full balance-sheet OR 25% NZF-proxy
+- Banners: Scholar disclaimer + Privacy-first
+- Sunni-only declared; Shia/Khums separated as future product
+- AI Zakat Advisor: 8 prompts citing AAOIFI Standard 21 + NZF guidance
+
+### Status: All 8 product proposals approved ✅
+Ready to move to design phase.
+
+### Files in `docs/product-proposals/`:
+1. budget-tracker.md
+2. debt-payoff-planner.md
+3. sinking-funds-planner.md
+4. net-worth-tracker.md
+5. small-business-finance-kit.md
+6. family-education-planner.md
+7. investment-portfolio-tracker.md
+8. zakat-calculator.md
 
 ### Key research summaries embedded across proposals
 - YNAB, Monarch, Copilot, Qapital → Budget + Sinking Funds insights
