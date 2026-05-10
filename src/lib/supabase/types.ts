@@ -9,6 +9,10 @@ export interface Product {
   slug: string
   description: string | null
   price: number
+  price_essentials: number | null
+  price_pro: number | null
+  price_ai: number | null
+  tab_count: number | null
   type: ProductType
   category: string | null
   etsy_listing_id: string | null

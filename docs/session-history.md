@@ -365,6 +365,39 @@ Saved to docs/market-research-etsyhunt.md. Report has per-category top-10 tables
 
 ---
 
+## Session 2026-05-10 (cont.) — TICKET-009 v3 seed pricing
+
+### Migration 0003 — products tier pricing
+- New file `supabase/migrations/0003_product_tier_pricing.sql` adds `price_essentials`, `price_pro`, `price_ai`, `tab_count` columns to `products` (all nullable to support bundle row), plus comments and indexes on `status` and `category`
+- Applied to Supabase project `ronfbjpqyhxipnitxrif` via MCP (name: `product_tier_pricing`)
+
+### seed.sql — idempotent UPSERT with v3 pricing
+- Single combined `INSERT ... ON CONFLICT (slug) DO UPDATE` statement — re-runnable without duplication
+- All 8 products + bundle now carry v3 final tier pricing and tab counts:
+  - Budget Tracker: 12/22/34, 17 tabs
+  - Debt Payoff Planner: 14/24/36, 18 tabs
+  - Sinking Funds Planner: 12/22/34, 16 tabs
+  - Net Worth Tracker: 14/24/36, 19 tabs
+  - Small Business Finance Kit: 29/49/69, 23 tabs
+  - Family & Education Planner: 17/27/39, 18 tabs
+  - Investment Portfolio Tracker: 19/29/44, 19 tabs
+  - Zakat Calculator: 12/22/34, 18 tabs
+  - All-in-One Finance Bundle: —/97/149 (no Essentials, no tab count)
+- `bundle_products` re-link uses `ON CONFLICT (bundle_id, product_id) DO NOTHING`
+- Verified via `SELECT slug, price, price_essentials, price_pro, price_ai, tab_count FROM products` — all 9 rows match expected values
+
+### TypeScript types
+- `Product` interface extended with `price_essentials`, `price_pro`, `price_ai`, `tab_count` (all `number | null`)
+- `types.test.ts` expanded: existing test asserts new fields on Budget Tracker; new test asserts bundle row tolerates `null` Essentials price and `null` tab_count
+- Full suite: 20/20 passing; `tsc --noEmit` clean
+
+### Notes for next session
+- Next per build order: **TICKET-007** SEO foundation (sitemap, robots, llms.txt, OG meta, JSON-LD)
+- Storefront tickets (T005/T006) can now read tier pricing directly from `products` columns rather than joining a separate table
+- All 9 product rows still status=`draft` — flip to `live` before TICKET-006 storefront launch
+
+---
+
 ## Session 2026-05-10 — EHunt $500+/wk Digital Templates Search
 
 ### Task

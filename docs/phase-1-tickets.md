@@ -1,6 +1,6 @@
 # Phase 1 MVP — Implementation Tickets
-_Last updated: 2026-05-10 (T001 applied, T002 done)_
-_Status: 🚧 In Progress (2/10 done)_
+_Last updated: 2026-05-10 (T001/T002/T009 done)_
+_Status: 🚧 In Progress (3/10 done)_
 
 Each ticket is a discrete unit of work with clear acceptance criteria. Build sequentially.
 
@@ -139,15 +139,17 @@ Each ticket is a discrete unit of work with clear acceptance criteria. Build seq
 ---
 
 ## TICKET-009 — Update seed.sql with v3 Final Pricing
-**File:** `supabase/seed.sql`
+**Status:** ✅ Complete (2026-05-10)
+**Files:** `supabase/seed.sql`, `supabase/migrations/0003_product_tier_pricing.sql`
 **Tasks:**
-- Update prices to v3 final tiers
-- Add tab counts per product
-- Add product status: keep as `draft` until storefront ships
+- Update prices to v3 final tiers ✅
+- Add tab counts per product ✅
+- Add product status: keep as `draft` until storefront ships ✅ (already draft)
 
 **Acceptance:**
-- [ ] All 8 products + bundle have v3 pricing
-- [ ] Migration script idempotent
+- [x] All 8 products + bundle have v3 pricing (verified via SELECT in Supabase)
+- [x] Migration script idempotent (seed uses `ON CONFLICT (slug) DO UPDATE`; bundle links use `ON CONFLICT (bundle_id, product_id) DO NOTHING`)
+- [x] Schema extended with `price_essentials`, `price_pro`, `price_ai`, `tab_count` columns + Product type updated
 
 ---
 
@@ -187,5 +189,5 @@ Each ticket is a discrete unit of work with clear acceptance criteria. Build seq
 - [ ] TICKET-006 — Public storefront
 - [ ] TICKET-007 — SEO foundation
 - [ ] TICKET-008 — Server-side tracking
-- [ ] TICKET-009 — Seed update
+- [x] TICKET-009 — Seed update ✅
 - [ ] TICKET-010 — Smoke tests
