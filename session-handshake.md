@@ -77,6 +77,7 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
+- EHunt market research captured 2026-05-10 → `docs/market-research-etsyhunt.md`. Key findings: Budget Tracker saturated (16.8k listings, $1 race), Debt Payoff best price-volume balance ($5–6 norm), Small Business bundle play validated ($15 bundle = 20/wk), Family/Education + Zakat are sparse niches needing off-Etsy channels, Investment Portfolio premium-priced but tiny volume.
 
 ## Standing Rules
 - **After every save/commit: update session-handshake.md AND session-history.md, commit all together**

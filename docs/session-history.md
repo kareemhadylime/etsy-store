@@ -251,3 +251,43 @@ EtsyHunt has no public API — direct backend integration is not possible. Conne
 
 ### Status
 No code changes. Awaiting user decision on whether to wire up an Etsy keyword research route as an EtsyHunt alternative.
+
+---
+
+## Session 2026-05-10 — EHunt Browser Research
+
+### Task
+User asked Claude to use their browser to browse EtsyHunt for monthly revenue / purchase statistics on similar items they intend to sell.
+
+### Method
+Drove Chrome MCP through ehunt.ai/etsy-product-research while signed in as Kareem Hady (Basic plan). For each of 8 product types: typed keyword, searched, sorted by Total Sales desc, extracted top-N from the result iframe via JS.
+
+### Categories captured
+1. Budget Tracker (16,815 listings) — top: 411/wk @ $1.09, 27,961 est sales
+2. Debt Payoff (4,779) — top: 16/wk @ $6.07, 6,969 est sales
+3. Sinking Funds (864) — pure-play top: 19/wk @ $2.58, 2,175 est sales
+4. Net Worth Tracker (820) — top: 20/wk @ $13.65, 4,041 est sales
+5. Small Business Bookkeeping (2,128) — top: 91/wk @ $1, 16,228 est sales
+6. Family and Education (~30) — sparse, top has 11 lifetime sales
+7. Investment Portfolio (301) — top: 1/wk @ $12.95, 640 est sales
+8. Zakat Calculator (21) — empty market, top has 19 lifetime sales
+
+### Caveats logged in report
+- "Total Sales" is EHunt's ML estimate from reviews+favorites, not transactional
+- Displayed prices are mostly Etsy sale prices (treat as floor)
+- EHunt returns first 600 results per query on Basic plan
+- 7-Day Sales is real but volatile
+
+### Output
+Saved to docs/market-research-etsyhunt.md. Report has per-category top-10 tables, pricing-vs-tier gap analysis, volume signals, competitive density, and strategic implications.
+
+### Strategic takeaways
+- Budget Tracker = hardest battle (race-to-$1, top is $1.09)
+- Debt Payoff = best price-volume balance ($5-6 norm)
+- Small Business bundle play validated ($15 bundle moving 20/wk)
+- Family/Education + Zakat = sparse niches needing off-Etsy distribution
+- Investment Portfolio = premium prices but tiny volume
+- Family/Education SKU likely needs repositioning or removal
+
+### Credits used
+~16 of 100 daily Basic-plan search credits across the 8 keyword searches and re-sorts.
