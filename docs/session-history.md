@@ -533,3 +533,27 @@ Pinned pipeline `docs/product-proposals/_pipeline-9-10-11.md` already committed 
 ### Next session
 - TICKET-005 UI shell (server components reading from the new API + forms posting to it).
 - Or pivot: Phase 2 ticket breakdown, or TICKET-011 Notion fulfillment plumbing once Notion Life OS proposal is approved.
+
+---
+
+## Session 2026-05-10 — Wedding (Product 9) signed off ✅
+
+### Sign-off decisions
+1. **Scope:** spreadsheet-only for v1. Canva/invitation pairing deferred to v2.
+2. **Pricing:** $24 / $39 / $59 confirmed.
+3. **Cultural variants:** Muslim (mahr/walima) + Hindu (multi-day functions) tabs INCLUDED in AI Edition v1.
+4. **Bundle inclusion:** BOTH — standalone Etsy listing AND inside All-in-One Premium Bundle (Product 10).
+
+### Build envelope unlocked
+~50 hours (30–40h spreadsheet + 10h design + 5h listing). Cultural-variant tabs absorbed inside AI Edition scope, no creep.
+
+### Status changes
+- `docs/product-proposals/wedding-budget-planner.md` → approved, sign-off block appended at top.
+- `session-handshake.md` → row 9 flipped to ✅, "What's Next" updated.
+
+### Open sign-offs remaining
+- Bundle (Product 10): 4 questions
+- Notion Life OS (Product 11): 5 questions
+
+### Next session
+Surface Bundle's 4 questions with recommendations, get answers, lock Bundle proposal. Then Notion's 5.

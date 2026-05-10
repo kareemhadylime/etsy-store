@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (T005 backend half done — admin product API + Storage upload + Etsy sync routes; UI shell still pending)_
+_Last updated: 2026-05-10 (Wedding/Product 9 signed off — proposal approved with 4 decisions; Bundle + Notion sign-off remain)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -50,7 +50,7 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | 6 | Family & Education Planner | ✅ `docs/product-proposals/family-education-planner.md` | ✅ approved |
 | 7 | Investment Portfolio Tracker | ✅ `docs/product-proposals/investment-portfolio-tracker.md` | ✅ approved |
 | 8 | Zakat Calculator | ✅ `docs/product-proposals/zakat-calculator.md` | ✅ approved |
-| 9 | Wedding Budget & Planner | ✅ `docs/product-proposals/wedding-budget-planner.md` | ⏳ pending |
+| 9 | Wedding Budget & Planner | ✅ `docs/product-proposals/wedding-budget-planner.md` | ✅ approved |
 | 10 | All-in-One Premium Bundle (6 SKUs) | ✅ `docs/product-proposals/all-in-one-premium-bundle.md` | ⏳ pending |
 | 11 | Notion Life OS | ✅ `docs/product-proposals/notion-life-os.md` | ⏳ pending |
 
@@ -91,7 +91,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [ ] TICKET-006 Public storefront (UI work)
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
-- [ ] **Sign-off Products 9/10/11 proposals** — 13 open questions (Wedding: 4, Bundle: 4, Notion: 5) before any build hours spent
+- [x] **Wedding (Product 9) signed off** — spreadsheet-only v1, $24/$39/$59, Muslim+Hindu variants in AI Edition, both standalone + Bundle 10 ✅
+- [ ] **Sign-off Products 10/11 proposals** — 9 open questions (Bundle: 4, Notion: 5) before any build hours spent
 - [ ] After sign-off: Wedding build (~50h) → Bundle assembly (~22h) → Notion Life OS (~110h)
 
 ## Notes

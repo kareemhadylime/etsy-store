@@ -1,7 +1,14 @@
 # Product 9 — Wedding Budget & Planner Spreadsheet
 
 _Drafted: 2026-05-10_
-_Status: Proposal v1 — pending approval_
+_Status: ✅ Approved by user — 2026-05-10_
+
+## Sign-off decisions (2026-05-10)
+
+1. **Scope:** spreadsheet-only for v1. Canva/invitation pairing deferred to v2 partnership/cross-promo.
+2. **Pricing:** $24 / $39 / $59 confirmed (EHunt mid-tier validates $39 Pro; room to raise post-reviews).
+3. **Cultural variants:** Muslim (mahr / walima) and Hindu (multi-day functions) tabs INCLUDED in AI Edition v1 — low marginal build cost, strong differentiator, zero competitors do this.
+4. **Bundle inclusion:** BOTH — standalone Etsy listing AND included in All-in-One Premium Bundle (Product 10).
 
 ## Positioning
 
