@@ -178,6 +178,46 @@ Applied to every proposal:
 
 **Zakat Calculator (already v2 with research):** Framework upgrade only
 
+---
+
+## Session 2026-05-10 — Backend Architecture Planning
+
+### Output
+- `docs/backend-plan.md` — comprehensive architecture document
+- `docs/product-proposals/pdf/backend-plan.pdf` — A4 print-ready
+
+### Scope decisions
+- In: Admin dashboard, product catalog, order intelligence, cross-platform tracking, content publishing, CRM, analytics hub, AI content generator, SEO, affiliate manager
+- Out: Direct checkout (Etsy handles), live chat, native mobile, payment processing
+- Tech: Next.js + Supabase + Vercel + Klaviyo + Resend + Server-side tracking
+
+### 12 backend modules defined
+1. Product Catalog · 2. Order Intelligence · 3. Customer DB (CRM) · 4. Analytics Hub · 5. Ad Campaign Manager · 6. Pixel & Tracking Manager · 7. Content Publishing Engine · 8. Email Marketing · 9. Reviews & Reputation · 10. SEO Manager · 11. AI Content Generator · 12. Affiliate Manager
+
+### Platform integrations mapped
+- **Etsy** — Open API v3 + MCP, real-time receipt webhooks, daily stats
+- **Meta** — Graph API v22, Marketing API, **CAPI** (server-side), Instagram Graph, Catalog API
+- **Google** — GA4 Data API + Measurement Protocol, Search Console, Google Ads v17, Merchant Center, GBP
+- **TikTok** — Marketing API v1.3, Events API (server-side), Content Posting, Business Insights
+- **Pinterest** (Tier 2), X/LinkedIn/Reddit/YouTube (Tier 3)
+
+### Database schema additions documented
+14 new tables across CRM, Orders, Marketing, Tracking, Content, Reviews, SEO, Credentials, Analytics, AI, Email
+
+### Phasing
+- 🟢 Phase 1 MVP (4–6 weeks): catalog, file delivery, order webhook, basic tracking, public storefront
+- 🟦 Phase 2 Pro (6–8 wks): Klaviyo flows, ad metrics read-only, reviews, AI copy, analytics dashboard, 3-platform content
+- 🟪 Phase 3 Full: ad management write, AI creative, all 10 publishing platforms, affiliate, multi-language
+
+### Cost estimates
+- MVP: ~$80/mo · Pro: ~$1,000/mo (mostly ad spend) · Full: ~$4,500/mo (mostly ad spend)
+
+### Open decisions for next session
+1. Klaviyo vs. Mailchimp (rec: Klaviyo)
+2. Multi-language strategy
+3. TikTok Shop integration
+4. YouTube as a channel
+
 ### Budget Tracker v3 (Final) — Update Log
 After comprehensive competitor research pushback (YNAB/Monarch/Copilot/Simplifi), expanded from 12 → 17 tabs:
 - New tabs: Setup Wizard, Recurring Templates, Refund Tracker, Mileage Tracker, Financial Health Score

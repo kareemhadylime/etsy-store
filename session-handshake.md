@@ -66,11 +66,14 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 
 ## What's Next
 - [x] All 8 product proposals approved ✅
-- [ ] **Design phase** — start with Budget Tracker layout/visuals
+- [x] All 8 proposals at v3 final parity (banners, what-doesnt-do, dated claims) ✅
+- [x] Backend Architecture Plan drafted → `docs/backend-plan.md` ✅
+- [ ] **Backend plan review & sign-off** (next session)
+- [ ] Phase 1 MVP build (4–6 weeks)
+- [ ] Design phase — Budget Tracker spreadsheet layout/visuals
 - [ ] Build actual spreadsheets (Google Sheets templates)
 - [ ] Update seed.sql with final pricing
 - [ ] Create Etsy listings (mockups + copy + tags)
-- [ ] Build storefront UI
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
