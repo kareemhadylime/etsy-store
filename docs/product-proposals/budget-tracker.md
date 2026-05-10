@@ -1,117 +1,161 @@
-# Budget Tracker — Product Proposal v2
+# Budget Tracker — Product Proposal v3 (Final)
 _Last updated: 2026-05-10_
+_Status: ✅ Approved by user — 2026-05-10_
 
-**Tagline:** The only Etsy budget tracker with AI-powered decision intelligence.
+**Tagline:** 17 tabs. AI-powered. One-time fee. Privacy-first. The most thorough budget spreadsheet on Etsy — engineered to compete with $109/year apps.
 
 ---
 
-## Why This Is a Big Opportunity
-- Largest Etsy finance category — budget templates top search charts year-round
-- January spike — resolution buyers flood Etsy every Jan with high purchase intent
-- Broad audience — students, families, couples, anyone with income
-- Top sellers earn $10k–$20k/month on this single product
-- Apps like YNAB charge $109/year — our one-time sheet undercuts massively
-- AI-enhanced version does not exist on Etsy — first mover advantage
-- Gateway product — customers buy Debt Planner & Sinking Funds next
+## Banners (every tab)
+- 🤔 **Why a Spreadsheet, Not an App?** — Your bank credentials never leave your bank. No data shared. No subscription. No vendor lock-in. Methodology-agnostic. Google Sheets mobile IS your app.
+- 🔒 **Privacy-first:** No Plaid handshake. No aggregator. No data ever leaves your machine.
+
+---
+
+## Market Stats
+- 17 tabs (was 12)
+- YNAB $109/yr — we're one-time
+- 4 budgeting methods supported
+- Financial Health Score 0–100 in AI Edition
 
 ---
 
 ## Core Budgeting Methods Supported
 - **50/30/20 Rule** — Needs / Wants / Savings split auto-calculated
 - **Zero-Based Budgeting** — every dollar assigned to a category before spending
-- **Envelope Budgeting** — virtual envelopes per category, spending deducted in real-time
+- **Envelope Budgeting** — virtual envelopes per category, real-time deductions
 - **Pay Yourself First** — savings moved to top of budget before expenses
-- User selects preferred method on setup — sheet adapts automatically
+
+User selects preferred method via Setup Wizard — sheet adapts automatically.
 
 ---
 
-## Sheet Tabs (12 tabs)
+## Sheet Tabs (17 tabs)
 
 | Tab | Description |
 |-----|-------------|
-| 🏠 Dashboard | Monthly snapshot: income vs. expenses, savings rate, budget method score, upcoming bills, net cash remaining |
-| 💵 Income Tracker | Log all income streams: salary, freelance, rental, side hustle, benefits. Supports irregular/variable income. Per-paycheck allocation tool |
-| 📂 Income Categories | Customizable: Primary Job, Second Job, Freelance, Rental, Dividends, Government Benefits, Side Hustle, Other. All user-renameable |
-| 💸 Expense Tracker | Log all expenses with date, category, subcategory, vendor, amount, payment method. Budget vs. actual comparison per category |
-| 📂 Expense Categories | Pre-built groups: Housing, Food, Transport, Health, Personal Care, Entertainment, Subscriptions, Education, Giving, Misc. All user-editable |
-| 💳 Credit Card Manager | Track up to 6 cards: balance, APR, minimum payment, due date, statement date. Auto-calculates accruing interest. Payment status (paid/unpaid) |
-| 🆘 Emergency Fund | Current balance, monthly contribution, 3-month & 6-month targets, months of coverage auto-calculated, visual progress bar |
-| 🎯 Savings Goals | Up to 10 goals: target amount, deadline, monthly contribution needed, progress bar. Linked to sinking fund categories |
-| 📅 Bill Calendar | All recurring bills with due dates, amounts, auto-pay status. Forward-looking 60 days. Flags overdue bills |
-| 📈 Cash Flow Forecast | 30/60/90-day forward view: projected balance based on known income and committed expenses. Flags danger months |
-| 📊 Annual Summary | Full 12-month view: income, expenses, savings by month. Charts: spending by category, monthly trend, savings rate trend |
-| 👫 Household Mode | Two-income tracking, shared expense splitting (equal or custom %), settlement tracker, joint savings goals |
+| 🧭 Setup Wizard | Guided onboarding: budget method, base currency, tax region (US/UK/CA/AU), household toggle |
+| 🏠 Dashboard | Monthly snapshot + Financial Health Score 0–100 + Age of Money days + Top 3 vendors |
+| 💵 Income Tracker | All income streams. Age of Money calc. Irregular income buffer. Per-paycheck allocation |
+| 📂 Income Categories | Customizable: Primary Job, Freelance, Rental, Dividends, Side Hustle, etc. |
+| 💸 Expense Tracker | All expenses + Split transactions + Tags + Tax-deductible flag + Refund-expected flag |
+| 📂 Expense Categories | Pre-built groups (Housing, Food, Transport, etc.) — all editable |
+| 🔁 Recurring Templates | One-time setup of monthly bills/subs → auto-populates Expense Tracker each month |
+| ↩️ Refund Tracker | Mark transactions "expecting refund". Outstanding receivables list with aging |
+| 💳 Credit Card Manager | Up to 6 cards: balance, APR, minimum, due date, accruing interest |
+| 🆘 Emergency Fund | 3-month / 6-month targets. Months of coverage. Visual progress |
+| 🎯 Savings Goals | Up to 10 goals with target, deadline, monthly needed |
+| 📅 Bill Calendar | Recurring bills with .ics export to Google/Apple/Outlook |
+| 📈 Cash Flow Forecast | 30/60/90-day forward view + Emergency-fund-first sequencing logic |
+| 🚗 Mileage Tracker | Business mileage log: date, purpose, odometer, IRS rate × miles = deduction |
+| 📊 Annual Summary | Full 12-month + YoY comparison + Top vendors + Custom date-range + Tax Prep Summary + FIRE Timeline mini-calc |
+| 👫 Household Mode | Two-income tracking, shared expense splitting, settlement, joint savings |
+| 🏆 Financial Health Score | 0–100 composite: savings rate (25%) + emergency fund (25%) + debt-to-income (20%) + credit utilization (15%) + on-time bill rate (15%) |
+| 🤖 AI Money Advisor | 7 AI prompts (see below) |
 
 ---
 
-## Features Borrowed from Professional Competitors (YNAB, Monarch, Copilot)
+## AI Money Advisor — 7 Prompts (AI Edition)
+1. **Smart Spending Advisor** — paste actuals → 3 ranked spending cuts with exact dollar amounts
+2. **Scenario Simulator** — model 12-month savings, debt payoff & NW impact of changes
+3. **Spending Scripts** — AI-written negotiation scripts for bills + cancel-sub scripts
+4. **Cash Flow Intelligence** — flags danger months 60 days ahead with specific fixes
+5. **Annual Money Review** — year-end summary + next-year priorities
+6. **Category Advisor** — over-allocated categories vs. industry benchmarks
+7. **Health Score Coach** — explains why your score is what it is + top 3 actions to raise it
+
+---
+
+## Features Borrowed from Professional Competitors
 
 | Feature | Source | What It Does |
 |---------|--------|--------------|
-| Zero-Based Budgeting Engine | YNAB | Every dollar assigned before month starts. Running total shows unassigned dollars — goal is zero |
-| Paycheck Allocation Tool | YNAB | Split each paycheck across categories as it arrives. Shows unallocated amount in real-time |
-| Budget vs. Actual Tracker | Monarch Money | Side-by-side planned vs. spent per category. Color-coded. Shows variance amount |
-| Cash Flow Forecasting | PocketSmith | Forward-looking 30/60/90-day balance projection. Flags danger months before they happen |
-| Rollover Spending | Copilot | Unused budget from last month rolls into this month's envelope — rewards consistent underspenders |
-| Subscription Audit | Copilot | Lists all subscriptions with monthly cost, last used, annual total. Flags unused ones |
-| Savings Rate Benchmark | Monarch | Your savings rate vs. national average (3.9%) and FIRE target (50%+). Color-coded health indicator |
-| Break-the-Cycle Mode | YNAB | For paycheck-to-paycheck users: "days until next paycheck" countdown + spending budget for the period |
+| Zero-Based Budgeting Engine | YNAB | Every dollar assigned before month starts |
+| Paycheck Allocation Tool | YNAB | Split each paycheck across categories as it arrives |
+| Age of Money | YNAB | "You're spending money X days old" — irregular income safety |
+| Budget vs. Actual Tracker | Monarch Money | Side-by-side planned vs. spent, color-coded |
+| Cash Flow Forecasting | PocketSmith | Forward-looking balance projection, danger-month alerts |
+| Rollover Spending | Copilot | Unused budget rolls into next month's envelope |
+| Subscription Audit | Copilot | All subscriptions with monthly cost, true annual total |
+| Refund Tracker | Simplifi | Mark expecting refund, aged receivables list |
+| Recurring Templates | Monarch | Auto-populate monthly bills (manual setup, no detection) |
+| Top Vendor Analytics | Monarch | "$4,200 at Amazon this year" |
+| Calendar .ics export | Undebt.it | Sync bill calendar to Google/Apple/Outlook |
+| Financial Health Score | SenticMoney | 0–100 composite metric |
+| Mileage Tracker | Quicken/Simplifi | IRS-rate business deduction calculator |
+
+---
+
+## What This Sheet Doesn't Do (And Why That's a Feature)
+
+| Cannot do | Spun positive |
+|---|---|
+| No bank sync | Your credentials never leave your bank |
+| No ML categorization | Your data trains nobody else's model |
+| No auto-detection | Recurring Templates tab — set once, run forever |
+| No native mobile app | Google Sheets mobile IS your app |
+| No subscription | Pay once, own forever |
+
+---
+
+## Disclosed Dated Claims
+- YNAB $109/yr, Monarch $99.99/yr, Copilot $13/mo — verified Jan 2026 (re-verify before launch)
+- US national savings rate 3.9% — BEA dated source cited in Setup tab
+- "AI version not on Etsy" — verified May 2026 (re-verify before launch)
+- "Top sellers $10k–$20k/mo" — third-party reviewer estimate, not independently confirmed
 
 ---
 
 ## Pricing & Tiers
 
 ### Essentials — $12
-Simple. Works out of the box.
-- Dashboard (monthly snapshot)
-- Income tracker + income categories
-- Expense tracker + expense categories
+- Setup Wizard (method + currency + region)
+- Dashboard with key indicators
+- Income tracker + categories
+- Expense tracker + categories (with split, tags)
 - Credit card manager (up to 3 cards)
 - Emergency fund tab
-- Bill calendar (upcoming 60 days)
+- Bill calendar (60-day)
 - 50/30/20 scorecard
-- Annual summary + charts
-- Google Sheets + Excel versions
-- Setup instructions tab
+- Annual summary + YoY view
+- Google Sheets + Excel
 
 ### Pro — $22
-Dark mode. Full control.
 - Everything in Essentials
-- Dark mode dashboard
+- Dark mode
 - Zero-based budgeting engine
-- Paycheck allocation tool
-- Budget vs. actual tracker
-- Cash flow forecast (90-day)
-- Rollover spending per category
-- Subscription audit tab
+- Paycheck allocation + Age of Money
+- Recurring Templates tab
+- Refund Tracker
+- Mileage Tracker (self-employed)
+- Tax-deductible flag + Tax Prep Summary
+- Cash flow forecast (90-day, EF-first logic)
+- Bill calendar .ics export
+- Subscription audit, top vendor analytics
 - Up to 6 credit cards
-- Savings goals (up to 10)
 - Household mode (2 incomes)
-- Savings rate benchmark
-- Break-the-cycle paycheck mode
+- Custom date-range filter
+- FIRE Timeline mini-calc
+- Multi-currency support
 
 ### AI Edition — $34
-Your money, with a brain.
 - Everything in Pro
-- **Smart Spending Advisor** — paste monthly actuals → AI returns 3 ranked spending cuts with exact dollar amounts
-- **Scenario Simulator** — "Cut dining $100/month" → AI models 12-month savings, debt payoff & net worth impact
-- **Spending Scripts** — AI-written scripts to negotiate bills & cancel subscriptions
-- **Cash Flow Intelligence** — AI flags danger months 60 days ahead with specific fix recommendations
-- **Annual Money Review** — year-end AI summary: wins, losses, priorities for next year
-- **Category Advisor** — AI suggests which expense categories you're over-allocating vs. industry benchmarks
+- Financial Health Score 0–100 (live)
+- **AI Money Advisor Tab** with 7 prompts
 
 ---
 
-## Upsell & Cross-Sell
-- 🔗 **Gateway product** — "You might also need" tab links to Debt Payoff Planner & Sinking Funds Planner
-- 📦 **Bundle anchor** — included in All-in-One Finance Bundle ($97 Pro / $149 AI)
-- 🔄 **Annual edition model** — "2027 Edition" released each December captures New Year resolution buyers
-- 👫 **Couple's edition** — standalone variant with household-first layout (separate Etsy listing)
-- 🌍 **Localized editions (future)** — UK/AU/CA versions with local tax brackets and savings benchmarks
+## Cross-Sells (NOT duplicated in this product)
+- 📊 Net Worth tab — full version in Net Worth Tracker (Product 4); 3-line summary here
+- 💳 Debt Snowball/Avalanche — full version in Debt Payoff Planner (Product 2); total debt only here
+- 🪣 Sinking Funds — full version in Sinking Funds Planner (Product 3); total as one line item here
+- 🔥 Detailed FIRE forecasting — full personalised AI FIRE in Net Worth Tracker
+- 📦 Bundle anchor — entry product into All-in-One Finance Bundle ($97 Pro / $149 AI)
+- 🔄 Annual rollover — December → January carries forward sinking funds, savings goals, recurring templates
 
 ---
 
 ## Status
-- [x] Approved by user — 2026-05-10
+- [x] Approved by user — 2026-05-10 (v3 final)
 - [ ] Design phase
 - [ ] Build phase

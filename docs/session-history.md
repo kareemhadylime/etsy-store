@@ -117,7 +117,18 @@ Ready to move to design phase.
 
 ### A4 PDF exports
 Saved to `docs/product-proposals/pdf/`:
-- budget-tracker-proposal.pdf — A4, print-ready, 2 pages
+- budget-tracker-proposal.pdf — v2, A4, print-ready, 2 pages
+- budget-tracker-proposal-v3.pdf — v3 final, A4, print-ready, expanded
+
+### Budget Tracker v3 (Final) — Update Log
+After comprehensive competitor research pushback (YNAB/Monarch/Copilot/Simplifi), expanded from 12 → 17 tabs:
+- New tabs: Setup Wizard, Recurring Templates, Refund Tracker, Mileage Tracker, Financial Health Score
+- Enhanced: Dashboard (Health Score + Age of Money + top vendors), Expense Tracker (split + tags + flags), Annual Summary (YoY + vendor analytics + tax prep + FIRE timeline), Bill Calendar (.ics export), Cash Flow (EF-first logic), Income (Age of Money + irregular income buffer)
+- Banners added: "Why a Spreadsheet, Not an App?" + Privacy-first
+- "What this sheet doesn't do" section turning gaps into selling points
+- Disclosed dated claims (competitor pricing, savings rate source)
+- AI Edition adds 7th prompt: Health Score Coach
+- Pricing held: $12 / $22 / $34
 
 ### Key research summaries embedded across proposals
 - YNAB, Monarch, Copilot, Qapital → Budget + Sinking Funds insights
