@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (Bundle design brief v1 — Premium Finance House identity, hero stack covers, hybrid AI PDF)_
+_Last updated: 2026-05-10 (Phase 2 broken into 12 tickets — ~140h build envelope, foundation → data pulls → synthesis → automation)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -91,6 +91,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Next.js 16 deprecation** `middleware.ts` → `proxy.ts` rename per Next 16 docs ✅
 - [x] **TICKET-006 Public storefront** → `src/app/(public)/{layout,page}.tsx` + `/products/{page,[slug]/page}.tsx` + `BuyOnEtsyButton` client + `src/lib/public/products.ts` (anon-client + RLS) + tier-features + FAQ data + Product/Breadcrumb JSON-LD (162 tests passing, 22 routes built) ✅
 - [x] **Phase 1 COMPLETE** — all 10 backbone tickets shipped end-to-end (storefront click → Etsy → webhook → fulfillment email → conversion event) ✅
+- [x] **Phase 2 ticket breakdown ✅** → `docs/phase-2-tickets.md` — 12 tickets, ~140h envelope. Foundation (T101 cron + T102 credentials encryption) → 5 parallel data pulls (T103–T107) → synthesis (T108 rollup, T109 dashboard) → automation (T110 Klaviyo, T111 AI listing copy, T112 content engine v1). TICKET-011 Notion plumbing called out as Phase 1.5.
+- [ ] Phase 2 build start — open question whether to interleave with Wedding/Notion build or finish products first
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
 - [x] **Wedding (Product 9) signed off** — spreadsheet-only v1, $24/$39/$59, Muslim+Hindu variants in AI Edition, both standalone + Bundle 10 ✅

@@ -767,3 +767,42 @@ Bundle decisions cascade. By defining a deliberate "house brand" here (rather th
 - `/clear` recommended (cache will be near hardcap)
 - Then either: (a) start Notion Life OS (Product 11) design brief — last brief outstanding, OR (b) answer the 3 open production decisions in the Bundle brief and start visual production
 - Recommend (a) — finish all design briefs before any visual production, per "Plan → approve → design → build" standing rule
+
+---
+
+## Session 2026-05-10 — Phase 2 ticket breakdown
+
+### Done
+- Wrote `docs/phase-2-tickets.md`. 12 tickets broken out from the `backend-plan.md` Phase 2 scope. Total envelope ~140h. Critical path T101 → T102 → T108 → T109 ≈ 38h; the rest fans out.
+
+### Ticket map
+| # | Title | Est | Phase |
+|---|---|---|---|
+| 101 | Cron infrastructure (`vercel.json` + `cron_runs` table + `runCron()` helper) | 6h | 2A foundation |
+| 102 | Platform credentials encryption (pgsodium) + token refresh per platform | 10h | 2A foundation |
+| 103 | Etsy shop stats daily sync | 6h | 2B data pull |
+| 104 | Etsy reviews sync + Claude sentiment + negative-review admin alert | 10h | 2B data pull |
+| 105 | Meta Marketing Insights pull (campaigns + ad_metrics_daily) | 10h | 2B data pull |
+| 106 | Google: GA4 Data API + Ads API + Search Console (+ seo_keywords/rankings tables) | 14h | 2B data pull |
+| 107 | TikTok ad metrics pull | 8h | 2B data pull |
+| 108 | Daily analytics rollup cron → `analytics_daily` | 8h | 2C synthesis |
+| 109 | `/admin/analytics` dashboard (date picker, ROAS, top products, drill-down) | 14h | 2C synthesis |
+| 110 | Klaviyo profile sync + post-purchase Day 0/3/7/14 + inbound webhook | 18h | 2D automation |
+| 111 | AI listing copy generator (Anthropic SDK + `ai_jobs` + per-product admin panel) | 12h | 2D automation |
+| 112 | Content atoms + IG/TikTok/Pinterest rendition v1 + publishing queue cron | 22h | 2D automation |
+
+### Out-of-band callouts in the doc
+- **TICKET-011 Notion fulfillment plumbing** — explicitly Phase 1.5, not Phase 2. ~3h. Needed before Notion Life OS build can ship.
+- **Phase 3 preview** — ad write APIs, full content engine across 10 platforms, affiliates, multi-language, Pinterest Shopping + Google Merchant feeds. Not yet broken out — let Phase 2 data inform priorities.
+
+### Design notes embedded in the doc
+- All crons share a `runCron(name, handler)` abstraction with a `cron_runs` audit row so failures are visible in the admin dashboard.
+- All OAuth platforms (Etsy/Meta/Google/TikTok) refresh through one `withFreshCredential(platform, fn)` wrapper that retries once on 401.
+- `analytics_daily` is the synthesis layer — every channel writes its raw rows first; T108 aggregates into the dashboard-ready shape.
+- Acceptance criteria for the dashboard explicitly require "missing data shows as `—`, never as `NaN` or a crash" — first-line check against the most common data-warehouse failure mode.
+
+### Verification
+- No code changes; planning doc only. Existing test/build state unchanged (162/162, build clean from prior commit `460d922`).
+
+### Open question for next session
+Whether to start Phase 2 build immediately (T101 + T102 are unblocked) or finish product builds (Wedding/Notion design + Sheets/Notion build) first. Both tracks are independent; the bottleneck is human attention, not technical dependencies.
