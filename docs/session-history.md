@@ -115,10 +115,68 @@ Ready to move to design phase.
 7. investment-portfolio-tracker.md
 8. zakat-calculator.md
 
-### A4 PDF exports
+### A4 PDF exports — All 8 products at v3 final parity
 Saved to `docs/product-proposals/pdf/`:
-- budget-tracker-proposal.pdf — v2, A4, print-ready, 2 pages
-- budget-tracker-proposal-v3.pdf — v3 final, A4, print-ready, expanded
+- budget-tracker-proposal.pdf — v2 (kept for reference)
+- budget-tracker-proposal-v3.pdf — v3 final (17 tabs)
+- debt-payoff-planner-v3.pdf — v3 final (18 tabs, +3 new)
+- sinking-funds-planner-v3.pdf — v3 final (16 tabs, +3 new)
+- net-worth-tracker-v3.pdf — v3 final (19 tabs, +3 new)
+- small-business-finance-kit-v3.pdf — v3 final (23 tabs, +3 new)
+- family-education-planner-v3.pdf — v3 final (18 tabs, +4 new)
+- investment-portfolio-tracker-v3.pdf — v3 final (19 tabs, framework upgrade)
+- zakat-calculator-v3.pdf — v3 final (18 tabs, framework upgrade)
+
+### v3 Framework Upgrade — All 7 remaining products (2026-05-10)
+Applied to every proposal:
+- 🤔 "Why a Spreadsheet, Not an App?" banner — privacy + one-time + methodology-agnostic positioning
+- 🔒 Privacy-first banner
+- "What This Sheet Doesn't Do (And Why That's a Feature)" section turning gaps into selling points
+- Disclosed dated claims (competitor pricing, market stats with sources)
+
+### Research-informed feature additions per product
+
+**Debt Payoff (15 → 18 tabs):**
+- Strategy Comparison Matrix (side-by-side methods)
+- Credit Score Simulator (what-if point gain modeling)
+- Late-Fee Alert Monitor (5-day countdown)
+- On-Time Payment Streak (gamified)
+- Debt Health Score 0–100
+- AI: Health Score Coach (7th prompt)
+
+**Sinking Funds (14 → 16 tabs):**
+- Goal Scoring Dashboard (urgency × funding × volatility)
+- Wealth Glide Path (rebalance prompts 2 yrs before maturity)
+- Tax Efficiency Analyzer (tax-advantaged vs. taxable placement)
+- AI: Neglected Fund Detector (7th prompt)
+
+**Net Worth (16 → 19 tabs):**
+- Tax-Loss Harvesting Log (cost basis + wash-sale window)
+- Geographic & Currency Exposure (concentration + risk flags)
+- Beneficiary & Estate Access (Kubera-style "trusted angel" template)
+- NW Health Score 0–100
+- AI: Estate Planning Advisor (7th prompt)
+
+**Small Business (20 → 23 tabs):**
+- Recurring Invoice Schedule (auto-bill templates)
+- Customer/Vendor Profitability (gross margin per)
+- Loan Amortization (principal vs. interest split)
+- Project / Job Costing (time + materials per project)
+- Business Health Score 0–100
+- AI: Customer Concentration Risk (8th prompt)
+
+**Family & Education (14 → 18 tabs):**
+- Account Type Comparison (529/Coverdell ESA/UTMA-UGMA/ABLE)
+- State 529 Tax Benefits lookup ($235–$540/yr deductions)
+- EFC / SAI Calculator (replicates FAFSA formula)
+- Financial Aid Letter Comparison (side-by-side colleges)
+- Financial Literacy Milestones (age-mapped curriculum)
+- Family Health Score 0–100
+- AI: Aid Appeal Coach + State 529 Optimizer (7th + 8th prompts)
+
+**Investment Portfolio (already v2 with research):** Framework upgrade only
+
+**Zakat Calculator (already v2 with research):** Framework upgrade only
 
 ### Budget Tracker v3 (Final) — Update Log
 After comprehensive competitor research pushback (YNAB/Monarch/Copilot/Simplifi), expanded from 12 → 17 tabs:

@@ -1,6 +1,6 @@
-# Zakat Calculator — Product Proposal v2
+# Zakat Calculator — Product Proposal v3 (Final)
 _Last updated: 2026-05-10_
-_Status: ✅ Approved by user — 2026-05-10_
+_Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 
 **Tagline:** The most complete Zakat companion on Etsy. 18 tabs covering every modern asset, scholar-aware rulings, multi-Madhhab support, AI Advisor citing fatwas.
 
@@ -118,7 +118,24 @@ _Status: ✅ Approved by user — 2026-05-10_
 
 ---
 
+## What This Sheet Doesn't Do (And Why That's a Feature)
+| Cannot do | Spun positive |
+|---|---|
+| No direct charity payment | Distribution Planner gives you allocation + verified org list — you donate directly |
+| No scholar booking integration | Cited fatwas in AI Advisor; Scholar Disclaimer explicit |
+| No bank balance sync | Your wealth data stays private — religious + financial sensitivity |
+| No subscription | Pay once, calculate every Hijri year |
+
+---
+
+## Disclosed Dated Claims
+- 1.9B+ Muslims worldwide — Pew Research 2024
+- AAOIFI Standard 21, NZF UK guidance, Islamic Relief — cited in AI Advisor responses
+- Live gold/silver spot via GOOGLEFINANCE (20-min delayed)
+
+---
+
 ## Status
-- [x] Approved by user — 2026-05-10
+- [x] Approved by user — 2026-05-10 (v3 final)
 - [ ] Design phase
 - [ ] Build phase

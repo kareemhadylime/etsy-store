@@ -1,32 +1,29 @@
-# Life Sinking Funds Planner — Product Proposal v3
+# Life Sinking Funds Planner — Product Proposal v3 (Final)
 _Last updated: 2026-05-10_
 _Status: ✅ Approved by user — 2026-05-10_
 
-**Tagline:** Stop being surprised by predictable expenses. Save smarter across cash, metals, fixed deposits, and stocks — AI tells you where every dollar goes.
+**Tagline:** Save smarter across cash, metals, fixed deposits, and stocks. 16 tabs. AI tells you where every dollar goes.
+
+---
+
+## Banners (every tab)
+- 🤔 **Why a Spreadsheet, Not an App?** — Apps like Qapital and Monarch require bank handshakes. We don't. Pay once, save anywhere — across 4 vehicles no app handles together.
+- 🔒 **Privacy-first:** Your savings strategy stays on your device. No aggregator, no third-party access.
 
 ---
 
 ## Market Stats
 - 68% of Americans can't cover a $1,000 emergency
-- $3,500 avg unexpected car repair cost
-- No multi-vehicle sinking fund tracker exists on Etsy — first mover
+- $3,500 avg unexpected car repair
+- 16 tabs (was 14) — 4 savings vehicles, no Etsy competitor matches
+- Qapital $5/mo, Monarch $99/yr — we undercut as one-time
 
 ---
 
-## Why This Is a Big Opportunity
-- Sinking funds = the missing link between budgeting and stability
-- Low competition on Etsy — no AI-enhanced multi-vehicle sinking fund tool exists
-- Unique angle: savings held in metals, stocks, CDs — not just bank accounts
-- Pairs naturally with Budget Tracker — strong cross-sell
-- Seasonal spikes: January (new year goals), September (back to school)
-
----
-
-## Goal Status Intelligence (from Monarch Money)
-- Every fund shows: On Track / Ahead / At Risk with exact variance amount
+## Goal Status Intelligence
+- Every fund: **On Track / Ahead / At Risk** with exact variance
 - 3 goal types: Save by Date · Monthly Amount · Refill Up To
-- Growth rate modeling — CD/stock returns factor into goal timeline
-- One-click auto-fund: calculates exact monthly contribution needed
+- Growth rate modeling — CD/stock returns factor into timeline
 
 ---
 
@@ -37,81 +34,81 @@ Medical, Travel, Car, Education, Home, Gifts, Wedding, Tech, Dental, Emergency, 
 
 ## Savings Vehicles (4 types)
 
-### 🥇 Precious Metals
-- Gold, silver, platinum, palladium
-- Oz/grams held per fund, monthly spot price log
-- Current value = qty × spot price, evolution chart
-- Cost basis vs. current value, storage location tag
-
-### 🏦 Fixed Return Funds
-- CDs, fixed deposits, bonds, money market
-- CD Ladder — up to 10 instruments
-- Maturity date, future value (FV formula), maturity calendar
-- Early withdrawal penalty calc, taxable/non-taxable split
-
-### 📈 Variable Return Funds
-- Index funds, ETFs, money market funds
-- Units held + monthly price log, value evolution chart
-- Total return: gain + distributions
-- Growth rate feeds into goal timeline
-
-### 📊 Stocks & Dividends
-- Ticker, shares, monthly price log
-- Dividend per share, pay date, frequency
-- Annual dividend income auto-calc, yield on cost
-- DRIP tracker, dividend income calendar
+### 🥇 Precious Metals — gold/silver/platinum/palladium, oz × monthly spot, evolution chart, storage location
+### 🏦 Fixed Return — CD Ladder up to 10, FV formula, maturity calendar, early-withdrawal penalty, taxable/non-taxable split
+### 📈 Variable Return — index funds, ETFs, money market, units × monthly price, total return, growth rate feeds timeline
+### 📊 Stocks & Dividends — ticker, monthly price log, DRIP tracker, yield on cost, dividend calendar
 
 ---
 
-## Sheet Tabs (14 tabs)
+## Sheet Tabs (16 tabs)
 
 | Tab | Description |
 |-----|-------------|
-| 🏠 Dashboard | All funds: vehicle type, status, contribution, target date, % funded |
-| 🪣 Fund Manager | Set up funds: name, category, target, date, vehicle, contribution |
+| 🏠 Dashboard | All funds: vehicle, status, contribution, target date, % funded |
+| 🪣 Fund Manager | Setup: name, category, target, date, vehicle, contribution |
 | 💵 Contribution Tracker | Monthly contributions, running balance, on-track indicator |
-| 🎯 Priority Matrix | All funds ranked by urgency — which fund needs next dollar |
-| 📉 Funding Gap Analyzer | Required vs. actual contribution, shortfall/surplus per fund |
+| 🎯 Priority Matrix | Funds ranked by urgency — which fund needs next dollar |
+| 📉 Funding Gap Analyzer | Required vs. actual, shortfall/surplus per fund |
+| **🎮 Goal Scoring Dashboard** 🆕 | Ranks 17 funds by 3 metrics: urgency / funding % / volatility. Color-coded red/yellow/green. Instant priority view |
 | 🥇 Precious Metals Tracker | Holdings, monthly spot log, value chart, cost basis, storage |
-| 🏦 Fixed Return Tracker | CD Ladder, maturity calendar, FV, early withdrawal penalty |
+| 🏦 Fixed Return Tracker | CD Ladder, maturity calendar, FV, early withdrawal penalty, **auto-rollover prompt** |
 | 📈 Variable Fund Tracker | ETFs, monthly price log, total return, growth rate integration |
 | 📊 Stocks & Dividends | Holdings, monthly price, dividends, DRIP, yield on cost, calendar |
 | 💰 Income Allocation Wheel | Monthly savings split across all active funds |
+| **🌅 Wealth Glide Path** 🆕 | As goals mature, recommends shifting from volatile (stocks) to safe (fixed). Auto-flags 2 years before maturity |
 | 📅 Spending Tracker | Withdrawal log, running balance, rebuild timeline |
-| 📊 Annual Summary | Total saved/withdrawn per fund, net growth by vehicle type |
-| 🔗 Budget Integration | Total monthly commitment exported as single line for Budget Tracker |
-| 🤖 AI Savings Advisor | 6 built-in AI prompts (see below) |
+| **🧮 Tax Efficiency Analyzer** 🆕 | Flags which funds belong in tax-advantaged vs. taxable accounts (dividends taxable, bonds Roth-friendly) |
+| 📊 Annual Summary | Total saved/withdrawn per fund, net growth by vehicle, hit vs. miss |
+| 🔗 Budget Integration | Total monthly commitment as single export line for Budget Tracker |
+| 🤖 AI Savings Advisor | 7 AI prompts (see below) |
 
 ---
 
-## AI Savings Advisor Tab — 6 Prompts
+## AI Savings Advisor — 7 Prompts
 1. **Reallocation prompt** — which fund needs your next dollar
 2. **Vehicle Advisor** — best savings vehicle per fund based on timeline
-3. **Metals Coach** — commentary on monthly spot price moves and impact on fund value
-4. **Dividend Planner** — maps income calendar, flags cash-gap months
+3. **Metals Coach** — commentary on monthly spot price moves
+4. **Dividend Planner** — flags cash-gap months in dividend calendar
 5. **Life Stage Advisor** — detects stage, suggests next fund to open
-6. **Annual Fund Review** — full year AI summary: hit/miss/over-saved, what to change next year
+6. **Annual Fund Review** — full year AI summary
+7. **Neglected Fund Detector** 🆕 — catches under-funded goals you stopped contributing to
+
+---
+
+## What This Sheet Doesn't Do (And Why That's a Feature)
+| Cannot do | Spun positive |
+|---|---|
+| No round-up automation (Qapital) | You decide every dollar — no surprise debits |
+| No bank-triggered savings | Your bank credentials never leave your bank |
+| No partner sharing | Sheets multi-user works without app authentication layer |
+| No push notifications | Sheets emails on threshold breaches |
+| No subscription | Pay once, save forever |
+
+---
+
+## Disclosed Dated Claims
+- 68% can't cover $1,000 — Bankrate Emergency Savings Survey 2025
+- Qapital $5/mo, Monarch $99/yr — verified Jan 2026
 
 ---
 
 ## Pricing & Tiers
 
 ### Essentials — $12
-- 17 pre-built fund categories
-- Fund Manager + Contribution Tracker
-- Funding Gap Analyzer
-- Dashboard with status indicators
-- Priority Matrix, Annual Summary
+- 17 fund categories, Fund Manager, Contribution Tracker
+- Funding Gap Analyzer, Priority Matrix
+- Dashboard with status, Annual Summary
 - Google Sheets + Excel
 
 ### Pro — $22
-- Everything in Essentials
-- Unlimited custom funds, dark mode
-- Precious Metals Tracker tab
-- Fixed Return Tracker (CD Ladder)
-- Variable Fund Tracker
-- Stocks & Dividends tab (DRIP)
+- Everything in Essentials + dark mode
+- Unlimited custom funds
+- All 4 savings vehicles (metals, fixed, variable, stocks)
 - Monthly price evolution charts
+- Goal Scoring Dashboard
+- Wealth Glide Path
+- Tax Efficiency Analyzer
 - Income Allocation Wheel
 - Spending Tracker + rebuild timeline
 - Budget Integration export
@@ -119,21 +116,19 @@ Medical, Travel, Car, Education, Home, Gifts, Wedding, Tech, Dental, Emergency, 
 
 ### AI Edition — $34
 - Everything in Pro
-- **Dedicated AI Savings Advisor Tab** with 6 built-in AI prompts
+- **AI Savings Advisor Tab** with 7 prompts (incl. Neglected Fund Detector)
 
 ---
 
-## Upsell & Cross-Sell
-- 🔗 Pairs with Budget Tracker — sinking fund total as one budget line item
-- 🔗 Metals/stocks data feeds into Investment Portfolio Tracker
-- 📦 Bundle candidate — included in All-in-One Finance Bundle
-- 👶 New Parent Edition — baby + college + childcare focus (separate listing)
-- 🏡 Homeowner Edition — home maintenance + HOA + renovation (separate listing)
-- 📀 Precious Metals Edition — standalone metals tracker (separate niche listing)
+## Cross-Sells
+- 🔗 Pairs with Budget Tracker (sinking fund total = single line)
+- 🔗 Metals/stocks data feeds Investment Portfolio Tracker
+- 📦 Bundle candidate
+- 👶 New Parent Edition · 🏡 Homeowner Edition · 📀 Precious Metals Edition (separate listings)
 
 ---
 
 ## Status
-- [x] Approved by user — 2026-05-10
+- [x] Approved by user — 2026-05-10 (v3 final)
 - [ ] Design phase
 - [ ] Build phase

@@ -1,119 +1,124 @@
-# Debt Payoff Planner — Product Proposal v2
+# Debt Payoff Planner — Product Proposal v3 (Final)
 _Last updated: 2026-05-10_
 _Status: ✅ Approved by user — 2026-05-10_
 
-**Tagline:** The only Etsy debt tool that tells you HOW to get out of debt AND rebuild your credit score at the same time.
+**Tagline:** Get out of debt AND rebuild your credit score in one sheet. 18 tabs. AI Credit Score Coach. No bank handshake.
+
+---
+
+## Banners (every tab)
+- 🤔 **Why a Spreadsheet, Not an App?** — Apps like Tally charge $25/mo. We charge once. No bank credentials shared. No subscription. No data harvested.
+- 🔒 **Privacy-first:** Your debt data and credit scores stay on your device. No aggregator. No third-party access.
 
 ---
 
 ## Market Stats
-- $1.14T US credit card debt
-- $38k avg household debt (excl. mortgage)
-- 6,200+ reviews on top Etsy debt planner
-- 4.9★ avg rating — emotionally driven buyers
-
----
-
-## Why This Is a Big Opportunity
-- Massive emotional purchase — buyers in real pain, highly motivated
-- 6,200+ reviews on top Etsy seller — proven demand at scale
-- Searches: "debt snowball spreadsheet", "debt payoff tracker" — high intent
-- No AI strategy optimizer + credit score rebuilder exists anywhere on Etsy
-- Apps like Tally charge $25/month — our one-time sheet undercuts massively
-- Student loan crisis driving demand from younger demographic
-- Cross-sells into Budget Tracker and Net Worth Tracker naturally
+- $1.14T US credit card debt · $38k avg household debt
+- 6,200+ reviews on top Etsy debt planner — proven demand
+- 18 tabs (was 15) — most thorough debt tool on Etsy
+- Tally $25/mo, Credit Karma free-but-data-harvested — we undercut both with one-time pricing
 
 ---
 
 ## Debt Types Supported (8 types)
-- Credit cards — APR, minimum payment, balance, due date
-- Personal loans — fixed term, fixed payment
-- Car loans — amortization built in
-- Student loans — federal vs. private, IDR options
-- Medical debt — often interest-free, tracked separately
-- BNPL / Buy Now Pay Later — hidden trap tracker
-- Mortgage — optional for total debt picture
-- Family / personal loans — custom terms
+Credit cards · Personal loans · Car loans · Student loans · Medical debt · BNPL · Mortgage · Family / personal loans
 
 ---
 
-## Sheet Tabs (15 tabs)
+## Sheet Tabs (18 tabs)
 
 | Tab | Description |
 |-----|-------------|
-| 🏠 Dashboard | Total debt, debt-free date, monthly payment, total interest remaining, credit score current value, progress bar |
-| 📋 Debt List | All debts: name, type, balance, APR, minimum payment, due date. Auto-sorts by strategy. Up to 20 debts |
-| ❄️ Snowball Method | Smallest balance first. Month-by-month schedule, total interest, debt-free date, milestones |
-| 🌊 Avalanche Method | Highest APR first. Month-by-month schedule, interest savings vs. snowball. Mathematically optimal |
-| 🔀 Custom Method | User defines payoff order. For emotional priorities or employer-matched situations |
-| 🔄 Debt Consolidation | 3-way: Personal Loan vs. Balance Transfer vs. Home Equity Loan. Break-even, total interest saved, credit score impact |
-| 💳 Balance Transfer Analyzer | New APR + transfer fee % → true break-even month, net interest savings, payoff-before-promo countdown |
-| 📊 Credit Score Tracker | Month-by-month log all 3 bureaus. FICO factor breakdown (35/30/15/10/10). Score trend chart |
-| 💡 Credit Utilization Optimizer | Per-card utilization. Target 30% / 6%. "Pay $X on Card A by [date] = est. +18pts in 30 days" |
-| 🔍 Inquiry & Marks Tracker | Hard inquiries with removal countdown. Derogatory marks (late payment 7yr, bankruptcy 10yr) with removal dates |
-| 🎓 Student Loan Tab | Federal vs. private, IDR vs. standard, PSLF eligibility check, aggressive extra payment simulator |
-| 📅 Payment Calendar | All debts with due dates, amounts, paid/unpaid. 60-day forward view. Flags overdue |
-| 🎯 Extra Payment Simulator | "Pay $100 extra/month?" → instant recalculation of debt-free date and interest saved |
-| 🏆 Milestone Tracker | First debt at $0, 25/50/75/100% paid, debt-free day. Visual progress bar |
-| 🔁 Refinance Radar | Current rates vs. your APRs. Flags refinance candidates. Break-even on refinance fees |
+| 🏠 Dashboard | Total debt, debt-free date, monthly payment, total interest remaining, credit score, **Debt Health Score 0–100** |
+| 📋 Debt List | All debts: name, type, balance, APR, minimum, due date. Up to 20 debts |
+| ❄️ Snowball Method | Smallest balance first. Month-by-month, total interest, milestones |
+| 🌊 Avalanche Method | Highest APR first. Interest savings vs. snowball |
+| 🔀 Custom Method | User-defined order. For emotional priorities |
+| **📊 Strategy Comparison Matrix** 🆕 | Side-by-side: debt-free date, total interest, monthly payment, score impact for Snowball / Avalanche / Custom |
+| 🔄 Debt Consolidation | 3-way: Personal Loan vs. Balance Transfer vs. Home Equity Loan |
+| 💳 Balance Transfer Analyzer | New APR + transfer fee → break-even, net interest savings, payoff-before-promo countdown |
+| 📊 Credit Score Tracker | Month-by-month log all 3 bureaus. FICO factor breakdown (35/30/15/10/10) |
+| **🎮 Credit Score Simulator** 🆕 | "What if I pay $X on Card A?" → simulates point gains across all 3 bureaus using FICO weighting model |
+| 💡 Credit Utilization Optimizer | Per-card utilization. "Pay $X by [date] to drop from 45% → 28%" |
+| 🔍 Inquiry & Marks Tracker | Hard inquiries with removal countdown. Derogatory marks (late payment 7yr, bankruptcy 10yr) |
+| **⚠️ Late-Fee Alert Monitor** 🆕 | Conditional formatting flags payments due in next 5 days. Days-until-due countdown per debt. Prevents $35 late fees |
+| 🎓 Student Loan Tab | Federal vs. private, IDR vs. standard, PSLF eligibility, aggressive extra payment simulator |
+| 📅 Payment Calendar | All debts: due dates, amounts, paid/unpaid. 60-day forward view |
+| 🎯 Extra Payment Simulator | "Pay $100 extra/month?" → instant recalculation across all methods |
+| **🔥 On-Time Payment Streak** 🆕 | Gamified payment streak tracker. Visual milestone badges (3mo, 6mo, 12mo, 24mo). Linked to credit score gains |
+| 🏆 Milestone Tracker | First debt at $0, 25/50/75/100% paid, debt-free day. Visual progress |
+| 🔁 Refinance Radar | Current rates vs. your APRs. Flags refinance candidates. Break-even on fees |
+| 🤖 AI Credit Score Coach | 7 AI prompts (see below) |
 
 ---
 
-## FICO Score Factor Breakdown (in Credit Score tab)
-| Factor | Weight |
-|--------|--------|
-| Payment History | 35% |
-| Credit Utilization | 30% |
-| Length of History | 15% |
-| Credit Mix | 10% |
-| New Credit / Inquiries | 10% |
+## Debt Health Score (0–100) — Composite metric
+- Debt paid ÷ original total (40%)
+- Interest saved vs. minimum payments (30%)
+- On-time payment streak (20%)
+- Credit utilization improvement (10%)
+
+Live on Dashboard. AI Edition includes Health Score Coach prompt.
 
 ---
 
-## Debt Consolidation — 3-Way Comparison
+## AI Credit Score Coach — 7 Prompts
+1. **Payoff Strategy Optimizer** — recommends Snowball vs. Avalanche vs. Custom based on income, psychology, debt profile
+2. **AI Credit Score Coach** — ranked action list with estimated point gains per action
+3. **Utilization Timing Advisor** — exact card, amount, date to pay for max score impact
+4. **Consolidation Intelligence** — picks single best consolidation path
+5. **Income Acceleration Coach** — 5 realistic side income ideas with earning estimates
+6. **Debt Settlement Letter Generator** — AI hardship/settlement letter for creditor negotiation
+7. **Health Score Coach** 🆕 — explains your Debt Health Score + top 3 actions to raise it
 
-### Personal Loan
-- Fixed APR 6–36% (credit-score dependent)
-- Fixed term 2–7 years, single monthly payment
-- Break-even on origination fee calculated
-- Best for: mixed unsecured debts
+---
 
-### Balance Transfer Card
-- 0% APR promo 12–21 months, transfer fee 3–5%
-- Post-promo APR risk flagged with warning
-- Payoff-before-promo-ends countdown
-- Best for: good credit, smaller balances
+## What This Sheet Doesn't Do (And Why That's a Feature)
 
-### Home Equity Loan
-- ~8% APR, closing costs 2–5% calculated
-- ⚠️ Home as collateral — risk prominently flagged
-- Term 5–30 years
-- Best for: homeowners, large balances
+| Cannot do | Spun positive |
+|---|---|
+| No bank sync | Your bank credentials never leave your bank |
+| No automatic payments (Tally) | You stay in control — no auto-draft surprises |
+| No identity theft monitoring (Credit Karma) | You're not the product being marketed to |
+| No push notifications | Sheets sends email alerts via formulas |
+| No subscription | Pay once, own forever |
+
+---
+
+## Disclosed Dated Claims
+- US credit card debt $1.14T (Federal Reserve, Q1 2026)
+- Tally $25/mo, Credit Karma free — verified Jan 2026
+- "AI debt strategy optimizer not on Etsy" — verified May 2026
 
 ---
 
 ## Pricing & Tiers
 
 ### Essentials — $14
-- Up to 10 debts (all 8 types)
+- Up to 10 debts (8 types)
 - Snowball + Avalanche methods
+- Strategy Comparison Matrix
 - Month-by-month payoff schedule
 - Total interest comparison
 - Payment calendar (60-day)
+- Late-Fee Alert Monitor
 - Milestone tracker
 - Credit score tracker (basic — 1 bureau, monthly log)
 - FICO factor education panel
+- Debt Health Score 0–100
 - Google Sheets + Excel
 
 ### Pro — $24
 - Everything in Essentials
-- Up to 20 debts, dark mode dashboard
+- Up to 20 debts, dark mode
 - Custom payoff method
-- Debt consolidation — 3-way comparison
+- Debt consolidation 3-way comparison
 - Balance transfer analyzer
 - Credit score tracker (all 3 bureaus)
+- Credit Score Simulator
 - Credit utilization optimizer
 - Hard inquiry + derogatory marks tracker
+- On-Time Payment Streak (gamified)
 - Student loan tab (IDR + PSLF)
 - Extra payment simulator
 - Refinance radar
@@ -121,26 +126,21 @@ _Status: ✅ Approved by user — 2026-05-10_
 
 ### AI Edition — $36
 - Everything in Pro
-- **Payoff Strategy Optimizer** — AI recommends Snowball vs. Avalanche vs. Custom based on income, psychology, debt profile
-- **AI Credit Score Coach** — ranked action list with estimated point gains per action
-- **Utilization Timing Advisor** — exact card, amount, and date to pay for maximum score impact
-- **Consolidation Intelligence** — AI picks single best consolidation path based on credit score, equity, balance profile
-- **Income Acceleration Coach** — profession + free hours → 5 realistic side income ideas with earning estimates
-- **Debt Settlement Letter Generator** — AI writes hardship/settlement letter for creditor negotiation
+- **AI Credit Score Coach Tab** with 7 prompts (incl. Health Score Coach)
 
 ---
 
-## Upsell & Cross-Sell
-- 🔗 Feeds from Budget Tracker — extra monthly cash flows directly into debt acceleration
-- 🔗 Leads to Net Worth Tracker & Investment Portfolio — redirect payments to investments once debt-free
-- 📦 Bundle anchor — core product in All-in-One Finance Bundle
-- 🎓 Student Loan Edition — standalone listing targeting new graduates
-- 💍 Couple's Debt Payoff — shared + individual debts (separate listing)
-- 🏠 Mortgage Payoff Edition — premium standalone for homeowners
+## Cross-Sells
+- 🔗 Feeds from Budget Tracker — extra cash → debt acceleration
+- 🔗 Leads to Net Worth Tracker & Investment Portfolio after debt-free
+- 📦 Bundle anchor in All-in-One Finance Bundle
+- 🎓 Student Loan Edition — standalone (separate listing)
+- 💍 Couple's Debt Payoff — shared + individual debts
+- 🏠 Mortgage Payoff Edition — premium standalone
 
 ---
 
 ## Status
-- [x] Approved by user — 2026-05-10
+- [x] Approved by user — 2026-05-10 (v3 final)
 - [ ] Design phase
 - [ ] Build phase

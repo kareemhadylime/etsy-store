@@ -1,13 +1,20 @@
-# Investment Portfolio Tracker — Product Proposal v2
+# Investment Portfolio Tracker — Product Proposal v3 (Final)
 _Last updated: 2026-05-10_
-_Status: ✅ Approved by user — 2026-05-10_
+_Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 
 **Tagline:** 19 tabs of institutional-grade portfolio analysis on a spreadsheet. Live prices via GOOGLEFINANCE, AI Portfolio Intelligence, complete privacy.
 
 ---
 
-## Privacy Positioning
-🔒 100% on your machine. No broker linking. No data shared. No subscription. No Plaid handshake. Your portfolio stays yours.
+## Banners (every tab)
+- 🤔 **Why a Spreadsheet, Not an App?** — Sharesight $8/mo, Stock Rover $25/mo, Kubera $200/yr. We charge once. No broker linking required.
+- 🔒 **Privacy-first:** 100% on your machine. No broker linking. No data shared. No subscription. No Plaid handshake. Your portfolio stays yours.
+
+## Disclosed Dated Claims
+- 61% of US adults own stocks — Gallup 2024
+- Sharesight $8/mo, Stock Rover $25/mo, Kubera $200/yr — verified Jan 2026
+- "144+ reviews on top Etsy stock tracker" — verified May 2026
+- "No AI portfolio tracker on Etsy" — verified May 2026 (re-verify before launch)
 
 ---
 
@@ -114,7 +121,18 @@ _Status: ✅ Approved by user — 2026-05-10_
 
 ---
 
+## What This Sheet Doesn't Do (And Why That's a Feature)
+| Cannot do | Spun positive |
+|---|---|
+| No broker aggregation (Plaid/SnapTrade) | Your account credentials never leave your broker |
+| No real-time pricing (GOOGLEFINANCE 20-min delayed) | Honest delay vs. promised real-time apps that also delay |
+| No AI document/PDF import | Manual entry once a month — the data is yours, not us training a model |
+| No push notifications | Sheets emails on threshold breaches |
+| No subscription | Pay once, track forever |
+
+---
+
 ## Status
-- [x] Approved by user — 2026-05-10
+- [x] Approved by user — 2026-05-10 (v3 final)
 - [ ] Design phase
 - [ ] Build phase
