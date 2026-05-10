@@ -72,6 +72,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [ ] Create Etsy listings (mockups + copy + tags)
 - [ ] Build storefront UI
 
+## Notes
+- EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
+
 ## Standing Rules
 - **After every save/commit: update session-handshake.md AND session-history.md, commit all together**
 - **After every meaningful exchange: append summary to `docs/session-history.md` and commit**

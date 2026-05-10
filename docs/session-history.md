@@ -135,3 +135,21 @@ After comprehensive competitor research pushback (YNAB/Monarch/Copilot/Simplifi)
 - Empower, Personal Capital, Kubera, Capitally → Net Worth + Investment Portfolio insights
 - Tally, Undebt.it, Credit Karma → Debt Payoff insights
 - QuickBooks, Stessa → Small Business insights
+
+---
+
+## Session 2026-05-10 — EtsyHunt Integration Question
+
+### Question
+User asked how to connect their Etsy app setup backend to EtsyHunt.
+
+### Answer
+EtsyHunt has no public API — direct backend integration is not possible. Connection flow goes the opposite direction: backend publishes to Etsy → EtsyHunt reads from the live Etsy shop (via Chrome extension or shop OAuth, read-only).
+
+### Options surfaced
+1. Publish listings via the etsy MCP (`mcp__etsy__etsy_create_listing`), then connect the live shop to EtsyHunt
+2. Use EtsyHunt's CSV export (paid plans) and ingest into Supabase if needed
+3. For programmatic keyword/SEO research, skip EtsyHunt and use: Etsy API taxonomy/search, DataForSEO via `claude-seo:seo-dataforseo`, or scraped Etsy autocomplete
+
+### Status
+No code changes. Awaiting user decision on whether to wire up an Etsy keyword research route as an EtsyHunt alternative.
