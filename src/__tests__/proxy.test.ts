@@ -10,19 +10,19 @@ vi.mock('@supabase/ssr', () => ({
   })),
 }))
 
-describe('Auth middleware', () => {
+describe('Auth proxy', () => {
   it('redirects unauthenticated users from /admin to /admin/login', async () => {
-    const { middleware } = await import('../middleware')
+    const { proxy } = await import('../proxy')
     const request = new NextRequest('http://localhost:3000/admin')
-    const response = await middleware(request)
+    const response = await proxy(request)
     expect(response.status).toBe(307)
     expect(response.headers.get('location')).toContain('/admin/login')
   })
 
   it('allows unauthenticated access to public routes', async () => {
-    const { middleware } = await import('../middleware')
+    const { proxy } = await import('../proxy')
     const request = new NextRequest('http://localhost:3000/')
-    const response = await middleware(request)
+    const response = await proxy(request)
     expect(response.status).toBe(200)
   })
 })

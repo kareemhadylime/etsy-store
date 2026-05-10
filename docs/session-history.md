@@ -607,3 +607,37 @@ No designs exist for Products 9/10/11. Per standing rule "Plan → approve → d
 
 ### Next session
 `/clear` (cache at hardcap). Then start design phase, one product at a time per the brainstorming standing rule. Recommended order: Wedding (largest deliverable surface) → Bundle (smaller PDFs + thumbnails, depends on Wedding visual identity) → Notion (Notion-native, separate aesthetic).
+
+---
+
+## Session 2026-05-10 — TICKET-005 UI shell + middleware→proxy rename
+
+### Done
+- Server Actions module `src/app/admin/_actions/products.ts` — `createProductAction`, `updateProductAction`, `deleteProductAction`, `uploadFileAction`, `syncEtsyAction` (each verifies `requireAdmin`, validates with the same Zod schemas the API uses, calls service helpers, then `revalidatePath` + `redirect`). 13 tests.
+- `src/app/admin/_actions/sign-out.ts` — `signOutAction` that calls `supabase.auth.signOut()` then redirects to `/admin/login`.
+- `src/app/admin/layout.tsx` — shell with header nav (Admin / Products) + signed-in email + sign-out form.
+- `src/app/admin/page.tsx` — replaced placeholder with `redirect('/admin/products')`.
+- `src/app/admin/products/page.tsx` — server-rendered list reading `listProducts` directly (no HTTP hop; same security boundary because the page is admin-gated). Filters: status, type, name search; banners for `?created=1` / `?deleted=1`.
+- `src/app/admin/products/new/page.tsx` — wraps `ProductForm` bound to `createProductAction`.
+- `src/app/admin/products/[id]/page.tsx` — server page that fetches the product + files, then renders the edit form, the file-upload form, the Etsy sync button, and the delete button (each Server Action is `.bind(null, id)` so the client never sees the raw mutation surface).
+- Client components in `src/app/admin/products/_components/`:
+  - `ProductForm` — `useActionState` + `useFormStatus`, name/slug/description/type/status/category/tab_count/price/price_essentials/price_pro/price_ai/etsy_listing_id/etsy_url, field-level error rendering.
+  - `UploadFileForm` — multipart form that resets only on success so error states are recoverable.
+  - `SyncEtsyButton` — disabled hint when `etsy_listing_id` is empty.
+  - `DeleteProductButton` — `confirm()` guard before submit.
+- `src/middleware.ts` → `src/proxy.ts` rename (function `middleware` → `proxy`); matching test file renamed; build is now warning-free per Next 16 `middleware`-deprecation notice.
+
+### Architecture notes
+- Pages read via service helpers (`listProducts`/`getProduct`/`listProductFiles`) rather than fetching `/api/admin/...`. Admin pages are gated by the proxy + service-role client; the HTTP API still exists for non-page consumers (CLI tooling, future webhook orchestration).
+- Server Actions sit between the form and the service layer — they handle auth, parse `FormData`, validate, and surface `FieldErrors` to the form. The HTTP routes do exactly the same job from the JSON side.
+- `redirect()` is mocked in action tests via a thrown `NEXT_REDIRECT;<url>` error so the test can assert the target without running the framework's redirect machinery.
+
+### Verification
+- `npm test` → 29 files / 149 tests passing (added 13 action tests; renamed `middleware.test.ts` → `proxy.test.ts`).
+- `node_modules/.bin/tsc --noEmit` → exit 0.
+- `npm run build` → succeeds; 14 routes register (3 new admin pages); no Next.js deprecation warnings.
+
+### Next session
+- TICKET-006 public storefront (`/`, `/products`, `/products/[slug]`) reads the same service helpers and fires `/api/track/etsy-click` on CTA.
+- Or: Phase 2 ticket breakdown.
+- Or: design phase for Products 9/10/11 (proposals all signed off).

@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (All 11 proposals approved — design phase open for Products 9/10/11)_
+_Last updated: 2026-05-10 (T005 UI shell complete — /admin/products list + new + edit pages + Server Actions; middleware→proxy rename)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -87,7 +87,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **TICKET-004** File delivery → `src/lib/fulfillment/deliver.ts` (signed URLs + Resend email + fulfillment_logs + purchase event) ✅
 - [x] **TICKET-010** Phase 1 smoke test → `src/__tests__/phase-1-smoke.test.ts` (E2E webhook → customer → order → fulfillment → conversion + idempotency) ✅
 - [x] **TICKET-005 backend half** Admin product API → `src/app/api/admin/products/{route,[id]/route,[id]/files/route,[id]/sync-etsy/route}.ts` + service helpers in `src/lib/admin/{products,product-files}.ts` + `src/lib/etsy/api.ts` outbound client + `src/lib/auth/require-admin.ts` (137 tests passing) ✅
-- [ ] TICKET-005 Admin UI shell (server components / forms — wires up against the API just shipped)
+- [x] **TICKET-005 UI shell** → `src/app/admin/{layout,page}.tsx` + `/admin/products/{page,new/page,[id]/page}.tsx` + Server Actions in `src/app/admin/_actions/` (create/update/delete/upload/sync) + client form components in `src/app/admin/products/_components/` (149 tests passing, build clean) ✅
+- [x] **Next.js 16 deprecation** `middleware.ts` → `proxy.ts` rename per Next 16 docs ✅
 - [ ] TICKET-006 Public storefront (UI work)
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
