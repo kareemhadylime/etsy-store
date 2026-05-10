@@ -48,7 +48,7 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | 4 | Net Worth Tracker | ✅ `docs/product-proposals/net-worth-tracker.md` | ✅ approved |
 | 5 | Small Business Finance Kit | ✅ `docs/product-proposals/small-business-finance-kit.md` | ✅ approved |
 | 6 | Family & Education Planner | ✅ `docs/product-proposals/family-education-planner.md` | ✅ approved |
-| 7 | Investment Portfolio Tracker | ❌ not started | — |
+| 7 | Investment Portfolio Tracker | ✅ `docs/product-proposals/investment-portfolio-tracker.md` | ✅ approved |
 | 8 | Zakat Calculator | ❌ not started | — |
 
 ## Pricing Confirmed
@@ -74,9 +74,11 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [ ] Build storefront UI
 
 ## Standing Rules
-- **After every save/commit: update session-handshake.md and commit it too**
+- **After every save/commit: update session-handshake.md AND session-history.md, commit all together**
+- **After every meaningful exchange: append summary to `docs/session-history.md` and commit**
 - Save product proposals to `docs/product-proposals/<product-name>.md`
 - Commit after every proposal save
 - AI features required in all products
 - Plan → approve → design → build (never skip planning)
 - Always check `node_modules/next/dist/docs/` before writing Next.js code
+- Session history lives at `docs/session-history.md` for cross-session continuity
