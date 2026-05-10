@@ -115,6 +115,10 @@ Ready to move to design phase.
 7. investment-portfolio-tracker.md
 8. zakat-calculator.md
 
+### A4 PDF exports
+Saved to `docs/product-proposals/pdf/`:
+- budget-tracker-proposal.pdf — A4, print-ready, 2 pages
+
 ### Key research summaries embedded across proposals
 - YNAB, Monarch, Copilot, Qapital → Budget + Sinking Funds insights
 - Empower, Personal Capital, Kubera, Capitally → Net Worth + Investment Portfolio insights
