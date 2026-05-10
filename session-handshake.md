@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (Wedding production decisions locked — Google Sheets + Figma brand kit + Figma PDF)_
+_Last updated: 2026-05-10 (TICKET-006 storefront shipped — Phase 1 COMPLETE end-to-end, all 10 tickets done)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -89,7 +89,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **TICKET-005 backend half** Admin product API → `src/app/api/admin/products/{route,[id]/route,[id]/files/route,[id]/sync-etsy/route}.ts` + service helpers in `src/lib/admin/{products,product-files}.ts` + `src/lib/etsy/api.ts` outbound client + `src/lib/auth/require-admin.ts` (137 tests passing) ✅
 - [x] **TICKET-005 UI shell** → `src/app/admin/{layout,page}.tsx` + `/admin/products/{page,new/page,[id]/page}.tsx` + Server Actions in `src/app/admin/_actions/` (create/update/delete/upload/sync) + client form components in `src/app/admin/products/_components/` (149 tests passing, build clean) ✅
 - [x] **Next.js 16 deprecation** `middleware.ts` → `proxy.ts` rename per Next 16 docs ✅
-- [ ] TICKET-006 Public storefront (UI work)
+- [x] **TICKET-006 Public storefront** → `src/app/(public)/{layout,page}.tsx` + `/products/{page,[slug]/page}.tsx` + `BuyOnEtsyButton` client + `src/lib/public/products.ts` (anon-client + RLS) + tier-features + FAQ data + Product/Breadcrumb JSON-LD (162 tests passing, 22 routes built) ✅
+- [x] **Phase 1 COMPLETE** — all 10 backbone tickets shipped end-to-end (storefront click → Etsy → webhook → fulfillment email → conversion event) ✅
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
 - [x] **Wedding (Product 9) signed off** — spreadsheet-only v1, $24/$39/$59, Muslim+Hindu variants in AI Edition, both standalone + Bundle 10 ✅

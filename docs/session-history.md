@@ -690,3 +690,46 @@ Single design system in one tool minimizes context-switching and prevents palett
 - Either start Wedding visual production (set up Figma "Wedding Brand Kit" + Sheets template scaffold), OR
 - Move to Bundle design brief (Product 10) using same 5-direction format.
 - `/clear` recommended before either, per standing rule.
+
+---
+
+## Session 2026-05-10 — TICKET-006 public storefront (Phase 1 complete)
+
+### Done
+- `src/lib/public/products.ts` — `listLiveProducts` (status/category/search filters, ilike wildcard escape), `getLiveProductBySlug` (maybeSingle → 404 mapping), `listLiveCategories`. Uses anon Supabase client so RLS auto-restricts to `status='live'`. 9 tests.
+- `src/app/(public)/layout.tsx` — public shell with header/footer (route group keeps it separate from /admin chrome).
+- `src/app/(public)/page.tsx` — hero + featured-products grid + 3-column value props.
+- `src/app/(public)/products/page.tsx` — listing with search + category dropdown filters; renders an empty state when no live products match.
+- `src/app/(public)/products/[slug]/page.tsx` — detail page with:
+  - `generateMetadata` via `buildProductMetadata` (canonical + OG + Twitter Card)
+  - 3 inline JSON-LD scripts (Product + BreadcrumbList) via existing helpers
+  - 3-column tier cards (Essentials / Pro / AI Edition) sourcing copy from `_data/tier-features.ts` and price from product columns; per-tier "Buy on Etsy" CTAs + bottom-of-page CTA
+  - FAQ accordion using `<details>` from `_data/faq.ts` (6 universal questions)
+- `src/app/(public)/_components/buy-on-etsy-button.tsx` — client component that POSTs to `/api/track/etsy-click` with `{product_id, source_platform: 'storefront', url, event_id: 'etsy-click-<slug>-<ts>'}` via `keepalive: true`, then lets the browser navigate naturally. Disabled span when `etsy_url` is null. 4 tests.
+- `src/app/(public)/_components/product-card.tsx` — shared card used by home + listing, "From $X" pricing line.
+- Removed `src/app/page.tsx` so the `(public)` route group can claim `/`.
+
+### Architecture notes
+- Storefront pages use the anon client (RLS) rather than service-role; defense-in-depth even if the page is publicly accessible.
+- Tier comparison copy is generic (Essentials/Pro/AI) — per-product feature breakdowns can come later via a `tier_features jsonb` column. The 3 tier cards still surface real per-product pricing from the DB.
+- One Etsy URL per product (`etsy_url` is singular), so all 3 tier CTAs link to the same listing for now. When per-tier Etsy listings ship, the schema gets `etsy_listing_id_essentials/pro/ai` and the button takes a tier prop.
+- Phase 1 smoke test still asserts the receipt → fulfillment → tracking chain; storefront E2E test deferred (would require Playwright + a seeded live product).
+
+### Verification
+- `npm test` → 31 files / 162 tests passing (added 13: 9 for public/products helpers + 4 for BuyOnEtsyButton).
+- `node_modules/.bin/tsc --noEmit` → exit 0.
+- `npm run build` → succeeds; 22 routes register including `ƒ /`, `ƒ /products`, `ƒ /products/[slug]`; no deprecation warnings.
+- Live verification deferred: all products are `status='draft'` in seed, so the storefront renders the empty state until they are flipped to `live`.
+
+### Phase 1 complete
+All 10 backbone tickets done. End-to-end loop is demo-able:
+1. Public visitor lands on `/`, browses `/products`, opens `/products/[slug]`
+2. Clicks **Buy on Etsy** → `/api/track/etsy-click` fires CAPI/GA4/TikTok + logs conversion_event
+3. Buyer pays on Etsy → webhook hits `/api/webhooks/etsy/receipt`
+4. `processReceipt` upserts customer + order; `deliverOrderFiles` signs URLs, emails via Resend, fires `purchase` event
+
+### Next session
+- Flip products to `status='live'` once Etsy listings are ready
+- TICKET-011 Notion fulfillment plumbing (parallel to Wedding build)
+- Phase 2 ticket breakdown (Klaviyo, ad pulls, reviews, Search Console, AI listing copy)
+- Or: continue Wedding/Notion/Bundle design + build per the product plan
