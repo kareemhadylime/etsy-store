@@ -48,19 +48,19 @@ This identity becomes the default starting palette for the future 5 finance-prod
 - Front-most card: **Net Worth dashboard** (most visually striking — KPI tiles + chart) — same in both bundle SKUs for instant recognition
 - Each card: white surface, charcoal header bar, 1px cool-gray border, ~2° rotation increments
 - Wedding tile (Life Bundle only): dusty-rose header bar instead of charcoal — the *only* color cue that this bundle includes Wedding
-- Top-right badge: warm-gold circle, "**$79 SAVED**" (AI tier) / "**$51 SAVED**" (Pro tier) — tier-specific cover variant
+- Top-right badge: warm-gold circle, tier-specific savings number ("$36" / "$51" / "$50" / "$70" SAVED — see cover variant table below)
 - Bottom pill: charcoal rounded rect with "**6 PRODUCTS**" / "**5 PRODUCTS**" white text
 - Top-left small wordmark: bundle name in Inter 14pt semibold
 
 ### Cover variants required
 | Bundle SKU | Tier | Cards | Wedding accent | Badge text |
 |---|---|---|---|---|
-| Premium Finance Bundle | Pro | 5 | none | $32 SAVED |
-| Premium Finance Bundle | AI | 5 | none | $52 SAVED |
-| Premium Life Bundle | Pro | 6 | 1 dusty-rose tile | $51 SAVED |
-| Premium Life Bundle | AI | 6 | 1 dusty-rose tile | $79 SAVED |
+| Premium Finance Bundle | Pro | 5 | none | $36 SAVED ($79 vs $115 unbundled) |
+| Premium Finance Bundle | AI | 5 | none | $51 SAVED ($119 vs $170 unbundled) |
+| Premium Life Bundle | Pro | 6 | 1 dusty-rose tile | $50 SAVED ($99 vs $149 unbundled) |
+| Premium Life Bundle | AI | 6 | 1 dusty-rose tile | $70 SAVED ($149 vs $219 unbundled) |
 
-(Pro Finance savings calc: $180 unbundled − $97 ≈ $83 → recheck in production. Pricing table above is from proposal; align before exporting.)
+(Numbers updated 2026-05-11 to match the catalog-wide "low alternative" pricing reset. Earlier brief drafts showed $32 / $52 / $51 / $79 — superseded.)
 
 ## 3. Setup Wizard PDF — 10 pages, linear walkthrough
 
@@ -128,7 +128,7 @@ Front half = workflows (the unique bundle value). Back half = dense per-product 
 
 | # | Title | Composition | Headline overlay |
 |---|---|---|---|
-| 1 | **Hero stack** (= cover) | Per Section 2 above | "6 products. $268 value. $189." |
+| 1 | **Hero stack** (= cover) | Per Section 2 above | "6 products. $219 value. $149." (Life Bundle AI variant; other variants pull their unbundled/bundle values from Section 2 table) |
 | 2 | **Cross-product workflow** | Node graph from Setup Wizard p.9 enlarged + 1 mockup partially visible | "Built to work together" |
 | 3 | **Setup Wizard preview** | 3 PDF pages fanned, Setup Wizard cover in front | "Setup wizard included — page-by-page" |
 | 4 | **AI master library preview** | Workflow page in focus + back-half reference page peeking from behind | "60+ AI prompts. 10 workflows." |
@@ -171,3 +171,11 @@ Tier-specific cover variants apply to thumbnail #1 only (4 covers per Section 2 
 - **Total: ~33h** (proposal estimate was ~22h — overage explained by 2 bundle SKUs × 2 tiers = 4 cover variants + 2 PDF variants, plus Brand-Kit setup that compounds across future finance products)
 
 The 11h overage compounds back: ~4h of the Brand Kit setup is amortized across Budget/Debt/Sinking/Net Worth/Small Biz design briefs to come.
+
+## 9. Input / Output Tab Spine — per-spreadsheet rule (catalog-wide)
+
+Bundles are collections of spreadsheets, not single spreadsheets — there is no bundle-level Input or Output tab. The catalog-wide rule (2026-05-11) applies *per included product*, so each of the 5 (Finance Bundle) or 6 (Life Bundle) spreadsheets the buyer receives must already comply.
+
+The Setup Wizard PDF in Section 3 of this brief plays the cross-product input role: a linear walkthrough of which spreadsheet to open first, what to enter, and how data flows between them. It functions as the bundle-level "meta Input Tab" without duplicating data entry the per-product Input Tabs already handle.
+
+Verify before assembling the bundle: every included product proposal must have its Input + Output Tab spine called out in its own proposal doc. Already done for all 6 included spreadsheets (Budget Tracker, Debt Payoff, Sinking Funds, Net Worth, Small Business, Wedding) as of 2026-05-11.

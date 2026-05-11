@@ -58,6 +58,15 @@ _Status: ✅ Approved by user — 2026-05-10_
 
 ---
 
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 17 tabs are scaffolding around this spine.
+
+- **📥 Input Tab — `💼 Assets Summary` + `📉 Liabilities Summary` (paired)**. Buyer's primary entry surfaces: monthly value snapshots per asset class and liability type. No formulas in input cells — these tabs are pure data entry, and every downstream tab (NW History, FIRE Calculator, Asset Allocation, etc.) reads from them. Treat the pair as a single Input surface for the spine rule.
+- **📊 Output Dashboard — `🏠 Dashboard`** (existing) — visual KPI surface. Required visuals: (a) NW Health Score 0–100 as a colored gauge (green ≥80 / amber 50–79 / red <50), (b) line chart "Net worth trajectory" (last 24 months + 12-month projection), (c) donut chart "Asset mix" (real estate / equities / metals / cash / crypto), (d) bar chart "Liabilities by type" with payoff trajectory overlay, (e) FIRE-progress meter. Status cells use design-palette success/warning/alert colors. This tab is the screenshot source for thumbnail #1.
+
+---
+
 ## AI Wealth Intelligence — 7 Prompts
 1. **Monthly NW Narrative** — plain-English explanation of what drove change
 2. **FIRE Forecaster** — personalised number (inflation, life expectancy, risk)
@@ -88,14 +97,14 @@ _Status: ✅ Approved by user — 2026-05-10_
 
 ## Pricing & Tiers
 
-### Essentials — $14
+### Essentials — $12
 - Assets + Liabilities Summary, NW History (5 years)
 - Vehicle Depreciation (up to 2)
 - FIRE Calculator, Age Benchmark
 - Annual Summary
 - Google Sheets + Excel
 
-### Pro — $24
+### Pro — $19
 - Everything in Essentials + dark mode
 - Vehicle Depreciation (up to 5 + TCO)
 - Real Estate (primary + vacation + investment)
@@ -108,7 +117,7 @@ _Status: ✅ Approved by user — 2026-05-10_
 - Beneficiary & Estate Access template
 - Household mode, multi-currency
 
-### AI Edition — $36
+### AI Edition — $29
 - Everything in Pro
 - **AI Wealth Intelligence Tab** with 7 prompts (incl. Estate Planning Advisor)
 

@@ -58,6 +58,15 @@ _Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 
 ---
 
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 19 tabs (per-asset specifics, Nisab, Hawl, Distribution etc.) are scaffolding around this spine.
+
+- **📥 Input Tab — `📋 Wealth Inventory`** (existing). Buyer's primary entry surface: cash, gold (grams), silver (grams), foreign currency balances, refundable deposits, Hajj/Umrah savings, business inventory, receivables, insurance cash value. No formulas in input cells. Plus paired `⚙️ Madhhab Settings` (one-time Hanafi/Maliki/Shafi'i/Hanbali toggle that adjusts ruling logic across all downstream tabs). Treat the pair as the Input surface for the spine rule.
+- **📊 Output Dashboard — `🏠 Dashboard`** (existing) — visual KPI surface. Required visuals: (a) Nisab status gauge (above/below threshold, color-coded green/red), (b) Hawl-progress meter per asset class (months to 12-lunar anniversary), (c) ranked bar "Per-asset Zakat due breakdown" (gold / cash / business / agricultural / etc.), (d) Zakat al-Fitr alert ribbon during Ramadan, (e) annual donut "Distribution by 8 eligible categories" (current year). Status cells use design-palette success (Hawl complete, paid) / warning (approaching) / alert (overdue, unpaid) colors. This tab is the screenshot source for thumbnail #1.
+
+---
+
 ## AI Zakat Advisor — 8 Prompts (cite fatwas)
 1. **Setup Wizard** — guided onboarding, Madhhab + scholar preferences
 2. **Crypto/DeFi Zakat** — BTC, staked, liquidity pool guidance
@@ -72,7 +81,7 @@ _Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 
 ## Pricing & Tiers
 
-### Essentials — $12
+### Essentials — $9
 - Madhhab Settings (4 schools)
 - Wealth Inventory (cash, gold, silver, FX, deposits, Hajj savings)
 - Cryptocurrency (first-class)
@@ -85,7 +94,7 @@ _Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 - Instructions in English + Arabic labels
 - Scholar disclaimer banner
 
-### Pro — $22
+### Pro — $19
 - Everything in Essentials + dark mode
 - Gold vs. Silver Nisab toggle + live spot
 - Hawl tracker + Hijri converter
@@ -101,7 +110,7 @@ _Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 - Multi-currency expansion (PKR, INR, CAD)
 - Debt deduction nuance (12-month rule)
 
-### AI Edition — $34
+### AI Edition — $29
 - Everything in Pro
 - **AI Zakat Advisor Tab** with 8 prompts citing fatwas
 

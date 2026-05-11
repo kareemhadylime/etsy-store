@@ -2,7 +2,7 @@
 
 _Drafted: 2026-05-10_
 _Status: ✅ Design directions approved by user — 2026-05-10_
-_MVP scope: ESSENTIALS-ONLY ($29 Budget Tracker port). Pro + AI tiers gated on Essentials selling through._
+_MVP scope: ESSENTIALS-ONLY ($24 Budget Tracker port — re-priced 2026-05-11 from $29 under "low alternative" rule). Pro ($39 deferred) + AI Edition ($54 deferred) tiers gated on Essentials selling through._
 _Proposal: [`../product-proposals/notion-life-os.md`](../product-proposals/notion-life-os.md)_
 _Sibling briefs: [`./wedding-budget-planner.md`](./wedding-budget-planner.md) · [`./all-in-one-premium-bundle.md`](./all-in-one-premium-bundle.md)_
 
@@ -48,6 +48,14 @@ Same rationale as Bundle: Inter-only inside printed assets keeps licensing simpl
 ## 2. Notion workspace structure (Essentials MVP — Dashboard-first)
 
 The Essentials MVP ports the Budget Tracker brain only. Final page count = **6 pages** (Home + 5 sub-pages), all reachable from the Home dashboard. The Pro + AI tiers extend this same tree when they're greenlit.
+
+### Input / Output Tab spine — Notion analogue (catalog-wide rule)
+Per the catalog-wide architecture rule (2026-05-11), every product surfaces an Input + Output spine. Notion's analogue:
+
+- **📥 Input surfaces** — the 4 database pages (`💵 Income`, `💳 Expense`, `🎯 Budget by Category`, `🔁 Recurring Bills`) where buyers enter data. Database forms are Notion's native equivalent to spreadsheet input cells. Notion-blue accent borders flag entry points; no formula complexity is exposed to the buyer.
+- **📊 Output Dashboard** — the `🏠 Home` page (described below). All visualizations live here: KPI callouts, linked database views, calendar view, formula-driven progress bars. The Home page IS the dashboard; sub-pages are pure input/scaffolding.
+
+Notion is already compliant with the rule by design (it predates the rule). This callout makes the alignment explicit so the rule traces cleanly across the catalog.
 
 ### Page tree
 ```
@@ -151,11 +159,12 @@ Setup video = 3h production + ongoing maintenance liability (Notion's UI changes
 
 | # | Title | Composition | Headline overlay |
 |---|---|---|---|
-| 1 | **Hero — browser-frame mockup** | Stylized macOS browser frame, charcoal/gold UI chrome, Home dashboard rendered in our palette. Banner visible at top, KPI callouts mid-frame, Expense table peeking from below. | "**Notion Budget OS** · $29" + small "Built in Notion. Yours in 60 seconds." |
+| 1 | **Hero — browser-frame mockup** | Stylized macOS browser frame, charcoal/gold UI chrome, Home dashboard rendered in our palette. Banner visible at top, KPI callouts mid-frame, Expense table peeking from below. | "**Notion Budget OS** · $24" + small "Built in Notion. Yours in 60 seconds." |
 | 2 | **Page tour** | 4 Notion pages fanned diagonally bottom-left → top-right: Home / Expenses / Budget / Recurring Bills. Charcoal gradient bg. Each page shows its banner glyph. | "**6 pages. Pre-wired. Premium.**" |
 | 3 | **Duplicate flow** | 3-step horizontal strip with warm-gold arrows: Etsy receipt email → Duplicate URL button → Buyer's own Notion workspace. | "**One click to your workspace.**" |
 | 4 | **Feature highlight** | Closeup of the Budget by Category page: filter pills + database with progress bars + 3 callouts. Charcoal gradient bg behind the floating mockup. | "**Pre-built rollups. Not blank pages.**" |
-| 5 | **Comparison strip** | Side-by-side at 1000×2000 each: left = "Generic Notion template — $9" (sparse, default Notion gray bg, single column of plain text), right = "Notion Budget OS — $29" (full home dashboard with banner + callouts + linked views). | "**Why pay $29 instead of $9?**" + small caption "Because $9 templates are empty pages with a header." |
+| 5 | **Comparison strip** | Side-by-side at 1000×2000 each: left = "Generic Notion template — $9" (sparse, default Notion gray bg, single column of plain text), right = "Notion Budget OS — $24" (full home dashboard with banner + callouts + linked views). | "**Why pay $24 instead of $9?**" + small caption "Because $9 templates are empty pages with a header." |
+
 
 Thumbnail #5 is intentionally pointed. At our price tier (above the EHunt notion median of $11–$36) the listing has to defend the gap on its own — and "look at what you actually get" beats abstract claims.
 
@@ -175,7 +184,7 @@ Thumbnail #5 is intentionally pointed. At our price tier (above the EHunt notion
 
 1. **Glyph drawing source → B (license Phosphor).** Use Phosphor regular weight as the source, then apply our 2px stroke + 4px corner-radius override in Figma to align with the banner spec. Originality risk is low — the value is in the template content, not the icons. Saves ~90 min vs. custom-drawing.
 2. **Notion template seed content → A (realistic dummy data).** Ship with 10 expenses, 5 budget categories, 3 bills, 2 income entries pre-populated. Empty Notion templates feel hollow on first duplicate; the 5-step "First-day actions" page in the Setup PDF then walks buyers through replacing the dummies rather than asking them to create from zero.
-3. **Comparison strip thumbnail (#5) → A (ship as-spec).** Pointed "$9 vs $29" side-by-side with the caption "Because $9 templates are empty pages with a header." At our price tier above the EHunt notion median ($11–$36) the listing must defend the gap visually. No competitor named → low Etsy-flag risk. If Etsy support flags it (unlikely), swap to the softer "what's inside" infographic in v1.1.
+3. **Comparison strip thumbnail (#5) → A (ship as-spec).** Pointed "$9 vs $24" side-by-side with the caption "Because $9 templates are empty pages with a header." At our price tier above the EHunt notion median ($11–$36) the listing must defend the gap visually. No competitor named → low Etsy-flag risk. If Etsy support flags it (unlikely), swap to the softer "what's inside" infographic in v1.1.
 
 ### Cross-brief lock-in (2026-05-11)
 - **Figma file:** Notion Life OS lives as a Page Tab inside the new `Premium Finance Brand Kit` file (shared with Bundle and the 5 future finance products). Zero additional file-setup cost — the Brand Kit's palette + type styles + glyph slots are inherited; only the Notion-specific dual-secondary rule and the 6 banner exports are added on top.

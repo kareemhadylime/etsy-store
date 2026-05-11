@@ -2,7 +2,7 @@
 
 _Drafted: 2026-05-11_
 _Status: v1 draft — awaiting sign-off_
-_Product: Notion Life OS — Essentials MVP ($29 Budget port). Pro + AI Edition tiers deferred until Essentials hits 5+ sales/wk per proposal scope-cut._
+_Product: Notion Life OS — Essentials MVP ($24 Budget port). Pro + AI Edition tiers deferred until Essentials hits 5+ sales/wk per proposal scope-cut._
 _Reference: [proposal](../product-proposals/notion-life-os.md) · [design brief](../product-designs/notion-life-os.md)_
 
 ---
@@ -18,7 +18,7 @@ Notion Budget Template | Notion Life OS | Premium Personal Finance Workspace, Pr
 ## 2. Subtitle / promotional teaser (159 char)
 
 ```
-A real Notion budget template — not a blank page. Pre-wired databases, rollups, and a dashboard you can use the minute you duplicate it. $29 one-time. No subscription.
+A real Notion budget template — not a blank page. Pre-wired databases, rollups, and a dashboard you can use the minute you duplicate it. $24 one-time. No subscription.
 ```
 
 ## 3. Description (3,028 char)
@@ -26,7 +26,7 @@ A real Notion budget template — not a blank page. Pre-wired databases, rollups
 ```
 A Notion workspace built like a real product, not a blank page with a header.
 
-Most Notion budget templates are $9. They're also empty databases with no rollups, no dashboard, and a single screenshot for marketing. This is $29. You're paying for the part that's already built — the dashboard, the rollups, the linked views, the database structure that took 25 hours to design.
+Most Notion budget templates are $9. They're also empty databases with no rollups, no dashboard, and a single screenshot for marketing. This is $24. You're paying for the part that's already built — the dashboard, the rollups, the linked views, the database structure that took 25 hours to design.
 
 — What you get —
 
@@ -40,7 +40,7 @@ Most Notion budget templates are $9. They're also empty databases with no rollup
 → Realistic dummy data (10 expenses, 5 categories, 3 bills) — replace, don't start from zero
 → 5-page Setup PDF + duplicate link delivered instantly
 
-— Why this is $29, not $9 —
+— Why this is $24, not $9 —
 
 ▸ The $9 templates are blank pages. You spend 4–6 hours building the rollups and dashboard yourself.
 ▸ This is shipped working. Duplicate, open Home, see real numbers in 60 seconds.
@@ -80,7 +80,7 @@ Single tier for MVP. No Etsy variations needed.
 
 | Variation | Value | Price | What's included |
 |---|---|---|---|
-| (none) | Essentials | $29.00 | 6-page Notion Budget workspace + realistic seed data + 5-page Setup PDF |
+| (none) | Essentials | $24.00 | 6-page Notion Budget workspace + realistic seed data + 5-page Setup PDF |
 
 ## 5. Tags (13, all under 20 char)
 
@@ -136,7 +136,7 @@ Single tier for MVP. No Etsy variations needed.
 > A: No. Notion can't connect to banks — that's a Plaid feature, and Notion doesn't support Plaid. This is a manual-entry budget tracker for people who'd rather see their numbers in Notion than in Mint/Copilot/YNAB. The trade-off is privacy + Notion-native vs. automatic imports.
 
 > **Q: What's coming in Pro and AI Edition?**
-> A: Pro ($49, planned) adds the Net Worth + Investment Portfolio databases — same Notion-native design, more financial coverage. AI Edition ($69, planned) adds 30+ Notion AI prompts saved as templates inside the workspace + a sidebar of ChatGPT/Claude prompts for people who use external AI. Both tiers ship after Essentials hits sustained sales — so buying Essentials is a vote for the expansion roadmap.
+> A: Pro ($39, planned) adds the Net Worth + Investment Portfolio databases — same Notion-native design, more financial coverage. AI Edition ($54, planned) adds 30+ Notion AI prompts saved as templates inside the workspace + a sidebar of ChatGPT/Claude prompts for people who use external AI. Both tiers ship after Essentials hits sustained sales — so buying Essentials is a vote for the expansion roadmap.
 
 > **Q: Will I get the Pro and AI Editions free if I buy Essentials now?**
 > A: Pro and AI will be paid upgrades when they ship. We'll offer Essentials buyers a discount equal to your Essentials purchase price (so you don't pay twice for what you already own). Watch for the email when they launch.
@@ -151,11 +151,11 @@ Single tier for MVP. No Etsy variations needed.
 
 Per the design brief's 5-thumbnail spec — designer pulls strings from here:
 
-- **Thumbnail #1 (hero browser-frame mockup):** "Notion Budget OS · $29" + "Built in Notion. Yours in 60 seconds."
+- **Thumbnail #1 (hero browser-frame mockup):** "Notion Budget OS · $24" + "Built in Notion. Yours in 60 seconds."
 - **Thumbnail #2 (page tour, 4 pages fanned):** "6 pages. Pre-wired. Premium."
 - **Thumbnail #3 (duplicate flow strip):** "One click to your workspace."
 - **Thumbnail #4 (Budget by Category close-up):** "Pre-built rollups. Not blank pages."
-- **Thumbnail #5 (comparison strip):** "Why pay $29 instead of $9?" + caption "Because $9 templates are empty pages with a header."
+- **Thumbnail #5 (comparison strip):** "Why pay $24 instead of $9?" + caption "Because $9 templates are empty pages with a header."
 
 ## 9. Production notes
 

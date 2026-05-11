@@ -52,6 +52,15 @@ Credit cards · Personal loans · Car loans · Student loans · Medical debt · 
 
 ---
 
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 16 tabs are scaffolding around this spine.
+
+- **📥 Input Tab — `📋 Debt List`** (existing). Buyer's primary entry surface: each debt's name, type, balance, APR, minimum payment, due date, target payoff date. Up to 20 debts. No formulas in input cells. The Debt List feeds every downstream tab.
+- **📊 Output Dashboard — `🏠 Dashboard`** (existing) — visual KPI surface. Required visuals: (a) Debt Health Score 0–100 as a colored gauge (green ≥80 / amber 50–79 / red <50), (b) line chart "Debt-free trajectory" projecting total debt to $0 by month, (c) donut chart "Debt by APR band" (high APR / mid / low), (d) bar chart "Payments due this month." Status cells use design-palette success/warning/alert colors for paid/at-risk/overdue. This tab is the screenshot source for thumbnail #1.
+
+---
+
 ## Debt Health Score (0–100) — Composite metric
 - Debt paid ÷ original total (40%)
 - Interest saved vs. minimum payments (30%)
@@ -94,7 +103,7 @@ Live on Dashboard. AI Edition includes Health Score Coach prompt.
 
 ## Pricing & Tiers
 
-### Essentials — $14
+### Essentials — $12
 - Up to 10 debts (8 types)
 - Snowball + Avalanche methods
 - Strategy Comparison Matrix
@@ -108,7 +117,7 @@ Live on Dashboard. AI Edition includes Health Score Coach prompt.
 - Debt Health Score 0–100
 - Google Sheets + Excel
 
-### Pro — $24
+### Pro — $19
 - Everything in Essentials
 - Up to 20 debts, dark mode
 - Custom payoff method
@@ -124,7 +133,7 @@ Live on Dashboard. AI Edition includes Health Score Coach prompt.
 - Refinance radar
 - Net worth impact tracker
 
-### AI Edition — $36
+### AI Edition — $29
 - Everything in Pro
 - **AI Credit Score Coach Tab** with 7 prompts (incl. Health Score Coach)
 

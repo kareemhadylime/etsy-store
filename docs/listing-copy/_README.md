@@ -48,12 +48,18 @@ Every listing doc follows the same skeleton:
 
 | Claim | Used where | Source of truth |
 |---|---|---|
-| "$79 SAVED" (Life Bundle AI) | Bundle brief thumbnail #1, Bundle AI listing | proposal pricing table |
-| "$51 SAVED" (Life Bundle Pro) | Bundle brief thumbnail #1, Bundle Pro listing | proposal pricing table |
-| "60+ AI prompts. 10 workflows." | Bundle brief thumbnail #4, Bundle AI listing | Bundle brief Section 4 |
+| "$70 SAVED" (Life Bundle AI) | Bundle brief thumbnail #1, Life-AI listing | proposal pricing table (re-priced 2026-05-11) |
+| "$50 SAVED" (Life Bundle Pro) | Bundle brief thumbnail #1, Life-Pro listing | proposal pricing table |
+| "$51 SAVED" (Finance Bundle AI) | Bundle brief thumbnail #1, Finance-AI listing | proposal pricing table |
+| "$36 SAVED" (Finance Bundle Pro) | Bundle brief thumbnail #1, Finance-Pro listing | proposal pricing table |
+| "60+ AI prompts. 10 workflows." | Bundle brief thumbnail #4, Bundle AI listings | Bundle brief Section 4 |
 | "6 products" / "5 products" | Bundle covers + listings | Bundle brief Section 2 |
-| "Why pay $29 instead of $9?" | Notion brief thumbnail #5, Notion listing | Notion brief Section 5 |
+| "Why pay $24 instead of $9?" | Notion brief thumbnail #5, Notion listing | Notion brief Section 5 |
 | "$360 / 18 months" wedding SaaS | Wedding listing | Wedding proposal "Dated claims" |
 | "$30,000 average wedding" | Wedding listing | Wedding proposal "Dated claims" — The Knot 2025 |
+| Wedding tier prices $19 / $34 / $49 | Wedding listing, Wedding brief P2, brief Section 1.5 | Handshake pricing table (re-priced 2026-05-11) |
+| Notion Essentials $24 | Notion listing, Notion brief throughout | Handshake pricing table |
 
-If any of these change, update the brief + listing + handshake together.
+**Pricing rule (catalog-wide):** "low alternative" — always pick the lower viable price while staying above the "doesn't look cheap" floor. See `~/.claude/projects/C--ETSY/memory/feedback_pricing_lower_alternative.md`. If any price needs to change, update the proposal + brief + listing + handshake together.
+
+**Input/Output Tab spine rule (catalog-wide):** every spreadsheet listing description should reference the visual dashboard if a screenshot is part of the listing. See `~/.claude/projects/C--ETSY/memory/feedback_spreadsheet_input_output_dashboard.md`.

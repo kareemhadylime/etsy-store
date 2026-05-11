@@ -66,6 +66,15 @@ _Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 
 ---
 
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 17 tabs are scaffolding around this spine.
+
+- **📥 Input Tab — `📊 Holdings Master`** (existing). Buyer's primary entry surface: every position's ticker, shares, cost basis, purchase date, account location, tax-advantaged flag. Live price pulled via GOOGLEFINANCE — no formulas in the input cells the buyer touches. Holdings Master feeds Stocks Tracker, ETFs, Performance, Risk Metrics, Tax Lot Tracker, and all downstream tabs.
+- **📊 Output Dashboard — `🏠 Dashboard`** (existing) — visual KPI surface. Required visuals: (a) donut chart "Asset allocation" (stocks / bonds / cash / metals / crypto / REITs) with current % vs. target % overlay, (b) line chart "Portfolio value trajectory" (last 24 months), (c) bar chart "Dividend income by month" (YTD + forecasted), (d) ranked bar "Top 5 holdings by value," (e) status row for drift alerts (color-coded when allocation drifts >5% from target). Status cells use design-palette success/warning/alert colors. This tab is the screenshot source for thumbnail #1.
+
+---
+
 ## AI Portfolio Intelligence Tab — 8 Prompts
 1. **Allocation Advisor** — current vs. age-appropriate model, rebalancing trades
 2. **Tax-Loss Harvesting Scout** — wash-sale-safe sell/buy pairs, est. tax savings
@@ -80,7 +89,7 @@ _Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 
 ## Pricing & Tiers
 
-### Essentials — $19
+### Essentials — $17
 - Holdings Master (up to 30 positions)
 - Cash & FX Holdings
 - Stocks + ETFs + Mutual Funds tabs
@@ -90,7 +99,7 @@ _Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 - Annual Summary
 - Google Sheets only (Excel needs APIs)
 
-### Pro — $29
+### Pro — $24
 - Everything in Essentials
 - Up to 60 positions, dark mode
 - Bonds & Fixed Income tab
@@ -104,7 +113,7 @@ _Status: ✅ Approved by user — 2026-05-10 (v3 final)_
 - User-configurable rebalancing threshold
 - Sector + geographic concentration
 
-### AI Edition — $44
+### AI Edition — $34
 - Everything in Pro
 - Region tax toggle (US/UK/EU/AU/CA)
 - **AI Portfolio Intelligence Tab** with 8 prompts

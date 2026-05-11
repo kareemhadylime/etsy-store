@@ -25,7 +25,7 @@ The wedding planner that lives in your spreadsheet, not someone else's app. 22 t
 ```
 A wedding budget + planning spreadsheet for couples who'd rather own their wedding plan than rent one.
 
-The average US wedding costs ~$30,000 (The Knot 2025). Wedding planning SaaS (Zola, Joy, The Knot) runs $20–$40/month. Over an 18-month engagement that's $360+ on top of the wedding itself. This is $24 once. You keep it forever.
+The average US wedding costs ~$30,000 (The Knot 2025). Wedding planning SaaS (Zola, Joy, The Knot) runs $20–$40/month. Over an 18-month engagement that's $360+ on top of the wedding itself. This is $19 once. You keep it forever.
 
 — What you get —
 
@@ -40,14 +40,14 @@ The average US wedding costs ~$30,000 (The Knot 2025). Wedding planning SaaS (Zo
 
 — Three tiers —
 
-▸ ESSENTIALS ($24) — 12 tabs. Everything you need to plan, budget, and run the day.
-▸ PRO ($39) — adds Cost Per Guest calculator, Vendor Comparison Matrix, Bridal Party Tracker, Gift Registry. 16 tabs total.
-▸ AI EDITION ($59) — adds 6 AI-assisted tabs with ChatGPT/Claude prompts: Guest List Optimizer, Vendor Cost Intelligence, Seating Constraint Solver, RSVP Reminder Scripts, Day-of Crisis Playbook, plus dedicated Muslim (mahr, walima) and Hindu (multi-day) cultural variant tabs. 22 tabs total. No AI subscription needed — works with ChatGPT free tier or Claude.
+▸ ESSENTIALS ($19) — 12 tabs. Everything you need to plan, budget, and run the day.
+▸ PRO ($34) — adds Cost Per Guest calculator, Vendor Comparison Matrix, Bridal Party Tracker, Gift Registry. 16 tabs total.
+▸ AI EDITION ($49) — adds 6 AI-assisted tabs with ChatGPT/Claude prompts: Guest List Optimizer, Vendor Cost Intelligence, Seating Constraint Solver, RSVP Reminder Scripts, Day-of Crisis Playbook, plus dedicated Muslim (mahr, walima) and Hindu (multi-day) cultural variant tabs. 22 tabs total. No AI subscription needed — works with ChatGPT free tier or Claude.
 
 — Why a spreadsheet, not an app —
 
 🤍 Privacy: your guest list never touches our servers. Yours, locally, forever.
-🤍 No subscription: $360 of SaaS over 18 months → $24 once.
+🤍 No subscription: $360 of SaaS over 18 months → $19 once.
 🤍 Methodology-agnostic: works for Muslim, Christian, Jewish, Hindu, secular, blended weddings.
 🤍 Lifetime: still useful for anniversaries, hosting friends' weddings, planning vow renewals.
 
@@ -75,9 +75,9 @@ Etsy supports 1 variation type with up to 70 values. We use one variation: **Tie
 
 | Variation | Value | Price | What's added |
 |---|---|---|---|
-| Tier | Essentials | $24.00 | 12 tabs — Setup Wizard, Budget Dashboard, 14 categories, Vendor Tracker, Guest List, RSVP, Seating Chart, Master Timeline, Day-of Schedule, Vendor Contact Sheet, Honeymoon, Annual Reflection |
-| Tier | Pro | $39.00 | All Essentials + Cost Per Guest calculator + Vendor Comparison Matrix + Bridal Party Tracker + Gift Registry. 16 tabs total. |
-| Tier | AI Edition | $59.00 | All Pro + 6 AI-assisted tabs (Guest List Optimizer / Vendor Cost Intelligence / Seating Constraint Solver / RSVP Reminder Scripts / Day-of Crisis Playbook) + Muslim variant tab + Hindu variant tab. 22 tabs total. Includes 12-month free template refreshes. |
+| Tier | Essentials | $19.00 | 12 tabs — Setup Wizard, Budget Dashboard, 14 categories, Vendor Tracker, Guest List, RSVP, Seating Chart, Master Timeline, Day-of Schedule, Vendor Contact Sheet, Honeymoon, Annual Reflection |
+| Tier | Pro | $34.00 | All Essentials + Cost Per Guest calculator + Vendor Comparison Matrix + Bridal Party Tracker + Gift Registry. 16 tabs total. |
+| Tier | AI Edition | $49.00 | All Pro + 6 AI-assisted tabs (Guest List Optimizer / Vendor Cost Intelligence / Seating Constraint Solver / RSVP Reminder Scripts / Day-of Crisis Playbook) + Muslim variant tab + Hindu variant tab. 22 tabs total. Includes 12-month free template refreshes. |
 
 ## 5. Tags (13, all under 20 char)
 
@@ -136,7 +136,7 @@ Ordered by SEO priority. Targeted mix of head terms + buyer-intent long-tails:
 > A: Yes. Buyers use it for anniversaries (the Annual Reflection tab), hosting friends' weddings, vow renewals, and even baby showers (the budget + vendor + guest tabs port cleanly). One-time purchase, lifetime access.
 
 > **Q: How is this different from Zola / Joy / The Knot?**
-> A: Three things. (1) Privacy — your guest list and budget stay in your Drive, never on our servers. (2) Price — $24 once vs. $20–$40/month × 18 months. (3) Flexibility — those apps lock you into one budget categorization, one timeline structure, one guest list format. This is a spreadsheet. Edit anything.
+> A: Three things. (1) Privacy — your guest list and budget stay in your Drive, never on our servers. (2) Price — $19 once vs. $20–$40/month × 18 months. (3) Flexibility — those apps lock you into one budget categorization, one timeline structure, one guest list format. This is a spreadsheet. Edit anything.
 
 > **Q: Do I need to know spreadsheets to use this?**
 > A: No, but it helps. The Setup Wizard tab walks you through configuring it in 5 minutes (your date, guest count, budget cap, region). If you can fill in a cell and use the "Make a Copy" button, you can use this.
@@ -151,7 +151,7 @@ Ordered by SEO priority. Targeted mix of head terms + buyer-intent long-tails:
 
 These strings appear on listing thumbnails (per the design brief's 5-thumbnail spec). Designer pulls them from this section exactly:
 
-- **Thumbnail #1 (hero):** "Plan the wedding. Keep the spreadsheet." + "22 tabs · $24 — $59"
+- **Thumbnail #1 (hero):** "Plan the wedding. Keep the spreadsheet." + "22 tabs · $19 — $49"
 - **Thumbnail #2 (Budget Dashboard close-up):** "Where your $30k actually goes."
 - **Thumbnail #3 (Guest + Seating combined):** "RSVPs, seating, dietary, kids — one tab each."
 - **Thumbnail #4 (AI prompts page from PDF):** "8 AI prompts. No subscription. Works with ChatGPT free."

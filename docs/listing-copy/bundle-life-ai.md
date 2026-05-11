@@ -2,7 +2,8 @@
 
 _Drafted: 2026-05-11_
 _Status: v1 draft — awaiting sign-off_
-_Product: 6-SKU life bundle at AI Edition tier ($189). Includes Wedding._
+_Product: 6-SKU life bundle at AI Edition tier ($149). Includes Wedding._
+_Re-priced 2026-05-11 under catalog-wide "low alternative" rule. Earlier draft used $189 / $79 saved ($268 unbundled). New numbers: $149 / $70 saved ($219 unbundled)._
 _Reference: [proposal](../product-proposals/all-in-one-premium-bundle.md) · [design brief](../product-designs/all-in-one-premium-bundle.md)_
 
 ---
@@ -16,7 +17,7 @@ Premium Life Bundle AI Edition | 6 Spreadsheets + 60 ChatGPT Claude Prompts + We
 ## 2. Subtitle / promotional teaser (160 char)
 
 ```
-Six spreadsheets + sixty AI prompts for the engagement-to-business arc. Wedding, budget, debt, savings, net worth, business. $79 off unbundled. Built for AI users.
+Six spreadsheets + sixty AI prompts for the engagement-to-business arc. Wedding, budget, debt, savings, net worth, business. $70 off unbundled. Built for AI users.
 ```
 
 ## 3. Description (3,348 char)
@@ -24,16 +25,16 @@ Six spreadsheets + sixty AI prompts for the engagement-to-business arc. Wedding,
 ```
 Six spreadsheets covering the life-stage arc most couples actually live + a 30-page master AI prompt library that ties them together. Built for buyers who use ChatGPT or Claude as a daily tool — now with the prompts to make them useful for real money decisions.
 
-Buy them individually at $268 (AI Edition across all six). Buy the bundle at $189. Save $79.
+Buy them individually at $219 (AI Edition across all six). Buy the bundle at $149. Save $70.
 
 — What's inside —
 
-→ Wedding Budget & Planner (AI Edition) — $59 standalone — 22 tabs incl. Muslim + Hindu cultural variants
-→ Budget Tracker (AI Edition) — $34 standalone
-→ Debt Payoff Planner (AI Edition) — $36 standalone
-→ Sinking Funds Planner (AI Edition) — $34 standalone
-→ Net Worth Tracker (AI Edition) — $36 standalone
-→ Small Business Finance Kit (AI Edition) — $69 standalone
+→ Wedding Budget & Planner (AI Edition) — $49 standalone — 22 tabs incl. Muslim + Hindu cultural variants
+→ Budget Tracker (AI Edition) — $29 standalone
+→ Debt Payoff Planner (AI Edition) — $29 standalone
+→ Sinking Funds Planner (AI Edition) — $29 standalone
+→ Net Worth Tracker (AI Edition) — $29 standalone
+→ Small Business Finance Kit (AI Edition) — $54 standalone
 
 Plus the bundle-only Master AI Prompt Library:
 
@@ -57,9 +58,9 @@ Plus the bundle-only Master AI Prompt Library:
 
 Each workflow ships as a 1-page card: prompt sequence, copy-paste ready, sample input → sample output.
 
-— Why $189 instead of $268 —
+— Why $149 instead of $219 —
 
-▸ Buy together and save $79 (29% off the unbundled price)
+▸ Buy together and save $70 (32% off the unbundled price)
 ▸ Master prompt library is bundle-exclusive — not sold separately
 ▸ Wedding cross-product workflows (#2, #7) only make sense when you own Wedding + the finance spreadsheets together
 ▸ One Drive folder, one purchase, one consistent design system
@@ -76,12 +77,12 @@ Side business launches → Small Business Finance Kit + AI tax-prep prompt chain
 ✓ Engaged couples who use ChatGPT or Claude regularly
 ✓ Buyers planning weddings with non-Western elements (the Wedding AI Edition includes dedicated Muslim and Hindu variant tabs)
 ✓ People who tried "AI for personal finance apps" and want something deeper
-✓ Anyone who'd buy the standalone Wedding AI Edition ($59) + Finance AI Bundle ($149) separately — saves $19 buying them together as this bundle
+✓ Anyone who'd buy the standalone Wedding AI Edition ($49) + Finance AI Bundle ($119) separately — saves $19 buying them together as this bundle
 
 — Who this isn't for —
 
-✗ Buyers without AI tool use — the Pro Life Bundle ($129) saves $60
-✗ Buyers without a wedding — the Finance AI Bundle ($149) saves $40
+✗ Buyers without AI tool use — the Pro Life Bundle ($99) saves $50
+✗ Buyers without a wedding — the Finance AI Bundle ($119) saves $30
 ✗ Buyers expecting one-click AI integration (prompts are pasted manually)
 
 — What you get on delivery —
@@ -107,7 +108,7 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 
 | Variation | Value | Price | What's included |
 |---|---|---|---|
-| (none) | AI Edition Life Bundle | $189.00 | 6 AI Edition spreadsheets (incl. Wedding) + 30-page Master AI Prompt Library PDF + 10-page Setup Wizard PDF + Quick-start 1-pager + 12-mo free refresh |
+| (none) | AI Edition Life Bundle | $149.00 | 6 AI Edition spreadsheets (incl. Wedding) + 30-page Master AI Prompt Library PDF + 10-page Setup Wizard PDF + Quick-start 1-pager + 12-mo free refresh |
 
 ## 5. Tags (13, all under 20 char)
 
@@ -155,11 +156,11 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 > **Q: 12-month free refresh — what does that actually mean?**
 > A: AI Edition tier (this listing) gets free template updates for 12 months from purchase. If we ship a Wedding update, a new prompt library version, a Notion-style page redesign — you get it free for 12 months. After that, major updates are paid; bug fixes remain free forever. (Pro tier is one-time purchase with bug fixes free, no refresh window.)
 
-> **Q: I already own the standalone Wedding AI Edition ($59). Can I get credit?**
+> **Q: I already own the standalone Wedding AI Edition ($49). Can I get credit?**
 > A: Yes. Email us the Etsy order number(s) for what you already own — Wedding, any of the finance spreadsheets, the Wedding+Sinking combo, anything. We send a coupon code for the difference within 24 hours.
 
-> **Q: Why $189 — is that high for a digital bundle?**
-> A: It's $79 below the unbundled price of the 6 AI Edition spreadsheets. Comparable bundle on Etsy (Wildflower Wedding Bundle) hits $1,127/week at $23 — different volume model, different depth. Our bet: smaller buyer count at a premium price for deeper product. If $189 isn't right for you, the Pro Life Bundle ($129) or the Finance Pro Bundle ($97) are the right alternatives.
+> **Q: Why $149 — is that high for a digital bundle?**
+> A: It's $70 below the unbundled price of the 6 AI Edition spreadsheets. Comparable bundle on Etsy (Wildflower Wedding Bundle) hits $1,127/week at $23 — different volume model, different depth. Our bet: smaller buyer count at a premium-but-accessible price for deeper product. If $149 isn't right for you, the Pro Life Bundle ($99) or the Finance Pro Bundle ($79) are the right alternatives.
 
 > **Q: Refund policy?**
 > A: All-or-nothing. Bundles can't be partially refunded. If unsure, start with one standalone listing first.
@@ -171,7 +172,7 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 
 Per Bundle design brief Section 2:
 
-- **Thumbnail #1 (hero stack, 6 cards, 1 dusty-rose tile for Wedding):** "6 products + 60 AI prompts. $268 value. $189." + "**$79 SAVED**" warm-gold badge + "**6 PRODUCTS**" charcoal pill
+- **Thumbnail #1 (hero stack, 6 cards, 1 dusty-rose tile for Wedding):** "6 products + 60 AI prompts. $219 value. $149." + "**$70 SAVED**" warm-gold badge + "**6 PRODUCTS**" charcoal pill
 - **Thumbnail #2 (cross-product workflow):** "Built to work together — including the wedding"
 - **Thumbnail #3 (Setup Wizard preview):** "Setup wizard included — page by page"
 - **Thumbnail #4 (AI library preview):** "60+ AI prompts. 10 workflows. 3 wedding-specific."
@@ -179,7 +180,7 @@ Per Bundle design brief Section 2:
 
 ## 9. Production notes
 
-- Pricing math is correct: $268 unbundled ($34 + $36 + $34 + $36 + $69 + $59 Wedding AI) − $189 bundle = $79 saved. Brief Section 2 confirms.
+- Pricing math (catalog-wide reset 2026-05-11): $219 unbundled ($29 + $29 + $29 + $29 + $54 + $49 Wedding AI) − $149 bundle = $70 saved (32%). Brief Section 2 confirms.
 - Wedding tile in hero stack uses **dusty-rose header bar** (only place dusty rose appears in Life Bundle).
 - Master AI Library PDF is the **Life variant** (~30 pages, includes Wedding section per brief Section 4). Finance variant is ~28 pages.
 - Setup Wizard PDF is the **Life variant** (10 pages, includes Wedding setup page on page 8 per brief Section 3).
@@ -188,4 +189,4 @@ Per Bundle design brief Section 2:
 - Wedding-specific FAQ on Muslim + Hindu variants is the single highest differentiator vs. competitors — Wildflower Wedding Bundle ($23, top wedding bundle at $1,127/wk) does not offer this. Make sure this point appears in the listing description (it does, under "Who this is for") + FAQ.
 - Same-sex / non-traditional FAQ proactively included — Etsy buyers often filter for inclusive products and explicit yes-language drives conversion in those searches.
 - The 3 Wedding-specific workflow titles must match the actual PDF content — keep brief Section 4 + this listing + the PDF in sync.
-- This is the highest-price product in the catalog ($189). Listing copy length + FAQ depth is intentional to defend the price.
+- This is the highest-price product in the catalog ($149). Listing copy length + FAQ depth is intentional to defend the price.

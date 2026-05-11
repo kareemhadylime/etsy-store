@@ -37,6 +37,14 @@ _Proposal: [`../product-proposals/wedding-budget-planner.md`](../product-proposa
 
 ## 2. Spreadsheet visual system (applies to all 22 tabs)
 
+### Input / Output Tab spine (catalog-wide rule)
+Per the catalog-wide architecture rule (2026-05-11), every spreadsheet has a structural spine of two tabs:
+
+- **📥 Input Tab — `🧭 Setup Wizard`** (proposal tab #1): buyer's primary data-entry surface. Top bar shows the global KPI tiles; body is a clean form layout with labeled cells, dropdowns for venue type / region / currency, no formulas visible to the buyer.
+- **📊 Output Dashboard — `🏠 Budget Dashboard`** (proposal tab #2): visual KPI surface with required charts (donut "Spent vs. remaining" + stacked bar "By category vs. target" + ranked bar "Top 5 vendors" + line "Cumulative spend trajectory" + RSVP-progress meter). Uses the Wedding palette's success/warning/alert colors for status cells. Source for thumbnails #1 + #2.
+
+The remaining 20 tabs are scaffolding around this spine. The visual rules below apply to all 22 tabs.
+
 ### Top bar (persistent, frozen row 1–3)
 - Row 1: logo + product name (Cormorant 18pt) + tab name (Inter 12pt, center)
 - Row 2: 6 KPI tiles — total budget, spent, % used, days to wedding, guests, vendors
@@ -44,7 +52,7 @@ _Proposal: [`../product-proposals/wedding-budget-planner.md`](../product-proposa
 
 ### Banner library (rotates per tab)
 1. 🔒 **Privacy-first** — Your guest list never touches our servers
-2. 💸 **No subscription** — Wedding apps charge $20/mo × 18 months = $360. This is $24 once.
+2. 💸 **No subscription** — Wedding apps charge $20/mo × 18 months = $360. This is $19 once.
 3. 🤔 **Why a spreadsheet, not an app?** — Pay once, own forever, methodology-agnostic
 
 ### Tab-level structure
@@ -101,7 +109,7 @@ Listing cover = thumbnail #1.
 | # | Decision | Locked choice | Rationale |
 |---|---|---|---|
 | P1 | Spreadsheet platform | **Google Sheets** (v1) | Real-time co-edit on phones is the killer feature for couples/family/planner; Excel deferred to v2 if buyer demand surfaces |
-| P2 | Thumbnail tool | **Figma** | Premium $24–$59 pricing demands premium thumbnails; component library amortizes across Bundle (10) + Notion (11) thumbnails |
+| P2 | Thumbnail tool | **Figma** | Premium $19–$49 pricing demands premium thumbnails; component library amortizes across Bundle (10) + Notion (11) thumbnails |
 | P3 | AI prompt PDF tool | **Figma → PDF export** | Same tool as thumbnails — single "Wedding Brand Kit" file holds palette, type, components, thumbnails, and PDF; coherent and re-skinnable for Bundle |
 
 ### Implications for build

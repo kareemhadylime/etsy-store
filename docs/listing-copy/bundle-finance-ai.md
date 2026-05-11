@@ -2,9 +2,9 @@
 
 _Drafted: 2026-05-11_
 _Status: v1 draft — awaiting sign-off_
-_Product: 5-SKU finance bundle at AI Edition tier ($149). No Wedding included._
+_Product: 5-SKU finance bundle at AI Edition tier ($119). No Wedding included._
 _Reference: [proposal](../product-proposals/all-in-one-premium-bundle.md) · [design brief](../product-designs/all-in-one-premium-bundle.md)_
-_⚠️ Pricing reconciliation: Bundle brief Section 2 lists "$52 SAVED" but correct math is $60. See bundle-finance-pro.md Production Notes._
+_Re-priced 2026-05-11 under catalog-wide "low alternative" rule. Earlier draft used $149 / $60 saved._
 
 ---
 
@@ -17,7 +17,7 @@ Premium Finance Bundle AI Edition | 5 Spreadsheets + 60 ChatGPT Claude Prompts +
 ## 2. Subtitle / promotional teaser (159 char)
 
 ```
-Five finance spreadsheets, sixty AI prompts, ten cross-product workflows. Built for buyers who live in ChatGPT or Claude. $60 off unbundled. One purchase. Forever.
+Five finance spreadsheets, sixty AI prompts, ten cross-product workflows. Built for buyers who live in ChatGPT or Claude. $51 off unbundled. One purchase. Forever.
 ```
 
 ## 3. Description (3,234 char)
@@ -25,17 +25,17 @@ Five finance spreadsheets, sixty AI prompts, ten cross-product workflows. Built 
 ```
 Five finance spreadsheets + a master AI prompt library that ties them together. 60+ prompts. 10 cross-product workflows. Designed for the buyer who already pastes their data into ChatGPT or Claude — now with the right prompts to make them useful.
 
-Buy the 5 AI Edition spreadsheets individually: $209. Buy this bundle: $149. Save $60.
+Buy the 5 AI Edition spreadsheets individually: $170. Buy this bundle: $119. Save $51.
 
 — What's inside —
 
 5 AI Edition spreadsheets, professionally built, designed to share data:
 
-→ Budget Tracker (AI Edition) — $34 standalone
-→ Debt Payoff Planner (AI Edition) — $36 standalone
-→ Sinking Funds Planner (AI Edition) — $34 standalone
-→ Net Worth Tracker (AI Edition) — $36 standalone
-→ Small Business Finance Kit (AI Edition) — $69 standalone
+→ Budget Tracker (AI Edition) — $29 standalone
+→ Debt Payoff Planner (AI Edition) — $29 standalone
+→ Sinking Funds Planner (AI Edition) — $29 standalone
+→ Net Worth Tracker (AI Edition) — $29 standalone
+→ Small Business Finance Kit (AI Edition) — $54 standalone
 
 Plus the bundle-only Master AI Prompt Library:
 
@@ -59,9 +59,9 @@ Plus the bundle-only Master AI Prompt Library:
 
 Each workflow ships as a 1-page card: prompt sequence, copy-paste ready, with a worked example showing sample input → sample output.
 
-— Why $149 instead of $209 —
+— Why $119 instead of $170 —
 
-▸ Buy together and save $60 (29% off the unbundled price)
+▸ Buy together and save $51 (30% off the unbundled price)
 ▸ The master prompt library is bundle-exclusive — not sold separately
 ▸ Cross-product workflows only make sense when you own the cross-product spreadsheets
 ▸ One Drive folder, one purchase, one consistent design system
@@ -74,7 +74,7 @@ Each workflow ships as a 1-page card: prompt sequence, copy-paste ready, with a 
 
 — Who this isn't for —
 
-✗ Buyers who don't use AI tools — the Pro Bundle ($97) is the right tier; you'll save $52
+✗ Buyers who don't use AI tools — the Pro Bundle ($79) is the right tier; you'll save $40
 ✗ People expecting a one-click AI integration — the prompts are pasted manually into your AI tool
 ✗ Anyone hoping for an AI that connects to a bank (it doesn't; this is prompt engineering, not Plaid)
 
@@ -101,7 +101,7 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 
 | Variation | Value | Price | What's included |
 |---|---|---|---|
-| (none) | AI Edition Bundle | $149.00 | 5 AI Edition spreadsheets + 28-page Master AI Prompt Library PDF + 9-page Setup Wizard PDF + Quick-start 1-pager |
+| (none) | AI Edition Bundle | $119.00 | 5 AI Edition spreadsheets + 28-page Master AI Prompt Library PDF + 9-page Setup Wizard PDF + Quick-start 1-pager |
 
 ## 5. Tags (13, all under 20 char)
 
@@ -146,8 +146,8 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 > **Q: Is this just prompts I could write myself?**
 > A: You could, yes. So could you write your own budget spreadsheet. The bundle is for buyers who want the prompts tested, structured, and ready to paste — not buyers who want to research prompt engineering for personal finance. The 10 cross-product workflows specifically are non-obvious enough that even technical buyers usually don't think to wire spreadsheets together this way.
 
-> **Q: What's different vs. the $97 Pro bundle?**
-> A: $52 of difference. Pro = the 5 Pro-tier spreadsheets (no AI features in the spreadsheets themselves; no master library). AI Edition = the 5 AI Edition spreadsheets (each has its own AI tabs) + the 28-page master AI library tying them together. If you actively use ChatGPT/Claude, the AI Edition is the version. If you don't, save the $52.
+> **Q: What's different vs. the $79 Pro bundle?**
+> A: $40 of difference. Pro = the 5 Pro-tier spreadsheets (no AI features in the spreadsheets themselves; no master library). AI Edition = the 5 AI Edition spreadsheets (each has its own AI tabs) + the 28-page master AI library tying them together. If you actively use ChatGPT/Claude, the AI Edition is the version. If you don't, save the $40.
 
 > **Q: Will the prompts still work when ChatGPT / Claude update?**
 > A: Most will, yes — they're written around stable patterns (data → analysis → recommendation). When a major AI update breaks prompt compatibility, we ship updated versions. AI Edition buyers are flagged for proactive updates.
@@ -159,13 +159,13 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 > A: All-or-nothing. Bundles can't be partially refunded — Etsy doesn't support it for digital products, so we don't either. Full refund revokes access to all 5 spreadsheets + the master library. If you're unsure, start with one standalone AI Edition listing first.
 
 > **Q: Does the master library include the Wedding prompts?**
-> A: No — that's the Premium Life Bundle AI Edition ($189). This is the Finance Bundle, which doesn't include Wedding. The Life Bundle AI Edition's master library has 60+ prompts plus a section of Wedding-specific cross-product prompts (e.g., "Reverse-engineer wedding budget from total → per-vendor").
+> A: No — that's the Premium Life Bundle AI Edition ($149). This is the Finance Bundle, which doesn't include Wedding. The Life Bundle AI Edition's master library has 60+ prompts plus a section of Wedding-specific cross-product prompts (e.g., "Reverse-engineer wedding budget from total → per-vendor").
 
 ## 8. Thumbnail copy hooks
 
-Per Bundle design brief Section 2 — designer pulls from here. **Brief savings number needs update from "$52 SAVED" → "$60 SAVED" before export.**
+Per Bundle design brief Section 2 — designer pulls from here. Brief Section 2 cover variant table updated 2026-05-11 to match these numbers.
 
-- **Thumbnail #1 (hero stack, 5 cards):** "5 products + 60 AI prompts. $209 value. $149." + "**$60 SAVED**" warm-gold badge + "**5 PRODUCTS**" charcoal pill
+- **Thumbnail #1 (hero stack, 5 cards):** "5 products + 60 AI prompts. $170 value. $119." + "**$51 SAVED**" warm-gold badge + "**5 PRODUCTS**" charcoal pill
 - **Thumbnail #2 (cross-product workflow):** "Built to work together"
 - **Thumbnail #3 (Setup Wizard preview):** "Setup wizard included — page by page"
 - **Thumbnail #4 (AI library preview):** "60+ AI prompts. 10 workflows."
@@ -173,7 +173,7 @@ Per Bundle design brief Section 2 — designer pulls from here. **Brief savings 
 
 ## 9. Production notes
 
-- **⚠️ Pricing math reconciliation needed in Bundle brief Section 2.** The brief lists "$52 SAVED" for Finance AI. Correct math: $209 standalone sum − $149 bundle = **$60 saved**. Update brief Section 2 before cover production. Same fix scope as `bundle-finance-pro.md`.
+- Pricing aligned to catalog-wide "low alternative" reset (2026-05-11). $170 standalone sum − $119 bundle = $51 saved (30%). See `bundle-finance-pro.md` for full cascade table across all 4 bundle SKUs.
 - Master AI Prompt Library PDF is the **Finance variant** (~28 pages, no Wedding section) per Bundle brief Section 4. Life variant is ~30 pages with Wedding section.
 - Setup Wizard PDF is the **Finance variant** (9 pages, no Wedding setup page) per Bundle brief Section 3. Life variant is 10 pages.
 - Bundle assembly delivery uses TICKET-004; all files in one zip.

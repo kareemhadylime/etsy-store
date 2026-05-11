@@ -6,7 +6,7 @@ _Status: ✅ Approved by user — 2026-05-10_
 ## Sign-off decisions (2026-05-10)
 
 1. **Scope:** spreadsheet-only for v1. Canva/invitation pairing deferred to v2 partnership/cross-promo.
-2. **Pricing:** $24 / $39 / $59 confirmed (EHunt mid-tier validates $39 Pro; room to raise post-reviews).
+2. **Pricing:** $19 / $34 / $49 (re-priced 2026-05-11 under "low alternative" rule, overriding the original $24/$39/$59 sign-off — visibly under Wildflower's $23 volume leader while $34 Pro matches the $34.99 mid-tier comp at $1 less).
 3. **Cultural variants:** Muslim (mahr / walima) and Hindu (multi-day functions) tabs INCLUDED in AI Edition v1 — low marginal build cost, strong differentiator, zero competitors do this.
 4. **Bundle inclusion:** BOTH — standalone Etsy listing AND included in All-in-One Premium Bundle (Product 10).
 
@@ -26,19 +26,19 @@ A privacy-first wedding budget + planning spreadsheet for couples who don't want
 | Wedding Planning Spreadsheet (mid tier) | $34.99 | 20 | $700 | — |
 | Wedding Planner Spreadsheet (Budget Tracker) | $9.94 | 29 | $288 | 9,103 |
 
-Read: Top tier hits $1,000+/wk. $34.99 mid-tier doing $700/wk validates our $39 Pro pricing.
+Read: Top tier hits $1,000+/wk. $34.99 mid-tier doing $700/wk validates our $34 Pro pricing (at $1 below the mid-tier comp).
 
 ## Pricing
 
 | Tier | Price | EHunt comp |
 |---|---|---|
-| Essentials | $24 | Above the $9.94 / $16.60 floor — premium positioning |
-| Pro | $39 | Matches $34.99 mid-tier with more features |
-| AI Edition | $59 | Below the $75 premium — undercuts on price, beats on AI |
+| Essentials | $19 | Above the $9.94 / $16.60 floor; below Wildflower's $23 volume leader — premium-discount |
+| Pro | $34 | Matches $34.99 mid-tier at $1 less with more features |
+| AI Edition | $49 | $26 below the $75 premium-tier comp — undercuts on price, beats on AI |
 
 ## Tabs (22 total — 16 in Pro, 22 in AI Edition)
 
-### Tier 1: Essentials ($24) — 12 tabs
+### Tier 1: Essentials ($19) — 12 tabs
 
 1. **Setup Wizard** — guest count, wedding date, venue type, budget cap, region, currency
 2. **Budget Dashboard** — total spent vs. target, % over/under, top 5 vendors, days to wedding
@@ -53,14 +53,14 @@ Read: Top tier hits $1,000+/wk. $34.99 mid-tier doing $700/wk validates our $39 
 11. **Honeymoon Budget** — flights, hotel, activities, savings tracker
 12. **Annual Reflection** — 1-year-after retrospective (what went well, what we'd change)
 
-### Tier 2: Pro ($39) — adds 4 tabs (16 total)
+### Tier 2: Pro ($34) — adds 4 tabs (16 total)
 
 13. **Cost Per Guest Calculator** — total budget ÷ guest count, with what-if slider for guest cuts
 14. **Vendor Comparison Matrix** — side-by-side 3-way comparison (price, deliverables, reviews, gut-feel score)
 15. **Bridal Party Tracker** — bridesmaids/groomsmen, attire status, gift, role, address
 16. **Gift Registry Tracker** — store, item, link, price, who bought it, thank-you sent
 
-### Tier 3: AI Edition ($59) — adds 6 tabs (22 total)
+### Tier 3: AI Edition ($49) — adds 6 tabs (22 total)
 
 17. **AI Wedding Co-Pilot** — 8 ChatGPT/Claude prompts (see below)
 18. **AI Guest List Optimizer** — prompt to cut N guests fairly across both sides
@@ -68,6 +68,13 @@ Read: Top tier hits $1,000+/wk. $34.99 mid-tier doing $700/wk validates our $39 
 20. **AI Seating Constraint Solver** — paste constraints (X can't sit near Y; Z needs accessibility) → AI suggests seating
 21. **AI RSVP Reminder Scripts** — 3 polite escalation scripts for slow RSVPs
 22. **AI Day-of Crisis Playbook** — pre-written scripts for 12 common day-of disasters
+
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 20 tabs (vendor tracker / guest list / seating / timeline / day-of / etc.) are scaffolding around this spine.
+
+- **📥 Input Tab — `🧭 Setup Wizard`** (existing — tab #1). Buyer's primary entry surface: wedding date, guest count, venue type, total budget cap, region, currency, household income (optional), religion (drives cultural variant tab visibility on AI Edition), planning timeline (12/9/6/3 months out). No formulas in input cells. Setup Wizard feeds Budget Dashboard, Master Timeline, Day-of Schedule, and per-category target allocations.
+- **📊 Output Dashboard — `🏠 Budget Dashboard`** (existing — tab #2) — visual KPI surface. Required visuals: (a) donut chart "Spent vs. remaining budget" with center showing days-to-wedding, (b) stacked bar chart "Spend by category vs. target" (14 pre-built categories), (c) ranked bar "Top 5 vendors by spend," (d) line chart "Cumulative spend trajectory" with target curve overlay, (e) RSVP-progress meter (yes/no/pending counts). Status cells use the Wedding brand palette (dusty rose / sage / amber / burgundy per design brief Section 1). This tab is the screenshot source for thumbnail #1 + #2.
 
 ## AI Features (Edition tier)
 
@@ -88,7 +95,7 @@ All AI prompts are designed for ChatGPT free tier or Claude — no API key requi
 
 - 🤔 **"Why a Spreadsheet, Not an App?"** — privacy + one-time + methodology-agnostic
 - 🔒 **Privacy-first** — your guest list never touches our servers
-- 💸 **No subscription** — wedding apps charge $20/mo × 18 months = $360. This is $24 once.
+- 💸 **No subscription** — wedding apps charge $20/mo × 18 months = $360. This is $19 once.
 
 ## What This Sheet Doesn't Do (And Why That's a Feature)
 
@@ -108,7 +115,7 @@ All AI prompts are designed for ChatGPT free tier or Claude — no API key requi
 | EHunt winner | Their gap | Our advantage |
 |---|---|---|
 | Wildflower Wedding Bundle ($23) | Spreadsheet + invitations bundle | We focus on planning depth, no design overhead |
-| Wedding Planning Spreadsheet ($75) | Spreadsheet only | $59 AI Edition undercuts on price, adds AI |
+| Wedding Planning Spreadsheet ($75) | Spreadsheet only | $49 AI Edition undercuts on price by $26, adds AI |
 | Wedding Invite Digital RSVP ($16.60) | Animated RSVP only | We're the planning brain; they're the RSVP card |
 
 ## Cross-sell into existing 8 SKUs
@@ -121,7 +128,7 @@ Wedding buyers are prime candidates for:
 ## Open questions for sign-off
 
 1. **Scope:** spreadsheet-only OK, or do we want a paired Canva invitation template ($+$ revenue, but adds graphic-design surface area)?
-2. **Pricing:** $24 / $39 / $59 acceptable, or push higher ($29 / $49 / $69)?
+2. **Pricing:** $19 / $34 / $49 acceptable, or push higher ($29 / $49 / $69)?
 3. **Cultural variants:** Muslim (mahr, walima) and Hindu (multi-day functions) wedding variants as separate tabs in AI Edition, or as future SKUs?
 4. **Bundle inclusion:** ship Wedding inside the All-in-One Bundle (Product 10) or keep standalone?
 

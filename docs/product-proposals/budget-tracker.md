@@ -55,6 +55,15 @@ User selects preferred method via Setup Wizard — sheet adapts automatically.
 
 ---
 
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 15 tabs are data scaffolding around this spine.
+
+- **📥 Input Tab — `🧭 Setup Wizard`** (existing). Buyer's primary entry point: budget method, base currency, tax region, household toggle, base monthly income, savings rate target, AI tier flag. Buyer fills in 5 minutes on duplicate. No formulas in input cells.
+- **📊 Output Dashboard — `🏠 Dashboard`** (existing) — visual KPI surface. Required visuals: (a) Financial Health Score 0–100 as a colored gauge (green ≥80 / amber 50–79 / red <50), (b) bar chart "Budget vs. Actual by category" (current month), (c) donut chart "Income breakdown" (sources), (d) line chart "90-day cash flow forecast." Status cells use design-palette success/warning/alert colors. This tab is the screenshot source for thumbnail #1.
+
+---
+
 ## AI Money Advisor — 7 Prompts (AI Edition)
 1. **Smart Spending Advisor** — paste actuals → 3 ranked spending cuts with exact dollar amounts
 2. **Scenario Simulator** — model 12-month savings, debt payoff & NW impact of changes
@@ -108,7 +117,7 @@ User selects preferred method via Setup Wizard — sheet adapts automatically.
 
 ## Pricing & Tiers
 
-### Essentials — $12
+### Essentials — $9
 - Setup Wizard (method + currency + region)
 - Dashboard with key indicators
 - Income tracker + categories
@@ -120,7 +129,7 @@ User selects preferred method via Setup Wizard — sheet adapts automatically.
 - Annual summary + YoY view
 - Google Sheets + Excel
 
-### Pro — $22
+### Pro — $19
 - Everything in Essentials
 - Dark mode
 - Zero-based budgeting engine
@@ -138,7 +147,7 @@ User selects preferred method via Setup Wizard — sheet adapts automatically.
 - FIRE Timeline mini-calc
 - Multi-currency support
 
-### AI Edition — $34
+### AI Edition — $29
 - Everything in Pro
 - Financial Health Score 0–100 (live)
 - **AI Money Advisor Tab** with 7 prompts
@@ -150,7 +159,7 @@ User selects preferred method via Setup Wizard — sheet adapts automatically.
 - 💳 Debt Snowball/Avalanche — full version in Debt Payoff Planner (Product 2); total debt only here
 - 🪣 Sinking Funds — full version in Sinking Funds Planner (Product 3); total as one line item here
 - 🔥 Detailed FIRE forecasting — full personalised AI FIRE in Net Worth Tracker
-- 📦 Bundle anchor — entry product into All-in-One Finance Bundle ($97 Pro / $149 AI)
+- 📦 Bundle anchor — entry product into Premium Finance Bundle ($79 Pro / $119 AI) and Premium Life Bundle ($99 Pro / $149 AI)
 - 🔄 Annual rollover — December → January carries forward sinking funds, savings goals, recurring templates
 
 ---

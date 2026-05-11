@@ -1099,3 +1099,85 @@ T104 Etsy reviews + sentiment. Uses the same `withFreshCredential` pattern; new 
 
 ### Next session
 **T105 Meta Marketing Insights** — first of the three ad-platform integrations this session was chartered to build. Same `withFreshCredential('meta', fetchInsights)` + `runCron('pull-meta-insights', ...)` pattern. New `ad_campaigns` + `ad_metrics_daily` migration. ~10h.
+
+---
+
+## Session 2026-05-11 — Catalog-wide pricing reset + Input/Output Tab spine rule (products session)
+
+### Two standing rules dropped, two memory entries saved
+- **Pricing rule:** "Always pick the lower viable price; never so low it looks cheap." Memory → `feedback_pricing_lower_alternative.md`. Aggressive interpretation: when EHunt comp data shows a range, aim for the bottom third, not the median. Floor: visibly higher than the cheapest credible competitor, never below half of the cheapest reputable comp.
+- **Spreadsheet architecture rule:** every spreadsheet must have an explicit Input Tab + Output Dashboard Tab with eye-catching colored visuals + graphs. Memory → `feedback_spreadsheet_input_output_dashboard.md`. Notion templates inherit the same rule with `Home page = Output`, `database pages = Input`.
+
+### Pricing audit + new catalog table
+All 11 products + bundles re-priced. Standalone changes (Essentials / Pro / AI):
+
+| Product | Was | Now |
+|---|---|---|
+| Budget Tracker | $12 / $22 / $34 | **$9 / $19 / $29** |
+| Debt Payoff Planner | $14 / $24 / $36 | **$12 / $19 / $29** |
+| Sinking Funds Planner | $12 / $22 / $34 | **$9 / $19 / $29** |
+| Net Worth Tracker | $14 / $24 / $36 | **$12 / $19 / $29** |
+| Small Business Finance Kit | $29 / $49 / $69 | **$24 / $39 / $54** |
+| Family & Education Planner | $17 / $27 / $39 | **$14 / $22 / $32** |
+| Investment Portfolio Tracker | $19 / $29 / $44 | **$17 / $24 / $34** |
+| Zakat Calculator | $12 / $22 / $34 | **$9 / $19 / $29** |
+| Wedding Budget & Planner | $24 / $39 / $59 | **$19 / $34 / $49** |
+| Notion Life OS Essentials | $29 | **$24** |
+
+Bundle cascade (new bundle prices to keep savings ratios in the 30–34% range against new lower standalone totals):
+
+| Bundle | Was (price / saved) | Now (price / saved) | New % off |
+|---|---|---|---|
+| Finance Bundle Pro (5 SKU) | $97 / $44 | **$79 / $36** | 31% |
+| Finance Bundle AI (5 SKU) | $149 / $60 | **$119 / $51** | 30% |
+| Life Bundle Pro (6 SKU + Wedding) | $129 / $51 | **$99 / $50** | 34% |
+| Life Bundle AI (6 SKU + Wedding) | $189 / $79 | **$149 / $70** | 32% |
+
+All four bundle SKUs land in 30–34% off range vs. prior 13–29% spread. Easier story to market, easier badge math to design.
+
+### Overrode two explicit prior sign-offs
+- Wedding Sign-off Decision 2 (2026-05-10): "$24/$39/$59 confirmed" → now $19/$34/$49 per the new rule.
+- Notion Sign-off Decision 5 (2026-05-10): "$29/$49/$69 CONFIRMED. Above EHunt notion comps" → now $24 Essentials MVP; Pro/AI deferred but will start at $39/$54 when they ship.
+- Both overrides documented in their respective proposals as the new pricing line items.
+
+### Input/Output Tab spine — added to all 9 spreadsheet proposals
+For each of Budget Tracker, Debt Payoff, Sinking Funds, Net Worth, Small Business, Family & Education, Investment Portfolio, Zakat, and Wedding: added an "Input / Output Tab Spine" subsection right after the tab list. Each subsection identifies which existing tab serves as the buyer's primary Input surface, which existing tab serves as the Output Dashboard, and specifies required visualizations for the Output Tab (gauges, charts, status colors, screenshot source). Per-product visualization choices:
+
+| Product | Input Tab | Output Dashboard required visuals |
+|---|---|---|
+| Budget Tracker | Setup Wizard | Health Score gauge + budget-vs-actual bar + income donut + cash-flow line |
+| Debt Payoff | Debt List | Debt Health Score gauge + debt-free trajectory line + APR-band donut + payments-due bar |
+| Sinking Funds | Fund Manager | %-funded horizontal bar + urgency heatmap + contributions stacked bar |
+| Net Worth | Assets + Liabilities Summary (paired) | NW Health Score gauge + 24-mo trajectory line + asset-mix donut + liabilities bar + FIRE meter |
+| Small Business | Revenue + Expense Trackers (paired) | Business Health Score gauge + revenue-vs-expense line + top-5-customers bar + runway meter + receivables aging stack |
+| Family & Education | Child Profiles | Family Health Score gauge + per-child savings bar + insurance donut + 10-yr trajectory line + goal-conflict ribbon |
+| Investment Portfolio | Holdings Master | Allocation donut + 24-mo value line + dividend bar + top-5 holdings + drift alerts row |
+| Zakat | Wealth Inventory + Madhhab Settings (paired) | Nisab status gauge + Hawl progress per-asset + per-asset Zakat bar + Zakat al-Fitr ribbon + distribution donut |
+| Wedding | Setup Wizard | Spent-vs-remaining donut w/ days-to-wedding center + category stacked bar + top-5 vendors + cumulative spend line + RSVP meter |
+
+Bundle and Notion already structurally compliant; design briefs got explicit callouts confirming alignment.
+
+### Files changed (this session)
+22 files updated in one cascade. Listed for traceability:
+- **Memory (3):** `feedback_pricing_lower_alternative.md` (new), `feedback_spreadsheet_input_output_dashboard.md` (new), `MEMORY.md` (index updated)
+- **Handshake:** `session-handshake.md` — last-updated stamp + pricing table + Input/Output rule reference + backend-session migration callout
+- **11 proposals:** Budget Tracker, Debt Payoff, Sinking Funds, Net Worth, Small Business, Family & Education, Investment Portfolio, Zakat, Wedding, All-in-One Premium Bundle, Notion Life OS
+- **3 design briefs:** Wedding, Bundle, Notion
+- **6 listing copy files:** Wedding, Notion, Bundle Finance Pro, Bundle Finance AI, Bundle Life Pro, Bundle Life AI
+- **Listing-copy README:** cross-listing claims-to-sync table updated with all new savings numbers and the two new standing rules referenced
+
+### What the backend session needs to do (flagged in handshake, not touched in this session)
+- **Reseed `supabase/migrations/0003_product_tier_pricing.sql`** (or new migration) with the new pricing table. The handshake "Pricing Confirmed" section is the source of truth.
+
+### Why this scope of cascade was necessary
+Two seemingly small rules ("pick lower price" + "every sheet has Input/Output") touch every pricing surface and every spreadsheet spec. Without the cascade, future visual production would ship with mismatched savings badges, listing copy would advertise prices that don't match the seed, and the build phase would produce 22-tab spreadsheets with no clear Input/Output spine. Doing the cascade once now (~22 files) is way cheaper than fixing it across cover variants, PDFs, listings, and migrations later.
+
+### Next session (product-track)
+The original product-track menu still stands but with one shift in priority order:
+1. **Wedding AI Co-Pilot 8-prompt content** (E) — ~3h smallest
+2. **Notion template content spec** (D) — page-by-page database schemas, formulas, dummy seed-data values ~4h
+3. **Bundle AI Library prompt content** (C) — 60+ actual prompt strings + 10 cross-product workflow scripts ~8h
+4. **Wedding spreadsheet build ticket breakdown** (B) — ~3h
+5. **Visual production start** — `Premium Finance Brand Kit` Figma setup + first thumbnails
+
+Recommend (1) → (2) → (3) → (4) → (5). Smallest deliverable first to maintain momentum; content production builds up to ticket breakdown which builds up to visual production.

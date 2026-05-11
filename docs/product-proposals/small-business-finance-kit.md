@@ -57,6 +57,15 @@ Solopreneurs · Etsy/e-commerce sellers · Service businesses (trades, salons, c
 
 ---
 
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 19 tabs (revenue/expense/balance-sheet/inventory/HR/etc.) are scaffolding around this spine.
+
+- **📥 Input Tab — `💵 Revenue Tracker` + `💸 Expense Tracker` (paired)**. Buyer's primary entry surfaces. Revenue Tracker holds every income line (date, client, product line, amount); Expense Tracker holds every cost (date, category, vendor, amount, tax-deductible flag). No formulas in input cells. P&L, Cash Flow, Profitability tabs all derive from this pair.
+- **📊 Output Dashboard — `🏠 Dashboard`** (existing) — visual KPI surface. Required visuals: (a) Business Health Score 0–100 as a colored gauge (green ≥80 / amber 50–79 / red <50), (b) line chart "Revenue vs. Expense trailing 12 months," (c) bar chart "Top 5 customers by gross margin," (d) runway/burn rate meter (months of cash), (e) stacked bar "Receivables aging buckets" (0–30 / 31–60 / 61–90 / 90+). Status cells use design-palette success/warning/alert colors for green/at-risk/danger. This tab is the screenshot source for thumbnail #1. The separate KPI Dashboard tab (Pro+) extends this with deeper margin/growth metrics but the main Output spine is `🏠 Dashboard`.
+
+---
+
 ## AI Business Co-Pilot — 8 Prompts
 1. **P&L Analyst** — flags anomalies, margin compression, unusual cost spikes
 2. **Cash Flow Coach** — predicts danger months 60 days ahead, recommends fixes
@@ -90,7 +99,7 @@ Solopreneurs · Etsy/e-commerce sellers · Service businesses (trades, salons, c
 
 ## Pricing & Tiers
 
-### Essentials — $29
+### Essentials — $24
 - Dashboard, Revenue + Expense Tracker
 - P&L Statement (monthly + annual)
 - Cash Flow Statement
@@ -98,7 +107,7 @@ Solopreneurs · Etsy/e-commerce sellers · Service businesses (trades, salons, c
 - Break-Even Calculator, Tax Prep Summary
 - Google Sheets + Excel
 
-### Pro — $49
+### Pro — $39
 - Everything in Essentials + dark mode
 - Balance Sheet, 10 Invoice Templates
 - Recurring Invoice Schedule
@@ -112,7 +121,7 @@ Solopreneurs · Etsy/e-commerce sellers · Service businesses (trades, salons, c
 - KPI Dashboard + 90-day Cash Flow Forecast (segmented)
 - Multi-currency + sales tax (multi-rate)
 
-### AI Edition — $69
+### AI Edition — $54
 - Everything in Pro
 - **AI Business Co-Pilot Tab** with 8 prompts (incl. Customer Concentration Risk)
 

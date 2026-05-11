@@ -7,11 +7,11 @@ _Fulfillment plumbing change required — see "Operational impact"_
 
 ## Sign-off decisions (2026-05-10)
 
-1. **Scope:** MVP = ESSENTIALS-ONLY ($29 Budget Tracker port). 25h build. Validate plumbing + demand before committing to Net Worth + Investment ports. If 5+ sales/wk in first 30 days → Pro + AI tiers follow.
+1. **Scope:** MVP = ESSENTIALS-ONLY ($24 Budget Tracker port). 25h build. Validate plumbing + demand before committing to Net Worth + Investment ports. If 5+ sales/wk in first 30 days → Pro + AI tiers follow.
 2. **Notion AI requirement:** DUAL FORMAT — every AI prompt ships in both Notion AI flavor AND ChatGPT/Claude flavor. Buyer picks their stack.
 3. **TICKET-011 timing:** PARALLEL with Wedding spreadsheet build (different rails — Wedding uses TICKET-004 file delivery, Notion uses URL delivery). ~12h dev fits alongside Wedding's 30–40h spreadsheet work.
 4. **Maintenance:** 12-month FREE REFRESH for AI Edition buyers only. Essentials + Pro = one-time-buy (matches the other 8 SKUs).
-5. **Pricing:** $29 / $49 / $69 CONFIRMED. Above EHunt notion comps ($9–$36) but justified by depth; re-evaluate after 30 days of sales data.
+5. **Pricing:** $24 / $39 / $54 (re-priced 2026-05-11 under "low alternative" rule, overriding the original $29/$49/$69 sign-off). Essentials MVP at $24 stays inside the EHunt notion comp range ($9–$36) while keeping the "Why $24 vs $9?" defense intact via depth. Pro + AI tiers deferred until 5+ sales/wk gate.
 
 ### Build envelope (MVP)
 ~25h for Essentials Notion Budget port + 12h TICKET-011 plumbing (parallel with Wedding). Pro/AI tiers gated on Essentials selling through.
@@ -44,9 +44,9 @@ Median notion price = $11–$36. We position at the high end.
 
 | Tier | Price | What's included |
 |---|---|---|
-| Essentials | $29 | Budget Tracker port (Notion) — single workspace |
-| Pro | $49 | Budget + Net Worth + Investment ports — linked workspace |
-| AI Edition | $69 | Pro + 30+ Notion AI prompts + Notion AI integration setup guide |
+| Essentials | $24 | Budget Tracker port (Notion) — single workspace. MVP launch tier. |
+| Pro (deferred) | $39 | Budget + Net Worth + Investment ports — linked workspace. Ships when Essentials hits 5+ sales/wk gate. |
+| AI Edition (deferred) | $54 | Pro + 30+ Notion AI prompts + Notion AI integration setup guide. Ships after Pro validates. |
 
 ## What "ports" means
 
@@ -147,7 +147,7 @@ Notion fulfillment is **NOT a file download.** It's:
 2. **Notion AI requirement:** AI Edition assumes buyer has Notion AI ($10/mo add-on). Is that acceptable, or do we provide AI prompts that work in ChatGPT/Claude as fallback?
 3. **TICKET-011 priority:** before or after TICKET-004 (file delivery)? Could be parallel since plumbing is different.
 4. **Maintenance commitment:** yearly refresh for free to Edition buyers, or one-time-buy with no updates?
-5. **Pricing sanity check:** $29/$49/$69 in line with EHunt notion comps ($9–$36); positions us at premium without being an outlier.
+5. **Pricing sanity check:** $24/$39/$54 (re-priced under "low alternative" rule). Essentials $24 fits the EHunt notion comp range top-end without being an outlier; defends "Why $24 vs $9?" via depth on listing.
 
 ## Build estimate
 

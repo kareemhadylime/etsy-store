@@ -46,6 +46,15 @@ _Status: ✅ Approved by user — 2026-05-10_
 
 ---
 
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 16 tabs are scaffolding around this spine.
+
+- **📥 Input Tab — `👶 Child Profiles`** (existing). Buyer's primary entry surface: each child's name, DOB, target school tier, current savings balance, monthly contribution, expected start year. Plus a paired section for parent inputs (household income, marital status, residency state). No formulas in input cells. Child Profiles feeds K-12 Cost Map, College Savings Planner, EFC Calculator, and all downstream tabs.
+- **📊 Output Dashboard — `🏠 Dashboard`** (existing) — visual KPI surface. Required visuals: (a) Family Health Score 0–100 as a colored gauge (green ≥80 / amber 50–79 / red <50), (b) bar chart "Education savings vs. target per child" (color-coded on-track/at-risk/falling-behind), (c) donut chart "Insurance coverage adequacy" (life / health / disability), (d) line chart "Net family savings trajectory" (10-year forward), (e) conflict-alert ribbon when goal timelines collide. Status cells use design-palette success/warning/alert colors. This tab is the screenshot source for thumbnail #1.
+
+---
+
 ## AI Family Finance Advisor — 8 Prompts
 1. **Account Type Picker** — recommends 529 vs. Coverdell vs. UTMA vs. ABLE per child
 2. **Scholarship Matching Engine** — student profile → 5–7 most-likely scholarships + positioning tips
@@ -78,7 +87,7 @@ _Status: ✅ Approved by user — 2026-05-10_
 
 ## Pricing & Tiers
 
-### Essentials — $17
+### Essentials — $14
 - Child Profiles (up to 2)
 - K-12 Cost Map
 - College Savings Planner
@@ -89,7 +98,7 @@ _Status: ✅ Approved by user — 2026-05-10_
 - Annual Family Review
 - Google Sheets + Excel
 
-### Pro — $27
+### Pro — $22
 - Everything in Essentials + dark mode
 - Up to 4 children
 - State 529 Tax Benefits lookup
@@ -102,7 +111,7 @@ _Status: ✅ Approved by user — 2026-05-10_
 - Savings Goals Timeline (conflict alerts)
 - Financial Literacy Milestones tracker
 
-### AI Edition — $39
+### AI Edition — $32
 - Everything in Pro
 - **AI Family Finance Advisor Tab** with 8 prompts (incl. Aid Appeal Coach + State 529 Optimizer)
 

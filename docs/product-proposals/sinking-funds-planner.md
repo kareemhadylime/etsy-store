@@ -65,6 +65,15 @@ Medical, Travel, Car, Education, Home, Gifts, Wedding, Tech, Dental, Emergency, 
 
 ---
 
+## Input / Output Tab Spine (catalog-wide rule, 2026-05-11)
+
+Per the catalog-wide architecture rule, every spreadsheet has two structural tabs that serve as the spine. The remaining 14 tabs are scaffolding around this spine.
+
+- **📥 Input Tab — `🪣 Fund Manager`** (existing). Buyer's primary entry surface: each sinking fund's name, category, target amount, target date, savings vehicle (cash/CD/ETF/metal/stock), monthly contribution. No formulas in input cells. Fund Manager feeds every downstream tab.
+- **📊 Output Dashboard — `🏠 Dashboard`** (existing) — visual KPI surface. Required visuals: (a) horizontal bar chart "Funds by % funded" (color-coded: green ≥90% / amber 50–89% / red <50%), (b) urgency heatmap "Funds by months-to-target × % funded," (c) stacked bar chart "Contributions vs. target by fund," (d) status cells using design-palette success/warning/alert colors for on-track/at-risk/falling-behind. This tab is the screenshot source for thumbnail #1.
+
+---
+
 ## AI Savings Advisor — 7 Prompts
 1. **Reallocation prompt** — which fund needs your next dollar
 2. **Vehicle Advisor** — best savings vehicle per fund based on timeline
@@ -95,13 +104,13 @@ Medical, Travel, Car, Education, Home, Gifts, Wedding, Tech, Dental, Emergency, 
 
 ## Pricing & Tiers
 
-### Essentials — $12
+### Essentials — $9
 - 17 fund categories, Fund Manager, Contribution Tracker
 - Funding Gap Analyzer, Priority Matrix
 - Dashboard with status, Annual Summary
 - Google Sheets + Excel
 
-### Pro — $22
+### Pro — $19
 - Everything in Essentials + dark mode
 - Unlimited custom funds
 - All 4 savings vehicles (metals, fixed, variable, stocks)
@@ -114,7 +123,7 @@ Medical, Travel, Car, Education, Home, Gifts, Wedding, Tech, Dental, Emergency, 
 - Budget Integration export
 - Shared household mode
 
-### AI Edition — $34
+### AI Edition — $29
 - Everything in Pro
 - **AI Savings Advisor Tab** with 7 prompts (incl. Neglected Fund Detector)
 
