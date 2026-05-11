@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Debt Payoff listing copy drafted → `docs/listing-copy/debt-payoff-planner.md`; 3 listing copies remain)_
+_Last updated: 2026-05-11 (Sinking Funds listing copy drafted → `docs/listing-copy/sinking-funds-planner.md`; 2 listing copies remain)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -166,8 +166,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Net Worth (Product 4) design brief v1 drafted ✅ (2026-05-11)** → `docs/product-designs/net-worth-tracker.md`. Third cascade. ~40h build estimate.
 - [x] **Small Business Finance Kit (Product 5) design brief v1 drafted ✅ (2026-05-11)** → `docs/product-designs/small-business-finance-kit.md`. Fourth and final cascade. Largest product in catalog (23 tabs, ~54h build). One subtle per-product override: visual restraint dial pushed further (5% shadows vs 10%, mandatory numeric right-alignment everywhere, no emoji in content rows) since small-business buyers expect "professional accounting tool" aesthetics. Output Dashboard: Business Health Score gauge w/ 5 sub-gauges + Revenue-vs-Expense line + top-5-customers-by-margin bar + Runway/burn meter + Receivables-aging stack. 5 thumbnails: Hero/KPI Dashboard close-up/Invoice+Forecast/AI CFO/Anti-QuickBooks ($35-$235/mo vs $24 once). 12-page AI Business Co-Pilot PDF (one more page than other finance products: 8 prompts vs 7). 3 directions pending (A/A/A cascade).
 - [x] **ALL 5 Premium Finance House design briefs DONE ✅ (2026-05-11)** — Budget Tracker (approved) + Debt Payoff (pending) + Sinking Funds (pending) + Net Worth (pending) + Small Business (pending). 4 briefs awaiting sign-off; all recommend A/A/A cascade from Budget Tracker locked decisions.
-- [x] **Debt Payoff (Product 2) listing copy v1 drafted ✅ (2026-05-11)** → `docs/listing-copy/debt-payoff-planner.md`. Title (140 char), 3-tier variations table $12/$19/$29, 3,287-char description w/ anti-Tally + anti-Credit-Karma positioning + "$1,471 saved over 5 years" math, 13 SEO tags, 10 FAQs, 5 thumbnail copy hooks, production notes. Cross-listing claims-to-sync table extended.
-- [ ] Remaining product-track work: 3 listing copies (Sinking Funds / Net Worth / Small Business) at ~1h each = ~3h total. After those, every product in the catalog (Wedding + Bundle + Notion + 8 finance products = 11 products) has proposal + design brief + listing copy at v1+. Only build execution remains.
+- [x] **Debt Payoff (Product 2) listing copy v1 drafted ✅ (2026-05-11)** → `docs/listing-copy/debt-payoff-planner.md`. Title, $12/$19/$29 variations, 3,287-char description w/ anti-Tally + anti-Credit-Karma positioning + "$1,471 saved over 5 years" math.
+- [x] **Sinking Funds (Product 3) listing copy v1 drafted ✅ (2026-05-11)** → `docs/listing-copy/sinking-funds-planner.md`. Title, $9/$19/$29 variations, 3,243-char description w/ anti-Qapital + anti-Monarch positioning + "4 savings vehicles" depth differentiator (no Etsy comp matches all 4) + "68% can't cover $1,000 emergency" Bankrate stat anchor + "$271+ or $466+ saved over 5 years" math.
+- [ ] Remaining product-track work: 2 listing copies (Net Worth / Small Business) at ~1h each = ~2h total. After those, every product in the catalog has proposal + design brief + listing copy at v1+. Only build execution remains.
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.

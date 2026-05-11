@@ -33,6 +33,7 @@ Every listing doc follows the same skeleton:
 |---|---|---|---|
 | [`budget-tracker.md`](./budget-tracker.md) | Budget Tracker (Product 1) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`debt-payoff-planner.md`](./debt-payoff-planner.md) | Debt Payoff Planner (Product 2) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
+| [`sinking-funds-planner.md`](./sinking-funds-planner.md) | Life Sinking Funds Planner (Product 3) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`wedding-budget-planner.md`](./wedding-budget-planner.md) | Wedding Budget & Planner (Product 9) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`bundle-finance-pro.md`](./bundle-finance-pro.md) | Premium Finance Bundle — Pro | Pro only | ⏳ |
 | [`bundle-finance-ai.md`](./bundle-finance-ai.md) | Premium Finance Bundle — AI Edition | AI only | ⏳ |
@@ -70,6 +71,12 @@ Every listing doc follows the same skeleton:
 | "$1,471 saved over 5 years" (Tally math) | Debt listing description body | Debt proposal "Banners" + math: $25 × 60mo − $29 |
 | "18 tabs · Snowball + Avalanche + Custom · AI Credit Score Coach" | Debt listing title + thumbnail #1 | Debt proposal Section "Sheet Tabs (18 tabs)" |
 | "Your debt data and credit scores stay on your device." | Debt listing description body | Debt proposal "Banners" privacy positioning |
+| Sinking Funds tier prices $9 / $19 / $29 | Sinking listing title + body + thumbnail #1 overlay | Handshake pricing table |
+| "Qapital $5/mo, Monarch $99/yr" comparison claims | Sinking listing description body + thumbnail #5 | Sinking proposal "Disclosed Dated Claims" — verify annually |
+| "$271+ or $466+ saved over 5 years" (Qapital/Monarch math) | Sinking listing description body | Sinking proposal "Banners" + math: $5×60−$29 / $99×5−$29 |
+| "16 tabs · 4 savings vehicles · AI Reallocation" | Sinking listing title + thumbnail #1 | Sinking proposal Section "Sheet Tabs (16 tabs)" + "Savings Vehicles (4 types)" |
+| "68% of Americans can't cover a $1,000 emergency" | Sinking listing description body | Sinking proposal "Disclosed Dated Claims" — Bankrate 2025 (verify annually) |
+| "No competitor on Etsy handles all 4 vehicles in one sheet." | Sinking listing description body + thumbnail #3 | Sinking proposal Section "Savings Vehicles (4 types)" |
 
 **Pricing rule (catalog-wide):** "low alternative" — always pick the lower viable price while staying above the "doesn't look cheap" floor. See `~/.claude/projects/C--ETSY/memory/feedback_pricing_lower_alternative.md`. If any price needs to change, update the proposal + brief + listing + handshake together.
 

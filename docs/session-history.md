@@ -2497,3 +2497,40 @@ I flagged "deferred cleanup cron" as a TODO in the runbook §12 right after the 
 - Rate limiting ✅ + cleanup cron ✅
 
 Every loose end I can identify is closed. The next "continue" requires a fresh strategic input from the user — either Phase 3 ticket breakdown or a specific operational gap they want filled.
+
+---
+
+## Session 2026-05-11 — Sinking Funds (Product 3) listing copy v1 (products session)
+
+User said "Continue" = continue. Wrote Sinking Funds listing copy — second of 4 remaining Premium Finance House listings.
+
+### Done
+- `docs/listing-copy/sinking-funds-planner.md` — full v1 (9-section template, 3,243-char description)
+- `docs/listing-copy/_README.md` — index + 6 new Sinking Funds entries in claims-to-sync table
+
+### Key listing copy decisions
+- **Anti-Qapital + anti-Monarch dual-comparison** matches Debt Payoff's anti-Tally + anti-Credit-Karma pattern.
+- **Concrete savings math (doubled):** Qapital $5/mo × 60 = $300 vs. $29 = $271 saved / 5yr. Monarch $99/yr × 5 = $495 vs. $29 = $466 saved / 5yr.
+- **"4 savings vehicles" is the hardest-to-replicate differentiator** — title, description body, FAQ #5, Thumbnail #3. "No competitor on Etsy handles all 4 vehicles in one sheet" stated explicitly.
+- **"68% can't cover $1,000 emergency" Bankrate 2025 stat** anchors Emergency-fund pre-built category framing.
+- **FAQ #1 explains what a sinking fund is** — lower buyer-literacy in this category than Budget/Debt.
+- **FAQ #6 Neglected Fund Detector** surfaces the most-relatable AI feature — converts AI-skeptical buyers via specific example.
+
+### Premium Finance House catalog status
+| Product | Brief | Listing |
+|---|---|---|
+| 1 Budget Tracker | ✅ Approved | ✅ v1 |
+| 2 Debt Payoff | ✅ v1 pending | ✅ v1 |
+| 3 Sinking Funds | ✅ v1 pending | ✅ v1 |
+| 4 Net Worth | ✅ v1 pending | ⏳ |
+| 5 Small Business | ✅ v1 pending | ⏳ |
+
+Remaining: ~2h — 2 listing copies (Net Worth / Small Business).
+
+### Files changed
+- `docs/listing-copy/sinking-funds-planner.md` (new)
+- `docs/listing-copy/_README.md` — index + 6 new claims-to-sync entries
+- `session-handshake.md` — Sinking Funds listing checkmark
+
+### Next session
+Net Worth listing copy. Per-product hooks: anti-Empower + anti-Monarch comparison, FIRE-progress meter as dashboard headline, 7-account equities split as depth claim.
