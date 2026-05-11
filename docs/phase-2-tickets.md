@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T106 Google shipped — GA4 + Ads + Search Console all live; 6/12)_
-_Status: 🚧 In Progress (6/12 done — T101–T106 ✅)_
+_Last updated: 2026-05-11 (T107 TikTok shipped — Phase 2B data-pull layer COMPLETE; 7/12)_
+_Status: 🚧 In Progress (7/12 done — T101–T107 ✅; 2C/2D ahead)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -164,17 +164,21 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ---
 
 ### TICKET-107 — TikTok ad metrics pull
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~8h
-**New files:** `src/app/api/cron/pull-tiktok-insights/route.ts`, `src/lib/tiktok/{api,insights}.ts`
+**New files:** `src/lib/tiktok/{api,sync}.ts`, `src/app/api/cron/pull-tiktok-insights/route.ts`
 **Tasks:**
-- TikTok Marketing API v1.3: advertiser + campaigns + metrics
-- Pull daily breakdown for yesterday → `ad_metrics_daily` (platform='tiktok')
-- Tests: scope check, idempotent upsert
+- `src/lib/tiktok/api.ts` — `fetchTiktokCampaigns(credential)` paginates `business-api.tiktok.com/open_api/v1.3/campaign/get/` 100/page (50-page cap); `fetchTiktokReports(credential, date)` calls `/report/integrated/get/` with `report_type=BASIC`, `data_level=AUCTION_CAMPAIGN`, `dimensions=["campaign_id"]`, `metrics=["spend","impressions","clicks","conversion","conversion_value"]` ✅
+- Auth header is `Access-Token` (NOT `Authorization: Bearer`) — different from Etsy/Meta/Google. Response envelope is `{ code, message, data }`; `code !== 0` is a logical error. Auth-style codes `40100/40104/40105` get re-mapped to `unauthorized: true` so `withFreshCredential('tiktok', ...)` triggers refresh even on HTTP 200. ✅
+- `src/lib/tiktok/sync.ts` — same orchestrator shape as Meta/Google Ads. Campaigns upsert → external_id → db id map → reports upsert on `(platform='tiktok', external_campaign_id, date)`. Reuses `ad_campaigns` + `ad_metrics_daily` from migration 0007 (no new DDL needed). ✅
+- Cron route at `0 5 * * *` UTC ✅
+- Tests: 8 api (Access-Token header, pagination, HTTP 401, logical 40100, non-auth non-zero code, 429, fetch throw, reports params/date), 5 sync (campaigns→reports chain, empty/empty, auth-fail propagation, campaigns upsert error, date default), 3 route. 17 new tests; total **330 passing**.
 
 **Depends on:** TICKET-101, TICKET-102 (TikTok OAuth refresh)
 **Acceptance:**
-- [ ] Yesterday's TikTok ad metrics appear by 04:30 UTC
+- [x] Yesterday's TikTok ad metrics land in `ad_metrics_daily` (platform='tiktok') by 05:00 UTC
+- [x] Idempotent upsert via the cross-platform unique key from migration 0007
+- [x] Auth-style logical codes trigger `withFreshCredential` refresh, not silent failure
 
 ---
 
@@ -316,7 +320,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 - [x] TICKET-104 — Etsy reviews + sentiment ✅ (2026-05-11)
 - [x] TICKET-105 — Meta Marketing Insights ✅ (2026-05-11)
 - [x] TICKET-106 — Google (GA4 + Ads + Search Console) ✅ (2026-05-11)
-- [ ] TICKET-107 — TikTok ad metrics
+- [x] TICKET-107 — TikTok ad metrics ✅ (2026-05-11)
 - [ ] TICKET-108 — Daily analytics rollup
 - [ ] TICKET-109 — Admin analytics dashboard
 - [ ] TICKET-110 — Klaviyo integration + post-purchase flow

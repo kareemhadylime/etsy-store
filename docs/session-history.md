@@ -1284,3 +1284,53 @@ Three Google integrations land together through one shared OAuth credential. Res
 
 ### Next at my call
 **TICKET-107 TikTok ad metrics**. Same `withFreshCredential('tiktok', ...)` pattern as T105/T106. Uses TikTok Marketing API v1.3 reports endpoint. Smaller than T106 (~8h) because it's a single platform with a single endpoint flavour. Reuses `ad_campaigns` + `ad_metrics_daily` from migration 0007.
+
+---
+
+## Session 2026-05-11 — TICKET-107 TikTok ad metrics (Phase 2B data-pull layer COMPLETE)
+
+### Done
+- `src/lib/tiktok/api.ts`:
+  - Auth uses `Access-Token: <token>` header — different from Etsy/Meta/Google's `Authorization: Bearer`
+  - `fetchTiktokCampaigns(credential)` paginates `business-api.tiktok.com/open_api/v1.3/campaign/get/` with `advertiser_id` + `page`/`page_size` (100/page, 50-page cap)
+  - `fetchTiktokReports(credential, date)` calls `/report/integrated/get/` with `report_type=BASIC`, `data_level=AUCTION_CAMPAIGN`, `dimensions=["campaign_id"]`, `metrics=["spend","impressions","clicks","conversion","conversion_value"]`
+  - TikTok envelope `{ code, message, data }` is parsed; `code !== 0` is a logical error
+  - **Auth-style logical codes (40100/40104/40105) re-mapped to `unauthorized: true`** — TikTok returns these on HTTP 200, so without the remap `withFreshCredential` would never trigger the refresh path. Other non-zero codes → 502.
+- `src/lib/tiktok/sync.ts` — same orchestrator shape as Meta + Google Ads. Campaigns upsert → `external_id → db id` map → reports upsert on `(platform='tiktok', external_campaign_id, date)`. Reuses `ad_campaigns` + `ad_metrics_daily` from migration 0007 (no DDL).
+- Cron route `/api/cron/pull-tiktok-insights` at `0 5 * * *` UTC.
+- Tests: 8 api (Access-Token header, pagination, HTTP 401 → unauthorized, logical 40100 → unauthorized, non-auth 50000 → 502, 429 verbatim, fetch throw → 502, reports param composition), 5 sync (full chain, empty/empty, auth fail propagation, upsert error, date default), 3 route. 17 new tests; total **330 passing**.
+
+### Verification
+- `npm test` → 60 files / 330 tests passing.
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → 31 routes register including `ƒ /api/cron/pull-tiktok-insights`; no warnings.
+
+### Phase 2 progress: 7/12 ✅
+- 2A foundation ✅ (T101 cron, T102 credentials)
+- 2B data pulls ✅ (T103 Etsy stats, T104 Etsy reviews+sentiment, T105 Meta, T106 Google ×3, T107 TikTok)
+- 2C synthesis → next (T108 rollup, T109 dashboard)
+- 2D automation → after (T110 Klaviyo, T111 AI listing copy, T112 content engine)
+
+### Cron schedule overview (all UTC)
+```
+00:00 hourly  heartbeat (always-on canary)
+03:00 daily   sync-etsy-stats
+03:30 daily   sync-etsy-reviews
+04:00 daily   pull-meta-insights
+04:15 daily   pull-google-analytics
+04:30 daily   pull-google-ads
+04:45 daily   pull-search-console
+05:00 daily   pull-tiktok-insights
+```
+Each writes one `cron_runs` audit row. T108 will run at `06:00` and aggregate all of them into `analytics_daily`.
+
+### Architecture invariant that now holds for every data-pull cron
+1. `verifyCronSecret(req)` → `auth.response` (401) or pass
+2. `runCron(name, async (ctx) => { ... })` writes start row
+3. `withFreshCredential(platform, async (cred) => fetchXxx(cred, opts))` — refresh-on-401 wrapper
+4. fetchXxx maps platform-specific auth failures to `unauthorized: true`
+5. sync orchestrator upserts on cross-platform unique keys (idempotent re-runs)
+6. handler returns plain summary object → response
+
+### Next at my call
+**TICKET-108 daily analytics rollup**. Reads all the per-platform tables that just got populated and writes one `analytics_daily` row per channel/date. ROAS calculation across platforms. Schedule `30 5 * * *` UTC (after all pulls). ~8h.

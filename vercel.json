@@ -7,6 +7,7 @@
     { "path": "/api/cron/pull-meta-insights", "schedule": "0 4 * * *" },
     { "path": "/api/cron/pull-google-analytics", "schedule": "15 4 * * *" },
     { "path": "/api/cron/pull-google-ads", "schedule": "30 4 * * *" },
-    { "path": "/api/cron/pull-search-console", "schedule": "45 4 * * *" }
+    { "path": "/api/cron/pull-search-console", "schedule": "45 4 * * *" },
+    { "path": "/api/cron/pull-tiktok-insights", "schedule": "0 5 * * *" }
   ]
 }
