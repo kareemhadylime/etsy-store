@@ -1028,3 +1028,33 @@ Recommend (1) → (4) → (3) → (2) → (5). Pricing fix is fastest and remove
 
 ### Next session
 T103 Etsy shop stats sync cron — first 2B data-pull ticket, exercises `runCron` + `withFreshCredential` end-to-end against a real platform. ~6h.
+
+---
+
+## Session 2026-05-11 — TICKET-103 Etsy shop stats sync (first 2B data pull)
+
+### Done
+- `src/lib/etsy/stats.ts`:
+  - `fetchActiveListings(credential, opts)` paginates `GET https://openapi.etsy.com/v3/application/shops/{shop_id}/listings/active` 100 per page, hard-stops at 100 pages (10k listings). Sends `Authorization: Bearer ${access_token}` + `x-api-key: ${ETSY_API_KEY}`. Returns `{ ok: false, unauthorized: true, status: 401 }` on auth failures so `withFreshCredential` can refresh + retry.
+  - `syncEtsyStats(opts)` calls `withFreshCredential('etsy', fetchActiveListings)`, loads products whose `etsy_listing_id` is in the returned listing IDs, inserts one fresh `etsy_stats` snapshot row per matched product. Listings without a matching product are silently skipped (legacy shop SKUs we haven't catalogued).
+- `src/app/api/cron/sync-etsy-stats/route.ts` — wraps `syncEtsyStats` in `runCron('sync-etsy-stats', ...)`. Handler writes `matched`/`skipped` to `ctx.log`, passes `inserted` to `ctx.setRowsProcessed`, throws on sync failure so the cron audit row gets `status='error'`.
+- `vercel.json` — added second cron `{ path: '/api/cron/sync-etsy-stats', schedule: '0 3 * * *' }` (3am UTC daily, gives Etsy time to settle the day's metrics).
+- Tests:
+  - `src/lib/etsy/__tests__/stats.test.ts` — 11 tests across fetch + sync (API key missing, pagination terminates on short page, headers, 401 → unauthorized, 429 passthrough, fetch throw → 502, happy path, empty listings, all-unmatched, auth-fail propagation, insert error)
+  - `src/app/api/cron/sync-etsy-stats/__tests__/route.test.ts` — 3 tests (auth gate, success metrics, sync failure surfaces as 500)
+- 14 new tests, total 232 passing.
+
+### Design choices
+- **Snapshot history vs in-place upsert**: chose snapshot. `etsy_stats` schema has no unique constraint on `product_id`, so inserts accumulate one row per sync. T109 will `select distinct on (product_id) ... order by product_id, synced_at desc` for the latest, or aggregate for time-series charts. Trade-off is unbounded growth — at one row/product/day for 11 products, ~4k rows/year, fine for a long time.
+- **Sales/reviews columns default to 0**: the Etsy listing endpoint doesn't return sale counts. T104 (reviews) and T105 (meta insights) will populate the relevant columns. Could be filled here from our `orders` table directly, but kept that for a later rollup ticket so each pull stays single-source.
+- **No matching listing → skipped (not error)**: Etsy shop has more listings than our catalogue tracks. Skipping silently keeps the cron green; admin sees `raw_log.skipped` count in the cron_runs audit.
+
+### Verification
+- `npm test` → 42 files / 232 tests passing.
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → 24 routes register including `ƒ /api/cron/sync-etsy-stats`; no warnings.
+
+### Phase 2 progress: 3/12 ✅ — foundation complete, first data pull live.
+
+### Next session
+T104 Etsy reviews + sentiment. Uses the same `withFreshCredential` pattern; new `reviews` table migration; calls Claude for sentiment; fires `negative-review-alert` email via Resend to admin. ~10h.

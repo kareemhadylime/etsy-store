@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T101 + T102 shipped — 2A foundation complete)_
-_Status: 🚧 In Progress (2/12 done — T101 ✅, T102 ✅)_
+_Last updated: 2026-05-11 (T101 + T102 + T103 shipped — first data pull live)_
+_Status: 🚧 In Progress (3/12 done — T101 ✅, T102 ✅, T103 ✅)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -65,19 +65,23 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ## Data pulls (parallel after foundation)
 
 ### TICKET-103 — Etsy shop stats daily sync
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~6h
 **New files:** `src/app/api/cron/sync-etsy-stats/route.ts`, `src/lib/etsy/stats.ts`
 **Tasks:**
-- Pull `https://openapi.etsy.com/v3/application/shops/{shop_id}/stats?period=yesterday`
-- Per-listing: `https://openapi.etsy.com/v3/application/shops/{shop_id}/listings/active` → upsert `etsy_stats` rows
-- Schedule: `0 3 * * *` UTC
-- Tests: HMAC/cron-secret gate, idempotent upsert, error path
+- `fetchActiveListings(credential)` paginates `GET /v3/application/shops/{shop_id}/listings/active` (100 per page, hard-stops at 100 pages = 10k listings). Returns `unauthorized: true` on 401/403 so `withFreshCredential` retries. ✅
+- `syncEtsyStats()` calls `withFreshCredential('etsy', fetchActiveListings)`, loads matching products by `etsy_listing_id`, inserts one fresh `etsy_stats` snapshot row per matched product. ✅
+- Decision: **snapshot history**, not in-place upsert — gives T109 the time-series data it needs. Sales/reviews columns default to 0 (filled by T104/T105 later).
+- Cron route wraps `syncEtsyStats` in `runCron('sync-etsy-stats', ...)`, writes `matched` / `skipped` to `raw_log`, `inserted` to `rows_processed`. ✅
+- Schedule: `0 3 * * *` UTC in `vercel.json`. ✅
+- Tests: 6 fetchActiveListings (key missing, pagination, headers, 401, 429, network throw), 5 syncEtsyStats (happy path, empty, all-skipped, auth-fail propagation, insert error), 3 route (auth gate, success, sync failure). 14 new tests.
 
 **Depends on:** TICKET-101, TICKET-102
 **Acceptance:**
-- [ ] `etsy_stats` rows updated daily for every live listing
-- [ ] `cron_runs` row records `rows_processed`
+- [x] `etsy_stats` rows inserted daily for every Etsy listing that matches a `product.etsy_listing_id`
+- [x] `cron_runs` row records `rows_processed` (= inserted count) + `raw_log.matched`, `raw_log.skipped`
+- [x] Auth failures propagate via `withFreshCredential` retry; refresh failure surfaces as `cron_runs.status='error'`
+- [x] No DB migration required (uses existing `etsy_stats` table)
 
 ---
 
@@ -284,7 +288,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 ## Status Tracker
 - [x] TICKET-101 — Cron infrastructure ✅ (2026-05-11)
 - [x] TICKET-102 — Credentials encryption + refresh ✅ (2026-05-11)
-- [ ] TICKET-103 — Etsy shop stats sync
+- [x] TICKET-103 — Etsy shop stats sync ✅ (2026-05-11)
 - [ ] TICKET-104 — Etsy reviews + sentiment
 - [ ] TICKET-105 — Meta Marketing Insights
 - [ ] TICKET-106 — Google (GA4 + Ads + Search Console)

@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Listing copy package v1 ✅ — 6 Etsy listings drafted for Wedding + Notion + 4 Bundle SKUs; flagged $32→$44 and $52→$60 Finance Bundle savings math errors in Bundle brief Section 2)_
+_Last updated: 2026-05-11 (Pricing rule "low alternative" applied across catalog + Input/Output Tab spine rule added to all spreadsheet proposals)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -54,21 +54,29 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 | 10 | All-in-One Premium Bundle (6 SKUs) | ✅ `docs/product-proposals/all-in-one-premium-bundle.md` | ✅ approved |
 | 11 | Notion Life OS | ✅ `docs/product-proposals/notion-life-os.md` | ✅ approved (MVP scope) |
 
-## Pricing Confirmed
+## Pricing Confirmed (lower-alternative rule applied 2026-05-11)
 | Product | Essentials | Pro | AI Edition |
 |---------|-----------|-----|------------|
-| Budget Tracker | $12 | $22 | $34 |
-| Debt Payoff Planner | $14 | $24 | $36 |
-| Sinking Funds Planner | $12 | $22 | $34 |
-| Net Worth Tracker | $14 | $24 | $36 |
-| Small Business Finance Kit | $29 | $49 | $69 |
-| Family & Education Planner | $17 | $27 | $39 |
-| Investment Portfolio Tracker | $19 | $29 | $44 |
-| Zakat Calculator | $12 | $22 | $34 |
-| Pro Bundle (5 products) | — | $97 | $149 |
-| Wedding Budget & Planner | $24 | $39 | $59 |
-| **All-in-One Premium Bundle (6 SKUs)** | — | $129 | $189 |
-| Notion Life OS | $29 | $49 | $69 |
+| Budget Tracker | $9 | $19 | $29 |
+| Debt Payoff Planner | $12 | $19 | $29 |
+| Sinking Funds Planner | $9 | $19 | $29 |
+| Net Worth Tracker | $12 | $19 | $29 |
+| Small Business Finance Kit | $24 | $39 | $54 |
+| Family & Education Planner | $14 | $22 | $32 |
+| Investment Portfolio Tracker | $17 | $24 | $34 |
+| Zakat Calculator | $9 | $19 | $29 |
+| Premium Finance Bundle (5 SKU) | — | $79 | $119 |
+| Wedding Budget & Planner | $19 | $34 | $49 |
+| **Premium Life Bundle (6 SKU)** | — | $99 | $149 |
+| Notion Life OS | $24 | $39 (deferred) | $54 (deferred) |
+
+**Bundle savings (recalculated against lower standalone prices):**
+- Finance Bundle Pro: $115 unbundled − $79 bundle = **$36 saved (31%)**
+- Finance Bundle AI: $170 unbundled − $119 bundle = **$51 saved (30%)**
+- Life Bundle Pro: $149 unbundled − $99 bundle = **$50 saved (34%)**
+- Life Bundle AI: $219 unbundled − $149 bundle = **$70 saved (32%)**
+
+⚠️ Backend session must reseed `supabase/migrations/0003_product_tier_pricing.sql` (or new migration) with these prices. This session does not touch the migration.
 
 ## What's Next
 - [x] All 8 product proposals approved ✅
@@ -94,7 +102,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Phase 2 ticket breakdown ✅** → `docs/phase-2-tickets.md` — 12 tickets, ~140h envelope. Foundation (T101 cron + T102 credentials encryption) → 5 parallel data pulls (T103–T107) → synthesis (T108 rollup, T109 dashboard) → automation (T110 Klaviyo, T111 AI listing copy, T112 content engine v1). TICKET-011 Notion plumbing called out as Phase 1.5.
 - [x] **TICKET-101 Cron infrastructure ✅** (2026-05-11) → `vercel.json` + `src/lib/cron/{auth,run}.ts` + `src/app/api/cron/heartbeat/route.ts` + `supabase/migrations/0004_cron_runs.sql` (applied to Supabase). `runCron(name, handler)` is the shared abstraction for all Phase 2 crons. 17 new tests, 179 total passing.
 - [x] **TICKET-102 Credentials encryption + token refresh ✅** (2026-05-11) → `src/lib/credentials/{encryption,types,load,store,refresh,with-fresh}.ts` + `src/app/api/admin/credentials/[platform]/refresh/route.ts` + `supabase/migrations/0005_credentials_encryption.sql` (applied). AES-256-GCM via `CREDENTIALS_ENCRYPTION_KEY` env, `encryption_version` column distinguishes legacy/v1, per-platform OAuth refresh dispatchers (Etsy/Meta/Google/TikTok) + `withFreshCredential(platform, fn)` retry-on-401 wrapper. Etsy api.ts retrofitted via back-compat shim. 39 new tests, 218 total passing.
-- [ ] **2B data pulls next** — T103 Etsy stats, T104 Etsy reviews+sentiment, T105 Meta Marketing Insights, T106 Google (GA4 + Ads + Search Console), T107 TikTok ad metrics. All parallel after T102. ~48h envelope.
+- [x] **TICKET-103 Etsy shop stats sync ✅** (2026-05-11) → `src/lib/etsy/stats.ts` + `src/app/api/cron/sync-etsy-stats/route.ts`. Paginated `GET /shops/{id}/listings/active` through `withFreshCredential('etsy', ...)`; snapshot-history insert into existing `etsy_stats` table (one row per product per sync, gives T109 time-series data). Cron schedule `0 3 * * *` UTC added to vercel.json. 14 new tests, 232 total passing.
+- [ ] **2B data pulls remaining** — T104 Etsy reviews+sentiment, T105 Meta Marketing Insights, T106 Google (GA4 + Ads + Search Console), T107 TikTok ad metrics. All can be built in parallel.
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
 - [x] **Wedding (Product 9) signed off** — spreadsheet-only v1, $24/$39/$59, Muslim+Hindu variants in AI Edition, both standalone + Bundle 10 ✅
@@ -111,8 +120,10 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [ ] Cover production starts: Bundle hero stack (4 variants) and Notion hero browser-frame mockup can both begin once `Premium Finance Brand Kit` is set up
 - [ ] After visual production starts: Wedding build (~50h) → Bundle assembly (~33h) → Notion Life OS MVP (~52h, runs partially parallel)
 - [x] **Listing copy v1 ✅ (2026-05-11)** — 6 Etsy listings drafted → `docs/listing-copy/` (Wedding 3-tier-via-variations + Notion Essentials + 4 Bundle SKUs). Each has title (≤140 char), subtitle, 3000+ char description, variations table, 13 tags, 10 FAQs, thumbnail copy hooks, production notes. Source of truth for thumbnail overlay copy.
-- [ ] **⚠️ PRICING RECONCILIATION NEEDED in Bundle brief Section 2 cover variant table** — Finance Pro listed as "$32 SAVED" but correct math = $44 ($141 standalone − $97 bundle). Finance AI listed as "$52 SAVED" but correct math = $60 ($209 standalone − $149 bundle). Life Bundle math is correct ($51 Pro / $79 AI). Update brief before cover production. Listing copy uses correct numbers.
-- [ ] Next product-track step: either lock Bundle brief pricing reconciliation, or move to next listing-content deliverable (Bundle AI prompt content C / Wedding AI prompts E / Notion template content spec D), or break Wedding build into tickets (B)
+- [x] **Pricing rule "low alternative" applied across catalog ✅ (2026-05-11)** — All 11 products + bundles re-priced to the lower-viable price point while staying above the "doesn't look cheap" floor. Memory rule saved → `feedback_pricing_lower_alternative.md`. Bundle savings re-derived: $36 / $51 / $50 / $70 (all 30–34% range, up from 13–29% spread). Overrode prior sign-offs on Wedding ($24/$39/$59 → $19/$34/$49) and Notion ($29 → $24) per the new rule.
+- [x] **Input/Output Tab spine rule added ✅ (2026-05-11)** — Every spreadsheet must have an explicit Input Tab (data entry) + Output Tab (colored eye-catching dashboard w/ graphs). Memory rule saved → `feedback_spreadsheet_input_output_dashboard.md`. All 9 spreadsheet proposals (8 finance + Wedding) audited and annotated with which existing tabs serve these roles + graph/visual requirements added. Notion already compliant (Home Dashboard = Output, databases = Input); brief gets explicit callout.
+- [ ] Bundle brief Section 2 cover variant table savings badges must update to new numbers ($36 SAVED Finance Pro / $51 SAVED Finance AI / $50 SAVED Life Pro / $70 SAVED Life AI) before any cover production starts. The earlier $32/$52 vs $44/$60 reconciliation is moot — both supplanted by new lower-alternative pricing.
+- [ ] Next product-track step: pick from menu — Wedding AI Co-Pilot 8 prompts (~3h smallest), Notion template content spec (~4h), Bundle AI Library 60+ prompts (~8h), Wedding build ticket breakdown (~3h)
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
