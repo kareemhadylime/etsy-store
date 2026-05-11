@@ -3114,3 +3114,44 @@ The actual header list lives in a separate module (`src/lib/security/headers.ts`
 ### Loose ends
 - CSP is the biggest remaining security gap. When tackling, allowlist origins by walking the Network tab on a fresh storefront load + checkout flow.
 - The runbook now has a section numbered "13" sitting after a duplicate-numbered "11. Continuous integration" / "12. Rate limiting" / "11. Operational dashboard" sequence — pre-existing numbering glitch from earlier ships; harmless but worth cleaning up next time someone's in there.
+
+---
+
+## Session 2026-05-11 — Budget Tracker AI Money Advisor content v1 (products session)
+
+User said "work on optional, deferred, external". Started with highest-leverage item: AI prompt content cascade (pre-requisite for AI PDF build tickets).
+
+### Done
+- `docs/product-content/budget-tracker-ai-prompts.md` — 11-page PDF content (cover + intro + 7 prompts + tips + back cover)
+- `docs/product-content/_README.md` — file index updated
+
+### Cascading from Wedding AI Co-Pilot template
+Per-prompt skeleton: title + tab callout pill + copy-paste prompt w/ `[PLACEHOLDERS]` + worked example + footer.
+
+7 prompts (matches Budget proposal): Smart Spending Advisor / Scenario Simulator / Bill Negotiation Scripts / Cash Flow Intelligence / Annual Money Review / Category Advisor / Health Score Coach.
+
+Worked examples use realistic anonymized scenarios with specific vendor names (Whole Foods, Uber Eats, Spotify, Spectrum, Verizon Fios) so buyers see patterns in their own data immediately.
+
+### Key content decisions
+- Vendor specificity over generic claims
+- Anti-pep-talk discipline — back cover "Your money. Your sheet. Your call." vs Wedding's softer tone
+- Health Score Coach calibrates honestly ("obvious-but-wrong action" section walks back common bad advice)
+- Negotiation script tone: warm not whiny
+- Privacy framing in intro reinforces product positioning
+
+### Cross-product implications
+4 remaining AI content files follow same skeleton:
+- Debt Payoff 7 prompts → 11-page PDF
+- Sinking Funds 7 prompts → 11-page PDF
+- Net Worth 7 prompts → 11-page PDF
+- Small Business 8 prompts → 12-page PDF
+
+Each ~3h. Total remaining: ~12h to unblock all 5 AI PDF build tickets.
+
+### Files changed
+- `docs/product-content/budget-tracker-ai-prompts.md` (new)
+- `docs/product-content/_README.md` — index updated
+- `session-handshake.md` — Budget AI content checkmark
+
+### Next session
+Continue cascade: Debt Payoff AI prompts → Sinking → NW → Small Business. Then pivot to deferred briefs or external execution playbook.

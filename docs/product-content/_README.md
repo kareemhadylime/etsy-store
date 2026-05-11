@@ -15,6 +15,7 @@ When a product builds the actual deliverable (Sheets template, Notion workspace,
 | [`wedding-ai-prompts.md`](./wedding-ai-prompts.md) | Wedding Budget & Planner (AI Edition) | 8-prompt AI Co-Pilot PDF content | ✅ v1 |
 | [`notion-life-os-template-spec.md`](./notion-life-os-template-spec.md) | Notion Life OS (Essentials MVP) | Build-ready template spec: database schemas, properties, formulas, views, seed data | ✅ v1 |
 | [`bundle-ai-library.md`](./bundle-ai-library.md) | Premium Finance Bundle AI + Premium Life Bundle AI (both AI Editions) | Master AI Prompt Library PDF content — 10 cross-product workflows + 60 per-product reference prompts. Two variants (Finance / Life) from single source via Wedding-section toggle. | ✅ v1 |
+| [`budget-tracker-ai-prompts.md`](./budget-tracker-ai-prompts.md) | Budget Tracker (AI Edition) | 7-prompt AI Money Advisor PDF content (11 pages: cover + intro + 7 prompts + tips + back cover). Unblocks BT11 build ticket. | ✅ v1 |
 
 ## Voice rules for prompt scripts
 
