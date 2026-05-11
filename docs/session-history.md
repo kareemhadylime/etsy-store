@@ -4712,3 +4712,108 @@ Total remaining Track 2: ~6h.
 
 ### Next step in turn
 Zakat build tickets (~3h). Last Zakat artifact — completes Zakat 100% spec'd. Then Notion build tickets (last Track 2 artifact).
+
+---
+
+## Session 2026-05-11 — Zakat Calculator build tickets v1 (products session, Track 2 step 9)
+
+User said "next" — step 9 of 10: build tickets for Zakat Calculator. Completes Zakat 100% spec'd.
+
+### Done
+- `docs/zakat-calculator-build-tickets.md` — 13 tickets (ZK01-ZK13) across ~45h
+- `session-handshake.md` — Track 2 step 9 checkmark + Zakat 100% + ALL 8 BUILD TICKETS callout
+
+### 13 tickets
+- ZK01 Scaffolding + Scholar Disclaimer + deep-teal accent (~3h)
+- ZK02 Wealth Inventory + Madhhab Settings (paired Input surface) (~3.5h)
+- ZK03 Dashboard Output (5 viz including Zakat al-Fitr ribbon + 8-category Distribution donut) (~5h)
+- ZK04 Essentials cluster (Nisab gold-method / Zakat Calc / Crypto / MF&ETFs / Property Resale / Zakat al-Fitr / Annual Review / 6-currency) (~6.5h) — **Essentials $9 shippable gate**
+- ZK05 Pro: Silver Nisab toggle + Hawl Tracker (Hijri converter) (~3h)
+- ZK06 Pro: Stocks (full method) + Sukuk (by structure) + Rental Property + Agricultural (~3.5h)
+- ZK07 Pro: EOSB + Qada Zakat (~3h)
+- ZK08 Pro: Distribution Tracker + Partial Payment + Family Consolidation (~3h)
+- ZK09 Pro: 9-currency + Niyyah column + Debt deduction nuance (~1.5h) — **Pro $19 shippable gate**
+- ZK10 AI Zakat Advisor Hub (~2h) — **AI Edition $29 shippable gate**
+- ZK11 AI Zakat Advisor PDF — 12 pages with MANDATORY citations + two-persona structure (~7h, +1h vs other AI PDFs for citation verification)
+- ZK12 5 thumbnails (realistic Madhhab+currency combos, NO crescent/star) + Quick-start 1-pager with Arabic labels (~5.5h)
+- ZK13 Final QA + Scholarly Accuracy Review + Etsy publish (60+ days pre-Ramadan) (~3h, +1h external scholar review recommended)
+
+### Per-product overrides documented in tickets (5 overrides, most of any product)
+1. **Deep teal `#2C5F5D` accent** for religious-context tabs only (<5% surface coverage)
+2. **Scholar Disclaimer banner MANDATORY** on every tab — replaces standard anti-SaaS banner
+3. **NO crescent/star decorative iconography** anywhere — restraint + accuracy over aesthetic signaling
+4. **Madhhab-aware ruling propagation** — `Madhhab` named range drives logic across ZK04-ZK09
+5. **NO Excel courtesy export** — GOOGLEFINANCE Sheets-only for gold/silver/FX
+
+### Critical pre-build verification documented
+- GOOGLEFINANCE crypto + metal ticker patterns:
+  - Gold: `=GOOGLEFINANCE("CURRENCY:XAUUSD")` — USD per troy oz; divide by 31.1035 for grams
+  - Silver: same conversion via XAGUSD
+  - BTC/ETH: `CURRENCY:BTCUSD` / `CURRENCY:ETHUSD`
+  - Altcoins: many small altcoins NOT in GOOGLEFINANCE; manual entry needed
+  - 9 currencies: each FX call verified
+- Hijri calendar source choice: Umm al-Qura (Saudi) vs ISNA (US) vs lunar-visibility (traditional). Document; allow regional override.
+- **External scholar review recommended** before publishing v1 — budget $200-500 for one-time review
+
+### Three tier-shippable gates documented
+- Gate 1 (after ZK04): Essentials $9 — 11 tabs, gold-method only, 6-currency
+- Gate 2 (after ZK09): Pro $19 — 22 tabs, Silver toggle + Hawl + Hijri + EOSB + Qada + 9-currency
+- Gate 3 (after ZK10 + ZK11): AI Edition $29 — 23 tabs + 8 AI prompts with mandatory citations + Ramadan-timed refreshes
+
+### Cross-product dependencies
+- ✅ Listing copy (Track 2 step 7)
+- ✅ AI prompt content (Track 2 step 8)
+- ⏳ Premium Finance Brand Kit page 06.8 setup (Phase A user execution)
+- ✅ Backend product_files + AI Edition variation (Phase 1 done)
+- **NONE** to other products (Zakat is standalone, isolated from both Bundles by design)
+
+### Build envelope rationale
+~45h — largest of deferred-niche briefs. Higher than Investment Portfolio (~44h) and Family (~41h) because of:
+- Madhhab toggle logic propagation across most downstream tabs
+- Hijri ↔ Gregorian date math
+- 9-currency multi-currency
+- Mandatory citation framing in AI PDF (+1h)
+- Scholarly accuracy QA overhead (+1h external review)
+
+Still below Small Business (~54h) — religious-context complexity ≠ cross-functional accounting complexity in raw hours.
+
+### Phase recommendation + timing constraint
+Build in Phase E (Months 7+). **CRITICAL**: launch date must be 60+ days before Ramadan of launch year. Only catalog product with explicit seasonal-launch alignment.
+
+- Ramadan 2027 ~Feb 17 → launch by Dec 18, 2026
+- Ramadan 2028 ~Feb 6 → launch by Dec 8, 2027
+
+If Phase E rolls forward such that launch would miss Ramadan window: defer to next Hijri cycle OR ship Essentials-only at $9 in time + add Pro/AI as v1.1/v1.2 updates.
+
+### Files changed
+- `docs/zakat-calculator-build-tickets.md` (new — 13 tickets, ~45h)
+- `session-handshake.md` — Track 2 step 9 + Zakat 100% + 🎉 ALL 8 BUILD TICKETS callout
+
+### 🎉 Zakat Calculator product is now 100% spec'd
+All planning artifacts exist:
+- ✅ Proposal v3
+- ✅ Design brief v1
+- ✅ Listing copy v1
+- ✅ AI prompt content v1 (mandatory fatwa citations)
+- ✅ Build tickets v1
+
+### 🎉 ALL 8 PRODUCT BUILD TICKETS NOW EXIST
+- Wedding (W01-W16) ~53h
+- Budget Tracker (BT01-BT12) ~42h
+- Debt Payoff (DP01-DP12) ~42h
+- Sinking Funds (SF01-SF12) ~41h
+- Net Worth (NW01-NW13) ~46h
+- Small Business (SB01-SB15) ~54h
+- Family & Education (FE01-FE12) ~41h
+- Investment Portfolio (IP01-IP13) ~44h
+- Zakat Calculator (ZK01-ZK13) ~45h ← just shipped
+
+**Total: 9 product build ticket files = 118 tickets across ~408h of spreadsheet build work.**
+
+Only Notion Life OS build tickets remaining to complete the catalog ticket coverage.
+
+### Track 2 progress (9/10 done)
+✅ Family (3) | ✅ Investment (3) | ✅ Zakat (3) | ⏳ Notion build tickets next (last)
+
+### Next step in turn
+Notion Life OS build tickets — ~3h. Final Track 2 artifact. After this, Track 2 100% complete + entire catalog has all planning artifacts.
