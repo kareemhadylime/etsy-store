@@ -2733,3 +2733,64 @@ Plus 5 per-product AI prompt content files at ~3h each = ~15h.
 
 ### Next session
 Debt Payoff build tickets — next in cascade. Or pivot to AI prompt content files (Budget Tracker AI prompts most urgent since BT11 references it).
+
+---
+
+## Session 2026-05-11 — Debt Payoff build tickets v1 (products session, post-catalog cascade)
+
+User said "go on" — continuing the build-ticket cascade. Second of 4 remaining.
+
+### Done
+- `docs/debt-payoff-build-tickets.md` — 12-ticket breakdown (DP01-DP12) across ~42h
+
+### Cascading from Budget Tracker template
+Budget Tracker's 12-ticket structure carried forward with per-product clustering:
+- DP01 scaffolding (3h)
+- DP02 Debt List Input Tab (2h) — note: Debt List itself is the Input per spine rule (proposal lock), so Setup mini-section embedded at top of Debt List instead of separate Setup Wizard tab
+- DP03 Dashboard Output Tab (5h)
+- DP04 Strategy methods cluster (4h) — Snowball + Avalanche + Custom + Strategy Comparison Matrix
+- DP05 Consolidation cluster (3h) — Debt Consolidation + Balance Transfer + Refinance Radar (all Pro+)
+- DP06 Credit score cluster (4h) — Tracker + Simulator + Utilization + Inquiry/Marks (most complex Pro work, 3-bureau matrix)
+- DP07 Payment cluster (3h) — Late-Fee Monitor + Calendar + On-Time Streak
+- DP08 Student loan + Extra Payment + Milestone (3h)
+- DP09 AI Credit Score Coach hub (2h)
+- DP10 tier QA gates (3h)
+- DP11 AI PDF Figma layout (5h)
+- DP12 thumbnails + Final QA + publish (5h)
+
+### Tab-count reconciliation noted
+Design brief Section 6 flagged the tab-count discrepancy (proposal said 18 tabs but enumerated 20 items). This ticket file reconciles:
+- Debt Health Score → rendered IN Dashboard (DP03) as gauge + 4 sub-component mini-gauges, not a separate tab
+- FICO factor education panel → section within Credit Score Tracker (DP06), not a separate tab
+
+Final: 18 unique tabs in AI Edition (matches proposal claim).
+
+### Key build decisions
+- Debt List replaces Setup Wizard as the Input Tab (proposal-locked spine; embed minimal setup mini-section at top of Debt List)
+- Single-workbook strategy (AI Edition source → derive tiers via tab hiding)
+- AI tier flag named range drives variant rendering
+- Pro features = mix of new tabs (10 unhidden) + existing-tab feature unlocks (Debt List 10→20 debts, Credit Score Tracker 1→3 bureaus, Payment Calendar 60→90 days)
+- AI Edition adds 1 tab (AI Credit Score Coach hub; Debt Health Score is in Dashboard not separate)
+- **Pre-requisite flagged**: `docs/product-content/debt-payoff-ai-prompts.md` needed before DP11 PDF build
+
+### Three shippable gates
+- Essentials $12 (~11 tabs)
+- Pro $19 (~17 tabs)
+- AI Edition $29 (18 tabs)
+
+### Build ticket cascade progress
+- Wedding ✅ 16 tickets ~53h
+- Budget Tracker ✅ 12 tickets ~42h
+- Debt Payoff ✅ 12 tickets ~42h
+- Sinking Funds ⏳ ~12 tickets ~38h projected
+- Net Worth ⏳ ~13-14 tickets ~45h projected
+- Small Business ⏳ ~15-16 tickets ~58h projected
+
+Remaining cascade: ~9h (3 more files at ~3h each).
+
+### Files changed
+- `docs/debt-payoff-build-tickets.md` (new)
+- `session-handshake.md` — Debt Payoff tickets checkmark + next-step menu
+
+### Next session
+Sinking Funds build tickets — next in cascade. Or pivot to AI prompt content files.
