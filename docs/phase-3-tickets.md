@@ -1,7 +1,7 @@
 # Phase 3 — Implementation Tickets
 
-_Last updated: 2026-05-11 (drafted; nothing started)_
-_Status: planning only_
+_Last updated: 2026-05-11 (all 8 open decisions resolved; nothing started)_
+_Status: planning locked — defaults chosen for every previously-open decision_
 
 Phase 3 turns the read-only ad-data pipeline from Phase 2 into a read-write marketing engine, expands the content engine from 3 to 10 publishing surfaces, opens shopping-feed distribution beyond Etsy, adds affiliate revenue, and internationalizes the storefront.
 
@@ -31,6 +31,8 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 - Admin UI `/admin/ads` — campaign list (joins `ad_campaigns` + latest `ad_metrics_daily` row), per-campaign detail page with Pause / Resume / Edit budget buttons that call server actions. Server actions are `requireAdmin`-gated and call `dispatchAdCommand` only — they never hit the platform API directly.
 - Cron route `/api/cron/run-ad-commands` at `*/5 * * * *` UTC for snappy admin feedback.
 - Tests: command insert, dispatcher dispatches to right platform, retry budget, max-attempts → failed, admin UI gate.
+
+**Decision (v1): always-now, not scheduled.** Commands dispatch the moment the admin clicks. Pre-stage budget bumps via calendar reminders, not a `scheduled_at` field. Scheduling adds a state machine + UI surface that nothing in Phase 3 needs yet; it's a clean follow-up ticket if a real use case emerges.
 
 **Depends on:** Phase 2 T105/T106/T107 (read-side schema exists)
 **Acceptance:**
@@ -68,11 +70,18 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 - Tests: each command shape, field_mask correctness, error surfacing
 
 **Depends on:** T201, T102 (Google credential refresh exists)
-**Open question:** Google Ads campaigns share budgets across campaigns. Updating budget X affects every campaign on it. Need an admin warning before applying.
+
+**Decision (v1): always show the shared-budget warning before apply.** Google Ads campaigns can share a budget resource — updating it affects every linked campaign. The admin UI's "Edit budget" flow:
+1. Reads the campaign's `campaign_budget` resource via the Ads API
+2. If `explicitly_shared = true`, lists every linked campaign by name + status
+3. Requires an explicit second-click "I understand, this affects N campaigns" confirmation
+4. Logs the confirmation event in `ad_commands.payload.shared_budget_acknowledged`
+
+No silent multi-campaign edits. The friction is intentional — bulk budget edits are a calendar-event-level mistake.
 
 **Acceptance:**
 - [ ] Pause/resume work via command bus
-- [ ] Budget update either targets the campaign-specific budget or surfaces the shared-budget warning before applying
+- [ ] Budget update on a shared budget surfaces the warning with the list of affected campaigns + requires explicit confirmation before dispatching the command
 
 ---
 
@@ -104,7 +113,8 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 - `generateAdCreative({ productId, platform, format })` — Claude Sonnet 4.6 for headline + body copy, then **banana skill** (image generation MCP, separate concern — store the prompt; image generation is admin-manual or future automated). Output: `ad_creatives` row in `draft`.
 - Media library admin UI at `/admin/ads/creatives` — list, new, detail with manual image upload to Supabase Storage if banana skill is async.
 - `assignCreativeToAdSet(creativeId, platform, campaignId, payload)` — per-platform creative upload + ad-set assignment. Reuses `dispatchAdCommand` shape but separate table because the payload semantics are different.
-- Decision deferred: do we generate one creative per platform, or one master + per-platform crops? Lean toward per-platform — sizes differ (Meta 1:1 + 9:16, Google responsive, TikTok 9:16).
+
+**Decision (v1): per-platform creatives, not master + crops.** Aspect ratios diverge too far for auto-cropping to preserve quality (Meta needs 1:1 + 9:16, Google responsive uses 1.91:1 + 1:1 + 4:5, TikTok is 9:16-only, Pinterest is 2:3 portrait). Each `generateAdCreative` call takes `(productId, platform, format)` and produces one creative scoped to that combination. Call banana skill once per tuple. Future ship can add a "clone creative to another platform" admin button that re-runs the AI with the new platform's prompt template; that's a UX nicety, not a code shortcut.
 
 **Depends on:** T111 (AI infra exists), T201 (assignment routes through command bus pattern), T112 (image_prompt extraction pattern)
 **Acceptance:**
@@ -161,26 +171,33 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 - Rendition prompt template emphasizes value-first framing (anti-spam tone)
 - Per-post `flair_id` accepted in rendition row
 
+**Decision (v1): organic karma is an operational prerequisite, not a code problem.** No code path attempts to buy / rent / age accounts — that's ToS-risky and brittle. Instead:
+- T208 ships the rules engine + posting flow assuming a posting account exists with reasonable karma + age
+- The runbook §4 platform-seeding section gets a "Reddit posting account" subsection explaining: build the account organically over ~3-6 months posting helpful non-promotional content to target subs before flipping on the publish queue's Reddit dispatcher
+- For subs that require established accounts (the rules engine flags `min_karma` / `min_age_days` rules), the queue refuses posts until the credential's `metadata.account_karma` + `metadata.account_age_days` (captured at OAuth seed time) clear the bar
+- A future ship can add Reddit Ads as a paid alternative path with no karma requirement; that's a Phase 3.5 follow-up
+
 **Depends on:** T112, T102
 **Acceptance:**
 - [ ] Admin can pick a subreddit when approving a rendition and the system pre-flights against `subreddit_rules`
 - [ ] Posts that would violate a rule (e.g. self-promo on a banned sub) get rejected at queue time, not at platform-call time
+- [ ] Posts to karma-gated subs get rejected at queue time if the credential's stored karma/age don't clear the threshold
 
 ---
 
-### TICKET-209 — YouTube Community + Quora long-tail
-**Est:** ~12h
-**New files:** `src/lib/social/{youtube-community,quora}.ts`
+### TICKET-209 — YouTube Community tab
+**Est:** ~8h (revised down from ~12h after dropping Quora — see decision below)
+**New files:** `src/lib/social/youtube-community.ts`
 **Tasks:**
-- **YouTube Community tab**: requires 500+ subscribers (channel eligibility check at credential-seed time, surface clearly if ineligible). API: `youtube.channels.list` for eligibility + `youtubeAnalytics` lacks a direct posting API today — may need to defer to "manual paste" rendition if no first-party API exists when this ticket starts. **Open question, confirm during build.**
-- **Quora**: no official public posting API. Realistic path is "manual paste" rendition — generate the answer, admin copy-pastes to Quora. Track which question_url the answer was posted to via a manual field after publishing.
-- Both ship with rendition prompts but the publishing step may be admin-manual rather than cron-automated
+- **YouTube Community tab**: requires 500+ subscribers (channel eligibility check at credential-seed time, surface clearly if ineligible via `youtube.channels.list`). At the time of planning, YouTube does not expose a Community-tab posting API — `youtubeAnalytics` is read-only. Build path: ship a "Mark posted" admin button so renditions flip `ready` → `published` manually until/unless a public posting API lands. Add a feature-flag-ish check that polls `youtube.channels.list` once at credential-seed time for community-tab eligibility; persist in `platform_credentials.metadata` so the publish queue can short-circuit ineligible accounts.
+
+**Decision (v1): defer Quora out of T209.** Quora has no public posting API, and a "generate + manual paste with a deep link" rendition is just a glorified copy-button — the value gain over generating an answer in the AI panel and pasting it manually is zero. Moved to a `docs/phase-3.5-nice-to-haves.md` file as a future "if Quora ever ships an API" trigger. T209 is now YouTube Community only.
 
 **Depends on:** T112
-**Open question:** Should we ship Quora at all given the lack of API, or skip in favor of platforms with real publishing automation?
 **Acceptance:**
-- [ ] YouTube Community renditions generate cleanly even when the publish step is manual (status flips `ready` → `published` via admin "Mark posted" button)
-- [ ] Quora rendition generates answer + opens "post on Quora" deep link
+- [ ] YouTube Community renditions generate cleanly with the manual-publish flow (`ready` → `published` via admin "Mark posted")
+- [ ] Channels under 500 subscribers get blocked at credential-seed time with a clear message; no broken renditions queued
+- [ ] If a public Community-tab posting API ships, swapping in automated publish is a single function add — no schema or UI change needed
 
 ---
 
@@ -258,12 +275,14 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 - Failed transfers surface in admin UI and the affiliate row.
 
 **Depends on:** T212, T102 (Stripe credentials in `platform_credentials`)
-**Open question:** Do we use Stripe Connect Express (simplest) or Standard (each affiliate has their own full Stripe account)? Express is faster for v1; Standard might be needed for international affiliates with tax-form complexity.
+
+**Decision (v1): Stripe Connect Express.** Express has the fastest onboarding (minutes vs. days), simplest tax-form handling (Stripe collects W-9/W-8 via their hosted onboarding), and lowest implementation cost. The trade-off — affiliates don't get a full Stripe dashboard — is the right one at our scale (we're selling $20 spreadsheets to a long tail of small affiliates, not running a marketplace for power-sellers). Upgrade path to Standard is documented but not built: if a single affiliate ever generates enough commission to want their own Stripe dashboard, migrate that one account by hand. Don't pre-build for it.
 
 **Acceptance:**
 - [ ] An affiliate with stripe_connect_id set + locked conversions receives a monthly payout
 - [ ] Failed payouts surface clearly in admin with the Stripe error
 - [ ] No payout happens for an affiliate without completed Stripe onboarding
+- [ ] The Stripe Connect onboarding link generated by `/admin/affiliates/[id]/onboard` uses `account_type: 'express'`
 
 ---
 
@@ -277,18 +296,27 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 - `messages/{en,es,fr,ar}.json`
 
 **Tasks:**
-- Adopt `next-intl` or roll a thin in-house solution (decide at build time — `next-intl` is mature and supports server components). **Read `node_modules/next/dist/docs/`** before picking, per AGENTS.md.
+- Adopt `next-intl` (decision below). **Read `node_modules/next/dist/docs/`** for App-Router i18n patterns before writing, per AGENTS.md.
 - Routes become `/[locale]/...` with `en` as default. Existing URLs redirect to `/en/...`.
 - Locale detection priority: explicit URL > cookie > `Accept-Language` header > default `en`.
 - Initial locale set: `en`, `es`, `fr`, `ar` (right-to-left for `ar` — add `dir="rtl"` on `<html>` for that locale).
 - Translation dictionaries live in `messages/*.json`. UI strings only — product copy stays in DB.
 
+**Decision (v1): `next-intl`, not in-house.** Three reasons:
+1. Server-component support out of the box — rolling that in-house against Next 16 is ~12-16h alone and a maintenance liability when Next versions bump
+2. Mature middleware-based locale detection that integrates cleanly with the existing `proxy.ts` matcher pattern
+3. ICU MessageFormat for plurals/dates/numbers — non-trivial to write correctly in-house
+
+Trade-off accepted: an upstream dep we have to track for breaking changes. Mitigated by the existing Dependabot config grouping minor/patch bumps + Dependabot's `version-update:semver-major` rule already gating Next/React majors (extend the same pattern to `next-intl` if it ever destabilizes).
+
+**Build-time verification (not a decision):** confirm Phase 2's `proxy.ts` matcher (`/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)`) works alongside `[locale]` route prefix. The static-asset exclusion should make this transparent — but if locale detection runs before Supabase auth and trips on something, the fix is adding next-intl's middleware composition pattern (chain locale + auth middlewares).
+
 **Depends on:** none directly; this is a code-organization refactor + new strings.
-**Open question:** Does Phase 2's `proxy.ts` Supabase auth play nicely with locale-prefixed routes? Probably yes (the matcher pattern excludes static assets but includes everything else); confirm at build.
 **Acceptance:**
 - [ ] Visiting `/es/products` shows Spanish UI strings
 - [ ] Existing `/products` redirects to `/en/products`
 - [ ] `<html lang>` + `<html dir>` reflect the active locale
+- [ ] Admin auth-gating on `/[locale]/admin/*` still redirects unauthenticated requests to `/[locale]/admin/login`
 
 ---
 
@@ -404,9 +432,19 @@ Reasons to defer something to Phase 4 (or never):
 
 ---
 
-## Decision log (to be updated during build)
+## Decision log (locked 2026-05-11)
 
-- _When T201 ships:_ confirm whether the command bus should accept "scheduled" commands (Pause this campaign at 2pm) or always run-now. Lean toward always-now for v1; scheduling is its own ticket.
-- _When T205 ships:_ decide between per-platform creatives (size-specific) vs. one master + crops. Per-platform is the safe call.
-- _When T208 ships:_ figure out the karma/account-age seeding strategy for new Reddit account (some subs require established accounts; running posts from a brand-new account fails the rules engine instantly).
-- _When T214 ships:_ pick between `next-intl` (mature, opinionated) and an in-house thin solution (full control). Read the Next 16 i18n docs first.
+Every previously-open question has a default. Re-open the row if real-world data contradicts the chosen default during the matching ticket's build.
+
+| # | Ticket | Decision | Rationale (short) |
+|---|---|---|---|
+| 1 | T201 | **Always-now dispatch, no `scheduled_at`** | Scheduling is a UX + state-machine layer no Phase 3 ticket needs; calendar reminders cover the timed-action use case |
+| 2 | T203 | **Always show shared-budget warning + require explicit confirmation** before applying a Google Ads budget change | Multi-campaign budget edits are calendar-event-level mistakes; friction is intentional |
+| 3 | T205 | **Per-platform creatives, not master + crops** | Aspect-ratio divergence (1:1, 9:16, 2:3, 1.91:1) is too wide for quality-preserving auto-crop; one banana call per (product, platform, format) |
+| 4 | T208 | **Organic karma is an operational prerequisite, not a code problem** | ToS-safe path is account-aging over months; runbook §4 documents the prereq, queue refuses posts that fail karma/age gates |
+| 5 | T209 | **Defer Quora out of T209; ship YouTube Community only** | Quora has no public posting API; rendition would just be a generator with a manual-paste step (zero leverage). Move to `phase-3.5-nice-to-haves.md` |
+| 6 | T213 | **Stripe Connect Express, not Standard** | Fastest onboarding + simplest tax-form handling; Standard upgrade path documented but not pre-built. Right call at our scale |
+| 7 | T214 (a) | **`next-intl`, not in-house i18n** | Server-component support alone saves ~12-16h; ICU MessageFormat for plurals/dates is non-trivial to write correctly |
+| 8 | T214 (b) | **Assume `proxy.ts` matcher composes cleanly with `[locale]` routes; verify at build** | Static-asset exclusion in the matcher should make it transparent. Fix-if-broken: chain next-intl's middleware with the Supabase auth middleware via next-intl's documented composition pattern |
+
+If you find yourself wanting to revisit one of these mid-build, the cost is real (every decision shifts cascading ticket scope). Open an explicit "decision revisit" issue first; don't silently override.

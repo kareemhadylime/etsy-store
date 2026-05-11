@@ -3916,3 +3916,57 @@ All 11 products with v1 design briefs:
 
 ### Next session
 Only remaining planning bucket: external execution playbook (~4h). Master document tying together Figma setup → Sheets builds → Notion build → Etsy publish workflows. After that, planning phase is genuinely complete; next moves are in external tools.
+
+---
+
+## Backend session — 2026-05-11 — Phase 3 open decisions resolved (all 8)
+
+User said "work on all open decisions as default" after the Phase 3 ticket breakdown shipped. Pure docs ship: pick a default for every previously-open question + write the rationale + lock the decision log. Zero code touched.
+
+### What was decided
+
+I'd left 4 open questions in the bottom decision log and 4 more inline in specific tickets — 8 total. Each now has an explicit `**Decision (v1):**` callout with rationale.
+
+| # | Ticket | Question | Resolution |
+|---|---|---|---|
+| 1 | T201 | Scheduled commands or always-now? | **Always-now.** Scheduling is its own state-machine + UI layer; calendar reminders cover the timed-action use case |
+| 2 | T203 | Google Ads shared-budget warning? | **Always show + require explicit confirmation.** Multi-campaign budget edits are calendar-event-level mistakes; friction is intentional |
+| 3 | T205 | Per-platform creatives vs. master+crops? | **Per-platform.** Aspect ratios diverge too far (1:1, 9:16, 2:3, 1.91:1) for quality-preserving auto-crop |
+| 4 | T208 | Reddit karma/age seeding strategy? | **Organic karma is an operational prerequisite, not a code problem.** Runbook §4 docs the prereq; queue refuses posts that fail karma/age gates |
+| 5 | T209 | Ship Quora or skip? | **Defer Quora.** No public posting API → rendition would just be a generator with manual-paste (zero leverage). Moved to `phase-3.5-nice-to-haves.md` |
+| 6 | T213 | Stripe Connect Express or Standard? | **Express.** Fastest onboarding, simplest tax forms, right call at our scale ($20 spreadsheets × long-tail affiliates) |
+| 7 | T214(a) | `next-intl` or in-house i18n? | **`next-intl`.** Server-component support saves ~12-16h alone; ICU MessageFormat is non-trivial to write correctly |
+| 8 | T214(b) | Does `proxy.ts` matcher compose with `[locale]` routes? | **Assume yes, verify at build.** Static-asset exclusion makes it transparent. Fix-if-broken is next-intl's documented middleware composition |
+
+### New file: phase-3.5-nice-to-haves.md
+Created to capture the items that got defaulted-OUT during this pass, with explicit "trigger to revive" notes so they don't rot into vague "maybe someday" thoughts:
+- Quora rendition (revive when Quora ships a posting API)
+- Reddit Ads (revive if organic karma seeding stalls or paid CAC starts to make sense)
+- Scheduled ad commands (revive when calendar-reminder workflow becomes insufficient)
+- Stripe Connect Standard (revive if a single affiliate generates dashboard-justifying volume)
+- YT Community automated posting (revive when YouTube ships the API)
+- Storefront customer reviews (revive if Etsy reviews stop being indexed by Google rich results)
+
+The file's last section spells out the discipline: don't dump every "maybe someday" thought here — items must have a concrete revive trigger.
+
+### Bottom decision-log rewritten
+Old: a list of "_When T201 ships:_ confirm whether..." placeholders waiting to be answered.
+New: a locked-decisions table with rationale + a parenthetical note that "if you find yourself wanting to revisit one of these mid-build, the cost is real — open an explicit revisit issue first; don't silently override."
+
+### Why ship this as a separate doc ship rather than fold into Phase 3 ticket exec
+Resolving decisions up front saves cascading rework. When T201 actually starts, the implementer doesn't pause to debate scheduling vs. always-now — the decision is locked, with rationale. Same for every other ticket. The cost of revisiting a decision mid-build is real (cascading scope changes); pre-locking them at planning time is the cheapest moment.
+
+### Files changed
+- `docs/phase-3-tickets.md` — 8 explicit `**Decision (v1):**` callouts added (T201, T203, T205, T208, T209, T213, T214 × 2), bottom decision-log section rewritten as locked-decisions table, `_Last updated_` + status lines updated, T209 ticket renamed + scoped down (Quora removed, estimate trimmed from 12h to 8h)
+- `docs/phase-3.5-nice-to-haves.md` — new file capturing 6 deferred items with revive-trigger notes
+- `session-handshake.md` — new bullet documenting the decision-lock pass
+
+### Verification
+No code touched. No test/lint/build re-run needed. Doc consistency verified: every "Open question" / "Decision deferred" / "Lean toward" marker in `phase-3-tickets.md` has been replaced.
+
+### Where the backend session sits now
+- 25 Phase 1+1.5+2 backend tickets shipped
+- 16 Phase 3 tickets planned + all 8 open decisions resolved with rationale
+- 6 deferred items captured in `phase-3.5-nice-to-haves.md` with revive triggers
+- 65+ unpushed commits
+- The Phase 3 plan is now an actionable execution document, not a draft. Any future session can pick T201 and start without paging in context.
