@@ -3973,6 +3973,39 @@ No code touched. No test/lint/build re-run needed. Doc consistency verified: eve
 
 ---
 
+## Backend session — 2026-05-11 — Wrap commit: outstanding files + handshake bi-track update
+
+User said "commit all and update session handoff file" — a wrap-up after both tracks (products planning + backend Phase 3 scoping) hit their respective stopping points within minutes of each other.
+
+### What was outstanding
+- `docs/execution-playbook.md` — untracked, drafted by the parallel products session (their `🏁 PLANNING PHASE ENTIRELY COMPLETE` milestone) but not yet committed
+- `session-handshake.md` — the parallel session bumped the "Last updated" line to celebrate playbook v1 + planning-complete, but the line only captured the products-track milestone; backend-side milestone (Phase 3 fully scoped, all 8 decisions locked, 68 unpushed commits) wasn't acknowledged
+
+### What changed
+- Updated `session-handshake.md` "Last updated" line to capture both tracks: products planning ready for external execution + backend Phase 3 fully scoped with decisions locked + unpushed-commit count flagged so the user can see the push gate at a glance
+- Staged + committed `docs/execution-playbook.md` from the parallel session's work alongside this handshake update
+- Appended this entry to `docs/session-history.md`
+
+### Why a "wrap commit" matters
+The two tracks (products planning + backend Phase 3 prep) have been running in parallel all day and converging on a shared stopping point. Without an explicit wrap commit, the next session opens to "65+ unpushed commits, multiple untracked files, handshake line celebrating only half the milestone" — high friction to resume. With the wrap commit, the state is internally consistent: every shipped doc is committed, the handshake reflects both tracks accurately, and the loose-end list is well-defined.
+
+### Files changed
+- `session-handshake.md` — "Last updated" line rewritten to span both tracks
+- `docs/execution-playbook.md` — committed as part of this wrap (products session's content; backend session is the committer because the wrap call landed here)
+- `docs/session-history.md` — this entry
+
+### Verification
+- `git status` clean after commit (modulo whatever the parallel products session has actively touched mid-flight)
+- No code touched. Lint/test/build remain green at the last verified state (481 tests).
+
+### Loose ends still standing (unchanged from previous entries)
+1. `git push` the 68 unpushed commits — user-gated per the git safety protocol
+2. After first green CI run on `main`: download `schema-current` artifact, commit as `supabase/schema.snapshot.sql` (bootstraps the schema-drift guard)
+3. After ~1 release cycle of CSP report-only telemetry: flip header name from `Content-Security-Policy-Report-Only` to `Content-Security-Policy` in `src/lib/security/headers.ts`
+4. Phase 3 ticket execution — when ready, pick T201 and start. All decisions locked, all dependencies wired, all cross-cutting concerns documented.
+
+---
+
 ## Session 2026-05-11 — External Execution Playbook v1 + 🏁 PLANNING PHASE ENTIRELY COMPLETE (products session)
 
 User said "next" — interpreted as Bucket 3 (the final remaining planning bucket). Drafted the master execution playbook tying every planning artifact into an actionable build sequence.
