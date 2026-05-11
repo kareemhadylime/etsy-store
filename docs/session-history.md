@@ -3723,3 +3723,72 @@ Included in Premium Life Bundle (6-SKU) but NOT in Finance Bundle (5-SKU) — pe
 - Continue Bucket 2 cascade: Investment Portfolio design brief (next) → Zakat Calculator design brief (last of 3 deferred)
 - Then Bucket 3: external execution playbook (~4h)
 - Note: deferred briefs ship faster than the 5-core cascade (~3h each vs ~3.5h) because the Premium Finance House template is now fully locked — only the per-product visual/content differences need to be specified.
+
+---
+
+## Session 2026-05-11 — Investment Portfolio Tracker design brief v1 (products session)
+
+User said "2" — interpreted as step 2 in the Bucket 2 cascade (the 3 deferred-niche briefs). Continued with Investment Portfolio Tracker.
+
+### Done
+- `docs/product-designs/investment-portfolio-tracker.md` — seventh cascade from Budget Tracker template
+- `session-handshake.md` — Investment Portfolio brief checkmark + updated remaining-planning list (1 brief left)
+
+### 19 tabs (most of any catalog product)
+Input Tab: `📊 Holdings Master` — grid-style (not card-style like Family & Education's per-child cards), per-position rows with right-aligned tabular numerics. Asset class dropdown (10 classes: Stocks/ETFs/Mutual Funds/Bonds/Cash/Metals/Crypto/REITs/CDs/Options-RSUs) drives downstream tab routing. Live price column via `=GOOGLEFINANCE(ticker)` — locked formula cell, not buyer-touchable.
+
+Output Dashboard: `🏠 Dashboard` — 10-class allocation donut + 24-month NAV-vs-cost-basis trajectory (gap = unrealized gains) + dividend income calendar bars (YTD + 12-month forecast) + ranked top-5 holdings + drift alert row.
+
+### Per-product override
+**Mandatory right-aligned tabular numerics EVERYWHERE** in this product, including dashboard KPI tiles. Bloomberg-terminal discipline. Investment buyers expect this; left-aligned numbers read as amateur. Same restraint dial as Small Business but applied to price/share-count/cost-basis columns instead of accounting lines.
+
+### 12-page AI Portfolio Intelligence PDF (8 prompts)
+1. Allocation Advisor → Asset Allocation
+2. Tax-Loss Harvesting Scout → Tax-Loss Harvesting
+3. Concentration Risk Alerter → Options & RSUs + Holdings Master
+4. Look-Through Analyzer → ETFs & Mutual Funds
+5. Market Scenario Analyst → Scenario Simulator
+6. Dividend Income Optimizer → Dividend Income Calendar
+7. Position Health Check → Holdings Master + Stocks Tracker
+8. Quarterly Portfolio Review → AI hub + Annual Summary
+
+AI PDF will inherit FIRE Forecaster's persona-continuity device (same fictional ~$280K portfolio across all 8 prompts).
+
+### 5 thumbnails
+1. Hero — Dashboard with 10-class donut + 24-mo trajectory + drift alert visible
+2. Holdings Master close-up — "Every position. Every asset class. One sheet." Hooks Cohort A (multi-account consolidation buyers).
+3. Risk Metrics + Allocation — "The numbers Sharesight charges $96/year for. Once." Hooks Cohort B (research-minded buyers).
+4. AI Portfolio Intelligence preview — 8 prompts, wash-sale-safe, free-tier ready
+5. **Anti-Sharesight/Stock Rover/Kubera 5-year math comparison** — "$2,980 over 5 years vs $34 once" (Sharesight $96/yr + Stock Rover $300/yr + Kubera $200/yr combined × 5 yrs). Catalog's strongest anti-SaaS thumbnail.
+
+### Build estimate: ~44h (largest of deferred-niche briefs)
+Higher than Family & Education (~41h) because of:
+- Risk metrics formula density (Sharpe / beta / max drawdown / volatility / downside deviation)
+- Tax-Loss Harvesting wash-sale window logic (30-day pre + 30-day post per position)
+- Region tax toggle (US/UK/EU/AU/CA — 5 distinct tax-lot accounting modes in AI Edition)
+- GOOGLEFINANCE QA across 10 asset classes
+
+### D1 explicitly excludes Excel
+Even stronger A here than other products since GOOGLEFINANCE is Sheets-only. Excel courtesy export not feasible — `=GOOGLEFINANCE(...)` cells would break entirely. Buyer-facing listing note required: "Google Sheets only — Excel cannot pull live prices."
+
+### D2 mockup screenshots use actual tickers
+AAPL/MSFT/VTI/SCHD/BTC — not generic placeholders. Investment buyers scan thumbnails for ticker recognition as a quality signal. Same playbook as Budget Tracker's Whole Foods/Spotify vendor specificity.
+
+### Bundle integration
+Included in Premium Life Bundle (6-SKU) but NOT in Finance Bundle (5-SKU). Cross-product flow with Net Worth: Investment Portfolio total feeds into Net Worth Tracker's equities asset class (manual paste for v1; no live cross-sheet sync).
+
+### Cohort insight (drives thumbnail order)
+Two investor buyer cohorts:
+- Cohort A (multi-account self-managers): Schwab + Vanguard + Fidelity + crypto exchange. Pain = consolidation.
+- Cohort B (research-minded): care about Sharpe/Beta/risk metrics. Pain = analytics depth.
+
+Thumbnail #2 hooks A; thumbnail #3 hooks B. Both cohorts scan to find their pain visualized.
+
+### Files changed
+- `docs/product-designs/investment-portfolio-tracker.md` (new)
+- `session-handshake.md` — brief checkmark + remaining-planning list
+
+### Next session
+- Last deferred brief: Zakat Calculator design brief (~3h)
+- Then Bucket 3: external execution playbook (~4h)
+- Note on build-order recommendation embedded in brief: ship AFTER 5 core finance products + Net Worth start generating word-of-mouth from FIRE communities. Investment Portfolio buyers usually find via Net Worth referrals rather than direct Etsy search.
