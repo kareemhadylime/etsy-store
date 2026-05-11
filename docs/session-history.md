@@ -1874,3 +1874,138 @@ Depends on user signal:
 - **Execute externally** — open Figma / Sheets / Notion per the locked specs
 - **Continue planning** — pick from the 8 remaining finance-product ticket breakdowns + 5 finance-product design briefs
 - **Pivot** — wait for live Etsy sales data before deeper investment
+
+---
+
+## Session 2026-05-11 — Budget Tracker design brief v1 (products session)
+
+### "Next" picked option 2 from the alternative-planning menu
+User said "next" after the planning-phase-complete milestone. The most senior unfinished planning item in the handshake's "What's Next" list has been "Design phase — Budget Tracker spreadsheet layout/visuals" pending since the earliest sessions. Per the "Plan → approve → design → build" rule, design briefs are upstream of build tickets — so option 2 (design briefs for the 5 Premium Finance House products) is the right next step. Starting with Budget Tracker since it's Product 1 and the canonical example.
+
+### Done
+- `docs/product-designs/budget-tracker.md` — 10-section brief, ~250 lines
+
+### Brief structure (becomes the template for the other 4 finance products)
+1. Identity inheritance — explicit "Premium Finance House from Bundle brief, no overrides"
+2. Spreadsheet visual system — Input Tab + Output Dashboard spine + top bar + banner library + tab-specific notes
+3. 5 Etsy thumbnails (Hero / Health Score close-up / Methods comparison / AI preview / Privacy comparison)
+4. AI Money Advisor PDF — 11 pages (cover + intro + 7 prompts + tips + back); follows Wedding AI Co-Pilot template
+5. Cross-product references — how Budget Tracker visuals feed Bundle deliverables
+6. Asset production checklist
+7. Production decisions to lock — 3 directions (D1 platform / D2 mockups / D3 AI PDF approach)
+8. Build estimate — ~37h (smaller than Wedding's ~53h since fewer tabs + no cultural variants)
+9. Cross-references for build sessions
+10. Out-of-scope items (no Excel-native, no Plaid, no mobile-only views)
+
+### Key design decisions baked into the brief
+- **No per-product accent color.** Each finance product could carve out its own accent (Debt → burgundy, Sinking → sage) but deliberate choice: 5 finance products share identical Premium Finance House identity, distinguished only by content + thumbnails. Cleaner store-level cohesion at the cost of per-product visual fingerprint.
+- **Thumbnail #5 leans on privacy** ("Your bank credentials never leave your bank"). The Budget Tracker category on Etsy is saturated $1–$36 race; the strongest premium-tier differentiator is privacy vs. SaaS apps with Plaid. Stronger conversion hook than feature-density claims.
+- **Output Dashboard required visuals locked** to 5 specific elements per Input/Output Tab rule: Health Score gauge (0–100 colored arc), Budget-vs-Actual bar, Income donut, 90-day cash flow line, Top 3 vendors strip.
+- **Banner library has 2 messages instead of Wedding's 3.** Privacy + no-app pitch is the single tightest value prop; 2 messages keep it tighter than rotating 3.
+- **AI Money Advisor PDF gets its own 11 pages** (D3 recommendation) — standalone $29 AI Edition needs to feel complete; buyers don't see Bundle library. Bundle's 12-prompt Budget reference section adds 5 cross-product workflow prompts that the standalone PDF doesn't have, which justifies bundle premium.
+
+### 3 directions awaiting sign-off
+- **D1 platform**: A (Sheets only, matches Wedding) / B (Sheets + Excel from v1, +18h QA) / C (Sheets + Numbers, niche differentiator)
+- **D2 mockup screenshots**: A (placeholder per Bundle B1) / B (real screenshots, delay thumbnails ~30h)
+- **D3 AI PDF**: A (own 11-page PDF) / B (2-page starter + bundle discount) / C (toggle export from Bundle library)
+
+My recommendations: A / A / A.
+
+### Why this brief is shorter than Wedding's
+Wedding brief was the first design brief in the catalog and had to introduce the dusty-rose identity from scratch + cultural variant handling + 22-tab visual system. Budget Tracker inherits Premium Finance House (already locked in Bundle brief) so the identity section is 1 paragraph. Most decisions cascade. Net effect: ~250 lines vs. Wedding's ~120-line brief — wait, Budget is longer because it documents more per-tab + per-thumbnail specs. The savings show up in *time-to-write* (Wedding 5h vs. Budget 2.5h), not raw line count.
+
+### Cascading implications for the remaining 4 finance briefs
+Each of Debt Payoff / Sinking Funds / Net Worth / Small Business briefs will follow this template. Per-product variation:
+- **Debt Payoff**: Output Dashboard required visuals = Debt Health Score gauge + debt-free trajectory line + APR-band donut + payments-due bar (per the proposal's I/O spine). 5 thumbnails lean on "snowball vs. avalanche" comparison + "debt-free date" countdown.
+- **Sinking Funds**: Output = %-funded horizontal bar + urgency heatmap + contributions stacked bar. Thumbnails lean on "save for X, Y, Z" multi-goal visual.
+- **Net Worth**: Output = NW Health Score gauge + 24-mo trajectory line + asset-mix donut + liabilities bar + FIRE meter. Thumbnails lean on FIRE / age-benchmark / asset-class breakdown.
+- **Small Business**: Output = Business Health Score gauge + revenue-vs-expense line + top-5-customers bar + runway meter + receivables aging stack. Thumbnails lean on P&L cleanliness / customer profitability / runway visibility. 23 tabs is the largest — brief will be slightly longer per-tab notes section.
+
+Estimated ~3h per remaining brief × 4 = ~12h to complete the Premium Finance House design phase.
+
+### Files changed
+- `docs/product-designs/budget-tracker.md` (new)
+- `session-handshake.md` — last-updated stamp + Budget brief checkmark + awaiting-sign-off flag + next-step menu
+
+### Next session
+Either:
+- Sign off on Budget Tracker D1/D2/D3 → brief moves Pending → Approved → start next finance brief (Debt Payoff)
+- Skip sign-off for now and start next brief in parallel — Debt Payoff design brief will share most decisions with Budget Tracker's recommendations
+- Pivot to another planning item (Notion build ticket breakdown / Notion Pro+AI specs / finance product build tickets)
+
+---
+
+## Session 2026-05-11 — TICKET-112 content engine v1 + 🎉 PHASE 2 COMPLETE
+
+### Done
+- Migration `0012_content_engine.sql` applied via MCP. Four new tables + 3 seed prompt templates appended to the existing `prompt_templates`:
+  - `content_atoms` (status: draft/rendering/ready/archived) — source idea
+  - `content_renditions` (status: draft/approved/queued/published/failed, FK to ai_jobs + auth.users) — per-platform copy + image prompt + status
+  - `publishing_queue` (attempts + last_error for retry) — what the cron drains
+  - `published_posts` (unique on platform,platform_post_id) — what actually went live
+- `src/lib/content/atoms.ts`:
+  - Zod schemas + CRUD: `listAtoms`, `getAtom`, `createAtom`, `updateAtom`, `setAtomStatus`, `listRenditions`
+  - `renderRendition(atomId, platform)` — loads atom + product, picks platform-specific prompt template (instagram/tiktok/pinterest), inserts running `ai_jobs` row, calls Claude Sonnet 4.6, extracts the `IMAGE_PROMPT:` line via `splitCopyAndImagePrompt`, inserts `content_renditions` linked back to the job. Failures stamp the job → error before returning, same pattern as T111.
+  - `approveRendition(renditionId, userId, scheduleAt?)` flips rendition → approved + inserts `publishing_queue` row at the scheduled time (defaults to now).
+- `src/lib/content/publishing.ts`:
+  - Per-platform publishers using plain fetch:
+    - **Instagram**: 2-step Graph API — `POST /<ig_user>/media` to create container, then `POST /<ig_user>/media_publish` with the returned id. Returns `permalink` for the audit row.
+    - **TikTok**: `POST /v2/post/publish/content/init/` with PULL_FROM_URL source (image or video).
+    - **Pinterest**: `POST /v5/pins` with the configured `PINTEREST_BOARD_ID` from env. Parses `TITLE:` / `DESCRIPTION:` markers out of the rendition copy.
+  - All publishers map 401/403 → `unauthorized: true` so `withFreshCredential(meta|tiktok|pinterest, ...)` retries via the T102 refresh dispatchers.
+  - `drainPublishingQueue` picks up to 20 pending queue rows whose `scheduled_at` ≤ now, claims each (flips to running), dispatches, on success records `published_posts` + flips rendition → published + queue → success, on failure stamps `last_error` and keeps queue → pending until `attempts >= maxRetries` (default 3), then flips queue → failed + rendition → failed.
+- Cron route at `*/15 * * * *` UTC (every 15 minutes, far more frequent than the daily data pulls — content publishing needs the granularity).
+- Server actions: `createAtomAction` (redirects to detail), `updateAtomAction`, `renderRenditionAction` (per-platform), `approveRenditionAction` (parses optional `schedule_at` datetime-local field), `archiveAtomAction`.
+- Admin UI under `/admin/content/`:
+  - `page.tsx` — atom list with status filter
+  - `new/page.tsx` — `AtomForm` wired to `createAtomAction`
+  - `[id]/page.tsx` — atom edit form + 3 "Render <platform>" buttons + rendition list (each with `IMAGE_PROMPT` highlight, image-url indicator, and a per-rendition Approve form with a `<input type="datetime-local">` for scheduling)
+  - "Content" link added to admin layout nav
+- `.env.example` documents `PINTEREST_BOARD_ID`.
+
+### Tests
+- 3 splitCopyAndImagePrompt (extract + case insensitive + null)
+- 4 renderRendition (full happy path, missing API key, atom not found, anthropic error → job stamped error)
+- 2 approveRendition (with schedule_at, without)
+- 4 drainPublishingQueue (instagram 2-step happy path with platform_post_id recorded, empty queue, transient failure stays pending under maxRetries, permanent failure marks failed at maxRetries)
+- 3 cron route (auth gate, success metrics, drain error → 500)
+- 16 new tests; total **415 passing**
+
+### Cron schedule final (all UTC)
+```
+*/15 * * * *  publish-queue            ← T112 new
+0    * * * *  heartbeat
+0  3 * * *    sync-etsy-stats
+30 3 * * *    sync-etsy-reviews
+0  4 * * *    pull-meta-insights
+15 4 * * *    pull-google-analytics
+30 4 * * *    pull-google-ads
+45 4 * * *    pull-search-console
+0  5 * * *    pull-tiktok-insights
+30 5 * * *    aggregate-analytics-daily
+```
+
+### 🎉 Phase 2 complete — 12/12
+- 2A foundation ✅ (T101 cron infra, T102 credentials encryption + refresh)
+- 2B data pulls ✅ (T103 Etsy stats, T104 Etsy reviews+sentiment, T105 Meta, T106 Google×3, T107 TikTok)
+- 2C synthesis ✅ (T108 daily rollup, T109 admin analytics dashboard)
+- 2D automation ✅ (T110 Klaviyo, T111 AI listing copy, T112 content engine)
+
+### Verification
+- `npm test` → 72 files / 415 tests passing
+- `npx tsc --noEmit` → exit 0
+- `npm run build` → 36 routes register; no warnings
+
+### What this session shipped end-to-end
+1. Storefront click → `/api/track/etsy-click` → CAPI/GA4/TikTok event + conversion_events row (Phase 1)
+2. Etsy purchase → receipt webhook → customer/order upsert → signed-URL email via Resend → purchase event (Phase 1)
+3. Daily Etsy stats sync + Etsy review sync with Claude sentiment + 1-shot admin alert on negative (T103, T104)
+4. Daily ad-platform metrics: Meta (T105), Google Ads + GA4 + Search Console (T106), TikTok (T107)
+5. Daily analytics rollup that joins everything into `analytics_daily` (T108)
+6. Admin dashboard at `/admin/analytics` with per-channel ROAS + top products + cron health (T109)
+7. Klaviyo "Order Placed" event firing from fulfillment + inbound HMAC-verified webhook → email_events + status cascade (T110)
+8. AI-drafted Etsy title/description/tags/OG meta with per-output cost capture + admin Accept flow (T111)
+9. Content atoms → AI renditions per platform → admin approve → 15-min publishing-queue cron → Instagram / TikTok / Pinterest (T112)
+
+### Next session (Phase 3 preview, not built)
+Ad write APIs (pause/budget edit per platform), full 10-platform content engine (FB, X, LinkedIn, Threads, Reddit, YT Community, Quora), affiliate manager, multi-language storefront, Pinterest Shopping + Google Merchant feeds. Phase 3 hasn't been ticket-broken yet — let Phase 2 data accumulate first to inform priorities.

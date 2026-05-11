@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Premium Finance Brand Kit Figma handoff spec drafted → `docs/visual-production/premium-finance-brand-kit.md`; build-ready manifest for the Figma source file)_
+_Last updated: 2026-05-11 (Budget Tracker design brief v1 drafted → `docs/product-designs/budget-tracker.md`; first of 5 Premium Finance House product briefs, 3 directions pending sign-off)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -113,7 +113,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **TICKET-109 Admin analytics dashboard ✅** (2026-05-11) → `src/lib/admin/analytics.ts` + `src/app/admin/analytics/page.tsx` + nav link in admin layout. Date-range filter (1/7/30/90-day presets + custom), 4 channel cards (revenue + ROAS + conversions + impressions + clicks), top-5 products by revenue table, pipeline health table with cron status badges. All missing-data paths render `—`. 9 new tests, 350 total passing.
 - [x] **TICKET-110 Klaviyo integration + post-purchase flow ✅** (2026-05-11) → `src/lib/email/{klaviyo,klaviyo-verify}.ts` + `src/app/api/webhooks/klaviyo/event/route.ts` + `supabase/migrations/0010_klaviyo.sql` (applied: `email_subscribers`, `email_campaigns`, `email_events`). Plain-fetch Klaviyo client (no SDK dep), `pushOrderPlacedToKlaviyo` wired into `deliver.ts` (no-op without API key so existing flows keep working), inbound HMAC-verified webhook upserts events + cascades `email_subscribers.status` for unsubscribe/bounce/spam. 27 new tests, 377 total passing.
 - [x] **TICKET-111 AI listing copy generator ✅** (2026-05-11) → `src/lib/ai/{prompts,listing-copy}.ts` + `src/app/admin/_actions/ai-copy.ts` + `src/app/admin/products/_components/ai-copy-panel.tsx` + `supabase/migrations/0011_ai_jobs.sql` (applied: `ai_jobs`, `ai_outputs`, `prompt_templates` with 4 seeded v1 templates). Admin can generate Etsy title/description/tags/OG meta via Claude Sonnet 4.6, see per-output cost in USD, and Accept a version to stamp `accepted_at`. 22 new tests, 399 total passing.
-- [ ] **2D remaining** — T112 content engine v1 (atoms + IG/TikTok/Pinterest renditions + publishing queue).
+- [x] **TICKET-112 Content engine v1 ✅** (2026-05-11) → `src/lib/content/{atoms,publishing}.ts` + `src/app/admin/content/**` + `src/app/admin/_actions/content.ts` + `src/app/api/cron/publish-queue/route.ts` + `supabase/migrations/0012_content_engine.sql` (applied: `content_atoms`, `content_renditions`, `publishing_queue`, `published_posts` + 3 seed rendition prompts). Atom CRUD → 3-platform Claude rendition with IMAGE_PROMPT extraction → admin approval → publishing-queue cron (`*/15 * * * *`) drains to Instagram Graph / TikTok Content Posting / Pinterest v5 with retry budget. Banana image generation is admin-manual; rendition stores the prompt + accepts a manually-set image_url. 16 new tests, 415 total passing.
+- [x] **🎉 PHASE 2 COMPLETE — 12/12 backend tickets shipped end-to-end (2026-05-11)** — 9 daily/15-min crons, Klaviyo + Etsy webhooks, analytics dashboard at `/admin/analytics`, content engine at `/admin/content`, AI listing copy at `/admin/products/[id]`. Three ad platforms (Meta + Google + TikTok) live with the chartered scope of this session.
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
 - [x] **Wedding (Product 9) signed off** — spreadsheet-only v1, $24/$39/$59, Muslim+Hindu variants in AI Edition, both standalone + Bundle 10 ✅
@@ -152,6 +153,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
   - Notion — build template per `notion-life-os-template-spec.md` (~25h)
   - All visual deliverable population (covers/thumbnails/PDFs) from the Figma file after setup
 - [ ] OR this session continues with planning for: Budget Tracker design brief + Notion build ticket breakdown + remaining 4 finance-product design briefs (Debt/Sinking/Net Worth/Small Biz)
+- [x] **Budget Tracker design brief v1 ✅ (2026-05-11)** → `docs/product-designs/budget-tracker.md`. Inherits Premium Finance House identity (no new palette/type — clean catalog cohesion). 10 sections: identity inheritance, spreadsheet visual system w/ Input Tab Setup Wizard + Output Dashboard Financial Health Score gauge + 4 chart specs, 5 thumbnails (Hero/Health Score close-up/Methods comparison/AI preview/Privacy comparison), 11-page AI Money Advisor PDF spec, asset checklist, **3 production decisions pending sign-off** (D1 platform / D2 mockup screenshots / D3 AI PDF approach), ~37h build estimate. Becomes template for remaining 4 finance product briefs.
+- [ ] Awaiting Budget Tracker D1/D2/D3 sign-off before brief moves Pending → Approved
+- [ ] Next product-track step in sequence: 4 remaining Premium Finance House product briefs (Debt Payoff, Sinking Funds, Net Worth, Small Business) — each ~3h since they cascade from the Budget Tracker template; total ~12h. Or pivot to other planning items (Notion build ticket breakdown, finance product build ticket breakdowns, Notion Pro+AI tier specs).
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
