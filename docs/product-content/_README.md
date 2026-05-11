@@ -18,6 +18,7 @@ When a product builds the actual deliverable (Sheets template, Notion workspace,
 | [`budget-tracker-ai-prompts.md`](./budget-tracker-ai-prompts.md) | Budget Tracker (AI Edition) | 7-prompt AI Money Advisor PDF content (11 pages: cover + intro + 7 prompts + tips + back cover). Unblocks BT11 build ticket. | ✅ v1 |
 | [`debt-payoff-ai-prompts.md`](./debt-payoff-ai-prompts.md) | Debt Payoff Planner (AI Edition) | 7-prompt AI Credit Score Coach PDF content (11 pages). Unblocks DP11 build ticket. | ✅ v1 |
 | [`sinking-funds-ai-prompts.md`](./sinking-funds-ai-prompts.md) | Life Sinking Funds Planner (AI Edition) | 7-prompt AI Savings Advisor PDF content (11 pages). Unblocks SF11 build ticket. | ✅ v1 |
+| [`net-worth-ai-prompts.md`](./net-worth-ai-prompts.md) | Net Worth Tracker (AI Edition) | 7-prompt AI Wealth Intelligence PDF content (11 pages). Unblocks NW12 build ticket. | ✅ v1 |
 
 ## Voice rules for prompt scripts
 

@@ -3410,3 +3410,110 @@ Pattern guide for the migration:
 
 ### Loose ends
 - Nothing direct. The schema-drift guard could pair nicely with a similar TS-types-drift guard (next on the list, but bigger lift).
+
+---
+
+## Session 2026-05-11 — Debt Payoff AI Credit Score Coach content v1 (products session) [CATCH-UP]
+
+Second per-product AI content file. Session-history entry was missed at commit time due to backend-session contention on this file; recorded retroactively.
+
+### Done
+- `docs/product-content/debt-payoff-ai-prompts.md` — 11-page PDF content (cover + intro + 7 prompts + tips + back cover)
+- `docs/product-content/_README.md` — file index updated
+- `session-handshake.md` — Debt AI content checkmark
+
+### 7 prompts (matches Debt Payoff proposal)
+Payoff Strategy Optimizer / AI Credit Score Coach / Utilization Timing Advisor / Consolidation Intelligence / Income Acceleration Coach / Settlement Letter Generator / Health Score Coach.
+
+### Key content decisions
+- Payoff Strategy Optimizer runs Avalanche vs. Snowball vs. Hybrid side-by-side with specific debts + $ amounts so the buyer sees the math, not just a label
+- AI Credit Score Coach is honest about score-component weights (35% payment history / 30% utilization / etc.) — anti-credit-repair-scam framing
+- Utilization Timing Advisor handles the "statement-date payment trick" that most debt content ignores
+- Settlement Letter Generator includes the "we will report this as 'paid in full' on credit bureaus" clause (the one missing from most free-template letters)
+- Anti-pep-talk back cover: "Debt-free isn't a number. It's a different month." — premium-restraint pattern continues
+- Honest framing in Consolidation Intelligence: explicit anti-personal-loan-bait + anti-credit-card-balance-transfer-trap
+
+### Files changed
+- `docs/product-content/debt-payoff-ai-prompts.md` (new)
+- `docs/product-content/_README.md` — index updated
+- `session-handshake.md` — Debt AI content checkmark
+
+### Next in cascade
+Sinking Funds AI Savings Advisor content (also catch-up entry below).
+
+---
+
+## Session 2026-05-11 — Sinking Funds AI Savings Advisor content v1 (products session) [CATCH-UP]
+
+Third per-product AI content file. Session-history entry was missed at commit time due to backend-session contention; recorded retroactively. Originating commit: `e7d6fd1`.
+
+### Done
+- `docs/product-content/sinking-funds-ai-prompts.md` — 11-page PDF content (cover + intro + 7 prompts + tips + back cover)
+- `docs/product-content/_README.md` — file index updated
+- `session-handshake.md` — Sinking Funds AI content checkmark
+
+### 7 prompts (matches Sinking Funds proposal)
+Reallocation / Vehicle Advisor / Metals Coach / Dividend Planner / Life Stage Advisor / Annual Fund Review / Neglected Fund Detector.
+
+### Key content decisions
+- Reallocation prompt explicitly handles "we're $200 short this month" reality with budget-reconciliation Options A/B — premium-buyer trust signal that the AI won't dodge the hard parts
+- Vehicle Advisor anti-life-insurance / anti-annuity guardrail explicit ("Don't recommend life insurance or annuities. Don't push paid services.")
+- Metals Coach pairs spot-price commentary with allocation-discipline framing — flags over-allocation from price appreciation vs. new buying
+- Dividend Planner detects cash-gap months across quarterly + monthly payers; recommends ONE ticker to fill gaps (MAIN/monthly BDC example) without becoming a stock-picking AI
+- Life Stage Advisor is specific ("Income Transition Buffer $14,400 / Second Child Fund $8,000") not generic ("save more")
+- Annual Fund Review's "Three Lessons" section names structural patterns ("Auto-contribution works; manual fails beyond 3 months") not motivational lines
+- Neglected Fund Detector includes the "half-existing funds are worse than no funds" honest call — recommends close-or-automate, not pep-talk
+- Anti-pep-talk back cover: "A fund is a decision you made in advance so the future you doesn't have to."
+
+### Files changed
+- `docs/product-content/sinking-funds-ai-prompts.md` (new)
+- `docs/product-content/_README.md` — index updated
+- `session-handshake.md` — Sinking Funds AI content checkmark
+
+### Commit
+`e7d6fd1 docs: Sinking Funds AI Savings Advisor content v1`
+
+---
+
+## Session 2026-05-11 — Net Worth AI Wealth Intelligence content v1 (products session)
+
+Fourth per-product AI content file. 4/5 AI content files now done; only Small Business remains.
+
+### Done
+- `docs/product-content/net-worth-ai-prompts.md` — 11-page PDF content (cover + intro + 7 prompts + tips + back cover)
+- `docs/product-content/_README.md` — file index updated with Net Worth row
+- `session-handshake.md` — Net Worth AI content checkmark + updated AI content cascade status
+
+### 7 prompts (matches Net Worth proposal Section 4 + design brief Section 4)
+Monthly NW Narrative → 🏠 Dashboard
+FIRE Forecaster → 🔥 FIRE Calculator
+Asset Allocation Advisor → 📈 Asset Allocation
+Passive Income Blueprint → 💰 Passive Income Simulator
+Wealth Growth Coach → 🤖 AI Wealth Intelligence (hub)
+Annual Wealth Review → 📊 Annual Summary
+Estate Planning Advisor → 🤝 Beneficiary & Estate Access
+
+### Key content decisions
+- **Monthly NW Narrative** separates SIGNAL (your action) from NOISE (market movement) as % of total change. Prevents buyer feeling great in bull months / crushed in bear months for reasons that aren't theirs. Worked example: $13,780 monthly NW gain → 76% market / 24% you.
+- **FIRE Forecaster** runs three scenarios (Conservative 4% / Current 6% / Aggressive 8%+glide). Explicitly names savings rate (controllable) vs. returns (not). "Honest read" paragraph picks the realistic anchor scenario. Includes Social Security factor at age 67+ as separate model. Worked example: 37yo → FIRE at 54 (Scenario B realistic), age 50 (aggressive), age 59 (conservative).
+- **Asset Allocation Advisor** uses contribution-rebalancing not sell-rebalancing when tax cost matters. Worked example: avoids $2,100 LTCG tax hit by redirecting 6 months of new contributions instead. Anti-leveraged-inverse-ETF guardrail explicit.
+- **Passive Income Blueprint** projects both current + FIRE-year income across 4% / 4.5% / 5% SWR. Names the "one income lever with most upside" rather than 5 hedged options. Worked example highlights rental real estate as the dominant lever for the persona.
+- **Wealth Growth Coach** refuses 5-things-hedge — picks ONE move with confidence. Worked example: max-401k chosen over mortgage paydown via explicit tax-leverage math ($10,256 of "real" wealth for $8K spent). 90-day checkpoint built in.
+- **Annual Wealth Review** "Three Lessons" section names structural patterns including the brutal "the 2x YoY NW change came mostly from the market, not from you. Don't credit yourself for market returns." discipline.
+- **Estate Planning Advisor** is diagnosis-only (AI surfaces gaps; user fills with attorney/DIY service). Worked example handles the "two-state probate" trap for out-of-state rental + the stale-beneficiary trap that overrides wills + the explicit "don't buy LTC insurance at 37" anti-upsell guardrail. DIY-vs-attorney threshold spelled out: simple will → DIY; trust + out-of-state property → attorney.
+- **Continuity device**: same fictional persona threads all 7 prompts (37yo SWE, married, 2 kids, $326K NW, Texas rental, considering second kid). Makes the PDF read as one coherent advisor.
+- **Anti-pep-talk back cover**: "Net worth isn't a vibe. It's a number. Watching it is the work." + anti-Empower / anti-Kubera positioning.
+
+### Cross-product implications
+- Unblocks NW12 PDF build ticket (per `docs/net-worth-build-tickets.md`)
+- 4/5 AI content files done: Wedding ✅ Budget ✅ Debt ✅ Sinking ✅ Net Worth ✅
+- 1 remaining: Small Business AI Business Co-Pilot (8 prompts → 12 pages, ~4h) — unblocks SB14
+
+### Files changed
+- `docs/product-content/net-worth-ai-prompts.md` (new)
+- `docs/product-content/_README.md` — Net Worth row added
+- `session-handshake.md` — Net Worth checkmark + cascade status
+
+### Next session
+- Small Business AI Business Co-Pilot (last AI content file) → then deferred briefs (Family/Investment/Zakat) → then external execution playbook
+- Backend session has continued shipping in parallel (env accessors → 481 tests; schema-drift guard → CI artifact upload). Not blocking this session's products work.
