@@ -99,6 +99,50 @@ CREATE TABLE public.ad_commands (
 
 
 --
+-- Name: ad_creative_assignments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ad_creative_assignments (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    creative_id uuid NOT NULL,
+    platform text NOT NULL,
+    external_campaign_id text NOT NULL,
+    external_ad_id text,
+    status text DEFAULT 'pending'::text NOT NULL,
+    assigned_at timestamp with time zone,
+    last_error text,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT ad_creative_assignments_status_check CHECK ((status = ANY (ARRAY['pending'::text, 'running'::text, 'success'::text, 'failed'::text])))
+);
+
+
+--
+-- Name: ad_creatives; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ad_creatives (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    atom_id uuid,
+    product_id uuid,
+    platform text NOT NULL,
+    format text NOT NULL,
+    headline text,
+    copy text,
+    image_prompt text,
+    image_url text,
+    status text DEFAULT 'draft'::text NOT NULL,
+    ai_job_id uuid,
+    created_by uuid,
+    approved_by uuid,
+    approved_at timestamp with time zone,
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    updated_at timestamp with time zone DEFAULT now() NOT NULL,
+    CONSTRAINT ad_creatives_platform_check CHECK ((platform = ANY (ARRAY['meta'::text, 'google'::text, 'tiktok'::text, 'pinterest'::text]))),
+    CONSTRAINT ad_creatives_status_check CHECK ((status = ANY (ARRAY['draft'::text, 'approved'::text, 'archived'::text])))
+);
+
+
+--
 -- Name: ad_metrics_daily; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -812,6 +856,22 @@ ALTER TABLE ONLY public.ad_commands
 
 
 --
+-- Name: ad_creative_assignments ad_creative_assignments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_creative_assignments
+    ADD CONSTRAINT ad_creative_assignments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ad_creatives ad_creatives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_creatives
+    ADD CONSTRAINT ad_creatives_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ad_metrics_daily ad_metrics_daily_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1175,6 +1235,27 @@ CREATE INDEX ad_commands_by_campaign_idx ON public.ad_commands USING btree (plat
 --
 
 CREATE INDEX ad_commands_dispatch_idx ON public.ad_commands USING btree (platform, status, requested_at);
+
+
+--
+-- Name: ad_creative_assignments_by_creative_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ad_creative_assignments_by_creative_idx ON public.ad_creative_assignments USING btree (creative_id, created_at DESC);
+
+
+--
+-- Name: ad_creatives_by_product_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ad_creatives_by_product_idx ON public.ad_creatives USING btree (product_id, platform, created_at DESC);
+
+
+--
+-- Name: ad_creatives_by_status_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ad_creatives_by_status_idx ON public.ad_creatives USING btree (status, created_at DESC);
 
 
 --
@@ -1674,6 +1755,54 @@ ALTER TABLE ONLY public.ad_campaigns
 
 ALTER TABLE ONLY public.ad_commands
     ADD CONSTRAINT ad_commands_requested_by_fkey FOREIGN KEY (requested_by) REFERENCES auth.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: ad_creative_assignments ad_creative_assignments_creative_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_creative_assignments
+    ADD CONSTRAINT ad_creative_assignments_creative_id_fkey FOREIGN KEY (creative_id) REFERENCES public.ad_creatives(id) ON DELETE CASCADE;
+
+
+--
+-- Name: ad_creatives ad_creatives_ai_job_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_creatives
+    ADD CONSTRAINT ad_creatives_ai_job_id_fkey FOREIGN KEY (ai_job_id) REFERENCES public.ai_jobs(id) ON DELETE SET NULL;
+
+
+--
+-- Name: ad_creatives ad_creatives_approved_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_creatives
+    ADD CONSTRAINT ad_creatives_approved_by_fkey FOREIGN KEY (approved_by) REFERENCES auth.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: ad_creatives ad_creatives_atom_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_creatives
+    ADD CONSTRAINT ad_creatives_atom_id_fkey FOREIGN KEY (atom_id) REFERENCES public.content_atoms(id) ON DELETE SET NULL;
+
+
+--
+-- Name: ad_creatives ad_creatives_created_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_creatives
+    ADD CONSTRAINT ad_creatives_created_by_fkey FOREIGN KEY (created_by) REFERENCES auth.users(id) ON DELETE SET NULL;
+
+
+--
+-- Name: ad_creatives ad_creatives_product_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_creatives
+    ADD CONSTRAINT ad_creatives_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE SET NULL;
 
 
 --
@@ -2185,6 +2314,32 @@ ALTER TABLE public.ad_commands ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ad_commands_service_role ON public.ad_commands USING ((auth.role() = 'service_role'::text)) WITH CHECK ((auth.role() = 'service_role'::text));
+
+
+--
+-- Name: ad_creative_assignments; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.ad_creative_assignments ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: ad_creative_assignments ad_creative_assignments_service_role; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY ad_creative_assignments_service_role ON public.ad_creative_assignments USING ((auth.role() = 'service_role'::text)) WITH CHECK ((auth.role() = 'service_role'::text));
+
+
+--
+-- Name: ad_creatives; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.ad_creatives ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: ad_creatives ad_creatives_service_role; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY ad_creatives_service_role ON public.ad_creatives USING ((auth.role() = 'service_role'::text)) WITH CHECK ((auth.role() = 'service_role'::text));
 
 
 --
