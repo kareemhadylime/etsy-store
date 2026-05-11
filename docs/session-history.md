@@ -1721,3 +1721,69 @@ Remaining product-track work (planning + visual production):
 
 ### Next session
 Continue in sequence per the recommended order. Next = Wedding spreadsheet build ticket breakdown.
+
+---
+
+## Session 2026-05-11 — Wedding spreadsheet build ticket breakdown (products session)
+
+### Continued in sequence
+User said "continue" — next item was Wedding build ticket breakdown (~3h). Drafted in the Phase-1/2 ticket-doc style.
+
+### Done
+- `docs/wedding-build-tickets.md` — 16 tickets covering the ~50h Sheets build envelope (matches proposal estimate, slight reallocation of listing-copy hours since that work is already done).
+
+### Ticket count + envelope
+16 tickets totaling ~53h:
+- W01 scaffolding (3h)
+- W02 Setup Wizard Input Tab (2h)
+- W03 Budget Dashboard Output Tab (5h — most complex; 5 visualizations per Input/Output spine rule)
+- W04 14 Budget Categories (2h)
+- W05 Vendor Tracker (3h)
+- W06 Guest List + RSVP Tracker (3h)
+- W07 Seating Chart Planner (3h)
+- W08 Master Timeline + Day-of Schedule + Vendor Contact Sheet (4h)
+- W09 Honeymoon Budget + Annual Reflection (2h)
+- W10 Essentials tier completion + QA (2h) ← **Essentials $19 shippable gate**
+- W11 Pro tier additions — 4 tabs (4h) ← **Pro $34 shippable gate**
+- W12 AI Edition — 6 AI-assisted tabs (5h)
+- W13 Cultural variant tabs — Muslim Walima + Hindu Multi-day (3h)
+- W14 AI Co-Pilot PDF (Figma → PDF export) — 6h
+- W15 5 Etsy thumbnails (4h)
+- W16 Final QA + Etsy publish prep (2h) ← **All tiers ship gate**
+
+Each ticket has: status, estimate, deliverable, tasks (bulleted), acceptance criteria, dependencies, files affected (where relevant).
+
+### Critical-path notes
+- **Sequential gate:** W01 → W02 → W03 must complete before W04-W09 (data tabs need named ranges + dashboard formulas to reference).
+- **Parallelizable:** W04-W09 can run in any order once W03 ships.
+- **Three shippable gates:** Essentials after W10, Pro after W11, AI after W13. Each gate produces a tier that could be listed standalone if the next tier delays.
+- **W14 + W15 are Figma work**, not Sheets work — they pull from the Wedding Brand Kit Figma file already locked by production decision P3. W14's content is already drafted in `docs/product-content/wedding-ai-prompts.md`; W15's thumbnail strings are already locked in `docs/listing-copy/wedding-budget-planner.md` Section 8.
+
+### Key build decisions captured
+- **Single-workbook strategy** — build everything in the AI Edition workbook, derive Essentials + Pro via tab hiding. Avoids three-way maintenance.
+- **Religion dropdown drives cultural variant visibility** — Muslim and Hindu tabs only render when Setup Wizard's Religion field matches.
+- **Vows / Vendor Negotiation / Speech Drafter prompts are PDF-only** — accessed via the AI Co-Pilot hub tab (Tab #17). Reduces tab count to 22 per proposal (not 23 as if each had its own tab).
+- **Cultural variants use restraint-first visual treatment** — geometric Islamic-art border for Muslim, marigold accent for Hindu — no stereotype motifs (per design brief Section 5).
+- **Single Etsy listing with 3 variations** is recommended over separate per-tier listings (per existing listing-copy decision).
+
+### Out-of-scope items (deliberately not ticketed)
+- Excel-native build (courtesy export only)
+- Auto-RSVP collection (privacy-first manual entry)
+- Live drag-and-drop seating
+- Vendor booking integration
+- Plaid / bank integration
+- Custom mobile views
+
+These are documented in the ticket file's "Out of scope" section so future review doesn't accidentally pull them in.
+
+### Files changed
+- `docs/wedding-build-tickets.md` (new)
+- `session-handshake.md` — last-updated stamp + Wedding-tickets checkmark + next-step menu
+
+### Cross-product implications
+- The Wedding ticket structure becomes the template for future spreadsheet build ticket breakdowns. When Budget Tracker (Product 1), Debt Payoff (Product 2), etc. move to build, each gets a similar ticket file with the per-product Input/Output spine + tier shippable gates.
+- The ticket count (16) is a useful benchmark: simpler products will need 8–10 tickets; Small Business Finance Kit (23 tabs) might need 18–20.
+- Per the catalog-wide Input/Output Tab rule, every future build ticket file will have an "Input Tab" ticket and an "Output Dashboard" ticket as W02 and W03 here.
+
+### Next session
+Continue in sequence: visual production start. The `Premium Finance Brand Kit` Figma file setup (~4h) is the next product-track item. It unblocks Bundle covers + thumbnails + Setup Wizard PDF + AI library PDF + Notion banners + 5 future finance-product design briefs to come. Single high-leverage task.

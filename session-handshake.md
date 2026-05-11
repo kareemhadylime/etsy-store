@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Bundle AI Master Library content drafted → `docs/product-content/bundle-ai-library.md`; 10 workflows + 60 reference prompts, both Finance + Life variants)_
+_Last updated: 2026-05-11 (Wedding spreadsheet build ticket breakdown drafted → `docs/wedding-build-tickets.md`; 16 tickets, ~53h envelope, 3 tier-shippable gates)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -137,7 +137,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Notion Life OS Essentials template build-spec drafted ✅ (2026-05-11)** → `docs/product-content/notion-life-os-template-spec.md`. Build-ready: 6-page workspace tree (Home + 5 databases) + full schemas (properties + types + select options) + Notion-formula syntax for all computed fields (progress bars, status, next-due, days-since, dashboard rollups) + 25 rows of seed data (10 expenses + 5 budget categories + 2 income entries + 3 recurring bills + 5 subscriptions) + 13 view configurations + relations build sequence + duplicate-URL workflow + ~25h build estimate breakdown matching proposal.
 - [x] **Bundle AI Master Library content drafted ✅ (2026-05-11)** → `docs/product-content/bundle-ai-library.md`. Both PDF variants from single source: 10 cross-product workflows (each 3-5 chained prompts + worked example) + 60 per-product reference prompts in 2×2 grid layout (Budget Tracker 12, Debt Payoff 8, Sinking Funds 8, Net Worth 12, Small Business 12, Wedding 8 — Life variant only). Plus cover, intro, section dividers, 2-page tips section, back cover. Finance variant ~28 pages; Life variant ~30 pages. Workflows 2+7 are Wedding-specific (Life only) with Finance substitutions documented.
 - [x] **All AI Edition content COMPLETE ✅** — Wedding AI Co-Pilot PDF content + Bundle AI Master Library PDF content + Notion template spec all drafted. Every AI Edition product's deliverable content exists in `docs/product-content/`.
-- [ ] Next product-track step in sequence: Wedding spreadsheet build ticket breakdown (~3h) or visual production start (Premium Finance Brand Kit Figma setup ~4h)
+- [x] **Wedding spreadsheet build ticket breakdown ✅ (2026-05-11)** → `docs/wedding-build-tickets.md`. 16 tickets across ~53h: W01 scaffolding → W02 Input Tab (Setup Wizard) → W03 Output Dashboard → W04-W09 Essentials data tabs → W10 Essentials QA (shippable gate at $19) → W11 Pro additions (shippable gate at $34) → W12-W13 AI Edition + cultural variants → W14 AI Co-Pilot PDF → W15 5 thumbnails → W16 final QA + Etsy publish. Critical path documented; each ticket has acceptance criteria + dependencies in Phase-1/2 ticket-doc style.
+- [ ] Next product-track step in sequence: visual production start — `Premium Finance Brand Kit` Figma setup (~4h) → unblocks all cover/thumbnail/PDF production for Bundle + Notion + future finance products in parallel
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
