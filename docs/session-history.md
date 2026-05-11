@@ -1787,3 +1787,90 @@ These are documented in the ticket file's "Out of scope" section so future revie
 
 ### Next session
 Continue in sequence: visual production start. The `Premium Finance Brand Kit` Figma file setup (~4h) is the next product-track item. It unblocks Bundle covers + thumbnails + Setup Wizard PDF + AI library PDF + Notion banners + 5 future finance-product design briefs to come. Single high-leverage task.
+
+---
+
+## Session 2026-05-11 — Premium Finance Brand Kit Figma handoff spec (products session)
+
+### Continued in sequence — but pivoted from "doing Figma" to "speccing Figma"
+User confirmed continuing in sequence. The recommended next item was visual production start (Premium Finance Brand Kit Figma setup ~4h). This session can't open Figma directly — no Figma MCP. So I pivoted to the highest-leverage thing this session CAN do: write the Figma handoff doc (build manifest) that a human or Figma-MCP-equipped session can implement directly in ~4h with the doc as a checklist.
+
+### Done
+- `docs/visual-production/_README.md` — directory README + voice rules
+- `docs/visual-production/premium-finance-brand-kit.md` — 17-section build manifest for the Figma source file
+
+### New convention: `docs/visual-production/` directory
+Created a fifth content-organization tier:
+- `product-proposals/` — what to build (scope, pricing, market validation)
+- `product-designs/` — visual brief (palette, type, mood, layout direction)
+- `product-content/` — in-product content (prompt scripts, schemas, copy)
+- `listing-copy/` — Etsy listing surface
+- **`visual-production/`** ← new — build specs for visual artifacts (Figma file structure, naming conventions, export presets)
+
+Boundary: design briefs answer "what should this feel like?"; visual-production specs answer "how do I build the source file that produces this?"
+
+### Scope of the Figma handoff doc (17 sections)
+1. File metadata (name, location, permissions)
+2. 9-page structure (00 About / 01 Brand Library / 02 Mockup Card Components / 03 Bundle Finance / 04 Bundle Life / 05 Notion Life OS / 06 Finance Products placeholder / 07 Archive / 08 Exports)
+3. Page 00 About contents (version log, change history template)
+4. Page 01 Brand Library — color styles, type styles, glyph slots, effects, grid templates (every value referenced from the design briefs as source of truth)
+5. Page 02 Mockup Card Components — master `Mockup Card / Generic` component with variant properties (header-color / rotation / tier-badge / mockup-content) + 6 derivative instances (Budget / Debt / Sinking / NW / Small Biz / Wedding-dusty-rose)
+6. Page 03 Bundle Finance — 2 cover variants + 5 thumbnails + 9-page Setup Wizard PDF + 28-page AI Library PDF (all frames named + sized + with source-content references)
+7. Page 04 Bundle Life — same structure with Wedding tile + Wedding setup page + Wedding workflow content
+8. Page 05 Notion Life OS — 6 Phosphor glyphs (240×240, 2px stroke override, 4px corner radius per N1 production decision) + 6 banners (1500×600 charcoal→gold gradient + glyph at 30% opacity) + 5 thumbnails + 5-page Setup PDF
+9. Page 06 placeholder for 5 future finance products (Budget / Debt / Sinking / NW / Small Biz design briefs to come)
+10. Page 07 Archive — naming convention for retired versions
+11. Page 08 Exports — batch-export organization by format (PNG 2000×2000 / PNG 1500×600 / PDF US Letter)
+12. Export presets per asset type
+13. Naming conventions (pages, frames, components, variants, styles, effects)
+14. ~3.5h step-by-step build sequence
+15. Cross-references to source-of-truth files
+16. Out-of-scope items (no animations, no mobile-only mockups, no localization v1)
+17. Done criteria checklist for the setup task
+
+### Key spec decisions
+- **All hex values + type sizes are referenced, not duplicated.** This file says "match Bundle design brief Section 1 hex values exactly" rather than restating them. If a value changes, update the design brief, not this file. Single source of truth.
+- **Variant property naming uses Figma-native `property=value` syntax.** Mockup Card / Generic has 4 properties (header-color, rotation, tier-badge-visible, mockup-content) that produce clean instance pickers.
+- **Pricing on covers is referenced from the handshake, not this file.** Covers use $36 / $51 / $50 / $70 SAVED per the 2026-05-11 lower-alternative pricing reset. If pricing changes, update handshake → covers regenerate.
+- **Per-product mockup cards are derivative instances of one master component.** Palette/type updates ripple to all instances. Derivative-only overrides are limited to header text + (Wedding's) header color.
+- **Glyphs licensed from Phosphor with 2px stroke + 4px corner-radius override** per N1 production decision locked 2026-05-11. Saves ~90 min vs. custom-drawing.
+- **Two cover variants per Bundle SKU (Pro + AI) on separate pages.** Even though most components are shared, page 03 (Finance) and page 04 (Life) split by SKU for findability — designers know which page holds which deliverable without thinking.
+- **Archive page never deletes.** Retired versions stay with naming convention `[name] — Retired YYYY-MM-DD — Reason`. Pricing-cascade-superseded covers from earlier drafts ($32 / $52) become archive entries.
+
+### Product-track planning phase complete
+With this commit, every product-track deliverable that can be drafted from this session now exists:
+
+| Asset type | Files | Status |
+|---|---|---|
+| Product proposals | 11 | ✅ all approved |
+| Design briefs | 3 (Wedding / Bundle / Notion) | ✅ all v1 with locked production decisions |
+| Listing copy | 6 (Wedding / Notion / 4 Bundle SKUs) | ✅ v1, pricing-cascade applied |
+| In-product content | 3 (Wedding AI Co-Pilot 8 prompts / Notion template spec / Bundle AI library 60+ prompts + 10 workflows) | ✅ v1 |
+| Build ticket breakdown | 1 (Wedding 16 tickets ~53h) | ✅ v1 |
+| Figma file handoff | 1 (Premium Finance Brand Kit) | ✅ v1 |
+| **Total product-track planning files** | **25** | **✅ COMPLETE** |
+
+### Next phase = actual build execution
+This session can't drive the next layer of work directly — it requires external tools:
+
+1. **Figma execution** — open the Figma file, follow the handoff spec, build the Premium Finance Brand Kit (~3.5h setup + per-deliverable production hours per Bundle/Notion design briefs)
+2. **Google Sheets execution** — open Sheets, follow Wedding ticket breakdown W01-W16 (~53h)
+3. **Notion execution** — open Notion, follow `notion-life-os-template-spec.md` (~25h template build)
+4. **TICKET-011 Notion fulfillment plumbing** — backend session's domain (Phase 1.5, ~12h)
+
+### Alternative continuation path for this session
+If the user wants to keep this session productive on planning rather than waiting on external execution, the natural next planning items are:
+- Build ticket breakdowns for Budget Tracker / Debt Payoff / Sinking Funds / Net Worth / Small Business / Family & Education / Investment / Zakat (8 more files following the Wedding template)
+- Design briefs for the 5 finance products in the Premium Finance House lineage (Budget / Debt / Sinking / NW / Small Biz)
+- Notion template content spec for the AI Edition tier (deferred until Essentials sells through, but could be drafted now to be ready)
+
+### Files changed
+- `docs/visual-production/_README.md` (new directory + index)
+- `docs/visual-production/premium-finance-brand-kit.md` (new)
+- `session-handshake.md` — last-updated stamp + Figma-handoff checkmark + "PRODUCT-TRACK PLANNING PHASE COMPLETE" milestone + next-step options
+
+### Next session
+Depends on user signal:
+- **Execute externally** — open Figma / Sheets / Notion per the locked specs
+- **Continue planning** — pick from the 8 remaining finance-product ticket breakdowns + 5 finance-product design briefs
+- **Pivot** — wait for live Etsy sales data before deeper investment

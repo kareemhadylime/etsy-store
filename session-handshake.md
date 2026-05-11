@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Wedding spreadsheet build ticket breakdown drafted → `docs/wedding-build-tickets.md`; 16 tickets, ~53h envelope, 3 tier-shippable gates)_
+_Last updated: 2026-05-11 (Premium Finance Brand Kit Figma handoff spec drafted → `docs/visual-production/premium-finance-brand-kit.md`; build-ready manifest for the Figma source file)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -138,7 +138,20 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Bundle AI Master Library content drafted ✅ (2026-05-11)** → `docs/product-content/bundle-ai-library.md`. Both PDF variants from single source: 10 cross-product workflows (each 3-5 chained prompts + worked example) + 60 per-product reference prompts in 2×2 grid layout (Budget Tracker 12, Debt Payoff 8, Sinking Funds 8, Net Worth 12, Small Business 12, Wedding 8 — Life variant only). Plus cover, intro, section dividers, 2-page tips section, back cover. Finance variant ~28 pages; Life variant ~30 pages. Workflows 2+7 are Wedding-specific (Life only) with Finance substitutions documented.
 - [x] **All AI Edition content COMPLETE ✅** — Wedding AI Co-Pilot PDF content + Bundle AI Master Library PDF content + Notion template spec all drafted. Every AI Edition product's deliverable content exists in `docs/product-content/`.
 - [x] **Wedding spreadsheet build ticket breakdown ✅ (2026-05-11)** → `docs/wedding-build-tickets.md`. 16 tickets across ~53h: W01 scaffolding → W02 Input Tab (Setup Wizard) → W03 Output Dashboard → W04-W09 Essentials data tabs → W10 Essentials QA (shippable gate at $19) → W11 Pro additions (shippable gate at $34) → W12-W13 AI Edition + cultural variants → W14 AI Co-Pilot PDF → W15 5 thumbnails → W16 final QA + Etsy publish. Critical path documented; each ticket has acceptance criteria + dependencies in Phase-1/2 ticket-doc style.
-- [ ] Next product-track step in sequence: visual production start — `Premium Finance Brand Kit` Figma setup (~4h) → unblocks all cover/thumbnail/PDF production for Bundle + Notion + future finance products in parallel
+- [x] **Premium Finance Brand Kit Figma handoff spec ✅ (2026-05-11)** → `docs/visual-production/premium-finance-brand-kit.md`. Build-ready manifest for the Figma source file that produces Bundle covers + thumbnails + Setup Wizard PDF + AI library PDF + Notion banners + glyphs + thumbnails + Setup PDF + 5 future finance-product design briefs to come. 17 sections covering file metadata, 9-page structure, color/type styles, mockup card components, per-deliverable frame names, export presets, naming conventions, ~3.5h step-by-step setup sequence, done criteria. New `docs/visual-production/` directory established as 5th content-organization tier alongside proposals/designs/content/listing-copy.
+- [x] **PRODUCT-TRACK PLANNING PHASE COMPLETE ✅** — All product-track deliverables that can be drafted from this session now exist:
+  - 11 product proposals (Wedding + Bundle + Notion + 8 finance products)
+  - 3 design briefs (Wedding + Bundle + Notion)
+  - 6 listing copy files (Wedding + Notion + 4 Bundle SKUs)
+  - 3 in-product content files (Wedding AI Co-Pilot + Notion template spec + Bundle AI library)
+  - 1 build ticket breakdown (Wedding ~53h)
+  - 1 Figma file handoff spec (Premium Finance Brand Kit)
+- [ ] **Next phase = actual build execution**. Requires opening external tools this session can't drive directly:
+  - Figma — execute Premium Finance Brand Kit setup (~4h) per handoff spec
+  - Google Sheets — build Wedding tickets W01-W16 (~53h) per ticket breakdown
+  - Notion — build template per `notion-life-os-template-spec.md` (~25h)
+  - All visual deliverable population (covers/thumbnails/PDFs) from the Figma file after setup
+- [ ] OR this session continues with planning for: Budget Tracker design brief + Notion build ticket breakdown + remaining 4 finance-product design briefs (Debt/Sinking/Net Worth/Small Biz)
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
