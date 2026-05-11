@@ -144,7 +144,7 @@ Don't wing it. Read **`docs/deployment-runbook.md`** end-to-end the first time, 
 | Phase 1 | Backend backbone — schema, auth, public storefront, Etsy webhook + file delivery, admin product API | ✅ 10/10 tickets shipped |
 | Phase 1.5 | Notion fulfillment plumbing (Notion Life OS product support) | ✅ shipped |
 | Phase 2 | Cron infra, credential encryption, Etsy stats + reviews, Meta + Google + TikTok ad-insight pulls, analytics rollup + dashboard, Klaviyo webhooks, AI listing copy, content engine v1 | ✅ 12/12 tickets shipped |
-| Phase 3 | Ad write APIs, full 10-platform content engine, affiliates, multi-language, Merchant Center / Pinterest Shopping feeds | not started; intentionally deferred |
+| Phase 3 | Ad write APIs, full 10-platform content engine, affiliates, multi-language, Merchant Center / Pinterest Shopping feeds | not started; 16 tickets planned (`docs/phase-3-tickets.md`) |
 
 Phase tickets live in `docs/phase-1-tickets.md` + `docs/phase-2-tickets.md`. Per-product build tickets (Wedding / Budget Tracker / Debt Payoff / Sinking Funds) live as individual `docs/<product>-build-tickets.md` files.
 

@@ -3792,3 +3792,72 @@ Thumbnail #2 hooks A; thumbnail #3 hooks B. Both cohorts scan to find their pain
 - Last deferred brief: Zakat Calculator design brief (~3h)
 - Then Bucket 3: external execution playbook (~4h)
 - Note on build-order recommendation embedded in brief: ship AFTER 5 core finance products + Net Worth start generating word-of-mouth from FIRE communities. Investment Portfolio buyers usually find via Net Worth referrals rather than direct Etsy search.
+
+---
+
+## Backend session — 2026-05-11 — Phase 3 ticket breakdown (planning only)
+
+User picked option #1 from the "what's next" menu after the operational-polish cycle ran its course. Same pattern as `docs/phase-2-tickets.md`: numbered tickets, estimates, dependencies, acceptance criteria. Forward-looking — nothing built — but actionable enough that any future session can pick a ticket and start.
+
+### Scope breakdown
+16 tickets organized into 5 sections, ~220h total:
+
+**Section 3A — Ad write surface (~46h)** Promotes Phase 2's read-only ad-data integration into a read-write marketing engine.
+- T201: ad command bus + audit table (foundation — pause/resume/budget-edit dispatched async with retry, same pattern as `publishing_queue`)
+- T202: Meta campaign writes (Marketing API v22, `status` + `daily_budget`)
+- T203: Google Ads campaign writes (`google-ads.googleapis.com/v20`, distinct campaignBudget resource — open question flagged about shared-budget warning)
+- T204: TikTok campaign writes (`code === 0` semantics)
+- T205: AI ad-creative generator (Claude Sonnet for copy + banana skill prompt for image, per-platform sizes)
+
+**Section 3B — Content engine expansion (~54h parallel)** Extends Phase 2's 3-platform content engine (IG/TikTok/Pinterest) to 10.
+- T206: FB + LinkedIn + X (the "single-post" cluster)
+- T207: Threads + Bluesky (alt-social — Bluesky uses AT Protocol app passwords, not OAuth)
+- T208: Reddit (community-aware — new `subreddit_rules` table for pre-flight validation; conservative seed for 10 finance subs)
+- T209: YouTube Community + Quora (long-tail — YT requires 500+ subs eligibility check, Quora has no public posting API so rendition is "generate + manual paste" with a deep link)
+
+**Section 3C — Shopping feeds (~26h parallel)** Distribution beyond Etsy.
+- T210: Pinterest Shopping catalog feed (public route, scheduled-fetch model)
+- T211: Google Merchant Center feed (scheduled fetch first, Content API push deferred to v2)
+
+**Section 3D — Affiliates (~30h sequential)** New revenue surface.
+- T212: schema (affiliates / affiliate_clicks / affiliate_conversions) + referral codes + `/r/<code>` tracking with 30-day signed cookie + admin UI
+- T213: Stripe Connect Express payouts cron (monthly, conversions transition pending→locked at 30 days past refund window)
+
+**Section 3E — Internationalization (~44h)** Open up non-English markets.
+- T214: `[locale]` route restructure with next-intl, RTL handling for `ar`, locale set en/es/fr/ar
+- T215: Multi-locale Etsy listing sync (reuses T111 AI generator with `locale` template variable)
+- T216: Multi-locale email templates (uses existing `customers.language` column) + multi-locale content renditions
+
+### Cross-cutting concerns documented
+Stuff that surfaces during multiple tickets and shouldn't be discovered per-ticket:
+- Every new platform adds env vars → must land in `ENV_SCHEMA` (`src/lib/env.ts`) + `.env.example` + runbook §1 + boot-time feature-group tag
+- Every new migration triggers `schema-drift` CI job and needs snapshot regen + `database.types.ts` regen
+- Test count target: ~700+ (was ~480 at end of Phase 2)
+- Lint zero-warning baseline must hold; new code uses `_`-prefix for intentional-unused
+- New third-party origins (Stripe / LinkedIn / X / Bluesky / etc.) need to be added to `getCSPDirectives()` before browser-side fetch lands; CSP report-only mode catches misses before enforce flip
+
+### Open decisions logged
+4 open questions to settle during build, not now:
+- T201: Should command bus accept "scheduled" commands or always run-now? Lean run-now for v1.
+- T205: Per-platform ad creatives vs. one master + crops? Lean per-platform.
+- T208: How to seed a Reddit account with enough karma/age to pass community rules engines from day 1?
+- T214: `next-intl` vs. in-house? Read Next 16 i18n docs first.
+
+### What's NOT in Phase 3
+Documented in the file's "intentionally not" section: native mobile, Sentry/observability, multi-region, Stripe direct checkout (we sell through Etsy), B2B/wholesale, WhatsApp Business, storefront customer reviews. These belong to a Phase 4 that doesn't exist yet.
+
+### Files changed
+- `docs/phase-3-tickets.md` — new, 16 tickets across 5 sections + cross-cutting concerns + decision log
+- `README.md` — phase status table now says "16 tickets planned (`docs/phase-3-tickets.md`)" instead of "intentionally deferred"
+- `docs/deployment-runbook.md` — "What's NOT in this runbook" Phase 3 line now points at the ticket file
+- `session-handshake.md` — new bullet documenting the ship
+
+### Verification
+No code touched; no test/lint/build re-run needed. The ticket file is pure planning; running CI on it wouldn't tell us anything.
+
+### Where the backend session sits now
+- 25 backend ticket equivalents shipped (Phase 1 + 1.5 + 2 + operational layer)
+- 16 Phase 3 tickets planned, none started
+- 62+ unpushed commits awaiting `git push`
+- Chartered scope per the user's original note (Backend Backbone + Google/Meta/TikTok integrations) is now both *complete* for the read side and *fully scoped* for the write side
+- Realistic next moves: user pushes the unpushed commits (#5 from previous menu) → bootstraps schema-snapshot guard + CSP monitoring → then either picks the first Phase 3 ticket OR pauses backend until product-track execution catches up enough that Phase 3 features have customers to use them

@@ -509,7 +509,7 @@ If you add a third-party script (analytics tag, embedded widget, etc.), update `
 
 ## What's NOT in this runbook
 
-- Phase 3 (ad write APIs, full 10-platform content engine, affiliates, multi-language, Pinterest Shopping + Google Merchant feeds) — intentionally not built yet
+- Phase 3 (ad write APIs, full 10-platform content engine, affiliates, multi-language, Pinterest Shopping + Google Merchant feeds) — not built yet, but 16 tickets are planned in `docs/phase-3-tickets.md`
 - Sentry / external observability
 - Backup / restore policy for Supabase data (use Supabase's built-in PITR)
 - Multi-region deployment
