@@ -2,6 +2,9 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { verifyCronSecret } from '@/lib/cron/auth'
 import { runCron } from '@/lib/cron/run'
 import { runAdCommands } from '@/lib/ads/command-bus'
+// Side-effect import: registers per-platform handlers (Meta, Google, TikTok)
+// with the command-bus registry at module-load.
+import '@/lib/ads/register-handlers'
 
 export const dynamic = 'force-dynamic'
 

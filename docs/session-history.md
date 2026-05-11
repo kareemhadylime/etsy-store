@@ -4469,3 +4469,38 @@ Prompts use precise numeric formats (% to one decimal, $ to whole dollars, basis
 
 ### Next step in turn
 Investment Portfolio build tickets (~3h). Final Investment Portfolio artifact.
+
+---
+
+## Backend session — 2026-05-11 — TICKET-202: Meta ad campaign writes
+
+First per-platform handler filling the T201 registry — validates the bus design end-to-end against a real platform.
+
+### What landed
+- `src/lib/meta/commands.ts` — `metaCommandHandler` matching `AdCommandHandler` contract. Translates: pause/resume → POST v22 `/<campaign_id>?status=PAUSED|ACTIVE`; update_budget → `?daily_budget=<cents>`; update_status → `?status=<literal>`. Wraps via `withFreshCredential('meta', ...)` for refresh-and-retry.
+- `src/lib/ads/register-handlers.ts` — side-effect-import module calling `registerAdCommandHandler('meta', metaCommandHandler)` at load. Cron route imports it. T203/T204 just append their registration line.
+- 13 new tests (**518 total**): URL construction × 4 command types, payload validation (terminal/no-retry), 401 terminal after wrapper retry, 429/5xx retry, 4xx terminal with raw-payload capture, network errors retry, empty-body handling.
+
+### Retry-semantics template (locked for T203/T204)
+- 401/403 → terminal after wrapper's refresh-retry
+- 429 / 5xx → retry next tick
+- Other 4xx → terminal (client error)
+- Network fail → 502, retry
+
+### Registry-import test pattern (noted)
+Added `import '@/lib/ads/register-handlers'` to the cron route broke its test because the existing mock only exported `runAdCommands`. Fix: add `registerAdCommandHandler: vi.fn()` to the mock as no-op so the side-effect import is harmless in tests.
+
+### Files changed
+- `src/lib/meta/commands.ts` (new)
+- `src/lib/ads/register-handlers.ts` (new — Meta active; T203/T204 placeholders)
+- `src/lib/meta/__tests__/commands.test.ts` (new — 13 tests)
+- `src/app/api/cron/run-ad-commands/route.ts` — side-effect import added
+- `src/app/api/cron/run-ad-commands/__tests__/route.test.ts` — mock extended
+- `docs/phase-3-tickets.md` — T202 complete
+- `docs/deployment-runbook.md` — §4 Meta seeding now flags `ads_management` scope
+- `session-handshake.md` — T202 bullet + Last updated
+
+### Verification (local)
+lint clean, 518/518 tests, build clean. No new migration → snapshot stays valid → single-commit ship.
+
+### Section 3A: 2/5 complete (T201 + T202)

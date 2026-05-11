@@ -4,6 +4,10 @@ import { NextRequest } from 'next/server'
 const runAdCommandsMock = vi.fn()
 vi.mock('@/lib/ads/command-bus', () => ({
   runAdCommands: (...args: unknown[]) => runAdCommandsMock(...args),
+  // register-handlers.ts is imported at route module-load and calls
+  // registerAdCommandHandler — mock it as a no-op so the side-effect
+  // import doesn't crash the test.
+  registerAdCommandHandler: vi.fn(),
 }))
 
 const fromMock = vi.fn()

@@ -214,6 +214,8 @@ Then hit `POST /api/admin/credentials/etsy/refresh` once — the refresher retur
 
 Repeat for `meta`, `google` (one row covers GA4 + Ads + SC), `tiktok`, `pinterest`. `klaviyo` and `resend` don't need rows — their API keys are static env vars.
 
+**Meta token scopes — `ads_management` required for write operations.** Phase 2 reads (ad insights pull) only need `ads_read`. Phase 3 T202 adds write capability (pause / resume / update_budget) which requires `ads_management` on the System User token. If you provisioned the Meta credential before T202 shipped, re-generate the long-lived token with the broader scope, then `POST /api/admin/credentials/meta/refresh`. Without `ads_management`, ad commands fail with `(#100) does not have permission to perform this action`.
+
 ---
 
 ## 5. Configure inbound webhooks

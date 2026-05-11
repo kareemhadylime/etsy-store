@@ -48,8 +48,12 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 ---
 
 ### TICKET-202 — Meta ad campaign writes
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~10h
-**New files:** `src/lib/meta/commands.ts`
+**New files:**
+- `src/lib/meta/commands.ts` — `metaCommandHandler` implementing `AdCommandHandler`; wraps `withFreshCredential('meta', ...)`; POSTs to `graph.facebook.com/v22.0/<campaign_id>?status=...|daily_budget=...`
+- `src/lib/ads/register-handlers.ts` — side-effect-import module that calls `registerAdCommandHandler` for each shipped platform; imported by the cron route at module-load
+- `src/lib/meta/__tests__/commands.test.ts` — 13 tests covering all 4 command types + payload validation + 401-retry semantics + 429/5xx retry + 4xx terminal + network errors + raw payload capture
 **Tasks:**
 - Pause / resume → `POST /<campaign_id>?status=PAUSED|ACTIVE` via Meta Marketing API v22
 - Update budget → `POST /<campaign_id>?daily_budget=<cents>` (note: minor units, not dollars)
@@ -404,7 +408,7 @@ These aren't tickets but they will surface during multiple tickets:
 
 ## Status Tracker
 - [x] TICKET-201 — Ad campaign command bus + audit ✅ (2026-05-11)
-- [ ] TICKET-202 — Meta ad campaign writes
+- [x] TICKET-202 — Meta ad campaign writes ✅ (2026-05-11)
 - [ ] TICKET-203 — Google Ads campaign writes
 - [ ] TICKET-204 — TikTok ad campaign writes
 - [ ] TICKET-205 — AI ad-creative generator
