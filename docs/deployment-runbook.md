@@ -406,6 +406,40 @@ For end-to-end migration validation including RLS, use a Supabase preview branch
 
 If you add a migration that depends on a Supabase-specific extension (`pg_net`, `pgsodium`, `vault`, etc.) or platform feature, also extend `supabase/test-shim.sql` so the replay job stays green.
 
+### Schema-drift guard
+
+After the replay step succeeds, the same job:
+1. Runs `pg_dump --schema-only --no-owner --no-privileges --schema=public` to capture the post-migration schema, stripping pg_dump version/timestamp comment lines so the output is deterministic across runs.
+2. If `supabase/schema.snapshot.sql` exists, diffs it against the freshly generated schema. **Any difference fails the job** with the unified diff printed in the log.
+3. Always uploads the generated schema as a workflow artifact named `schema-current` (14-day retention).
+
+This catches drift between the migrations and a committed expected-schema snapshot. If someone edits an old migration in place (e.g. fixes a column type in `0007_ad_metrics.sql` instead of writing a new migration), CI sees that the resulting schema no longer matches the snapshot.
+
+**Bootstrap path — committing the initial snapshot:**
+
+The repo ships without `supabase/schema.snapshot.sql`. On first CI run after this guard lands, the diff check no-ops with `No supabase/schema.snapshot.sql committed yet — drift check skipped.` and the workflow uploads the generated schema as the `schema-current` artifact. To activate the guard:
+
+1. Go to the most recent green CI run on `main`
+2. Download the `schema-current` artifact (zipfile with `schema.current.sql` inside)
+3. Commit it to the repo as `supabase/schema.snapshot.sql`
+4. Subsequent CI runs will enforce diff equality
+
+**Updating the snapshot after a real migration change:**
+
+1. Write the new migration in `supabase/migrations/`
+2. Push the branch / open a PR
+3. CI will fail with the diff
+4. Download the `schema-current` artifact from the failed run
+5. Replace `supabase/schema.snapshot.sql` with it
+6. Push again — CI now passes
+
+This is intentionally manual. The snapshot is a source-of-truth artefact and silently auto-updating it would defeat the guard.
+
+**Caveats:**
+- The dump only includes the `public` schema. The `auth` shim isn't snapshotted (it's not part of the real app schema).
+- `pg_dump` output order is deterministic for a given input + Postgres version. If we bump the postgres CI service image (currently `postgres:16-alpine`), expect a one-time snapshot churn.
+- This guards the SQL surface, not the TypeScript types in `src/lib/supabase/types.ts`. Types are still hand-maintained; a future ship can auto-generate them from the schema and add a similar diff check.
+
 ---
 
 ## 13. Security headers

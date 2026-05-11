@@ -99,3 +99,50 @@ jobs:
             echo "::endgroup::"
           done
           echo "All migrations applied cleanly."
+
+      - name: Generate schema snapshot
+        env:
+          PGPASSWORD: postgres
+          PGHOST: localhost
+          PGUSER: postgres
+          PGDATABASE: postgres
+        run: |
+          # Dump the public schema only (auth is our shim, not part of
+          # the app schema). Strip version/timestamp lines that vary
+          # between pg_dump runs so the diff is deterministic.
+          pg_dump --schema-only --no-owner --no-privileges --schema=public \
+            | sed -e '/^-- Dumped by pg_dump/d' \
+                  -e '/^-- Dumped from database version/d' \
+                  -e '/^-- Started on/d' \
+                  -e '/^-- Completed on/d' \
+            > /tmp/schema.current.sql
+          echo "Generated /tmp/schema.current.sql ($(wc -l < /tmp/schema.current.sql) lines)."
+
+      - name: Check for schema drift
+        run: |
+          if [ -f supabase/schema.snapshot.sql ]; then
+            if ! diff -u supabase/schema.snapshot.sql /tmp/schema.current.sql > /tmp/schema.diff; then
+              echo "::error::Schema drift detected. The migrations produce a"
+              echo "::error::different schema than supabase/schema.snapshot.sql."
+              echo ""
+              echo "Diff (committed → current):"
+              cat /tmp/schema.diff
+              echo ""
+              echo "Fix: download the 'schema-current' artifact from this run,"
+              echo "review the diff, and commit it as supabase/schema.snapshot.sql."
+              echo "See deployment-runbook section 11 → Schema-drift guard."
+              exit 1
+            fi
+            echo "Schema matches committed snapshot."
+          else
+            echo "No supabase/schema.snapshot.sql committed yet — drift check skipped."
+            echo "To activate: download the 'schema-current' artifact + commit it as that path."
+          fi
+
+      - name: Upload schema snapshot artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: schema-current
+          path: /tmp/schema.current.sql
+          retention-days: 14

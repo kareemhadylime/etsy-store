@@ -3271,3 +3271,67 @@ Plus updated the existing "CSP intentionally not set" test to assert "ships in r
 ### Loose ends
 - Nonce-based CSP (removing `'unsafe-inline'` from script-src by inserting per-request nonces) is the natural future tightening. Requires Next.js middleware that generates a nonce, inserts it into the CSP header AND on every `<script>` tag — substantial refactor. Defer until we have a real reason (security audit requirement, etc.).
 - `report-uri` / `report-to` endpoint for accumulating violations into a queryable table — small follow-up if the manual console-watch approach proves tedious.
+
+---
+
+## Backend session — 2026-05-11 — Schema-drift guard in migration-replay job
+
+Second in the "remaining backend follow-ups" list. Pairs with the migration-replay CI job shipped earlier — that job catches malformed SQL and ordering bugs, but it doesn't catch the subtler "someone edits 0001 in place" failure mode where the SQL still parses but the resulting schema is silently different from what production has. This ship adds a snapshot-diff check that catches exactly that.
+
+### What landed in CI
+Three new steps appended to the existing `migrations` job:
+
+1. **Generate schema snapshot** — after migrations apply, run `pg_dump --schema-only --no-owner --no-privileges --schema=public` against the ephemeral CI Postgres. Strip pg_dump's version + timestamp comment lines (`-- Dumped by pg_dump`, `-- Started on`, etc.) so output is deterministic across runs of the same input.
+
+2. **Check for schema drift** — if `supabase/schema.snapshot.sql` exists in the repo, `diff -u` it against the freshly generated schema. Any difference fails the job with the unified diff printed in the log + a hint pointing at runbook §11. If the snapshot file doesn't exist yet, the step no-ops with an "ℹ️" line and the workflow proceeds.
+
+3. **Upload schema snapshot artifact** — always upload `/tmp/schema.current.sql` as a `schema-current` workflow artifact (14-day retention) so the maintainer can grab it without needing local Postgres tooling.
+
+### Self-bootstrapping
+The repo intentionally ships WITHOUT `supabase/schema.snapshot.sql`. Reasoning:
+- I can't generate it locally (no Docker / psql in this dev environment)
+- The Supabase MCP can dump schema info but the format wouldn't match `pg_dump` output, so the first CI diff would fail spuriously
+
+Instead the workflow uploads the generated schema as an artifact on every run. The first CI run after this commit produces a downloadable `schema-current.zip`. To activate the guard: download, unzip, commit as `supabase/schema.snapshot.sql`, push. From that point forward, drift detection is live.
+
+### Snapshot-update workflow for real migration changes
+Documented in runbook §11. Summary:
+1. Write the new migration in `supabase/migrations/`
+2. Push the branch
+3. CI fails with the diff
+4. Download `schema-current` artifact from the failed run
+5. Replace `supabase/schema.snapshot.sql` with it
+6. Push again — CI passes
+
+Intentionally manual. Auto-updating the snapshot would defeat the guard.
+
+### What this catches
+- Edits to old migrations that change the schema (the most common silent bug — someone fixes a column type in `0007` without writing `0015`)
+- A new migration that reproduces an existing object differently (`create table foo` in 0015 when 0001 already created it)
+- Reordering of migrations
+- Changes that affect schema but pass the migration-replay job (e.g. broken `IF NOT EXISTS` chains that succeed on a fresh DB but break on an existing one)
+
+### What this doesn't catch
+- TypeScript type drift (`src/lib/supabase/types.ts` is still hand-maintained; future ship can auto-generate types and add a similar diff check)
+- Data-only drift (seed data in migrations isn't covered — `pg_dump --schema-only`)
+- Drift in the Supabase `auth` shim (excluded — it's not part of the real app schema)
+
+### Caveats
+- The dump excludes the `auth` schema (our test shim) — only `public` is snapshotted
+- `pg_dump` output order is deterministic for a given input + Postgres version. Bumping the CI service image from `postgres:16-alpine` will cause one-time snapshot churn.
+
+### Files changed
+- `.github/workflows/ci.yml` — three new steps in the `migrations` job
+- `docs/deployment-runbook.md` — §11 extended with the schema-drift guard subsection, bootstrap path, snapshot-update workflow, caveats
+- `session-handshake.md` — new bullet
+
+### Verification
+- No code changed; no test re-run needed. Existing 474 tests still pass on the unchanged code surface.
+- CI workflow itself can't be verified without a push. First run on this commit will:
+  - Pass with the no-snapshot-yet branch (drift check skipped)
+  - Upload the `schema-current` artifact
+  - Both halves of the migration-replay job will be green
+
+### Loose ends
+- Bootstrap the initial snapshot: download the `schema-current` artifact from the first green CI run on `main` after this commit and commit it as `supabase/schema.snapshot.sql`. This is the user's call (and probably best after they push these commits).
+- Auto-generating `src/lib/supabase/types.ts` from the schema + adding a similar diff check is the natural pairing ship.
