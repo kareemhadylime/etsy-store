@@ -132,23 +132,38 @@ export async function deliverOrderFiles(orderId: string): Promise<DeliveryResult
       null
     if (!file) continue
 
-    const signed = await generateSignedUrl(supabase, bucket, file.url, expiresInSeconds)
-    if (!signed) continue
-    signedCount += 1
+    // Notion templates ship as a public duplicatable URL — no signing needed.
+    // T011 Phase 1.5 plumbing: format='notion' bypasses Supabase Storage
+    // entirely and uses the stored URL as-is.
+    const isNotion = file.format === 'notion'
+    let deliveryUrl: string | null
+    if (isNotion) {
+      deliveryUrl = file.url
+    } else {
+      deliveryUrl = await generateSignedUrl(supabase, bucket, file.url, expiresInSeconds)
+      if (!deliveryUrl) continue
+      signedCount += 1
+    }
 
     emailItems.push({
       productName: product.name,
       tier: item.tier,
-      downloadUrl: signed,
+      downloadUrl: deliveryUrl,
+      format: isNotion ? 'notion' : 'file',
     })
 
     await fulfillmentLogs.insert({
       order_id: order.id,
       type: 'file_link_generated',
       recipient_email: order.customers.email,
-      file_url: signed,
-      expires_at: expiresAt,
-      metadata: { product_slug: product.slug, tier: item.tier, file_id: file.id },
+      file_url: deliveryUrl,
+      expires_at: isNotion ? null : expiresAt,
+      metadata: {
+        product_slug: product.slug,
+        tier: item.tier,
+        file_id: file.id,
+        format: file.format,
+      },
     })
 
     await orderItemsTable

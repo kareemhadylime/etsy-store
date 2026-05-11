@@ -15,6 +15,8 @@ export type OrderFulfilledItem = {
   productName: string
   tier: 'essentials' | 'pro' | 'ai'
   downloadUrl: string
+  /** Defaults to 'file' for back-compat. 'notion' = duplicatable template URL. */
+  format?: 'file' | 'notion'
 }
 
 export type OrderFulfilledEmailProps = {
@@ -23,6 +25,7 @@ export type OrderFulfilledEmailProps = {
   items: OrderFulfilledItem[]
   shopName: string
   supportEmail: string
+  /** Used only for `file`-format items. Notion templates don't expire. */
   expiresInDays: number
 }
 
@@ -30,6 +33,10 @@ const tierLabel: Record<OrderFulfilledItem['tier'], string> = {
   essentials: 'Essentials',
   pro: 'Pro',
   ai: 'AI Edition',
+}
+
+function itemFormat(item: OrderFulfilledItem): 'file' | 'notion' {
+  return item.format ?? 'file'
 }
 
 export function OrderFulfilledEmail({
@@ -41,31 +48,57 @@ export function OrderFulfilledEmail({
   expiresInDays,
 }: OrderFulfilledEmailProps) {
   const greeting = customerName ? `Hi ${customerName},` : 'Hi,'
+  const hasFiles = items.some((i) => itemFormat(i) === 'file')
+  const hasNotion = items.some((i) => itemFormat(i) === 'notion')
+
+  let intro: string
+  if (hasFiles && hasNotion) {
+    intro = `Thanks for your order from ${shopName}. Your downloads and Notion templates are linked below. Download links expire in ${expiresInDays} days; Notion duplicates are yours forever once you save them to your workspace.`
+  } else if (hasFiles) {
+    intro = `Thanks for your order from ${shopName}. Your downloads are linked below. These links expire in ${expiresInDays} days — save the files to your device after downloading.`
+  } else {
+    intro = `Thanks for your order from ${shopName}. Open each Notion template below, click "Duplicate" in the top-right corner of the page, and it lands in your workspace.`
+  }
+
+  const heading = hasFiles && !hasNotion
+    ? 'Your files are ready'
+    : hasNotion && !hasFiles
+      ? 'Your Notion templates are ready'
+      : 'Your order is ready'
+
   return (
     <Html>
       <Head />
-      <Preview>Your {shopName} order is ready to download</Preview>
+      <Preview>Your {shopName} order is ready{hasNotion && !hasFiles ? ' to duplicate' : ' to download'}</Preview>
       <Body style={body}>
         <Container style={container}>
-          <Heading style={h1}>Your files are ready</Heading>
+          <Heading style={h1}>{heading}</Heading>
           <Text style={paragraph}>{greeting}</Text>
-          <Text style={paragraph}>
-            {`Thanks for your order from ${shopName}. Your downloads are linked below. These links expire in ${expiresInDays} days — save the files to your device after downloading.`}
-          </Text>
+          <Text style={paragraph}>{intro}</Text>
 
           <Section style={orderBox}>
             <Text style={small}>Order #{orderId}</Text>
-            {items.map((item, idx) => (
-              <Section key={idx} style={itemRow}>
-                <Text style={itemTitle}>
-                  {item.productName} — {tierLabel[item.tier]}
-                </Text>
-                <Link href={item.downloadUrl} style={button}>
-                  Download
-                </Link>
-              </Section>
-            ))}
+            {items.map((item, idx) => {
+              const isNotion = itemFormat(item) === 'notion'
+              return (
+                <Section key={idx} style={itemRow}>
+                  <Text style={itemTitle}>
+                    {item.productName} — {tierLabel[item.tier]}
+                    {isNotion ? ' (Notion template)' : ''}
+                  </Text>
+                  <Link href={item.downloadUrl} style={button}>
+                    {isNotion ? 'Open & duplicate' : 'Download'}
+                  </Link>
+                </Section>
+              )
+            })}
           </Section>
+
+          {hasNotion ? (
+            <Text style={hint}>
+              How to duplicate a Notion template: open the link, then in the top-right of the page click <strong>Duplicate</strong>. The full template lands in your workspace and is yours to edit.
+            </Text>
+          ) : null}
 
           <Hr style={hr} />
 
@@ -88,11 +121,13 @@ OrderFulfilledEmail.PreviewProps = {
       productName: 'Budget Tracker',
       tier: 'pro' as const,
       downloadUrl: 'https://example.com/download/abc',
+      format: 'file' as const,
     },
     {
-      productName: 'Debt Payoff Planner',
-      tier: 'ai' as const,
-      downloadUrl: 'https://example.com/download/def',
+      productName: 'Notion Life OS',
+      tier: 'essentials' as const,
+      downloadUrl: 'https://www.notion.so/Notion-Life-OS-template-abc',
+      format: 'notion' as const,
     },
   ],
   shopName: 'Lime Investments',
@@ -130,6 +165,15 @@ const button = {
   display: 'inline-block',
   fontSize: '13px',
   fontWeight: 600,
+}
+const hint = {
+  backgroundColor: '#f1f5f9',
+  borderRadius: '6px',
+  padding: '12px',
+  color: '#334155',
+  fontSize: '13px',
+  lineHeight: '20px',
+  margin: '0 0 16px',
 }
 const hr = { borderColor: '#e2e8f0', margin: '24px 0' }
 const footer = { color: '#94a3b8', fontSize: '12px', margin: '8px 0 0' }

@@ -20,13 +20,18 @@ export type ProductFileMeta = z.infer<typeof productFileMetaSchema>
 export const PRODUCT_FILE_COLUMNS =
   'id, product_id, format, tier, label, url, version, created_at'
 
-const FORMAT_EXTENSIONS: Record<ProductFormat, string[]> = {
+// `notion` is intentionally not included here — notion product_files are
+// URLs, not uploaded files, so they don't go through this admin upload path.
+const FORMAT_EXTENSIONS: Record<Exclude<ProductFormat, 'notion'>, string[]> = {
   excel: ['.xlsx', '.xls'],
   sheets: ['.gsheet', '.csv'],
   pdf: ['.pdf'],
 }
 
 function defaultExtension(format: ProductFormat): string {
+  // Notion never reaches this code path (upload form blocks it via the
+  // productFileMetaSchema enum), but TS needs an exhaustive fallback.
+  if (format === 'notion') return '.url'
   return FORMAT_EXTENSIONS[format][0]
 }
 

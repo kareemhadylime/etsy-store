@@ -61,6 +61,67 @@ describe('OrderFulfilledEmail', () => {
     expect(html).toContain('Hi,')
     expect(html).not.toContain('Hi ,')
   })
+
+  it('renders a Notion-only order with duplicate copy + how-to hint (T011)', async () => {
+    const html = await render(
+      <OrderFulfilledEmail
+        customerName="Sam"
+        orderId="42"
+        items={[
+          {
+            productName: 'Notion Life OS',
+            tier: 'essentials',
+            downloadUrl: 'https://www.notion.so/Notion-Life-OS-abc',
+            format: 'notion',
+          },
+        ]}
+        shopName="Finance Tools"
+        supportEmail="s@x.com"
+        expiresInDays={7}
+      />,
+    )
+
+    expect(html).toContain('Notion Life OS')
+    expect(html).toContain('Notion template')
+    expect(html).toContain('Open &amp; duplicate')
+    expect(html).toContain('How to duplicate')
+    expect(html).toContain('Your Notion templates are ready')
+    // Should NOT mention the 7-day expiry in the body since there's no file item.
+    expect(html).not.toContain('7 days')
+  })
+
+  it('renders a mixed file + Notion order with both copy variants', async () => {
+    const html = await render(
+      <OrderFulfilledEmail
+        customerName="Sam"
+        orderId="43"
+        items={[
+          {
+            productName: 'Budget Tracker',
+            tier: 'pro',
+            downloadUrl: 'https://example.com/budget',
+            format: 'file',
+          },
+          {
+            productName: 'Notion Life OS',
+            tier: 'essentials',
+            downloadUrl: 'https://www.notion.so/abc',
+            format: 'notion',
+          },
+        ]}
+        shopName="Finance Tools"
+        supportEmail="s@x.com"
+        expiresInDays={7}
+      />,
+    )
+
+    expect(html).toContain('Budget Tracker')
+    expect(html).toContain('Notion Life OS')
+    expect(html).toContain('Download') // file CTA
+    expect(html).toContain('Open &amp; duplicate') // notion CTA
+    expect(html).toContain('How to duplicate') // hint shown for mixed orders too
+    expect(html).toContain('expire in 7 days') // file expiry still mentioned
+  })
 })
 
 describe('FileDownloadEmail', () => {

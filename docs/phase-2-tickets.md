@@ -394,7 +394,7 @@ Phase 3 is the next milestone (ad write APIs, full 10-platform content engine, a
 
 ## Out of band
 
-**TICKET-011 — Notion fulfillment plumbing** (flagged in product proposals as parallel to Wedding build). Not part of Phase 2 — it's a Phase 1.5 add-on enabling Notion Life OS to ship. ~3h. Scope: URL-based delivery path parallel to T004 (template duplication URL instead of signed file URL), Notion-specific email template, `product_files.format='notion'` variant or new `product_url` column.
+**TICKET-011 — Notion fulfillment plumbing ✅** (2026-05-11) — Phase 1.5 add-on shipped. Migration 0013 adds `'notion'` to `product_files.format` check; `OrderFulfilledItem` gains an optional `format: 'file'|'notion'` field; `OrderFulfilledEmail` switches CTA to "Open & duplicate" + adds a "how to duplicate" hint when any item is notion-format; `deliver.ts` skips Supabase Storage signed-URL generation for notion items and ships `file.url` as-is; `fulfillment_logs.expires_at` is null for notion items + `metadata.format='notion'` recorded. 4 new tests (deliver notion path, deliver mixed path, email notion-only render, email mixed render). Total 419 passing.
 
 **Phase 3 preview** (do not break out yet; let Phase 2 data inform priorities):
 - Ad campaign **write** APIs (pause/resume/budget edit per platform)

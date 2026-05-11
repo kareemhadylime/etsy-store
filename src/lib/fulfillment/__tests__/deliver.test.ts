@@ -138,4 +138,110 @@ describe('deliverOrderFiles', () => {
     const result = await deliverOrderFiles('missing')
     expect(result).toEqual({ ok: false, error: 'order not found' })
   })
+
+  it('delivers a Notion-format item without calling createSignedUrl (T011)', async () => {
+    single.mockResolvedValueOnce({
+      data: {
+        id: 'order-3',
+        total: 24,
+        customer_id: 'cust-3',
+        customers: { email: 'buyer@example.com', name: 'Sam' },
+        order_items: [
+          {
+            id: 'oi-3',
+            tier: 'essentials',
+            product_id: 'p-notion',
+            products: {
+              id: 'p-notion',
+              name: 'Notion Life OS',
+              slug: 'notion-life-os',
+              product_files: [
+                {
+                  id: 'f-notion',
+                  tier: 'essentials',
+                  url: 'https://www.notion.so/Notion-Life-OS-template-abc',
+                  format: 'notion',
+                  label: 'Notion Life OS template',
+                },
+              ],
+            },
+          },
+        ],
+      },
+      error: null,
+    })
+
+    const { deliverOrderFiles } = await import('../deliver')
+    const result = await deliverOrderFiles('order-3')
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.signed_links).toBe(0) // notion items don't count toward signed URLs
+    // Storage was NOT consulted
+    expect(createSignedUrl).not.toHaveBeenCalled()
+    // Email got the notion URL directly + format='notion' marker
+    const sendArg = sendMock.mock.calls[0][0] as { react: unknown }
+    expect(sendArg.react).toBeTruthy()
+    // fulfillment_logs records the URL as-is + format=notion in metadata + null expires_at
+    expect(fulfillInsert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'file_link_generated',
+        file_url: 'https://www.notion.so/Notion-Life-OS-template-abc',
+        expires_at: null,
+        metadata: expect.objectContaining({ format: 'notion' }),
+      }),
+    )
+  })
+
+  it('handles a mixed order with both file and notion items', async () => {
+    single.mockResolvedValueOnce({
+      data: {
+        id: 'order-4',
+        total: 41,
+        customer_id: 'cust-4',
+        customers: { email: 'buyer@example.com', name: null },
+        order_items: [
+          {
+            id: 'oi-file',
+            tier: 'pro',
+            product_id: 'p-budget',
+            products: {
+              id: 'p-budget',
+              name: 'Budget Tracker',
+              slug: 'budget-tracker',
+              product_files: [
+                { id: 'f-budget', tier: 'pro', url: 'budget/pro.xlsx', format: 'excel', label: 'Pro file' },
+              ],
+            },
+          },
+          {
+            id: 'oi-notion',
+            tier: 'essentials',
+            product_id: 'p-notion',
+            products: {
+              id: 'p-notion',
+              name: 'Notion Life OS',
+              slug: 'notion-life-os',
+              product_files: [
+                { id: 'f-notion', tier: 'essentials', url: 'https://www.notion.so/abc', format: 'notion', label: 'Template' },
+              ],
+            },
+          },
+        ],
+      },
+      error: null,
+    })
+    createSignedUrl.mockResolvedValueOnce({
+      data: { signedUrl: 'https://example.com/signed/budget' },
+      error: null,
+    })
+
+    const { deliverOrderFiles } = await import('../deliver')
+    const result = await deliverOrderFiles('order-4')
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.signed_links).toBe(1) // only the file counted
+    expect(createSignedUrl).toHaveBeenCalledTimes(1) // not called for notion
+    expect(fulfillInsert).toHaveBeenCalledTimes(3) // 2 file_link_generated + 1 email_sent
+  })
 })

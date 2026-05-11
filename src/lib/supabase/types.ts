@@ -1,6 +1,6 @@
 export type ProductType = 'spreadsheet' | 'app'
 export type ProductStatus = 'draft' | 'live'
-export type ProductFormat = 'sheets' | 'excel' | 'pdf'
+export type ProductFormat = 'sheets' | 'excel' | 'pdf' | 'notion'
 export type ProductTier = 'essentials' | 'pro' | 'ai'
 
 export interface Product {
