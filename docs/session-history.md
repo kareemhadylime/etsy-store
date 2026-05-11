@@ -4194,3 +4194,37 @@ User said "move to implementation in turn" — pivot from planning to executing 
 
 ### Next step in turn
 Family & Education AI prompt content — 12-page PDF (8 prompts).
+
+---
+
+## Backend session — 2026-05-11 — Drift-guard end-to-end green (after one sed footgun)
+
+Follow-up to the previous "push + bootstrap" entry. The first attempt to land the snapshot committed it correctly (stripped locally) but used a 4-backslash sed pattern in ci.yml that only worked on the local Git-Bash sed, not on CI's GNU sed.
+
+### What happened
+1. Pushed `d9d18f2` (bootstrap snapshot + 4-backslash ci.yml fix). CI run `25690156162` failed: `migration replay → Check for schema drift` reported the snapshot didn't match the fresh dump. The diff was exactly the two `\restrict` + `\unrestrict` lines we thought we'd stripped — CI's sed didn't honor the 4-backslash pattern.
+2. Tested bracket-expression locally: `sed -e '/^[\\]restrict /d'` works portably and unambiguously. Verified that piping the original artifact through bracket-expression sed produces byte-identical output to the committed snapshot — so only the CI pattern needed fixing, not the snapshot file itself.
+3. Pushed `55b3002` with the bracket-expression fix. CI run `25690324239`: **both jobs green**, drift check explicitly reported `Generated /tmp/schema.current.sql (2304 lines).` then `Schema matches committed snapshot.`
+
+### What's now true
+- `supabase/schema.snapshot.sql` is the live drift baseline. Any future migration that changes the public schema will fail CI with the unified diff until the maintainer regenerates + commits.
+- Dependabot's first weekly cycle already produced one PR (TypeScript 5.9.3 → 6.0.3) that passed CI on its own — confirming the auto-update plumbing is healthy.
+- 71 commits on `origin/main`.
+
+### Sed-escape gotcha refined
+- `'/^\\\\restrict /d'` works on Git-Bash for Windows (which I was running locally) but NOT on Ubuntu/GitHub Actions' GNU sed
+- `'/^[\\]restrict /d'` works everywhere — character-class for backslash bypasses BRE-escape-level ambiguity
+- Lesson: **portability test in the actual target environment (CI) before assuming sed escapes work**. The diff in CI's log is the only authoritative test.
+
+### Files changed
+- `.github/workflows/ci.yml` — switched 4-backslash escape → bracket expression
+- `session-handshake.md` — `Last updated` line now says `🟢 CI GREEN end-to-end at 55b3002 including drift check`
+- `docs/session-history.md` — this entry
+
+### Loose ends standing
+- **CSP enforce-mode flip** — still needs ~1 release cycle of report-only data
+- **Phase 3 ticket execution** — T201 entry point when ready
+- **TypeScript 6.0.3 Dependabot PR** open + CI-green; merging is the user's call (TS majors aren't on my "auto-ignore" list, intentionally — TS major bumps are usually low-risk and CI catches breakage)
+- **Database types wiring** — still deferred refactor
+
+Backend session is now genuinely at a clean stopping point with **all** CI surfaces verified end-to-end on real runs.
