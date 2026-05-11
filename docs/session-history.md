@@ -3861,3 +3861,58 @@ No code touched; no test/lint/build re-run needed. The ticket file is pure plann
 - 62+ unpushed commits awaiting `git push`
 - Chartered scope per the user's original note (Backend Backbone + Google/Meta/TikTok integrations) is now both *complete* for the read side and *fully scoped* for the write side
 - Realistic next moves: user pushes the unpushed commits (#5 from previous menu) → bootstraps schema-snapshot guard + CSP monitoring → then either picks the first Phase 3 ticket OR pauses backend until product-track execution catches up enough that Phase 3 features have customers to use them
+
+---
+
+## Session 2026-05-11 — Zakat Calculator design brief v1 + 🎉 ALL 11 BRIEFS COMPLETE (products session)
+
+User said "next" — interpreted as step 3 in the Bucket 2 cascade. Completed final deferred-niche design brief.
+
+### Done
+- `docs/product-designs/zakat-calculator.md` — eighth and final cascade from Budget Tracker template
+- `session-handshake.md` — Zakat brief checkmark + 🎉 ALL 11 DESIGN BRIEFS COMPLETE callout
+
+### 18 tabs + AI tab + supporting tabs (most-different of catalog)
+Most-different brief in the catalog because of religious-context requirements. Cascade base holds but warrants one subtle per-product accent + one banner-library replacement.
+
+Input surface: paired `📋 Wealth Inventory` + `⚙️ Madhhab Settings`. Madhhab selector (Hanafi / Maliki / Shafi'i / Hanbali) propagates ruling logic to every downstream tab.
+
+Output Dashboard: Nisab status gauge + per-asset Hawl progress bars + per-asset Zakat-due breakdown + Zakat al-Fitr alert ribbon (Ramadan-active) + 8-category Distribution donut (Surah At-Tawbah 9:60).
+
+### Per-product overrides
+
+**D4 (new direction, this brief only)**: Deep teal `#2C5F5D` as single secondary accent for religious-context tabs only. < 5% surface coverage. Conventional Islamic-finance reference color. Honors buyer context without compromising catalog cohesion. Crescent/star decorative iconography explicitly out of scope.
+
+**Banner library replacement**: Scholar Disclaimer banner MANDATORY on every tab — substitutes for the standard anti-SaaS framing. Anti-app comparison moved to thumbnail #5 only.
+
+### 12-page AI Zakat Advisor PDF — mandatory fatwa citations
+Only catalog AI PDF with mandatory citation framing. Each prompt response must cite NZF UK / AAOIFI Standard 21 / Islamic Relief / AMP India sources.
+
+8 prompts: Setup Wizard / Crypto-DeFi Zakat / Nisab Method Picker / Stocks Method Picker / Pension Analyser / Distribution Planner / Qada Recovery Coach / Annual Report PDF (with tax-deductible receipt for US/UK/CA).
+
+**Two distinct personas** in AI PDF (vs single-persona pattern of other AI PDFs): Cohort A simple + Cohort B complex. Religious + life-stage spread wider warrants two-persona structure.
+
+### 5 thumbnails — anti-SaaS framing DIFFERS
+Thumbnail #5 reframes as "Free calculators handle 5% of your situation. We handle 100%" — depth-based not cost-based. Only catalog product without anti-SaaS price-comparison thumbnail (near-zero SaaS competition; actual competition is FREE online calculators).
+
+### Build estimate: ~45h (largest of deferred-niche briefs)
+Drivers: Madhhab toggle propagation, Hijri↔Gregorian math, 9-currency multi-currency, mandatory citation framing, scholarly accuracy QA overhead.
+
+### Bundle exclusion
+Not in either Bundle. Standalone v1; future Islamic Finance Bundle v2 roadmap. Isolation intentional — Bundle's secular framing would dilute Zakat product credibility.
+
+### Build-order recommendation
+**Ship 60+ days before Ramadan** of launch year. Zakat searches peak during Ramadan + 30 days prior. Strategic launch window matters more than other products.
+
+### Files changed
+- `docs/product-designs/zakat-calculator.md` (new)
+- `session-handshake.md` — Zakat checkmark + 🎉 ALL 11 BRIEFS COMPLETE callout
+
+### Catalog design-phase planning is now exhaustive
+All 11 products with v1 design briefs:
+- Wedding + All-in-One Premium Bundle + Notion Life OS
+- 5 core finance products (Budget / Debt / Sinking Funds / Net Worth / Small Business)
+- 3 deferred finance products (Family & Education / Investment Portfolio / Zakat)
+
+### Next session
+Only remaining planning bucket: external execution playbook (~4h). Master document tying together Figma setup → Sheets builds → Notion build → Etsy publish workflows. After that, planning phase is genuinely complete; next moves are in external tools.
