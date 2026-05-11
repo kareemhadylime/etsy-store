@@ -4637,3 +4637,78 @@ Decision-lock said "always show shared-budget warning before apply." Handler doe
 ### Verification: lint clean, 534/534 tests, build clean. Single-commit ship (no migration).
 
 ### Section 3A: 3/5 done (T201 + T202 + T203). T204 + T205 remain.
+
+---
+
+## Session 2026-05-11 — Zakat AI Zakat Advisor content v1 (products session, Track 2 step 8)
+
+User said "nexr" — step 8 of 10: AI prompt content for Zakat Calculator. Only catalog AI PDF with mandatory fatwa citations.
+
+### Done
+- `docs/product-content/zakat-calculator-ai-prompts.md` — 12-page PDF (8 prompts with mandatory citations)
+- `docs/product-content/_README.md` — Zakat row added + AI cascade-complete callout
+- `session-handshake.md` — Track 2 step 8 + 🎉 AI cascade 8/8 complete
+
+### 8 prompts
+1. Setup Wizard (Madhhab-specific onboarding)
+2. Crypto/DeFi Zakat (BTC + staking + LP + stablecoin edge cases)
+3. Nisab Method Picker (gold vs silver, contemporary debate)
+4. Stocks Method Picker (speculator vs dividend, full vs 25% NZF-proxy)
+5. Pension Analyser (DB/DC/SIPP accessibility test)
+6. Distribution Planner (8 categories per Surah At-Tawbah 9:60 + verified orgs)
+7. Qada Recovery Coach (anti-shame framing)
+8. Annual Report PDF (US/UK/CA tax-deductible receipt formats)
+
+### Two-persona structure (unique to this AI PDF)
+Per design brief Section 4 — only catalog AI PDF using two distinct personas:
+- Persona A — Cohort A: Hanafi, UK resident, ~$20K Zakatable, first-time payer, simple cash + gold + silver. Appears in Setup Wizard + Nisab Method Picker.
+- Persona B — Cohort B: Shafi'i, UAE resident, ~$180K Zakatable, complex portfolio (crypto + EOSB + Sukuk + rental + stocks + Qada). Appears in 6 of 8 prompts.
+
+Religious + life-stage spread wider than other products warrants two personas vs single-persona pattern elsewhere.
+
+### Mandatory fatwa-citation framing
+Every prompt response cites scholarly sources with specific section references:
+- NZF UK (National Zakat Foundation UK) — Zakat Guide sections per topic
+- AAOIFI Standard 21 — Shariah Standard 21: Zakat sections
+- Islamic Relief — Zakat Guide
+- AMP India — Association of Muslim Professionals (India)
+- Imam Nawawi Al-Majmu' — Shafi'i Qada doctrine
+- Quranic: Surah At-Tawbah 9:60 (8 eligible distribution categories)
+
+### Key content discipline
+- Setup Wizard branches by Madhhab: Hanafi silver-Nisab + aggregate Hawl vs Shafi'i gold-Nisab + per-asset Hawl
+- Crypto/DeFi distinguishes consensus (BTC/ETH/USDC) from contested (DeFi lending) — names active scholarly frontier honestly
+- Nisab Method Picker presents silver-vs-gold contemporary debate including NZF UK's equity-of-obligation argument
+- Stocks Method Picker handles speculator-vs-dividend intent classification + includes purification calculation for haram-segment exposure
+- Pension Analyser uses AAOIFI §6.3 accessibility test for Gulf EOSB
+- Distribution Planner names Gharimin (debtors) as most-missed category; emphasizes person-to-person legitimacy
+- Qada Recovery Coach explicitly anti-shame: "Qada is not a punishment. It's accountability — recognition that you have the means now to fulfill what you didn't fulfill before."
+- Annual Report PDF includes country-specific tax-deductible receipt formats (US IRS + UK HMRC Gift Aid + CA CRA)
+
+### Anti-pep-talk back cover
+"Zakat isn't an app. It's an obligation paid in your own books." Anti-free-online-calculator framing (depth-based, not anti-SaaS pricing).
+
+### Refresh cycle aligned with Ramadan
+Only catalog product whose update cycle has explicit seasonal alignment (each Hijri year refresh ships ~60 days before Ramadan).
+
+### 🎉 AI CONTENT CASCADE 8/8 COMPLETE
+Every AI Edition product in the catalog now has its own AI PDF content file:
+- Wedding AI Co-Pilot (pre-existing)
+- Budget Tracker AI Money Advisor
+- Debt Payoff AI Credit Score Coach
+- Sinking Funds AI Savings Advisor
+- Net Worth AI Wealth Intelligence
+- Small Business AI Business Co-Pilot
+- Family & Education AI Family Finance Advisor
+- Investment Portfolio AI Portfolio Intelligence
+- Zakat AI Zakat Advisor ← just shipped
+
+Plus Bundle AI Master Library (Finance + Life variants) — pre-existing.
+
+### Track 2 progress (8/10 done)
+✅ Family (3) | ✅ Investment (3) | ✅ Zakat listing | ✅ Zakat AI | ⏳ Zakat tickets next | Notion tickets
+
+Total remaining Track 2: ~6h.
+
+### Next step in turn
+Zakat build tickets (~3h). Last Zakat artifact — completes Zakat 100% spec'd. Then Notion build tickets (last Track 2 artifact).

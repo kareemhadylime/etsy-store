@@ -22,6 +22,7 @@ When a product builds the actual deliverable (Sheets template, Notion workspace,
 | [`small-business-ai-prompts.md`](./small-business-ai-prompts.md) | Small Business Finance Kit (AI Edition) | 8-prompt AI Business Co-Pilot PDF content (12 pages — one more than other finance products). Unblocks SB14 build ticket. | ✅ v1 |
 | [`family-education-ai-prompts.md`](./family-education-ai-prompts.md) | Family & Education Planner (AI Edition) | 8-prompt AI Family Finance Advisor PDF content (12 pages). Unblocks FE12 build ticket. Track 2 catchup. | ✅ v1 |
 | [`investment-portfolio-ai-prompts.md`](./investment-portfolio-ai-prompts.md) | Investment Portfolio Tracker (AI Edition) | 8-prompt AI Portfolio Intelligence PDF content (12 pages). Unblocks IP12 build ticket. Track 2 catchup. | ✅ v1 |
+| [`zakat-calculator-ai-prompts.md`](./zakat-calculator-ai-prompts.md) | Zakat Calculator (AI Edition) | 8-prompt AI Zakat Advisor PDF content (12 pages) **with mandatory fatwa citations** (NZF UK / AAOIFI Standard 21 / Islamic Relief / AMP India). Two-persona structure (Hanafi simple + Shafi'i complex). Unblocks ZK13 build ticket. Track 2 catchup. **AI content cascade 8/8 COMPLETE.** | ✅ v1 |
 
 ## Voice rules for prompt scripts
 
