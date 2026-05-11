@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Track 2 step 6: Investment Portfolio build tickets drafted → `docs/investment-portfolio-build-tickets.md`. **Investment Portfolio product 100% spec'd.** 4 deferred artifacts remaining (Zakat 3 + Notion build tickets). Backend earlier: 🛠 PHASE 3 — T201 + T202 SHIPPED ✅ (Meta ad command handler, 518 tests).)_
+_Last updated: 2026-05-11 (Track 2 step 7: Zakat listing copy drafted → `docs/listing-copy/zakat-calculator.md`. **Last product listing copy in catalog — 8/8 listing copy files now exist.** 3 deferred artifacts remaining (Zakat AI + Zakat tickets + Notion tickets). Backend earlier: 🛠 PHASE 3 — T201 + T202 SHIPPED ✅.)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)

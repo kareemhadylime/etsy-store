@@ -4549,3 +4549,64 @@ All planning artifacts exist: Proposal + Design brief + Listing copy + AI conten
 
 ### Next step in turn
 Zakat Calculator listing copy — ~1.5h. Eighth listing copy in cascade. Last product to spec.
+
+---
+
+## Session 2026-05-11 — Zakat Calculator listing copy v1 (products session, Track 2 step 7)
+
+User said "next" — continuing in turn. Step 7 of 10: listing copy for Zakat Calculator. Eighth and final listing copy in the catalog cascade.
+
+### Done
+- `docs/listing-copy/zakat-calculator.md` — eighth listing copy
+- `session-handshake.md` — Track 2 step 7 checkmark + last-listing-copy callout
+
+### Content highlights
+- **Title** (138 char): "Zakat Calculator Spreadsheet | 4 Madhhabs, Nisab + Hawl Tracker, Crypto + EOSB + Sukuk, 8 AI Prompts Citing Fatwas | Scholar-Aware"
+- **Description** (3,486 char): anchors **anti-free-online-calculator** framing ("handle 5% of your situation vs 100%") — depth-based, NOT cost-based. Only catalog listing without anti-SaaS price comparison.
+- **3-tier variation table**: Essentials $9 (10 tabs, 6-currency, gold-Nisab) / Pro $19 (19 tabs + Silver Nisab toggle + Hawl + Hijri + EOSB + Qada + Distribution + Family Consolidation + 9-currency) / AI Edition $29 (+ 8 AI prompts with mandatory fatwa citations + 12-month refreshes timed to Ramadan)
+- **Scholarly attributions named**: NZF UK, AAOIFI Standard 21, Islamic Relief, AMP India — visibility-builds-trust signal
+- **Modern asset coverage emphasis**: crypto / EOSB / Sukuk / agricultural / Hajj-Umrah savings / Takaful — signals depth Cohort B searches for
+- **Multi-Madhhab specifically named** in title + description: Hanafi / Maliki / Shafi'i / Hanbali (credibility signal)
+
+### Key positioning decisions
+- **Anti-free-calculator framing replaces anti-SaaS** — depth-based, NOT cost-based. Free online calculators (NZF UK, Islamic Relief, mosque-affiliated) are the actual competition per market research
+- **Scholar Disclaimer banner mandatory** flagged in production notes — every tab carries it
+- **Deep teal accent** explicitly subtle (<5% surface) per design brief Section 1 override
+- **Crescent/star iconography explicitly out of scope** — restraint + accuracy over aesthetic signaling
+- **Privacy framing** more pointed than other products: "religious + financial sensitivity warrant privacy by design" — appeals directly to practicing-Muslim privacy concerns
+- **Annual obligation = annual return** noted: highest repeat-engagement rate of any catalog product; AI Edition refresh aligns with Ramadan timing each Hijri year
+
+### Bundle exclusion
+NOT in Premium Finance Bundle OR Premium Life Bundle. Standalone v1 product. Future Islamic Finance Bundle (Zakat + Sadaqah + Halal Screener + Ramadan + Hajj) on v2 roadmap. Isolation intentional per design brief — Bundle's secular framing would dilute credibility for practicing-Muslim buyers.
+
+### Time-of-year sensitivity
+Launch 60+ days before Ramadan of launch year. Zakat + Zakat al-Fitr searches peak globally during Ramadan + 30 days prior. Strategic launch window matters more than any other product.
+
+### Localization v2 roadmap teased
+Arabic / Urdu / Malay / Turkish / Bahasa editions disclosed at end of description without committing. Captures interest from non-English-primary Muslim buyers while keeping v1 scope tight.
+
+### 13 tags
+zakat calculator / islamic finance / muslim planner / ramadan planner / nisab calculator / hawl tracker / zakat al fitr / madhhab / google sheets / ai zakat / crypto zakat / qada zakat / sukuk tracker
+
+### 10 FAQs covering
+Madhhab support (all 4 schools, Khums separate v2) / AI fatwa citations (NZF + AAOIFI specifically attributed) / Crypto Zakat math / EOSB Gulf-specific / Complex multi-asset support / Qada Zakat (missed years recovery) / Gold vs Silver Nisab debate / Zakat al-Fitr vs Zakat al-Mal distinction / Excel compatibility (NO — GOOGLEFINANCE Sheets-only) / Bug + scholar-review support
+
+### 🎉 ALL 8 LISTING COPY FILES NOW EXIST
+Complete catalog listing copy coverage:
+- Wedding (`wedding-budget-planner.md`)
+- Notion Life OS (`notion-life-os.md`)
+- 4 Bundle SKUs (Finance Pro / Finance AI / Life Pro / Life AI)
+- 5 core finance products (Budget / Debt / Sinking / NW / Small Biz)
+- 3 deferred products: Family / Investment / Zakat ← just completed cascade
+
+Every product in the 11-product catalog now has Etsy-ready listing copy. Build phase can publish any listing without further drafting.
+
+### Files changed
+- `docs/listing-copy/zakat-calculator.md` (new)
+- `session-handshake.md` — Track 2 step 7 checkmark
+
+### Track 2 progress (7/10 done)
+✅ Family (3) | ✅ Investment (3) | ✅ Zakat listing | ⏳ Zakat AI next | Zakat tickets | Notion tickets
+
+### Next step in turn
+Zakat AI Zakat Advisor content — 12-page PDF (8 prompts) with **mandatory fatwa citations** (NZF UK / AAOIFI Standard 21 / Islamic Relief / AMP India). Only catalog AI PDF with citation requirements. Two distinct personas (vs single-persona pattern of other AI PDFs) per design brief Section 4.
