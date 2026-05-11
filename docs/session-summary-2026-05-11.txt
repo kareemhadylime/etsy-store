@@ -1,0 +1,274 @@
+================================================================
+ETSY PROJECT — SESSION SUMMARY
+Saved: 2026-05-11
+Use this file to onboard a fresh session after /clear.
+================================================================
+
+WORKING DIRECTORY: C:\ETSY\etsy-store
+TECH STACK: Next.js 16 (App Router) + TypeScript + Supabase + Vercel
+SUPABASE PROJECT ID: ronfbjpqyhxipnitxrif
+
+----------------------------------------------------------------
+ON SESSION START — READ THESE FILES IN ORDER
+----------------------------------------------------------------
+1. session-handshake.md          (status snapshot — always current)
+2. docs/session-history.md       (running log of every session)
+3. docs/phase-1-tickets.md       (Phase 1 MVP — all 10 done)
+4. docs/phase-2-tickets.md       (Phase 2 — in progress)
+5. docs/backend-plan.md          (architecture reference)
+6. docs/product-proposals/*.md   (11 products, all approved at v3 final)
+
+----------------------------------------------------------------
+PROJECT GOAL
+----------------------------------------------------------------
+Sell AI-enhanced finance & life-organisation spreadsheet/template
+products on Etsy, with a privately-hosted backend (Next.js +
+Supabase + Vercel) that handles:
+- Public storefront (links out to Etsy listings)
+- Admin product catalogue + file delivery (signed URLs from Storage)
+- Etsy receipt webhooks → customer/order records → email + files
+- Server-side conversion tracking (Meta CAPI, GA4 MP, TikTok Events)
+- Cross-platform analytics + ad metrics ingestion
+- Content publishing engine (multi-platform)
+- AI content generator (Claude for text, Nano Banana for images)
+
+Every product follows a 3-tier model: Essentials / Pro / AI Edition.
+
+----------------------------------------------------------------
+PRODUCTS (11) — STATUS AND CURRENT PRICING
+----------------------------------------------------------------
+After "lower-alternative" pricing rule applied 2026-05-11:
+
+# 1. Budget Tracker                    $9 / $19 / $29     (17 tabs)
+# 2. Debt Payoff Planner               $12 / $19 / $29    (18 tabs)
+# 3. Life Sinking Funds Planner        $9 / $19 / $29     (16 tabs)
+# 4. Net Worth Tracker                 $12 / $19 / $29    (19 tabs)
+# 5. Small Business Finance Kit        $24 / $39 / $54    (23 tabs)
+# 6. Family & Education Planner        $14 / $22 / $32    (18 tabs)
+# 7. Investment Portfolio Tracker      $17 / $24 / $34    (19 tabs)
+# 8. Zakat Calculator                  $9 / $19 / $29     (18 tabs)
+# 9. Wedding Budget & Planner          $19 / $34 / $49    (NEW)
+# 10. Premium Life Bundle (6 SKUs)     — / $99 / $149     (NEW BUNDLE)
+# 11. Notion Life OS                   $24 / $39* / $54*  (NEW; *Pro/AI deferred)
+
+Premium Finance Bundle (5 SKU): — / $79 / $119
+
+Bundle savings (recalc'd against lower standalone prices):
+- Finance Bundle Pro:  $115 - $79  = $36 saved (31%)
+- Finance Bundle AI:   $170 - $119 = $51 saved (30%)
+- Life Bundle Pro:     $149 - $99  = $50 saved (34%)
+- Life Bundle AI:      $219 - $149 = $70 saved (32%)
+
+⚠️ Database migration must be reseeded with these prices.
+Existing 0003 migration has older pricing — needs an 0006_ migration
+or seed.sql update before launch.
+
+All 11 product proposals at v3 final parity:
+- "Why a Spreadsheet, Not an App?" banner (privacy positioning)
+- Privacy-first banner
+- "What This Sheet Doesn't Do" section (gaps spun positive)
+- Disclosed dated claims (competitor pricing, source-cited stats)
+- AI Edition has dedicated AI tab with 6-8 prompts
+
+----------------------------------------------------------------
+PHASE 1 MVP — COMPLETE (10/10)
+----------------------------------------------------------------
+Storefront click → Etsy → webhook → fulfillment email → conversion
+event chain is functional end-to-end.
+
+✅ TICKET-001 Schema migration (0002_phase1_schema.sql, applied)
+✅ TICKET-002 Resend email (src/lib/email/resend.ts + templates)
+✅ TICKET-003 Etsy receipt webhook (HMAC verify + idempotent upserts)
+✅ TICKET-004 File delivery (signed URLs + email + conversion event)
+✅ TICKET-005 Admin product API + UI shell + Server Actions
+✅ TICKET-006 Public storefront (homepage, /products, /products/[slug])
+✅ TICKET-007 SEO foundation (sitemap, robots, llms.txt, JSON-LD)
+✅ TICKET-008 Server-side tracking (Meta CAPI / GA4 MP / TikTok)
+✅ TICKET-009 Seed v3 pricing (0003 migration, idempotent UPSERT)
+✅ TICKET-010 Phase 1 smoke test (E2E)
+
+Test count at end of Phase 1: 162 tests passing
+Production build: 22 routes, build clean
+
+Next.js 16 detail: `middleware.ts` renamed to `proxy.ts` per Next 16
+deprecation. Don't revert this.
+
+----------------------------------------------------------------
+PHASE 2 — IN PROGRESS
+----------------------------------------------------------------
+Breakdown in docs/phase-2-tickets.md (12 tickets, ~140h envelope).
+
+Foundation (✅ both done):
+✅ TICKET-101 Cron infrastructure (vercel.json + runCron abstraction
+   + cron_runs table; 179 tests passing)
+✅ TICKET-102 Credentials encryption + token refresh (AES-256-GCM
+   via CREDENTIALS_ENCRYPTION_KEY env; per-platform OAuth refresh
+   dispatchers for Etsy/Meta/Google/TikTok; withFreshCredential
+   retry-on-401 wrapper; 218 tests passing)
+
+Parallel data pulls (5 tickets):
+- TICKET-103 Meta Insights pull
+- TICKET-104 Google Ads pull
+- TICKET-105 TikTok Ads pull
+- TICKET-106 GA4 Data API pull
+- TICKET-107 Search Console pull
+
+Synthesis:
+- TICKET-108 Analytics daily rollup
+- TICKET-109 Analytics dashboard UI
+
+Automation:
+- TICKET-110 Klaviyo + post-purchase flow
+- TICKET-111 AI listing copy generator
+- TICKET-112 Content engine v1 (3 platforms)
+
+Notion Life OS plumbing (called out as Phase 1.5):
+- TICKET-011 — separate workstream
+
+----------------------------------------------------------------
+KEY ARCHITECTURE FILES
+----------------------------------------------------------------
+Backend foundations:
+- src/proxy.ts                       (Next 16 auth gate for /admin)
+- src/lib/supabase/{client,server,types}.ts
+- src/lib/auth/require-admin.ts
+
+Cron + credentials:
+- vercel.json                        (cron schedule definitions)
+- src/lib/cron/{auth,run}.ts         (shared runCron(name, handler))
+- src/lib/credentials/
+  - encryption.ts                    (AES-256-GCM)
+  - load.ts / store.ts               (DB read/write)
+  - refresh.ts                       (per-platform OAuth refresh)
+  - with-fresh.ts                    (retry-on-401 wrapper)
+  - types.ts
+
+Phase 1 backbone:
+- src/app/api/webhooks/etsy/receipt/route.ts
+- src/lib/etsy/{verify,parse,process,api}.ts
+- src/lib/fulfillment/deliver.ts     (signed URL + email + tracking)
+- src/lib/email/resend.ts            + React Email templates
+- src/lib/tracking/{hash,fan-out,handler,types}.ts
+- src/app/api/track/{page-view,etsy-click,lead,email-signup}/route.ts
+
+Admin UI (Server Actions pattern):
+- src/app/admin/layout.tsx
+- src/app/admin/products/{page,new/page,[id]/page}.tsx
+- src/app/admin/_actions/             (Server Actions)
+- src/app/admin/products/_components/ (client form components)
+- src/app/api/admin/products/{route,[id]/route,[id]/files/route,
+  [id]/sync-etsy/route}.ts
+- src/lib/admin/{products,product-files}.ts
+
+Public storefront:
+- src/app/(public)/{layout,page}.tsx
+- src/app/(public)/products/{page,[slug]/page}.tsx
+- src/app/(public)/_components/{product-card,buy-on-etsy-button}.tsx
+- src/app/(public)/products/_data/{tier-features,faq}.ts
+- src/lib/public/products.ts        (anon-client + RLS-filtered)
+
+SEO:
+- src/app/sitemap.ts
+- src/app/robots.ts
+- src/app/llms.txt/route.ts
+- src/lib/seo/{jsonld,og}.ts
+
+----------------------------------------------------------------
+DATABASE — APPLIED MIGRATIONS
+----------------------------------------------------------------
+0001_initial_schema.sql       (products, product_files, etsy_stats,
+                               sales, bundle_products)
+0002_phase1_schema.sql        (customers, orders, order_items,
+                               fulfillment_logs, conversion_events,
+                               platform_credentials, analytics_daily)
+0003_product_tier_pricing.sql (added price_essentials, price_pro,
+                               price_ai, tab_count to products;
+                               seed UPSERT'd)
+0004_cron_runs.sql            (cron_runs telemetry table)
+0005_credentials_encryption.sql (encryption_version column on
+                               platform_credentials)
+
+⚠️ TODO: 0006 migration to update prices to "lower-alternative"
+rule applied 2026-05-11 (see PRICING section above).
+
+----------------------------------------------------------------
+STANDING RULES (PERSISTED IN MEMORY)
+----------------------------------------------------------------
+1. After every save/commit: update session-handshake.md AND
+   docs/session-history.md, commit them together.
+2. After every meaningful exchange: append summary to
+   docs/session-history.md and commit.
+3. Save product proposals to docs/product-proposals/<slug>.md.
+4. Commit after every proposal save.
+5. AI features required in all products.
+6. Plan → approve → design → build (never skip planning).
+7. Always check node_modules/next/dist/docs/ before writing
+   Next.js code (Next 16 has breaking changes from training data).
+8. Memory rules persisted at:
+   C:/Users/karee/.claude/projects/C--ETSY/memory/MEMORY.md
+   - feedback_save_and_update_handshake.md
+   - feedback_save_session_history.md
+
+----------------------------------------------------------------
+NEW PRODUCTS ADDED 2026-05-11
+----------------------------------------------------------------
+9. Wedding Budget & Planner ($19/$34/$49) — approved
+   docs/product-proposals/wedding-budget-planner.md
+
+10. All-in-One Premium Life Bundle ($99 Pro / $149 AI) — approved
+    docs/product-proposals/all-in-one-premium-bundle.md
+    Combines 6 SKUs (Budget + Sinking + Net Worth + Family +
+    Wedding + Notion Life OS).
+
+11. Notion Life OS — approved at MVP scope ($24 Essentials)
+    docs/product-proposals/notion-life-os.md
+    Pro/AI tiers deferred. Build-spec drafted in:
+    docs/product-content/notion-life-os-template-spec.md
+    (schemas, formulas, seed data — build-ready)
+
+----------------------------------------------------------------
+ENVIRONMENT VARIABLES
+----------------------------------------------------------------
+Documented in .env.example:
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_ANON_KEY
+- SUPABASE_SERVICE_ROLE_KEY
+- RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_REPLY_TO
+- CREDENTIALS_ENCRYPTION_KEY (AES-256-GCM key, 32 bytes base64)
+- CRON_SECRET (Vercel cron auth)
+- SUPABASE_DOWNLOAD_EXPIRY_DAYS (default 7)
+- ETSY_WEBHOOK_SECRET (HMAC verification)
+- Server-side tracking IDs (per platform, optional):
+  META_PIXEL_ID, META_CAPI_ACCESS_TOKEN
+  GA4_MEASUREMENT_ID, GA4_API_SECRET
+  TIKTOK_PIXEL_ID, TIKTOK_EVENTS_ACCESS_TOKEN
+
+----------------------------------------------------------------
+ETSY MCP NOTE
+----------------------------------------------------------------
+Etsy MCP OAuth token expired at last check. To pull live listing
+data or push new listings, the token must be refreshed via the
+MCP server config. Backend has src/lib/etsy/api.ts with
+withFreshCredential() wrapper that auto-refreshes on 401.
+
+----------------------------------------------------------------
+CURRENT TEST STATE
+----------------------------------------------------------------
+218 tests passing as of end of TICKET-102.
+Run: `npm test` (vitest)
+Build: `npm run build`
+
+----------------------------------------------------------------
+NEXT SUGGESTED ACTIONS (PICK ONE)
+----------------------------------------------------------------
+A. Continue Phase 2: TICKET-103 Meta Insights pull
+B. Continue Phase 2: TICKET-104 Google Ads pull
+C. Write the 0006 migration to apply the "lower-alternative"
+   pricing rule (Budget Tracker $9, etc.)
+D. Phase 1.5 — TICKET-011 Notion Life OS plumbing
+E. Spreadsheet design phase for Budget Tracker (separate workstream)
+F. Etsy listing copy + mockups for Product 1
+
+================================================================
+END OF SUMMARY
+================================================================
