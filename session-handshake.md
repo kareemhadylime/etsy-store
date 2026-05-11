@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (**🚀 PUSHED + 🟢 CI GREEN on first run.** 69 commits flushed; both CI jobs (`lint + vitest + build`, `migration replay`) passed at tip `e650edf`. Then bootstrapped the schema-drift guard: downloaded the `schema-current` artifact from the green run, fixed a non-determinism bug in CI's pg_dump filter (random `\restrict` session tokens needed stripping), committed the cleaned snapshot as `supabase/schema.snapshot.sql`. From this commit onward, drift detection is live.)_
+_Last updated: 2026-05-11 (Track 2 drafting catchup IN TURN — step 1: Family & Education listing copy drafted → `docs/listing-copy/family-education-planner.md`. 9 deferred artifacts remaining. Backend earlier shipped: 🚀 PUSHED + 🟢 CI GREEN at `e650edf` + schema-drift guard live.)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)

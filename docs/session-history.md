@@ -4164,3 +4164,33 @@ The four-backslash pattern `'/^\\\\restrict /d'` in a single-quoted bash sed arg
 - **Database types wiring** — `database.types.ts` is a reference artefact; `service.ts` still uses widened `Record<string, never>` because 19 callsites use `asTable<T>(client, name: string)` patterns that the strict `SupabaseClient<Database>` generic rejects. Real refactor, deferred.
 
 Everything else from the previous handoff is closed.
+
+---
+
+## Session 2026-05-11 — Family & Education listing copy v1 (products session, Track 2 step 1)
+
+User said "move to implementation in turn" — pivot from planning to executing Track 2 drafting catchup, one artifact at a time.
+
+### Done
+- `docs/listing-copy/family-education-planner.md` — listing copy v1 following Net Worth cascade template
+- `session-handshake.md` — Track 2 step 1 checkmark
+
+### Content highlights
+- Title (~140 char): front-loads head term + surfaces top-3 features (529 vs UTMA / EFC Calculator / Scholarship Tracker / AI Family Finance Advisor)
+- Description (3,412 char): anchors anti-Greenlight 18-year math (\$60/yr × 18 = \$1,080 + BabyMint \$89/yr + ScholarshipOwl \$40/yr = \$1,200+ vs \$32 once). Stats: \$310k child cost + \$120k+ private college.
+- Two-cohort positioning: new parents (529 vs UTMA) + mid-stage parents (am I saving enough)
+- 3-tier variations: \$14 (9 tabs, up to 2 kids) / \$22 (18 tabs, up to 4 kids + FAFSA + scholarship + aid letter) / \$32 (+ 8 AI prompts + 12-mo refreshes)
+- 13 tags + 10 FAQs including 529 vs whole life honest math, state 529 lookup, AI free-tier, special-needs ABLE accounts
+
+### Key positioning decisions
+- Anti-whole-life-insurance honest math (529 vs Whole Life FAQ) protects buyers from common sales pitch
+- Privacy framing specifically names three concrete harms (Greenlight allowance tracking + scholarship-marketing-list + lender data harvesting)
+- 18-year math frame vs Net Worth's 5-year frame — 18 is the child-raising window
+- ABLE account mentioned for special-needs cohort
+- Time-of-year sensitivity: FAFSA opens Oct 1; launch pre-October maximizes FAFSA-cohort visibility
+
+### Track 2 progress (1/10)
+✅ Family listing copy | ⏳ Family AI prompts | Family build tickets | Investment listing copy | Investment AI prompts | Investment build tickets | Zakat listing copy | Zakat AI prompts | Zakat build tickets | Notion build tickets
+
+### Next step in turn
+Family & Education AI prompt content — 12-page PDF (8 prompts).
