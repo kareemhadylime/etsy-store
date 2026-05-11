@@ -112,13 +112,16 @@ jobs:
           # \restrict / \unrestrict session tokens that pg_dump 16+ emits
           # at file head/tail — those vary between runs and would defeat
           # the drift diff if left in.
+          # Note: `[\\]restrict` uses a bracket-expression for the backslash
+          # rather than `\\` escape — empirically the only pattern that
+          # strips reliably in CI's GNU sed against pg_dump's literal `\`.
           pg_dump --schema-only --no-owner --no-privileges --schema=public \
             | sed -e '/^-- Dumped by pg_dump/d' \
                   -e '/^-- Dumped from database version/d' \
                   -e '/^-- Started on/d' \
                   -e '/^-- Completed on/d' \
-                  -e '/^\\\\restrict /d' \
-                  -e '/^\\\\unrestrict /d' \
+                  -e '/^[\\]restrict /d' \
+                  -e '/^[\\]unrestrict /d' \
             > /tmp/schema.current.sql
           echo "Generated /tmp/schema.current.sql ($(wc -l < /tmp/schema.current.sql) lines)."
 
