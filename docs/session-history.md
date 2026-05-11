@@ -4054,3 +4054,75 @@ Budget Tracker (Phase A first ship) is fully ready — no blockers.
 
 ### Next session = external execution
 This session cannot drive Figma/Sheets/Notion/Etsy directly. Future work moves to those tools. Products-session charter satisfied — every product-track deliverable possible in a planning session now exists.
+
+---
+
+## Session 2026-05-11 — Planning → Deliverables Execution Plan v1 (products session)
+
+User said "put a plan to convert planning to deliverables." Drafted the time-bound roadmap that pairs with the (already-shipped) execution playbook.
+
+### Done
+- `docs/execution-plan.md` — actionable conversion plan
+- `session-handshake.md` — execution plan checkmark + pivot directions
+
+### Two-document structure now in place
+- `execution-playbook.md` (already shipped): reference manual — HOW + WHERE
+- `execution-plan.md` (this ship): time-bound plan — WHAT + WHEN
+
+Paired intentionally — playbook is the encyclopedia, plan is the calendar.
+
+### Plan structure (11 sections)
+1. TL;DR — Month 1 (Budget live) → Month 3 (5 finance products) → Month 6 (8 listings) → Month 12 (full catalog)
+2. 5 decisions blocking Day 1 execution
+3. Three parallel tracks (build execution / drafting catchup / backend separate)
+4. 90-day week-by-week plan (Week 1 pre-flight → Week 5 first publish + sale)
+5. Decision tree for pivots (Wedding/Zakat/Bundle/pause)
+6. What THIS session can drive vs what user must execute externally
+7. 3 risks + mitigations
+8. 4 milestone success-criteria checkpoints
+9. Concrete next action
+10. Pairings with other planning docs (cross-reference table)
+11. End-state
+
+### 5 decisions blocking Day 1
+1. First product — recommend Budget Tracker
+2. Hours per week (40h/week = 14 weeks, 20h = 28 weeks, 10h = 56 weeks)
+3. Solo vs hire (VA $500-1K, freelance Figma $1.3-3.5K)
+4. Pre-launch infrastructure (domain, email, Etsy, Pinterest, Figma)
+5. Sign off 7 pending A/A/A design briefs ("Approve all" unlocks ~24h of optional drafting)
+
+### What THIS session can drive directly post-planning
+- ~20h drafting work (Family/Investment/Zakat listing copy + AI content + build tickets, plus Notion build tickets)
+- Etsy MCP listing creation (draft listing JSON once thumbnails exist externally)
+- Catalog review / iteration / feedback synthesis
+
+### What user must execute externally
+- All Figma (no Figma write MCP)
+- All Google Sheets builds (no Sheets MCP)
+- All Notion builds (no Notion write MCP)
+- Etsy publish UI verification on first listing
+- All Pinterest pin production + scheduling
+- First test purchase end-to-end
+
+### 4 milestone success-criteria checkpoints
+- **Month 1**: Budget Tracker live + first real sale + fulfillment validated against backend Phase 1 smoke test
+- **Month 3**: 5 core finance products live + first reviews + Brand Kit Figma populated for all 5
+- **Month 6**: 8 listings live (5 finance + Wedding + Notion + ≥1 Bundle SKU) + off-Etsy distribution starting
+- **Month 12**: Full catalog (11 products) live + Premium Life Bundle launched + annual revenue data
+
+### 3 risks named + mitigations
+1. **Phase A drags 30→90 days** (side-project pace, learning curve, scope creep) → descope rather than slip; ship Essentials-only at $9 first, add tiers as v1.1 updates
+2. **First listing converts <1% and demoralizes** (new shop SEO maturity 4-8 weeks; amateurish first thumbnails) → Month 1 has zero revenue expectation; real measurement starts Month 3+
+3. **Catalog planning gets mid-stream revisited** (real customer feedback contradicts a planning decision) → capture in `v2-iteration-notes.md`, schedule end-of-Month-3 catalog review, don't mid-build rewrite
+
+### Concrete pivot options for next "next"
+This session has 3 productive uses left, in order of recommendation:
+1. **Draft Family & Education listing copy** (~1.5h) — Phase E first product; unblocks Phase E sequencing
+2. **Draft remaining ~19h of optional Track 2 artifacts** — completes Track 2 drafting catchup entirely; everything ready for any future Phase E build window
+3. **Standby until external execution begins** — user opens Figma, returns to this session for spot-checks / Etsy MCP listing creation / review
+
+Recommendation: option 1 if planning bandwidth remains; option 3 if pivot to building should happen NOW.
+
+### Files changed
+- `docs/execution-plan.md` (new — 11 sections, ~280 lines)
+- `session-handshake.md` — execution plan checkmark + pivot decision points
