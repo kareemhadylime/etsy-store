@@ -98,8 +98,12 @@ No silent multi-campaign edits. The friction is intentional — bulk budget edit
 ---
 
 ### TICKET-204 — TikTok ad campaign writes
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~10h
-**New files:** `src/lib/tiktok/commands.ts`
+**New files:**
+- `src/lib/tiktok/commands.ts` — `tiktokCommandHandler` matching `AdCommandHandler`. Single endpoint `POST /open_api/v1.3/campaign/update/` with `{advertiser_id, campaign_id, operation_status?, budget?}`. Status: `'ENABLE'/'DISABLE'` (pause → DISABLE, resume → ENABLE). Budget in advertiser-currency units (cents/100). advertiser_id from `credential.account_id`. `code !== 0` semantics: auth codes (40100/40104/40105) map to unauthorized + 401; non-auth code errors map to status 400 (terminal — bad budget won't get better by retry).
+- `src/lib/tiktok/__tests__/commands.test.ts` — 16 tests covering body construction × 4 command types, headers, advertiser_id from credential, code===0 success path, code !== 0 non-auth terminal, auth codes on HTTP 200 → unauthorized, 401/429/5xx/network/empty-body retry semantics.
+- Registered in `src/lib/ads/register-handlers.ts`.
 **Tasks:**
 - TikTok Marketing API: `POST /open_api/v1.3/campaign/update/` with `advertiser_id`, `campaign_id`, optional `operation_status` (`ENABLE`/`DISABLE`), optional `budget` (per-day micros)
 - Response check: `code === 0` semantics (same as the existing Phase 2 sync)
@@ -414,7 +418,7 @@ These aren't tickets but they will surface during multiple tickets:
 - [x] TICKET-201 — Ad campaign command bus + audit ✅ (2026-05-11)
 - [x] TICKET-202 — Meta ad campaign writes ✅ (2026-05-11)
 - [x] TICKET-203 — Google Ads campaign writes ✅ handler (2026-05-11); admin UI shared-budget warning deferred
-- [ ] TICKET-204 — TikTok ad campaign writes
+- [x] TICKET-204 — TikTok ad campaign writes ✅ (2026-05-11)
 - [ ] TICKET-205 — AI ad-creative generator
 - [ ] TICKET-206 — FB + LinkedIn + X rendition
 - [ ] TICKET-207 — Threads + Bluesky rendition

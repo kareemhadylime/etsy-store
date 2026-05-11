@@ -4817,3 +4817,32 @@ Only Notion Life OS build tickets remaining to complete the catalog ticket cover
 
 ### Next step in turn
 Notion Life OS build tickets — ~3h. Final Track 2 artifact. After this, Track 2 100% complete + entire catalog has all planning artifacts.
+
+---
+
+## Backend session — 2026-05-11 — TICKET-204: TikTok ad campaign writes
+
+Third per-platform handler filling the T201 registry. Section 3A is now 4/5.
+
+### What landed
+- **`src/lib/tiktok/commands.ts`** — `tiktokCommandHandler` against TikTok Marketing API v1.3. Single endpoint `POST /open_api/v1.3/campaign/update/` with JSON body `{advertiser_id, campaign_id, operation_status?, budget?}`. advertiser_id from `credential.account_id`.
+- **TikTok-specific quirks inline-documented:** (1) Status vocab is `ENABLE`/`DISABLE`; (2) `code !== 0` semantics — TikTok returns HTTP 200 for logical failures, real result in body's `code` field, auth codes (40100/40104/40105) → unauthorized, non-auth codes → status=400 terminal; (3) Budget unit is advertiser-currency (cents/100); (4) update_status validates ENABLE/DISABLE before sending.
+- **`src/lib/ads/register-handlers.ts`** — tiktok registration line.
+- **16 new tests** (550 total).
+
+### Bug caught + fixed
+Initial non-auth `code !== 0` returned status=502, which the retry-mapping (`status>=500 → retry`) incorrectly treated as transient. Changed to status=400 — bad-budget-value etc. now correctly fails terminally.
+
+### Retry-semantics template validated across 3 platforms
+Meta (4xx HTTP), Google (4xx HTTP + Google error JSON), TikTok (200 OK + code-in-body) all map cleanly to the same retry decision. Abstraction holds.
+
+### Files changed
+- `src/lib/tiktok/commands.ts` (new)
+- `src/lib/tiktok/__tests__/commands.test.ts` (new — 16 tests)
+- `src/lib/ads/register-handlers.ts` — tiktok line
+- `docs/phase-3-tickets.md` — T204 Complete
+- `session-handshake.md` — T204 bullet + Last updated
+
+### Verification: lint clean, 550/550 tests, build clean. Single-commit ship.
+
+### Section 3A: 4/5 done (T201 + T202 + T203 + T204). Only T205 AI ad-creative (~24h) remains.
