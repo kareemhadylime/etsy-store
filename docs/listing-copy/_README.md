@@ -35,6 +35,7 @@ Every listing doc follows the same skeleton:
 | [`debt-payoff-planner.md`](./debt-payoff-planner.md) | Debt Payoff Planner (Product 2) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`sinking-funds-planner.md`](./sinking-funds-planner.md) | Life Sinking Funds Planner (Product 3) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`net-worth-tracker.md`](./net-worth-tracker.md) | Net Worth Tracker (Product 4) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
+| [`small-business-finance-kit.md`](./small-business-finance-kit.md) | Small Business Finance Kit (Product 5) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`wedding-budget-planner.md`](./wedding-budget-planner.md) | Wedding Budget & Planner (Product 9) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`bundle-finance-pro.md`](./bundle-finance-pro.md) | Premium Finance Bundle — Pro | Pro only | ⏳ |
 | [`bundle-finance-ai.md`](./bundle-finance-ai.md) | Premium Finance Bundle — AI Edition | AI only | ⏳ |
@@ -84,6 +85,13 @@ Every listing doc follows the same skeleton:
 | "19 tabs · FIRE calculator · AI Wealth Intelligence" | NW listing title + thumbnail #1 | NW proposal Section "Sheet Tabs (19 tabs)" |
 | "908,000+ downloads on top Etsy NW tracker" (demand stat) | NW listing description body | NW proposal "Disclosed Dated Claims" — verify annually |
 | "Empower scrapes your accounts. We don't." | NW listing thumbnail #5 | NW proposal "Banners" privacy positioning |
+| Small Business tier prices $24 / $39 / $54 | SB listing title + body + thumbnail #1 | Handshake pricing table |
+| "QuickBooks $35–$235/mo, FreshBooks $19+/mo, Wave free" claims | SB listing description body + thumbnail #5 | SB proposal "Disclosed Dated Claims" — verify annually |
+| "$2,046 / $14,046 saved over 5 years" (QB basic / Advanced math) | SB listing description body | SB proposal "Banners" + math: $35×60−$54 / $235×60−$54 |
+| "23 tabs · P&L · Payroll · AI CFO" | SB listing title + thumbnail #1 | SB proposal Section "Sheet Tabs (23 tabs)" |
+| "82% of small business failures caused by cash flow problems" | SB listing description body | SB proposal "Disclosed Dated Claims" — US Bank study (verify Q4 2025) |
+| "33M+ small businesses in the US" | SB listing description (implicit context) | SB proposal "Disclosed Dated Claims" — SBA 2024 |
+| "Every number a CFO would ask for. None of the consulting fees." | SB listing thumbnail #2 | SB design brief Section 3 (dual-cohort thumbnail strategy) |
 
 **Pricing rule (catalog-wide):** "low alternative" — always pick the lower viable price while staying above the "doesn't look cheap" floor. See `~/.claude/projects/C--ETSY/memory/feedback_pricing_lower_alternative.md`. If any price needs to change, update the proposal + brief + listing + handshake together.
 
