@@ -236,6 +236,42 @@ export interface ReviewResponse {
   created_at: string
 }
 
+export type AdPlatform = 'meta' | 'google' | 'tiktok' | 'pinterest'
+
+export interface AdCampaign {
+  id: string
+  platform: AdPlatform
+  external_id: string
+  account_id: string
+  name: string
+  objective: string | null
+  status: string | null
+  budget_daily: number | null
+  currency: string | null
+  product_id: string | null
+  source_created_at: string | null
+  raw_payload: Record<string, unknown> | null
+  created_at: string
+  updated_at: string
+}
+
+export interface AdMetricsDaily {
+  id: string
+  platform: AdPlatform
+  external_campaign_id: string
+  campaign_id: string | null
+  date: string
+  impressions: number
+  clicks: number
+  spend: number
+  conversions: number
+  revenue: number
+  currency: string | null
+  raw_payload: Record<string, unknown> | null
+  created_at: string
+  updated_at: string
+}
+
 // Join types
 export interface OrderWithCustomer extends Order {
   customer: Customer | null

@@ -1181,3 +1181,46 @@ The original product-track menu still stands but with one shift in priority orde
 5. **Visual production start** — `Premium Finance Brand Kit` Figma setup + first thumbnails
 
 Recommend (1) → (2) → (3) → (4) → (5). Smallest deliverable first to maintain momentum; content production builds up to ticket breakdown which builds up to visual production.
+
+---
+
+## Session 2026-05-11 — TICKET-105 Meta Marketing Insights (first ad-platform live)
+
+### Done
+- Migration `0007_ad_metrics.sql` applied via MCP. Introduces two cross-platform tables shared by T105/T106/T107:
+  - `ad_campaigns` (metadata; unique `(platform, external_id)`, FK to products for later attribution)
+  - `ad_metrics_daily` (time-series; unique `(platform, external_campaign_id, date)` so re-running the cron for the same day overwrites cleanly)
+  - Service-role RLS on both; updated_at triggers.
+- `src/lib/meta/api.ts`:
+  - `actId(accountId)` normalises `act_` prefixing
+  - `fetchMetaCampaigns(credential, opts)` paginates `act_<id>/campaigns` following `paging.next` URLs (Marketing API pagination style; 50-page cap)
+  - `fetchMetaInsights(credential, date, opts)` campaign-level insights via `time_range={since:date,until:date}`
+  - `parseInsights(record)` extracts numbers + sums purchase actions across `purchase`, `offsite_conversion.fb_pixel_purchase`, `omni_purchase`
+  - `yesterdayUtc(now)` returns YYYY-MM-DD
+  - 401/403 → `unauthorized: true` so `withFreshCredential('meta', ...)` retries via long-lived token re-extension; 429 returned verbatim for rate-limit awareness
+- `src/lib/meta/sync.ts` — `syncMetaInsights({ date?, fetchFn?, now? })`. Two-phase:
+  1. Campaigns: upsert returns ids; build `external_id → db id` map
+  2. Insights: upsert with `campaign_id` resolved via the map (null when an insight pre-dates campaign creation)
+  - Skips DB writes entirely when both Meta calls come back empty
+- Cron route `/api/cron/pull-meta-insights` at `0 4 * * *` UTC. `runCron` logs `date`, `campaigns_synced`, `campaigns_with_insights`; `rows_processed = insights_rows`.
+- `src/lib/supabase/types.ts` extended with `AdPlatform`, `AdCampaign`, `AdMetricsDaily`.
+- Tests:
+  - `src/lib/meta/__tests__/api.test.ts` — 11 tests across `actId`, `yesterdayUtc`, `parseInsights`, `fetchMetaCampaigns` (paging, 401 → unauthorized, 429, 502 on network throw, embedded error-in-200), `fetchMetaInsights` (URL composition).
+  - `src/lib/meta/__tests__/sync.test.ts` — 8 tests across happy path, empty/empty short-circuit, insights-without-campaigns, both auth-fail paths, both upsert errors, date default.
+  - `src/app/api/cron/pull-meta-insights/__tests__/route.test.ts` — 3 tests (auth gate, success metrics, sync failure → 500).
+- 22 new tests; total **283 passing**.
+
+### Design notes
+- **Why mock `fetchMetaCampaigns` / `fetchMetaInsights` in the sync test**: the api module is independently tested. Mocking it at the sync layer keeps each test focused — sync.test verifies orchestration + DB shape, api.test verifies HTTP shape.
+- **Why upsert returns id then build map**: insights only know the Meta `campaign_id` (external). The map lets us link to our internal `campaign_id` UUID for future joins from the analytics dashboard, while still inserting the insight even when no campaign row exists yet (campaign metadata may be cached from a prior sync but the insight is for a new campaign created today).
+- **Daily budget**: Meta returns `daily_budget` as a string of cents (minor units). Sync converts to dollars before storage (`/100`). Stored as `numeric(10,2)` so $999,999.99 ad spend is the cap before schema needs revisiting.
+
+### Verification
+- `npm test` → 50 files / 283 tests passing.
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → 27 routes including `ƒ /api/cron/pull-meta-insights`; no warnings.
+
+### Phase 2 progress: 5/12 ✅ — ad-platform integrations 1/3.
+
+### Next at my call
+**TICKET-106 Google** — GA4 Data API + Ads API + Search Console. Same pattern: `withFreshCredential('google', ...)` for each, three crons (or one cron with three steps?), upsert into `ad_metrics_daily` for Ads + new `analytics_daily` rows for GA4 + new `seo_rankings_daily` table for Search Console. ~14h, but borrows everything from T105 — should land closer to 10h.

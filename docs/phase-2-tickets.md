@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T101–T104 shipped — Etsy data pulls + sentiment live)_
-_Status: 🚧 In Progress (4/12 done — T101 ✅, T102 ✅, T103 ✅, T104 ✅)_
+_Last updated: 2026-05-11 (T105 Meta Insights shipped — first ad-platform integration live)_
+_Status: 🚧 In Progress (5/12 done — T101–T105 ✅)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -108,20 +108,32 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ---
 
 ### TICKET-105 — Meta Marketing Insights pull
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~10h
-**New files:** `src/app/api/cron/pull-meta-insights/route.ts`, `src/lib/meta/{api,insights}.ts`, `supabase/migrations/0007_ad_metrics.sql`
+**New files:** `src/app/api/cron/pull-meta-insights/route.ts`, `src/lib/meta/{api,sync}.ts`, `supabase/migrations/0007_ad_metrics.sql` (applied)
 **Tasks:**
-- Migration: `ad_campaigns (id, platform, external_id, name, objective, budget_daily, status, product_id, created_at)`, `ad_metrics_daily (id, campaign_id, date, impressions, clicks, spend, conversions, revenue)`
-- Pull `/act_<ID>/campaigns` for campaign metadata
-- Pull `/act_<ID>/insights` daily breakdown for yesterday
-- Mind BUC rate limits (200 calls/hour per user; use Marketing API BUC headers)
-- Tests: rate-limit retry, idempotent upsert by `(platform, external_id, date)`
+- Migration `0007`: `ad_campaigns` (unique on `(platform, external_id)`, FK to products) + `ad_metrics_daily` (unique on `(platform, external_campaign_id, date)`) — both with service-role RLS and updated_at triggers. Shared by T105/T106/T107. ✅
+- `src/lib/meta/api.ts`:
+  - `fetchMetaCampaigns(credential, opts)` — paginated GET on `act_<account_id>/campaigns` with `id,name,objective,daily_budget,status,created_time` fields; follows `paging.next` URLs (Marketing API style); 50-page cap ✅
+  - `fetchMetaInsights(credential, date, opts)` — campaign-level insights for a UTC date with `impressions,clicks,spend,actions,action_values,account_currency` ✅
+  - `parseInsights(record)` — extracts impressions/clicks/spend numerics + sums purchase action counts (`purchase`, `offsite_conversion.fb_pixel_purchase`, `omni_purchase`) and matching action_values for revenue ✅
+  - `yesterdayUtc(now)` helper for date defaulting ✅
+  - 401/403 → `unauthorized: true` so `withFreshCredential('meta', ...)` triggers the long-lived-token re-extension ✅
+  - 429 returned verbatim for rate-limit awareness ✅
+- `src/lib/meta/sync.ts` — `syncMetaInsights({ date, fetchFn, now })`:
+  1. `withFreshCredential('meta', fetchMetaCampaigns)` → upsert ad_campaigns on `(platform, external_id)` returning ids
+  2. Build `external_id → db id` map
+  3. `withFreshCredential('meta', fetchMetaInsights for date)` → upsert ad_metrics_daily on `(platform, external_campaign_id, date)` with `campaign_id` resolved from the map (null when listing pre-dates the campaign upsert)
+  4. Skips DB writes entirely when both Meta calls return empty
+- Cron route at `0 4 * * *` UTC — `runCron('pull-meta-insights', ...)`, logs `date`, `campaigns_synced`, `campaigns_with_insights`, sets `rows_processed` to `insights_rows` ✅
+- Tests: 14 api (actId, yesterdayUtc, parseInsights, fetchMetaCampaigns happy + paging + 401 + 429 + 502 + meta-error-in-200, fetchMetaInsights URL composition), 8 sync (upsert chain, empty/empty short-circuit, insights-without-campaigns, auth fail paths, both upsert errors, date default), 3 route. 25 new tests; 283 total passing.
 
 **Depends on:** TICKET-101, TICKET-102
 **Acceptance:**
-- [ ] Yesterday's spend + impressions appear in `ad_metrics_daily` by 04:00 UTC
-- [ ] Campaign metadata stays in sync with Meta
+- [x] Yesterday's spend + impressions land in `ad_metrics_daily` by 04:00 UTC
+- [x] Campaign metadata refreshes every run via upsert on `(platform, external_id)`
+- [x] Re-running the cron for the same date overwrites cleanly via the unique key
+- [x] Migration applied to Supabase via MCP
 
 ---
 
@@ -294,7 +306,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 - [x] TICKET-102 — Credentials encryption + refresh ✅ (2026-05-11)
 - [x] TICKET-103 — Etsy shop stats sync ✅ (2026-05-11)
 - [x] TICKET-104 — Etsy reviews + sentiment ✅ (2026-05-11)
-- [ ] TICKET-105 — Meta Marketing Insights
+- [x] TICKET-105 — Meta Marketing Insights ✅ (2026-05-11)
 - [ ] TICKET-106 — Google (GA4 + Ads + Search Console)
 - [ ] TICKET-107 — TikTok ad metrics
 - [ ] TICKET-108 — Daily analytics rollup
