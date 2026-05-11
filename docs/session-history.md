@@ -5047,3 +5047,48 @@ Section 3A's biggest ship and the section's last. Pairs T201's command-bus patte
 Schema snapshot needs regen — 2-commit dance documented + planned.
 
 ### Section 3A complete (5/5). Phase 3 overall: 5/16.
+
+---
+
+## Backend session — 2026-05-12 — Session handoff (SAFE TO CLEAR)
+
+User said "save to session handoff, need to clear to start a new session." Same pattern the products session used yesterday — capture comprehensive resume context in a dedicated doc so the next session can pick up cold.
+
+### Deliverable
+**`docs/session-handoff-2026-05-12-backend.md`** — ~280 lines covering:
+- TL;DR for next session
+- State of the repo (tip commit, test count, CI status, migration count, snapshot lines)
+- What shipped this session (T201 → T202 → T203 → T204 → T205, one paragraph per ticket)
+- Phase 3 progress matrix (5/16 with section-by-section breakdown of what's left)
+- How to resume — concrete pick-up instructions for continuing Phase 3 OR pivoting away
+- Loose ends still standing (CSP enforce, Dependabot TS 6.0.3 PR, types-wiring refactor, phase-3.5 items)
+- Recent commit history (10 most recent commits on `main`)
+- Architectural patterns established this session (AdCommandHandler contract, retry-semantics template, registry pattern, 2-commit drift dance)
+- Operational footprint summary (17 crons, 16 migrations, etc.)
+- Quick-reference list of files to read first
+- Standing rules reminder
+
+### Why this matters
+Without a dedicated handoff doc, the next session opens to `session-handshake.md`'s one-line summary + needs to grep through `docs/session-history.md`'s ~5,000+ lines to understand context. The handoff doc gives a single-file entry point that captures the architectural state (patterns, deferrals, decisions) AND the operational state (tip commit, test count, CI status) in one read.
+
+### Session handshake updated
+`Last updated` line now reads "🏁 BACKEND SESSION HANDOFF COMPLETE — SAFE TO CLEAR. Comprehensive handoff doc at `docs/session-handoff-2026-05-12-backend.md`." Mirrors the products session's signal pattern.
+
+### Phase 3 status at handoff
+- Section 3A: 5/5 ✅
+- Section 3B: 0/4 ⏳ (~54h parallel — natural next ship)
+- Section 3C: 0/2 ⏳ (~26h parallel)
+- Section 3D: 0/2 ⏳ (~30h sequential)
+- Section 3E: 0/3 ⏳ (~44h)
+
+**11 tickets, ~154h remaining. Phase 3 overall: 5/16.**
+
+### Files changed (3)
+- `docs/session-handoff-2026-05-12-backend.md` (new)
+- `session-handshake.md` — Last updated → SAFE TO CLEAR
+- `docs/session-history.md` — this entry
+
+### Verification
+No code touched. Lint + test + build state unchanged from last green CI run (590 tests passing, build clean, both CI jobs green at tip `9172b7b`).
+
+**Safe to clear backend session.** Next session pick up from `session-handshake.md` + `docs/session-handoff-2026-05-12-backend.md`.
