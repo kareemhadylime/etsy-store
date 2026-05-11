@@ -2169,3 +2169,37 @@ TICKET-011 was the last backend-flagged item this session was chartered for. Eve
 
 ### Phase 3 left untouched
 The original Phase 3 preview from `docs/backend-plan.md` — ad write APIs, full 10-platform content engine, affiliate manager, multi-language, Pinterest Shopping + Google Merchant feeds — is intentionally not broken into tickets. Let Phase 2 collect a few weeks of real data before prioritising Phase 3 work.
+
+---
+
+## Session 2026-05-11 — Deployment runbook
+
+### Done
+- Wrote `docs/deployment-runbook.md` — the bridge between "code shipped" and "live shop running". Covers:
+  - Pre-flight account checklist (Vercel, Supabase, Resend, Klaviyo, Anthropic, Etsy, Meta, Google, TikTok, Pinterest, domain)
+  - Every env var the codebase reads — surveyed via grep across `src/`, grouped into 11 categories (Supabase, branding, cron+crypto, Resend, Klaviyo, Anthropic, Etsy, Meta, Google, TikTok, Pinterest)
+  - Supabase setup: 13-migration apply order, Storage bucket, RLS sanity check
+  - Vercel cron registration verification (10 cron paths with their schedules)
+  - Platform credential seeding flow (insert plaintext row → hit refresh endpoint → row gets re-encrypted as v1)
+  - Inbound webhook config for Etsy receipts + Klaviyo events
+  - Klaviyo post-purchase flow build instructions (Day 0/3/7/14) since the flow content lives in Klaviyo's UI not in code
+  - Notion Life OS template URL setup (T011 enabled this end-to-end)
+  - Per-product going-live checklist
+  - 11-step post-deploy smoke check
+  - Secret rotation cadence
+  - Common failure modes table
+
+### Why this doc, not Phase 3 tickets, today
+Phase 2 just shipped. Without the runbook, nothing actually runs in production — env vars unset, no OAuth tokens seeded, no Klaviyo flow built. Phase 3 tickets (ad write APIs, full 10-platform content engine, affiliates, multi-language, Pinterest Shopping + Google Merchant feeds) should wait until Phase 2 has accumulated real data — same reasoning I gave at the end of T112.
+
+### Scope check
+This was a pure docs deliverable — no code, no migrations, no test changes. Test suite remains at 419 passing.
+
+### Backend session — where this leaves us
+Every backend deliverable flagged in the plan is done:
+- Phase 1 (10/10) ✅
+- Phase 1.5 (TICKET-011) ✅
+- Phase 2 (12/12) ✅
+- Deployment runbook ✅
+
+The chartered scope of this session (backend backbone + Google Ads / Meta / TikTok connections) is fully delivered AND documented for operationalization. The next "continue" should be a strategic decision — Phase 3 ticket breakdown, or a new deliverable the user defines.
