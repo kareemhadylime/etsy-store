@@ -4418,3 +4418,54 @@ User said "next" — continuing in turn. Step 4 of 10: listing copy for Investme
 
 ### Next step in turn
 Investment Portfolio AI prompt content — 12-page PDF (8 prompts).
+
+---
+
+## Session 2026-05-11 — Investment Portfolio AI Portfolio Intelligence content v1 (products session, Track 2 step 5)
+
+User said "next" — continuing in turn. Step 5 of 10: AI prompt content for Investment Portfolio Tracker.
+
+### Done
+- `docs/product-content/investment-portfolio-ai-prompts.md` — 12-page PDF content
+- `docs/product-content/_README.md` — Investment Portfolio row added
+- `session-handshake.md` — Track 2 step 5 checkmark
+
+### 8 prompts
+1. Allocation Advisor → 📈 Asset Allocation (contribution vs sell rebalance + tax cost)
+2. Tax-Loss Harvesting Scout → 📉 Tax-Loss Harvesting (wash-sale-across-accounts trap explicit)
+3. Concentration Risk Alerter → 🎁 Options & RSUs + 📊 Holdings Master (employer-stock + employer-job compounding)
+4. Look-Through Analyzer → 🗂️ ETFs & Mutual Funds (reveals VTI+VOO overlap most buyers miss)
+5. Market Scenario Analyst → 🎯 Scenario Simulator (psychological capitulation moment named)
+6. Dividend Income Optimizer → 💰 Dividend Income Calendar (REIT tax-placement + QYLD yield-trap)
+7. Position Health Check → 📊 Holdings Master + 📈 Stocks Tracker (refuses price predictions)
+8. Quarterly Portfolio Review → 🤖 AI hub + 📊 Annual Summary (CFO-style board update)
+
+### Persona-continuity device
+One fictional investor threads all 8 prompts: age 38, senior SWE at TECHCO, $280K portfolio, FIRE target age 50, NY state, moderate-aggressive risk. Tech-worker persona resonates broadly because investment buyers self-segment narrowly (tech/consulting/finance professionals).
+
+### Key content discipline
+- **Allocation Advisor** uses contribution-rebalancing (zero tax cost) preferred over sell-rebalancing when tax cost matters. Worked example: avoids $3,600 LTCG by redirecting 12 months of contributions.
+- **Tax-Loss Harvesting Scout** names wash-sale-across-accounts trap explicitly (most retail TLH content ignores). Worked example catches a VXUS IRA-buy that would invalidate taxable VXUS harvest.
+- **Concentration Risk Alerter** calls out employer-stock + employer-job compounding risk (Lehman 2008 reference); RSU sell-on-vest as default policy
+- **Look-Through Analyzer** reveals VTI+VOO 80-90% overlap that most buyers don't realize they're paying for twice; computes AAPL TRUE exposure as 7.9% vs visible 5.2%
+- **Market Scenario Analyst** names psychological-capitulation moment specifically (2008-2009 second-leg-down trap); identifies severe correction as "best contribution environment of cycle"
+- **Dividend Income Optimizer** flags VNQ-in-taxable as tax-misplaced ($52/yr drag); names QYLD-style yield traps directly (return-of-capital disguised as yield); recommends DGRO over SCHD for 12-year accumulator
+- **Position Health Check** refuses "buy at $X" predictions — names the METRIC to monitor instead (services revenue growth rate for AAPL)
+- **Quarterly Portfolio Review** treats RSU vests as tax-free rebalance opportunities (most investors miss); calendar-based rebalance rule > opinion-based
+
+### Anti-pep-talk back cover
+"A portfolio is the sum of decisions you made. The good ones and the lazy ones." Anti-Sharesight $96/yr + Stock Rover $300/yr + Kubera $200/yr = $2,980 over 5 years.
+
+### Bloomberg-terminal discipline reinforcement
+Prompts use precise numeric formats (% to one decimal, $ to whole dollars, basis points for spreads). Right-aligned tabular numerics in worked examples reinforce the visual discipline locked in design brief Section 1.
+
+### Files changed
+- `docs/product-content/investment-portfolio-ai-prompts.md` (new — 12 pages, 8 prompts)
+- `docs/product-content/_README.md` — Investment Portfolio row added
+- `session-handshake.md` — Track 2 step 5 checkmark
+
+### Track 2 progress (5/10 done)
+✅ Family listing | ✅ Family AI | ✅ Family tickets | ✅ Investment listing | ✅ Investment AI | ⏳ Investment tickets next | Zakat listing | Zakat AI | Zakat tickets | Notion tickets
+
+### Next step in turn
+Investment Portfolio build tickets (~3h). Final Investment Portfolio artifact.
