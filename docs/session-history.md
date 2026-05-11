@@ -3665,3 +3665,61 @@ The proper fix is to migrate every `asTable<T>(client, name)` callsite to `clien
 ### Loose ends
 - The schema-typed-client refactor (migrating 19 asTable<T> callsites to typed `.from('name')` + flipping the SupabaseClient generic) is the natural follow-up if anyone wants .insert payload type-checking. Substantial but mechanical work.
 - A CI step that auto-regenerates types + diffs would close the loop fully. Needs a Supabase access token in GitHub Secrets and the Supabase CLI in the runner. Defer until someone actually trips on schema-vs-types drift.
+
+---
+
+## Session 2026-05-11 — Family & Education design brief v1 (products session)
+
+User said "next step by step" after AI content cascade completed. Moved to Bucket 2 (deferred design briefs). First of 3: Family & Education Planner.
+
+### Done
+- `docs/product-designs/family-education-planner.md` — sixth cascade from Budget Tracker template
+- `session-handshake.md` — Family & Education brief checkmark + updated remaining-planning list (2 deferred briefs left)
+
+### 18 tabs (largest of the 3 deferred-niche products)
+Input Tab: `👶 Child Profiles` (form-style, per-child sections + paired parent inputs section).
+Output Dashboard: `🏠 Dashboard` — Family Health Score gauge + per-child education savings bars + insurance coverage donut + 10-year trajectory line + conflict-alert ribbon (appears when timeline conflicts detected).
+
+### Two subtle per-product overrides (vs the 5-product Premium Finance House cascade)
+- **Banner copy tone**: slightly warmer phrasing (uses "kids" where Budget Tracker would say "expenses"). No visual changes — palette + type stay exactly Premium Finance House.
+- **Worked-example names**: kid-coded first names (Emma's 529, Liam's K-12) in thumbnails instead of generic "Child A / Child B." Recognizable persona signal without compromising privacy.
+
+### 5 thumbnails
+1. Hero — Dashboard with Family Health Score + per-child bars (Emma/Liam labels)
+2. Account Type Comparison close-up — "Don't pick the wrong account. AI picks per child." with "RECOMMENDED" badge highlighting different vehicles for different children
+3. EFC + Aid Letter Comparison — "See what college actually costs. Before they admit your kid."
+4. AI Family Finance Advisor preview — 8 prompts, free-tier ready
+5. Anti-Greenlight comparison — "$1,200+ over 18 years vs $32 once" (Greenlight $60/yr × 18 yrs math + BabyMint $89/yr + ScholarshipOwl $40/yr)
+
+### 12-page AI Family Finance Advisor PDF (AI Edition only)
+One more page than other finance products (8 prompts vs 7) — matches Small Business pattern. The 8 prompts:
+1. Account Type Picker
+2. Scholarship Matching Engine
+3. Life Insurance Advisor
+4. College Affordability Coach
+5. Childcare Optimizer
+6. Family Goals Conflict Resolver
+7. Financial Aid Appeal Coach
+8. State 529 Optimizer
+
+### Build estimate: ~41h
+Comparable to Net Worth (~40h) + Sinking Funds (~41h). Slightly higher than Budget Tracker because of: per-child × 4 column multiplication, EFC FAFSA-formula replication, 50-state 529 lookup, DIME insurance math.
+
+### Cohort insight (drives thumbnail order)
+Two parent buyer cohorts:
+- Cohort A (new parents): researching "529 vs UTMA / what's the difference"
+- Cohort B (mid-stage, kids 5-12): researching "am I saving enough"
+
+Both hit Account Type Comparison early → that's why it's thumbnail #2, not buried.
+
+### Bundle integration
+Included in Premium Life Bundle (6-SKU) but NOT in Finance Bundle (5-SKU) — per bundle proposal. Bundle AI Library does NOT add Family-specific cross-workflows in v1 (deferred to v2).
+
+### Files changed
+- `docs/product-designs/family-education-planner.md` (new)
+- `session-handshake.md` — brief checkmark + remaining-planning list
+
+### Next session
+- Continue Bucket 2 cascade: Investment Portfolio design brief (next) → Zakat Calculator design brief (last of 3 deferred)
+- Then Bucket 3: external execution playbook (~4h)
+- Note: deferred briefs ship faster than the 5-core cascade (~3h each vs ~3.5h) because the Premium Finance House template is now fully locked — only the per-product visual/content differences need to be specified.
