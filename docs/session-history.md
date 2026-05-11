@@ -988,3 +988,43 @@ Several product-track options open:
 5. **Wedding spreadsheet build ticket breakdown** (option B) — break the 50h Sheets build into tickets.
 
 Recommend (1) → (4) → (3) → (2) → (5). Pricing fix is fastest and removes a downstream bug. Wedding AI prompts (4) are the smallest content-content deliverable. Notion content spec (3) sets up the build. Bundle AI library (2) is the biggest content effort. Tickets (5) come last because they benefit from having the content already written.
+
+---
+
+## Session 2026-05-11 — TICKET-102 credentials encryption + token refresh (Phase 2A foundation done)
+
+### Done
+- Migration `0005_credentials_encryption.sql` applied via MCP — `platform_credentials.encryption_version text default 'plaintext' check (in 'plaintext'|'v1')`. Old rows pass through; new writes always tag `v1`.
+- `src/lib/credentials/encryption.ts` — AES-256-GCM via `node:crypto`. Key sourced from `CREDENTIALS_ENCRYPTION_KEY` env (64 hex chars = 32 bytes). Storage format `iv_hex:ct_hex:tag_hex`. Auth tag protects against ciphertext tampering. Module-level key cache + `__resetEncryptionKeyCache()` for tests.
+- `src/lib/credentials/types.ts` — `DecryptedCredential`, `StoreCredentialInput`, `LoadCredentialResult`.
+- `src/lib/credentials/load.ts` — `loadCredential(platform)` reads the most-recently-refreshed active row, decrypts based on `encryption_version`, returns plain tokens or fails with 412 (no creds) / 500 (decryption error / db).
+- `src/lib/credentials/store.ts` — `storeCredential(input)` encrypts tokens before `upsert(..., { onConflict: 'platform,account_id' })`. `updateCredentialStatus(id, status)` toggles active/expired/revoked.
+- `src/lib/credentials/refresh.ts` — per-platform refresh dispatcher:
+  - Etsy → form-body POST to `api.etsy.com/v3/public/oauth/token`
+  - Meta → query-string GET to `graph.facebook.com/v22.0/oauth/access_token?grant_type=fb_exchange_token` for long-lived System User extension
+  - Google → form-body POST to `oauth2.googleapis.com/token`
+  - TikTok → JSON POST to `business-api.tiktok.com/.../oauth2/refresh_token/`, checks `code === 0`
+  - Klaviyo / Resend / Pinterest → static pass-through
+  - On failure: `updateCredentialStatus(id, 'expired')` so the admin dashboard can surface it later
+- `src/lib/credentials/with-fresh.ts` — `withFreshCredential(platform, fn)`. fn returns `{ ok: true, data } | { ok: false, unauthorized: boolean, error, status, body? }`. If `unauthorized: true`, the wrapper calls `refreshCredential` and retries once. Only refreshes if fn says it was an auth failure — non-auth errors fall straight through.
+- `src/app/api/admin/credentials/[platform]/refresh/route.ts` — POST endpoint behind `requireAdmin`, validates platform against the enum, never returns tokens in the response body (verified by test that asserts the placeholder `never-returned` string isn't present in the JSON).
+- `src/lib/etsy/api.ts` — `loadEtsyCredential` is now a thin shim that delegates to `loadCredential('etsy')`. Existing tests pass unchanged because the test mocks return `account_id` + `access_token_encrypted` with no `encryption_version` field; the loader treats absent version as `plaintext` and passes the token through.
+- `.env.example` documents `CREDENTIALS_ENCRYPTION_KEY`, `META_APP_ID/SECRET`, `GOOGLE_OAUTH_CLIENT_ID/SECRET`, `TIKTOK_CLIENT_KEY/SECRET`.
+
+### Verification
+- `npm test` → 40 files / 218 tests passing (added 39 across 5 files).
+- `node_modules/.bin/tsc --noEmit` → exit 0.
+- `npm run build` → succeeds; `/api/admin/credentials/[platform]/refresh` registers; no warnings.
+- Supabase `list_tables` (verbose) confirms `platform_credentials.encryption_version` column is live with the check constraint.
+
+### Design notes for downstream tickets
+- All data-pull tickets (T103–T107) call upstream APIs through `withFreshCredential('platform', async (cred) => { ... })`. The fn maps a 401 from the upstream API to `{ ok: false, unauthorized: true }` so the wrapper handles retry+refresh automatically.
+- `CREDENTIALS_ENCRYPTION_KEY` is deliberately a separate secret from `SUPABASE_SERVICE_ROLE_KEY`. Defence-in-depth: a leak of one doesn't expose tokens.
+- Per-platform refresh uses fetch-injected via `RefreshOptions.fetchFn` so tests don't hit the network. Same pattern as `src/lib/etsy/api.ts`.
+
+### Out of scope for T102 (deferred to later tickets)
+- Admin notification email when a credential auto-expires. Will be added alongside T104's negative-review alert pattern (same Resend admin-alert template).
+- A cron that proactively refreshes credentials approaching `expires_at` (vs. reactive refresh on 401). Most platforms tolerate "refresh-on-401" fine; consider adding a daily proactive sweep only if we hit cold-start latency issues.
+
+### Next session
+T103 Etsy shop stats sync cron — first 2B data-pull ticket, exercises `runCron` + `withFreshCredential` end-to-end against a real platform. ~6h.

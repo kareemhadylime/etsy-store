@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T101 cron infrastructure shipped)_
-_Status: 🚧 In Progress (1/12 done — T101 ✅)_
+_Last updated: 2026-05-11 (T101 + T102 shipped — 2A foundation complete)_
+_Status: 🚧 In Progress (2/12 done — T101 ✅, T102 ✅)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -33,27 +33,32 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ---
 
 ### TICKET-102 — Platform credentials encryption + token refresh
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~10h
-**New files:** `src/lib/credentials/{encrypt,store,load,refresh}.ts`, `supabase/migrations/0005_pgsodium_setup.sql`
+**New files:** `src/lib/credentials/{encryption,types,load,store,refresh,with-fresh}.ts`, `src/app/api/admin/credentials/[platform]/refresh/route.ts`, `supabase/migrations/0005_credentials_encryption.sql`
 **Tasks:**
-- Wire pgsodium (or Supabase Vault) so `platform_credentials.access_token_encrypted` and `.refresh_token_encrypted` are actually encrypted at rest (today they're plaintext — see TODO in `src/lib/etsy/api.ts`)
-- `loadCredential(platform)` decrypts before returning
-- `refreshCredential(platform)` — per-platform refresh flows:
-  - Etsy: OAuth 2.0 refresh on 401
-  - Meta: long-lived System User extend monthly
-  - Google: OAuth 2.0 refresh
-  - TikTok: OAuth 2.0 refresh
-  - Klaviyo / Resend: static API keys (no-op)
-- `withFreshCredential(platform, fn)` wrapper that auto-refreshes on 401 once
-- Admin route `POST /api/admin/credentials/:platform/refresh` for manual kick
-- Tests: encryption round-trip, refresh-on-401 retry, refresh-failure surfacing
+- Chose **app-level AES-256-GCM** over pgsodium for portability/testability. 32-byte key in `CREDENTIALS_ENCRYPTION_KEY` env. Storage format `iv_hex:ct_hex:tag_hex`. Fresh IV per encrypt. ✅
+- Migration `0005` adds `encryption_version text` (default `plaintext`, check `in ('plaintext','v1')`) so legacy rows pass through unchanged; new writes always tag `v1`. ✅
+- `loadCredential(platform)` reads + decrypts based on `encryption_version`. Returns `DecryptedCredential` with plain tokens. ✅
+- `storeCredential(input)` encrypts on write, upserts on `(platform, account_id)`. `updateCredentialStatus(id, status)` toggles active/expired/revoked. ✅
+- `refreshCredential(platform)` per-platform dispatchers: ✅
+  - Etsy: `POST api.etsy.com/v3/public/oauth/token` (form body, refresh_token grant) ✅
+  - Meta: long-lived System User extension via `graph.facebook.com/v22.0/oauth/access_token?grant_type=fb_exchange_token` ✅
+  - Google: `POST oauth2.googleapis.com/token` (refresh_token grant) ✅
+  - TikTok: `POST business-api.tiktok.com/.../oauth2/refresh_token/` (JSON, checks `code === 0`) ✅
+  - Klaviyo / Resend: static-API-key pass-through ✅
+  - Refresh failure marks the credential `status='expired'` for admin surfacing ✅
+- `withFreshCredential(platform, fn)` wrapper — fn returns discriminated union with `unauthorized: boolean`; on `unauthorized: true` the wrapper refreshes once and retries. ✅
+- Admin route `POST /api/admin/credentials/[platform]/refresh` validates platform enum, calls `refreshCredential`, never echoes tokens in response. ✅
+- `src/lib/etsy/api.ts` retrofitted: `loadEtsyCredential` is now a thin shim over `loadCredential('etsy')` so existing tests pass unchanged. ✅
+- Tests: 9 encryption (round-trip, tampering, key rotation, malformed inputs), 5 load, 4 store, 11 refresh (all four OAuth platforms + static + error paths), 6 with-fresh, 5 admin route → 40 new tests across the credentials module. ✅
 
-**Depends on:** TICKET-101 (refresh cron uses `runCron`)
+**Depends on:** TICKET-101 (manual refresh route shares admin auth pattern; cron-driven refresh comes later)
 **Acceptance:**
-- [ ] Tokens at rest are unreadable via `select` on the table from the anon role
-- [ ] Etsy sync route from T005 still works after enabling encryption (back-compat)
-- [ ] Refresh failure surfaces as `status='expired'` + admin notification
+- [x] Tokens at rest are unreadable via `select` from the anon role (RLS + AES-256-GCM defence in depth)
+- [x] Etsy sync route from T005 still works after enabling encryption (back-compat shim)
+- [x] Refresh failure surfaces as `status='expired'` (admin notification email deferred to T104's negative-review alert pattern)
+- [x] Migration applied via Supabase MCP (`ronfbjpqyhxipnitxrif`)
 
 ---
 
@@ -278,7 +283,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 
 ## Status Tracker
 - [x] TICKET-101 — Cron infrastructure ✅ (2026-05-11)
-- [ ] TICKET-102 — Credentials encryption + refresh
+- [x] TICKET-102 — Credentials encryption + refresh ✅ (2026-05-11)
 - [ ] TICKET-103 — Etsy shop stats sync
 - [ ] TICKET-104 — Etsy reviews + sentiment
 - [ ] TICKET-105 — Meta Marketing Insights

@@ -1,5 +1,6 @@
 import { createServiceClient } from '@/lib/supabase/service'
 import type { Product } from '@/lib/supabase/types'
+import { loadCredential } from '@/lib/credentials/load'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -21,37 +22,17 @@ export type EtsyCredential = {
   accessToken: string
 }
 
-type CredentialRow = {
-  account_id: string
-  access_token_encrypted: string
-  status: string
-  expires_at: string | null
-}
-
+/**
+ * Back-compat shim. As of T102 the underlying loader is
+ * `src/lib/credentials/load.ts`, which automatically decrypts v1 rows.
+ * Existing call sites and tests keep working unchanged.
+ */
 export async function loadEtsyCredential(
   client: AnyClient = createServiceClient(),
 ): Promise<EtsyCredential | null> {
-  const res = await asTable<{
-    select: (c: string) => {
-      eq: (col: string, val: string) => {
-        eq: (col: string, val: string) => {
-          order: (col: string, opts: { ascending: boolean }) => {
-            limit: (n: number) => Promise<{ data: CredentialRow[] | null; error: { message: string } | null }>
-          }
-        }
-      }
-    }
-  }>(client, 'platform_credentials')
-    .select('account_id, access_token_encrypted, status, expires_at')
-    .eq('platform', 'etsy')
-    .eq('status', 'active')
-    .order('updated_at', { ascending: false })
-    .limit(1)
-  if (res.error) return null
-  const row = res.data?.[0]
-  if (!row) return null
-  // TODO: decrypt access_token via Supabase Vault when the secret store is wired up.
-  return { shopId: row.account_id, accessToken: row.access_token_encrypted }
+  const res = await loadCredential('etsy', client)
+  if (!res.ok) return null
+  return { shopId: res.credential.account_id, accessToken: res.credential.access_token }
 }
 
 export type EtsyListingUpdate = {
