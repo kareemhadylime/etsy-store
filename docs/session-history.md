@@ -2203,3 +2203,50 @@ Every backend deliverable flagged in the plan is done:
 - Deployment runbook ✅
 
 The chartered scope of this session (backend backbone + Google Ads / Meta / TikTok connections) is fully delivered AND documented for operationalization. The next "continue" should be a strategic decision — Phase 3 ticket breakdown, or a new deliverable the user defines.
+
+---
+
+## Session 2026-05-11 — Sinking Funds (Product 3) design brief v1 (products session)
+
+User said "continue" + asked about handoff. Confirmed: handshake + session-history are committed every turn per standing rule. The older `session-summary-2026-05-11.txt` is a separate fresh-session-onboarding doc (stale; refresh on demand, not part of the standing rule).
+
+### Done
+- `docs/product-designs/sinking-funds-planner.md` — 10-section brief, second cascade from Budget Tracker template
+
+### Per-product differentiation
+Output Dashboard required visuals (Sinking Funds–specific):
+1. Horizontal bar "Funds by % funded" (color-coded green/amber/red)
+2. Urgency heatmap "months-to-target × % funded" (2D matrix)
+3. Stacked bar "Contributions vs. target by fund"
+4. 4-vehicle allocation donut (Cash / CDs / ETFs / Metals & Stocks)
+5. Top 3 "next-dollar" funds strip — reinforces AI Reallocation prompt visually
+
+Banner anchor: "Qapital charges $5/mo. We charge $9 once. 4 savings vehicles. No bank handshake."
+
+5 thumbnails: Hero / Goal Scoring Dashboard close-up (17-fund color-coded grid) / **4 Savings Vehicles** (the hardest-to-replicate differentiator — no Etsy comp matches all 4 in one sheet) / AI Savings Advisor / Anti-Qapital comparison.
+
+### Tab tiers (no reconciliation needed)
+- Essentials ~6 tabs · Pro ~9 more · AI +1 hub = 16 total ✓ matches proposal
+
+### Build estimate ~36h
+Same envelope as Debt Payoff. 4 vehicle-specific trackers (metals + CD ladder + ETF + stocks/dividends) offset the lower tab count vs. Budget Tracker.
+
+### 3 directions A/A/A cascade pending sign-off — no product-specific reason to override
+
+### Premium Finance House design phase progress
+| Product | Brief | Listing |
+|---|---|---|
+| 1 Budget Tracker | ✅ Approved | ✅ |
+| 2 Debt Payoff | ✅ v1 pending | ⏳ |
+| 3 Sinking Funds | ✅ v1 pending | ⏳ |
+| 4 Net Worth | ⏳ | ⏳ |
+| 5 Small Business | ⏳ | ⏳ |
+
+Remaining: ~9h (2 briefs × ~2.5h + 4 listing copies × ~1h).
+
+### Files changed
+- `docs/product-designs/sinking-funds-planner.md` (new)
+- `session-handshake.md` — Sinking Funds checkmark + next-step
+
+### Next session
+Net Worth (Product 4) design brief — third cascade. Then Small Business — fourth and final.
