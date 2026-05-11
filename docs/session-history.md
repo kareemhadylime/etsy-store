@@ -4228,3 +4228,46 @@ Follow-up to the previous "push + bootstrap" entry. The first attempt to land th
 - **Database types wiring** — still deferred refactor
 
 Backend session is now genuinely at a clean stopping point with **all** CI surfaces verified end-to-end on real runs.
+
+---
+
+## Session 2026-05-11 — Family & Education AI Family Finance Advisor content v1 (products session, Track 2 step 2)
+
+Continued Track 2 drafting catchup. Step 2 of 10: AI prompt content for Family & Education.
+
+### Done
+- `docs/product-content/family-education-ai-prompts.md` — 12-page PDF content (8 prompts)
+- `docs/product-content/_README.md` — Family row added
+- `session-handshake.md` — Track 2 step 2 checkmark
+
+### 8 prompts
+1. Account Type Picker (529/Coverdell/UTMA/ABLE per child)
+2. Scholarship Matching Engine (5-7 realistic, not 500 long-shots)
+3. Life Insurance Advisor (DIME, anti-whole-life-for-college)
+4. College Affordability Coach (4-year cost + ranked verdict)
+5. Childcare Optimizer (7 options + failure modes)
+6. Family Goals Conflict Resolver (overlap detection)
+7. Financial Aid Appeal Coach (drafts actual letter)
+8. State 529 Optimizer (in-state vs out-of-state math)
+
+### Persona-continuity device extended
+One fictional family with mixed-age children: parents 36/35, Emma 8 (college-track), Liam 4 (mid-stage), Noah 1 (autism diagnosis). Covers both new-parent AND mid-stage cohorts within one family — interdependent decisions better than two-persona structure.
+
+### Key content discipline
+- Account Type Picker flags ABLE for special-needs cohort + handles mixed-strategy
+- Scholarship Matching names ScholarshipOwl scam directly; 2-3 real programs per category
+- Life Insurance Advisor: DIME math; term 15-17× cheaper than whole-life
+- College Affordability Coach: cross-child loan-capacity math (Liam 4yrs after Emma)
+- Childcare Optimizer: 7 options including "Adult #2 stops working" $490K lifetime cost
+- Family Goals: structural observations ("retirement is slip-prone goal")
+- Aid Appeal: 350-500 word letter + "do NOT threaten enrollment" guidance
+- State 529 Optimizer: actual math (NY $342/yr deduction)
+
+### Anti-pep-talk back cover
+"Eighteen years is a long time to be paying $5 a month for an app to do what a spreadsheet does once." Anti-Greenlight $1,080 + ScholarshipOwl $720 + BabyMint $1,602.
+
+### Track 2 progress (2/10 done)
+✅ Family listing copy | ✅ Family AI prompts | ⏳ Family build tickets next
+
+### Next step in turn
+Family & Education build tickets (~3h). Final Family artifact.

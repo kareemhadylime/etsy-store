@@ -20,6 +20,7 @@ When a product builds the actual deliverable (Sheets template, Notion workspace,
 | [`sinking-funds-ai-prompts.md`](./sinking-funds-ai-prompts.md) | Life Sinking Funds Planner (AI Edition) | 7-prompt AI Savings Advisor PDF content (11 pages). Unblocks SF11 build ticket. | ✅ v1 |
 | [`net-worth-ai-prompts.md`](./net-worth-ai-prompts.md) | Net Worth Tracker (AI Edition) | 7-prompt AI Wealth Intelligence PDF content (11 pages). Unblocks NW12 build ticket. | ✅ v1 |
 | [`small-business-ai-prompts.md`](./small-business-ai-prompts.md) | Small Business Finance Kit (AI Edition) | 8-prompt AI Business Co-Pilot PDF content (12 pages — one more than other finance products). Unblocks SB14 build ticket. | ✅ v1 |
+| [`family-education-ai-prompts.md`](./family-education-ai-prompts.md) | Family & Education Planner (AI Edition) | 8-prompt AI Family Finance Advisor PDF content (12 pages). Unblocks FE12 build ticket. Track 2 catchup. | ✅ v1 |
 
 ## Voice rules for prompt scripts
 

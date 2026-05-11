@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Track 2 drafting catchup IN TURN — step 1: Family & Education listing copy drafted → `docs/listing-copy/family-education-planner.md`. 9 deferred artifacts remaining. Backend earlier shipped: 🚀 PUSHED + 🟢 CI GREEN end-to-end at `55b3002` including drift check (`Schema matches committed snapshot.`). 71 commits on `origin/main`. Dependabot already opened TypeScript 5.9.3 → 6.0.3 PR which passed CI on its own — first Dependabot cycle is healthy.)_
+_Last updated: 2026-05-11 (Track 2 drafting catchup IN TURN — step 2: Family & Education AI Family Finance Advisor content drafted → `docs/product-content/family-education-ai-prompts.md`. 8 deferred artifacts remaining. Backend earlier shipped: 🚀 PUSHED + 🟢 CI GREEN end-to-end at `55b3002` including drift check. 71 commits on `origin/main`. Dependabot first cycle healthy.)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
