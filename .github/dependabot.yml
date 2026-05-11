@@ -1,0 +1,73 @@
+# Dependabot keeps the lockfile + Actions runners current without manually
+# tracking 30+ packages. Two ecosystems: npm (production + dev deps) and
+# the GitHub Actions workflow itself (action versions).
+#
+# Strategy: weekly cadence, group minor/patch upgrades into one PR per
+# ecosystem to keep PR noise low. Major upgrades stay as individual PRs
+# because they usually need a real review (breaking changes, codemods,
+# coordinated config updates).
+
+version: 2
+updates:
+  # npm packages
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Etc/UTC
+    open-pull-requests-limit: 5
+    versioning-strategy: increase
+    labels:
+      - dependencies
+      - npm
+    commit-message:
+      prefix: deps
+      include: scope
+    groups:
+      # Group all non-major updates together. Each major-version bump
+      # gets its own PR (Dependabot's default behaviour for ungrouped
+      # majors).
+      npm-minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    # Ignore Next.js majors — handled manually because of the breaking-changes
+    # warning in AGENTS.md. Same for React majors (Next.js dictates which
+    # React version we run).
+    ignore:
+      - dependency-name: next
+        update-types:
+          - version-update:semver-major
+      - dependency-name: react
+        update-types:
+          - version-update:semver-major
+      - dependency-name: react-dom
+        update-types:
+          - version-update:semver-major
+
+  # GitHub Actions runner versions (actions/checkout, actions/setup-node, etc.)
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Etc/UTC
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - github-actions
+    commit-message:
+      prefix: ci
+      include: scope
+    groups:
+      gha-minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch

@@ -2878,3 +2878,57 @@ Remaining cascade: ~6h.
 
 ### Next session
 Net Worth build tickets — next in cascade.
+
+---
+
+## Backend session — 2026-05-11 — Repo first-impressions trio: README + Dependabot + PR template
+
+Backend track follow-up to the CI workflow + lint baseline. CI itself was complete, but the GitHub-facing artefacts around it were either bare boilerplate (`README.md`), missing (`dependabot.yml`, `pull_request_template.md`), or out of sync (no runbook coverage of the new files). Shipped all three in one commit since they share the "operational scaffolding around CI" theme.
+
+### Real README
+The previous `README.md` was the unmodified `create-next-app` output — 36 lines, none of which described what this project actually is. Anyone landing on the GitHub page (future contributors, the user coming back after a break, anyone evaluating the repo) would see "This is a Next.js project bootstrapped with create-next-app" and assume toy status. The actual surface is a 36-route storefront + admin console with 14 migrations, 11 crons, ad-platform integrations, AI listing copy, and a content engine.
+
+New `README.md` covers:
+- CI status badge (live link to `https://github.com/kareemhadylime/etsy-store/actions/workflows/ci.yml`)
+- AGENTS.md callout (Next.js 16 breaking-changes warning — the most important rule for any agent landing in the repo)
+- "What this actually is" — concrete inventory of routes / migrations / crons / integrations
+- Stack
+- Repository layout — annotated tree of `src/app/`, `src/lib/`, `supabase/migrations/`, `docs/`
+- Run-locally commands
+- CI section — four-step pipeline + pointer to runbook section 11
+- Deploy section — explicit "don't wing it, read the runbook" pointer
+- Phase status table (Phase 1 + 1.5 + 2 shipped; Phase 3 deferred)
+- Contributing note + handshake/history rule
+
+### Dependabot
+`.github/dependabot.yml` opens weekly PRs (Mondays 06:00 UTC) on two ecosystems:
+- **npm** — minor + patch bumps grouped into one PR, max 5 open. Major bumps come individually because they usually need a codemod / config review. **Next.js + React + React DOM majors are explicitly ignored** because the AGENTS.md warning about Next 16 breaking changes makes hand-driven verification mandatory for any Next major bump.
+- **github-actions** — minor + patch action-version bumps grouped, max 3 open.
+
+Commit-message prefixes `deps:` / `ci:` keep the git log scannable.
+
+### PR template
+`.github/pull_request_template.md` — light template that mirrors the runbook's DNA:
+- What / Why / Test plan / Docs touched / Notes
+- Docs-touched section explicitly checklists the five files most likely to fall out of sync: `session-handshake.md`, `docs/session-history.md`, `docs/deployment-runbook.md`, `README.md`, phase-tickets
+- Test plan section pre-fills `npm run lint` / `npm test` / `npm run build` boxes so contributors don't forget the local check before pushing
+
+### Runbook coverage
+Section 11 extended with two subsections:
+- **Dependency maintenance** — explains the Dependabot grouping strategy + the Next/React ignore policy
+- **Pull-request template** — explains what it asks for and why
+
+### Files changed
+- `README.md` — rewrite from boilerplate to real
+- `.github/dependabot.yml` — new
+- `.github/pull_request_template.md` — new
+- `docs/deployment-runbook.md` — section 11 extended
+- `session-handshake.md` — new "Repo first-impressions trio" bullet
+
+### Verification
+No code changed, so no test/build re-run needed. `npm run lint` re-confirmed clean.
+
+### Loose ends for future sessions
+- Once the first Dependabot PRs open on Monday, watch the first cycle to confirm grouping behaviour matches what we wrote. Adjust the `groups:` patterns if too many bumps end up in one PR or if a noisy package needs its own bucket.
+- README has no screenshot of the admin console or storefront yet — could add later if useful for onboarding, but skipped here since this is a single-developer project.
+- Supabase schema-drift guard (generate `database.types.ts` from live schema, fail CI on mismatch) — still deferred, mentioned in the previous session's loose ends.

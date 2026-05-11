@@ -368,6 +368,18 @@ If CI fails on a green-locally PR:
 - env var dropped → check the `env:` block in `ci.yml` against what your tests actually read at import time
 - flaky test → if it's a real flake, fix it; do not retry the workflow as a habit
 
+### Dependency maintenance
+
+Dependabot config at `.github/dependabot.yml` opens weekly PRs (Mondays 06:00 UTC) on two ecosystems:
+- **npm** — minor + patch bumps grouped into one PR (max 5 open). Major bumps come as individual PRs because they usually need a codemod / config review. Next.js + React + React DOM majors are ignored entirely — Next 16 has breaking changes from training-data baselines (`AGENTS.md`) and any Next major bump needs hand-driven verification against `node_modules/next/dist/docs/`.
+- **github-actions** — minor + patch action-version bumps grouped (max 3 open).
+
+PRs use `deps:` / `ci:` commit-message prefixes so the git log stays scannable. They run the same CI workflow as any other PR — a failing dep PR is a real signal, not noise.
+
+### Pull-request template
+
+`.github/pull_request_template.md` nudges every PR toward: what changed, why, test plan, docs touched. Section "Docs touched" specifically calls out `session-handshake.md` + `docs/session-history.md` + this runbook + the README + phase-tickets — the five files most likely to fall out of sync with a real change.
+
 ---
 
 ## What's NOT in this runbook
