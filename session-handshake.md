@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Pricing rule "low alternative" applied across catalog + Input/Output Tab spine rule added to all spreadsheet proposals)_
+_Last updated: 2026-05-11 (Wedding AI Co-Pilot 8-prompt PDF content drafted → `docs/product-content/wedding-ai-prompts.md`; product-content/ directory established)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -129,7 +129,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Pricing rule "low alternative" applied across catalog ✅ (2026-05-11)** — All 11 products + bundles re-priced to the lower-viable price point while staying above the "doesn't look cheap" floor. Memory rule saved → `feedback_pricing_lower_alternative.md`. Bundle savings re-derived: $36 / $51 / $50 / $70 (all 30–34% range, up from 13–29% spread). Overrode prior sign-offs on Wedding ($24/$39/$59 → $19/$34/$49) and Notion ($29 → $24) per the new rule.
 - [x] **Input/Output Tab spine rule added ✅ (2026-05-11)** — Every spreadsheet must have an explicit Input Tab (data entry) + Output Tab (colored eye-catching dashboard w/ graphs). Memory rule saved → `feedback_spreadsheet_input_output_dashboard.md`. All 9 spreadsheet proposals (8 finance + Wedding) audited and annotated with which existing tabs serve these roles + graph/visual requirements added. Notion already compliant (Home Dashboard = Output, databases = Input); brief gets explicit callout.
 - [ ] Bundle brief Section 2 cover variant table savings badges must update to new numbers ($36 SAVED Finance Pro / $51 SAVED Finance AI / $50 SAVED Life Pro / $70 SAVED Life AI) before any cover production starts. The earlier $32/$52 vs $44/$60 reconciliation is moot — both supplanted by new lower-alternative pricing.
-- [ ] Next product-track step: pick from menu — Wedding AI Co-Pilot 8 prompts (~3h smallest), Notion template content spec (~4h), Bundle AI Library 60+ prompts (~8h), Wedding build ticket breakdown (~3h)
+- [x] **Wedding AI Co-Pilot 8-prompt PDF content drafted ✅ (2026-05-11)** → `docs/product-content/wedding-ai-prompts.md`. Full 12-page PDF content: cover + intro + 8 prompts (Guest List Optimizer / Vendor Cost Intelligence / Seating Constraint Solver / RSVP Reminders / Vows Drafter / Day-of Crisis Playbook / Vendor Negotiation / Speech Drafter) + tips page + back cover. Each prompt has copy-paste template + worked example + tab callout. New `product-content/` directory established for in-product content (separate from proposals/designs/listing-copy).
+- [ ] Next product-track step: Notion template content spec (~4h), Bundle AI Library 60+ prompts (~8h), Wedding build ticket breakdown (~3h), or visual production start (Premium Finance Brand Kit Figma setup ~4h)
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.

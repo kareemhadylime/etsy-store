@@ -1385,3 +1385,78 @@ Each writes one `cron_runs` audit row. T108 will run at `06:00` and aggregate al
 
 ### Next at my call
 **TICKET-109 admin analytics dashboard** — page at `/admin/analytics` that reads `analytics_daily` for a date range, shows totals per channel + ROAS table + top products by revenue + drill-down links to `cron_runs` for the selected date. No new schema; pure UI. ~14h but most is layout/styling.
+
+---
+
+## Session 2026-05-11 — Wedding AI Co-Pilot 8-prompt PDF content (products session)
+
+### Picked option 1 from the post-cascade menu
+After the catalog-wide pricing reset + Input/Output Tab spine rule landed, the open product-track menu had 5 items. User confirmed the cascade ("Confirmed") and this session picked option 1 (smallest, ~3h): Wedding AI Co-Pilot 8-prompt content. Full PDF text drafted for production.
+
+### New convention: `docs/product-content/` directory
+Created a fourth content-organization tier to sit alongside the existing three:
+- `product-proposals/` — what to build, scope, pricing, market validation
+- `product-designs/` — visual brief, palette, layout, asset checklist
+- `listing-copy/` — Etsy listing surface (titles, descriptions, tags, FAQs)
+- **`product-content/`** ← new — actual content that goes inside the products (AI prompt scripts, spreadsheet formulas, Notion schemas, dummy data, in-tab copy)
+
+When a product moves from spec to build, the build pulls *content* from `product-content/` + *visual rules* from `product-designs/`. README at `docs/product-content/_README.md` documents voice rules (direct, copy-paste-ready, one-paste-one-job, worked examples that show real output) and what does/doesn't belong here.
+
+### Done
+- `docs/product-content/_README.md` — directory README + voice rules
+- `docs/product-content/wedding-ai-prompts.md` — full 12-page AI Co-Pilot PDF content
+
+### The 12-page PDF structure
+| Page | Content |
+|---|---|
+| 1 | Cover — "AI Wedding Co-Pilot" + subtitle |
+| 2 | Intro — "How to use these prompts" |
+| 3 | Prompt 1: Guest List Optimizer |
+| 4 | Prompt 2: Vendor Cost Intelligence |
+| 5 | Prompt 3: Seating Constraint Solver |
+| 6 | Prompt 4: RSVP Reminder Scripts (3 escalation messages) |
+| 7 | Prompt 5: Wedding Vows Drafter |
+| 8 | Prompt 6: Day-of Crisis Playbook |
+| 9 | Prompt 7: Vendor Negotiation Scripts |
+| 10 | Prompt 8: Speech Drafter (Best Man / Maid of Honor / Parent) |
+| 11 | Tips: ChatGPT free vs. Claude vs. paid + general tips |
+| 12 | Back cover |
+
+### Per-prompt structure (mirrors design brief Section 4)
+Each prompt page has:
+1. **Page title** in Cormorant Garamond 24pt
+2. **Tab callout** (dusty-rose pill, top-right) naming which Wedding spreadsheet tab the prompt pairs with
+3. **The prompt** in deep-mauve bordered card, copy-paste-ready with `[PLACEHOLDER]` strings in ALL-CAPS for buyer fill-ins
+4. **Worked example** (ivory background, collapsed-style) showing realistic input + sample AI output
+5. **Footer** with page number in Cormorant italic
+
+### Voice + style decisions
+- **Direct, copy-paste-ready prompts.** No "you might want to..." hedging in the prompt text itself — that goes in the tips page.
+- **Worked examples use anonymized realistic data.** Names like Mike, Sarah, Emma, Alex, Jordan — culturally neutral first names, no surnames in vow/speech examples that imply religion or origin. Cultural-specific content stays in the dedicated Muslim Walima + Hindu Multi-day tabs (per Wedding AI Edition spec).
+- **Speech Drafter (Prompt 8)** explicitly serves best man / maid of honor / father / mother — buyer selects role in the placeholder. Reuses one prompt across all wedding speech use cases.
+- **Crisis Playbook (Prompt 6)** uses a real-feeling example (uninvited MIL) deliberately — the kind of crisis buyers don't admit they're scared of but absolutely fear. Tone is calm-direct, not "stay positive!" cheerleader voice.
+- **Vows Drafter (Prompt 5)** includes a "what I don't want" anti-cliche field + "one vow I must include" specificity hook. Worked example threads an inside joke ("Long coffee, longer life") through the draft — shows the prompt actually personalizes, doesn't just paste a template.
+
+### Cross-product implications
+The voice + structure here informs the upcoming **Bundle AI Library** content (60+ prompts, 10 cross-product workflows). Reuse the same per-prompt skeleton: title + tab callout + copy-paste block + worked example + footer. Bundle's workflows will weave 2–3 products together per prompt; per-prompt structure stays identical so buyers who own Wedding + Bundle experience consistency.
+
+### Production notes captured in the doc
+- PDF tool: Figma → PDF export per locked production decision P3 (Wedding Brand Kit Figma file)
+- Page count matches design brief Section 4 exactly: 12 pages
+- Placeholder convention: ALL-CAPS bracketed strings (`[GUEST LIST HERE]`, `[NUMBER]`, `[DATE]`)
+- Each prompt page names the spreadsheet tab it pairs with — bridges PDF ↔ spreadsheet so buyers never wonder where things connect
+- Update cadence: refresh only when ChatGPT/Claude ship breaking changes to prompt patterns
+
+### Files changed
+- `docs/product-content/_README.md` (new)
+- `docs/product-content/wedding-ai-prompts.md` (new)
+- `session-handshake.md` — last-updated stamp + Wedding AI Co-Pilot checkmark + next-step menu update
+
+### Next session (product-track menu, updated)
+Remaining items from the original 5-option menu:
+1. **Notion template content spec** — page-by-page database schemas, formulas, dummy seed-data values (~4h)
+2. **Bundle AI Library prompt content** — 60+ actual prompt strings + 10 cross-product workflow scripts (~8h, biggest content effort)
+3. **Wedding spreadsheet build ticket breakdown** — break the ~50h Sheets build into ~8–12 tickets like Phase 1/2 (~3h)
+4. **Visual production start** — `Premium Finance Brand Kit` Figma setup (palette + type + glyph slots + mockup-card masters, ~4h) → unblocks all cover/thumbnail/PDF production in parallel
+
+Recommend in order: (1) → (2) → (3) → (4). Notion content spec is small + sets up template build. Bundle library is the biggest content effort + reuses Wedding's voice and structure. Tickets benefit from content already written. Visual production is the heaviest external-tool work and comes last for this session series.
