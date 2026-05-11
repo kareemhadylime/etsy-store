@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Debt Payoff AI Credit Score Coach content drafted → `docs/product-content/debt-payoff-ai-prompts.md`; 2/5 AI content files done — Sinking/NW/Small Biz remain.)_
+_Last updated: 2026-05-11 (Sinking Funds AI Savings Advisor content drafted → `docs/product-content/sinking-funds-ai-prompts.md`; 3/5 AI content files done — NW/Small Biz remain.)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -193,8 +193,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
   - Small Business (`docs/small-business-build-tickets.md`) — 15 tickets ~54h
   - Total: 80 tickets across ~278h of spreadsheet build work
 - [x] **Budget Tracker AI Money Advisor 7-prompt content v1 drafted ✅ (2026-05-11)** → `docs/product-content/budget-tracker-ai-prompts.md`. Unblocks BT11.
-- [x] **Debt Payoff AI Credit Score Coach 7-prompt content v1 drafted ✅ (2026-05-11)** → `docs/product-content/debt-payoff-ai-prompts.md`. 11-page PDF content. 7 prompts: Payoff Strategy Optimizer / AI Credit Score Coach / Utilization Timing Advisor / Consolidation Intelligence / Income Acceleration Coach / Debt Settlement Letter Generator / Health Score Coach. Settlement Letter prompt includes hardship-letter template + traps-to-avoid section (creditor counter-tactics protection). Unblocks DP11 PDF build ticket.
-- [ ] Remaining optional planning: 3 more per-product AI prompt content files (Sinking Funds / NW / Small Biz) at ~3h each = ~9h. Each unblocks its respective AI PDF build ticket. Plus deferred Family/Investment/Zakat design briefs. Plus external execution prep (master playbook ~4h).
+- [x] **Debt Payoff AI Credit Score Coach 7-prompt content v1 drafted ✅ (2026-05-11)** → `docs/product-content/debt-payoff-ai-prompts.md`. Unblocks DP11.
+- [x] **Sinking Funds AI Savings Advisor 7-prompt content v1 drafted ✅ (2026-05-11)** → `docs/product-content/sinking-funds-ai-prompts.md`. 11-page PDF content. 7 prompts: Reallocation / Vehicle Advisor / Metals Coach / Dividend Planner / Life Stage Advisor / Annual Fund Review / Neglected Fund Detector. Reallocation prompt handles budget-shortfall reality ("we're $200 short this month") with explicit reconciliation options. Dividend Planner detects cash-gap months across quarterly + monthly payers. Vehicle Advisor anti-life-insurance/annuity guardrail explicit. Unblocks SF11 PDF build ticket.
+- [ ] Remaining optional planning: 2 more per-product AI prompt content files (NW / Small Biz) at ~3h each = ~6h. Each unblocks its respective AI PDF build ticket. Plus deferred Family/Investment/Zakat design briefs. Plus external execution prep (master playbook ~4h).
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
