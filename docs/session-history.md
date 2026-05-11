@@ -2250,3 +2250,65 @@ Remaining: ~9h (2 briefs × ~2.5h + 4 listing copies × ~1h).
 
 ### Next session
 Net Worth (Product 4) design brief — third cascade. Then Small Business — fourth and final.
+
+---
+
+## Session 2026-05-11 — Net Worth (Product 4) design brief v1 (products session)
+
+### Continued — third Budget Tracker template cascade
+4/5 Premium Finance House briefs now drafted.
+
+### Done
+- `docs/product-designs/net-worth-tracker.md` — 10-section brief
+
+### Per-product differentiation
+Output Dashboard required visuals (Net Worth–specific):
+1. NW Health Score gauge + 5 sub-component mini-gauges (savings rate / debt-to-asset / allocation drift / FIRE progress / EF coverage)
+2. Line chart "Net worth trajectory" — last 24 months actual + 12-month projection (two-line overlay)
+3. Donut chart "Asset mix" — real estate / equities / metals / cash / crypto / business / other, w/ target % overlay
+4. Bar chart "Liabilities by type" w/ payoff trajectory overlay
+5. **FIRE-progress meter** — horizontal progress bar 0%→100% of FIRE number + years-to-FIRE estimate. The most-watched number in this category.
+
+Banner anchor: "Monarch charges $99/yr. Empower aggregates via Plaid. We charge $12 once. Your wealth profile stays on your device."
+
+5 thumbnails:
+1. Hero — Dashboard
+2. FIRE Calculator close-up — "See exactly when you can stop working."
+3. Asset Mix Allocation (donut + drift table) — "Every asset class. Every liability."
+4. AI Wealth Intelligence preview ("Monthly narrative / FIRE forecast / Top 3 actions")
+5. **Anti-Plaid comparison** — Empower + Monarch named directly. Buyers using Empower (free-but-data-harvested) or Monarch ($99/yr aggregator) see explicit alternative framing.
+
+### Why thumbnail #5 leans on Empower + Monarch
+Net Worth Tracker buyers fall into two cohorts: FIRE chasers (privacy-conscious) + wealth-aware buyers researching net-worth tools. Both already use these two competitors. Naming them directly (same playbook as Debt Payoff's anti-Tally and Sinking Funds' anti-Qapital thumbnails) gives the buyer the explicit alternative they were already looking for.
+
+### AI Wealth Intelligence PDF (AI Edition only)
+11 pages following Wedding AI Co-Pilot template. 7 prompts: Monthly NW Narrative / FIRE Forecaster / Asset Allocation Advisor / Passive Income Blueprint / Wealth Growth Coach / Annual Wealth Review / Estate Planning Advisor.
+
+### Net Worth is the **front-most card in Bundle hero stack**
+Per Bundle design brief Section 2 rationale: Net Worth Dashboard is the most visually striking (KPI tiles + trajectory chart + FIRE meter), so it gets the front-most position in the 5-card / 6-card fanned hero stack on Bundle covers.
+
+### Build estimate ~40h
+Slightly larger than the other 3 finance products. Broadest asset coverage in catalog (vehicles + real estate + 7-account equities split + crypto/metals + business equity + insurance + estate + tax-loss harvesting wash-sale logic + geographic exposure heatmap). Each domain adds a 1–2h component.
+
+### Tab tier reconciliation flagged
+Essentials count = 7-8 tabs (depending on Vehicle Depreciation Essentials-limited vs Pro-expansion implementation). Pro adds 10. AI +1. Build phase locks final count.
+
+### 3 directions A/A/A cascade pending sign-off — no override
+
+### Premium Finance House design phase progress
+| Product | Brief | Listing |
+|---|---|---|
+| 1 Budget Tracker | ✅ Approved | ✅ |
+| 2 Debt Payoff | ✅ v1 pending | ⏳ |
+| 3 Sinking Funds | ✅ v1 pending | ⏳ |
+| 4 Net Worth | ✅ v1 pending | ⏳ |
+| 5 Small Business | ⏳ (last brief) | ⏳ |
+
+Remaining: ~6.5h (1 brief × ~2.5h + 4 listing copies × ~1h).
+
+### Files changed
+- `docs/product-designs/net-worth-tracker.md` (new)
+- `session-handshake.md` — Net Worth checkmark + next-step (Small Business is last)
+
+### Next session
+Small Business Finance Kit (Product 5) design brief — fourth and final cascade. After that, the Premium Finance House design phase is complete. Then 4 listing copies (Debt / Sinking / NW / Small Biz) at ~1h each.

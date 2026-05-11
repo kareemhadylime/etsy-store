@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Sinking Funds design brief v1 drafted → `docs/product-designs/sinking-funds-planner.md`; 3/5 Premium Finance House briefs done)_
+_Last updated: 2026-05-11 (Net Worth design brief v1 drafted → `docs/product-designs/net-worth-tracker.md`; 4/5 Premium Finance House briefs done; only Small Business remains)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -160,8 +160,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
   - Listing copy drafted → `docs/listing-copy/budget-tracker.md` (title, $9–$29 variations table, 13 SEO tags, 10 FAQs, 5 thumbnail hooks, production notes, anti-SaaS positioning vs. YNAB $109/yr + Monarch $99/yr)
   - Becomes template for remaining 4 Premium Finance House products + their listing copy
 - [x] **Debt Payoff (Product 2) design brief v1 drafted ✅ (2026-05-11)** → `docs/product-designs/debt-payoff-planner.md`. First cascade from Budget Tracker template. ~36h build estimate. 3 directions pending sign-off (all A/A/A cascade).
-- [x] **Sinking Funds (Product 3) design brief v1 drafted ✅ (2026-05-11)** → `docs/product-designs/sinking-funds-planner.md`. Second cascade. Per-product visuals: Funds-by-%-funded horizontal bars + urgency heatmap + 4-vehicle allocation donut + Top 3 "next-dollar" funds strip. 5 thumbnails (Hero/Goal Scoring Dashboard/4 Vehicles/AI Savings Advisor/Anti-Qapital). 11-page AI Savings Advisor PDF spec. 3 directions pending (A/A/A cascade). ~36h build estimate.
-- [ ] 2 more Premium Finance House briefs to draft: Net Worth (Product 4) + Small Business (Product 5). Each ~2.5h. Then 4 listing copies (Debt Payoff / Sinking Funds / Net Worth / Small Business) at ~1h each. Total remaining: ~9h to complete Premium Finance House design phase.
+- [x] **Sinking Funds (Product 3) design brief v1 drafted ✅ (2026-05-11)** → `docs/product-designs/sinking-funds-planner.md`. Second cascade. ~36h build estimate.
+- [x] **Net Worth (Product 4) design brief v1 drafted ✅ (2026-05-11)** → `docs/product-designs/net-worth-tracker.md`. Third cascade. Output Dashboard: NW Health Score gauge + 24-mo trajectory + 12-mo projection + asset-mix donut + liabilities-by-type bar w/ payoff overlay + **FIRE-progress meter** (the most-watched number in this category). 5 thumbnails: Hero/FIRE Calculator close-up/Asset Mix/AI Wealth Intelligence/Anti-Plaid (Empower+Monarch). 11-page AI Wealth Intelligence PDF spec. 3 directions pending (A/A/A cascade). ~40h build estimate (slightly larger due to broadest asset coverage in catalog: vehicles + real estate + 7-account equities split + crypto/metals + business equity + insurance + estate).
+- [ ] 1 more Premium Finance House brief to draft: Small Business (Product 5). ~2.5h. Then 4 listing copies (Debt / Sinking / NW / Small Biz) at ~1h each. Total remaining: ~6.5h to complete Premium Finance House design phase.
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
