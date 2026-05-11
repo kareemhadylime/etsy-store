@@ -147,6 +147,13 @@ After deploying, search the first few seconds of logs for `[env]` lines — they
 
 For a fresh project: run each in order via Supabase MCP or the SQL Editor. The CI `migrations` job replays them against an ephemeral Postgres on every PR (see section 13).
 
+After a migration lands, regenerate `src/lib/supabase/database.types.ts` — TypeScript ground truth for the schema, used by `src/lib/supabase/types.ts` as the source for hand-rolled domain types. Three ways:
+- Via the Supabase MCP: invoke `generate_typescript_types` with `project_id=ronfbjpqyhxipnitxrif`
+- Via the Supabase CLI: `npx supabase gen types typescript --project-id ronfbjpqyhxipnitxrif > src/lib/supabase/database.types.ts` (then prepend the `DO NOT EDIT BY HAND` header)
+- Via the dashboard: Supabase → API → "Generate TypeScript types"
+
+The file's header comment lists the regeneration steps + the rationale for keeping it as a reference artefact (rather than wiring into the SupabaseClient generic immediately).
+
 ### 2b. Storage bucket
 Create a private bucket matching `SUPABASE_DOWNLOADS_BUCKET` (default `downloads`). The deliver flow generates signed URLs against it. Upload one file per (product, tier) via `/admin/products/[id]` → "Files" section.
 

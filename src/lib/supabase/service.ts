@@ -1,8 +1,16 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { requireEnv } from '@/lib/env'
 
-// Untyped schema — Database generics are not generated for this project yet,
-// so we widen the schema type to keep insert/update payloads ergonomic.
+// Schema-widened client. Call sites use `asTable<T>(client, name)` helpers
+// (cast through `unknown`) to project the wide `.from()` return type into
+// whatever hand-rolled domain type they want from `types.ts`.
+//
+// The Supabase-generated `Database` type lives in `database.types.ts` —
+// committed for grep + reference, not yet wired into this client because
+// the schema generic narrows `.from(name)` to literal table names, which
+// would break the 19 callsites that pass `name` as a dynamic string.
+// Tightening to `SupabaseClient<Database>` is a future refactor that
+// would migrate each `asTable<T>` callsite to `client.from('exact_name')`.
 type AnySchema = Record<string, never>
 type Service = SupabaseClient<AnySchema>
 
