@@ -32,6 +32,7 @@ Every listing doc follows the same skeleton:
 | File | Product | Tiers covered | Status |
 |---|---|---|---|
 | [`budget-tracker.md`](./budget-tracker.md) | Budget Tracker (Product 1) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
+| [`debt-payoff-planner.md`](./debt-payoff-planner.md) | Debt Payoff Planner (Product 2) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`wedding-budget-planner.md`](./wedding-budget-planner.md) | Wedding Budget & Planner (Product 9) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`bundle-finance-pro.md`](./bundle-finance-pro.md) | Premium Finance Bundle — Pro | Pro only | ⏳ |
 | [`bundle-finance-ai.md`](./bundle-finance-ai.md) | Premium Finance Bundle — AI Edition | AI only | ⏳ |
@@ -64,6 +65,11 @@ Every listing doc follows the same skeleton:
 | "$109/yr YNAB" comparison claim | Budget listing description body | Budget proposal "Disclosed Dated Claims" — verify annually |
 | "17 tabs · 4 budget methods · 7 AI prompts" | Budget listing title + thumbnail #1 overlay | Budget proposal Section "Sheet Tabs (17 tabs)" |
 | "Your bank credentials never leave your bank." | Budget listing thumbnail #5 + body | Budget proposal "Banners" privacy positioning |
+| Debt Payoff tier prices $12 / $19 / $29 | Debt listing title + body + thumbnail #1 overlay | Handshake pricing table |
+| "Tally charges $25/mo" comparison claim | Debt listing description body + thumbnail #5 | Debt proposal "Disclosed Dated Claims" — verify annually |
+| "$1,471 saved over 5 years" (Tally math) | Debt listing description body | Debt proposal "Banners" + math: $25 × 60mo − $29 |
+| "18 tabs · Snowball + Avalanche + Custom · AI Credit Score Coach" | Debt listing title + thumbnail #1 | Debt proposal Section "Sheet Tabs (18 tabs)" |
+| "Your debt data and credit scores stay on your device." | Debt listing description body | Debt proposal "Banners" privacy positioning |
 
 **Pricing rule (catalog-wide):** "low alternative" — always pick the lower viable price while staying above the "doesn't look cheap" floor. See `~/.claude/projects/C--ETSY/memory/feedback_pricing_lower_alternative.md`. If any price needs to change, update the proposal + brief + listing + handshake together.
 

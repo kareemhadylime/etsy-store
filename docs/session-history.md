@@ -2427,3 +2427,39 @@ Could ship as a single-statement migration + a cron route in a follow-up session
 
 ### Where this leaves the backend session
 Every backend deliverable I can think of is now done — Phase 1, Phase 1.5 Notion plumbing, Phase 2 (12/12), deployment runbook, rate limiting. The next "continue" needs strategic direction (Phase 3 ticket breakdown, deeper observability, or genuinely pause).
+
+---
+
+## Session 2026-05-11 — Debt Payoff (Product 2) listing copy v1 (products session)
+
+User said "go on" = continue. Wrote Debt Payoff listing copy — first of 4 remaining Premium Finance House listings.
+
+### Done
+- `docs/listing-copy/debt-payoff-planner.md` — full v1 (9-section template, 3,287-char description)
+- `docs/listing-copy/_README.md` — index + 5 new Debt Payoff entries in claims-to-sync table
+
+### Key listing copy decisions
+- **Anti-Tally + anti-Credit-Karma is the headline hook** — names both directly. "Tally charges $25/month. Credit Karma is free but monetizes your data via lender referrals. We're $12 once." Doubled vs. Budget Tracker's anti-YNAB because debt-tools category has two distinct loser-cohorts.
+- **Concrete savings math:** Tally $25/mo × 60 months − $29 AI Edition = **$1,471 saved over 5 years**.
+- **Privacy positioning** runs through every surface.
+- **Credit Score Simulator FAQ #5 calibrates honestly** — "real FICO weighting model... not a guaranteed number." Honesty signals depth.
+- **PSLF/IDR coverage** in FAQ #8 captures student-loan cohort.
+
+### Premium Finance House catalog status
+| Product | Brief | Listing |
+|---|---|---|
+| 1 Budget Tracker | ✅ Approved | ✅ v1 |
+| 2 Debt Payoff | ✅ v1 pending | ✅ v1 |
+| 3 Sinking Funds | ✅ v1 pending | ⏳ |
+| 4 Net Worth | ✅ v1 pending | ⏳ |
+| 5 Small Business | ✅ v1 pending | ⏳ |
+
+Remaining: ~3h — 3 listing copies (Sinking / NW / Small Biz).
+
+### Files changed
+- `docs/listing-copy/debt-payoff-planner.md` (new)
+- `docs/listing-copy/_README.md` — index + claims table
+- `session-handshake.md` — Debt listing checkmark
+
+### Next session
+Sinking Funds listing copy. Per-product hooks: anti-Qapital + anti-Monarch, 4-savings-vehicles depth claim, AI Reallocation prompt.
