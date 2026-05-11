@@ -2686,3 +2686,50 @@ Tried it first. Surfaced ~17 errors across 7 test files — all the same pattern
 ### Loose ends still standing
 - Push the workflow to GitHub and watch the first run actually go green on Actions (this session can commit but the push happens on the user's terms)
 - Optional: tighten the remaining ~15 mock-cast TS errors in test files if a future session wants to add `tsc --noEmit` back to CI
+
+---
+
+## Session 2026-05-11 — Budget Tracker build tickets v1 (products session, post-catalog-complete extension)
+
+User said "go on" after Catalog Planning Phase Complete milestone. Pivoted to build ticket breakdowns for remaining Premium Finance House products. Starting with Budget Tracker.
+
+### Done
+- `docs/budget-tracker-build-tickets.md` — 12-ticket breakdown (BT01-BT12) across ~42h
+
+### Cascading from Wedding template
+Wedding tickets (16 tickets, ~53h) established the W01-style template. Budget Tracker cascades with per-product variations: same critical-path shape, same Phase-1/2-style ticket structure, same 3-tier shippable gate pattern.
+
+### Per-product clustering decision
+Budget has 17 tabs vs. Wedding's 22. Kept ticket count proportional (~12 vs. 16) by clustering related tabs:
+- BT04: Income tabs → 1 ticket
+- BT05: Expense tabs → 1 ticket
+- BT06: Recurring + Refund + CC Manager → 1 ticket
+- BT07: Emergency Fund + Savings Goals + Bill Calendar → 1 ticket
+- BT08: Cash Flow Forecast + Mileage + Annual Summary + Household → 1 ticket
+- BT10: All 3 tier QA gates → 1 ticket
+
+Per-tab efficiency: Wedding 2.4h/tab. Budget 2.5h/tab. Close.
+
+### Key build decisions
+- Single-workbook strategy (AI Edition source → derive tiers via tab hiding)
+- AI tier flag named range drives variant rendering
+- Pro features = mix of new tabs (5 unhidden) AND existing-tab feature unlocks
+- AI Edition adds exactly 2 tabs (Financial Health Score + AI Money Advisor)
+- **Pre-requisite flagged**: `docs/product-content/budget-tracker-ai-prompts.md` (7 AI prompts content) needed before BT11 PDF build. Doesn't exist yet.
+
+### Three shippable gates
+- Essentials $9 (10 tabs)
+- Pro $19 (15 tabs)
+- AI Edition $29 (17 tabs)
+
+### Remaining cascade work
+3 more build ticket files: Debt Payoff (~40h), Sinking Funds (~38h), Net Worth (~45h), Small Business (~58h). Each ~3h to draft. ~12h to complete cascade.
+
+Plus 5 per-product AI prompt content files at ~3h each = ~15h.
+
+### Files changed
+- `docs/budget-tracker-build-tickets.md` (new)
+- `session-handshake.md` — Budget tickets checkmark + next-step menu
+
+### Next session
+Debt Payoff build tickets — next in cascade. Or pivot to AI prompt content files (Budget Tracker AI prompts most urgent since BT11 references it).
