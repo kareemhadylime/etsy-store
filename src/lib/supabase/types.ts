@@ -367,6 +367,65 @@ export interface PromptTemplate {
   updated_at: string
 }
 
+export type ContentAtomStatus = 'draft' | 'rendering' | 'ready' | 'archived'
+export type RenditionPlatform = 'instagram' | 'tiktok' | 'pinterest'
+export type RenditionStatus = 'draft' | 'approved' | 'queued' | 'published' | 'failed'
+export type PublishingQueueStatus = 'pending' | 'running' | 'success' | 'failed'
+
+export interface ContentAtom {
+  id: string
+  title: string
+  body: string
+  target_product_id: string | null
+  tone: string | null
+  key_message: string | null
+  status: ContentAtomStatus
+  created_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface ContentRendition {
+  id: string
+  atom_id: string
+  platform: RenditionPlatform
+  copy: string
+  image_prompt: string | null
+  image_url: string | null
+  video_url: string | null
+  schedule_at: string | null
+  status: RenditionStatus
+  ai_job_id: string | null
+  approved_by: string | null
+  approved_at: string | null
+  raw_payload: Record<string, unknown> | null
+  created_at: string
+  updated_at: string
+}
+
+export interface PublishingQueueItem {
+  id: string
+  rendition_id: string
+  scheduled_at: string
+  status: PublishingQueueStatus
+  attempts: number
+  last_attempted_at: string | null
+  last_error: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface PublishedPost {
+  id: string
+  rendition_id: string
+  platform: RenditionPlatform
+  platform_post_id: string
+  platform_post_url: string | null
+  posted_at: string
+  raw_response: Record<string, unknown> | null
+  created_at: string
+}
+
 // Join types
 export interface OrderWithCustomer extends Order {
   customer: Customer | null
