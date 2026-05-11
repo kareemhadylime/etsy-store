@@ -96,8 +96,9 @@ export const ENV_SCHEMA: readonly EnvVarSpec[] = [
   { name: 'SHOP_NAME', severity: 'feature', description: 'Display name in email subject lines', group: 'branding' },
   { name: 'SHOP_SUPPORT_EMAIL', severity: 'feature', description: 'Reply-to / support contact', group: 'branding' },
   { name: 'ADMIN_ALERT_EMAIL', severity: 'feature', description: 'Where negative-review alerts go', group: 'branding' },
-  { name: 'SUPABASE_DOWNLOADS_BUCKET', severity: 'feature', description: 'Storage bucket name (default: downloads)', group: 'supabase' },
+  { name: 'SUPABASE_DOWNLOADS_BUCKET', severity: 'feature', description: 'Storage bucket name for product files (default: downloads)', group: 'supabase' },
   { name: 'SUPABASE_DOWNLOAD_EXPIRY_DAYS', severity: 'feature', description: 'Signed URL TTL in days (default: 7)', group: 'supabase' },
+  { name: 'SUPABASE_AD_CREATIVES_BUCKET', severity: 'feature', description: 'Storage bucket name for ad-creative images (default: ad-creatives)', group: 'supabase' },
 ]
 
 export type ValidationResult = {

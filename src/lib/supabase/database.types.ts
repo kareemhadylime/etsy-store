@@ -150,6 +150,129 @@ export type Database = {
         }
         Relationships: []
       }
+      ad_creative_assignments: {
+        Row: {
+          assigned_at: string | null
+          created_at: string
+          creative_id: string
+          external_ad_id: string | null
+          external_campaign_id: string
+          id: string
+          last_error: string | null
+          platform: string
+          status: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          created_at?: string
+          creative_id: string
+          external_ad_id?: string | null
+          external_campaign_id: string
+          id?: string
+          last_error?: string | null
+          platform: string
+          status?: string
+        }
+        Update: {
+          assigned_at?: string | null
+          created_at?: string
+          creative_id?: string
+          external_ad_id?: string | null
+          external_campaign_id?: string
+          id?: string
+          last_error?: string | null
+          platform?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ad_creative_assignments_creative_id_fkey"
+            columns: ["creative_id"]
+            isOneToOne: false
+            referencedRelation: "ad_creatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ad_creatives: {
+        Row: {
+          ai_job_id: string | null
+          approved_at: string | null
+          approved_by: string | null
+          atom_id: string | null
+          copy: string | null
+          created_at: string
+          created_by: string | null
+          format: string
+          headline: string | null
+          id: string
+          image_prompt: string | null
+          image_url: string | null
+          platform: string
+          product_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          ai_job_id?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          atom_id?: string | null
+          copy?: string | null
+          created_at?: string
+          created_by?: string | null
+          format: string
+          headline?: string | null
+          id?: string
+          image_prompt?: string | null
+          image_url?: string | null
+          platform: string
+          product_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          ai_job_id?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          atom_id?: string | null
+          copy?: string | null
+          created_at?: string
+          created_by?: string | null
+          format?: string
+          headline?: string | null
+          id?: string
+          image_prompt?: string | null
+          image_url?: string | null
+          platform?: string
+          product_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ad_creatives_ai_job_id_fkey"
+            columns: ["ai_job_id"]
+            isOneToOne: false
+            referencedRelation: "ai_jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ad_creatives_atom_id_fkey"
+            columns: ["atom_id"]
+            isOneToOne: false
+            referencedRelation: "content_atoms"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ad_creatives_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ad_metrics_daily: {
         Row: {
           campaign_id: string | null

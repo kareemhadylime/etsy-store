@@ -5011,3 +5011,39 @@ The products-track session charter is genuinely satisfied. Next move is external
 - 1 session handoff doc ✅
 
 **Every artifact that can be drafted before opening external tools now exists across the entire 11-product / 14-listing catalog.**
+
+---
+
+## Backend session — 2026-05-12 — TICKET-205: AI ad-creative generator (Section 3A complete)
+
+Section 3A's biggest ship and the section's last. Pairs T201's command-bus pattern with T111's listing-copy AI flow to produce platform-tuned ad creatives (copy + image-prompt) for human review + image upload.
+
+### What landed
+- **Migration 0016** (applied via MCP): `ad_creatives` table + `ad_creative_assignments` (forward-compat) + 4 platform-specific prompt templates seeded into `prompt_templates`
+- **`src/lib/ads/creative-types.ts`** — AdCreative / AdCreativeAssignment / ParsedCreativeOutput
+- **`src/lib/ads/creative-generator.ts`** — `splitCreativeOutput` (line-based parser, tolerates `**HEADLINE**:` wrappers, rejects empty values), `generateAdCreative` (loads template by `ad_creative_<platform>`, inserts ai_jobs before Anthropic call, parses output, inserts ad_creatives draft + cost capture mirroring T111), `approveAdCreative` / `archiveAdCreative` / `listCreatives` / `loadCreative`
+- **`src/lib/ads/media-library.ts`** — `uploadCreativeImage` (10MB cap, allowlist, `<platform>/<id>.<ext>` path, orphan cleanup on DB failure) + `signCreativeImageUrl` (24h)
+- **New env var `SUPABASE_AD_CREATIVES_BUCKET`** in ENV_SCHEMA + `.env.example` + runbook §2b
+- **Admin UI** at `/admin/ads/creatives`: list + new + detail with image upload + approve/archive lifecycle
+- **4 new server actions** in `_actions/ads.ts`
+- **AiJobType extended** with `ad_creative_meta`/`google`/`tiktok`/`pinterest`
+- **`database.types.ts` regenerated** via MCP
+
+### Scope-related callouts
+- **`assignCreativeToAdSet` deferred** — each platform's creative-asset API is its own ticket. Schema is forward-compat only.
+- **Auto image generation via banana skill deferred** — admin reviews `image_prompt` and uploads externally.
+
+### Mid-build bugs
+- Regex `s` flag unsupported → line-based parser
+- Admin page import path needed `../../`
+- `from('ai_jobs')` called twice per generate → queue impl twice
+- jsdom cross-realm ArrayBuffer matcher → `expect.anything()`
+
+### 40 new tests (590 total): splitCreativeOutput (5) + generate (6) + approve/archive/list/load (5) + media library (9) + server actions (15)
+
+### Verification: lint clean, 590/590 tests, build clean
+
+### Loose end
+Schema snapshot needs regen — 2-commit dance documented + planned.
+
+### Section 3A complete (5/5). Phase 3 overall: 5/16.

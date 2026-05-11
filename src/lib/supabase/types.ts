@@ -323,6 +323,12 @@ export type AiJobType =
   | 'social_copy'
   | 'email_subject'
   | 'other'
+  // T205 ad-creative generators — one per ad platform. Output is parsed
+  // into headline + copy + image_prompt and written to ad_creatives.
+  | 'ad_creative_meta'
+  | 'ad_creative_google'
+  | 'ad_creative_tiktok'
+  | 'ad_creative_pinterest'
 export type AiJobStatus = 'running' | 'success' | 'error'
 
 export interface AiJob {

@@ -1,7 +1,7 @@
 # Phase 3 — Implementation Tickets
 
-_Last updated: 2026-05-11 (T201 shipped — ad command bus foundation live; 1/16 tickets complete)_
-_Status: in flight — Section 3A foundation shipped (T201). T202-T204 platform writers next._
+_Last updated: 2026-05-12 (Section 3A COMPLETE — T201 + T202 + T203 + T204 + T205 all shipped; 5/16 tickets done)_
+_Status: in flight — Section 3A done. T206-T209 content engine expansion + T210-T211 shopping feeds + T212-T213 affiliates + T214-T216 i18n remain._
 
 Phase 3 turns the read-only ad-data pipeline from Phase 2 into a read-write marketing engine, expands the content engine from 3 to 10 publishing surfaces, opens shopping-feed distribution beyond Etsy, adds affiliate revenue, and internationalizes the storefront.
 
@@ -118,11 +118,14 @@ No silent multi-campaign edits. The friction is intentional — bulk budget edit
 ---
 
 ### TICKET-205 — AI ad-creative generator
+**Status:** ✅ Complete (core) — 2026-05-12. **`assignCreativeToAdSet` deferred to per-platform follow-up tickets** (each platform has its own creative-asset API; out of scope for T205 v1).
 **Est:** ~24h
 **New files:**
-- `src/lib/ads/{creative-generator,media-library}.ts`
+- `src/lib/ads/{creative-types,creative-generator,media-library}.ts`
 - `src/app/admin/ads/creatives/{page,new/page,[id]/page}.tsx`
-- `supabase/migrations/0016_ad_creatives.sql`
+- `src/app/admin/ads/_components/{new-creative-form,creative-actions-panel}.tsx`
+- `supabase/migrations/0016_ad_creatives.sql` (applied to Supabase)
+- 3 new test files covering generator + media library + server actions
 
 **Tasks:**
 - Migration `0016`: `ad_creatives` (id, atom_id nullable FK, copy text, headline text, image_url, image_prompt, status: `draft | approved | assigned`, ai_job_id FK, created_by, created_at). `ad_creative_assignments` (creative_id, platform, external_campaign_id, external_ad_id, assigned_at, status).
@@ -419,7 +422,7 @@ These aren't tickets but they will surface during multiple tickets:
 - [x] TICKET-202 — Meta ad campaign writes ✅ (2026-05-11)
 - [x] TICKET-203 — Google Ads campaign writes ✅ handler (2026-05-11); admin UI shared-budget warning deferred
 - [x] TICKET-204 — TikTok ad campaign writes ✅ (2026-05-11)
-- [ ] TICKET-205 — AI ad-creative generator
+- [x] TICKET-205 — AI ad-creative generator ✅ core (2026-05-12); `assignCreativeToAdSet` deferred to per-platform follow-ups
 - [ ] TICKET-206 — FB + LinkedIn + X rendition
 - [ ] TICKET-207 — Threads + Bluesky rendition
 - [ ] TICKET-208 — Reddit rendition (community-aware)

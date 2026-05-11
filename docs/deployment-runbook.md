@@ -126,7 +126,7 @@ After deploying, search the first few seconds of logs for `[env]` lines — they
 ## 2. Supabase setup
 
 ### 2a. Apply migrations
-15 migrations, all already applied to `ronfbjpqyhxipnitxrif`:
+16 migrations, all already applied to `ronfbjpqyhxipnitxrif`:
 
 | # | File | Adds |
 |---|---|---|
@@ -145,6 +145,7 @@ After deploying, search the first few seconds of logs for `[env]` lines — they
 | 0013 | `notion_fulfillment.sql` | T011 — adds `'notion'` to product_files.format |
 | 0014 | `rate_limit_buckets.sql` | per-IP per-window upsert table for /api/track/* |
 | 0015 | `ad_commands.sql` | T201 — async ad campaign command bus (pause/resume/budget) |
+| 0016 | `ad_creatives.sql` | T205 — AI ad-creative generator (`ad_creatives` + `ad_creative_assignments` + 4 platform prompt templates) |
 
 For a fresh project: run each in order via Supabase MCP or the SQL Editor. The CI `migrations` job replays them against an ephemeral Postgres on every PR (see section 13).
 
@@ -155,8 +156,12 @@ After a migration lands, regenerate `src/lib/supabase/database.types.ts` — Typ
 
 The file's header comment lists the regeneration steps + the rationale for keeping it as a reference artefact (rather than wiring into the SupabaseClient generic immediately).
 
-### 2b. Storage bucket
-Create a private bucket matching `SUPABASE_DOWNLOADS_BUCKET` (default `downloads`). The deliver flow generates signed URLs against it. Upload one file per (product, tier) via `/admin/products/[id]` → "Files" section.
+### 2b. Storage buckets
+Two private buckets — admin signs URLs on read for both:
+
+**`SUPABASE_DOWNLOADS_BUCKET`** (default `downloads`) — product files delivered post-purchase. Upload one file per (product, tier) via `/admin/products/[id]` → "Files" section.
+
+**`SUPABASE_AD_CREATIVES_BUCKET`** (default `ad-creatives`) — ad-creative images uploaded by admin after reviewing the AI-generated `image_prompt`. Storage path is `<platform>/<creative_id>.<ext>`. Re-uploads overwrite via `upsert: true`. T205 admin UI handles the upload + signed-URL preview.
 
 ### 2c. RLS sanity check
 Every Phase 1+2 table has service-role-only RLS except `products` + `product_files` (which allow public reads of `status='live'` rows). Verify with:
