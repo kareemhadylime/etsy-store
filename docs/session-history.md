@@ -1058,3 +1058,44 @@ T103 Etsy shop stats sync cron — first 2B data-pull ticket, exercises `runCron
 
 ### Next session
 T104 Etsy reviews + sentiment. Uses the same `withFreshCredential` pattern; new `reviews` table migration; calls Claude for sentiment; fires `negative-review-alert` email via Resend to admin. ~10h.
+
+---
+
+## Session 2026-05-11 — TICKET-104 Etsy reviews + Claude sentiment (Phase 2: 4/12)
+
+### Done
+- Migration `0006_reviews.sql` applied via MCP — `reviews` + `review_responses` tables with service-role RLS. Reviews uniquely keyed on `(source, source_review_id)` for idempotent upsert; `alerted_at` guards single-send admin alerts; `sentiment_model` recorded so we can re-run classification when the model changes.
+- `src/lib/reviews/etsy.ts` — `fetchEtsyReviews(credential, opts)`. Paginates `GET /v3/application/shops/{shop_id}/reviews` 100/page (50-page hard cap = 5k reviews/sync). Supports incremental pulls via `min_created` (unix seconds). Returns `unauthorized: true` on 401/403 so `withFreshCredential` retries.
+- `src/lib/reviews/sentiment.ts` — `classifyReviewSentiment({rating, text})` calls Anthropic Messages API with `claude-haiku-4-5-20251001`. Fallbacks:
+  - Empty/whitespace text → rating heuristic (no API call)
+  - `ANTHROPIC_API_KEY` unset → rating heuristic
+  - Anthropic error → returns `{ok: false}`, sync keeps prior sentiment (or null)
+  Strips ```` ```json ```` code fences before JSON-parsing; clamps score into [0, 1]; rejects unknown sentiment labels.
+- `src/lib/reviews/sync.ts` — `syncEtsyReviews()` orchestrator:
+  1. `withFreshCredential('etsy', fetchEtsyReviews)`
+  2. Batch-load existing `reviews` rows by `source_review_id` + matching products by `etsy_listing_id`
+  3. For each: classify only when (no existing row) OR (rating/text changed) — saves Anthropic spend on idempotent runs
+  4. Upsert keyed on `(source, source_review_id)`
+  5. Queue alerts where sentiment=`negative` AND no prior `alerted_at`
+  6. Send alerts via Resend, stamp `alerted_at` only on send success
+- `src/lib/email/templates/negative-review-alert.tsx` — admin-facing card email with product, rating, review text, listing ID, sentiment confidence.
+- `src/app/api/cron/sync-etsy-reviews/route.ts` — `runCron('sync-etsy-reviews', ...)` wrapper logs `fetched`/`updated`/`unchanged`/`classified`/`alerts_sent`; sets `rows_processed` to `inserted`.
+- `vercel.json` adds `{ path: '/api/cron/sync-etsy-reviews', schedule: '30 3 * * *' }` (30 min after stats sync).
+- `.env.example` documents `ANTHROPIC_API_KEY` and `ADMIN_ALERT_EMAIL`.
+- `src/lib/supabase/types.ts` extended with `Review`, `ReviewResponse`, `ReviewSource`, `ReviewSentiment`.
+
+### Verification
+- `npm test` → 47 files / 261 tests passing (added 28 across 5 files).
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → 26 routes register including `ƒ /api/cron/sync-etsy-reviews`; no warnings.
+
+### Design notes for downstream tickets
+- **Idempotency contract**: upsert on `(source, source_review_id)`. The sync can be re-run on the same day without duplicating rows or re-alerting. The `alerted_at` column is the single source of truth for "have we told the admin about this?".
+- **Cost guardrails**: classification only runs on new or edited reviews. At typical Etsy review volume (~20–50/day at scale), Anthropic cost is well under $0.50/month.
+- **Resilient classification**: if Anthropic is down or the response is unparseable, the sync still upserts the review with `sentiment=null` — no alert, no crash. Next sync re-attempts classification.
+- **Email idempotency**: alerts are only stamped after a successful Resend send. If Resend errors, the next sync will retry the alert.
+
+### Phase 2 progress: 4/12 ✅ — all Etsy data pulls live; ad-platform integrations are next.
+
+### Next session
+**T105 Meta Marketing Insights** — first of the three ad-platform integrations this session was chartered to build. Same `withFreshCredential('meta', fetchInsights)` + `runCron('pull-meta-insights', ...)` pattern. New `ad_campaigns` + `ad_metrics_daily` migration. ~10h.

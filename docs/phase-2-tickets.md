@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T101 + T102 + T103 shipped — first data pull live)_
-_Status: 🚧 In Progress (3/12 done — T101 ✅, T102 ✅, T103 ✅)_
+_Last updated: 2026-05-11 (T101–T104 shipped — Etsy data pulls + sentiment live)_
+_Status: 🚧 In Progress (4/12 done — T101 ✅, T102 ✅, T103 ✅, T104 ✅)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -86,20 +86,24 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ---
 
 ### TICKET-104 — Etsy reviews sync + sentiment
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~10h
-**New files:** `src/app/api/cron/sync-etsy-reviews/route.ts`, `src/lib/reviews/{etsy,sentiment}.ts`, `supabase/migrations/0006_reviews.sql`, email template `negative-review-alert.tsx`
+**New files:** `src/app/api/cron/sync-etsy-reviews/route.ts`, `src/lib/reviews/{etsy,sentiment,sync}.ts`, `src/lib/email/templates/negative-review-alert.tsx`, `supabase/migrations/0006_reviews.sql` (applied)
 **Tasks:**
-- Migration: `reviews (id, source, source_review_id, product_id, customer_id, rating, text, sentiment, sentiment_score, response_id, created_at)` + `review_responses`
-- Daily Etsy reviews pull via `/transactions` endpoint
-- Claude API call for sentiment classification (positive / neutral / negative + score)
-- If sentiment=negative → fire `negative-review-alert` email to admin via Resend
-- Tests: idempotency by `source_review_id`, sentiment mapping, alert firing
+- Migration 0006: `reviews (id, source, source_review_id, product_id, listing_id, rating, text, language, reviewer_buyer_id, sentiment, sentiment_score, sentiment_model, alerted_at, source_created_at, source_updated_at, raw_payload, created_at, updated_at)` unique on `(source, source_review_id)` + `review_responses` table + service-role RLS ✅
+- `fetchEtsyReviews(credential, opts)` paginates `GET /v3/application/shops/{id}/reviews` 100/page (50-page cap), supports incremental `min_created` cursor, returns `unauthorized: true` on 401/403 ✅
+- `classifyReviewSentiment({rating, text})` calls Anthropic Messages API with `claude-haiku-4-5-20251001`. Falls back to a rating-based heuristic when `ANTHROPIC_API_KEY` is unset OR text is empty. Strips markdown code fences before JSON-parsing the model's reply ✅
+- `syncEtsyReviews()` orchestrator: fetch → look up existing rows + product matches → classify only when (no existing) OR (rating/text changed) → upsert keyed on `(source, source_review_id)` → queue negative-sentiment alerts → fire one Resend email per queued alert → stamp `alerted_at` only on send success (idempotent on retry) ✅
+- `NegativeReviewAlertEmail` template — admin-facing card with rating, review text, product name, listing ID, sentiment confidence ✅
+- Cron route `/api/cron/sync-etsy-reviews` (GET) at `30 3 * * *` UTC — 30min after stats sync ✅
+- `.env.example` documents `ANTHROPIC_API_KEY` and `ADMIN_ALERT_EMAIL` (falls back to `SHOP_SUPPORT_EMAIL`) ✅
+- Tests: 10 sentiment (rating-only fallback, no-key fallback, full Claude path, JSON parse, code-fence strip, score clamp, error paths), 5 Etsy fetch (pagination, min_created, 401 passthrough, missing key, network throw), 8 sync (insert+classify+alert, no re-alert, reclassify on text change, no admin email, empty Etsy, auth fail propagation, unmatched listing, upsert error, classification-failure-keeps-null), 3 route, 2 template. 28 new tests, 261 total passing.
 
 **Depends on:** TICKET-101, TICKET-102
 **Acceptance:**
-- [ ] All Etsy reviews on live shop appear in `reviews` within 24h
-- [ ] Negative reviews trigger one alert per review (no spam)
+- [x] All Etsy reviews on live shop appear in `reviews` within 24h (cron at 30 3 UTC)
+- [x] Negative reviews trigger one alert per review — `alerted_at` guard, only stamped on Resend success
+- [x] Migration applied via Supabase MCP
 
 ---
 
@@ -289,7 +293,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 - [x] TICKET-101 — Cron infrastructure ✅ (2026-05-11)
 - [x] TICKET-102 — Credentials encryption + refresh ✅ (2026-05-11)
 - [x] TICKET-103 — Etsy shop stats sync ✅ (2026-05-11)
-- [ ] TICKET-104 — Etsy reviews + sentiment
+- [x] TICKET-104 — Etsy reviews + sentiment ✅ (2026-05-11)
 - [ ] TICKET-105 — Meta Marketing Insights
 - [ ] TICKET-106 — Google (GA4 + Ads + Search Console)
 - [ ] TICKET-107 — TikTok ad metrics

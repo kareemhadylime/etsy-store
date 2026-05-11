@@ -204,6 +204,38 @@ export interface AnalyticsDaily {
   created_at: string
 }
 
+export type ReviewSource = 'etsy' | 'google' | 'trustpilot'
+export type ReviewSentiment = 'positive' | 'neutral' | 'negative'
+
+export interface Review {
+  id: string
+  source: ReviewSource
+  source_review_id: string
+  product_id: string | null
+  listing_id: string | null
+  rating: number
+  text: string | null
+  language: string | null
+  reviewer_buyer_id: string | null
+  sentiment: ReviewSentiment | null
+  sentiment_score: number | null
+  sentiment_model: string | null
+  alerted_at: string | null
+  source_created_at: string
+  source_updated_at: string | null
+  raw_payload: Record<string, unknown> | null
+  created_at: string
+  updated_at: string
+}
+
+export interface ReviewResponse {
+  id: string
+  review_id: string
+  body: string
+  posted_at: string | null
+  created_at: string
+}
+
 // Join types
 export interface OrderWithCustomer extends Order {
   customer: Customer | null
