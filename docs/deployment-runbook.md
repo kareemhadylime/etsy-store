@@ -346,6 +346,27 @@ A daily cleanup cron at `0 6 * * *` UTC (`/api/cron/cleanup-rate-limits`) delete
 
 ---
 
+## 11. Continuous integration
+
+A GitHub Actions workflow at `.github/workflows/ci.yml` runs on every push to `main` and every PR targeting `main`. Same-branch runs are cancelled when a newer push lands, so a fast follow-up commit doesn't queue behind a stale build.
+
+What it runs, in order, on `ubuntu-latest` with Node 22:
+
+1. `npm ci` — clean install with the lockfile
+2. `npm test` — full vitest suite (438 tests, ~10s)
+3. `npm run build` — production `next build`, which also typechecks every file imported by a route or page
+
+Placeholder env vars are injected at the workflow level so module-eval code paths (Supabase client construction, crypto key length checks, etc.) don't throw before the test framework starts. They are syntactically valid but functionally inert — real secrets live in Vercel.
+
+Why no standalone `tsc --noEmit` step: `next build` already runs the TypeScript compiler over production code. The handful of `mock.calls[0][0] as X` casts in test files do not reach production and are not worth blocking CI over; if you tighten them later, add the step back.
+
+If CI fails on a green-locally PR:
+- mismatched Node version → confirm both local and CI are on the same major (currently `22`)
+- env var dropped → check the `env:` block in `ci.yml` against what your tests actually read at import time
+- flaky test → if it's a real flake, fix it; do not retry the workflow as a habit
+
+---
+
 ## What's NOT in this runbook
 
 - Phase 3 (ad write APIs, full 10-platform content engine, affiliates, multi-language, Pinterest Shopping + Google Merchant feeds) — intentionally not built yet

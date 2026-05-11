@@ -150,7 +150,7 @@ describe('generateListingCopy', () => {
     const res = await generateListingCopy({ productId: 'p-1', type: 'etsy_title' }, { fetchFn })
     expect(res.ok).toBe(false)
     if (!res.ok) expect(res.status).toBe(429)
-    const update = jobs.update.mock.calls[0][0] as Record<string, unknown>
+    const update = (jobs.update.mock.calls as unknown as Array<[Record<string, unknown>]>)[0][0]
     expect(update.status).toBe('error')
   })
 
@@ -164,7 +164,7 @@ describe('generateListingCopy', () => {
     const { generateListingCopy } = await import('../listing-copy')
     const res = await generateListingCopy({ productId: 'p-1', type: 'etsy_title' }, { fetchFn })
     expect(res.ok).toBe(false)
-    const update = jobs.update.mock.calls[0][0] as Record<string, unknown>
+    const update = (jobs.update.mock.calls as unknown as Array<[Record<string, unknown>]>)[0][0]
     expect(update.status).toBe('error')
   })
 

@@ -1,0 +1,50 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-progress runs for the same branch so a fast push doesn't queue.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: typecheck + vitest + build
+    runs-on: ubuntu-latest
+    # Placeholder env vars so `next build` and Supabase client constructors
+    # never throw at module-eval time. These are NOT secrets — they are
+    # syntactically valid but functionally inert; the real values live in
+    # Vercel's env config for production.
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-anon-key
+      SUPABASE_SERVICE_ROLE_KEY: ci-placeholder-service-role-key
+      NEXT_PUBLIC_SITE_URL: https://shop.example.com
+      # 32-byte hex for AES-256-GCM — only used if a test actually calls
+      # encryptToken/decryptToken; the credentials module reads this lazily.
+      CREDENTIALS_ENCRYPTION_KEY: "0000000000000000000000000000000000000000000000000000000000000000"
+      # Cron secret used by verifyCronSecret tests.
+      CRON_SECRET: ci-placeholder-cron-secret
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Unit + integration tests
+        run: npm test
+
+      - name: Production build (includes Next.js type check on src/)
+        run: npm run build

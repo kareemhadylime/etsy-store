@@ -103,7 +103,8 @@ describe('syncTiktokInsights', () => {
       expect(res.date).toBe('2026-05-10')
     }
 
-    const campaigns = campaignWrites.upsert.mock.calls[0][0] as Array<Record<string, unknown>>
+    const campaignCalls = campaignWrites.upsert.mock.calls as unknown as Array<[Array<Record<string, unknown>>, { onConflict: string }]>
+    const campaigns = campaignCalls[0][0]
     expect(campaigns[0]).toMatchObject({
       platform: 'tiktok',
       external_id: 'c-1',
@@ -112,9 +113,10 @@ describe('syncTiktokInsights', () => {
       status: 'ENABLE',
       account_id: '700000000001',
     })
-    expect(campaignWrites.upsert.mock.calls[0][1]).toEqual({ onConflict: 'platform,external_id' })
+    expect(campaignCalls[0][1]).toEqual({ onConflict: 'platform,external_id' })
 
-    const reports = reportWrites.upsert.mock.calls[0][0] as Array<Record<string, unknown>>
+    const reportCalls = reportWrites.upsert.mock.calls as unknown as Array<[Array<Record<string, unknown>>, { onConflict: string }]>
+    const reports = reportCalls[0][0]
     expect(reports[0]).toMatchObject({
       platform: 'tiktok',
       external_campaign_id: 'c-1',
@@ -125,7 +127,7 @@ describe('syncTiktokInsights', () => {
     expect(reports[0].spend).toBeCloseTo(20)
     expect(reports[0].revenue).toBeCloseTo(95)
     expect(reports[1].campaign_id).toBeNull()
-    expect(reportWrites.upsert.mock.calls[0][1]).toEqual({
+    expect(reportCalls[0][1]).toEqual({
       onConflict: 'platform,external_campaign_id,date',
     })
   })
