@@ -2830,3 +2830,51 @@ Before this change, lint had silently rotted into a 15-problem baseline. Anyone 
 - `src/lib/supabase/__tests__/types.test.ts` — drop three unused type imports
 - `docs/deployment-runbook.md` — section 11 updated to four steps + lint config note
 - `session-handshake.md` — CI bullet upgraded to four-step + new lint-hardening bullet
+
+---
+
+## Session 2026-05-11 — Sinking Funds build tickets v1 (products session cascade)
+
+User said "go on" — third Premium Finance House build-ticket cascade.
+
+### Done
+- `docs/sinking-funds-build-tickets.md` — 12-ticket breakdown (SF01-SF12) across ~41h
+
+### Per-product clustering (17 tabs in AI Edition)
+- SF04 Essentials analytics — Contribution Tracker + Priority Matrix + Funding Gap Analyzer
+- SF05 Pro analytics — Goal Scoring Dashboard + Income Allocation Wheel + Wealth Glide Path
+- **SF06 4 Vehicle Trackers** (5h, most complex Pro work) — Metals + Fixed/CD + Variable/ETF + Stocks/Dividends. **The depth differentiator no Etsy competitor matches.**
+- SF07 Operational cluster — Spending Tracker + Tax Efficiency Analyzer + Budget Integration
+- SF08 Annual Summary (Essentials limited / Pro+ full)
+- SF09 AI Savings Advisor hub
+
+### Key build decisions
+- Fund Manager is the proposal-locked Input Tab (Setup mini-section at top, same pattern as Debt Payoff's Debt List)
+- 17 pre-built fund categories
+- SF06's 4 vehicle trackers each have distinct data shapes — 5h invested because this is the catalog's hardest-to-replicate differentiator
+- GOOGLEFINANCE drives live metals spot + stock prices (Sheets-only)
+- Pro features = mix of new tabs (10 unhidden) + Fund Manager expansion + Annual Summary YoY unlock
+- AI Edition adds 1 tab (AI Savings Advisor hub)
+- Pre-requisite flagged: `docs/product-content/sinking-funds-ai-prompts.md` needed before SF11 PDF build
+
+### Three shippable gates
+- Essentials $9 (6 tabs)
+- Pro $19 (15 tabs)
+- AI Edition $29 (17 tabs)
+
+### Build ticket cascade progress
+- Wedding ✅ 16 tickets ~53h
+- Budget Tracker ✅ 12 tickets ~42h
+- Debt Payoff ✅ 12 tickets ~42h
+- Sinking Funds ✅ 12 tickets ~41h
+- Net Worth ⏳ ~13-14 tickets ~45h projected
+- Small Business ⏳ ~15-16 tickets ~58h projected
+
+Remaining cascade: ~6h.
+
+### Files changed
+- `docs/sinking-funds-build-tickets.md` (new)
+- `session-handshake.md` — Sinking Funds checkmark + next-step menu
+
+### Next session
+Net Worth build tickets — next in cascade.
