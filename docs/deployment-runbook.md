@@ -328,6 +328,26 @@ Failures surface as `cron_runs.status='error'` rows visible in the dashboard's P
 
 ---
 
+## 12. Rate limiting
+
+The four `/api/track/*` endpoints are throttled per-IP-per-minute via the `rate_limit_buckets` table:
+
+| Endpoint | Limit (per IP per minute) |
+|---|---|
+| `/api/track/page-view` | 120 |
+| `/api/track/etsy-click` | 60 |
+| `/api/track/lead` | 10 |
+| `/api/track/email-signup` | 10 |
+
+When exceeded, the route returns `429` with `Retry-After`, `X-RateLimit-Limit`, and `X-RateLimit-Remaining` headers. The check fails open (allows the request) if the DB read or upsert errors — we'd rather miss a rate-limit decision than 500 the public endpoint.
+
+The table accumulates one row per (IP, minute) and is **not** auto-cleaned today. Add a daily cleanup cron in a follow-up:
+```sql
+delete from rate_limit_buckets where window_start < now() - interval '1 day';
+```
+
+---
+
 ## What's NOT in this runbook
 
 - Phase 3 (ad write APIs, full 10-platform content engine, affiliates, multi-language, Pinterest Shopping + Google Merchant feeds) — intentionally not built yet

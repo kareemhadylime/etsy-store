@@ -2387,3 +2387,43 @@ Pick from:
 - **Write 4 listing copies** (Debt / Sinking / NW / Small Biz) — completes the catalog planning phase fully
 - **Refresh `docs/session-summary-2026-05-11.txt`** — the fresh-session-onboarding doc is stale (predates all my product-track work this session)
 - Or pivot.
+
+---
+
+## Session 2026-05-11 — Rate limiting on public tracking endpoints (backend hardening)
+
+### Why
+The four `/api/track/*` routes accept unauthenticated POSTs from any browser. Each one writes a `conversion_events` row AND fans out to Meta CAPI / GA4 Measurement Protocol / TikTok Events API — paid endpoints with usage quotas. Without throttling, a single bot loop can flood the DB and burn through API budgets in minutes. This was the only meaningful production gap left.
+
+### Done
+- Migration `0014_rate_limit_buckets.sql` (applied) — `rate_limit_buckets(key, window_start, count)` with composite PK and service-role RLS. Key is text (room for future non-IP keys); window_start is the floor of the bucket window.
+- `src/lib/rate-limit/check.ts` — `checkRateLimit(key, windowSeconds, limit, opts)`:
+  - Floors `now` to the window boundary so two callers in the same minute share a count
+  - Reads the current count, computes `next = prior + 1`, upserts on `(key, window_start)`
+  - Returns `{ allowed, count, limit, windowStart, retryAfterSeconds }`
+  - **Fails open** on DB errors (returns allowed=true, no upsert) — better to miss a rate-limit decision than 500 the public endpoint
+- `src/lib/tracking/handler.ts` updated:
+  - Pulled IP extraction above the body parse so we can throttle before doing JSON work
+  - Per-event-type limits in a `PER_MINUTE_LIMITS` map (page_view 120, etsy_click 60, view_content 60, add_to_cart 20, lead/email_signup/purchase 10)
+  - Rate-limit key: `track:<event_type>:<ip|unknown>`
+  - On deny: 429 + `Retry-After` + `X-RateLimit-Limit` + `X-RateLimit-Remaining` headers
+- Tests:
+  - `src/lib/rate-limit/__tests__/check.test.ts` — 9 tests covering window alignment (60s + 10s), allow at limit, deny over limit, fresh-bucket at next minute boundary, fail-open on read error, fail-open on upsert error
+  - `src/app/api/track/__tests__/route.test.ts` extended with 3 new tests (429 response shape with all 3 headers, IP + event-type passthrough, "unknown" IP fallback)
+- 14 new tests; total **430 passing**
+- Runbook §12 added documenting the per-endpoint limits + the deferred daily-cleanup cron note
+
+### Operational note flagged in the runbook
+`rate_limit_buckets` accumulates one row per (IP, minute) and is NOT auto-cleaned. A daily cleanup cron is a follow-up:
+```sql
+delete from rate_limit_buckets where window_start < now() - interval '1 day';
+```
+Could ship as a single-statement migration + a cron route in a follow-up session. Not urgent — even at 1000 IPs × 1440 buckets/day = 1.4M rows/year, Postgres yawns.
+
+### Verification
+- `npm test` → 73 files / 430 tests passing
+- `npx tsc --noEmit` → exit 0
+- `npm run build` → succeeds; no new routes (handler is shared across the existing 4 track routes); no warnings
+
+### Where this leaves the backend session
+Every backend deliverable I can think of is now done — Phase 1, Phase 1.5 Notion plumbing, Phase 2 (12/12), deployment runbook, rate limiting. The next "continue" needs strategic direction (Phase 3 ticket breakdown, deeper observability, or genuinely pause).

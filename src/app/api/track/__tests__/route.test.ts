@@ -5,8 +5,28 @@ vi.mock('@/lib/tracking/fan-out', () => ({
   fireConversionEvent: fireMock,
 }))
 
+// Default: rate limit always allows. Individual tests override.
+const checkRateLimitMock = vi.fn().mockResolvedValue({
+  allowed: true,
+  count: 1,
+  limit: 100,
+  windowStart: '2026-05-11T10:00:00.000Z',
+  retryAfterSeconds: 60,
+})
+vi.mock('@/lib/rate-limit/check', () => ({
+  checkRateLimit: checkRateLimitMock,
+}))
+
 beforeEach(() => {
   fireMock.mockReset()
+  checkRateLimitMock.mockClear()
+  checkRateLimitMock.mockResolvedValue({
+    allowed: true,
+    count: 1,
+    limit: 100,
+    windowStart: '2026-05-11T10:00:00.000Z',
+    retryAfterSeconds: 60,
+  })
 })
 
 function reqWith(body: unknown, headers: Record<string, string> = {}) {
@@ -65,5 +85,51 @@ describe('track endpoints', () => {
     const json = await res.json()
     expect(json.ok).toBe(false)
     expect(json.error).toBe('boom')
+  })
+
+  it('returns 429 with Retry-After + rate-limit headers when the IP is throttled', async () => {
+    checkRateLimitMock.mockResolvedValueOnce({
+      allowed: false,
+      count: 121,
+      limit: 120,
+      windowStart: '2026-05-11T10:00:00.000Z',
+      retryAfterSeconds: 38,
+    })
+    const mod = await import('../page-view/route')
+    const res = await mod.POST(
+      reqWith({}, { 'x-forwarded-for': '8.8.8.8' }),
+    )
+    expect(res.status).toBe(429)
+    expect(res.headers.get('Retry-After')).toBe('38')
+    expect(res.headers.get('X-RateLimit-Limit')).toBe('120')
+    expect(res.headers.get('X-RateLimit-Remaining')).toBe('0')
+    // Confirm the body parse + fireConversionEvent were never reached
+    expect(fireMock).not.toHaveBeenCalled()
+  })
+
+  it('passes IP + event-type-specific limit into checkRateLimit', async () => {
+    fireMock.mockResolvedValueOnce({
+      conversion_event_id: 'ce_x', meta: { ok: true }, ga4: { ok: true }, tiktok: { ok: true },
+    })
+    const mod = await import('../etsy-click/route')
+    await mod.POST(reqWith({}, { 'x-forwarded-for': '8.8.8.8' }))
+    expect(checkRateLimitMock).toHaveBeenCalledWith(
+      'track:etsy_click:8.8.8.8',
+      60, // window seconds
+      60, // etsy_click per-minute limit
+    )
+  })
+
+  it('falls back to "unknown" when no x-forwarded-for header is present', async () => {
+    fireMock.mockResolvedValueOnce({
+      conversion_event_id: 'ce_y', meta: { ok: true }, ga4: { ok: true }, tiktok: { ok: true },
+    })
+    const mod = await import('../email-signup/route')
+    await mod.POST(reqWith({}))
+    expect(checkRateLimitMock).toHaveBeenCalledWith(
+      'track:email_signup:unknown',
+      60,
+      10, // email_signup limit
+    )
   })
 })
