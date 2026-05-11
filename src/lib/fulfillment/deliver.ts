@@ -1,6 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/service'
 import { sendTransactionalEmail } from '@/lib/email/resend'
 import { OrderFulfilledEmail, type OrderFulfilledItem } from '@/lib/email/templates/order-fulfilled'
+import { pushOrderPlacedToKlaviyo } from '@/lib/email/klaviyo'
 import { fireConversionEvent } from '@/lib/tracking/fan-out'
 import type { ProductTier } from '@/lib/supabase/types'
 
@@ -190,6 +191,18 @@ export async function deliverOrderFiles(orderId: string): Promise<DeliveryResult
     currency: 'USD',
     event_id: `order-${order.id}`,
   }).catch(() => {})
+
+  // Klaviyo profile sync + "Order Placed" event for the post-purchase flow.
+  // Silently no-ops when KLAVIYO_API_KEY is unset so envs without Klaviyo
+  // keep working.
+  await pushOrderPlacedToKlaviyo({
+    customerId: order.customer_id,
+    email: order.customers.email,
+    name: order.customers.name,
+    orderId: order.id,
+    total: order.total,
+    currency: 'USD',
+  }, {}, supabase).catch(() => undefined)
 
   return {
     ok: true,

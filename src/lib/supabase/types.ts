@@ -272,6 +272,48 @@ export interface AdMetricsDaily {
   updated_at: string
 }
 
+export type EmailSubscriberStatus = 'active' | 'unsubscribed' | 'bounced' | 'suppressed'
+
+export interface EmailSubscriber {
+  id: string
+  customer_id: string | null
+  email: string
+  klaviyo_profile_id: string | null
+  list_id: string | null
+  status: EmailSubscriberStatus
+  subscribed_at: string
+  unsubscribed_at: string | null
+  raw_payload: Record<string, unknown> | null
+  created_at: string
+  updated_at: string
+}
+
+export interface EmailCampaign {
+  id: string
+  klaviyo_campaign_id: string
+  name: string
+  sent_count: number
+  open_rate: number | null
+  click_rate: number | null
+  revenue_attributed: number
+  sent_at: string | null
+  raw_payload: Record<string, unknown> | null
+  created_at: string
+  updated_at: string
+}
+
+export interface EmailEvent {
+  id: string
+  klaviyo_event_id: string
+  customer_id: string | null
+  subscriber_id: string | null
+  email: string | null
+  type: string
+  payload: Record<string, unknown> | null
+  occurred_at: string
+  created_at: string
+}
+
 // Join types
 export interface OrderWithCustomer extends Order {
   customer: Customer | null

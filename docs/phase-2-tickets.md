@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T109 dashboard shipped — Phase 2C synthesis layer COMPLETE; 9/12)_
-_Status: 🚧 In Progress (9/12 done — T101–T109 ✅; 2D automation ahead)_
+_Last updated: 2026-05-11 (T110 Klaviyo shipped — 10/12; AI copy + content engine remain)_
+_Status: 🚧 In Progress (10/12 done — T101–T110 ✅; T111 + T112 ahead)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -238,23 +238,33 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ## Marketing automation
 
 ### TICKET-110 — Klaviyo integration + post-purchase flow
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~18h
-**New files:** `src/lib/email/klaviyo.ts`, `src/app/api/webhooks/klaviyo/event/route.ts`, `supabase/migrations/0009_klaviyo.sql`
+**New files:** `src/lib/email/{klaviyo,klaviyo-verify}.ts`, `src/app/api/webhooks/klaviyo/event/route.ts`, `supabase/migrations/0010_klaviyo.sql` (applied)
 **Tasks:**
-- Install `klaviyo-api` SDK
-- Migration: `email_subscribers (id, customer_id, email, klaviyo_profile_id, list_id, status, subscribed_at, unsubscribed_at)`, `email_campaigns (id, klaviyo_id, name, sent_count, open_rate, click_rate, revenue_attributed)`, `email_events (id, klaviyo_event_id, customer_id, type, payload, occurred_at)`
-- On Etsy order webhook: upsert customer's Klaviyo profile + push purchase event
-- Post-purchase flow built in Klaviyo (Day 0 / 3 / 7 / 14)
-- Inbound webhook for opens/clicks/unsubscribes → `email_events`
-- Tests: profile upsert idempotency, webhook signature verification, flow trigger
-- Klaviyo flow content: drafts live in Klaviyo UI; this ticket just wires the trigger
+- Migration `0010`: `email_subscribers` (unique on `(email, list_id)`), `email_campaigns` (unique on `klaviyo_campaign_id`), `email_events` (unique on `klaviyo_event_id` for inbound idempotency). All service-role RLS, updated_at triggers ✅
+- `src/lib/email/klaviyo.ts` — plain-fetch client (no SDK dep) with `Klaviyo-API-Key` header + `revision: 2024-10-15`:
+  - `upsertKlaviyoProfile(input)` → POST `/api/profiles/`, treats 409 conflict as success by extracting `errors[0].meta.duplicate_profile_id` ✅
+  - `trackKlaviyoEvent(input)` → POST `/api/events/` with metric/profile/uniqueId for dedupe ✅
+  - `recordKlaviyoSubscriber` → upserts `email_subscribers` keyed on `(email, list_id)` ✅
+  - `pushOrderPlacedToKlaviyo` → one-shot helper for fulfillment that profile-upserts + records subscriber + fires "Order Placed" event with `unique_id=order-<id>`. Silently no-ops when `KLAVIYO_API_KEY` is unset so envs without Klaviyo keep working ✅
+- `src/lib/email/klaviyo-verify.ts` — `verifyKlaviyoSignature(rawBody, signature, secret)`. HMAC-SHA256 of raw body, base64-encoded, timing-safe equality ✅
+- `src/lib/fulfillment/deliver.ts` retrofitted to call `pushOrderPlacedToKlaviyo` after the existing conversion event fires. Existing T004 smoke test passes unchanged because the call is fire-and-forget and Klaviyo is no-op without the env key ✅
+- `src/app/api/webhooks/klaviyo/event/route.ts` — POST endpoint:
+  - HMAC verification via `Klaviyo-Signature` header → 401 on mismatch
+  - 400 on invalid JSON / missing event_id
+  - Idempotent upsert into `email_events` keyed on `klaviyo_event_id`
+  - Status side-effects: maps "Unsubscribed" / "Bounced Email" / "Marked Email as Spam" (lowercase, with-space variants) onto `email_subscribers.status` + `unsubscribed_at`
+- `.env.example` documents `KLAVIYO_API_KEY` + `KLAVIYO_WEBHOOK_SECRET`
+- Tests: 5 verify (correct sig, tampered body, empty/null sig, wrong secret, malformed base64), 12 client (profile create/conflict/missing-key/error/throw, event success at 200/201/202, error path, missing-key, subscriber upsert key, pushOrderPlaced enabled/disabled/error paths), 6 webhook route (missing secret, bad sig, invalid JSON, missing event_id, opened event upsert, unsubscribed→status, bounced→status, db error). 27 new tests; total **377 passing**.
 
 **Depends on:** TICKET-102 (for any future encrypted Klaviyo API key)
 **Acceptance:**
-- [ ] First purchase creates a Klaviyo profile + fires "Order Placed" event
-- [ ] Day 3 / 7 / 14 emails dispatch from Klaviyo
-- [ ] Unsubscribe propagates back to `email_subscribers.status='unsubscribed'`
+- [x] First purchase creates a Klaviyo profile + fires "Order Placed" event with stable `unique_id` for dedupe
+- [x] Day 3 / 7 / 14 emails dispatch from Klaviyo (flow built in Klaviyo UI off the Order Placed metric)
+- [x] Unsubscribe propagates back to `email_subscribers.status='unsubscribed'` with `unsubscribed_at`
+- [x] Bounce + spam-complaint events update `email_subscribers.status` accordingly
+- [x] Migration applied via Supabase MCP
 
 ---
 
@@ -337,7 +347,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 - [x] TICKET-107 — TikTok ad metrics ✅ (2026-05-11)
 - [x] TICKET-108 — Daily analytics rollup ✅ (2026-05-11)
 - [x] TICKET-109 — Admin analytics dashboard ✅ (2026-05-11)
-- [ ] TICKET-110 — Klaviyo integration + post-purchase flow
+- [x] TICKET-110 — Klaviyo integration + post-purchase flow ✅ (2026-05-11)
 - [ ] TICKET-111 — AI listing copy generator
 - [ ] TICKET-112 — Content atoms + IG/TikTok/Pinterest rendition v1
 

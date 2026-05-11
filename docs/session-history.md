@@ -1564,3 +1564,49 @@ Applied via MCP. Updates the existing 9 product rows to the lower-alternative ti
 
 ### Next at my call
 **T110 Klaviyo integration** — first 2D automation ticket. Klaviyo SDK install, profile sync from Etsy order webhook, post-purchase flow Day 0 / 3 / 7 / 14, inbound webhook for opens/clicks/unsubscribes. ~18h but a lot is wiring rather than logic.
+
+---
+
+## Session 2026-05-11 — TICKET-110 Klaviyo integration (Phase 2: 10/12)
+
+### Done
+- Migration `0010_klaviyo.sql` applied via MCP. Three tables, all with service-role RLS:
+  - `email_subscribers` (unique on `(email, list_id)`) — customer ↔ Klaviyo list relationships
+  - `email_campaigns` (unique on `klaviyo_campaign_id`) — campaign metadata mirror for analytics rollup later
+  - `email_events` (unique on `klaviyo_event_id`) — inbound-webhook landing strip; uniqueness guards re-delivery
+- `src/lib/email/klaviyo.ts` — plain-`fetch` client (no SDK dep):
+  - `upsertKlaviyoProfile` POSTs `/api/profiles/` with `Klaviyo-API-Key` + `revision: 2024-10-15`. Treats 409 conflicts as success by extracting `errors[0].meta.duplicate_profile_id`.
+  - `trackKlaviyoEvent` POSTs `/api/events/` with `metric`, `profile`, `unique_id` (so the post-purchase flow dedupes the same order across re-deliveries).
+  - `recordKlaviyoSubscriber` upserts `email_subscribers` keyed on `(email, list_id)`.
+  - `pushOrderPlacedToKlaviyo` is the one-shot called from fulfillment. Returns `{ klaviyoEnabled, profileUpserted, eventFired, error? }`. **Silently no-ops when `KLAVIYO_API_KEY` is unset** so envs without Klaviyo keep working — that's how the existing T004 smoke test stays green without changes.
+- `src/lib/email/klaviyo-verify.ts` — `verifyKlaviyoSignature`. Klaviyo signs the raw body with HMAC-SHA256, base64-encoded in the `Klaviyo-Signature` header. Timing-safe equality.
+- `src/lib/fulfillment/deliver.ts` retrofit: after the existing `fireConversionEvent('purchase', ...)`, an `await pushOrderPlacedToKlaviyo(...)` fires. Fire-and-forget — failures don't block fulfillment.
+- `src/app/api/webhooks/klaviyo/event/route.ts`:
+  - HMAC verification → 401 on mismatch
+  - 400 on invalid JSON / missing event_id
+  - Idempotent upsert into `email_events` keyed on `klaviyo_event_id`
+  - Status side-effects: maps lowercased Klaviyo metric names (`unsubscribed`, `bounced email`, `marked email as spam`) onto `email_subscribers.status` + `unsubscribed_at`. Accepts both spaced and snake_case variants.
+- `.env.example` documents `KLAVIYO_API_KEY` + `KLAVIYO_WEBHOOK_SECRET`.
+
+### Verification
+- `npm test` → 66 files / 377 tests passing (added 27 across 3 files).
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → succeeds; `ƒ /api/webhooks/klaviyo/event` registers; no warnings.
+
+### Operational notes — Klaviyo dashboard side
+- The post-purchase flow lives in Klaviyo UI as a flow triggered by the **Order Placed** metric. This ticket just makes that metric fire reliably from our server with a stable `unique_id` so Klaviyo dedupes re-deliveries.
+- Recommended Klaviyo flow steps (build in Klaviyo, not in code):
+  - Day 0: "Thanks for your purchase" with download link reminder
+  - Day 3: "How to use" tutorial
+  - Day 7: Review-request email pointing to the Etsy listing
+  - Day 14: Cross-sell with a discount code to a complementary product
+- `KLAVIYO_WEBHOOK_SECRET` must match the secret you set in Klaviyo > Profiles > Webhooks. Klaviyo retries webhooks; our `klaviyo_event_id` unique constraint makes that safe.
+
+### Phase 2 progress: 10/12 ✅
+- 2A foundation ✅
+- 2B data pulls ✅
+- 2C synthesis ✅
+- 2D automation in progress — T110 ✅; T111 AI listing copy, T112 content engine v1 remain.
+
+### Next at my call
+**TICKET-111 AI listing copy generator** — Anthropic Messages API call to draft Etsy titles, descriptions, tags. Migrates `ai_jobs`, `ai_outputs`, `prompt_templates`; admin server action + UI panel on product detail page; cost capture per job. ~12h.
