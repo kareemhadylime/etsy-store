@@ -4384,3 +4384,37 @@ CI run on `f1d8b78` failed `migration replay → Check for schema drift` as expe
 4. Committed + pushed. Next CI run goes green on the drift check.
 
 This 2-commit dance is the documented + intentional workflow for any schema-changing ship. Friction is on purpose: "yes, I changed the schema" should be an explicit, auditable, peer-reviewable second commit, not silent auto-regeneration.
+
+---
+
+## Session 2026-05-11 — Investment Portfolio Tracker listing copy v1 (products session, Track 2 step 4)
+
+User said "next" — continuing in turn. Step 4 of 10: listing copy for Investment Portfolio Tracker.
+
+### Done
+- `docs/listing-copy/investment-portfolio-tracker.md` — seventh listing copy in cascade
+- `session-handshake.md` — Track 2 step 4 checkmark
+
+### Content highlights
+- Title (139 char) front-loads head term + surfaces 19 Tabs / 10 Asset Classes / GOOGLEFINANCE / AI Portfolio Intelligence + closes with "No Broker Sync"
+- Description (3,512 char) anchors anti-Sharesight + Stock Rover + Kubera triple-comparison ($596/yr combined = $2,980 over 5 yrs vs $34 once)
+- 3-tier variations: Essentials $17 / Pro $24 / AI Edition $34 with region tax toggle US/UK/EU/AU/CA
+- NO Excel courtesy export disclosed (GOOGLEFINANCE is Sheets-only; more conservative than other catalog products)
+- Mockup screenshots use actual tickers (AAPL/MSFT/VTI/SCHD/BTC)
+- First-mover AI claim: "first AI-powered portfolio tracker on Etsy"
+
+### Key positioning
+- Bloomberg-terminal discipline framing signals premium-trust to Cohort B
+- Two-cohort thumbnail order: #2 hooks A (consolidation), #3 hooks B (research-minded)
+- Privacy framing names Plaid + SnapTrade + Sharesight aggregation specifically
+- GOOGLEFINANCE limitations disclosed in 3 places to prevent buyer surprise
+
+### Bundle + cross-product
+- In Premium Life Bundle (6-SKU), not Finance Bundle (5-SKU)
+- Feeds Net Worth's equities asset class (manual paste v1)
+
+### Track 2 progress (4/10 done)
+✅ Family listing | ✅ Family AI | ✅ Family tickets | ✅ Investment listing | ⏳ Investment AI next
+
+### Next step in turn
+Investment Portfolio AI prompt content — 12-page PDF (8 prompts).
