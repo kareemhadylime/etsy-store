@@ -1460,3 +1460,107 @@ Remaining items from the original 5-option menu:
 4. **Visual production start** — `Premium Finance Brand Kit` Figma setup (palette + type + glyph slots + mockup-card masters, ~4h) → unblocks all cover/thumbnail/PDF production in parallel
 
 Recommend in order: (1) → (2) → (3) → (4). Notion content spec is small + sets up template build. Bundle library is the biggest content effort + reuses Wedding's voice and structure. Tickets benefit from content already written. Visual production is the heaviest external-tool work and comes last for this session series.
+
+---
+
+## Session 2026-05-11 — Notion Life OS Essentials template build-spec (products session)
+
+### Picked option 1 from the post-Wedding-AI-prompts menu
+User said "continue in sequence" — meaning execute the recommended order. Option 1 was Notion template content spec (~4h).
+
+### Done
+- `docs/product-content/notion-life-os-template-spec.md` — full build-ready spec for the Essentials MVP
+- `docs/product-content/_README.md` — file index updated
+
+### Spec scope (15 sections)
+1. Workspace setup (page tree, sidebar icon, default cover)
+2. Home Dashboard — 11-block page layout (banner / tagline callout / KPI row / quick actions toggle / 3 linked views / setup checklist / footer)
+3. 💵 Income database — 7 properties, 3 views
+4. 💳 Expense database — 8 properties, 4 views, relation to Budget
+5. 🎯 Budget by Category — 9 properties (incl. Progress Bar formula), 3 views, rollup from Expense
+6. 🔁 Recurring Bills — 10 properties (incl. Next Due + Status formulas), 3 views, relation to Budget
+7. 🧹 Subscriptions Audit — 9 properties, 3 views
+7b. Inline Dashboard Stats database (workaround for Notion's inability to pull computed values into callouts directly) — 1 row, 3 rollups, gallery-rendered 3-column KPI strip
+8. Full Notion-formula syntax for every computed property — `formatDate`, `dateBetween`, `dateAdd`, `repeat`, `concat`, `floor`, `multiply`, `divide`, nested `let`/`if`. Progress Bar uses unicode `▰`/`▱` blocks for mobile-friendly visual.
+9. Seed data — 25 rows total (per locked production decision N2 "ship with realistic dummy data"): 2 Income + 5 Budget categories + 10 Expenses + 3 Recurring Bills + 5 Subscriptions
+10. Build sequence — 9 ordered steps (relations require both DBs to exist, so order matters)
+11. Duplicate-URL generation workflow (TICKET-011 dependency; flagged that source workspace must use studio account, not personal)
+12. ~25h build estimate broken into 11 line items matching proposal
+13. What's deferred to Pro + AI Edition tiers (Net Worth / Investment Portfolio / AI Co-Pilot page) — documented so v1 build doesn't accidentally include them
+14. In-workspace voice rules — direct, premium-restraint, single-emoji-per-location
+15. Cross-references — where banner PNGs / Setup PDF / duplicate URL / listing copy / design rules / pricing live
+
+### Key technical decisions in the spec
+- **Dashboard Stats workaround.** Notion can't pull a single computed value (e.g., "sum of expenses this month") into a callout. Spec creates a 1-row inline `📊 Dashboard Stats` database with rollups, rendered as a 3-column gallery, embedded in the Home page. Cleaner than fighting Notion's formula scoping.
+- **Progress Bar via unicode.** `▰▰▰▰▰▰▰▱▱▱` (10-block) rendered by a `let`-wrapped formula combining `floor`, `multiply`, `repeat`, `concat`. Works on mobile, in any view type, no images needed.
+- **Relations + rollups.** Expense.Category → Budget.Name. Budget.Spent rollup back from Expense filtered to current month. Recurring Bills.Category → Budget.Name (manual — bills don't auto-rollup into budget Spent; that's a deliberate scope cut for Essentials).
+- **Date strategy.** Seed data uses 2026-05 dates so workspace feels current on duplicate this month. Setup PDF tells buyers to replace seed data with their own; the dates don't need to be relative since buyers immediately overwrite them.
+- **Color discipline.** Only 4 Notion tag colors used (Blue, Green, Yellow, Red) per the design brief's "premium-restraint" rule — no Notion gray/brown/orange/pink/purple. Tag colors map cleanly to status semantics.
+- **Build order matters.** Spec spells out the 9-step sequence (Budget first → Income → Expense + relation → rollup → Recurring Bills + relation → Subscriptions → Dashboard Stats → linked views → banner upload). Each step is independently verifiable.
+
+### Voice + content quality
+All in-workspace strings (callouts, page descriptions, setup checklist items, status emoji+text) follow the Premium Finance House brand voice locked earlier:
+- "Add the last 3 expenses you remember from your bank" (specific, action-oriented)
+- "Find the leaks. Cancel what you don't use. Keep what earns its place." (Subscriptions Audit description — direct, premium-restraint)
+- Single-emoji punctuation, no exclamation points outside excitement contexts
+
+Section 14 codifies this so the build phase doesn't drift in tone.
+
+### Cross-product implications
+- Pairs with **Setup PDF content** (when written next) — Setup PDF references specific database names + step counts from this spec
+- Pairs with **TICKET-011 plumbing** (Phase 1.5 backend, ~12h) — duplicate URL workflow in Section 11 of this spec
+- The spec is **forward-compatible** with Pro + AI Edition expansions (Section 13 documents what gets added when the tiers ship)
+
+### Files changed
+- `docs/product-content/notion-life-os-template-spec.md` (new)
+- `docs/product-content/_README.md` — file index updated
+- `session-handshake.md` — last-updated stamp + Notion spec checkmark + next-step menu
+
+### Next session (product-track menu, sequence continues)
+Remaining items from the post-cascade menu:
+1. **Bundle AI Library prompt content** — 60+ actual prompt strings + 10 cross-product workflow scripts (~8h, biggest content effort). Reuses Wedding AI Co-Pilot's per-prompt structure (title + tab callout + copy-paste prompt + worked example).
+2. **Wedding spreadsheet build ticket breakdown** — break the ~50h Sheets build into ~8–12 tickets like Phase 1/2 (~3h). Benefits from Wedding's content already being captured.
+3. **Visual production start** — `Premium Finance Brand Kit` Figma setup (palette + type + glyph slots + mockup-card masters, ~4h). Unblocks cover/thumbnail/PDF production for Bundle + Notion + future finance products in parallel.
+
+Recommend continuing in sequence: (1) Bundle AI Library next.
+
+---
+
+## Session 2026-05-11 — Migration 0009 pricing reset + T109 admin analytics dashboard (Phase 2: 9/12)
+
+### Migration 0009 — pricing lower-alternative
+Applied via MCP. Updates the existing 9 product rows to the lower-alternative tier prices the products session approved in the handshake. Renames the 5-SKU bundle "All-in-One Finance Bundle" → "Premium Finance Bundle" ($79/$119). Inserts 3 new draft rows so the storefront can render them once the products session ships designs/copy:
+- `wedding-budget-planner` — $19 / $34 / $49 (22 tabs, category=wedding)
+- `premium-life-bundle` — `null` / $99 / $149 (6-SKU bundle)
+- `notion-life-os` — $24 essentials; Pro/AI columns NULL so the tier cards render `—` (deferred to v2)
+
+`types.test.ts` and `llms.test.ts` fixtures rewired to the new prices ($9/$19/$29 for Budget Tracker, $79/$119 for the bundle) — tests still 341 passing right after migration.
+
+### TICKET-109 — Admin analytics dashboard
+- `src/lib/admin/analytics.ts` — three query helpers:
+  - `loadDailyAnalytics(start, end)`: reads `analytics_daily` for the inclusive date range, groups by channel, computes totals + ROAS. Always returns etsy/meta/google/tiktok in stable order — channels with no rows still appear with zeros so the dashboard never has a missing card.
+  - `loadCronStatus()`: pulls last 200 `cron_runs` rows, dedupes by `name` (latest run per cron), sorts alphabetically. One-shot read; the UI only needs the most recent run per cron.
+  - `loadTopProducts(start, end, limit)`: joins `order_items` → `orders!inner(ordered_at)` → `products`, sums units × price per product, returns top N by revenue. Skips rows where the products join is null (deleted product, NULL product_id).
+  - `lastNDaysUtc(days, now)`: computes the URL's default date window. Anchored at "yesterday back N" because today's rollup cron hasn't run yet — anchoring at today would always show a zero-revenue last day.
+- `src/app/admin/analytics/page.tsx`:
+  - Date range picker with 1/7/30/90-day presets + custom start/end
+  - 4 channel cards (etsy / meta / google / tiktok) showing revenue, ad spend, ROAS, sessions, conversions, impressions, clicks
+  - Top products by revenue table (links to admin product detail pages)
+  - Pipeline health table with colour-coded status badges, last-run timestamp, duration, rows processed, last error
+  - Every formatter (`formatCurrency`, `formatInt`, `formatRoas`, `formatDuration`) returns `—` for null/NaN — no `NaN` or `Infinity` ever reaches the DOM
+- `src/app/admin/layout.tsx` nav extended with the Analytics link.
+- Tests: 9 across the three helpers + `lastNDaysUtc`. 350 total passing.
+
+### Build state
+- `npm test` → 63 files / 350 tests passing
+- `npx tsc --noEmit` → exit 0
+- `npm run build` → 33 routes register including `ƒ /admin/analytics`; no warnings
+
+### Phase 2 progress: 9/12 ✅
+- 2A foundation ✅ (T101 + T102)
+- 2B data pulls ✅ (T103 + T104 + T105 + T106 + T107)
+- 2C synthesis ✅ (T108 + T109) — synthesis layer is now COMPLETE
+- 2D automation ahead (T110 + T111 + T112)
+
+### Next at my call
+**T110 Klaviyo integration** — first 2D automation ticket. Klaviyo SDK install, profile sync from Etsy order webhook, post-purchase flow Day 0 / 3 / 7 / 14, inbound webhook for opens/clicks/unsubscribes. ~18h but a lot is wiring rather than logic.

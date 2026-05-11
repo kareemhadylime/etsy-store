@@ -13,6 +13,7 @@ When a product builds the actual deliverable (Sheets template, Notion workspace,
 | File | Product | Content type | Status |
 |---|---|---|---|
 | [`wedding-ai-prompts.md`](./wedding-ai-prompts.md) | Wedding Budget & Planner (AI Edition) | 8-prompt AI Co-Pilot PDF content | ✅ v1 |
+| [`notion-life-os-template-spec.md`](./notion-life-os-template-spec.md) | Notion Life OS (Essentials MVP) | Build-ready template spec: database schemas, properties, formulas, views, seed data | ✅ v1 |
 
 ## Voice rules for prompt scripts
 
