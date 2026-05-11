@@ -34,6 +34,7 @@ Every listing doc follows the same skeleton:
 | [`budget-tracker.md`](./budget-tracker.md) | Budget Tracker (Product 1) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`debt-payoff-planner.md`](./debt-payoff-planner.md) | Debt Payoff Planner (Product 2) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`sinking-funds-planner.md`](./sinking-funds-planner.md) | Life Sinking Funds Planner (Product 3) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
+| [`net-worth-tracker.md`](./net-worth-tracker.md) | Net Worth Tracker (Product 4) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`wedding-budget-planner.md`](./wedding-budget-planner.md) | Wedding Budget & Planner (Product 9) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`bundle-finance-pro.md`](./bundle-finance-pro.md) | Premium Finance Bundle — Pro | Pro only | ⏳ |
 | [`bundle-finance-ai.md`](./bundle-finance-ai.md) | Premium Finance Bundle — AI Edition | AI only | ⏳ |
@@ -77,6 +78,12 @@ Every listing doc follows the same skeleton:
 | "16 tabs · 4 savings vehicles · AI Reallocation" | Sinking listing title + thumbnail #1 | Sinking proposal Section "Sheet Tabs (16 tabs)" + "Savings Vehicles (4 types)" |
 | "68% of Americans can't cover a $1,000 emergency" | Sinking listing description body | Sinking proposal "Disclosed Dated Claims" — Bankrate 2025 (verify annually) |
 | "No competitor on Etsy handles all 4 vehicles in one sheet." | Sinking listing description body + thumbnail #3 | Sinking proposal Section "Savings Vehicles (4 types)" |
+| Net Worth tier prices $12 / $19 / $29 | NW listing title + body + thumbnail #1 | Handshake pricing table |
+| "Empower / Monarch $99/yr / Kubera $200/yr" comparison claims | NW listing description body + thumbnail #5 | NW proposal "Disclosed Dated Claims" — verify annually |
+| "$466 / $971 saved over 5 years" (Monarch/Kubera math) | NW listing description body | NW proposal "Banners" + math: $99×5−$29 / $200×5−$29 |
+| "19 tabs · FIRE calculator · AI Wealth Intelligence" | NW listing title + thumbnail #1 | NW proposal Section "Sheet Tabs (19 tabs)" |
+| "908,000+ downloads on top Etsy NW tracker" (demand stat) | NW listing description body | NW proposal "Disclosed Dated Claims" — verify annually |
+| "Empower scrapes your accounts. We don't." | NW listing thumbnail #5 | NW proposal "Banners" privacy positioning |
 
 **Pricing rule (catalog-wide):** "low alternative" — always pick the lower viable price while staying above the "doesn't look cheap" floor. See `~/.claude/projects/C--ETSY/memory/feedback_pricing_lower_alternative.md`. If any price needs to change, update the proposal + brief + listing + handshake together.
 

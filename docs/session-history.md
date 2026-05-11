@@ -2534,3 +2534,44 @@ Remaining: ~2h — 2 listing copies (Net Worth / Small Business).
 
 ### Next session
 Net Worth listing copy. Per-product hooks: anti-Empower + anti-Monarch comparison, FIRE-progress meter as dashboard headline, 7-account equities split as depth claim.
+
+---
+
+## Session 2026-05-11 — Net Worth (Product 4) listing copy v1 (products session)
+
+User said "go on" = continue. Wrote Net Worth listing copy — third of 4 remaining Premium Finance House listings.
+
+### Done
+- `docs/listing-copy/net-worth-tracker.md` — full v1 (9-section template, 3,376-char description — largest listing description in the catalog)
+- `docs/listing-copy/_README.md` — index + 6 new Net Worth entries in claims-to-sync table
+
+### Key listing copy decisions
+- **Anti-Empower + anti-Monarch + anti-Kubera triple-comparison** — names three competitors directly (one more than Debt Payoff's two-named pattern, because Net Worth has three distinct loser-cohorts: free-but-data-harvested = Empower, mid-tier SaaS = Monarch $99/yr, premium SaaS = Kubera $200/yr).
+- **Concrete savings math (tripled framing):**
+  - Empower: framed as privacy cost (sells profile to financial advisors), not $
+  - Monarch: $99/yr × 5 = $495 vs $29 = $466 saved
+  - Kubera: $200/yr × 5 = $1,000 vs $29 = $971 saved
+- **"908,000+ downloads on top Etsy NW tracker" demand stat** anchors category proof. We position above that competitor on depth + AI.
+- **FIRE positioning is the highest-conversion hook** for the FIRE/FI cohort — thumbnail #2, FIRE Calculator described in body, FIRE-Ready section headline, AI FIRE Forecaster prompt called out specifically with worked example.
+- **"7 retirement account types" coverage** is a depth claim no competitor matches (401k/IRA/Roth/SEP/HSA/529/Taxable each get their own section in Stocks & Funds tab).
+- **Tax-Loss Harvesting FAQ #7 calibrates honestly** — "we educate while surfacing; we don't automate" — same Credit Score Simulator restraint pattern as Debt Payoff. Honesty signals depth.
+- **Estate Planning FAQ #9 explicitly says "not a will substitute"** — manages expectations; avoids legal-overreach claim risk.
+
+### Premium Finance House catalog status
+| Product | Brief | Listing |
+|---|---|---|
+| 1 Budget Tracker | ✅ Approved | ✅ v1 |
+| 2 Debt Payoff | ✅ v1 pending | ✅ v1 |
+| 3 Sinking Funds | ✅ v1 pending | ✅ v1 |
+| 4 Net Worth | ✅ v1 pending | ✅ v1 |
+| 5 Small Business | ✅ v1 pending | ⏳ |
+
+Remaining: ~1h — final listing copy (Small Business Finance Kit).
+
+### Files changed
+- `docs/listing-copy/net-worth-tracker.md` (new)
+- `docs/listing-copy/_README.md` — index + 6 new claims-to-sync entries
+- `session-handshake.md` — Net Worth listing checkmark
+
+### Next session
+Small Business Finance Kit listing copy — final listing. Per-product hooks: anti-QuickBooks comparison ($35–$235/mo), 23-tab depth, payroll + invoicing + project costing, 8 AI prompts (one more than other finance products), dual-cohort positioning (small business owners escaping QuickBooks SaaS + sophisticated founders using KPIs).
