@@ -22,9 +22,9 @@ describe('llms.txt', () => {
                   slug: 'budget-tracker',
                   name: 'Budget Tracker',
                   description: 'Monthly budget tracker',
-                  price_essentials: 12,
-                  price_pro: 22,
-                  price_ai: 34,
+                  price_essentials: 9,
+                  price_pro: 19,
+                  price_ai: 29,
                   tab_count: 17,
                   category: 'budgeting',
                 },
@@ -42,9 +42,9 @@ describe('llms.txt', () => {
     const body = await res.text()
     expect(body).toContain('# Finance Tools')
     expect(body).toContain('Budget Tracker')
-    expect(body).toContain('Essentials $12')
-    expect(body).toContain('Pro $22')
-    expect(body).toContain('AI Edition $34')
+    expect(body).toContain('Essentials $9')
+    expect(body).toContain('Pro $19')
+    expect(body).toContain('AI Edition $29')
     expect(body).toContain('17 tabs')
     expect(body).toContain('https://shop.example.com/products/budget-tracker')
     expect(body).toContain('https://shop.example.com/sitemap.xml')

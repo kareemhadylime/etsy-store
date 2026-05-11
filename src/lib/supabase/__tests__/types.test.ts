@@ -8,10 +8,10 @@ describe('Database types', () => {
       name: 'Budget Tracker',
       slug: 'budget-tracker',
       description: null,
-      price: 12.00,
-      price_essentials: 12.00,
-      price_pro: 22.00,
-      price_ai: 34.00,
+      price: 9.00,
+      price_essentials: 9.00,
+      price_pro: 19.00,
+      price_ai: 29.00,
       tab_count: 17,
       type: 'spreadsheet',
       category: 'finance',
@@ -23,22 +23,22 @@ describe('Database types', () => {
     expect(product.slug).toBe('budget-tracker')
     expect(product.type).toBe('spreadsheet')
     expect(product.status).toBe('draft')
-    expect(product.price_essentials).toBe(12)
-    expect(product.price_pro).toBe(22)
-    expect(product.price_ai).toBe(34)
+    expect(product.price_essentials).toBe(9)
+    expect(product.price_pro).toBe(19)
+    expect(product.price_ai).toBe(29)
     expect(product.tab_count).toBe(17)
   })
 
   it('Product type allows null tier prices for bundles', () => {
     const bundle: Product = {
       id: '123e4567-e89b-12d3-a456-426614174999',
-      name: 'All-in-One Finance Bundle',
+      name: 'Premium Finance Bundle',
       slug: 'finance-bundle',
       description: null,
-      price: 97.00,
+      price: 79.00,
       price_essentials: null,
-      price_pro: 97.00,
-      price_ai: 149.00,
+      price_pro: 79.00,
+      price_ai: 119.00,
       tab_count: null,
       type: 'spreadsheet',
       category: 'bundle',
@@ -49,7 +49,7 @@ describe('Database types', () => {
     }
     expect(bundle.price_essentials).toBeNull()
     expect(bundle.tab_count).toBeNull()
-    expect(bundle.price_pro).toBe(97)
+    expect(bundle.price_pro).toBe(79)
   })
 
   it('ProductFile type has tier field', () => {
