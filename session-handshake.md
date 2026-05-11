@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Net Worth build tickets drafted → `docs/net-worth-build-tickets.md`; fourth cascade, 13 tickets ~46h. 5/6 product build ticket files done — only Small Business remains.)_
+_Last updated: 2026-05-11 (Small Business build tickets drafted — ALL 6 PRODUCT BUILD TICKET FILES DONE ✅; catalog fully spec'd to ticket-level execution readiness)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -178,8 +178,17 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Budget Tracker build tickets v1 drafted ✅ (2026-05-11)** → `docs/budget-tracker-build-tickets.md`. First cascade from Wedding W01-style template. 12 tickets (BT01-BT12) across ~42h.
 - [x] **Debt Payoff build tickets v1 drafted ✅ (2026-05-11)** → `docs/debt-payoff-build-tickets.md`. Second cascade. 12 tickets (DP01-DP12) across ~42h.
 - [x] **Sinking Funds build tickets v1 drafted ✅ (2026-05-11)** → `docs/sinking-funds-build-tickets.md`. Third cascade. 12 tickets (SF01-SF12) across ~41h.
-- [x] **Net Worth build tickets v1 drafted ✅ (2026-05-11)** → `docs/net-worth-build-tickets.md`. Fourth cascade. 13 tickets (NW01-NW13) across ~46h. Per-product clustering: paired Assets+Liabilities Summary as Input Tabs (NW02) + Dashboard w/ FIRE meter (NW03, also Bundle hero-stack source) + history cluster (NW04) + physical assets (NW05: Vehicle+Real Estate) + financial assets (NW06: 7-account Stocks & Funds + Metals/Crypto + Retirement Tracker, most complex Pro work) + FIRE cluster (NW07: FIRE Calc+Passive Income+Age Benchmark) + allocation analytics (NW08: Asset Allocation+Tax-Loss Harvesting+Geographic Exposure) + estate cluster (NW09: Insurance+Beneficiary) + AI hub (NW10).
-- [ ] Remaining optional planning: 1 more build ticket file (Small Business) at ~3h cascade. Plus 5 per-product AI prompt content files (~15h). Plus deferred Family/Investment/Zakat design briefs.
+- [x] **Net Worth build tickets v1 drafted ✅ (2026-05-11)** → `docs/net-worth-build-tickets.md`. Fourth cascade. 13 tickets (NW01-NW13) across ~46h.
+- [x] **Small Business build tickets v1 drafted ✅ (2026-05-11)** → `docs/small-business-build-tickets.md`. Final and largest cascade. 15 tickets (SB01-SB15) across ~54h — largest in catalog (~50% larger than Budget Tracker). Per-product clustering: paired Revenue+Expense as Input Tabs (SB02) + Dashboard dual-cohort hero (SB03) + financial statements cluster (SB04: P&L+Cash Flow+Balance Sheet) + invoicing cluster (SB05) + aging+profitability cluster (SB06) + inventory+supplier (SB07) + assets+loans (SB08) + **HR cluster** (SB09: most complex calc work — Payroll math) + project costing+break-even (SB10) + analytics cluster (SB11) + AI hub (SB12). 12-page AI PDF (one more than other finance products since 8 prompts).
+- [x] **🎉 BUILD TICKET CASCADE COMPLETE ✅ (2026-05-11)** — All 6 product build ticket files done:
+  - Wedding (`docs/wedding-build-tickets.md`) — 16 tickets ~53h
+  - Budget Tracker (`docs/budget-tracker-build-tickets.md`) — 12 tickets ~42h
+  - Debt Payoff (`docs/debt-payoff-build-tickets.md`) — 12 tickets ~42h
+  - Sinking Funds (`docs/sinking-funds-build-tickets.md`) — 12 tickets ~41h
+  - Net Worth (`docs/net-worth-build-tickets.md`) — 13 tickets ~46h
+  - Small Business (`docs/small-business-build-tickets.md`) — 15 tickets ~54h
+  - Total: 80 tickets across ~278h of spreadsheet build work
+- [ ] Remaining optional planning: 5 per-product AI prompt content files (Budget/Debt/Sinking/NW/Small Biz AI prompts) at ~3h each = ~15h. These are pre-requisites for the AI PDF tickets (BT11/DP11/SF11/NW12/SB14). Plus deferred Family/Investment/Zakat design briefs if reactivated.
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.

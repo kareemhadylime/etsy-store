@@ -3023,3 +3023,52 @@ No application code changed. `npm run lint` + `npm test` + `npm run build` remai
 ### Loose ends
 - Supabase schema-drift guard (generating `database.types.ts` from live schema and failing CI on mismatch) — still deferred. Migration replay is the simpler half of the same problem.
 - Watch the first CI run on this commit to verify the `migrations` job actually goes green. If it fails on a specific migration, that migration likely uses a Supabase-specific feature the shim doesn't cover.
+
+---
+
+## Session 2026-05-11 — Small Business build tickets v1 — 🎉 BUILD TICKET CASCADE COMPLETE
+
+User said "next" — final cascade. Largest product in catalog (23 tabs).
+
+### Done
+- `docs/small-business-build-tickets.md` — 15-ticket breakdown (SB01-SB15) across ~54h
+
+### Per-product clustering (23 tabs)
+- SB01 scaffolding + restraint overrides (KPI shadow 5%, numeric right-alignment everywhere, no content emoji)
+- SB02 paired Input — Revenue + Expense Trackers
+- SB03 Dashboard dual-cohort hero
+- SB04 Financial statements — P&L + Cash Flow + Balance Sheet
+- SB05 Invoicing cluster — Tracker + 10 Templates + Recurring
+- SB06 Aging + Profitability cluster
+- SB07 Inventory + Supplier/PO
+- SB08 Assets + Loans
+- **SB09 HR cluster** (4h, most complex calc work) — Payroll math
+- SB10 Project Costing + Break-Even
+- SB11 Analytics — Tax Prep + KPI Dashboard (Cohort B hook) + Cash Flow Forecast
+- SB12 AI Business Co-Pilot hub (8 prompts)
+
+### Three shippable gates
+- Essentials $24 (9 tabs)
+- Pro $39 (22 tabs)
+- AI Edition $54 (23 tabs)
+
+### Key build decisions
+- Restraint overrides at SB01 (no content emoji + 5% shadows + numeric right-alignment)
+- Payroll calc (SB09) most complex math — needs FICA/state UI validation
+- 12-page AI PDF (one more than other finance products: 8 prompts vs 7)
+
+### 🎉 Build ticket cascade COMPLETE
+- Wedding ✅ 16 tickets ~53h
+- Budget Tracker ✅ 12 tickets ~42h
+- Debt Payoff ✅ 12 tickets ~42h
+- Sinking Funds ✅ 12 tickets ~41h
+- Net Worth ✅ 13 tickets ~46h
+- Small Business ✅ 15 tickets ~54h
+- **Total: 80 build tickets across ~278h of spreadsheet build work**
+
+### Remaining optional planning
+- 5 per-product AI prompt content files (~15h)
+- Deferred Family/Investment/Zakat design briefs
+
+### Next session
+AI prompt content cascade, reactivate Family/Investment/Zakat, or external execution.
