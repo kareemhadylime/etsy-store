@@ -4271,3 +4271,72 @@ One fictional family with mixed-age children: parents 36/35, Emma 8 (college-tra
 
 ### Next step in turn
 Family & Education build tickets (~3h). Final Family artifact.
+
+---
+
+## Session 2026-05-11 — Family & Education build tickets v1 (products session, Track 2 step 3)
+
+User picked option 1 (continue in turn, one artifact per "next"). Step 3 of 10: build tickets for Family & Education.
+
+### Done
+- `docs/family-education-build-tickets.md` — 12 tickets (FE01-FE12) across ~41h
+- `session-handshake.md` — Track 2 step 3 checkmark + Family product 100% spec'd callout
+
+### 12 tickets
+- FE01: Scaffolding + Premium Finance House theme (~3h)
+- FE02: Child Profiles + Parent Inputs (Input surface, form-style) (~3h)
+- FE03: Dashboard Output (5 visualizations including conflict-alert ribbon) (~5h) — sources Life Bundle hero stack
+- FE04: Essentials data cluster — K-12 / College Savings / Account Types / 529-vs-WholeLife / Life Insurance / Family Budget / Annual Review (~7h) — **Essentials $14 shippable gate**
+- FE05: State 529 lookup + EFC Calculator (~3.5h) — densest math
+- FE06: Scholarship Tracker + Aid Letter Comparison (~2.5h)
+- FE07: Childcare + Family Health Budget (~2.5h)
+- FE08: Retirement Impact + Goals Timeline + Literacy Milestones (~3.5h) — **Pro $22 shippable gate**
+- FE09: AI Family Finance Advisor Hub tab (~2h) — **AI Edition $32 shippable gate**
+- FE10: AI Family Finance Advisor PDF (12 pages via Figma) (~6h)
+- FE11: 5 thumbnails + Quick-start 1-pager (~5h)
+- FE12: Final QA + Etsy listing publish (~3h)
+
+### Per-product overrides in tickets
+1. **Warmer banner copy register** (FE01): banner library uses "kids" not "expenses"
+2. **Kid-coded names in worked examples**: Emma / Liam / Noah threaded across FE10 + FE11 (not generic Child A/B)
+3. **No visual changes** to palette + type vs cascade base
+
+### Critical path embedded
+FE01 → FE02 → FE03 → FE04 (Essentials gate) → FE05-FE08 (Pro additions parallelizable) → FE09 + FE10 (AI Edition + PDF) → FE11 + FE12
+
+Three tier-shippable gates documented:
+- Gate 1 (after FE04): Essentials $14 shippable as standalone
+- Gate 2 (after FE08): Pro $22 shippable
+- Gate 3 (after FE09 + FE10): AI Edition $32 shippable
+
+### Cross-product dependencies
+- ✅ Listing copy (FE step 1 already done)
+- ✅ AI prompt content (FE step 2 already done)
+- ⏳ Premium Finance Brand Kit page 06.6 setup (Phase A user execution)
+- ✅ Backend product_files + AI Edition variation (Phase 1 done)
+
+### Build envelope rationale
+~41h. Comparable to Net Worth (~46h) + Sinking Funds (~41h). Lower than Small Business (~54h) because no HR/payroll/inventory complexity. Higher than Budget Tracker (~37h) because of per-child × 4 multiplication + EFC FAFSA replication + 50-state 529 lookup + DIME insurance math.
+
+### Phase recommendation
+Build in Phase E (Months 7+) per execution-plan.md. Sparse-niche product needs off-Etsy traffic infrastructure first. Time-of-year: launch pre-October (FAFSA peak window).
+
+### Files changed
+- `docs/family-education-build-tickets.md` (new — 12 tickets, ~41h)
+- `session-handshake.md` — Track 2 step 3 checkmark + 100%-spec'd callout
+
+### 🎉 Family & Education product is now 100% spec'd
+All four planning artifacts exist:
+- ✅ Proposal v3 (`docs/product-proposals/family-education-planner.md`)
+- ✅ Design brief v1 (`docs/product-designs/family-education-planner.md`)
+- ✅ Listing copy v1 (`docs/listing-copy/family-education-planner.md`)
+- ✅ AI prompt content v1 (`docs/product-content/family-education-ai-prompts.md`)
+- ✅ Build tickets v1 (`docs/family-education-build-tickets.md`)
+
+Build can start any time after Brand Kit Figma file is set up (Phase A step 1).
+
+### Track 2 progress (3/10 done)
+✅ Family listing copy | ✅ Family AI prompts | ✅ Family build tickets | ⏳ Investment listing copy | Investment AI prompts | Investment build tickets | Zakat listing copy | Zakat AI prompts | Zakat build tickets | Notion build tickets
+
+### Next step in turn
+Investment Portfolio listing copy — ~1.5h. Seventh listing copy in the cascade.
