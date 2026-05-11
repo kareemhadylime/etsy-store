@@ -917,3 +917,74 @@ Estimated time to all visual assets ready: ~40h across both files (separate from
 
 ### Next session
 TICKET-102 — pgsodium encryption of `platform_credentials.{access,refresh}_token_encrypted` + `loadCredential` + `refreshCredential` per platform + `withFreshCredential(platform, fn)` wrapper that retries once on 401. Etsy sync route from T005 will need to be back-compat after the swap.
+
+---
+
+## Session 2026-05-11 — Listing copy package v1 (products session)
+
+### Scope reset
+- User clarified session split: **this session works on Products only**. Backend has its own dedicated session that's already shipping TICKET-101 + 102. "Next phase" in this session = next phase for products, never the next backend ticket.
+- Saved feedback memory `feedback_etsy_session_scope.md` so the rule survives across conversations.
+- Discarded the in-progress TICKET-102 todo list (backend's job, not this session's).
+
+### Picked next product-track step
+From the 5-option menu (listing copy / Wedding build tickets / Bundle AI prompt content / Notion template spec / Wedding AI prompts), user picked **A — listing copy package**. Reasoning: cross-cutting blocker for any Etsy publish, thumbnails reference real copy claims, pure-text deliverable fully producible in this session.
+
+### Done
+Created `docs/listing-copy/` directory with `_README.md` (Etsy field limits, listing structure, voice rules, cross-listing claims-to-sync table) + 6 listing files:
+
+| File | Listing | Price(s) | Description char count |
+|---|---|---|---|
+| `wedding-budget-planner.md` | Wedding (3 tiers via Etsy variations) | $24 / $39 / $59 | 3,217 |
+| `notion-life-os.md` | Notion Life OS Essentials MVP | $29 | 3,028 |
+| `bundle-finance-pro.md` | Premium Finance Bundle Pro (5 SKU) | $97 | 3,041 |
+| `bundle-finance-ai.md` | Premium Finance Bundle AI Edition (5 SKU) | $149 | 3,234 |
+| `bundle-life-pro.md` | Premium Life Bundle Pro (6 SKU incl. Wedding) | $129 | 3,256 |
+| `bundle-life-ai.md` | Premium Life Bundle AI Edition (6 SKU incl. Wedding) | $189 | 3,348 |
+
+Each file contains: title (≤140 char), subtitle (≤160 char), full description, variations table, 13 SEO tags with rationale, Etsy materials/attributes, 10 FAQs, thumbnail copy hooks (designer pulls strings from here), production notes.
+
+### ⚠️ Pricing math bug surfaced
+Discovered while writing Finance Bundle Pro/AI: Bundle brief Section 2 cover variant table has wrong savings numbers for Finance Bundle:
+- Finance Pro listed as "$32 SAVED" → actual math = $44 ($141 standalone − $97 bundle)
+- Finance AI listed as "$52 SAVED" → actual math = $60 ($209 standalone − $149 bundle)
+- Life Bundle math checks out: $51 Pro saved + $79 AI saved both correct
+- Brief Section 2 already self-flags "Pricing table above is from proposal; align before exporting"
+
+Listing copy uses the **correct** numbers ($44 / $60). Bundle brief Section 2 needs update before any cover production starts so badge overlays match. Flagged in handshake under "What's Next" + in both Finance listings' Production Notes.
+
+### Voice + structure decisions baked in
+- Premium Finance House products (Bundle, Notion): clear, confident, restrained. Specific numbers ($44 saved, 60+ prompts, 6 products), no emoji confetti.
+- Wedding allows sparse warm emoji (🤍 in section breaks) — its dusty-rose brand permits slightly more romance-coded copy while keeping the no-spam discipline.
+- Comparison anti-patterns avoided: no fake scarcity, no all-caps, no keyword stuffing (titles run ≤140 char with strict head-term front-loading).
+- FAQs are buyer-objection-driven, not product-feature-driven (the difference between $9 and $29 Notion templates, who-this-isn't-for sections, refund policy specifics, AI tier requirements).
+- Cross-listing consistency: every Bundle listing references the existence of its sibling bundles (Finance Pro mentions AI Edition is +$52; AI mentions Pro saves $52; Life listings reference Finance variants). Designed to drive shoppers to the right SKU rather than pretend the others don't exist.
+
+### File format / Etsy structure decisions
+- **Wedding uses 1 listing with 3 tier variations** (Etsy "Variations" feature) rather than 3 separate listings. Matches current backend assumption (singular `etsy_url` per product per TICKET-006). Per-tier listings deferred to v2 when schema gains `etsy_listing_id_essentials/pro/ai`.
+- **Bundles use 4 separate listings** (Finance Pro/AI + Life Pro/AI) because the brief specs 4 distinct cover variants and Etsy can't surface multiple tier-specific covers per listing.
+- **Notion uses 1 listing** (Essentials MVP) — Pro/AI deferred until 5+ sales/wk gate per proposal.
+
+### Files changed
+- `docs/listing-copy/_README.md` — directory README + Etsy limits + voice rules + cross-listing claims-to-sync table
+- `docs/listing-copy/wedding-budget-planner.md`
+- `docs/listing-copy/notion-life-os.md`
+- `docs/listing-copy/bundle-finance-pro.md`
+- `docs/listing-copy/bundle-finance-ai.md`
+- `docs/listing-copy/bundle-life-pro.md`
+- `docs/listing-copy/bundle-life-ai.md`
+- `session-handshake.md` — last-updated stamp + listing-copy checkmark + pricing reconciliation flag + next product-track options
+
+### Memory updates
+- `feedback_etsy_session_scope.md` (new) — products-session memory rule documented above
+- `MEMORY.md` — index updated to include both products-session and backend-session rules (user added the symmetric backend-session memory in parallel)
+
+### Next session
+Several product-track options open:
+1. **Lock Bundle brief pricing reconciliation** ($32 → $44, $52 → $60 in Section 2 cover variant table) — ~5 min fix, unblocks cover production with accurate badges
+2. **Bundle AI Library prompt content** (option C from prior menu) — write the actual 60+ prompts + 10 cross-product workflow scripts so the AI Library PDF can be produced. ~8h.
+3. **Notion template content spec** (option D) — page-by-page database schemas, formulas, dummy seed-data values. ~4h.
+4. **Wedding AI Co-Pilot 8-prompt content** (option E) — write the 8 prompts specced in the Wedding brief PDF. ~3h.
+5. **Wedding spreadsheet build ticket breakdown** (option B) — break the 50h Sheets build into tickets.
+
+Recommend (1) → (4) → (3) → (2) → (5). Pricing fix is fastest and removes a downstream bug. Wedding AI prompts (4) are the smallest content-content deliverable. Notion content spec (3) sets up the build. Bundle AI library (2) is the biggest content effort. Tickets (5) come last because they benefit from having the content already written.

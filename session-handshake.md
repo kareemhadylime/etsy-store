@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (TICKET-101 cron infrastructure shipped — Phase 2 build started; cron_runs table live, runCron abstraction + heartbeat route + 179 tests)_
+_Last updated: 2026-05-11 (Listing copy package v1 ✅ — 6 Etsy listings drafted for Wedding + Notion + 4 Bundle SKUs; flagged $32→$44 and $52→$60 Finance Bundle savings math errors in Bundle brief Section 2)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -93,7 +93,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Phase 1 COMPLETE** — all 10 backbone tickets shipped end-to-end (storefront click → Etsy → webhook → fulfillment email → conversion event) ✅
 - [x] **Phase 2 ticket breakdown ✅** → `docs/phase-2-tickets.md` — 12 tickets, ~140h envelope. Foundation (T101 cron + T102 credentials encryption) → 5 parallel data pulls (T103–T107) → synthesis (T108 rollup, T109 dashboard) → automation (T110 Klaviyo, T111 AI listing copy, T112 content engine v1). TICKET-011 Notion plumbing called out as Phase 1.5.
 - [x] **TICKET-101 Cron infrastructure ✅** (2026-05-11) → `vercel.json` + `src/lib/cron/{auth,run}.ts` + `src/app/api/cron/heartbeat/route.ts` + `supabase/migrations/0004_cron_runs.sql` (applied to Supabase). `runCron(name, handler)` is the shared abstraction for all Phase 2 crons. 17 new tests, 179 total passing.
-- [ ] **TICKET-102 next** — pgsodium encryption + per-platform OAuth refresh wrapper (~10h)
+- [x] **TICKET-102 Credentials encryption + token refresh ✅** (2026-05-11) → `src/lib/credentials/{encryption,types,load,store,refresh,with-fresh}.ts` + `src/app/api/admin/credentials/[platform]/refresh/route.ts` + `supabase/migrations/0005_credentials_encryption.sql` (applied). AES-256-GCM via `CREDENTIALS_ENCRYPTION_KEY` env, `encryption_version` column distinguishes legacy/v1, per-platform OAuth refresh dispatchers (Etsy/Meta/Google/TikTok) + `withFreshCredential(platform, fn)` retry-on-401 wrapper. Etsy api.ts retrofitted via back-compat shim. 39 new tests, 218 total passing.
+- [ ] **2B data pulls next** — T103 Etsy stats, T104 Etsy reviews+sentiment, T105 Meta Marketing Insights, T106 Google (GA4 + Ads + Search Console), T107 TikTok ad metrics. All parallel after T102. ~48h envelope.
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
 - [x] **Wedding (Product 9) signed off** — spreadsheet-only v1, $24/$39/$59, Muslim+Hindu variants in AI Edition, both standalone + Bundle 10 ✅
@@ -109,6 +110,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [ ] Visual production unblocked — next step is setting up the two Figma files (`Wedding Brand Kit` already exists from session 2026-05-10; create `Premium Finance Brand Kit` w/ palette + type + glyph slots + mockup-card master components, ~4h) then producing covers/thumbnails/PDFs in parallel
 - [ ] Cover production starts: Bundle hero stack (4 variants) and Notion hero browser-frame mockup can both begin once `Premium Finance Brand Kit` is set up
 - [ ] After visual production starts: Wedding build (~50h) → Bundle assembly (~33h) → Notion Life OS MVP (~52h, runs partially parallel)
+- [x] **Listing copy v1 ✅ (2026-05-11)** — 6 Etsy listings drafted → `docs/listing-copy/` (Wedding 3-tier-via-variations + Notion Essentials + 4 Bundle SKUs). Each has title (≤140 char), subtitle, 3000+ char description, variations table, 13 tags, 10 FAQs, thumbnail copy hooks, production notes. Source of truth for thumbnail overlay copy.
+- [ ] **⚠️ PRICING RECONCILIATION NEEDED in Bundle brief Section 2 cover variant table** — Finance Pro listed as "$32 SAVED" but correct math = $44 ($141 standalone − $97 bundle). Finance AI listed as "$52 SAVED" but correct math = $60 ($209 standalone − $149 bundle). Life Bundle math is correct ($51 Pro / $79 AI). Update brief before cover production. Listing copy uses correct numbers.
+- [ ] Next product-track step: either lock Bundle brief pricing reconciliation, or move to next listing-content deliverable (Bundle AI prompt content C / Wedding AI prompts E / Notion template content spec D), or break Wedding build into tickets (B)
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
