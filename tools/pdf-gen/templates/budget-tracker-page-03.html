@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Budget Tracker AI Money Advisor — Page 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== Premium Finance House — palette ===== */
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;  /* worked-example card background */
+  }
+
+  /* ===== Page setup — US Letter portrait ===== */
+  @page {
+    size: Letter portrait;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    width: 8.5in;
+    height: 11in;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    padding: 0.55in 0.6in 0.5in 0.6in;
+    display: flex;
+    flex-direction: column;
+    height: 11in;
+    position: relative;
+  }
+
+  /* ===== Header — page title + tab callout pill ===== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.18in;
+  }
+
+  .page-title {
+    font-size: 24pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--primary-charcoal);
+    line-height: 1.15;
+  }
+
+  .tab-callout {
+    background: var(--secondary-warm-gold);
+    color: var(--surface-white);
+    font-size: 10pt;
+    font-weight: 600;
+    padding: 6pt 14pt;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .tab-callout .emoji {
+    margin-right: 4pt;
+  }
+
+  /* ===== Warm-gold horizontal divider under header ===== */
+  .divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 2.4in;
+    margin-bottom: 0.16in;
+  }
+
+  /* ===== Section label (small caps style) ===== */
+  .section-label {
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.06in;
+  }
+
+  /* ===== Prompt card — copy-paste ready code block ===== */
+  .prompt-card {
+    background: var(--surface-white);
+    border: 1px solid var(--primary-charcoal);
+    border-radius: 4pt;
+    padding: 0.18in 0.22in;
+    margin-bottom: 0.18in;
+    font-family: 'JetBrains Mono', 'Inter', monospace;
+    font-size: 8.5pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .prompt-card strong {
+    font-weight: 600;
+  }
+
+  /* Numbered list inside prompt — clean indent */
+  .prompt-card .num {
+    color: var(--secondary-warm-gold);
+    font-weight: 600;
+  }
+
+  /* ===== Worked example — ivory card ===== */
+  .example-card {
+    background: var(--ivory);
+    border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.14in 0.2in;
+    font-size: 7.5pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+  }
+
+  .example-card .label {
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--status-warning);
+    margin-bottom: 3pt;
+  }
+
+  .example-card .input-block,
+  .example-card .output-block {
+    margin-bottom: 0.08in;
+  }
+
+  .example-card .sub-label {
+    font-weight: 600;
+    color: var(--primary-charcoal);
+    margin-top: 0.05in;
+    margin-bottom: 1pt;
+  }
+
+  .example-card p {
+    margin-bottom: 0.035in;
+  }
+
+  .example-card .ranked-item {
+    margin-bottom: 0.05in;
+  }
+
+  .example-card strong {
+    font-weight: 600;
+  }
+
+  /* ===== Footer — page number + product name (right-aligned) ===== */
+  .footer {
+    position: absolute;
+    bottom: 0.32in;
+    left: 0.6in;
+    right: 0.6in;
+    font-size: 8.5pt;
+    font-style: italic;
+    color: var(--primary-charcoal);
+    opacity: 0.6;
+    text-align: right;
+    border-top: 1px solid var(--neutral-grid);
+    padding-top: 0.07in;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header: page title + tab callout pill -->
+<div class="header">
+  <div class="page-title">1. Smart Spending Advisor</div>
+  <div class="tab-callout"><span class="emoji">💸</span>Pairs with: Expense Tracker</div>
+</div>
+
+<!-- Warm-gold divider -->
+<div class="divider"></div>
+
+<!-- THE PROMPT section -->
+<div class="section-label">The Prompt</div>
+<div class="prompt-card">You are helping me find spending cuts in my budget. Be specific. Don't recommend obvious cuts I've already considered (cancel Netflix, eat out less). Find non-obvious patterns.
+
+LAST 30 DAYS OF EXPENSE DATA (paste from Expense Tracker, sorted by date):
+
+[PASTE TABLE: Date · Category · Vendor · Amount]
+
+TARGET CUT: $[amount]/month
+HOUSEHOLD CONTEXT: income $[amount]/month, region [city], household size [number]
+
+Find me three things:
+
+<span class="num">1.</span> THREE RANKED SPENDING CUTS with exact dollar amounts, ordered by least-painful first. Each cut should name a specific pattern (not a category) — e.g., "$340/month spent on $8–12 lunch deliveries 3–4 times a week" not "reduce dining."
+
+<span class="num">2.</span> ONE NON-OBVIOUS PATTERN you noticed — something that looks fine on the surface but is actually a leak (subscription that auto-renewed at a higher rate, vendor I'm being charged at twice, "category creep" where one category gradually expanded).
+
+<span class="num">3.</span> ONE CATEGORY I'M UNDER-SPENDING ON that might be hurting me long-term (no savings, no emergency fund, no professional development).
+
+Stay specific. Cite vendors + dollar amounts from my data.</div>
+
+<!-- WORKED EXAMPLE section -->
+<div class="section-label">Worked Example</div>
+<div class="example-card">
+  <div class="input-block">
+    <div class="label">Example Input (excerpt)</div>
+    <p>Whole Foods · Groceries · $87 · Apr 3</p>
+    <p>Uber Eats · Dining · $11.50 · Apr 4</p>
+    <p>Uber Eats · Dining · $9.20 · Apr 5</p>
+    <p>Uber Eats · Dining · $14.10 · Apr 7</p>
+    <p>... [continues, lots of small dining]</p>
+    <p>Spotify Family · Subscriptions · $16.99 (auto-renewed; was $9.99) · Apr 12</p>
+    <p>Whole Foods · Groceries · $124 · Apr 17</p>
+    <p style="margin-top: 0.05in;"><em>Target cut: $400/mo. Income: $5,200/mo, NYC, single household.</em></p>
+  </div>
+
+  <div class="output-block">
+    <div class="label">Example Output</div>
+
+    <div class="sub-label">Three Ranked Cuts:</div>
+    <div class="ranked-item"><strong>1. Lunch delivery habit ($380/mo)</strong> — 14 Uber Eats orders averaging $11.50 = ~$160 last month; you're on pace for ~$380. Bring lunch 3 days/week → $230 saved.</div>
+    <div class="ranked-item"><strong>2. Groceries front-of-store impulse buys ($120/mo)</strong> — 6 of 8 grocery trips ended with a $40+ receipt for what feels like staples. Going with a list → ~$120 saved.</div>
+    <div class="ranked-item"><strong>3. Spotify Family auto-renewal upcharge ($7/mo)</strong> — went from $9.99 to $16.99 on April 12. You're not using the family slots. Cancel + restart at solo $11.99 → $5/mo saved.</div>
+
+    <div class="sub-label">Non-obvious Pattern:</div>
+    <p>Coffee shop visits jumped from 4 to 11/week starting March 18. Looks like a habit forming. Currently $44/mo, on track for $120/mo by August if pattern holds.</p>
+
+    <div class="sub-label">Under-spending:</div>
+    <p>Emergency fund. Last month you added $0. With your income, $260/mo is the floor for getting to 3 months coverage in 18 months.</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">3 / 11 · AI Money Advisor</div>
+
+</body>
+</html>

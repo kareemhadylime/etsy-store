@@ -5092,3 +5092,83 @@ Without a dedicated handoff doc, the next session opens to `session-handshake.md
 No code touched. Lint + test + build state unchanged from last green CI run (590 tests passing, build clean, both CI jobs green at tip `9172b7b`).
 
 **Safe to clear backend session.** Next session pick up from `session-handshake.md` + `docs/session-handoff-2026-05-12-backend.md`.
+
+---
+
+## Session 2026-05-12 — Asset Generation Pipeline + Budget Tracker v2 (products session)
+
+User pivoted from "session cleared" to "use Figma to design first product" → discovered Figma write-MCP not available → proposed code-generated alternative → user approved PoC → cascade through PDF generation + Sheets generation + premium redesign.
+
+### Done — pipeline + generator architecture
+- `tools/pdf-gen/` — HTML/CSS → PDF via Puppeteer (headless Chrome)
+- `tools/sheets-gen/` — programmatic `.xlsx` generation via ExcelJS
+- `tools/README.md` — pipeline overview + cascade pattern for adding products
+- `.gitignore` updated — excludes `tools/**/node_modules/` + `tools/**/output/`
+- `docs/session-handoff-2026-05-12.md` — comprehensive handoff
+
+### Done — Budget Tracker validation
+- **PDF PoC**: Budget Tracker AI Money Advisor page 3 (Smart Spending Advisor) rendered. PNG preview verified Figma-equivalent quality. ~3.2 sec / page. Premium Finance House palette + Inter typography + tab callout pill + worked-example card all rendered correctly.
+- **Sheets PoC v1** (5 tabs): User uploaded to Google Sheets, verified tab colors transferred, frozen rows working, formulas evaluating, conditional formatting active (Strong/OK pills colored), data validation dropdowns functional.
+- **Sheets v2** (13 tabs, premium redesign per user feedback): all 5 PoC tabs redesigned + 8 new tabs added (Expense Categories / Recurring Templates / Bill Calendar / Savings Goals / Emergency Fund / Annual Summary / AI Money Advisor / About & Help).
+
+### v2 premium design system codified
+Reusable helpers in `tools/sheets-gen/templates/budget-tracker.js`:
+- `addTopBar`, `addSectionHeader`, `addCallout`, `addTableHeader`, `addFooter`, `setTabColor`, `setupColumns`
+
+Design tokens (COLORS, FONTS, FILLS) centralized at top of file.
+
+### Bugs caught + fixed
+1. SUM bug — `SUM(D:D)` summed totals row → double-counting. Fixed: explicit `D8:D50` ranges.
+2. Named range bug — Setup Wizard inputs pointed to wrong cells. Fixed: D16/G16/D23/G23/D30.
+3. Cell merge overlap in Setup Wizard callout. Fixed: moved below q5.
+4. Cell merge overlap in Emergency Fund card. Fixed: per-cell fill+border.
+
+### Realistic seed data in v2
+- 30 expense rows (vs 14 PoC): Whole Foods / Uber Eats / Spotify Family auto-renewal / Spectrum / ConEd / Verizon / Netflix / Apple TV+
+- 6 income sources, 13 categories, 11 recurring templates, 9 bills, 5 goals, 7 emergency milestones
+
+### Key discussions
+1. **PDF vs Sheets clarification**: user astutely asked "isn't the product a google sheet, why are we creating a pdf?" — triggered explanation that AI prompt PDF is companion document, Google Sheet is primary product. Pivoted to Sheets generation as primary work.
+2. **5 vs 17 tabs**: user noticed PoC had only 5 tabs; v2 expanded to 13.
+3. **Premium design feedback**: "more themed sophisticated with more design, work on it more, value for money" → v2 redesign.
+4. **Opus vs Sonnet model choice**: Sonnet ~90% quality on pattern-following cascade work, Opus's edge on strategic pivots. Recommended hybrid.
+
+### State of pipeline
+| Pipeline | Status |
+|---|---|
+| HTML/CSS → PDF (Puppeteer) | ✅ Validated, Figma-equivalent quality |
+| ExcelJS → `.xlsx` PoC (5 tabs) | ✅ User-verified |
+| ExcelJS → `.xlsx` v2 (13 tabs) | ✅ Generated; ⏳ awaiting user visual verification |
+| SVG → PNG thumbnails | ⏳ Not yet attempted (~2h for first) |
+
+### Files committed this session
+- `tools/README.md` (new — pipeline overview)
+- `tools/pdf-gen/{package.json,package-lock.json,generate.js,preview.js,templates/budget-tracker-page-03.html}`
+- `tools/sheets-gen/{package.json,package-lock.json,verify.js,templates/budget-tracker.js}`
+- `.gitignore` (added tools/**/node_modules + tools/**/output exclusions)
+- `docs/session-handoff-2026-05-12.md` (new — handoff doc)
+- `session-handshake.md` (updated to safe-to-clear)
+- `docs/session-history.md` (this entry)
+
+### Files generated (gitignored — reproducible)
+- `tools/pdf-gen/output/budget-tracker-page-03.{pdf,png}`
+- `tools/sheets-gen/output/budget-tracker-ai-edition-{poc,v2}.xlsx`
+
+### Track 2 status (unchanged from yesterday)
+All 11 products' planning artifacts remain 100% complete. Today's work produced the first deliverables, not more planning.
+
+### Next moves
+1. User uploads `budget-tracker-ai-edition-v2.xlsx` to Google Sheets → verifies premium design
+2. Cascade 4 remaining tabs (~2-3h)
+3. SVG → PNG thumbnail pipeline (~2h for first template)
+4. Cascade all 10 remaining products (~110-135h total)
+5. Bundle covers in Figma; Notion workspace manual
+6. Etsy publish per `docs/execution-plan.md`
+
+### Recommended model strategy
+**Hybrid**: Sonnet for cascade work (~80% of remaining), Opus for strategic pivots + handoff docs + subtle debugging.
+
+### Safe to clear ✅
+All generator code + handoff doc + handshake update + history entry committed. Future session can pick up from `session-handshake.md` + `docs/session-handoff-2026-05-12.md` + `tools/README.md`.
+
+Next concrete move is in the user's hands: upload v2 .xlsx + verify.

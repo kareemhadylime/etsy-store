@@ -2,8 +2,12 @@
 
 # dependencies
 /node_modules
+tools/**/node_modules/
 /.pnp
 .pnp.*
+
+# asset-generator outputs (reproducible — regenerate via tools/*/templates/*.js)
+tools/**/output/
 .yarn/*
 !.yarn/patches
 !.yarn/plugins

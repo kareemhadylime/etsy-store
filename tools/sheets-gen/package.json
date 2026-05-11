@@ -1,0 +1,13 @@
+{
+  "name": "sheets-gen",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.js",
+    "budget-tracker": "node templates/budget-tracker.js"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}
