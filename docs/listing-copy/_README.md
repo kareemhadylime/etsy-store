@@ -31,12 +31,13 @@ Every listing doc follows the same skeleton:
 
 | File | Product | Tiers covered | Status |
 |---|---|---|---|
-| [`wedding-budget-planner.md`](./wedding-budget-planner.md) | Wedding Budget & Planner | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
+| [`budget-tracker.md`](./budget-tracker.md) | Budget Tracker (Product 1) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
+| [`wedding-budget-planner.md`](./wedding-budget-planner.md) | Wedding Budget & Planner (Product 9) | Essentials + Pro + AI Edition (via Etsy variations) | ⏳ |
 | [`bundle-finance-pro.md`](./bundle-finance-pro.md) | Premium Finance Bundle — Pro | Pro only | ⏳ |
 | [`bundle-finance-ai.md`](./bundle-finance-ai.md) | Premium Finance Bundle — AI Edition | AI only | ⏳ |
 | [`bundle-life-pro.md`](./bundle-life-pro.md) | Premium Life Bundle — Pro | Pro only | ⏳ |
 | [`bundle-life-ai.md`](./bundle-life-ai.md) | Premium Life Bundle — AI Edition | AI only | ⏳ |
-| [`notion-life-os.md`](./notion-life-os.md) | Notion Life OS — Essentials MVP | Essentials only (Pro/AI gated on sales) | ⏳ |
+| [`notion-life-os.md`](./notion-life-os.md) | Notion Life OS — Essentials MVP (Product 11) | Essentials only (Pro/AI gated on sales) | ⏳ |
 
 ## Voice rules
 
@@ -59,6 +60,10 @@ Every listing doc follows the same skeleton:
 | "$30,000 average wedding" | Wedding listing | Wedding proposal "Dated claims" — The Knot 2025 |
 | Wedding tier prices $19 / $34 / $49 | Wedding listing, Wedding brief P2, brief Section 1.5 | Handshake pricing table (re-priced 2026-05-11) |
 | Notion Essentials $24 | Notion listing, Notion brief throughout | Handshake pricing table |
+| Budget Tracker tier prices $9 / $19 / $29 | Budget listing title + body + thumbnail #1 overlay | Handshake pricing table |
+| "$109/yr YNAB" comparison claim | Budget listing description body | Budget proposal "Disclosed Dated Claims" — verify annually |
+| "17 tabs · 4 budget methods · 7 AI prompts" | Budget listing title + thumbnail #1 overlay | Budget proposal Section "Sheet Tabs (17 tabs)" |
+| "Your bank credentials never leave your bank." | Budget listing thumbnail #5 + body | Budget proposal "Banners" privacy positioning |
 
 **Pricing rule (catalog-wide):** "low alternative" — always pick the lower viable price while staying above the "doesn't look cheap" floor. See `~/.claude/projects/C--ETSY/memory/feedback_pricing_lower_alternative.md`. If any price needs to change, update the proposal + brief + listing + handshake together.
 

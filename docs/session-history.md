@@ -2009,3 +2009,38 @@ Either:
 
 ### Next session (Phase 3 preview, not built)
 Ad write APIs (pause/budget edit per platform), full 10-platform content engine (FB, X, LinkedIn, Threads, Reddit, YT Community, Quora), affiliate manager, multi-language storefront, Pinterest Shopping + Google Merchant feeds. Phase 3 hasn't been ticket-broken yet — let Phase 2 data accumulate first to inform priorities.
+
+---
+
+## Session 2026-05-11 — Budget Tracker locked + listing copy (products session)
+
+### "Continue as planned" — proceeded through Budget Tracker sequence
+Per the prior session's planned sequence: lock D1/D2/D3 with A/A/A recommendations (user pattern: accepts recommended A/A/A across all prior briefs), then write Budget Tracker listing copy.
+
+### Done
+- `docs/product-designs/budget-tracker.md` — Section 7 rewritten from "pending sign-off" → "locked 2026-05-11" with implications-for-build subsection. Status Pending → Approved.
+- `docs/listing-copy/budget-tracker.md` — full v1 listing copy (new file)
+- `docs/listing-copy/_README.md` — listings index + cross-listing claims-to-sync table extended with Budget Tracker entries
+
+### Listing copy structure (standard 9-section format)
+Title (140 char, "17 Tabs, 4 Budget Methods, AI Money Advisor"), subtitle (159 char, "A real budget brain — not a single-tab template"), description (3,294 char), 3-tier variations table ($9/$19/$29), 13 SEO tags, materials/attributes, 10 FAQs, 5 thumbnail copy hooks matching design brief Section 3, production notes.
+
+### Key listing copy decisions
+- **Anti-SaaS comparison is the headline hook.** YNAB $109/yr + Monarch $99/yr → "Saves $516 over 5 years" framed concretely in description body. Reinforces premium-discount positioning in the saturated $1–$36 category.
+- **Privacy positioning runs through every surface.** Title "Privacy-First". Subtitle "Your bank credentials never leave your bank." FAQ #2 explains the trade-off (2 min/week manual entry vs. handing credentials to Plaid). Thumbnail #5: side-by-side Budget app vs. Budget Tracker. Strongest premium-tier hook in the category.
+- **Feature provenance section ("Borrowed from the best")** names YNAB / Monarch / PocketSmith / Copilot / Simplifi / Quicken as feature sources. Signals depth without overpromising.
+- **Anti-feature list** ("What this spreadsheet doesn't do") spins gaps as features per v3 proposal framework — Plaid exclusion is the privacy gate, not a limitation.
+- **No emoji confetti.** Section dividers use `— Section —` pattern from prior listings; 🔒 / 💸 / 🔓 / 📱 used sparingly in the body.
+
+### Cross-listing claims-to-sync table extended
+4 new entries in `_README.md`: "$109/yr YNAB" comparison (verify annually), "17 tabs · 4 budget methods · 7 AI prompts" → proposal Section Sheet Tabs, "Your bank credentials never leave your bank." → proposal Banners section, Budget tier prices → handshake table.
+
+### Cross-product implications
+With Budget Tracker fully spec'd (proposal + design brief + content reference + listing copy), Product 1 is at the same completeness as Wedding. Sets the template for the remaining 4 Premium Finance House products: each gets a design brief (~2.5h cascade) + listing copy (~1h) = ~3.5h per product. ~14h total to bring all 5 Finance products to "fully spec'd."
+
+Two distinct product-track templates now codified:
+- **Wedding template** — custom dusty-rose identity, 22 tabs incl. cultural variants, larger build (~53h)
+- **Budget Tracker template** — Premium Finance House inherited identity, 17 tabs, smaller build (~37h). Remaining 4 finance products inherit this template.
+
+### Next session
+Debt Payoff (Product 2) design brief — first cascade from the Budget Tracker template. Then Debt listing copy, then Sinking / NW / Small Business briefs + listings.

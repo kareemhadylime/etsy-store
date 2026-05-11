@@ -1,7 +1,7 @@
 # Product 1 — Budget Tracker — Design Brief v1
 
 _Drafted: 2026-05-11_
-_Status: 📋 Design directions pending sign-off_
+_Status: ✅ Design directions approved by user — 2026-05-11_
 _Proposal: [`../product-proposals/budget-tracker.md`](../product-proposals/budget-tracker.md)_
 _Identity: Premium Finance House (inherits from Bundle brief Section 1)_
 _Pricing: $9 / $19 / $29 (per catalog-wide lower-alternative rule, 2026-05-11)_
@@ -138,29 +138,19 @@ Implication: when Budget Tracker visual production starts, the Dashboard screens
 - [ ] Quick-start 1-pager PDF (~1 page) included in all tiers
 - [ ] Listing copy + tags + FAQs — separate doc (`docs/listing-copy/budget-tracker.md` when written)
 
-## 7. Production decisions to lock (pending sign-off)
+## 7. Production decisions (locked 2026-05-11)
 
-Three decisions that need answers before any production starts:
+| # | Decision | Locked choice | Rationale |
+|---|---|---|---|
+| D1 | Spreadsheet platform priority | **A — Google Sheets only (v1)** | Matches Wedding production decision P1. Excel/Numbers ports deferred to v2 pending buyer demand. Saves ~18h parity envelope for higher-leverage work. Excel courtesy export only. |
+| D2 | Spreadsheet mockup screenshots | **A — Placeholder data** | Matches Bundle production decision B1. Thumbnails ship before final spreadsheet completes; ~1h refresh cost if anything drifts. |
+| D3 | AI PDF approach | **A — Own 11-page PDF** | Standalone $29 AI Edition needs to feel complete. Buyers don't see the Bundle library; the 11-page PDF answers "where's the AI part?" immediately. Bundle's 12-prompt reference section adds 5 cross-product workflow prompts on top — incremental value that justifies the bundle premium. |
 
-### D1 — Spreadsheet platform priority
-- **A**: Google Sheets v1 only (Excel deferred to v2 pending buyer demand) — matches Wedding production decision P1
-- **B**: Both Google Sheets + Excel from v1 — adds ~18h QA + parity work
-- **C**: Google Sheets + Numbers (Apple Numbers) — niche but interesting differentiator since competitors rarely ship Numbers parity
-
-**My recommendation: A** (Sheets only). Matches Wedding decision. Excel/Numbers ports deferred. Saves the 18h parity envelope for higher-leverage work.
-
-### D2 — Spreadsheet mockup screenshots
-- **A**: Use placeholder data from the seed-data convention (same as Bundle production decision B1)
-- **B**: Use real screenshots from a fully-built spreadsheet (delays thumbnail production by ~30h until spreadsheet ships)
-
-**My recommendation: A** (placeholder). Matches Bundle B1 locked decision.
-
-### D3 — Per-product AI PDF or shared AI library?
-- **A**: Budget Tracker AI Edition ships its own 11-page AI Money Advisor PDF (7 prompts), separate from the Bundle AI Master Library
-- **B**: AI Edition buyers of standalone Budget Tracker get a 2-page "starter prompt pack" + a discount toward the Bundle AI Edition (which contains the full 12-prompt Budget Tracker reference section)
-- **C**: Same content in both — Budget Tracker AI Edition's PDF and Bundle AI Library's Budget Tracker reference section have the same 7 prompts, so the standalone PDF is just a Figma-toggle export from the Bundle AI Library's Budget Tracker pages
-
-**My recommendation: A** (own PDF). Standalone $29 AI Edition needs to feel complete. Buyers don't see the Bundle library; they see "I bought AI Edition, where's the AI part?" The 11-page PDF answers that immediately. Bundle's 12-prompt reference section is incremental value for bundle buyers (12 prompts vs. standalone's 7) which justifies the bundle premium.
+### Implications for build
+- All visual production happens in the **Premium Finance Brand Kit Figma file** (page 06.1) per the Figma handoff spec
+- Thumbnails reference placeholder mockups using the locked Premium Finance House palette + type — refresh if final spreadsheet diverges (~1h)
+- AI Money Advisor PDF gets its own Figma sub-section in the Brand Kit's `06.1 Budget Tracker` page
+- No Excel-native spreadsheet build; courtesy `.xlsx` export shipped alongside Sheets template
 
 ## 8. Build estimate (refined)
 
@@ -206,14 +196,8 @@ If buyer demand surfaces post-launch, these become v2 candidates — not v1 work
 
 ---
 
-## Direction sign-off requested
+## Status: ✅ Approved 2026-05-11
 
-Please reply with picks for D1, D2, D3:
+All 3 directions locked (D1=A, D2=A, D3=A). Brief moves from Pending → Approved. Per-product Figma sub-page (06.1 in the Premium Finance Brand Kit) is ready to populate when visual production starts.
 
-- **D1 — Spreadsheet platform:** A (Sheets only) / B (Sheets + Excel) / C (Sheets + Numbers)
-- **D2 — Mockup screenshots:** A (placeholder per Bundle B1) / B (real screenshots, delay thumbnails)
-- **D3 — AI PDF:** A (own 11-page PDF) / B (2-page starter + bundle discount) / C (toggle export from Bundle library)
-
-My recommendations: D1=A, D2=A, D3=A.
-
-After sign-off this brief moves from 📋 Pending to ✅ Approved and the per-product Figma sub-page (06.1 in the Premium Finance Brand Kit) is ready to populate. Then design briefs for the remaining 4 finance products (Debt Payoff / Sinking Funds / Net Worth / Small Business) can follow this exact template — most decisions cascade from here.
+Design briefs for the remaining 4 finance products (Debt Payoff / Sinking Funds / Net Worth / Small Business) follow this exact template — most decisions cascade from here. Each ~3h to draft.

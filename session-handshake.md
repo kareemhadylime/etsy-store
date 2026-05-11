@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Budget Tracker design brief v1 drafted → `docs/product-designs/budget-tracker.md`; first of 5 Premium Finance House product briefs, 3 directions pending sign-off)_
+_Last updated: 2026-05-11 (Budget Tracker design brief locked + Budget Tracker listing copy drafted → `docs/listing-copy/budget-tracker.md`; Product 1 fully spec'd through to Etsy)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -153,9 +153,11 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
   - Notion — build template per `notion-life-os-template-spec.md` (~25h)
   - All visual deliverable population (covers/thumbnails/PDFs) from the Figma file after setup
 - [ ] OR this session continues with planning for: Budget Tracker design brief + Notion build ticket breakdown + remaining 4 finance-product design briefs (Debt/Sinking/Net Worth/Small Biz)
-- [x] **Budget Tracker design brief v1 ✅ (2026-05-11)** → `docs/product-designs/budget-tracker.md`. Inherits Premium Finance House identity (no new palette/type — clean catalog cohesion). 10 sections: identity inheritance, spreadsheet visual system w/ Input Tab Setup Wizard + Output Dashboard Financial Health Score gauge + 4 chart specs, 5 thumbnails (Hero/Health Score close-up/Methods comparison/AI preview/Privacy comparison), 11-page AI Money Advisor PDF spec, asset checklist, **3 production decisions pending sign-off** (D1 platform / D2 mockup screenshots / D3 AI PDF approach), ~37h build estimate. Becomes template for remaining 4 finance product briefs.
-- [ ] Awaiting Budget Tracker D1/D2/D3 sign-off before brief moves Pending → Approved
-- [ ] Next product-track step in sequence: 4 remaining Premium Finance House product briefs (Debt Payoff, Sinking Funds, Net Worth, Small Business) — each ~3h since they cascade from the Budget Tracker template; total ~12h. Or pivot to other planning items (Notion build ticket breakdown, finance product build ticket breakdowns, Notion Pro+AI tier specs).
+- [x] **Budget Tracker (Product 1) FULLY SPEC'D ✅ (2026-05-11)**:
+  - Design brief approved (D1=A Sheets only / D2=A placeholder mockups / D3=A own 11-page AI PDF) → `docs/product-designs/budget-tracker.md`
+  - Listing copy drafted → `docs/listing-copy/budget-tracker.md` (title, $9–$29 variations table, 13 SEO tags, 10 FAQs, 5 thumbnail hooks, production notes, anti-SaaS positioning vs. YNAB $109/yr + Monarch $99/yr)
+  - Becomes template for remaining 4 Premium Finance House products + their listing copy
+- [ ] Next product-track step in sequence: Debt Payoff (Product 2) design brief — cascades from Budget Tracker template, ~3h. Then Sinking Funds / Net Worth / Small Business briefs each ~3h. Listing copy for each follows the brief.
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
