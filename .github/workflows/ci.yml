@@ -130,7 +130,7 @@ jobs:
               echo ""
               echo "Fix: download the 'schema-current' artifact from this run,"
               echo "review the diff, and commit it as supabase/schema.snapshot.sql."
-              echo "See deployment-runbook section 11 → Schema-drift guard."
+              echo "See deployment-runbook section 13 → Schema-drift guard."
               exit 1
             fi
             echo "Schema matches committed snapshot."

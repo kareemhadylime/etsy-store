@@ -126,7 +126,7 @@ After deploying, search the first few seconds of logs for `[env]` lines — they
 ## 2. Supabase setup
 
 ### 2a. Apply migrations
-13 migrations, all already applied to `ronfbjpqyhxipnitxrif`:
+14 migrations, all already applied to `ronfbjpqyhxipnitxrif`:
 
 | # | File | Adds |
 |---|---|---|
@@ -143,8 +143,9 @@ After deploying, search the first few seconds of logs for `[env]` lines — they
 | 0011 | `ai_jobs.sql` | T111 |
 | 0012 | `content_engine.sql` | T112 |
 | 0013 | `notion_fulfillment.sql` | T011 — adds `'notion'` to product_files.format |
+| 0014 | `rate_limit_buckets.sql` | per-IP per-window upsert table for /api/track/* |
 
-For a fresh project: run each in order via Supabase MCP or the SQL Editor.
+For a fresh project: run each in order via Supabase MCP or the SQL Editor. The CI `migrations` job replays them against an ephemeral Postgres on every PR (see section 13).
 
 ### 2b. Storage bucket
 Create a private bucket matching `SUPABASE_DOWNLOADS_BUCKET` (default `downloads`). The deliver flow generates signed URLs against it. Upload one file per (product, tier) via `/admin/products/[id]` → "Files" section.
@@ -355,7 +356,7 @@ A daily cleanup cron at `0 6 * * *` UTC (`/api/cron/cleanup-rate-limits`) delete
 
 ---
 
-## 11. Continuous integration
+## 13. Continuous integration
 
 A GitHub Actions workflow at `.github/workflows/ci.yml` runs on every push to `main` and every PR targeting `main`. Same-branch runs are cancelled when a newer push lands, so a fast follow-up commit doesn't queue behind a stale build.
 
@@ -404,7 +405,7 @@ What this does **not** catch:
 - Supabase-specific platform behaviour (auth user creation, storage buckets, edge functions)
 - migrations that depend on Supabase extensions other than `pgcrypto`
 
-For end-to-end migration validation including RLS, use a Supabase preview branch — see section 3 of this runbook.
+For end-to-end migration validation including RLS, use a Supabase preview branch — see section 2 of this runbook.
 
 If you add a migration that depends on a Supabase-specific extension (`pg_net`, `pgsodium`, `vault`, etc.) or platform feature, also extend `supabase/test-shim.sql` so the replay job stays green.
 
@@ -444,7 +445,7 @@ This is intentionally manual. The snapshot is a source-of-truth artefact and sil
 
 ---
 
-## 13. Security headers
+## 14. Security headers
 
 Baseline HTTP security headers are applied to every response via `next.config.ts`'s `headers()` function. The actual header list lives in `src/lib/security/headers.ts` so it's unit-testable.
 

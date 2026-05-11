@@ -3517,3 +3517,40 @@ Estate Planning Advisor → 🤝 Beneficiary & Estate Access
 ### Next session
 - Small Business AI Business Co-Pilot (last AI content file) → then deferred briefs (Family/Investment/Zakat) → then external execution playbook
 - Backend session has continued shipping in parallel (env accessors → 481 tests; schema-drift guard → CI artifact upload). Not blocking this session's products work.
+
+---
+
+## Backend session — 2026-05-11 — Runbook section renumbering cleanup
+
+Pre-existing problem the CSP-ship + the schema-drift-guard-ship had been documenting around: the runbook had two sections both labeled "11" — "Operational dashboard" (legitimately section 11 from the original document) and "Continuous integration" (added later but also numbered 11). Plus the "Security headers" section that landed after Rate Limiting (section 12) was labeled "13", skipping the conflict but creating a gap. Anyone trying to cross-reference these sections couldn't disambiguate.
+
+### Fix
+- `## 11. Continuous integration` → `## 13. Continuous integration`
+- `## 13. Security headers` → `## 14. Security headers`
+
+Numbering sequence is now monotonic: 1-12, then "Common failure modes" (un-numbered, meta), then 13, 14.
+
+### Cross-reference sweep
+- `.github/workflows/ci.yml`: the schema-drift hint message "See deployment-runbook section 11 → Schema-drift guard" → "section 13" (the guard lives inside the renumbered CI section)
+- `session-handshake.md`: 6 backend bullets had "Runbook section 11" / "Runbook §13" pointers; updated to the new numbers (§13 for CI-related, §14 for security headers)
+
+### Pre-existing errors fixed while I was in there
+- The migration-replay subsection (now in §13) said "use a Supabase preview branch — see section 3" but section 3 is Vercel cron. Real reference is section 2 (Supabase setup). Fixed.
+- Section 2a still claimed "13 migrations" — we have 14 now (0014_rate_limit_buckets.sql). Updated count + added the row to the migrations table + added a back-pointer to §13 noting CI replays them on every PR.
+
+### What's intentionally NOT touched
+- `docs/session-history.md` — historical append-only record; preserves the bullets as they were written at the time, including outdated section refs. Re-reading old session entries should reflect what the structure was when they shipped.
+- `docs/visual-production/premium-finance-brand-kit.md` — has its own "Section N" refs but they're internal to that file, not pointing at the runbook.
+
+### Files changed
+- `docs/deployment-runbook.md` — 2 section heading renames + 1 cross-ref fix + 1 migration count update + 1 new migration row + 1 back-pointer
+- `.github/workflows/ci.yml` — 1 string fix in the schema-drift error message
+- `session-handshake.md` — 6 surgical edits to the backend bullets pointing at new section numbers
+
+### Verification
+- `grep "^## " docs/deployment-runbook.md` shows monotonic 1-14 with "Common failure modes" un-numbered
+- No code touched; no test re-run needed
+- `npm run lint`/`npm test`/`npm run build` would all still be green (no source files changed)
+
+### Loose ends
+None for this ship — it was a focused cleanup. The remaining backend list (CSP enforce-mode flip, type-drift guard pairing the schema-drift guard, watching first CI run) is unchanged.
