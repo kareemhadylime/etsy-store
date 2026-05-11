@@ -885,3 +885,35 @@ Estimated time to all visual assets ready: ~40h across both files (separate from
 - `/clear` recommended before kicking off visual production
 - Then choose entry point: (a) start the `Premium Finance Brand Kit` Figma setup, OR (b) flip to Phase 2 backend build (T101 + T102 unblocked), OR (c) pull TICKET-011 Notion fulfillment plumbing (Phase 1.5, ~12h)
 - Recommend (a) — design phase has the most build-up momentum and the Brand Kit unblocks the most parallel work
+
+---
+
+## Session 2026-05-11 — TICKET-101 cron infrastructure (Phase 2 build start)
+
+### Done
+- Migration `0004_cron_runs.sql` applied to Supabase project `ronfbjpqyhxipnitxrif` via MCP. Table `cron_runs (id, name, status, started_at, finished_at, duration_ms, rows_processed, error, raw_log, created_at)` with indexes on `(name, started_at desc)` and `status`. Service-role-only RLS — admins read through the dashboard via the service-role client.
+- `src/lib/cron/auth.ts` — `verifyCronSecret(req)`. Accepts `Authorization: Bearer ${CRON_SECRET}` (Vercel's automatic cron header) and `?secret=...` query fallback for manual curl during dev. Timing-safe equality via `node:crypto.timingSafeEqual`. 8 tests.
+- `src/lib/cron/run.ts` — `runCron(name, handler)`. Lifecycle:
+  1. Insert `cron_runs` row with `status='running'`
+  2. Run handler with `ctx: { runId, log, setRowsProcessed(n) }`
+  3. Update row to `success` or `error` with `duration_ms`, `rows_processed`, `error`, `raw_log`
+  Failures inside the audit insert are swallowed (handler still reports success to Vercel). 5 tests.
+- `src/app/api/cron/heartbeat/route.ts` — hourly no-op cron that writes uptime + node version to `raw_log`. Validates the whole plumbing end-to-end. 4 tests.
+- `vercel.json` with one initial entry: `{ "path": "/api/cron/heartbeat", "schedule": "0 * * * *" }`. Future T103–T108 crons add entries here.
+- `.env.example` documents `CRON_SECRET` + `ETSY_API_KEY` (previously missing).
+
+### Verification
+- `npm test` → 34 files / 179 tests passing (added 17 across 3 files).
+- `node_modules/.bin/tsc --noEmit` → exit 0.
+- `npm run build` → succeeds; `/api/cron/heartbeat` registers; no warnings.
+- Supabase `list_tables` confirms `cron_runs` exists with RLS enabled.
+
+### Design choices to keep in mind for T103–T112
+- Every cron handler uses the same `runCron(name, async (ctx) => { ... })` shape — no exceptions. Makes the analytics dashboard trivial later.
+- Handlers populate `ctx.log` with whatever payload is useful (counts, last-seen IDs, error subcategories) — that JSON lives on the audit row.
+- Handlers call `ctx.setRowsProcessed(n)` so the dashboard can show "rows touched" without parsing log JSON.
+- `CRON_SECRET` is mandatory; the route returns 500 when it's missing rather than silently accepting. Forces correct deployment config.
+- Heartbeat is the canary — if it stops running, Vercel cron is broken regardless of any data-pull cron status.
+
+### Next session
+TICKET-102 — pgsodium encryption of `platform_credentials.{access,refresh}_token_encrypted` + `loadCredential` + `refreshCredential` per platform + `withFreshCredential(platform, fn)` wrapper that retries once on 401. Etsy sync route from T005 will need to be back-compat after the swap.

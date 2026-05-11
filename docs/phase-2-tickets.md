@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-10_
-_Status: 📋 Planned — build starts after Phase 1 launches and is collecting real traffic_
+_Last updated: 2026-05-11 (T101 cron infrastructure shipped)_
+_Status: 🚧 In Progress (1/12 done — T101 ✅)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -13,20 +13,22 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ## Foundation (sequential — unblocks everything else)
 
 ### TICKET-101 — Cron infrastructure
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~6h
-**New files:** `vercel.json`, `src/lib/cron/{auth,run}.ts`, `supabase/migrations/0004_cron_runs.sql`
+**New files:** `vercel.json`, `src/lib/cron/{auth,run}.ts`, `src/app/api/cron/heartbeat/route.ts`, `supabase/migrations/0004_cron_runs.sql`
 **Tasks:**
-- Vercel cron schedule registry in `vercel.json`
-- `verifyCronSecret(req)` — checks `Authorization: Bearer ${CRON_SECRET}`
-- `runCron(name, handler)` — shared abstraction that records start/end + error to a new `cron_runs` table
-- Migration: `cron_runs (id, name, started_at, finished_at, status, rows_processed, error, raw_log)`
-- Tests: secret rejection, timing capture, error path
+- Vercel cron schedule registry in `vercel.json` (initial entry: hourly heartbeat) ✅
+- `verifyCronSecret(req)` — accepts `Authorization: Bearer ${CRON_SECRET}` or `?secret=...` fallback for manual runs; timing-safe equality ✅
+- `runCron(name, handler)` — shared abstraction. Inserts a `running` row, calls handler with `(ctx: { runId, log, setRowsProcessed })`, updates row to `success`/`error` with `duration_ms`, `rows_processed`, `error`, `raw_log` ✅
+- Migration: `cron_runs (id, name, status, started_at, finished_at, duration_ms, rows_processed, error, raw_log, created_at)` with indexes on `(name, started_at desc)` + `status` and service-role-only RLS ✅
+- `/api/cron/heartbeat` validates the plumbing end-to-end (writes uptime + node version to `raw_log`) ✅
+- Tests: 8 auth tests (Bearer, query fallback, missing/empty/wrong token, missing env), 5 runCron tests (success path, error path, audit-insert failure, no-log → null, non-Error throws), 4 heartbeat route tests ✅
 
 **Acceptance:**
-- [ ] All Phase 2 crons share the same `runCron(...)` shape
-- [ ] Unauthorized requests return 401 without running the handler
-- [ ] `cron_runs` row exists for every invocation (success or failure)
+- [x] All Phase 2 crons share the same `runCron(...)` shape
+- [x] Unauthorized requests return 401 without running the handler
+- [x] `cron_runs` row exists for every invocation (success or failure)
+- [x] Migration applied via Supabase MCP (`ronfbjpqyhxipnitxrif`)
 
 ---
 
@@ -275,7 +277,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 ---
 
 ## Status Tracker
-- [ ] TICKET-101 — Cron infrastructure
+- [x] TICKET-101 — Cron infrastructure ✅ (2026-05-11)
 - [ ] TICKET-102 — Credentials encryption + refresh
 - [ ] TICKET-103 — Etsy shop stats sync
 - [ ] TICKET-104 — Etsy reviews + sentiment
