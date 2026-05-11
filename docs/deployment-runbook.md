@@ -167,6 +167,7 @@ Result should be empty.
 | `45 4 * * *` | `/api/cron/pull-search-console` |
 | `0 5 * * *` | `/api/cron/pull-tiktok-insights` |
 | `30 5 * * *` | `/api/cron/aggregate-analytics-daily` |
+| `0 6 * * *` | `/api/cron/cleanup-rate-limits` |
 | `*/15 * * * *` | `/api/cron/publish-queue` |
 
 2. Manually trigger `heartbeat` from the Vercel UI. Inspect **Supabase → cron_runs** — a `success` row should appear within seconds.
@@ -341,10 +342,7 @@ The four `/api/track/*` endpoints are throttled per-IP-per-minute via the `rate_
 
 When exceeded, the route returns `429` with `Retry-After`, `X-RateLimit-Limit`, and `X-RateLimit-Remaining` headers. The check fails open (allows the request) if the DB read or upsert errors — we'd rather miss a rate-limit decision than 500 the public endpoint.
 
-The table accumulates one row per (IP, minute) and is **not** auto-cleaned today. Add a daily cleanup cron in a follow-up:
-```sql
-delete from rate_limit_buckets where window_start < now() - interval '1 day';
-```
+A daily cleanup cron at `0 6 * * *` UTC (`/api/cron/cleanup-rate-limits`) deletes buckets older than 24 hours so the table can't grow unbounded. Tune the retention window in `cleanupRateLimits({ olderThanSeconds })` if you ever need longer history for debugging a DoS.
 
 ---
 

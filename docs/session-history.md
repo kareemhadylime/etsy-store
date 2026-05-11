@@ -2463,3 +2463,37 @@ Remaining: ~3h — 3 listing copies (Sinking / NW / Small Biz).
 
 ### Next session
 Sinking Funds listing copy. Per-product hooks: anti-Qapital + anti-Monarch, 4-savings-vehicles depth claim, AI Reallocation prompt.
+
+---
+
+## Session 2026-05-11 — Rate-limit cleanup cron (closing the unbounded-growth loop)
+
+### Done
+- `src/lib/rate-limit/cleanup.ts` — `cleanupRateLimits({ olderThanSeconds=86400, now })` issues `DELETE FROM rate_limit_buckets WHERE window_start < cutoff` with `count: 'exact'` so the cron can record `rows_processed`.
+- `src/app/api/cron/cleanup-rate-limits/route.ts` — same `verifyCronSecret → runCron(name, handler)` pattern as every other cron; logs `cutoff` to `cron_runs.raw_log` and surfaces `rowsDeleted` in the response.
+- `vercel.json` adds `{ path: '/api/cron/cleanup-rate-limits', schedule: '0 6 * * *' }` (runs at 06:00 UTC, after the 05:30 analytics rollup so it doesn't compete for connection slots).
+- 8 new tests:
+  - `cleanup.test.ts` — 4 tests (default 1-day cutoff math, custom olderThanSeconds, null rowsDeleted handling, error path)
+  - `route.test.ts` — 4 tests (auth gate, success with rowsDeleted in response + cron_runs.raw_log, null rowsDeleted fallback to 0, cleanup failure → 500)
+- Runbook §3 cron table extended; §12 rate-limiting section now reads "auto-cleaned by the daily cron" instead of "deferred to a follow-up".
+
+### Verification
+- `npm test` → 75 files / 438 tests passing
+- `npx tsc --noEmit` → exit 0
+- `npm run build` → 37 routes register; `ƒ /api/cron/cleanup-rate-limits` confirmed
+
+### Operational shape after this commit
+- 11 scheduled crons (was 10): daily Etsy/Meta/Google/TikTok pulls + analytics rollup + rate-limit cleanup + 15-min publish queue + hourly heartbeat
+- The only Postgres table with potentially-unbounded write volume that still has no cleanup is `cron_runs` itself. Even at 11 crons/day = 4k rows/year, Postgres yawns. Leaving it as a deliberate "permanent audit trail" choice.
+
+### Why this was worth shipping
+I flagged "deferred cleanup cron" as a TODO in the runbook §12 right after the rate-limit ship. Closing follow-up TODOs the same day keeps the work clean — otherwise they rot into the next session and pollute the next handshake. 30 min cost, ticked off forever.
+
+### Backend session — running tally
+- Phase 1 (10/10) ✅
+- Phase 1.5 (T011 Notion) ✅
+- Phase 2 (12/12) ✅
+- Deployment runbook ✅
+- Rate limiting ✅ + cleanup cron ✅
+
+Every loose end I can identify is closed. The next "continue" requires a fresh strategic input from the user — either Phase 3 ticket breakdown or a specific operational gap they want filled.
