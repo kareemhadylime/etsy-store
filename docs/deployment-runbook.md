@@ -401,6 +401,33 @@ If you add a migration that depends on a Supabase-specific extension (`pg_net`, 
 
 ---
 
+## 13. Security headers
+
+Baseline HTTP security headers are applied to every response via `next.config.ts`'s `headers()` function. The actual header list lives in `src/lib/security/headers.ts` so it's unit-testable.
+
+What's set:
+
+| Header | Value | Why |
+|---|---|---|
+| `Strict-Transport-Security` | `max-age=63072000; includeSubDomains; preload` | Force HTTPS for 2 years on this domain + all subdomains, eligible for the browser preload list. Browsers ignore it on localhost so it's safe in dev. |
+| `X-Content-Type-Options` | `nosniff` | Block MIME-type sniffing; defends against polyglot-file attacks. |
+| `X-Frame-Options` | `DENY` | Block all framing; defends against clickjacking. Storefront has no legitimate iframe-embed use case. |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` | Modern default — full referrer same-origin, origin-only cross-origin, nothing on HTTPS→HTTP downgrades. |
+| `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), …` | Disable browser features the storefront + admin don't use so a future XSS can't grab them. |
+
+### What's intentionally not set
+
+- **`Content-Security-Policy`** — adding a real CSP requires allowlisting every external script (analytics tags, Klaviyo embeds, GA4, Meta pixel) and every connect-src destination. Getting it wrong silently breaks tracking pixels + visible widgets. Defer until we have a real CSP allowlist exercise + browser-based smoke testing.
+- **`X-XSS-Protection`** — deprecated; modern browsers ignore it. CSP is the modern replacement.
+
+### Verifying after deploy
+
+Hit your production URL and inspect response headers (curl `-I` or browser devtools → Network → Response Headers). All five baseline headers should be present on every route, including static assets.
+
+If you add a third-party script that needs to run inline or load from a new origin, this is also the natural moment to add a CSP (the script load failures will telegraph the missing origin allowlist anyway).
+
+---
+
 ## What's NOT in this runbook
 
 - Phase 3 (ad write APIs, full 10-platform content engine, affiliates, multi-language, Pinterest Shopping + Google Merchant feeds) — intentionally not built yet

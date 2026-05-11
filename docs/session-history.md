@@ -3072,3 +3072,45 @@ User said "next" — final cascade. Largest product in catalog (23 tabs).
 
 ### Next session
 AI prompt content cascade, reactivate Family/Investment/Zakat, or external execution.
+
+---
+
+## Backend session — 2026-05-11 — Baseline security headers via next.config.ts
+
+After exhausting more obvious operational follow-ups (verified `.env.example` already exists + is in sync with code, verified `/api/health` already pings Supabase, confirmed runbook sections are coherent), security headers stood out as the next real gap. A production storefront with no `X-Frame-Options` / `X-Content-Type-Options` / `Strict-Transport-Security` is at small but real risk of clickjacking, MIME sniffing, and HTTPS-downgrade attacks. The fix is cheap.
+
+### Approach
+Idiomatic Next.js: use `next.config.ts`'s `headers()` async function. Headers are stamped at the edge with no per-route boilerplate and no runtime cost on hot paths.
+
+The actual header list lives in a separate module (`src/lib/security/headers.ts`) so it's unit-testable. `next.config.ts` just imports + uses it.
+
+### Headers shipped (5)
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload` — 2-year HTTPS lock, subdomains too, preload-list eligible. Browsers ignore it on localhost.
+- `X-Content-Type-Options: nosniff` — block MIME sniffing.
+- `X-Frame-Options: DENY` — block all framing. Storefront has no legitimate iframe-embed use case.
+- `Referrer-Policy: strict-origin-when-cross-origin` — full referrer same-origin, origin-only cross-origin, nothing on HTTPS→HTTP.
+- `Permissions-Policy: accelerometer=(), autoplay=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()` — disable browser features the storefront + admin don't use.
+
+### What's intentionally NOT set
+- **`Content-Security-Policy`** — needs a careful allowlist of every analytics/Klaviyo/GA4/Meta pixel origin. Easy to silently break tracking widgets if I rush it. Deferred to a future ship with a real browser-based smoke check.
+- **`X-XSS-Protection`** — deprecated, modern browsers ignore it.
+
+### Tests (9 new)
+`src/lib/security/__tests__/headers.test.ts` verifies each header is set with the expected value, header keys are unique, and the deferred headers (CSP, X-XSS-Protection) are explicitly absent (so a future "let me just add CSP" PR has to actively change the test).
+
+### Files changed
+- `src/lib/security/headers.ts` — new module
+- `src/lib/security/__tests__/headers.test.ts` — new test file (9 tests)
+- `next.config.ts` — wired up `headers()` to apply to `'/(.*)'`
+- `docs/deployment-runbook.md` — new section 13 "Security headers" with the value table + CSP-deferral rationale + post-deploy verification steps
+- `session-handshake.md` — new bullet
+
+### Verification
+- `npm run lint` clean
+- `npm test` 447/447 pass (was 438; +9 new security-header tests)
+- `npm run build` clean
+- Can't verify headers actually fire end-to-end without a running server in CI — the test suite confirms the value-generating function returns the right list; the next.config wiring is simple and matches the Next.js docs verbatim. After the next deploy, runbook section 13 includes a one-liner curl command to verify production responses carry all five headers.
+
+### Loose ends
+- CSP is the biggest remaining security gap. When tackling, allowlist origins by walking the Network tab on a fresh storefront load + checkout flow.
+- The runbook now has a section numbered "13" sitting after a duplicate-numbered "11. Continuous integration" / "12. Rate limiting" / "11. Operational dashboard" sequence — pre-existing numbering glitch from earlier ships; harmless but worth cleaning up next time someone's in there.
