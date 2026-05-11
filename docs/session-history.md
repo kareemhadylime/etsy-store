@@ -2312,3 +2312,78 @@ Remaining: ~6.5h (1 brief × ~2.5h + 4 listing copies × ~1h).
 
 ### Next session
 Small Business Finance Kit (Product 5) design brief — fourth and final cascade. After that, the Premium Finance House design phase is complete. Then 4 listing copies (Debt / Sinking / NW / Small Biz) at ~1h each.
+
+---
+
+## Session 2026-05-11 — Small Business (Product 5) design brief v1 — FINAL CASCADE (products session)
+
+User said "go on" = continue. Last and largest Premium Finance House product brief. With this commit, **all 5 Premium Finance House design briefs are drafted**.
+
+### Done
+- `docs/product-designs/small-business-finance-kit.md` — 10-section brief, largest in the catalog (~270 lines)
+
+### Why this is the largest product
+23 tabs (vs. Budget's 17, Debt's 18, Sinking's 16, Net Worth's 19). Highest price tier ($24–$54 — top of the catalog's standalone-product range). Broadest functional surface: financial statements + invoicing (with 10 templates) + inventory + HR + payroll + project costing + tax prep + 8 AI prompts (one more than other AI products' 7).
+
+### Per-product subtle override (only departure from cascade)
+**Visual restraint dial pushed further** vs. other Premium Finance House products. Small Business buyers expect "professional accounting tool" aesthetics, so:
+- KPI tile shadows reduced from 10% → 5% opacity
+- Mandatory numeric right-alignment EVERYWHERE (not just currency cells — counts, integers, percentages)
+- No emoji decoration in content rows; emoji stays in tab names only
+
+Palette + type stay 100% Premium Finance House. These are tiny restraint-tweaks, not a brand departure.
+
+### Output Dashboard required visuals (Small Business–specific)
+1. Business Health Score gauge + 5 sub-component mini-gauges (gross margin / net margin / runway months / receivables health / cash flow trend)
+2. Line chart "Revenue vs. Expense trailing 12 months" — two-line overlay w/ negative-gap months shaded alert-red
+3. Bar chart "Top 5 customers by gross margin" w/ concentration-risk pill if top customer >30% of revenue
+4. Runway / burn rate meter — months of cash on hand at current burn (success >12 / warning 6–12 / alert <6)
+5. Stacked bar "Receivables aging buckets" (0–30 / 31–60 / 61–90 / 90+) w/ aged-over-30 callout
+
+KPI Dashboard (separate Pro+ tab) extends this with deeper metrics: CAC, MoM growth, revenue per client.
+
+Banner anchor: "QuickBooks $35–$235/mo. FreshBooks $19+/mo. We charge $24 once. Your books stay yours."
+
+### 5 thumbnails
+1. Hero — Dashboard
+2. **KPI Dashboard close-up** — 8 KPIs in 2×4 grid (Gross/Net Margin/EBITDA/Burn/Runway/Rev per Client/CAC/MoM Growth). Speaks to sophisticated founder cohort (Cohort B) who pays $54 for AI Edition.
+3. Invoice Tracker + Cash Flow Forecast 2-panel stitch — "See danger months 60 days early"
+4. AI Business Co-Pilot preview — "Thinks like a CFO"
+5. **Anti-QuickBooks comparison** — $35–$235/mo vs. $24 once. The strongest cost-comparison hook in the catalog because QuickBooks pricing is famously creeping and public.
+
+### Why thumbnails work on dual-cohort
+Cohort A (volume buyers): running books in shoebox/QuickBooks mess; want "real" accounting without SaaS. Thumbnail #5 (anti-QuickBooks) and #3 (cash-flow danger ribbon) speak to them.
+Cohort B (premium-tier buyers): sophisticated founders using KPIs. Thumbnail #2 (KPI Dashboard) and #4 (AI CFO) speak to them.
+Single listing, dual-cohort hook.
+
+### AI Business Co-Pilot PDF — 12 pages (1 more than other finance products)
+8 prompts vs. other products' 7 means the AI PDF gains 1 page (one prompt per page maintained). Same Wedding AI Co-Pilot template structure.
+
+Prompts: P&L Analyst / Cash Flow Coach / Depreciation Assistant / Supplier Negotiation Brief / Tax Prep Advisor / Pricing Strategist / Annual Business Review / Customer Concentration Risk.
+
+### Build estimate ~54h
+Largest in catalog. ~50% larger than Budget Tracker (~37h). Reasonable for the broadest functional surface. Expect ~16 build tickets when breakdown happens.
+
+### 3 directions A/A/A cascade pending sign-off — last cascade
+
+### Premium Finance House design phase status
+| Product | Brief | Listing |
+|---|---|---|
+| 1 Budget Tracker | ✅ Approved | ✅ |
+| 2 Debt Payoff | ✅ v1 pending | ⏳ |
+| 3 Sinking Funds | ✅ v1 pending | ⏳ |
+| 4 Net Worth | ✅ v1 pending | ⏳ |
+| 5 Small Business | ✅ v1 pending | ⏳ |
+
+**Remaining: ~4h** — 4 listing copies at ~1h each. After those, EVERY product in the catalog (Wedding + Bundle + Notion + 8 finance products = 11 products) has proposal + design brief + listing copy at v1+. Only build execution remains.
+
+### Files changed
+- `docs/product-designs/small-business-finance-kit.md` (new)
+- `session-handshake.md` — Small Business checkmark + "ALL 5 Premium Finance House briefs DONE" milestone
+
+### Next session
+Pick from:
+- **Lock the 4 pending briefs in batch** (Debt Payoff / Sinking Funds / Net Worth / Small Business all recommend A/A/A) → unblocks Figma production page setup for each
+- **Write 4 listing copies** (Debt / Sinking / NW / Small Biz) — completes the catalog planning phase fully
+- **Refresh `docs/session-summary-2026-05-11.txt`** — the fresh-session-onboarding doc is stale (predates all my product-track work this session)
+- Or pivot.
