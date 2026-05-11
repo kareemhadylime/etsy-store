@@ -4,7 +4,7 @@ import { sendTransactionalEmail } from '@/lib/email/resend'
 import { NegativeReviewAlertEmail } from '@/lib/email/templates/negative-review-alert'
 import type { Review, ReviewSentiment } from '@/lib/supabase/types'
 import { fetchEtsyReviews, type EtsyReviewRecord } from './etsy'
-import { classifyReviewSentiment, type ClassifyOptions } from './sentiment'
+import { classifyReviewSentiment } from './sentiment'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import type { Product, ProductFile, EtsyStats, Sale, BundleProduct } from '../types'
+import type { Product, ProductFile } from '../types'
 
 describe('Database types', () => {
   it('Product type has required fields', () => {

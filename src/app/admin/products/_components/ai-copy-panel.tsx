@@ -82,7 +82,7 @@ function GenerateSection({ productId, type, label, hint }: { productId: string; 
             {state.outputText}
           </pre>
           <p className="text-xs text-gray-500">
-            Cost: ${state.costUsd.toFixed(4)}. Scroll to "Recent outputs" to accept.
+            Cost: ${state.costUsd.toFixed(4)}. Scroll to &ldquo;Recent outputs&rdquo; to accept.
           </p>
         </div>
       ) : null}

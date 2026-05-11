@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   test:
-    name: typecheck + vitest + build
+    name: lint + vitest + build
     runs-on: ubuntu-latest
     # Placeholder env vars so `next build` and Supabase client constructors
     # never throw at module-eval time. These are NOT secrets — they are
@@ -42,6 +42,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Lint
+        run: npm run lint
 
       - name: Unit + integration tests
         run: npm test

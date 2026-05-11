@@ -353,10 +353,13 @@ A GitHub Actions workflow at `.github/workflows/ci.yml` runs on every push to `m
 What it runs, in order, on `ubuntu-latest` with Node 22:
 
 1. `npm ci` — clean install with the lockfile
-2. `npm test` — full vitest suite (438 tests, ~10s)
-3. `npm run build` — production `next build`, which also typechecks every file imported by a route or page
+2. `npm run lint` — ESLint via `eslint-config-next` (core-web-vitals + typescript), zero warnings tolerated
+3. `npm test` — full vitest suite (438 tests, ~10s)
+4. `npm run build` — production `next build`, which also typechecks every file imported by a route or page
 
 Placeholder env vars are injected at the workflow level so module-eval code paths (Supabase client construction, crypto key length checks, etc.) don't throw before the test framework starts. They are syntactically valid but functionally inert — real secrets live in Vercel.
+
+Lint config (`eslint.config.mjs`) honours leading-underscore unused vars/args/destructures as intentional — used liberally for `useActionState`'s `_prev` + `_formData` params and other "must-accept-but-ignore" callsites.
 
 Why no standalone `tsc --noEmit` step: `next build` already runs the TypeScript compiler over production code. The handful of `mock.calls[0][0] as X` casts in test files do not reach production and are not worth blocking CI over; if you tighten them later, add the step back.
 

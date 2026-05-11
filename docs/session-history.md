@@ -2794,3 +2794,39 @@ Remaining cascade: ~9h (3 more files at ~3h each).
 
 ### Next session
 Sinking Funds build tickets — next in cascade. Or pivot to AI prompt content files.
+
+---
+
+## Backend session — 2026-05-11 — Lint baseline cleaned, lint folded into CI
+
+Backend track follow-up to the CI workflow. `.github/workflows/ci.yml` now runs lint as a separate gate before tests, but only after fixing what lint actually complained about — 3 errors + 12 warnings on a clean run.
+
+### What was fixed
+- `src/app/admin/products/_components/ai-copy-panel.tsx` — two unescaped `"` characters in JSX (the "Recent outputs" string) replaced with `&ldquo;` / `&rdquo;` per `react/no-unescaped-entities`.
+- `src/lib/cron/__tests__/run.test.ts` — dead `// eslint-disable-next-line @typescript-eslint/no-throw-literal` directive removed. The rule isn't loaded by `eslint-config-next/typescript`, so the directive itself was the error. The `throw 'just a string'` inside the "swallows non-Error throws" test is exactly what the test needs to verify.
+- `src/lib/reviews/sync.ts` — dropped unused `type ClassifyOptions` import.
+- `src/lib/supabase/__tests__/types.test.ts` — dropped three unused type imports (`EtsyStats`, `Sale`, `BundleProduct`); only `Product` + `ProductFile` are actually exercised by the smoke test.
+- `eslint.config.mjs` — added a `no-unused-vars` rule override honouring leading-underscore ignore patterns for args, vars, caught errors, and destructured arrays. Standard "I know this is unused, leave it alone" marker — used heavily for `useActionState` action signatures (`_prev`, `_formData`).
+
+After these five edits: `npm run lint` returns clean, no output. 438/438 tests still green. `next build` clean.
+
+### What landed in CI
+`ci.yml` got a new step between install and tests:
+```yaml
+- name: Lint
+  run: npm run lint
+```
+Job name updated from `typecheck + vitest + build` to `lint + vitest + build` to match. Runbook section 11 updated: four-step pipeline (install / lint / test / build) instead of three, with a note explaining the underscore-prefix unused-var convention so future contributors don't trip on it.
+
+### Why this matters
+Before this change, lint had silently rotted into a 15-problem baseline. Anyone running `npm run lint` would see noise and either ignore it (training future contributors to ignore lint output) or burn time chasing false-positive unused-var warnings on intentional placeholders. Folding lint into CI with a clean baseline locks in the signal: any new lint failure in a PR is a real regression.
+
+### Files changed
+- `.github/workflows/ci.yml` — Lint step + renamed job
+- `eslint.config.mjs` — leading-underscore ignore pattern override
+- `src/app/admin/products/_components/ai-copy-panel.tsx` — quote escapes
+- `src/lib/cron/__tests__/run.test.ts` — drop dead disable directive
+- `src/lib/reviews/sync.ts` — drop unused type import
+- `src/lib/supabase/__tests__/types.test.ts` — drop three unused type imports
+- `docs/deployment-runbook.md` — section 11 updated to four steps + lint config note
+- `session-handshake.md` — CI bullet upgraded to four-step + new lint-hardening bullet

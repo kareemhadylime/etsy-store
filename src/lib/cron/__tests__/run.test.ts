@@ -99,7 +99,6 @@ describe('runCron', () => {
     const { runCron } = await import('../run')
 
     const res = await runCron('weird', async () => {
-      // eslint-disable-next-line @typescript-eslint/no-throw-literal
       throw 'just a string'
     })
 
