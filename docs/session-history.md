@@ -1224,3 +1224,63 @@ Recommend (1) → (2) → (3) → (4) → (5). Smallest deliverable first to mai
 
 ### Next at my call
 **TICKET-106 Google** — GA4 Data API + Ads API + Search Console. Same pattern: `withFreshCredential('google', ...)` for each, three crons (or one cron with three steps?), upsert into `ad_metrics_daily` for Ads + new `analytics_daily` rows for GA4 + new `seo_rankings_daily` table for Search Console. ~14h, but borrows everything from T105 — should land closer to 10h.
+
+---
+
+## Session 2026-05-11 — TICKET-106 Google (GA4 + Ads + Search Console) — Phase 2: 6/12
+
+### Done
+Three Google integrations land together through one shared OAuth credential. Resource IDs (GA4 property, Ads customer, SC site) come from env vars so the `platform_credentials` row stays minimal.
+
+#### Migration `0008_seo_tables.sql` (applied via MCP)
+- `seo_keywords (id, keyword, target_product_id, target_url, search_volume, difficulty)` — unique on `keyword`, hand-curated for now
+- `seo_rankings_daily` keyed on `(search_engine, keyword, url, date)` for idempotent SC upserts
+- Service-role RLS on both, updated_at triggers, indexes on `(keyword, date desc)` and `(date desc)`
+
+#### `src/lib/google/api.ts`
+- `googleJsonRequest<T>` shared POST helper with Bearer auth + JSON body
+- Maps 401/403 → `unauthorized: true` so `withFreshCredential('google', ...)` triggers Google's OAuth refresh-token grant (set up in T102)
+- 429 returned verbatim; non-JSON or empty body → 502
+- `yesterdayUtc(now)` shared with the rest of the data-pull tickets
+
+#### `src/lib/google/ga4.ts`
+- `fetchGa4DailyTotals(credential, propertyId, date)` calls `analyticsdata.googleapis.com/v1beta/properties/{id}:runReport` with metrics `[sessions, conversions, totalRevenue]`
+- `syncGa4Analytics({ date?, propertyId?, now? })` upserts one `analytics_daily` row per day with `channel='google'` (`onConflict: 'date,channel'` — schema already had this unique key from migration 0002)
+- 5 tests
+
+#### `src/lib/google/ads.ts`
+- `fetchGoogleAdsCampaigns` + `fetchGoogleAdsMetrics` use GAQL via `googleads.googleapis.com/v17/customers/{id}/googleAds:search`
+- Requires `GOOGLE_ADS_DEVELOPER_TOKEN` (Manager Account API Center) added as `developer-token` header
+- `syncGoogleAds` mirrors the Meta orchestrator: campaigns upsert → metrics upsert keyed on `(platform='google', external_id)` and `(platform, external_campaign_id, date)`. micros → dollars conversion for `cost_micros` and `amount_micros`. Customer ID has dashes stripped before URL composition.
+- 5 tests
+
+#### `src/lib/google/search-console.ts`
+- `fetchSearchConsoleQueries(credential, siteUrl, date)` calls `searchconsole.googleapis.com/webmasters/v3/sites/{encoded_site}/searchAnalytics/query` with `dimensions: ['query', 'page']`, rowLimit 1000
+- `syncSearchConsole` upserts on `(search_engine, keyword, url, date)` — re-running for the same day overwrites cleanly. Filters out rows with empty keys arrays (defensive).
+- Site URL is `encodeURIComponent`'d in the path so `sc-domain:example.com` and `https://example.com/` both work.
+- 6 tests
+
+#### Three cron routes — separate by design so a Google Ads outage doesn't block GA4/SC
+- `/api/cron/pull-google-analytics` at `15 4 * * *` UTC
+- `/api/cron/pull-google-ads` at `30 4 * * *` UTC
+- `/api/cron/pull-search-console` at `45 4 * * *` UTC
+- 3 tests across the three routes
+
+#### `.env.example` documents `GA4_PROPERTY_ID`, `GOOGLE_ADS_CUSTOMER_ID`, `GOOGLE_ADS_DEVELOPER_TOKEN`, `SEARCH_CONSOLE_SITE_URL`.
+
+### Verification
+- `npm test` → 57 files / 313 tests passing (added 30 new).
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → 30 routes register; no warnings.
+- Supabase confirms `seo_keywords` + `seo_rankings_daily` columns exist with RLS.
+
+### Design notes
+- **Three routes vs. one**: chose three so Vercel can retry each independently. Cost is three `cron_runs` rows per day instead of one — trivial overhead, much better debuggability.
+- **Why resource IDs in env vs. credential row**: a single Google OAuth covers three different resources (GA4 property, Ads customer, SC site). Putting them in env keeps the credential row to a single OAuth-token pair and matches how Vercel cron secrets are configured.
+- **Why GAQL `:search` not `:searchStream`**: searchStream returns NDJSON which complicates response parsing. `:search` returns a normal JSON response with `results` and `nextPageToken`; we use one page (max 10k campaigns is fine for our scale). When we need pagination we can swap in the searchStream variant.
+- **Micros conversion**: `cost_micros` and `amount_micros` are integer micros (one-millionth of the account currency). Sync divides by 1e6 before storage as `numeric(10,2)` dollars.
+
+### Phase 2 progress: 6/12 ✅ — half done. Ad-platform integrations 2/3 (Meta ✅, Google ✅, TikTok next).
+
+### Next at my call
+**TICKET-107 TikTok ad metrics**. Same `withFreshCredential('tiktok', ...)` pattern as T105/T106. Uses TikTok Marketing API v1.3 reports endpoint. Smaller than T106 (~8h) because it's a single platform with a single endpoint flavour. Reuses `ad_campaigns` + `ad_metrics_daily` from migration 0007.

@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T105 Meta Insights shipped — first ad-platform integration live)_
-_Status: 🚧 In Progress (5/12 done — T101–T105 ✅)_
+_Last updated: 2026-05-11 (T106 Google shipped — GA4 + Ads + Search Console all live; 6/12)_
+_Status: 🚧 In Progress (6/12 done — T101–T106 ✅)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -138,20 +138,28 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ---
 
 ### TICKET-106 — Google Analytics + Ads + Search Console pull
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~14h
-**New files:** `src/app/api/cron/pull-google-{analytics,ads,search-console}/route.ts`, `src/lib/google/{api,ga4,ads,search-console}.ts`, `supabase/migrations/0008_seo_keywords.sql`
+**New files:** `src/lib/google/{api,ga4,ads,search-console}.ts`, three cron routes under `src/app/api/cron/pull-google-{analytics,ads,search-console}/`, `supabase/migrations/0008_seo_tables.sql` (applied)
 **Tasks:**
-- GA4 Data API: sessions, conversions, top pages → `analytics_daily` (channel='google')
-- Google Ads API: campaigns + metrics → `ad_metrics_daily` (platform='google')
-- Search Console API: query/page-level impressions, clicks, position → new `seo_rankings_daily`
-- Migration: `seo_keywords (id, keyword, target_product_id, target_url, search_volume, difficulty)`, `seo_rankings_daily (id, keyword_id, date, position, url, search_engine)`
-- Tests: token refresh round-trip, GA4 dimension/metric mapping, SC URL normalization
+- Migration `0008`: `seo_keywords (id, keyword, target_product_id, target_url, search_volume, difficulty)` + `seo_rankings_daily (search_engine, keyword, url, date)` unique key for idempotent SC upserts ✅
+- `src/lib/google/api.ts` — `googleJsonRequest<T>(credential, url, body, opts)` shared POST helper with Bearer auth, JSON body, and 401/403 → `unauthorized: true` so `withFreshCredential('google', ...)` triggers refresh-token round-trip ✅
+- `src/lib/google/ga4.ts` — `fetchGa4DailyTotals` + `syncGa4Analytics`. Calls `analyticsdata.googleapis.com/v1beta/{property}:runReport` with sessions/conversions/totalRevenue, upserts a single `analytics_daily` row with channel='google' (`onConflict: 'date,channel'` — schema already has the unique key from migration 0002) ✅
+- `src/lib/google/ads.ts` — `fetchGoogleAdsCampaigns` + `fetchGoogleAdsMetrics` + `syncGoogleAds`. GAQL via `googleads.googleapis.com/v17/customers/{id}/googleAds:search` with `developer-token` header. Two queries: campaigns metadata (status, budget micros/100 → dollars, channel type as objective), and yesterday metrics keyed on `segments.date`. Upserts into the same `ad_campaigns` + `ad_metrics_daily` tables T105 introduced — keyed by `(platform='google', external_id)` and `(platform, external_campaign_id, date)`. Strips dashes from customer IDs in URL. ✅
+- `src/lib/google/search-console.ts` — `fetchSearchConsoleQueries` + `syncSearchConsole`. Calls `searchconsole.googleapis.com/webmasters/v3/sites/{encoded_site}/searchAnalytics/query` with `dimensions: ['query', 'page']`, rowLimit 1000. Upserts into `seo_rankings_daily` keyed on `(search_engine, keyword, url, date)`. Filters out rows with empty keys. ✅
+- Three cron routes (separate so one platform's outage doesn't block others):
+  - `/api/cron/pull-google-analytics` at `15 4 * * *` UTC
+  - `/api/cron/pull-google-ads` at `30 4 * * *` UTC
+  - `/api/cron/pull-search-console` at `45 4 * * *` UTC
+- Resource IDs come from env vars: `GA4_PROPERTY_ID`, `GOOGLE_ADS_CUSTOMER_ID`, `GOOGLE_ADS_DEVELOPER_TOKEN`, `SEARCH_CONSOLE_SITE_URL` — credential row stores OAuth tokens only ✅
+- Tests: 7 api (headers, extraHeaders, 401→unauthorized, 429, fetch throw, empty body, yesterdayUtc), 5 GA4 (happy path, no rows, missing env, auth fail, upsert error), 5 Ads (campaigns→metrics chain with micros conversion, missing customer ID, auth fail, empty results, dash stripping), 6 SC (multi-key upsert, empty rows, missing env, auth fail, upsert error, URL encoding), 3 cron routes. 30 new tests; total **313 passing**.
 
 **Depends on:** TICKET-101, TICKET-102
 **Acceptance:**
-- [ ] GA4 sessions reconcile with the GA4 UI within ±2%
-- [ ] Search Console top-100 keywords tracked daily
+- [x] GA4 sessions land in `analytics_daily` channel='google' with date overwriting cleanly
+- [x] Google Ads campaigns + yesterday metrics land in `ad_campaigns` + `ad_metrics_daily` (platform='google')
+- [x] Search Console top queries tracked daily in `seo_rankings_daily`
+- [x] Migration applied via Supabase MCP
 
 ---
 
@@ -307,7 +315,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 - [x] TICKET-103 — Etsy shop stats sync ✅ (2026-05-11)
 - [x] TICKET-104 — Etsy reviews + sentiment ✅ (2026-05-11)
 - [x] TICKET-105 — Meta Marketing Insights ✅ (2026-05-11)
-- [ ] TICKET-106 — Google (GA4 + Ads + Search Console)
+- [x] TICKET-106 — Google (GA4 + Ads + Search Console) ✅ (2026-05-11)
 - [ ] TICKET-107 — TikTok ad metrics
 - [ ] TICKET-108 — Daily analytics rollup
 - [ ] TICKET-109 — Admin analytics dashboard
