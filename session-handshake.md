@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (**🚀 PUSHED.** 69 commits flushed to `origin/main` at tip `e650edf`. CI now running — `.github/workflows/ci.yml` first real exercise. Both tracks at clean stopping point: products catalog ready for external execution (Figma / Sheets / Notion / Etsy), backend Phase 3 fully scoped with all 8 decisions locked.)_
+_Last updated: 2026-05-11 (**🚀 PUSHED + 🟢 CI GREEN on first run.** 69 commits flushed; both CI jobs (`lint + vitest + build`, `migration replay`) passed at tip `e650edf`. Then bootstrapped the schema-drift guard: downloaded the `schema-current` artifact from the green run, fixed a non-determinism bug in CI's pg_dump filter (random `\restrict` session tokens needed stripping), committed the cleaned snapshot as `supabase/schema.snapshot.sql`. From this commit onward, drift detection is live.)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)

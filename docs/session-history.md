@@ -4126,3 +4126,41 @@ Recommendation: option 1 if planning bandwidth remains; option 3 if pivot to bui
 ### Files changed
 - `docs/execution-plan.md` (new — 11 sections, ~280 lines)
 - `session-handshake.md` — execution plan checkmark + pivot decision points
+
+---
+
+## Backend session — 2026-05-11 — Push, CI green on first try, schema-drift guard bootstrapped
+
+User said "push all and update session handoff." Pushed the 69 commits, watched CI go green, grabbed the `schema-current` artifact, fixed a non-determinism bug in the drift-detection pipeline, and committed the snapshot to activate the guard.
+
+### Sequence of events
+1. **Push** — `git push` flushed 69 commits, `cbde43d..e650edf  main -> main` fast-forward. No force, no special handling.
+2. **CI first-run** — Run `25689803780` started seconds after push. Both jobs (`lint + vitest + build` and `migration replay`) went **green**. Validated in one shot: workflow file (`4308875`), lint zero-warning baseline (`3fa4d35`), README+Dependabot+PR template (`2df81c6`), migration replay (`54ea59a`), schema-drift guard scaffolding (`74ff4fc`), security headers (`4ed7c38`), CSP report-only (`32e8fc2`), boot-time env validator + instrumentation.ts (`1e56667`), typed env accessor migration across 19 files (`42bdd78`). Production build cleanly evaluated `instrumentation.ts` against the workflow's placeholder boot-tier env vars — no surprise crashes.
+3. **Artifact grab** — `gh run download 25689803780 --name schema-current` pulled the 2,306-line `schema.current.sql`.
+4. **Non-determinism bug found** — pg_dump 16+ wraps its output in `\restrict <random-token>` / `\unrestrict <random-token>` directives that change every run. The existing ci.yml sed filter stripped version/timestamp lines but not these. Committing the artifact as-is would have made the next CI run's drift check fail spuriously.
+5. **Fix at source + bootstrap together** — Extended ci.yml's pg_dump filter with two more sed `-e` clauses for `\restrict` / `\unrestrict`. Bash single-quoted needs 4 literal backslashes for sed BRE to match one literal `\` (verified empirically — first attempt with 2 backslashes silently failed). Stripped the same lines from the local artifact. Result: 2,304 lines, committed as `supabase/schema.snapshot.sql`.
+
+### What this unlocks
+The schema-drift guard is now **live**. Next CI run after this commit will diff the freshly-generated dump against the committed snapshot; if they don't match, the workflow fails with the unified diff. Future migration changes follow the documented workflow: CI fails → download new artifact → commit as new snapshot → CI passes.
+
+### Sed-escape gotcha noted for future-me
+The four-backslash pattern `'/^\\\\restrict /d'` in a single-quoted bash sed argument works for matching literal `\restrict` at line start. Trying it with two backslashes (`'/^\\restrict /d'`) silently fails — sed doesn't strip the line and there's no error. Documented inline in ci.yml.
+
+### Files changed
+- `.github/workflows/ci.yml` — sed filter extended with `\restrict` + `\unrestrict` strip
+- `supabase/schema.snapshot.sql` — new (2,304 lines, bootstrap snapshot)
+- `session-handshake.md` — `Last updated` line now reads "PUSHED + CI GREEN + drift-guard activated"
+- `docs/session-history.md` — this entry
+
+### Verification
+- ci.yml lint clean, sed pattern verified empirically against `printf` input
+- `grep -c "restrict" supabase/schema.snapshot.sql` returns 0
+- First CI run (pre-this-commit) — both jobs green, already verified via `gh run view`
+- Pending: next CI run on the commit landing this snapshot must show the drift check passing (`Schema matches committed snapshot.` in workflow output)
+
+### Loose ends still standing
+- **CSP enforce-mode flip** — still needs ~1 release cycle of report-only monitor data. Procedure in runbook §14.
+- **Phase 3 ticket execution** — when ready, T201 is the entry point. All decisions locked.
+- **Database types wiring** — `database.types.ts` is a reference artefact; `service.ts` still uses widened `Record<string, never>` because 19 callsites use `asTable<T>(client, name: string)` patterns that the strict `SupabaseClient<Database>` generic rejects. Real refactor, deferred.
+
+Everything else from the previous handoff is closed.
