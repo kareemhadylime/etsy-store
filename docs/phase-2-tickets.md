@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T107 TikTok shipped — Phase 2B data-pull layer COMPLETE; 7/12)_
-_Status: 🚧 In Progress (7/12 done — T101–T107 ✅; 2C/2D ahead)_
+_Last updated: 2026-05-11 (T108 rollup shipped — 8/12)_
+_Status: 🚧 In Progress (8/12 done — T101–T108 ✅; T109 dashboard + 2D automation ahead)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -185,20 +185,26 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ## Synthesis layer
 
 ### TICKET-108 — Daily analytics rollup cron
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~8h
-**New files:** `src/app/api/cron/aggregate-analytics-daily/route.ts`, `src/lib/analytics/rollup.ts`
+**New files:** `src/lib/analytics/rollup.ts`, `src/app/api/cron/aggregate-analytics-daily/route.ts`
 **Tasks:**
-- Aggregate per-channel rows into `analytics_daily` summary
-- Cross-channel ROAS calc: revenue / ad_spend per channel
-- Detect channel attribution conflicts (record raw; resolve later)
-- Schedule: `30 4 * * *` UTC (after all pulls land)
-- Tests: math, missing-source tolerance, idempotent rerun
+- `aggregateDailyAnalytics({ date?, now? })` reads four sources for the day:
+  - `ad_metrics_daily` grouped by `platform` → totals for meta/google/tiktok ✅
+  - `orders` for the date window → etsy conversions + revenue ✅
+  - `conversion_events WHERE event_type='etsy_click'` for the date window → etsy clicks ✅
+  - existing `analytics_daily` row for `channel='google'` from T106 GA4 → sessions/conversions/revenue merged in ✅
+- Upserts one row per channel on `(date, channel)` (existing unique key from migration 0002) ✅
+- For Google specifically: merges Ads-tracked + GA4-tracked, taking the higher of the two for conversions+revenue so we never drop data (rare edge case where ads-only conversions > GA4 because GA4 attribution dropped the click) ✅
+- `computeRoas(revenue, ad_spend)` helper returns null when spend ≤ 0, otherwise rounds to 2dp ✅
+- Cron at `30 5 * * *` UTC — runs after the last data-pull cron at `0 5` ✅
+- Tests: 6 rollup (4-channel happy path, GA4 merge, ads > GA4 edge, all-zero, upsert error, date default) + 2 ROAS helper + 3 route. 11 new tests; total **341 passing**.
 
 **Depends on:** TICKET-103, TICKET-105, TICKET-106, TICKET-107
 **Acceptance:**
-- [ ] `analytics_daily` has one row per (date, channel) covering yesterday
-- [ ] Rerunning the cron for the same day overwrites cleanly
+- [x] `analytics_daily` has one row per (date, channel) covering yesterday (etsy + meta + google + tiktok)
+- [x] Rerunning the cron for the same day overwrites cleanly via `onConflict: 'date,channel'`
+- [x] Missing source data tolerated — channel rows still written with 0 fields
 
 ---
 
@@ -321,7 +327,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 - [x] TICKET-105 — Meta Marketing Insights ✅ (2026-05-11)
 - [x] TICKET-106 — Google (GA4 + Ads + Search Console) ✅ (2026-05-11)
 - [x] TICKET-107 — TikTok ad metrics ✅ (2026-05-11)
-- [ ] TICKET-108 — Daily analytics rollup
+- [x] TICKET-108 — Daily analytics rollup ✅ (2026-05-11)
 - [ ] TICKET-109 — Admin analytics dashboard
 - [ ] TICKET-110 — Klaviyo integration + post-purchase flow
 - [ ] TICKET-111 — AI listing copy generator

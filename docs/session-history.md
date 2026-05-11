@@ -1334,3 +1334,54 @@ Each writes one `cron_runs` audit row. T108 will run at `06:00` and aggregate al
 
 ### Next at my call
 **TICKET-108 daily analytics rollup**. Reads all the per-platform tables that just got populated and writes one `analytics_daily` row per channel/date. ROAS calculation across platforms. Schedule `30 5 * * *` UTC (after all pulls). ~8h.
+
+---
+
+## Session 2026-05-11 — TICKET-108 Daily analytics rollup (Phase 2: 8/12)
+
+### Done
+- `src/lib/analytics/rollup.ts` — `aggregateDailyAnalytics({ date?, now? })`:
+  - For each ad platform (meta/google/tiktok): groups `ad_metrics_daily` rows for the date and sums impressions/clicks/spend/conversions/revenue
+  - For etsy: counts `orders` whose `ordered_at` falls within the UTC day window for revenue + conversion count; counts `conversion_events WHERE event_type='etsy_click'` for click count
+  - For google specifically: reads the existing `analytics_daily WHERE channel='google'` row (T106 GA4 already wrote it) and merges sessions in. Takes `max(adsConversions, ga4Conversions)` and `max(adsRevenue, ga4Revenue)` so we never drop data when GA4 attribution dropped a click vs. when ads-only conversion tracking caught it
+  - Upserts one row per channel on `(date, channel)` (existing unique key from migration 0002)
+  - `computeRoas(revenue, ad_spend)` helper returns `null` when spend ≤ 0, otherwise revenue/spend rounded to 2dp
+- `src/app/api/cron/aggregate-analytics-daily/route.ts` — wraps in `runCron('aggregate-analytics-daily', ...)`, logs `date` and the channel list, sets `rows_processed = written`.
+- `vercel.json` entry at `30 5 * * *` UTC — runs after the last data-pull cron at `0 5`.
+- Tests:
+  - `src/lib/analytics/__tests__/rollup.test.ts` — 8 tests across 4-channel happy path, GA4 merge, ads > GA4 edge case, all-zero (no data tolerated), upsert error, date default, ROAS arithmetic, ROAS null when spend is zero/negative/NaN.
+  - `src/app/api/cron/aggregate-analytics-daily/__tests__/route.test.ts` — 3 tests (auth gate, success with channel list, rollup failure → 500).
+- 11 new tests; total **341 passing**.
+
+### Cron schedule (now)
+```
+00:00 hourly  heartbeat
+03:00 daily   sync-etsy-stats
+03:30 daily   sync-etsy-reviews
+04:00 daily   pull-meta-insights
+04:15 daily   pull-google-analytics
+04:30 daily   pull-google-ads
+04:45 daily   pull-search-console
+05:00 daily   pull-tiktok-insights
+05:30 daily   aggregate-analytics-daily  ← T108 reads everything above
+```
+
+### Design decisions
+- **Why upsert all 4 rows every run vs. only-changed**: rollup is cheap (one read per source, one bulk upsert). Always writing all 4 keeps the dashboard's date queries simple — no "missing channel for this date" edge case to handle in T109.
+- **Why max(ads, ga4) for google conversions/revenue**: GA4 sees organic + paid traffic, Ads sees only paid. In the common case GA4 ≥ Ads. But click-tracker drop-off (iOS 14+ etc.) can make GA4 < Ads. Max ensures the dashboard always shows the more complete number.
+- **Etsy clicks via conversion_events**: T008 already writes `etsy_click` rows on every storefront CTA. Counting them is the cheapest signal we have for storefront → Etsy intent.
+- **`raw_data.aggregated_at`**: stamps the time of the rollup run on each row. Cheap debugging aid when reconciling against source tables.
+
+### Phase 2 progress: 8/12 ✅
+- 2A foundation ✅
+- 2B data pulls ✅
+- **2C synthesis** in progress — T108 ✅, T109 dashboard next
+- 2D automation — T110 Klaviyo, T111 AI listing copy, T112 content engine
+
+### Verification
+- `npm test` → 62 files / 341 tests passing.
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → 32 routes register; no warnings.
+
+### Next at my call
+**TICKET-109 admin analytics dashboard** — page at `/admin/analytics` that reads `analytics_daily` for a date range, shows totals per channel + ROAS table + top products by revenue + drill-down links to `cron_runs` for the selected date. No new schema; pure UI. ~14h but most is layout/styling.
