@@ -28,6 +28,13 @@ Tick these off before touching env vars:
 
 Every env var the codebase reads, grouped by surface. Set all in **Vercel → Project → Settings → Environment Variables**. Apply to Production + Preview (and a sane subset to Development if you want to run `next dev`).
 
+The full schema lives in `src/lib/env.ts` and a boot-time validator (`src/instrumentation.ts`) runs at server start. Three severity tiers:
+- **`boot`** — server cannot start, throws on missing. Currently: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- **`prod`** — server boots but core flows degrade; logs a `[env] WARN` line. Currently: `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL`, `CRON_SECRET`, `CREDENTIALS_ENCRYPTION_KEY`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `ETSY_API_KEY`, `ETSY_WEBHOOK_SECRET`.
+- **`feature`** — an integration is disabled without it; logs `[env] enabled groups: …` / `[env] partial groups: …` for situational awareness.
+
+After deploying, search the first few seconds of logs for `[env]` lines — they give a definitive answer to "is this configured correctly?" without having to test every integration manually.
+
 ### 1a. Supabase
 | Variable | Required | Where |
 |---|---|---|

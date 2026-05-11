@@ -3117,6 +3117,54 @@ The actual header list lives in a separate module (`src/lib/security/headers.ts`
 
 ---
 
+## Backend session — 2026-05-11 — Boot-time env-var validator + Next.js instrumentation hook
+
+The runbook + `.env.example` + the actual code reads were all in sync after the previous round, but there was no programmatic check that a deployed instance had its env actually configured correctly. Misconfigured Vercel deploys would fail cryptically at first request — `process.env.NEXT_PUBLIC_SUPABASE_URL!` throws "Cannot read property of undefined" 50 stack frames into a Supabase client. This ship moves that failure to server boot with a clear `[env] FATAL: required boot env vars missing — NEXT_PUBLIC_SUPABASE_URL` log line.
+
+### Three-tier schema
+`src/lib/env.ts` defines `ENV_SCHEMA` (33 entries — every env var the codebase reads) tagged by severity:
+
+- **`boot`** (2 entries): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`. These are read at module-eval in `proxy.ts` + `supabase/server.ts` with `!` non-null assertions, so missing them already crashes the server today — this just moves the crash earlier with a better error message.
+- **`prod`** (8 entries): `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL`, `CRON_SECRET`, `CREDENTIALS_ENCRYPTION_KEY`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `ETSY_API_KEY`, `ETSY_WEBHOOK_SECRET`. Server boots without them but core flows degrade — logs `[env] WARN` lines listing what's missing.
+- **`feature`** (23 entries): AI / Klaviyo / Meta / Google / TikTok / Pinterest / branding fallbacks. Logs `[env] enabled groups: …` and `[env] partial groups: …` so an operator can verify integration footprint at a glance.
+
+### Group-level "enabled" calculation
+`checkEnv()` reports which feature groups are fully configured. A group is "enabled" iff every var in it (across all severities) is set; "partial" iff some-but-not-all. So if you set `KLAVIYO_API_KEY` but forget `KLAVIYO_WEBHOOK_SECRET`, the boot log surfaces `partial groups: klaviyo` — telegraphing the half-finished setup before a real webhook hit fails signature verification.
+
+### Wiring
+`src/instrumentation.ts` is Next.js 16's official boot hook (per `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/instrumentation.md`). It exports a `register()` function that runs once when a new Next.js server instance is initiated and must complete before the server is ready to handle requests. Our `register()` is a one-liner that calls `validateEnvAtBoot()`.
+
+The validator does NOT run during `next build` — build just compiles the file. So the CI build remains safe even if production-recommended vars aren't in the workflow's `env:` block.
+
+### Tests (17 new, 464 total)
+`src/lib/__tests__/env.test.ts` covers:
+- ENV_SCHEMA shape (non-empty, unique names, valid severities, non-empty descriptions)
+- `checkEnv()` correctness across all three severities + group-enabled-vs-partial logic
+- `validateEnvAtBoot()` throws on missing boot vars, doesn't throw on prod/feature missing, logs the right strings (spied via `vi.spyOn(console, 'warn')` etc.)
+- Empty-string treated as missing (not "configured to empty")
+
+### What this is NOT
+- It's NOT a typed-env-accessor refactor. Every existing `process.env.X` call site still works exactly as before. A future ship can migrate call sites to `env.X` typed accessors if value is demonstrated; this ship just adds the schema + boot check.
+- It's NOT a runtime env-var change detector. If someone rotates `RESEND_API_KEY` in Vercel and redeploys, the validator runs once at boot of the new instance.
+
+### Files changed
+- `src/lib/env.ts` — new module, 33-entry schema + `checkEnv` + `validateEnvAtBoot`
+- `src/lib/__tests__/env.test.ts` — 17 new tests
+- `src/instrumentation.ts` — new file; Next 16 boot hook
+- `docs/deployment-runbook.md` — §1 extended with severity-tier explainer + log-scan post-deploy instruction
+- `session-handshake.md` — new bullet
+
+### Verification
+- `npm run lint` clean
+- `npm test` 464/464 (was 447; +17 new)
+- `npm run build` clean — the build evaluates `instrumentation.ts` at compile time but does not invoke `register()`, so the validator's throw behaviour is server-boot-only and doesn't affect CI builds even though the workflow doesn't set production-recommended vars.
+
+### Loose ends
+- Migrating the ~30 `process.env.X` call sites to typed `env.X` accessors is a meaningful follow-up if anyone wants the type-safety win. Not done here to keep this ship focused.
+- The validator only runs on Node runtime startup. Edge runtime middleware (`proxy.ts`) doesn't trigger instrumentation hooks. Boot-tier vars are still safe (they crash at module-eval anyway), but a future "Vercel Edge has different env" surprise would slip past this guard.
+
+---
+
 ## Session 2026-05-11 — Budget Tracker AI Money Advisor content v1 (products session)
 
 User said "work on optional, deferred, external". Started with highest-leverage item: AI prompt content cascade (pre-requisite for AI PDF build tickets).
