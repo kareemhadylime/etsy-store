@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-10 (Notion Life OS design brief v1 ✅ — all 3 design briefs done, ready for visual production)_
+_Last updated: 2026-05-11 (Production decisions locked across Bundle + Notion briefs — visual production fully unblocked)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -103,9 +103,11 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **Bundle design brief v1 ✅** — directions signed off, brief written → `docs/product-designs/all-in-one-premium-bundle.md` (Premium Finance House: charcoal + warm gold + Inter; hero-stack covers w/ tier+SKU variants; linear Setup Wizard PDF; hybrid AI library PDF ~30pp; 5 thumbnails; ~33h refined build estimate)
 - [x] **Notion Life OS design brief v1 ✅** — directions signed off, brief written → `docs/product-designs/notion-life-os.md` (Premium Finance House w/ Notion-blue accent inside workspace; charcoal→gold gradient banners + 6 custom glyphs; dashboard-first 6-page Essentials MVP; 5-page Setup PDF; 5 thumbnails w/ comparison strip; ~15h design + 25h template + 12h plumbing = ~52h MVP total)
 - [x] **All 3 design briefs DONE** — Wedding, Bundle, Notion Life OS all at v1 with directions locked. Visual production can start.
+- [x] **Production decisions locked across all 3 briefs (2026-05-11) ✅** — Figma file structure: `Wedding Brand Kit` stays self-contained; new `Premium Finance Brand Kit` houses Bundle + Notion + 5 future finance-product briefs. Bundle: placeholder mockups now + Figma→PDF for the 30pp AI library. Notion: Phosphor glyphs w/ 2px stroke override + realistic dummy seed data + ship pointed comparison thumbnail as-spec.
 - [ ] Build envelope after all 3 briefs locked: **~107h total** (50h Wedding + 33h Bundle + 52h Notion Essentials including 12h TICKET-011 plumbing) vs. original ~182h estimate
+- [ ] Visual production unblocked — next step is setting up the two Figma files (`Wedding Brand Kit` already exists from session 2026-05-10; create `Premium Finance Brand Kit` w/ palette + type + glyph slots + mockup-card master components, ~4h) then producing covers/thumbnails/PDFs in parallel
+- [ ] Cover production starts: Bundle hero stack (4 variants) and Notion hero browser-frame mockup can both begin once `Premium Finance Brand Kit` is set up
 - [ ] After visual production starts: Wedding build (~50h) → Bundle assembly (~33h) → Notion Life OS MVP (~52h, runs partially parallel)
-- [ ] Open production decisions still need answers across all 3 briefs before production starts — see each brief's Section 7
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.

@@ -845,3 +845,43 @@ All 11 products now have proposals at v3 final parity, and all 3 new SKUs (Weddi
 - `/clear` recommended (3-brief design phase compounds context heavily)
 - Then either: (a) answer the open production decisions across all 3 briefs (each brief's Section 7), OR (b) start visual production on whichever brief is first in queue, OR (c) pivot to Phase 2 backend build (T101 + T102 are unblocked per `phase-2-tickets.md`)
 - Recommend (a) → (b) sequence — locking the Figma file structure decision across Wedding/Bundle/Notion is a single conversation that unblocks all production work in parallel
+
+---
+
+## Session 2026-05-11 — Production decisions locked across Bundle + Notion briefs
+
+### Decisions locked (defaults accepted)
+- **Cross-brief Figma file structure:** Option B — two files. `Wedding Brand Kit` stays self-contained (locked last session, Cormorant + dusty rose). New `Premium Finance Brand Kit` houses Bundle + Notion + the 5 future finance-product design briefs as Page Tabs. Single source of truth for the Finance house palette so a tweak ripples cleanly across 6 products.
+- **Bundle B1 mockup screenshots:** A — build placeholder spreadsheet mockups now using locked palette + tab structure. Covers ship before final spreadsheets are 100% done; refresh later if anything drifts (~1h cost).
+- **Bundle B2 PDF tool for 30-page AI library:** A — Figma → PDF export. Tool consistency with Wedding wins. No InDesign added to the production stack.
+- **Notion N1 glyph drawing source:** B — license Phosphor regular weight as source, apply 2px stroke + 4px corner-radius override in Figma to match banner spec. Saves ~90 min vs custom-drawing.
+- **Notion N2 template seed content:** A — ship with realistic dummy data (10 expenses, 5 categories, 3 bills, 2 income entries). Empty Notion templates feel hollow on duplicate; the Setup PDF's 5-step first-day actions becomes "replace these examples" instead of "create from zero."
+- **Notion N3 comparison thumbnail (#5):** A — ship as-spec with the pointed "$9 vs $29" side-by-side and caption "Because $9 templates are empty pages with a header." At $29 against $11–$36 EHunt comps the listing must defend the gap visually. No competitor named → low Etsy-flag risk. Softer fallback documented for v1.1 if Etsy support flags.
+
+### Files changed
+- `docs/product-designs/all-in-one-premium-bundle.md` — Section 7 rewritten from "Open production decisions for next session" → "Production decisions (locked 2026-05-11)" with implications-for-build subsection.
+- `docs/product-designs/notion-life-os.md` — Section 7 rewritten with locked decisions + cross-brief lock-in subsection confirming Notion lives as a Page Tab inside the new `Premium Finance Brand Kit` file.
+- `session-handshake.md` — last-updated stamp + new "Production decisions locked across all 3 briefs" checkmark + visual-production unblocked notes.
+
+### Why two Figma files (not one mega kit, not three isolated kits)
+Mega-kit would tangle Wedding's romance-coded type with the Finance house's tool-coded type — palette discipline gets hard to enforce when two opposing brand identities share one library. Three isolated kits multiplies setup work and risks Finance palette drift across the 6 finance products. Two files puts the boundary at the brand identity line: one file = one identity = one library = clean enforcement.
+
+### Why placeholder mockups beat waiting
+Cover shipping isn't gated on finished products — buyers see covers before they own anything. Building placeholders from the locked palette + tab structure (~3h) keeps the cover production critical path independent of the ~50h Wedding spreadsheet build. The ~1h refresh cost if any final spreadsheet diverges from its placeholder is cheap insurance.
+
+### Why Phosphor over custom glyphs
+6 banner glyphs × ~20 min each = 2h custom drawing. Phosphor regular weight already aligns close to our 2px stroke spec — applying the override in Figma takes ~30 min total. Originality risk is genuinely low because the template content is the value proposition, not the icon set. Same trade many premium Notion sellers (Easlo, Notion VIP) make.
+
+### Visual production critical path (now unblocked)
+1. Create `Premium Finance Brand Kit` Figma file (~4h) — palette + type styles + glyph slots + mockup-card master components on shared library pages
+2. Bundle placeholder mockups (~3h) + Notion banner system (~3h) — both depend on step 1 but run in parallel
+3. Bundle hero stack covers (4 variants @ ~45min each ≈ 3h) + Notion hero browser-frame mockup (~2h)
+4. Remaining thumbnails (Bundle 4 × ~1h, Notion 4 × ~45min ≈ 7h)
+5. PDFs: Bundle Setup Wizard + AI library (~13h) + Notion Setup PDF (~4h)
+
+Estimated time to all visual assets ready: ~40h across both files (separate from the ~83h template builds: Wedding 50h + Notion template 25h + TICKET-011 plumbing 12h, with Wedding spreadsheet visual production folded into its own ~50h envelope).
+
+### Next session
+- `/clear` recommended before kicking off visual production
+- Then choose entry point: (a) start the `Premium Finance Brand Kit` Figma setup, OR (b) flip to Phase 2 backend build (T101 + T102 unblocked), OR (c) pull TICKET-011 Notion fulfillment plumbing (Phase 1.5, ~12h)
+- Recommend (a) — design phase has the most build-up momentum and the Brand Kit unblocks the most parallel work

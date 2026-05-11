@@ -148,11 +148,16 @@ Tier-specific cover variants apply to thumbnail #1 only (4 covers per Section 2 
 - [ ] Quick-start 1-pager (shared across both bundles, tier-agnostic)
 - [ ] Listing copy (titles, descriptions, tags) for both bundle SKUs × 2 tiers = 4 listings worth — separate doc
 
-## 7. Open production decisions for next session
+## 7. Production decisions (locked 2026-05-11)
 
-1. **Figma file structure:** extend the existing "Wedding Brand Kit" file with a new "Bundle Brand Kit" page, OR start a new "Premium Finance Brand Kit" file that imports the dusty-rose accent? (Recommend: new file. Wedding kit stays self-contained for re-skin/re-export; Bundle kit is the start of the future finance-product visual library.)
-2. **Mockup screenshots source:** mock the 5 finance product spreadsheets *now* (placeholder content) for cover stack, OR wait for actual spreadsheet builds before designing covers? (Recommend: build placeholder mockups using the locked palette + tab structure — covers can ship before spreadsheets are 100% done; refresh later if needed.)
-3. **PDF tool:** stay with Figma → PDF export per Wedding decision (consistency win), or switch to InDesign for the 30-page AI library specifically (reflow advantage)? (Recommend: Figma. 30 pages is still fine for Figma; tool consistency > reflow at this scale.)
+1. **Figma file structure → B (new file).** Wedding Brand Kit stays self-contained (Cormorant + dusty rose island). A new `Premium Finance Brand Kit` Figma file houses Bundle + Notion + the 5 future finance-product design briefs as separate pages. Single source of truth for the Finance house palette; a palette tweak ripples cleanly across 6 products at once.
+2. **Mockup screenshots source → A (placeholder now).** Build placeholder spreadsheet mockups using the locked palette + tab structure so covers ship before final spreadsheets are 100% done. Refresh later if anything drifts (~1h cost).
+3. **PDF tool → A (Figma → PDF).** Tool consistency with Wedding wins; 30 pages is still fine in Figma. No InDesign added to the production stack.
+
+### Implications for build
+- The 4h "Premium Finance Brand Kit" setup from Section 8 now produces the *file itself* (palette + type styles + glyph slots + mockup-card master components on shared library pages) plus Bundle-specific pages on top. Notion Life OS becomes a Page Tab in this same file (zero additional setup cost).
+- Hero stack covers can start the moment the placeholder mockups are drawn (~3h). No dependency on Wedding/Bundle/Notion spreadsheet completion.
+- AI master library PDF builds inside the same Figma file. Page count is 28 (Finance variant) / 30 (Life variant) — well within Figma's prototype-to-PDF workflow.
 
 ## 8. Build estimate (refined from proposal)
 

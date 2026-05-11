@@ -171,11 +171,14 @@ Thumbnail #5 is intentionally pointed. At our price tier (above the EHunt notion
 - [ ] Listing copy (title, description, tags, FAQs) — separate doc
 - [ ] Delivery email template (Resend, for TICKET-011) — references the Setup PDF in body, embeds duplicate URL with prominent button
 
-## 7. Open production decisions for next session
+## 7. Production decisions (locked 2026-05-11)
 
-1. **Glyph drawing source:** custom-draw the 6 glyphs in Figma (~2h, full brand control) OR license from a premium icon set like Phosphor / Lucide / Iconoir (~30min, less original but professional). Recommend: **license from Phosphor with custom stroke override.** Saves 90 min and Phosphor's regular weight aligns with our 2px stroke spec. Originality risk is low — the value is in the template, not the icons.
-2. **Notion template seed content:** ship the template with realistic dummy data (10 expenses, 5 budget categories, 3 bills) for instant "wow" on duplicate, OR ship empty for clean start. Recommend: **realistic dummy data.** Empty Notion templates feel hollow on first open and buyers don't always read the Setup PDF first. The 5-step first-day actions in the PDF then walk them through replacing the dummies.
-3. **Comparison strip in thumbnail #5:** ship as-spec (pointed against generic competitors) OR soften to "what's inside" infographic. Recommend: **ship as-spec.** We need the price defense at $29 against $9 comps. If Etsy support flags it (unlikely — we're not naming a competitor), swap to softer version in v1.1.
+1. **Glyph drawing source → B (license Phosphor).** Use Phosphor regular weight as the source, then apply our 2px stroke + 4px corner-radius override in Figma to align with the banner spec. Originality risk is low — the value is in the template content, not the icons. Saves ~90 min vs. custom-drawing.
+2. **Notion template seed content → A (realistic dummy data).** Ship with 10 expenses, 5 budget categories, 3 bills, 2 income entries pre-populated. Empty Notion templates feel hollow on first duplicate; the 5-step "First-day actions" page in the Setup PDF then walks buyers through replacing the dummies rather than asking them to create from zero.
+3. **Comparison strip thumbnail (#5) → A (ship as-spec).** Pointed "$9 vs $29" side-by-side with the caption "Because $9 templates are empty pages with a header." At our price tier above the EHunt notion median ($11–$36) the listing must defend the gap visually. No competitor named → low Etsy-flag risk. If Etsy support flags it (unlikely), swap to the softer "what's inside" infographic in v1.1.
+
+### Cross-brief lock-in (2026-05-11)
+- **Figma file:** Notion Life OS lives as a Page Tab inside the new `Premium Finance Brand Kit` file (shared with Bundle and the 5 future finance products). Zero additional file-setup cost — the Brand Kit's palette + type styles + glyph slots are inherited; only the Notion-specific dual-secondary rule and the 6 banner exports are added on top.
 
 ## 8. Build estimate (refined from proposal)
 
