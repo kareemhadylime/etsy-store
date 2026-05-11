@@ -2932,3 +2932,42 @@ No code changed, so no test/build re-run needed. `npm run lint` re-confirmed cle
 - Once the first Dependabot PRs open on Monday, watch the first cycle to confirm grouping behaviour matches what we wrote. Adjust the `groups:` patterns if too many bumps end up in one PR or if a noisy package needs its own bucket.
 - README has no screenshot of the admin console or storefront yet — could add later if useful for onboarding, but skipped here since this is a single-developer project.
 - Supabase schema-drift guard (generate `database.types.ts` from live schema, fail CI on mismatch) — still deferred, mentioned in the previous session's loose ends.
+
+---
+
+## Session 2026-05-11 — Net Worth build tickets v1 (products session cascade)
+
+User said "next" — fourth build-ticket cascade. Largest finance product in catalog (19 tabs).
+
+### Done
+- `docs/net-worth-build-tickets.md` — 13-ticket breakdown (NW01-NW13) across ~46h
+
+### Per-product clustering (19 tabs)
+- NW02 paired Input Tabs — Assets Summary + Liabilities Summary (locked Input pair; 16 asset rows + 11 liability rows)
+- NW03 Dashboard = Bundle hero-stack source per Bundle brief Section 2. 5 visualizations including FIRE-progress meter.
+- NW04 History cluster (NW History + Annual Summary)
+- NW05 Physical assets (Vehicle + Real Estate)
+- **NW06 Financial assets** (5h, most complex Pro work) — Stocks & Funds 7-account split + Metals/Crypto + Retirement Tracker. 7-account depth claim unmatched on Etsy.
+- NW07 FIRE cluster (FIRE Calc + Passive Income + Age Benchmark)
+- NW08 Allocation analytics (Asset Allocation + Tax-Loss Harvesting + Geographic Exposure)
+- NW09 Estate cluster (Insurance + Beneficiary)
+- NW10 AI Wealth Intelligence hub
+
+### Key decisions
+- Paired Input Tabs per locked spine
+- Dashboard FIRE-progress meter = most-watched number in this category
+- 7-account Stocks split = hardest-to-replicate depth
+- GOOGLEFINANCE for live prices (Sheets-only)
+- Estate disclaimer: "This is not a will."
+- Pre-requisite: `docs/product-content/net-worth-ai-prompts.md` needed for NW12
+
+### Three shippable gates
+- Essentials $12 (8 tabs)
+- Pro $19 (18 tabs)
+- AI Edition $29 (19 tabs)
+
+### Build cascade progress
+Wedding ✅ + Budget ✅ + Debt ✅ + Sinking ✅ + Net Worth ✅. Only Small Business remains.
+
+### Next session
+Small Business build tickets — final cascade. ~58h, 23 tabs, largest in catalog.
