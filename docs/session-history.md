@@ -3554,3 +3554,65 @@ Numbering sequence is now monotonic: 1-12, then "Common failure modes" (un-numbe
 
 ### Loose ends
 None for this ship — it was a focused cleanup. The remaining backend list (CSP enforce-mode flip, type-drift guard pairing the schema-drift guard, watching first CI run) is unchanged.
+
+---
+
+## Session 2026-05-11 — Small Business AI Business Co-Pilot content v1 + AI CONTENT CASCADE COMPLETE (products session)
+
+Fifth and final per-product AI content file. Completes the AI content cascade (5/5).
+
+### Done
+- `docs/product-content/small-business-ai-prompts.md` — 12-page PDF content (cover + intro + 8 prompts + tips + back cover). One more page than other finance products since 8 prompts vs 7.
+- `docs/product-content/_README.md` — Small Business row added
+- `session-handshake.md` — Small Business checkmark + 🎉 cascade-complete callout
+
+### 8 prompts (matches Small Business proposal Section 4 + design brief Section 4)
+P&L Analyst → P&L Statement
+Cash Flow Coach → Cash Flow Forecast
+Depreciation Assistant → Asset Depreciation
+Supplier Negotiation Brief → Supplier & PO Manager
+Tax Prep Advisor → Tax Prep Summary
+Pricing Strategist → P&L Statement (+ Inventory + Customer Profitability cross-refs)
+Annual Business Review → AI Business Co-Pilot (hub) + P&L Statement
+Customer Concentration Risk → Customer/Vendor Profitability
+
+### Key content decisions
+- **Persona continuity**: same fictional business (custom signage shop, $197K revenue, 4 employees, Acme Realty as 22% top customer) threads all 8 prompts. Same continuity device that worked for Net Worth. Makes the PDF read as one coherent CFO-advisor not 8 disconnected one-shots.
+- **P&L Analyst** flags anomalies against 12-month trailing average + recommends verification with accountant before treating as real (could be spreadsheet coding errors)
+- **Cash Flow Coach** uses Safe/Tight/Danger/Critical risk tiers + names specific mitigations per risk week (which invoice to push, which supplier to negotiate net-45) + explicit "don't draw LOC preemptively" guidance
+- **Depreciation Assistant** audits Sect-179/bonus/MACRS math line by line + catches partial-use vehicle basis errors + business-income-limit overruns on 179. Pickup truck worked example caught a $42K-vs-$31.5K bonus basis mistake. Explicit "this is diagnostic, your CPA signs off" framing.
+- **Tax Prep Advisor** positions as "preparing for the meeting WITH the CPA" not replacing one. Includes officer reasonable-compensation flag (S-Corp distribution ratio audit trigger), Augusta Rule, Q4 bonus-payroll moves, Solo 401k top-up math. Three accountant-meeting questions example: QBI deduction qualification, 179/bonus split, Augusta Rule applicability.
+- **Supplier Negotiation Brief** writes the actual opening email + the specific ask + the three objections-they'll-raise + responses. Critical tactical detail: "don't name the alternative supplier in the first conversation."
+- **Pricing Strategist** uses volume × margin matrix (4 quadrants). Refuses "raise all prices" / "find your ideal customer" hedges. Worked example: $16K of additional margin from 3 specific moves with minimal volume risk.
+- **Annual Business Review** "Three Lessons" section names structural patterns including the brutal "single-customer growth fragility" honest call.
+- **Customer Concentration Risk** forces specificity: target customer type/sector/size, not "find new customers." Includes the "payment-behavior double-risk" compounding-risk concept (chronically-late + high-concentration customer = real danger).
+- **Audit-defense framing throughout Tax/Depreciation prompts**: S-Corp reasonable compensation, home-office overreach, Sect-179 business-income limit. Premium-buyer trust signal that the AI thinks like a defensive CPA, not an optimistic one.
+- **Anti-pep-talk back cover**: "Profit isn't a feeling. It's what's left after the bills." + anti-QuickBooks-Advanced ($235/mo) + anti-fractional-CFO ($1,200/mo) cost positioning.
+
+### Visual restraint dial pushed harder
+Per design brief Section 4: 5% shadow opacity (vs 10% other products), mandatory numeric right-alignment, no emoji in content rows. PDF-only content file, but the tab callout pills + worked-example layouts respect this — small-business buyers expect "professional accounting tool" aesthetics.
+
+### Cross-product implications
+- Unblocks SB14 PDF build ticket (per `docs/small-business-build-tickets.md`)
+- **AI content cascade COMPLETE: 5/5 done.** Wedding ✅ Budget ✅ Debt ✅ Sinking ✅ Net Worth ✅ Small Business ✅
+- All 5 per-product AI PDF build tickets unblocked: BT11 / DP11 / SF11 / NW12 / SB14
+- Plus pre-existing Wedding W14 (AI Co-Pilot PDF), Bundle AI Library, Notion template spec — every AI Edition product's deliverable content now exists in `docs/product-content/`
+
+### Catalog planning phase deliverables (now exhaustive)
+- 11 proposals (Wedding + Bundle + Notion + 8 finance products)
+- 8 design briefs (Wedding + Bundle + Notion + 5 Premium Finance House products)
+- 7 listing copy files (Wedding + Notion + 4 Bundle SKUs + 5 finance products)
+- **8 in-product content files** (Wedding AI Co-Pilot + Notion template spec + Bundle AI library + 5 per-product AI prompt files)
+- 6 build ticket files (Wedding + 5 finance products = 80 tickets across ~278h)
+- 1 Figma file handoff spec (Premium Finance Brand Kit)
+
+### Files changed
+- `docs/product-content/small-business-ai-prompts.md` (new)
+- `docs/product-content/_README.md` — Small Business row added
+- `session-handshake.md` — Small Business checkmark + cascade-complete callout
+
+### Next session
+With AI content cascade complete, remaining planning options:
+1. **Deferred design briefs** (Family & Education / Investment Portfolio / Zakat Calculator at ~3h each = ~9h). Lower priority since these are smaller-niche products per market research.
+2. **External execution playbook** (~4h) — master document tying together Figma setup → Sheets builds → Notion build → Etsy publish workflows. Pre-flight checklist for when builds actually start.
+3. **Direct pivot to external build execution** — the planning phase has produced everything needed; the next moves are in Figma, Sheets, Notion, Etsy. This session can't directly drive those tools.
