@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T108 rollup shipped — 8/12)_
-_Status: 🚧 In Progress (8/12 done — T101–T108 ✅; T109 dashboard + 2D automation ahead)_
+_Last updated: 2026-05-11 (T109 dashboard shipped — Phase 2C synthesis layer COMPLETE; 9/12)_
+_Status: 🚧 In Progress (9/12 done — T101–T109 ✅; 2D automation ahead)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -209,21 +209,29 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ---
 
 ### TICKET-109 — Admin analytics dashboard
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~14h
-**New files:** `src/app/admin/analytics/{page,_components/*}.tsx`, `src/lib/admin/analytics.ts`
+**New files:** `src/lib/admin/analytics.ts`, `src/app/admin/analytics/page.tsx`
 **Tasks:**
-- Page layout: date-range picker, channel totals, top products, ROAS table
-- Query helpers over `analytics_daily` + `ad_metrics_daily` + `etsy_stats` + `conversion_events`
-- Charts: simple SVG line + bar (no chart-lib dependency for v1; can upgrade later)
-- Drill-down link from each row to the relevant `cron_runs` entry for that day
-- Tests: helper queries + page renders with empty/missing-day data
+- `loadDailyAnalytics(start, end)` reads `analytics_daily` for the inclusive date range, groups by channel, returns totals + per-day rows + ROAS. Always includes etsy/meta/google/tiktok rows in stable order, even with zero data. ✅
+- `loadCronStatus()` reads `cron_runs` newest-first, deduplicates by cron name to surface the latest run per cron in a single "Pipeline health" table. ✅
+- `loadTopProducts(start, end, limit)` joins `order_items` → `orders` (date window) → `products`, sums units + revenue, returns top N by revenue. ✅
+- `lastNDaysUtc(days, now)` defaults the URL to "yesterday back N" (today's rollup hasn't run yet). ✅
+- Page `/admin/analytics`:
+  - Date-range filter (start/end + presets 1/7/30/90 days)
+  - 4 channel cards with revenue / ROAS / sessions / conversions / impressions / clicks
+  - Top products table (linked to admin product detail pages)
+  - Pipeline health table with status badges (running/success/error), last-run timestamp, duration, rows processed, last error
+  - Missing data shows as `—` everywhere — `formatCurrency`, `formatRoas`, `formatInt`, `formatDuration` all guard against NaN
+- Analytics link added to admin layout nav ✅
+- Tests: 11 across 4 helper functions (4-channel grouping with mixed days, empty-data fallback, db error, cron dedup, cron error, top products aggregation, empty top products, last-N-days math). 9 new tests; total **350 passing**.
 
 **Depends on:** TICKET-108
 **Acceptance:**
-- [ ] Admin can see yesterday's total revenue, spend, ROAS per channel
-- [ ] Top-5 products by revenue rendered for the chosen date range
-- [ ] Missing data shows as `—`, never as `NaN` or a crash
+- [x] Admin can see yesterday's total revenue, spend, ROAS per channel
+- [x] Top-5 products by revenue rendered for the chosen date range
+- [x] Missing data shows as `—`, never as `NaN` or a crash
+- [x] Cron health table surfaces stuck/failed crons via status badge + last error
 
 ---
 
@@ -328,7 +336,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 - [x] TICKET-106 — Google (GA4 + Ads + Search Console) ✅ (2026-05-11)
 - [x] TICKET-107 — TikTok ad metrics ✅ (2026-05-11)
 - [x] TICKET-108 — Daily analytics rollup ✅ (2026-05-11)
-- [ ] TICKET-109 — Admin analytics dashboard
+- [x] TICKET-109 — Admin analytics dashboard ✅ (2026-05-11)
 - [ ] TICKET-110 — Klaviyo integration + post-purchase flow
 - [ ] TICKET-111 — AI listing copy generator
 - [ ] TICKET-112 — Content atoms + IG/TikTok/Pinterest rendition v1
