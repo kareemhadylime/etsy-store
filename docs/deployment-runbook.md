@@ -421,17 +421,45 @@ What's set:
 | `X-Frame-Options` | `DENY` | Block all framing; defends against clickjacking. Storefront has no legitimate iframe-embed use case. |
 | `Referrer-Policy` | `strict-origin-when-cross-origin` | Modern default — full referrer same-origin, origin-only cross-origin, nothing on HTTPS→HTTP downgrades. |
 | `Permissions-Policy` | `camera=(), microphone=(), geolocation=(), payment=(), …` | Disable browser features the storefront + admin don't use so a future XSS can't grab them. |
+| `Content-Security-Policy-Report-Only` | See directive table below | Tight CSP in monitor mode — browsers report violations but don't block. Lets us observe a release cycle before flipping to enforce. |
 
-### What's intentionally not set
+### CSP directives (report-only)
 
-- **`Content-Security-Policy`** — adding a real CSP requires allowlisting every external script (analytics tags, Klaviyo embeds, GA4, Meta pixel) and every connect-src destination. Getting it wrong silently breaks tracking pixels + visible widgets. Defer until we have a real CSP allowlist exercise + browser-based smoke testing.
-- **`X-XSS-Protection`** — deprecated; modern browsers ignore it. CSP is the modern replacement.
+Audit basis: all tracking (Meta CAPI / GA4 Measurement Protocol / TikTok Events API / Klaviyo Events) is server-to-server, so the browser surface is just Next.js + the Supabase JS client. No client-side analytics tags load. This makes a tight CSP cheap.
+
+| Directive | Value | Allowlist rationale |
+|---|---|---|
+| `default-src` | `'self'` | Lock everything down by default. |
+| `script-src` | `'self' 'unsafe-inline'` | Next.js emits inline hydration scripts. Tightening to nonce-only requires a per-request middleware insert — future ship. |
+| `style-src` | `'self' 'unsafe-inline'` | Tailwind v4 + Next styled-jsx use inline styles. |
+| `img-src` | `'self' data: https://*.supabase.co https://i.etsystatic.com` | Supabase Storage signed URLs + Etsy product thumbnails. |
+| `font-src` | `'self' data:` | Self-hosted Next/font fonts. |
+| `connect-src` | `'self' https://*.supabase.co wss://*.supabase.co` | Supabase JS client → REST + realtime WebSocket. |
+| `object-src` | `'none'` | No Flash, Java, etc. |
+| `base-uri` | `'self'` | Block `<base href="evil.com">` injection. |
+| `form-action` | `'self'` | Block forms POSTing to attacker domains. |
+| `frame-ancestors` | `'none'` | Redundant with X-Frame-Options: DENY but CSP is the modern path. |
+| `upgrade-insecure-requests` | — | Auto-upgrade any accidentally-inserted `http://` resource to HTTPS. |
+
+### Report-only → enforce migration
+
+This is the standard CSP rollout pattern:
+
+1. **Now (report-only)** — Browsers log violations to the console (and to a `report-uri` / `report-to` endpoint when one is configured) but do not block. Risk-free observation of any allowlist gaps we missed in the audit.
+2. **After ~1 release cycle** — Walk through the storefront + admin in Chrome devtools (Console + Network tabs). If zero CSP violation log lines appear during a normal user flow, flip the header name in `src/lib/security/headers.ts` from `Content-Security-Policy-Report-Only` to `Content-Security-Policy` and ship.
+3. **Future** — Add a `report-uri` endpoint (e.g. `POST /api/csp-report`) that writes violation JSON to a new `csp_violations` table, so reports accumulate without manual console-watching.
 
 ### Verifying after deploy
 
-Hit your production URL and inspect response headers (curl `-I` or browser devtools → Network → Response Headers). All five baseline headers should be present on every route, including static assets.
+Hit your production URL and inspect response headers. All six baseline headers should be present on every route, including static assets:
 
-If you add a third-party script that needs to run inline or load from a new origin, this is also the natural moment to add a CSP (the script load failures will telegraph the missing origin allowlist anyway).
+```bash
+curl -sI https://shop.example.com | grep -iE 'strict-transport|content-type-options|frame-options|referrer-policy|permissions-policy|content-security-policy'
+```
+
+For CSP specifically, open the storefront in Chrome devtools → Console. Any line that starts with `Refused to ...` or `(Report only) ...` is a violation worth investigating before the enforce-mode flip.
+
+If you add a third-party script (analytics tag, embedded widget, etc.), update `getCSPDirectives()` in `src/lib/security/headers.ts` first — adding the origin under report-only is risk-free.
 
 ---
 

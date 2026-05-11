@@ -3203,3 +3203,71 @@ Each ~3h. Total remaining: ~12h to unblock all 5 AI PDF build tickets.
 
 ### Next session
 Continue cascade: Debt Payoff AI prompts → Sinking → NW → Small Business. Then pivot to deferred briefs or external execution playbook.
+
+---
+
+## Backend session — 2026-05-11 — Content-Security-Policy in Report-Only mode
+
+First in the "remaining backend follow-ups" list from the previous round. The earlier baseline-security-headers ship intentionally deferred CSP because "needs careful allowlisting + browser-based smoke testing." This ship walks back that deferral, because closer inspection of the codebase revealed the allowlist surface is actually tiny — letting us ship CSP with high confidence in monitor-mode without a real browser walk.
+
+### Why CSP was deferable now
+All conversion tracking is server-to-server (Meta CAPI, GA4 Measurement Protocol, TikTok Events API, Klaviyo Events) so no client-side analytics tags load in the browser. A grep for `<Script`, `googletagmanager`, `facebook.net`, `analytics.tiktok`, `connect.facebook` across `src/` returned only server-side `klaviyo.com` API references in `src/lib/email/klaviyo.ts`. That means the browser-side surface is just:
+
+- Same-origin app code (`'self'`)
+- Supabase JS client → REST + realtime WebSocket (`https://*.supabase.co` + `wss://*.supabase.co`)
+- Product images: Supabase Storage signed URLs + Etsy CDN (`i.etsystatic.com`)
+- Next.js inline hydration scripts + Tailwind/styled-jsx inline styles (`'unsafe-inline'`)
+
+That fits in 11 directives. No surprise origins, no third-party widget integrations to discover.
+
+### Approach: ship in Report-Only first
+Even with a confident allowlist, the standard CSP rollout pattern is to monitor for a release cycle before enforcing. `Content-Security-Policy-Report-Only` makes browsers send violation reports (to the console, and to `report-uri` / `report-to` endpoints when configured) but does NOT block the resource. Risk-free observation of any gaps we missed.
+
+### Directives shipped (11)
+- `default-src 'self'` — lock by default
+- `script-src 'self' 'unsafe-inline'` — Next hydration scripts; nonce-based tightening = future ship
+- `style-src 'self' 'unsafe-inline'` — Tailwind v4 + styled-jsx
+- `img-src 'self' data: https://*.supabase.co https://i.etsystatic.com` — Storage + Etsy CDN + small inline icons
+- `font-src 'self' data:` — Next/font self-hosted
+- `connect-src 'self' https://*.supabase.co wss://*.supabase.co` — Supabase REST + realtime
+- `object-src 'none'` — no plugins
+- `base-uri 'self'` — block `<base href>` hijacking
+- `form-action 'self'` — block forms POSTing offsite
+- `frame-ancestors 'none'` — redundant with X-Frame-Options: DENY but modern path
+- `upgrade-insecure-requests` — auto-upgrade leaked http://
+
+Explicitly forbidden: `'unsafe-eval'` (no `eval`, `new Function`, etc. in the codebase — a test asserts it stays out).
+
+### Tests (10 new, 474 total)
+- `getCSPDirectives()` returns the right shape, non-empty
+- `default-src 'self'` is present
+- Supabase REST + wss in connect-src
+- Etsy CDN + Supabase Storage in img-src
+- `'unsafe-inline'` retained for script + style (documents the trade-off)
+- `object-src`, `frame-ancestors`, `base-uri`, `form-action` set tightly
+- `upgrade-insecure-requests` present
+- `'unsafe-eval'` absent across all directives (regression guard)
+- Directive list joins cleanly (no double semicolons, no stray whitespace)
+
+Plus updated the existing "CSP intentionally not set" test to assert "ships in report-only, not enforce".
+
+### Migration path documented in runbook §13
+1. **Now (report-only)**: monitor browser console violations during real user flows
+2. **After ~1 release cycle**: flip the header name from `Content-Security-Policy-Report-Only` to `Content-Security-Policy` if zero unexpected violations
+3. **Future**: add a `POST /api/csp-report` endpoint + `csp_violations` table so reports accumulate without manual console-watching
+
+### Files changed
+- `src/lib/security/headers.ts` — added `getCSPDirectives()`, wired to `Content-Security-Policy-Report-Only` in `getSecurityHeaders()`
+- `src/lib/security/__tests__/headers.test.ts` — 10 new tests, 1 updated
+- `docs/deployment-runbook.md` — §13 expanded with directive table, allowlist rationale, report-only → enforce migration, curl verification command
+- `session-handshake.md` — new bullet (older bullet's "CSP deferred" caveat now superseded)
+
+### Verification
+- `npm run lint` clean
+- `npm test` 474/474 (was 464; +10 new)
+- `npm run build` clean — Next.js's `headers()` function in `next.config.ts` is statically analyzed at build time; the new directives don't change any code paths
+- Can't verify end-to-end browser behaviour without a running browser. The runbook covers the manual verification step (Chrome devtools → Console for any "Refused to ..." or "(Report only) ..." lines during normal flows).
+
+### Loose ends
+- Nonce-based CSP (removing `'unsafe-inline'` from script-src by inserting per-request nonces) is the natural future tightening. Requires Next.js middleware that generates a nonce, inserts it into the CSP header AND on every `<script>` tag — substantial refactor. Defer until we have a real reason (security audit requirement, etc.).
+- `report-uri` / `report-to` endpoint for accumulating violations into a queryable table — small follow-up if the manual console-watch approach proves tedious.
