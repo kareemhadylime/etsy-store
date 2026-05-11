@@ -69,8 +69,12 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 ---
 
 ### TICKET-203 — Google Ads campaign writes
+**Status:** ✅ Complete (handler) — 2026-05-11. **Admin UI shared-budget warning deferred** (separate ship).
 **Est:** ~12h
-**New files:** `src/lib/google/ads-commands.ts`
+**New files:**
+- `src/lib/google/ads-commands.ts` — `googleAdsCommandHandler` implementing `AdCommandHandler`. Uses v17 to match the existing Phase 2 read integration. Status mutations: single `:mutate` call with `updateMask='status'`. Budget mutations: 2-call sequence — GAQL search for `campaign.campaign_budget` → mutate the `campaignBudgets/<id>` resource with `amount_micros` (cents × 10,000) + `updateMask='amount_micros'`. GAQL-injection guard rejects non-integer `campaign_id` at lookup time.
+- `src/lib/google/__tests__/ads-commands.test.ts` — 16 tests covering env validation, status mutations (URL/body/headers/updateMask correctness, customer-id-dash-stripping), budget 2-call sequence (search → mutate, cents→micros conversion, GAQL-injection rejection, missing-budget→404), retry semantics (401 terminal after wrapper retry, 429/5xx retry, 4xx terminal w/ raw payload).
+- Registered in `src/lib/ads/register-handlers.ts` alongside Meta.
 **Tasks:**
 - Google Ads uses `google-ads.googleapis.com/v20/customers/<id>/campaigns:mutate` with a `update` operation. Different shape from Meta — operation payloads need a field_mask alongside the update body.
 - Pause → `status=PAUSED`, Resume → `status=ENABLED`, Update budget → distinct `campaignBudget` resource (one-off ticket: budget updates may need to mutate the linked budget resource, not the campaign itself — confirm during build)
@@ -409,7 +413,7 @@ These aren't tickets but they will surface during multiple tickets:
 ## Status Tracker
 - [x] TICKET-201 — Ad campaign command bus + audit ✅ (2026-05-11)
 - [x] TICKET-202 — Meta ad campaign writes ✅ (2026-05-11)
-- [ ] TICKET-203 — Google Ads campaign writes
+- [x] TICKET-203 — Google Ads campaign writes ✅ handler (2026-05-11); admin UI shared-budget warning deferred
 - [ ] TICKET-204 — TikTok ad campaign writes
 - [ ] TICKET-205 — AI ad-creative generator
 - [ ] TICKET-206 — FB + LinkedIn + X rendition

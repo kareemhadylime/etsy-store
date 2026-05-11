@@ -8,6 +8,18 @@ The rule for moving an item from this file into a real ticket: a concrete event 
 
 ---
 
+## Google Ads shared-budget warning UI (deferred from T203 execution)
+
+**Trigger to revive:** an admin accidentally mass-updates campaigns sharing a budget and asks for the warning, OR T203's command panel ships and someone notices a shared-budget bulk-update happen silently.
+
+The phase-3-tickets.md T203 decision locks "always show shared-budget warning before apply." T203 ships the handler — the bus correctly mutates whatever budget resource is linked. The warning UI is a separate ship: admin Edit Budget form pre-loads `campaign.campaign_budget` + `campaign_budget.explicitly_shared` + linked campaign list at form render, surfaces the list of affected campaigns inline, requires an explicit "I understand, this affects N campaigns" checkbox before the submit button enables, logs `payload.shared_budget_acknowledged: true` on the dispatched command for audit.
+
+Estimated ~6h. Pre-load needs one extra GAQL query per Google campaign on the detail page — cheap. Most of the work is the form UX (loading state, error states, the second-click pattern).
+
+Why deferred: T203's handler is the load-bearing piece for Phase 3. Shared-budget mistakes are recoverable (Resume the campaigns + revert the budget mutate via another `update_budget` command). The warning is real protection but not blocking.
+
+---
+
 ## Quora rendition (deferred from T209)
 
 **Trigger to revive:** Quora ships a public posting API.

@@ -4610,3 +4610,30 @@ Every product in the 11-product catalog now has Etsy-ready listing copy. Build p
 
 ### Next step in turn
 Zakat AI Zakat Advisor content — 12-page PDF (8 prompts) with **mandatory fatwa citations** (NZF UK / AAOIFI Standard 21 / Islamic Relief / AMP India). Only catalog AI PDF with citation requirements. Two distinct personas (vs single-persona pattern of other AI PDFs) per design brief Section 4.
+
+---
+
+## Backend session — 2026-05-11 — TICKET-203: Google Ads campaign writes (handler)
+
+Second per-platform handler filling the T201 registry. Validates the bus design against a meaningfully different API shape (mutate operations + updateMask + 2-call budget flow) — the abstraction holds.
+
+### What landed
+- **`src/lib/google/ads-commands.ts`** — `googleAdsCommandHandler` matching `AdCommandHandler`. Uses v17 (matches Phase 2 read). Status mutations: single `POST /customers/<id>/campaigns:mutate` with `updateMask='status'`. Budget mutations: **2-call** — GAQL search `campaign.campaign_budget` → mutate `campaignBudgets/<id>` with `amount_micros` + `updateMask='amount_micros'`.
+- **Quirks inline-documented:** cents × 10,000 = micros, GAQL-injection guard, customer-id dash-stripping, headers (Bearer + developer-token).
+- **`src/lib/ads/register-handlers.ts`** — Google handler registered alongside Meta.
+- **16 new tests** (534 total): env validation, status mutations × 3, dash-stripping, payload rejection, 2-call budget sequence + cents→micros, GAQL safety, missing-budget→404, 4 retry-semantics cases.
+
+### Admin UI shared-budget warning deferred to phase-3.5
+Decision-lock said "always show shared-budget warning before apply." Handler doesn't enforce — it executes whatever the bus dispatched. The warning is upstream concern (admin pre-load + acknowledgement). Moved to `docs/phase-3.5-nice-to-haves.md` with revive trigger documented. ~6h when needed.
+
+### Files changed
+- `src/lib/google/ads-commands.ts` (new)
+- `src/lib/google/__tests__/ads-commands.test.ts` (new)
+- `src/lib/ads/register-handlers.ts` — registration line
+- `docs/phase-3-tickets.md` — T203 Complete (handler), warning UI deferred
+- `docs/phase-3.5-nice-to-haves.md` — new entry
+- `session-handshake.md` — T203 bullet + Last updated
+
+### Verification: lint clean, 534/534 tests, build clean. Single-commit ship (no migration).
+
+### Section 3A: 3/5 done (T201 + T202 + T203). T204 + T205 remain.

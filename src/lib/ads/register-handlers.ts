@@ -16,12 +16,13 @@
 
 import { registerAdCommandHandler } from './command-bus'
 import { metaCommandHandler } from '@/lib/meta/commands'
+import { googleAdsCommandHandler } from '@/lib/google/ads-commands'
 
 // T202 — Meta ad campaign writes
 registerAdCommandHandler('meta', metaCommandHandler)
 
-// T203 — Google Ads campaign writes (pending)
-// registerAdCommandHandler('google', googleAdsCommandHandler)
+// T203 — Google Ads campaign writes
+registerAdCommandHandler('google', googleAdsCommandHandler)
 
 // T204 — TikTok ad campaign writes (pending)
 // registerAdCommandHandler('tiktok', tiktokCommandHandler)
