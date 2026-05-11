@@ -380,6 +380,25 @@ PRs use `deps:` / `ci:` commit-message prefixes so the git log stays scannable. 
 
 `.github/pull_request_template.md` nudges every PR toward: what changed, why, test plan, docs touched. Section "Docs touched" specifically calls out `session-handshake.md` + `docs/session-history.md` + this runbook + the README + phase-tickets — the five files most likely to fall out of sync with a real change.
 
+### Migration replay job
+
+A second CI job (`migrations`) runs in parallel with `test`. It spins up a throwaway `postgres:16-alpine` service container, applies `supabase/test-shim.sql` (a minimal `auth` schema + `auth.users` stub table + `auth.role()` / `auth.uid()` / `auth.jwt()` stub functions), then replays every file in `supabase/migrations/` in order with `ON_ERROR_STOP=1`.
+
+What this catches:
+- malformed SQL (typo, unclosed paren, bad column reference)
+- ordering bugs (migration N references a table that doesn't exist until N+1)
+- missing extensions
+- duplicate-create errors that survived local dev because of an `IF NOT EXISTS` you forgot
+
+What this does **not** catch:
+- real RLS enforcement (`auth.role()` is stubbed to always return `'service_role'`)
+- Supabase-specific platform behaviour (auth user creation, storage buckets, edge functions)
+- migrations that depend on Supabase extensions other than `pgcrypto`
+
+For end-to-end migration validation including RLS, use a Supabase preview branch — see section 3 of this runbook.
+
+If you add a migration that depends on a Supabase-specific extension (`pg_net`, `pgsodium`, `vault`, etc.) or platform feature, also extend `supabase/test-shim.sql` so the replay job stays green.
+
 ---
 
 ## What's NOT in this runbook

@@ -2971,3 +2971,55 @@ Wedding ✅ + Budget ✅ + Debt ✅ + Sinking ✅ + Net Worth ✅. Only Small Bu
 
 ### Next session
 Small Business build tickets — final cascade. ~58h, 23 tabs, largest in catalog.
+
+---
+
+## Backend session — 2026-05-11 — Migration replay CI job
+
+Backend track follow-up to the README + Dependabot + PR template trio. The lint+test+build CI surface was complete for the application layer, but the database layer had no CI coverage at all — a malformed migration could land on `main` and only blow up at deploy time when someone tried to apply it to Supabase. This job closes that gap.
+
+### What was built
+`.github/workflows/ci.yml` now has a second job (`migrations`) that runs in parallel with the existing `test` job. It uses GitHub Actions' service-container feature to spin up `postgres:16-alpine` with a health-check, then a single step:
+
+1. Apply `supabase/test-shim.sql` — a minimal `auth` schema, an `auth.users(id uuid primary key)` stub table (so the FK references in `0011_ai_jobs.sql` and `0012_content_engine.sql` resolve), plus three stub functions: `auth.role()` (always returns `'service_role'`), `auth.uid()` (returns null), `auth.jwt()` (returns empty jsonb). The function stubs aren't strictly necessary because Postgres lazy-resolves them at query time (not policy-creation time), but they're defined defensively so the shim is self-describing.
+2. Loop over `supabase/migrations/*.sql` and `psql -v ON_ERROR_STOP=1 -f` each one in glob order (which gives us `0001` → `0014` because filenames are zero-padded).
+
+Each step is wrapped in `::group::` annotations so the GitHub Actions log collapses cleanly.
+
+### What this catches
+- malformed SQL (typo, unclosed paren, bad column reference)
+- ordering bugs (migration N references a table that doesn't exist until N+1)
+- missing extensions
+- broken `IF NOT EXISTS` idempotency that survived local dev because the dev DB already had the object
+- migration files referencing columns that earlier migrations don't actually create
+
+### What this does NOT catch
+- real RLS enforcement — `auth.role()` is stubbed to a constant
+- Supabase-specific platform behaviour (auth user creation, storage buckets, edge functions)
+- migrations depending on extensions beyond `pgcrypto`
+
+If a future migration introduces `pg_net` / `pgsodium` / `vault` etc., the shim needs to grow. The runbook calls this out.
+
+### Why a separate job instead of a step in `test`
+Independent failure surfaces. If migration replay breaks, we see "migrations: failed" without it masking a separate lint or build failure. Also they run in parallel, so total wall time doesn't grow.
+
+### Pre-flight check skipped intentionally
+The replay couldn't be verified locally — this dev environment has neither Docker nor `psql`. Two assurances instead:
+1. All 14 migrations are already applied successfully on the live Supabase project (`ronfbjpqyhxipnitxrif`), so we know the SQL is syntactically and semantically valid against Postgres.
+2. A pre-commit grep verified no migration uses `current_setting`, `set role`, `grant to anon`, or any clause requiring Postgres roles that vanilla Postgres lacks.
+
+If the first CI run is red, the failure log + the shim file are the two places to look first.
+
+### Files changed
+- `.github/workflows/ci.yml` — new `migrations` job (parallel with `test`)
+- `supabase/test-shim.sql` — new auth shim file
+- `docs/deployment-runbook.md` — section 11 extended with "Migration replay job" subsection
+- `README.md` — CI section updated to describe both jobs (test + migrations)
+- `session-handshake.md` — new bullet
+
+### Verification
+No application code changed. `npm run lint` + `npm test` + `npm run build` remain green (no need to re-run; nothing they touch was modified). The migration replay itself ships untested locally; CI will be the first real run.
+
+### Loose ends
+- Supabase schema-drift guard (generating `database.types.ts` from live schema and failing CI on mismatch) — still deferred. Migration replay is the simpler half of the same problem.
+- Watch the first CI run on this commit to verify the `migrations` job actually goes green. If it fails on a specific migration, that migration likely uses a Supabase-specific feature the shim doesn't cover.

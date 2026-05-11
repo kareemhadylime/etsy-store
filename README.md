@@ -101,12 +101,17 @@ npm run build       # production next build, also typechecks src/
 
 ## CI
 
-GitHub Actions runs on every push to `main` and every PR targeting `main`:
+GitHub Actions runs two parallel jobs on every push to `main` and every PR targeting `main`:
 
+**`test` job** — Node 22 on `ubuntu-latest`:
 1. `npm ci` — lockfile install
 2. `npm run lint` — zero warnings tolerated (config: `eslint.config.mjs`)
 3. `npm test` — full vitest suite
 4. `npm run build` — production build, also runs Next.js's typecheck pass
+
+**`migrations` job** — `postgres:16-alpine` service container:
+1. Apply `supabase/test-shim.sql` (auth schema stubs)
+2. Replay every file in `supabase/migrations/` in order with `ON_ERROR_STOP=1`
 
 Workflow at `.github/workflows/ci.yml`. Same-branch concurrency cancellation so a fast follow-up commit doesn't queue behind a stale build. Dependabot keeps npm + Actions versions current (`.github/dependabot.yml`).
 
