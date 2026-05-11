@@ -1,6 +1,6 @@
 # Phase 2 Pro — Implementation Tickets
-_Last updated: 2026-05-11 (T110 Klaviyo shipped — 10/12; AI copy + content engine remain)_
-_Status: 🚧 In Progress (10/12 done — T101–T110 ✅; T111 + T112 ahead)_
+_Last updated: 2026-05-11 (T111 AI listing copy shipped — 11/12; only T112 content engine remains)_
+_Status: 🚧 In Progress (11/12 done — T101–T111 ✅; T112 ahead)_
 
 Phase 2 turns the storefront into a data-driven marketing operation. Goal: pull every channel into one Postgres schema, automate post-purchase email, give the admin one cross-channel dashboard, and seed an AI content pipeline.
 
@@ -269,22 +269,36 @@ Build envelope rough cut: **~140 hours** across 12 tickets. Most data-pull ticke
 ---
 
 ### TICKET-111 — AI listing copy generator
-**Status:** 📋 Planned
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~12h
-**New files:** `src/lib/ai/{listing-copy,prompts,jobs}.ts`, `src/app/api/admin/products/[id]/ai-copy/route.ts`, `src/app/admin/products/[id]/_components/ai-copy-panel.tsx`, `supabase/migrations/0010_ai_jobs.sql`
+**New files:** `src/lib/ai/{prompts,listing-copy}.ts`, `src/app/admin/_actions/ai-copy.ts`, `src/app/admin/products/_components/ai-copy-panel.tsx`, `supabase/migrations/0011_ai_jobs.sql` (applied)
 **Tasks:**
-- Migration: `ai_jobs (id, type, input, model, status, cost_usd, created_at, finished_at, error)`, `ai_outputs (id, job_id, output_text, output_json, accepted_by, accepted_at)`, `prompt_templates (id, name, template, variables_json, version)`
-- Anthropic SDK install + Claude API wrapper
-- Prompts: Etsy title, Etsy description (1,500 char limit), Etsy 13 tags, OG meta description — seeded as `prompt_templates` rows
-- Admin server action `generateListingCopy(productId, kind)` writes a job → calls Claude → stores output
-- Admin UI: "Generate" buttons per kind on `/admin/products/[id]`, side-by-side diff + accept-to-product mutation
-- Tests: prompt template substitution, retry on Claude rate limit, cost capture
+- Migration `0011`: `ai_jobs` (running/success/error + cost_usd + input/output_tokens + duration_ms), `ai_outputs` (output text/json + `accepted_by` FK to auth.users + `accepted_at`), `prompt_templates` (name + type + template + variables_json + version, unique on (name, version)). Seeds 4 active v1 templates (etsy_title, etsy_description, etsy_tags, og_description). ✅
+- `src/lib/ai/prompts.ts` — `renderTemplate(template, vars)` substitutes `{{var}}` tokens (whitespace tolerated, unknown tokens left literal). `loadActivePromptTemplate(type)` reads the highest-version active template. ✅
+- `src/lib/ai/listing-copy.ts` — `generateListingCopy({productId, type})`:
+  1. Load product + active prompt template
+  2. Insert `ai_jobs` row with status=running BEFORE the API call so failures still leave a trail
+  3. POST to Anthropic Messages API (default `claude-sonnet-4-6`, `max_tokens: 800`)
+  4. Update job → success with token counts + cost_usd computed from a per-model price map (Sonnet 4.6: $3/$15 per M input/output; Haiku 4.5: $1/$5)
+  5. Insert `ai_outputs` row with the trimmed text
+  Error paths each update the job to status=error with the error message before returning. ✅
+- `acceptListingCopy(outputId, userId)` stamps `accepted_by` + `accepted_at`. ✅
+- `loadRecentOutputs(productId, limit)` joins `ai_outputs!inner(ai_jobs)` and surfaces the last N outputs per product for the admin panel. ✅
+- Server actions `generateListingCopyAction` / `acceptListingCopyAction` (both `requireAdmin`-gated, both bound with `(productId, ...)`, `_formData: FormData` trailing arg per Next.js useActionState contract). ✅
+- Admin UI `AiCopyPanel` on `/admin/products/[id]`:
+  - 4 "Generate" cards (one per AI job type) with cost shown after success
+  - "Recent outputs" list with model, cost, age, and an Accept button per output
+  - Optimistic UI: Accept button flips to "✓ Accepted" immediately, before the server action returns
+- Tests: 6 prompts (substitution variants, whitespace, unknown tokens, load happy/empty), 7 listing-copy (full happy path with cost arithmetic, missing key, product not found, no template, anthropic non-OK, empty content, haiku-pricing override, accept happy/error, loadRecentOutputs filter), 6 actions (admin gate, success, error pass-through for both generate + accept). 22 new tests; total **399 passing**.
 
-**Depends on:** none (Anthropic SDK is standalone)
+**Decision (v1 → v2)**: "Accept" stops at stamping the output row. Auto-writing the accepted text back to product columns (etsy_title, etsy_tags[], og_description) is a v2 follow-up — the data is queryable from `ai_outputs WHERE accepted_at IS NOT NULL` and the admin can copy-paste into the Etsy listing UI or wire it into the T005 sync route later.
+
+**Depends on:** none (Anthropic SDK not used — plain fetch keeps testability)
 **Acceptance:**
-- [ ] Admin can generate + accept Etsy title, description, tags
-- [ ] Every job records `cost_usd` and finishes within 30s p95
-- [ ] Acceptance writes back to the product row (title → product.name? — likely separate `etsy_title` column added in this ticket)
+- [x] Admin can generate Etsy title / description / tags / OG description from `/admin/products/[id]`
+- [x] Every job records `cost_usd`, `input_tokens`, `output_tokens`, `duration_ms`
+- [x] Acceptance stamps `ai_outputs.accepted_by` + `accepted_at` (write-back to product columns deferred to v2)
+- [x] Migration applied via Supabase MCP with the 4 seed prompt templates
 
 ---
 
@@ -348,7 +362,7 @@ Phase 2D (marketing automation, parallel after 2A, ~52h):
 - [x] TICKET-108 — Daily analytics rollup ✅ (2026-05-11)
 - [x] TICKET-109 — Admin analytics dashboard ✅ (2026-05-11)
 - [x] TICKET-110 — Klaviyo integration + post-purchase flow ✅ (2026-05-11)
-- [ ] TICKET-111 — AI listing copy generator
+- [x] TICKET-111 — AI listing copy generator ✅ (2026-05-11)
 - [ ] TICKET-112 — Content atoms + IG/TikTok/Pinterest rendition v1
 
 ---

@@ -314,6 +314,59 @@ export interface EmailEvent {
   created_at: string
 }
 
+export type AiJobType =
+  | 'etsy_title'
+  | 'etsy_description'
+  | 'etsy_tags'
+  | 'og_description'
+  | 'ad_copy'
+  | 'social_copy'
+  | 'email_subject'
+  | 'other'
+export type AiJobStatus = 'running' | 'success' | 'error'
+
+export interface AiJob {
+  id: string
+  type: AiJobType
+  product_id: string | null
+  prompt_template_id: string | null
+  input: Record<string, unknown>
+  model: string
+  status: AiJobStatus
+  cost_usd: number | null
+  input_tokens: number | null
+  output_tokens: number | null
+  started_at: string
+  finished_at: string | null
+  duration_ms: number | null
+  error: string | null
+  raw_response: Record<string, unknown> | null
+  created_at: string
+}
+
+export interface AiOutput {
+  id: string
+  job_id: string
+  output_text: string | null
+  output_json: Record<string, unknown> | null
+  accepted_by: string | null
+  accepted_at: string | null
+  created_at: string
+}
+
+export interface PromptTemplate {
+  id: string
+  name: string
+  type: AiJobType
+  template: string
+  variables_json: Record<string, unknown> | null
+  model: string | null
+  version: string
+  active: boolean
+  created_at: string
+  updated_at: string
+}
+
 // Join types
 export interface OrderWithCustomer extends Order {
   customer: Customer | null

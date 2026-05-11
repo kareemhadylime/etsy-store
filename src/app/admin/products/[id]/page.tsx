@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getProduct } from '@/lib/admin/products'
 import { listProductFiles } from '@/lib/admin/product-files'
+import { loadRecentOutputs } from '@/lib/ai/listing-copy'
 import {
   deleteProductAction,
   syncEtsyAction,
@@ -12,6 +13,7 @@ import { ProductForm } from '../_components/product-form'
 import { UploadFileForm } from '../_components/upload-file-form'
 import { SyncEtsyButton } from '../_components/sync-etsy-button'
 import { DeleteProductButton } from '../_components/delete-button'
+import { AiCopyPanel } from '../_components/ai-copy-panel'
 
 export const dynamic = 'force-dynamic'
 
@@ -33,7 +35,11 @@ export default async function EditProductPage({
     throw new Error(productRes.error)
   }
   const product = productRes.data
-  const filesRes = await listProductFiles(id)
+  const [filesRes, recentOutputsRes] = await Promise.all([
+    listProductFiles(id),
+    loadRecentOutputs(id, 10),
+  ])
+  const recentOutputs = recentOutputsRes.ok ? recentOutputsRes.rows : []
 
   const updateBound = updateProductAction.bind(null, id)
   const uploadBound = uploadFileAction.bind(null, id)
@@ -113,6 +119,16 @@ export default async function EditProductPage({
             </div>
           )}
         </div>
+      </section>
+
+      <section className="rounded border border-gray-200 bg-white p-6">
+        <h2 className="mb-1 text-lg font-medium">AI listing copy</h2>
+        <p className="mb-4 text-xs text-gray-500">
+          Generate Etsy titles, descriptions, tags and OG meta with Claude. Output is stored in
+          <code className="mx-1 rounded bg-gray-100 px-1">ai_outputs</code>; accept the version you like
+          to stamp it for later sync.
+        </p>
+        <AiCopyPanel productId={id} recentOutputs={recentOutputs} />
       </section>
     </div>
   )

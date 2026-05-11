@@ -1610,3 +1610,47 @@ Applied via MCP. Updates the existing 9 product rows to the lower-alternative ti
 
 ### Next at my call
 **TICKET-111 AI listing copy generator** — Anthropic Messages API call to draft Etsy titles, descriptions, tags. Migrates `ai_jobs`, `ai_outputs`, `prompt_templates`; admin server action + UI panel on product detail page; cost capture per job. ~12h.
+
+---
+
+## Session 2026-05-11 — TICKET-111 AI listing copy generator (Phase 2: 11/12)
+
+### Done
+- Migration `0011_ai_jobs.sql` applied via MCP:
+  - `ai_jobs` — request log: type / product_id / prompt_template_id / input / model / status / cost_usd / input_tokens / output_tokens / duration_ms / error / raw_response
+  - `ai_outputs` — generated text (+ optional JSON), `accepted_by` FK to `auth.users`, `accepted_at`
+  - `prompt_templates` — version-controlled prompt library, unique on `(name, version)`. Seeds 4 active v1 templates: etsy_title, etsy_description, etsy_tags, og_description.
+- `src/lib/ai/prompts.ts`:
+  - `renderTemplate` — `{{var}}` substitution; whitespace inside braces tolerated; unknown tokens left literal so the model can flag the gap rather than silently dropping data
+  - `loadActivePromptTemplate(type)` — picks highest-version active row for the type
+- `src/lib/ai/listing-copy.ts` — `generateListingCopy({productId, type})`:
+  - Inserts a running `ai_jobs` row BEFORE the API call so failures still leave a trail
+  - POSTs to Anthropic Messages API (default `claude-sonnet-4-6`, `max_tokens: 800`)
+  - Updates the job → success with token counts + cost computed from a per-model price map (Sonnet 4.6: $3/$15 per M input/output; Haiku 4.5: $1/$5)
+  - Inserts `ai_outputs` with the trimmed model text
+  - Every error path updates the job → status=error with the message before returning
+  - `acceptListingCopy(outputId, userId)` stamps `accepted_by` + `accepted_at`
+  - `loadRecentOutputs(productId, limit)` returns the most recent N outputs joined with their job metadata for the admin panel
+- `src/app/admin/_actions/ai-copy.ts` — `generateListingCopyAction` + `acceptListingCopyAction`, both `requireAdmin`-gated, both ending in `_formData: FormData` per Next.js useActionState's required signature
+- `src/app/admin/products/_components/ai-copy-panel.tsx` — client component with 4 Generate cards (title/description/tags/OG), Recent outputs list per product, Accept button with optimistic UI ("✓ Accepted" before the server action returns)
+- `/admin/products/[id]` retrofitted to load `loadRecentOutputs(id, 10)` in parallel with files and pass them into the panel
+
+### Tests
+- 6 prompts (renderTemplate substitution + whitespace + missing tokens + non-string coercion; loadActivePromptTemplate happy/empty)
+- 7 listing-copy (full happy path with cost arithmetic on Sonnet, missing API key, product not found, no template, anthropic non-OK, empty content, haiku-pricing override)
+- 3 acceptListingCopy + loadRecentOutputs (stamp success, db error, ai_jobs join null filter)
+- 6 server actions (admin gate, success, error pass-through for both generate + accept)
+- 22 new tests; total **399 passing**
+
+### Decision (v1 → v2)
+"Accept" stops at stamping the `ai_outputs` row. Auto-writing the accepted text back to product columns (etsy_title text, etsy_tags text[], og_description text) is a v2 follow-up. The data is queryable via `select ai_outputs.* from ai_outputs join ai_jobs on ai_jobs.id = ai_outputs.job_id where accepted_at is not null and product_id = ?`. Admin can copy-paste into the Etsy listing UI or wire into the T005 sync route later.
+
+### Verification
+- `npm test` → 69 files / 399 tests passing.
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → succeeds; admin product detail route picks up the new AiCopyPanel section. No new top-level routes.
+
+### Phase 2 progress: 11/12 ✅ — only T112 content engine remains.
+
+### Next at my call
+**TICKET-112 content engine v1** — `content_atoms` + `content_renditions` + `publishing_queue` tables, admin UI for atom creation, IG/TikTok/Pinterest copy rendition via the banana image-prompt skill (referenced; not invoked from code), publishing queue cron at `*/15 * * * *`. Biggest 2D ticket (~22h) but largely follows the established cron + admin-action patterns from T108–T111.
