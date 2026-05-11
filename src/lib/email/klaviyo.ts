@@ -1,4 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/service'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -61,7 +62,7 @@ export async function upsertKlaviyoProfile(
   input: UpsertProfileInput,
   opts: KlaviyoOptions = {},
 ): Promise<KlaviyoResult<{ profileId: string }>> {
-  const apiKey = opts.apiKey ?? process.env.KLAVIYO_API_KEY
+  const apiKey = opts.apiKey ?? env('KLAVIYO_API_KEY')
   if (!apiKey) {
     return { ok: false, error: 'KLAVIYO_API_KEY not configured', status: 500 }
   }
@@ -139,7 +140,7 @@ export async function trackKlaviyoEvent(
   input: TrackEventInput,
   opts: KlaviyoOptions = {},
 ): Promise<KlaviyoResult<{ ok: true }>> {
-  const apiKey = opts.apiKey ?? process.env.KLAVIYO_API_KEY
+  const apiKey = opts.apiKey ?? env('KLAVIYO_API_KEY')
   if (!apiKey) {
     return { ok: false, error: 'KLAVIYO_API_KEY not configured', status: 500 }
   }
@@ -218,7 +219,7 @@ export async function pushOrderPlacedToKlaviyo(
   opts: KlaviyoOptions = {},
   client: AnyClient = createServiceClient(),
 ): Promise<OrderPlacedResult> {
-  const apiKey = opts.apiKey ?? process.env.KLAVIYO_API_KEY
+  const apiKey = opts.apiKey ?? env('KLAVIYO_API_KEY')
   if (!apiKey) {
     return { klaviyoEnabled: false, profileUpserted: false, eventFired: false }
   }

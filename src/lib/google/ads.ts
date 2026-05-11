@@ -2,6 +2,7 @@ import { createServiceClient } from '@/lib/supabase/service'
 import { withFreshCredential } from '@/lib/credentials/with-fresh'
 import { googleJsonRequest, yesterdayUtc, type GoogleFetchOptions } from './api'
 import type { DecryptedCredential } from '@/lib/credentials/types'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -91,7 +92,7 @@ export async function fetchGoogleAdsCampaigns(
   customerId: string,
   opts: GoogleFetchOptions = {},
 ) {
-  const developerToken = opts.developerToken ?? process.env.GOOGLE_ADS_DEVELOPER_TOKEN
+  const developerToken = opts.developerToken ?? env('GOOGLE_ADS_DEVELOPER_TOKEN')
   if (!developerToken) {
     return {
       ok: false as const,
@@ -114,7 +115,7 @@ export async function fetchGoogleAdsMetrics(
   date: string,
   opts: GoogleFetchOptions = {},
 ) {
-  const developerToken = opts.developerToken ?? process.env.GOOGLE_ADS_DEVELOPER_TOKEN
+  const developerToken = opts.developerToken ?? env('GOOGLE_ADS_DEVELOPER_TOKEN')
   if (!developerToken) {
     return {
       ok: false as const,
@@ -144,7 +145,7 @@ function parseNumeric(value: string | undefined): number {
 }
 
 export async function syncGoogleAds(opts: SyncGoogleAdsOptions = {}): Promise<SyncGoogleAdsResult> {
-  const customerId = opts.customerId ?? process.env.GOOGLE_ADS_CUSTOMER_ID
+  const customerId = opts.customerId ?? env('GOOGLE_ADS_CUSTOMER_ID')
   if (!customerId) {
     return { ok: false, error: 'GOOGLE_ADS_CUSTOMER_ID not configured', status: 500 }
   }

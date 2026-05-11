@@ -1,3 +1,5 @@
+import { env } from '@/lib/env'
+
 export const APP_NAME = 'Finance Tools'
 export const APP_DESCRIPTION = 'Professional finance spreadsheets & tools'
 export const ADMIN_ROUTE_PREFIX = '/admin'
@@ -9,8 +11,8 @@ export const TIER_LABELS = {
 } as const
 
 export function getSiteUrl(): string {
-  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL
-  if (fromEnv && fromEnv.length > 0) {
+  const fromEnv = env('NEXT_PUBLIC_SITE_URL')
+  if (fromEnv) {
     return fromEnv.replace(/\/$/, '')
   }
   return 'http://localhost:3000'

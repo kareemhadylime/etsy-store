@@ -5,6 +5,7 @@ import { NegativeReviewAlertEmail } from '@/lib/email/templates/negative-review-
 import type { Review, ReviewSentiment } from '@/lib/supabase/types'
 import { fetchEtsyReviews, type EtsyReviewRecord } from './etsy'
 import { classifyReviewSentiment } from './sentiment'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -142,8 +143,8 @@ export async function syncEtsyReviews(
   let classified = 0
   let alertsSent = 0
 
-  const shopName = process.env.SHOP_NAME ?? 'Finance Tools'
-  const adminEmail = process.env.ADMIN_ALERT_EMAIL ?? process.env.SHOP_SUPPORT_EMAIL ?? null
+  const shopName = env('SHOP_NAME') ?? 'Finance Tools'
+  const adminEmail = env('ADMIN_ALERT_EMAIL') ?? env('SHOP_SUPPORT_EMAIL') ?? null
 
   type ToAlert = {
     review: EtsyReviewRecord

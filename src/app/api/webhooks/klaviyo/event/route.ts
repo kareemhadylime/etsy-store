@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/service'
 import { verifyKlaviyoSignature } from '@/lib/email/klaviyo-verify'
+import { env } from '@/lib/env'
 
 export const dynamic = 'force-dynamic'
 
@@ -40,7 +41,7 @@ const SUBSCRIBER_STATUS_BY_EVENT: Record<string, 'unsubscribed' | 'bounced' | 's
 }
 
 export async function POST(req: NextRequest): Promise<Response> {
-  const secret = process.env.KLAVIYO_WEBHOOK_SECRET
+  const secret = env('KLAVIYO_WEBHOOK_SECRET')
   if (!secret) {
     return NextResponse.json(
       { ok: false, error: 'KLAVIYO_WEBHOOK_SECRET not configured' },

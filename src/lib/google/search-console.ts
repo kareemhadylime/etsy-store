@@ -2,6 +2,7 @@ import { createServiceClient } from '@/lib/supabase/service'
 import { withFreshCredential } from '@/lib/credentials/with-fresh'
 import { googleJsonRequest, yesterdayUtc, type GoogleFetchOptions } from './api'
 import type { DecryptedCredential } from '@/lib/credentials/types'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -55,7 +56,7 @@ export async function fetchSearchConsoleQueries(
 export async function syncSearchConsole(
   opts: SyncSearchConsoleOptions = {},
 ): Promise<SyncSearchConsoleResult> {
-  const siteUrl = opts.siteUrl ?? process.env.SEARCH_CONSOLE_SITE_URL
+  const siteUrl = opts.siteUrl ?? env('SEARCH_CONSOLE_SITE_URL')
   if (!siteUrl) {
     return { ok: false, error: 'SEARCH_CONSOLE_SITE_URL not configured', status: 500 }
   }

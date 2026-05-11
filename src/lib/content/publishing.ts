@@ -1,6 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/service'
 import { withFreshCredential, type PlatformCallResult } from '@/lib/credentials/with-fresh'
 import type { ContentRendition, RenditionPlatform } from '@/lib/supabase/types'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -167,7 +168,7 @@ const pinterestPublisher: PublisherFn = async (rendition, credential, fetchFn) =
       error: 'pinterest publish requires image_url', status: 400,
     }
   }
-  const boardId = process.env.PINTEREST_BOARD_ID
+  const boardId = env('PINTEREST_BOARD_ID')
   if (!boardId) {
     return { ok: false, unauthorized: false, error: 'PINTEREST_BOARD_ID not configured', status: 500 }
   }

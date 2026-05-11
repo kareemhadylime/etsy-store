@@ -1,5 +1,6 @@
 import type { DecryptedCredential } from '@/lib/credentials/types'
 import type { PlatformCallResult } from '@/lib/credentials/with-fresh'
+import { env } from '@/lib/env'
 
 const ETSY_API_BASE = 'https://openapi.etsy.com/v3/application'
 const PAGE_LIMIT = 100
@@ -52,7 +53,7 @@ export async function fetchEtsyReviews(
   credential: DecryptedCredential,
   opts: FetchEtsyReviewsOptions = {},
 ): Promise<PlatformCallResult<EtsyReviewRecord[]>> {
-  const apiKey = opts.apiKey ?? process.env.ETSY_API_KEY
+  const apiKey = opts.apiKey ?? env('ETSY_API_KEY')
   if (!apiKey) {
     return { ok: false, unauthorized: false, error: 'ETSY_API_KEY not configured', status: 500 }
   }

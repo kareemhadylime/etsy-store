@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { getProduct } from '@/lib/admin/products'
 import { listProductFiles } from '@/lib/admin/product-files'
 import { loadRecentOutputs } from '@/lib/ai/listing-copy'
+import { env } from '@/lib/env'
 import {
   deleteProductAction,
   syncEtsyAction,
@@ -81,7 +82,7 @@ export default async function EditProductPage({
       <section className="rounded border border-gray-200 bg-white p-6">
         <h2 className="mb-1 text-lg font-medium">Files</h2>
         <p className="mb-4 text-xs text-gray-500">
-          Files upload to <code className="rounded bg-gray-100 px-1">{process.env.SUPABASE_DOWNLOADS_BUCKET ?? 'downloads'}</code> bucket
+          Files upload to <code className="rounded bg-gray-100 px-1">{env('SUPABASE_DOWNLOADS_BUCKET') ?? 'downloads'}</code> bucket
           and are delivered post-purchase via signed URLs.
         </p>
 

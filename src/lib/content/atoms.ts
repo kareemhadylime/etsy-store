@@ -7,6 +7,7 @@ import type {
   RenditionPlatform,
 } from '@/lib/supabase/types'
 import { loadActivePromptTemplate, renderTemplate } from '@/lib/ai/prompts'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -254,7 +255,7 @@ export async function renderRendition(
   platform: RenditionPlatform,
   opts: RenderOptions = {},
 ): Promise<RenderRenditionResult> {
-  const apiKey = opts.apiKey ?? process.env.ANTHROPIC_API_KEY
+  const apiKey = opts.apiKey ?? env('ANTHROPIC_API_KEY')
   if (!apiKey) return { ok: false, error: 'ANTHROPIC_API_KEY not configured', status: 500 }
   const client = opts.client ?? createServiceClient()
   const model = opts.model ?? DEFAULT_MODEL

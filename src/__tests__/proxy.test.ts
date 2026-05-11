@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { NextRequest } from 'next/server'
 
 vi.mock('@supabase/ssr', () => ({
@@ -9,6 +9,17 @@ vi.mock('@supabase/ssr', () => ({
     cookies: {},
   })),
 }))
+
+beforeEach(() => {
+  // proxy.ts calls requireEnv() for the Supabase boot vars; without
+  // these stubs the proxy throws before exercising redirect logic.
+  vi.stubEnv('NEXT_PUBLIC_SUPABASE_URL', 'https://example.supabase.co')
+  vi.stubEnv('NEXT_PUBLIC_SUPABASE_ANON_KEY', 'test-anon-key')
+})
+
+afterEach(() => {
+  vi.unstubAllEnvs()
+})
 
 describe('Auth proxy', () => {
   it('redirects unauthenticated users from /admin to /admin/login', async () => {

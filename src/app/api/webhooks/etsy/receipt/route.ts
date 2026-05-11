@@ -4,11 +4,12 @@ import { verifySignature } from '@/lib/etsy/verify'
 import { parseReceipt, InvalidReceiptError, type EtsyReceiptPayload } from '@/lib/etsy/parse'
 import { processReceipt } from '@/lib/etsy/process'
 import { deliverOrderFiles } from '@/lib/fulfillment/deliver'
+import { env } from '@/lib/env'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: NextRequest) {
-  const secret = process.env.ETSY_WEBHOOK_SECRET
+  const secret = env('ETSY_WEBHOOK_SECRET')
   if (!secret) {
     return NextResponse.json(
       { ok: false, error: 'ETSY_WEBHOOK_SECRET not configured' },

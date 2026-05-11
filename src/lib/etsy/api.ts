@@ -1,6 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/service'
 import type { Product } from '@/lib/supabase/types'
 import { loadCredential } from '@/lib/credentials/load'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -66,7 +67,7 @@ export async function updateEtsyListing(
   update: EtsyListingUpdate,
   opts: SyncOptions = {},
 ): Promise<EtsySyncResult> {
-  const apiKey = opts.apiKey ?? process.env.ETSY_API_KEY
+  const apiKey = opts.apiKey ?? env('ETSY_API_KEY')
   if (!apiKey) {
     return { ok: false, error: 'ETSY_API_KEY not configured', status: 500 }
   }

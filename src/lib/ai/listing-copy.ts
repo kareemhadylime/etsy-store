@@ -1,6 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/service'
 import type { AiJob, AiJobType, AiOutput, Product } from '@/lib/supabase/types'
 import { loadActivePromptTemplate, renderTemplate } from './prompts'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -92,7 +93,7 @@ export async function generateListingCopy(
   input: GenerateListingCopyInput,
   opts: GenerateListingCopyOptions = {},
 ): Promise<GenerateListingCopyResult> {
-  const apiKey = opts.apiKey ?? process.env.ANTHROPIC_API_KEY
+  const apiKey = opts.apiKey ?? env('ANTHROPIC_API_KEY')
   if (!apiKey) {
     return { ok: false, error: 'ANTHROPIC_API_KEY not configured', status: 500 }
   }

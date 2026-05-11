@@ -35,6 +35,8 @@ The full schema lives in `src/lib/env.ts` and a boot-time validator (`src/instru
 
 After deploying, search the first few seconds of logs for `[env]` lines — they give a definitive answer to "is this configured correctly?" without having to test every integration manually.
 
+**Reading env vars in code:** every app-code call site reads via `env(name)` (returns `string | undefined`) or `requireEnv(name)` (throws on missing), both exported from `src/lib/env.ts`. These are typed against the schema, so `env('SUPABS_URL')` fails to compile rather than silently returning undefined. When you add a new env var: add it to `ENV_SCHEMA` in `env.ts`, then read it via `env('NEW_VAR_NAME')` everywhere.
+
 ### 1a. Supabase
 | Variable | Required | Where |
 |---|---|---|

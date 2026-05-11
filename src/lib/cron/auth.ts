@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { timingSafeEqual } from 'node:crypto'
+import { env } from '@/lib/env'
 
 export type CronAuthResult =
   | { ok: true }
@@ -20,7 +21,7 @@ function safeEqual(a: string, b: string): boolean {
  * for manual curl-driven runs during development.
  */
 export function verifyCronSecret(req: NextRequest): CronAuthResult {
-  const expected = process.env.CRON_SECRET
+  const expected = env('CRON_SECRET')
   if (!expected) {
     return {
       ok: false,

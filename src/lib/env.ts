@@ -11,10 +11,10 @@
  *   - 'prod'    → server can start but core flows break. Logs a warning.
  *   - 'feature' → an integration is disabled without it. Logs info.
  *
- * NOT a replacement for `process.env.X` reads at call sites — those
- * still work and are still the source of truth at runtime. This module
- * just enumerates what's expected and lets the boot hook check for
- * gaps. A future ship can migrate call sites to typed accessors here.
+ * Also exports `env(name)` and `requireEnv(name)` typed accessors —
+ * compile-time-checked names, single normalization point for empty
+ * strings, single grep target if/when a var is renamed. All app-code
+ * call sites now read via these instead of bare `process.env.X`.
  */
 
 export type Severity = 'boot' | 'prod' | 'feature'
@@ -194,4 +194,37 @@ export function validateEnvAtBoot(): void {
   if (result.partialGroups.length > 0) {
     console.info(`[env] partial groups (some vars missing): ${result.partialGroups.join(', ')}`)
   }
+}
+
+// ============================================================
+// Typed accessors
+// ============================================================
+// Compile-time typo protection: `env('SUPABASE_URL')` would fail to
+// typecheck (it's `NEXT_PUBLIC_SUPABASE_URL`). Also normalises empty
+// strings to undefined so call sites don't have to special-case `""`.
+
+export type EnvVarName = (typeof ENV_SCHEMA)[number]['name']
+
+/**
+ * Read an env var by name. Returns `undefined` for unset OR empty-string.
+ * Use this for vars where missing is a valid state (everything except
+ * the two boot-tier Supabase vars).
+ */
+export function env(name: EnvVarName): string | undefined {
+  const value = process.env[name]
+  return typeof value === 'string' && value.length > 0 ? value : undefined
+}
+
+/**
+ * Read an env var that MUST be set. Throws with a clear error if it's
+ * missing or empty. Use this for boot-tier vars (Supabase URL + anon
+ * key) at the rare call sites that can't use the boot-validated `!`
+ * assertion idiom.
+ */
+export function requireEnv(name: EnvVarName): string {
+  const value = env(name)
+  if (value === undefined) {
+    throw new Error(`Missing required env var: ${name}`)
+  }
+  return value
 }

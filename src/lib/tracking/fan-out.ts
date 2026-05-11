@@ -1,4 +1,5 @@
 import { createServiceClient } from '@/lib/supabase/service'
+import { env } from '@/lib/env'
 import { hashEmail, hashIp, sha256Hex } from './hash'
 import type { FireEventInput, FireEventResult, PlatformResult } from './types'
 
@@ -50,8 +51,8 @@ async function postJson(url: string, body: unknown): Promise<PlatformResult> {
 }
 
 async function sendMeta(input: FireEventInput): Promise<PlatformResult> {
-  const pixelId = process.env.META_PIXEL_ID
-  const token = process.env.META_CAPI_TOKEN
+  const pixelId = env('META_PIXEL_ID')
+  const token = env('META_CAPI_TOKEN')
   if (!pixelId || !token) {
     return { ok: false, skipped: true, reason: 'meta credentials missing' }
   }
@@ -84,8 +85,8 @@ async function sendMeta(input: FireEventInput): Promise<PlatformResult> {
 }
 
 async function sendGa4(input: FireEventInput): Promise<PlatformResult> {
-  const measurementId = process.env.GA4_MEASUREMENT_ID
-  const apiSecret = process.env.GA4_API_SECRET
+  const measurementId = env('GA4_MEASUREMENT_ID')
+  const apiSecret = env('GA4_API_SECRET')
   if (!measurementId || !apiSecret) {
     return { ok: false, skipped: true, reason: 'ga4 credentials missing' }
   }
@@ -112,8 +113,8 @@ async function sendGa4(input: FireEventInput): Promise<PlatformResult> {
 }
 
 async function sendTiktok(input: FireEventInput): Promise<PlatformResult> {
-  const pixelId = process.env.TIKTOK_PIXEL_ID
-  const token = process.env.TIKTOK_ACCESS_TOKEN
+  const pixelId = env('TIKTOK_PIXEL_ID')
+  const token = env('TIKTOK_ACCESS_TOKEN')
   if (!pixelId || !token) {
     return { ok: false, skipped: true, reason: 'tiktok credentials missing' }
   }

@@ -1,4 +1,5 @@
 import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto'
+import { env } from '@/lib/env'
 
 /**
  * AES-256-GCM encryption for platform credentials.
@@ -32,7 +33,7 @@ export function __resetEncryptionKeyCache(): void {
 
 function loadKey(): Buffer {
   if (cachedKey) return cachedKey
-  const raw = process.env.CREDENTIALS_ENCRYPTION_KEY
+  const raw = env('CREDENTIALS_ENCRYPTION_KEY')
   if (!raw) {
     throw new CredentialEncryptionError('CREDENTIALS_ENCRYPTION_KEY env var is not set')
   }

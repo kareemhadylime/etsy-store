@@ -1,6 +1,7 @@
 import { createServiceClient } from '@/lib/supabase/service'
 import type { DecryptedCredential } from '@/lib/credentials/types'
 import { withFreshCredential, type PlatformCallResult } from '@/lib/credentials/with-fresh'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -46,7 +47,7 @@ export async function fetchActiveListings(
   credential: DecryptedCredential,
   opts: FetchOptions = {},
 ): Promise<PlatformCallResult<EtsyListingSummary[]>> {
-  const apiKey = opts.apiKey ?? process.env.ETSY_API_KEY
+  const apiKey = opts.apiKey ?? env('ETSY_API_KEY')
   if (!apiKey) {
     return { ok: false, unauthorized: false, error: 'ETSY_API_KEY not configured', status: 500 }
   }

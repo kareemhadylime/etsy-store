@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { ENV_SCHEMA, checkEnv, validateEnvAtBoot } from '../env'
+import { ENV_SCHEMA, checkEnv, env, requireEnv, validateEnvAtBoot } from '../env'
 
 describe('ENV_SCHEMA', () => {
   it('is non-empty', () => {
@@ -167,5 +167,70 @@ describe('validateEnvAtBoot', () => {
     validateEnvAtBoot()
     const infoString = info.mock.calls.flat().join(' ')
     expect(infoString).toMatch(/klaviyo/)
+  })
+})
+
+describe('env() accessor', () => {
+  let originalEnv: NodeJS.ProcessEnv
+
+  beforeEach(() => {
+    originalEnv = process.env
+    process.env = { ...originalEnv }
+  })
+
+  afterEach(() => {
+    process.env = originalEnv
+  })
+
+  it('returns the value when set', () => {
+    process.env.ANTHROPIC_API_KEY = 'sk-test'
+    expect(env('ANTHROPIC_API_KEY')).toBe('sk-test')
+  })
+
+  it('returns undefined when the var is unset', () => {
+    delete process.env.ANTHROPIC_API_KEY
+    expect(env('ANTHROPIC_API_KEY')).toBeUndefined()
+  })
+
+  it('treats empty string as undefined', () => {
+    process.env.ANTHROPIC_API_KEY = ''
+    expect(env('ANTHROPIC_API_KEY')).toBeUndefined()
+  })
+
+  it('preserves whitespace-only values (caller decides how to handle)', () => {
+    process.env.ANTHROPIC_API_KEY = '   '
+    expect(env('ANTHROPIC_API_KEY')).toBe('   ')
+  })
+})
+
+describe('requireEnv() accessor', () => {
+  let originalEnv: NodeJS.ProcessEnv
+
+  beforeEach(() => {
+    originalEnv = process.env
+    process.env = { ...originalEnv }
+  })
+
+  afterEach(() => {
+    process.env = originalEnv
+  })
+
+  it('returns the value when set', () => {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://x.supabase.co'
+    expect(requireEnv('NEXT_PUBLIC_SUPABASE_URL')).toBe('https://x.supabase.co')
+  })
+
+  it('throws with the var name when unset', () => {
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL
+    expect(() => requireEnv('NEXT_PUBLIC_SUPABASE_URL')).toThrow(
+      /Missing required env var: NEXT_PUBLIC_SUPABASE_URL/,
+    )
+  })
+
+  it('throws on empty-string', () => {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = ''
+    expect(() => requireEnv('NEXT_PUBLIC_SUPABASE_URL')).toThrow(
+      /Missing required env var: NEXT_PUBLIC_SUPABASE_URL/,
+    )
   })
 })

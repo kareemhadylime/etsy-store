@@ -2,6 +2,7 @@ import type { Platform } from '@/lib/supabase/types'
 import { loadCredential } from './load'
 import { storeCredential, updateCredentialStatus } from './store'
 import type { DecryptedCredential } from './types'
+import { env } from '@/lib/env'
 
 type FetchFn = typeof fetch
 
@@ -42,7 +43,7 @@ const ETSY_TOKEN_URL = 'https://api.etsy.com/v3/public/oauth/token'
 
 const etsyRefresher: PlatformRefresher = {
   async refresh(current, fetchFn) {
-    const clientId = process.env.ETSY_API_KEY
+    const clientId = env('ETSY_API_KEY')
     if (!clientId) return { ok: false, error: 'ETSY_API_KEY missing', status: 500 }
     if (!current.refresh_token) return { ok: false, error: 'no refresh_token on file', status: 412 }
 
@@ -77,8 +78,8 @@ const META_TOKEN_URL = 'https://graph.facebook.com/v22.0/oauth/access_token'
 
 const metaRefresher: PlatformRefresher = {
   async refresh(current, fetchFn) {
-    const appId = process.env.META_APP_ID
-    const appSecret = process.env.META_APP_SECRET
+    const appId = env('META_APP_ID')
+    const appSecret = env('META_APP_SECRET')
     if (!appId || !appSecret) {
       return { ok: false, error: 'META_APP_ID / META_APP_SECRET missing', status: 500 }
     }
@@ -104,8 +105,8 @@ const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token'
 
 const googleRefresher: PlatformRefresher = {
   async refresh(current, fetchFn) {
-    const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID
-    const clientSecret = process.env.GOOGLE_OAUTH_CLIENT_SECRET
+    const clientId = env('GOOGLE_OAUTH_CLIENT_ID')
+    const clientSecret = env('GOOGLE_OAUTH_CLIENT_SECRET')
     if (!clientId || !clientSecret) {
       return { ok: false, error: 'GOOGLE_OAUTH_CLIENT_ID / SECRET missing', status: 500 }
     }
@@ -148,8 +149,8 @@ interface TiktokRefreshResponse {
 
 const tiktokRefresher: PlatformRefresher = {
   async refresh(current, fetchFn) {
-    const clientKey = process.env.TIKTOK_CLIENT_KEY
-    const clientSecret = process.env.TIKTOK_CLIENT_SECRET
+    const clientKey = env('TIKTOK_CLIENT_KEY')
+    const clientSecret = env('TIKTOK_CLIENT_SECRET')
     if (!clientKey || !clientSecret) {
       return { ok: false, error: 'TIKTOK_CLIENT_KEY / SECRET missing', status: 500 }
     }

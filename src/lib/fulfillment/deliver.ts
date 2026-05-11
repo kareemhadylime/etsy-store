@@ -4,6 +4,7 @@ import { OrderFulfilledEmail, type OrderFulfilledItem } from '@/lib/email/templa
 import { pushOrderPlacedToKlaviyo } from '@/lib/email/klaviyo'
 import { fireConversionEvent } from '@/lib/tracking/fan-out'
 import type { ProductTier } from '@/lib/supabase/types'
+import { env } from '@/lib/env'
 
 export type DeliveryResult =
   | { ok: true; signed_links: number; email_id: string | null }
@@ -43,15 +44,15 @@ type OrderRow = {
 }
 
 function expiryDays(): number {
-  const raw = process.env.SUPABASE_DOWNLOAD_EXPIRY_DAYS
+  const raw = env('SUPABASE_DOWNLOAD_EXPIRY_DAYS')
   const n = raw ? Number(raw) : 7
   return Number.isFinite(n) && n > 0 ? n : 7
 }
 
 function shopBranding() {
   return {
-    shopName: process.env.SHOP_NAME ?? 'Finance Tools',
-    supportEmail: process.env.SHOP_SUPPORT_EMAIL ?? 'support@example.com',
+    shopName: env('SHOP_NAME') ?? 'Finance Tools',
+    supportEmail: env('SHOP_SUPPORT_EMAIL') ?? 'support@example.com',
   }
 }
 
@@ -108,7 +109,7 @@ export async function deliverOrderFiles(orderId: string): Promise<DeliveryResult
   const days = expiryDays()
   const expiresInSeconds = days * 24 * 60 * 60
   const expiresAt = new Date(Date.now() + expiresInSeconds * 1000).toISOString()
-  const bucket = process.env.SUPABASE_DOWNLOADS_BUCKET ?? 'downloads'
+  const bucket = env('SUPABASE_DOWNLOADS_BUCKET') ?? 'downloads'
 
   const fulfillmentLogs = asTable<{
     insert: (rows: Record<string, unknown> | Record<string, unknown>[]) => Promise<unknown>

@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { createServiceClient } from '@/lib/supabase/service'
 import type { Product, ProductFile, ProductFormat, ProductTier } from '@/lib/supabase/types'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -52,7 +53,7 @@ export function buildStoragePath(product: Pick<Product, 'slug'>, meta: ProductFi
 }
 
 export function bucketName(): string {
-  return process.env.SUPABASE_DOWNLOADS_BUCKET ?? 'downloads'
+  return env('SUPABASE_DOWNLOADS_BUCKET') ?? 'downloads'
 }
 
 type StorageBucket = {

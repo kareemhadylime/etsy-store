@@ -3335,3 +3335,78 @@ Intentionally manual. Auto-updating the snapshot would defeat the guard.
 ### Loose ends
 - Bootstrap the initial snapshot: download the `schema-current` artifact from the first green CI run on `main` after this commit and commit it as `supabase/schema.snapshot.sql`. This is the user's call (and probably best after they push these commits).
 - Auto-generating `src/lib/supabase/types.ts` from the schema + adding a similar diff check is the natural pairing ship.
+
+---
+
+## Backend session — 2026-05-11 — Typed env accessors migration (~50 sites across 19 files)
+
+Third in the "remaining backend follow-ups" list. The boot-time validator from a previous ship made `ENV_SCHEMA` the source of truth for what env vars the codebase reads, but the actual reads at call sites still went through bare `process.env.X` (~50 spots across 19 files). That meant a typo in a var name compiled fine and silently returned undefined, surfacing as a cryptic bug at runtime. This ship migrates every call site to typed accessors.
+
+### Two new exports from `src/lib/env.ts`
+
+```ts
+export type EnvVarName = (typeof ENV_SCHEMA)[number]['name']
+export function env(name: EnvVarName): string | undefined
+export function requireEnv(name: EnvVarName): string
+```
+
+- `EnvVarName` is the union of literal var names derived from the schema. Typo protection at compile time.
+- `env(name)` returns the value or `undefined` (empty strings normalize to undefined).
+- `requireEnv(name)` returns the value or throws with a clear `Missing required env var: X` error. Used at the few boot-tier callsites that previously used `process.env.X!` non-null assertion (Supabase clients × 4 + proxy.ts).
+
+### Migration applied to (19 files, ~50 reads)
+- `src/proxy.ts` (2)
+- `src/lib/supabase/{anon,client,server,service}.ts` (8)
+- `src/lib/constants.ts` (1)
+- `src/lib/cron/auth.ts` (1)
+- `src/lib/etsy/{api,stats}.ts` (2)
+- `src/lib/fulfillment/deliver.ts` (4)
+- `src/lib/email/{resend,klaviyo}.ts` (6)
+- `src/lib/reviews/{etsy,sync,sentiment}.ts` (4)
+- `src/lib/ai/listing-copy.ts` (1)
+- `src/lib/content/{atoms,publishing}.ts` (2)
+- `src/lib/admin/product-files.ts` (1)
+- `src/lib/credentials/{encryption,refresh}.ts` (8)
+- `src/lib/google/{ga4,ads,search-console}.ts` (4)
+- `src/lib/tracking/fan-out.ts` (6)
+- `src/app/api/webhooks/{etsy/receipt,klaviyo/event}/route.ts` (2)
+- `src/app/admin/products/[id]/page.tsx` (1)
+
+Pattern guide for the migration:
+- `process.env.X!` (boot-tier non-null) → `requireEnv('X')`
+- `process.env.X ?? 'default'` → `env('X') ?? 'default'`
+- `opts.x ?? process.env.X` → `opts.x ?? env('X')`
+- Bare `process.env.X` (assigned to a local, then checked) → `env('X')` (the empty-string normalization makes the subsequent `if (!x)` check correct without extra handling)
+
+### Test fix needed
+`src/__tests__/proxy.test.ts` previously didn't stub env vars — the old `process.env.NEXT_PUBLIC_SUPABASE_URL!` silently returned `undefined` and the mocked `createServerClient` didn't validate. With `requireEnv` the proxy now throws before the redirect logic runs. Added `vi.stubEnv` calls in `beforeEach` + `vi.unstubAllEnvs` in `afterEach`. Both tests pass.
+
+### Tests added (7 new, 481 total)
+- `env('FOO')` returns value when set
+- `env('FOO')` returns undefined when unset
+- `env('FOO')` treats empty-string as undefined
+- `env('FOO')` preserves whitespace-only values (caller decides)
+- `requireEnv('FOO')` returns value when set
+- `requireEnv('FOO')` throws with var name on unset
+- `requireEnv('FOO')` throws on empty-string
+
+### Files changed
+- `src/lib/env.ts` — added `env()` + `requireEnv()` + `EnvVarName` type, updated module-level comment
+- `src/lib/__tests__/env.test.ts` — 7 new tests
+- `src/__tests__/proxy.test.ts` — `vi.stubEnv` in beforeEach
+- 19 callsite files (listed above)
+- `docs/deployment-runbook.md` — §1 documents accessor pattern + add-a-new-var workflow
+- `session-handshake.md` — new bullet
+
+### Verification
+- `npm run lint` clean
+- `npm test` 481/481 pass (was 474; +7 new)
+- `npm run build` clean
+
+### What this changes operationally
+- Adding a new env var is now a two-step refactor: add to `ENV_SCHEMA` in `env.ts`, then `env('NEW_VAR')` at call sites. TypeScript surfaces every site that needs to update if you remove a schema entry.
+- Renaming an env var is also typed — change the schema, every call site fails to compile until updated.
+- Empty-string env values (a common Vercel footgun where deleted vars become empty rather than absent) are now normalized to `undefined` at exactly one point.
+
+### Loose ends
+- Nothing direct. The schema-drift guard could pair nicely with a similar TS-types-drift guard (next on the list, but bigger lift).

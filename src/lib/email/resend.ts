@@ -1,11 +1,12 @@
 import { Resend } from 'resend'
 import type { ReactElement } from 'react'
+import { env } from '@/lib/env'
 
 let cachedClient: Resend | null = null
 
 function getClient(): Resend {
   if (cachedClient) return cachedClient
-  const key = process.env.RESEND_API_KEY
+  const key = env('RESEND_API_KEY')
   if (!key) {
     throw new Error('RESEND_API_KEY is not set')
   }
@@ -31,7 +32,7 @@ export type SendTransactionalEmailResult =
 export async function sendTransactionalEmail(
   input: SendTransactionalEmailInput,
 ): Promise<SendTransactionalEmailResult> {
-  const from = input.from ?? process.env.RESEND_FROM_EMAIL
+  const from = input.from ?? env('RESEND_FROM_EMAIL')
   if (!from) {
     return {
       ok: false,
@@ -39,7 +40,9 @@ export async function sendTransactionalEmail(
     }
   }
 
-  const replyToRaw = input.replyTo ?? process.env.RESEND_REPLY_TO
+  // env() normalizes empty string to undefined, so the empty-string
+  // branch below only matters if a caller explicitly passed `replyTo: ''`.
+  const replyToRaw = input.replyTo ?? env('RESEND_REPLY_TO')
   const replyTo =
     typeof replyToRaw === 'string' && replyToRaw.length === 0
       ? undefined

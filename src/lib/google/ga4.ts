@@ -2,6 +2,7 @@ import { createServiceClient } from '@/lib/supabase/service'
 import { withFreshCredential } from '@/lib/credentials/with-fresh'
 import { googleJsonRequest, yesterdayUtc, type GoogleFetchOptions } from './api'
 import type { DecryptedCredential } from '@/lib/credentials/types'
+import { env } from '@/lib/env'
 
 type AnyClient = ReturnType<typeof createServiceClient>
 
@@ -76,7 +77,7 @@ function extractTotals(report: Ga4Report): { sessions: number; conversions: numb
  * `(date, channel)` — re-runs overwrite.
  */
 export async function syncGa4Analytics(opts: SyncGa4Options = {}): Promise<SyncGa4Result> {
-  const propertyId = opts.propertyId ?? process.env.GA4_PROPERTY_ID
+  const propertyId = opts.propertyId ?? env('GA4_PROPERTY_ID')
   if (!propertyId) {
     return { ok: false, error: 'GA4_PROPERTY_ID not configured', status: 500 }
   }

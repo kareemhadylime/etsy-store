@@ -1,4 +1,5 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
+import { requireEnv } from '@/lib/env'
 
 // Untyped schema — Database generics are not generated for this project yet,
 // so we widen the schema type to keep insert/update payloads ergonomic.
@@ -9,10 +10,8 @@ let cached: Service | null = null
 
 export function createServiceClient(): Service {
   if (cached) return cached
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!url) throw new Error('NEXT_PUBLIC_SUPABASE_URL is not set')
-  if (!key) throw new Error('SUPABASE_SERVICE_ROLE_KEY is not set')
+  const url = requireEnv('NEXT_PUBLIC_SUPABASE_URL')
+  const key = requireEnv('SUPABASE_SERVICE_ROLE_KEY')
   cached = createClient(url, key, { auth: { persistSession: false } }) as unknown as Service
   return cached
 }

@@ -1,4 +1,5 @@
 import type { ReviewSentiment } from '@/lib/supabase/types'
+import { env } from '@/lib/env'
 
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages'
 const DEFAULT_MODEL = 'claude-haiku-4-5-20251001'
@@ -85,7 +86,7 @@ export async function classifyReviewSentiment(
   input: { rating: number; text: string | null },
   opts: ClassifyOptions = {},
 ): Promise<ClassifyResult> {
-  const apiKey = opts.apiKey ?? process.env.ANTHROPIC_API_KEY
+  const apiKey = opts.apiKey ?? env('ANTHROPIC_API_KEY')
   const model = opts.model ?? DEFAULT_MODEL
 
   // No text → trust the rating directly without spending a token.
