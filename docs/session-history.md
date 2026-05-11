@@ -1654,3 +1654,70 @@ Applied via MCP. Updates the existing 9 product rows to the lower-alternative ti
 
 ### Next at my call
 **TICKET-112 content engine v1** — `content_atoms` + `content_renditions` + `publishing_queue` tables, admin UI for atom creation, IG/TikTok/Pinterest copy rendition via the banana image-prompt skill (referenced; not invoked from code), publishing queue cron at `*/15 * * * *`. Biggest 2D ticket (~22h) but largely follows the established cron + admin-action patterns from T108–T111.
+
+---
+
+## Session 2026-05-11 — Bundle AI Master Library content (products session)
+
+### Picked next in sequence
+After Notion template spec, the recommended next item was Bundle AI Library — biggest content effort (~8h). User said "continue in sequence." Drafted full content for the Bundle AI Master Prompt Library PDF.
+
+### Done
+- `docs/product-content/bundle-ai-library.md` — full PDF content
+- `docs/product-content/_README.md` — file index updated
+
+### Scope: 90+ prompts total, two PDF variants from one source
+- **10 cross-product workflows** (front-loaded, each is a full page with 3–5 chained prompts + worked example)
+- **60 per-product reference prompts** (Budget 12 + Debt 8 + Sinking 8 + Net Worth 12 + Small Biz 12 + Wedding 8) in 2×2 grid layout
+- ~30 prompts embedded inside the workflows
+- Total: ~90 prompts across the library
+- Finance variant skips Wedding section (~28 pages); Life variant includes (~30 pages)
+
+### The 10 cross-product workflows
+1. Plan a year of sinking funds with AI (Sinking + Budget)
+2. Pay off debt + save for wedding simultaneously (Debt + Sinking + Wedding) — **Life only**; Finance subs "major savings goal"
+3. Combine finances after marriage (Budget + Net Worth)
+4. Launch a side business while keeping personal budget intact (Small Biz + Budget + Net Worth)
+5. Build a 10-year net-worth roadmap (Net Worth + Debt + Investment-spillover)
+6. Decide: pay off debt vs. invest the difference (Debt + Net Worth)
+7. Wedding-budget reverse-engineering (Wedding + AI) — **Life only**; Finance subs "reverse-engineer major savings goal"
+8. Quarterly financial check-in across all products
+9. End-of-year tax-prep prompt chain (Small Biz + Budget)
+10. "What changed this month?" — anomaly detection across all 6 products
+
+### Key content decisions
+- **Workflow structure mirrors Wedding AI Co-Pilot's per-prompt skeleton** (title + chips + intro + 3–5 chained prompts + worked example + footer) so buyers who own both products experience consistency.
+- **Workflows 5 + 6 reference Investment Portfolio Tracker as "spillover"** — works without it, deeper if buyer owns it. Intentional cross-sell.
+- **Workflow 4 (side business)** flagged as bundle's strongest sales pitch in production notes — couples-starting-business is high-anxiety + benefits more from Small Biz + Budget + Net Worth integration than any single product.
+- **Workflow 8 (quarterly check-in)** lives in Bundle library not individual products — meta-workflow only makes sense when buyer owns multiple products.
+- **Wedding reference prompts (W1-W8)** are condensed versions of the 8 in `wedding-ai-prompts.md` — full versions in Wedding AI Co-Pilot PDF, compact 2×2-grid versions in Bundle library. No content duplication; Wedding PDF goes deeper, Bundle PDF surfaces same prompts in quick-reference format.
+- **Worked examples thread real specifics** — names, $ amounts, dates, regions, anonymized realistic scenarios. Shows prompts produce personalized output not templates.
+
+### Per-product reference allocations (60 prompts total)
+- **Budget Tracker (12):** Smart Spending Advisor / Scenario Simulator / Bill Negotiation / Cash Flow Intelligence / Annual Review / Category Advisor / Health Score Coach / Subscription Audit / Recurring Templates Builder / Saving Rate Optimizer / Big Purchase Analyzer / Emergency Fund Right-sizing
+- **Debt Payoff (8):** Strategy Picker / Credit Score Coach / Refinance Radar / Balance Transfer Analyzer / Negotiation Scripts / PSLF + IDR Eligibility / Late Fee Recovery / Debt-Free Date Forecaster
+- **Sinking Funds (8):** Fund Priority Ranker / Volatility Glide Path / Tax-Efficient Placement / Goal Conflict Resolver / Withdraw-or-Skip / Annual Rebuild / EF-vs-SF Split / Holiday Allocator
+- **Net Worth (12):** Monthly NW Narrative / FIRE Forecaster / Allocation Advisor / Tax-Loss Harvesting / Geographic Exposure / Estate Planning / Drift Alert / Beneficiary Audit / Vehicle TCO / Real Estate Hold-vs-Sell / Retirement Catch-up / Crypto Allocation Sanity
+- **Small Business (12):** P&L Anomaly / Cash Flow Coach / Customer Profitability / Pricing Strategist / Customer Concentration / Receivables Aging / Inventory Reorder / Tax Prep / PO Negotiation / Project Profitability / Hiring Cost / Burn-Rate Runway
+- **Wedding (8 — Life only):** Guest List Optimizer / Vendor Cost Intelligence / Seating Solver / RSVP Scripts / Vows Drafter / Crisis Playbook / Vendor Negotiation / Speech Drafter
+
+### Two PDF variants from one Figma file
+Production notes spell out the variant-toggle approach: single Figma file in Premium Finance Brand Kit, layer-visibility toggles Wedding-related sections on/off. Workflows 2 + 7 have Finance-variant substitutions documented (text-only swap from Wedding-specific to generic-goal phrasing). Single content source ensures the two PDFs never drift.
+
+### All AI Edition content complete
+With Bundle AI Library shipped, every AI Edition product's deliverable content now exists in `docs/product-content/`:
+- Wedding AI Co-Pilot PDF content (8 prompts × full-page treatment, 12 pages)
+- Notion Life OS Essentials template build-spec (schemas, formulas, seed data, 25h build estimate)
+- Bundle AI Master Library PDF content (10 workflows + 60 reference prompts, 28/30 pages two variants)
+
+Remaining product-track work (planning + visual production):
+1. **Wedding spreadsheet build ticket breakdown** — break ~50h Sheets build into ~8–12 tickets like Phase 1/2 (~3h)
+2. **Visual production start** — `Premium Finance Brand Kit` Figma setup (~4h) → unblocks all cover/thumbnail/PDF production for Bundle + Notion + future finance products in parallel
+
+### Files changed
+- `docs/product-content/bundle-ai-library.md` (new)
+- `docs/product-content/_README.md` — file index updated
+- `session-handshake.md` — last-updated stamp + Bundle AI Library checkmark + "All AI Edition content COMPLETE" milestone
+
+### Next session
+Continue in sequence per the recommended order. Next = Wedding spreadsheet build ticket breakdown.

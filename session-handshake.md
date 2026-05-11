@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Notion Life OS Essentials template build-spec drafted → `docs/product-content/notion-life-os-template-spec.md`; build-ready schemas + formulas + seed data)_
+_Last updated: 2026-05-11 (Bundle AI Master Library content drafted → `docs/product-content/bundle-ai-library.md`; 10 workflows + 60 reference prompts, both Finance + Life variants)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -135,7 +135,9 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [ ] Bundle brief Section 2 cover variant table savings badges must update to new numbers ($36 SAVED Finance Pro / $51 SAVED Finance AI / $50 SAVED Life Pro / $70 SAVED Life AI) before any cover production starts. The earlier $32/$52 vs $44/$60 reconciliation is moot — both supplanted by new lower-alternative pricing.
 - [x] **Wedding AI Co-Pilot 8-prompt PDF content drafted ✅ (2026-05-11)** → `docs/product-content/wedding-ai-prompts.md`. Full 12-page PDF content: cover + intro + 8 prompts (Guest List Optimizer / Vendor Cost Intelligence / Seating Constraint Solver / RSVP Reminders / Vows Drafter / Day-of Crisis Playbook / Vendor Negotiation / Speech Drafter) + tips page + back cover. Each prompt has copy-paste template + worked example + tab callout. New `product-content/` directory established for in-product content (separate from proposals/designs/listing-copy).
 - [x] **Notion Life OS Essentials template build-spec drafted ✅ (2026-05-11)** → `docs/product-content/notion-life-os-template-spec.md`. Build-ready: 6-page workspace tree (Home + 5 databases) + full schemas (properties + types + select options) + Notion-formula syntax for all computed fields (progress bars, status, next-due, days-since, dashboard rollups) + 25 rows of seed data (10 expenses + 5 budget categories + 2 income entries + 3 recurring bills + 5 subscriptions) + 13 view configurations + relations build sequence + duplicate-URL workflow + ~25h build estimate breakdown matching proposal.
-- [ ] Next product-track step in sequence: Bundle AI Library 60+ prompts + 10 cross-product workflows (~8h, biggest content effort), Wedding build ticket breakdown (~3h), or visual production start (Premium Finance Brand Kit Figma setup ~4h)
+- [x] **Bundle AI Master Library content drafted ✅ (2026-05-11)** → `docs/product-content/bundle-ai-library.md`. Both PDF variants from single source: 10 cross-product workflows (each 3-5 chained prompts + worked example) + 60 per-product reference prompts in 2×2 grid layout (Budget Tracker 12, Debt Payoff 8, Sinking Funds 8, Net Worth 12, Small Business 12, Wedding 8 — Life variant only). Plus cover, intro, section dividers, 2-page tips section, back cover. Finance variant ~28 pages; Life variant ~30 pages. Workflows 2+7 are Wedding-specific (Life only) with Finance substitutions documented.
+- [x] **All AI Edition content COMPLETE ✅** — Wedding AI Co-Pilot PDF content + Bundle AI Master Library PDF content + Notion template spec all drafted. Every AI Edition product's deliverable content exists in `docs/product-content/`.
+- [ ] Next product-track step in sequence: Wedding spreadsheet build ticket breakdown (~3h) or visual production start (Premium Finance Brand Kit Figma setup ~4h)
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.
