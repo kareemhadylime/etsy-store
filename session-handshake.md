@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Track 2 step 5: Investment Portfolio AI content drafted → `docs/product-content/investment-portfolio-ai-prompts.md`. 5 deferred artifacts remaining. Backend: 🛠 PHASE 3 — T201 + **T202 SHIPPED ✅**. Meta ad command handler live (pause / resume / update_budget / update_status via Graph v22). +13 new tests (518 total). Section 3A is 2/5 done; T203 Google Ads + T204 TikTok next to fill the registry.)_
+_Last updated: 2026-05-11 (Track 2 step 6: Investment Portfolio build tickets drafted → `docs/investment-portfolio-build-tickets.md`. **Investment Portfolio product 100% spec'd.** 4 deferred artifacts remaining (Zakat 3 + Notion build tickets). Backend earlier: 🛠 PHASE 3 — T201 + T202 SHIPPED ✅ (Meta ad command handler, 518 tests).)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)

@@ -4504,3 +4504,48 @@ Added `import '@/lib/ads/register-handlers'` to the cron route broke its test be
 lint clean, 518/518 tests, build clean. No new migration → snapshot stays valid → single-commit ship.
 
 ### Section 3A: 2/5 complete (T201 + T202)
+
+---
+
+## Session 2026-05-11 — Investment Portfolio Tracker build tickets v1 (products session, Track 2 step 6)
+
+User said "next" — step 6 of 10: build tickets for Investment Portfolio Tracker.
+
+### Done
+- `docs/investment-portfolio-build-tickets.md` — 13 tickets (IP01-IP13) across ~44h
+- `session-handshake.md` — Track 2 step 6 checkmark + Investment Portfolio 100% spec'd callout
+
+### 13 tickets (most in catalog along with Net Worth)
+- IP01 Scaffolding + Bloomberg-terminal discipline (3h)
+- IP02 Holdings Master grid-style Input (4h)
+- IP03 Dashboard Output — 5 viz including drift alert (5h) — sources Life Bundle hero stack
+- IP04 Essentials cluster — Cash & FX / Stocks / ETFs+MF / Dividend Calendar / Allocation / Annual (6h) — Essentials $17 gate
+- IP05 Pro: Bonds + Metals + Crypto + REITs (3.5h)
+- IP06 Pro: Options & RSUs cluster — most complex single tab (2h)
+- IP07 Pro: Performance & Returns + Risk Metrics — densest math (3h)
+- IP08 Pro: Tax Lot Tracker + Tax-Loss Harvesting wash-sale window (3.5h)
+- IP09 Pro: Scenario Simulator (2h) — Pro $24 gate
+- IP10 AI Edition Hub + Region Tax Toggle US/UK/EU/AU/CA (3h)
+- IP11 AI Portfolio Intelligence PDF — 12 pages Figma (6h)
+- IP12 5 thumbnails (actual tickers) + Quick-start 1-pager (5h)
+- IP13 Final QA + Etsy listing publish (3h)
+
+### Per-product overrides in tickets
+1. Mandatory right-aligned tabular numerics EVERYWHERE (IP01 global default + reinforced throughout)
+2. Mockup screenshots use actual tickers (AAPL/MSFT/VTI/SCHD/BTC)
+3. NO Excel courtesy export
+
+### Critical pre-build verification documented
+- GOOGLEFINANCE quotas + rate limits
+- Ticker patterns per asset class (US stocks no prefix, international needs exchange prefix, crypto `CURRENCY:BTCUSD`, metals `CURRENCY:XAUUSD`)
+- Bond ETFs work, individual CUSIPs don't
+- Region tax test cases for IP10 (US + UK + AU verified)
+
+### 🎉 Investment Portfolio Tracker product is now 100% spec'd
+All planning artifacts exist: Proposal + Design brief + Listing copy + AI content + Build tickets. Build can start any time after Brand Kit Figma file is set up.
+
+### Track 2 progress (6/10 done)
+✅ Family (3 artifacts) | ✅ Investment (3 artifacts) | ⏳ Zakat (3 artifacts next) | Notion build tickets
+
+### Next step in turn
+Zakat Calculator listing copy — ~1.5h. Eighth listing copy in cascade. Last product to spec.
