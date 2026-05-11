@@ -4340,3 +4340,38 @@ Build can start any time after Brand Kit Figma file is set up (Phase A step 1).
 
 ### Next step in turn
 Investment Portfolio listing copy — ~1.5h. Seventh listing copy in the cascade.
+
+---
+
+## Backend session — 2026-05-11 — TICKET-201: Phase 3 begins, ad command bus shipped
+
+User said "phase 3" — execution begins with T201, the foundation everything in Section 3A depends on. Shipped in one focused pass: schema + types + bus + admin UI + cron + tests + docs.
+
+### What landed
+- **Migration `0015_ad_commands.sql`** (applied via MCP): `ad_commands(platform, external_campaign_id, command_type, payload jsonb, status, attempts, last_error, requested_by → auth.users, requested_at, completed_at)` + dispatch/audit indexes + service-role RLS
+- **`src/lib/ads/types.ts`** — AdCommand + AdCommandPayload + AdCommandResult + AdCommandHandler shapes
+- **`src/lib/ads/command-bus.ts`** — `dispatchAdCommand(...)` inserts pending row with defensive payload validation; `registerAdCommandHandler(platform, handler)` in-memory registry (T202+ fills); `runAdCommands({maxRetries=3, batchSize=25})` drains pending, dispatches via registry, maps results onto status transitions (success / retry-pending if attempts<max / failed); `loadRecentAdCommands(...)` for admin reads; `__resetAdCommandHandlers()` test helper
+- **`src/lib/admin/ads.ts`** — `listAdCampaigns(...)` joins Phase 2 ad_campaigns + latest ad_metrics_daily; `loadAdCampaignDetail(...)` joins campaign + 30-day metrics + 20 most-recent commands
+- **Admin UI at `/admin/ads`** — list + detail pages, `command-panel.tsx` client (3 forms: pause / resume / edit-budget), nav link in admin layout
+- **`_actions/ads.ts`** `dispatchAdCommandAction` — requireAdmin-gated, dollars→cents via `Math.round(dollars * 100)`, non-positive rejection at action layer
+- **`/api/cron/run-ad-commands/route.ts`** — runCron-wrapped, CRON_SECRET-gated, `*/5 * * * *` in vercel.json
+- **Tests** (24 new, **505 total**): 14 bus + 3 cron route + 7 admin action
+- **`database.types.ts`** — regenerated via MCP to include `ad_commands`
+
+### Architectural decision (v1 lock from prior pass)
+Always-now dispatch. No `scheduled_at` field — calendar reminders cover timed actions; scheduling has its own revive trigger in `phase-3.5-nice-to-haves.md`.
+
+### What this unlocks
+T202 (Meta), T203 (Google Ads), T204 (TikTok), T205 (AI ad-creative). Each module will `registerAdCommandHandler(platform, handler)` at load time; the bus + cron stay platform-agnostic via the registry.
+
+### Loose ends
+**Schema-drift snapshot needs regen.** Migration 0015 changed schema. Next CI run on this push will fail drift check showing the `ad_commands` DDL added. Documented bootstrap workflow: CI fails → download new `schema-current` artifact → commit as `supabase/schema.snapshot.sql` → CI passes. Follow-up commit on this same push.
+
+### Verification (local)
+- `npm run lint` clean
+- `npm test` 505/505 (+24 new)
+- `npm run build` clean
+- Migration applied to Supabase via MCP `apply_migration` (success)
+
+### Files changed
+15 source + 4 docs. See `git show` for the full list.

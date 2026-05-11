@@ -126,7 +126,7 @@ After deploying, search the first few seconds of logs for `[env]` lines — they
 ## 2. Supabase setup
 
 ### 2a. Apply migrations
-14 migrations, all already applied to `ronfbjpqyhxipnitxrif`:
+15 migrations, all already applied to `ronfbjpqyhxipnitxrif`:
 
 | # | File | Adds |
 |---|---|---|
@@ -144,6 +144,7 @@ After deploying, search the first few seconds of logs for `[env]` lines — they
 | 0012 | `content_engine.sql` | T112 |
 | 0013 | `notion_fulfillment.sql` | T011 — adds `'notion'` to product_files.format |
 | 0014 | `rate_limit_buckets.sql` | per-IP per-window upsert table for /api/track/* |
+| 0015 | `ad_commands.sql` | T201 — async ad campaign command bus (pause/resume/budget) |
 
 For a fresh project: run each in order via Supabase MCP or the SQL Editor. The CI `migrations` job replays them against an ephemeral Postgres on every PR (see section 13).
 
@@ -186,6 +187,7 @@ Result should be empty.
 | `30 5 * * *` | `/api/cron/aggregate-analytics-daily` |
 | `0 6 * * *` | `/api/cron/cleanup-rate-limits` |
 | `*/15 * * * *` | `/api/cron/publish-queue` |
+| `*/5 * * * *` | `/api/cron/run-ad-commands` |
 
 2. Manually trigger `heartbeat` from the Vercel UI. Inspect **Supabase → cron_runs** — a `success` row should appear within seconds.
 

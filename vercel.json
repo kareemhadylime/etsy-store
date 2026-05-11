@@ -11,6 +11,7 @@
     { "path": "/api/cron/pull-tiktok-insights", "schedule": "0 5 * * *" },
     { "path": "/api/cron/aggregate-analytics-daily", "schedule": "30 5 * * *" },
     { "path": "/api/cron/publish-queue", "schedule": "*/15 * * * *" },
-    { "path": "/api/cron/cleanup-rate-limits", "schedule": "0 6 * * *" }
+    { "path": "/api/cron/cleanup-rate-limits", "schedule": "0 6 * * *" },
+    { "path": "/api/cron/run-ad-commands", "schedule": "*/5 * * * *" }
   ]
 }

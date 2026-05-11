@@ -108,6 +108,48 @@ export type Database = {
           },
         ]
       }
+      ad_commands: {
+        Row: {
+          attempts: number
+          command_type: string
+          completed_at: string | null
+          external_campaign_id: string
+          id: string
+          last_error: string | null
+          payload: Json | null
+          platform: string
+          requested_at: string
+          requested_by: string | null
+          status: string
+        }
+        Insert: {
+          attempts?: number
+          command_type: string
+          completed_at?: string | null
+          external_campaign_id: string
+          id?: string
+          last_error?: string | null
+          payload?: Json | null
+          platform: string
+          requested_at?: string
+          requested_by?: string | null
+          status?: string
+        }
+        Update: {
+          attempts?: number
+          command_type?: string
+          completed_at?: string | null
+          external_campaign_id?: string
+          id?: string
+          last_error?: string | null
+          payload?: Json | null
+          platform?: string
+          requested_at?: string
+          requested_by?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
       ad_metrics_daily: {
         Row: {
           campaign_id: string | null

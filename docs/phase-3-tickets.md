@@ -1,7 +1,7 @@
 # Phase 3 — Implementation Tickets
 
-_Last updated: 2026-05-11 (all 8 open decisions resolved; nothing started)_
-_Status: planning locked — defaults chosen for every previously-open decision_
+_Last updated: 2026-05-11 (T201 shipped — ad command bus foundation live; 1/16 tickets complete)_
+_Status: in flight — Section 3A foundation shipped (T201). T202-T204 platform writers next._
 
 Phase 3 turns the read-only ad-data pipeline from Phase 2 into a read-write marketing engine, expands the content engine from 3 to 10 publishing surfaces, opens shopping-feed distribution beyond Etsy, adds affiliate revenue, and internationalizes the storefront.
 
@@ -16,13 +16,17 @@ Build envelope rough cut: **~220 hours across 16 tickets.** Most write-API ticke
 ## Section A — Ad campaign write surface (foundation for the rest of Phase 3 ads work)
 
 ### TICKET-201 — Ad campaign command bus + audit
-**Status:** not started
+**Status:** ✅ Complete (2026-05-11)
 **Est:** ~10h
-**New files (planned):**
-- `src/lib/ads/{command-bus,types}.ts`
-- `src/app/admin/ads/{page,[platform]/[campaign_id]/page}.tsx`
-- `src/app/admin/_actions/ads.ts`
-- `supabase/migrations/0015_ad_commands.sql`
+**New files:**
+- `src/lib/ads/{types,command-bus}.ts` — schema-checked types + dispatch + drainer + registry
+- `src/lib/admin/ads.ts` — read helpers for admin pages (listAdCampaigns, loadAdCampaignDetail)
+- `src/app/admin/ads/page.tsx` — campaign list with latest-metrics join
+- `src/app/admin/ads/[platform]/[campaign_id]/page.tsx` — detail page + command panel + history + 30-day metrics
+- `src/app/admin/ads/_components/command-panel.tsx` — pause/resume/edit-budget client component
+- `src/app/admin/_actions/ads.ts` — `dispatchAdCommandAction` server action, requireAdmin-gated
+- `src/app/api/cron/run-ad-commands/route.ts` — `*/5 * * * *` cron, runCron-wrapped
+- `supabase/migrations/0015_ad_commands.sql` (applied to Supabase)
 
 **Tasks:**
 - Migration `0015`: `ad_commands` (id, platform, external_campaign_id, command_type enum: `pause | resume | update_budget | update_status`, payload jsonb, status enum: `pending | running | success | failed`, attempts, last_error, requested_by → auth.users, requested_at, completed_at). Service-role RLS. Index on `(platform, status, requested_at)`.
@@ -399,7 +403,7 @@ These aren't tickets but they will surface during multiple tickets:
 ---
 
 ## Status Tracker
-- [ ] TICKET-201 — Ad campaign command bus + audit
+- [x] TICKET-201 — Ad campaign command bus + audit ✅ (2026-05-11)
 - [ ] TICKET-202 — Meta ad campaign writes
 - [ ] TICKET-203 — Google Ads campaign writes
 - [ ] TICKET-204 — TikTok ad campaign writes
