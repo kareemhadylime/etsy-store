@@ -4375,3 +4375,12 @@ T202 (Meta), T203 (Google Ads), T204 (TikTok), T205 (AI ad-creative). Each modul
 
 ### Files changed
 15 source + 4 docs. See `git show` for the full list.
+
+### Drift-snapshot regen follow-up (same push)
+CI run on `f1d8b78` failed `migration replay → Check for schema drift` as expected — the new `ad_commands` table doesn't exist in the committed `supabase/schema.snapshot.sql`. Followed the documented bootstrap workflow:
+1. `gh run download 25691436606 --name schema-current` → 2,368-line snapshot with the new table + indexes + RLS policy
+2. Verified: `grep -c "^\\restrict" → 0` (CI's bracket-expression sed pattern works correctly), `grep -c "ad_commands" → 18` (table + 2 indexes + RLS + relationships)
+3. Replaced `supabase/schema.snapshot.sql` directly (no manual stripping needed — CI's sed already produced the clean form)
+4. Committed + pushed. Next CI run goes green on the drift check.
+
+This 2-commit dance is the documented + intentional workflow for any schema-changing ship. Friction is on purpose: "yes, I changed the schema" should be an explicit, auditable, peer-reviewable second commit, not silent auto-regeneration.

@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (**🛠 PHASE 3 STARTED — T201 ad command bus shipped.** Track 2 also progressed: step 3 Family & Education build tickets done. Backend: migration 0015 applied to Supabase + `src/lib/ads/{types,command-bus}.ts` + `/admin/ads` UI + new `/api/cron/run-ad-commands` cron + 24 new tests (505 total). Drift snapshot will need a regen-and-commit follow-up after CI flags it. 71 commits already on `origin/main` from earlier shipping cycle.)_
+_Last updated: 2026-05-11 (Track 2 step 4: Investment Portfolio listing copy drafted → `docs/listing-copy/investment-portfolio-tracker.md`. 6 deferred artifacts remaining. Backend: **🛠 PHASE 3 — T201 SHIPPED ✅** end-to-end via 2-commit dance per docs (code commit → CI drift fail → snapshot regen commit). Migration 0015 + 24 new tests (505 total) + new ad_commands cron in vercel.json. Schema snapshot updated to 2,368 lines reflecting the new table. Drift detection back-armed for T202+.)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)

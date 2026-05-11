@@ -78,6 +78,27 @@ COMMENT ON TABLE public.ad_campaigns IS 'Cross-platform ad campaign metadata. Re
 
 
 --
+-- Name: ad_commands; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.ad_commands (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    platform text NOT NULL,
+    external_campaign_id text NOT NULL,
+    command_type text NOT NULL,
+    payload jsonb,
+    status text DEFAULT 'pending'::text NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
+    last_error text,
+    requested_by uuid,
+    requested_at timestamp with time zone DEFAULT now() NOT NULL,
+    completed_at timestamp with time zone,
+    CONSTRAINT ad_commands_command_type_check CHECK ((command_type = ANY (ARRAY['pause'::text, 'resume'::text, 'update_budget'::text, 'update_status'::text]))),
+    CONSTRAINT ad_commands_status_check CHECK ((status = ANY (ARRAY['pending'::text, 'running'::text, 'success'::text, 'failed'::text])))
+);
+
+
+--
 -- Name: ad_metrics_daily; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -783,6 +804,14 @@ ALTER TABLE ONLY public.ad_campaigns
 
 
 --
+-- Name: ad_commands ad_commands_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_commands
+    ADD CONSTRAINT ad_commands_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ad_metrics_daily ad_metrics_daily_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1132,6 +1161,20 @@ ALTER TABLE ONLY public.seo_rankings_daily
 
 ALTER TABLE ONLY public.seo_rankings_daily
     ADD CONSTRAINT seo_rankings_daily_search_engine_keyword_url_date_key UNIQUE (search_engine, keyword, url, date);
+
+
+--
+-- Name: ad_commands_by_campaign_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ad_commands_by_campaign_idx ON public.ad_commands USING btree (platform, external_campaign_id, requested_at DESC);
+
+
+--
+-- Name: ad_commands_dispatch_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ad_commands_dispatch_idx ON public.ad_commands USING btree (platform, status, requested_at);
 
 
 --
@@ -1623,6 +1666,14 @@ CREATE TRIGGER tg_seo_rankings_daily_updated_at BEFORE UPDATE ON public.seo_rank
 
 ALTER TABLE ONLY public.ad_campaigns
     ADD CONSTRAINT ad_campaigns_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE SET NULL;
+
+
+--
+-- Name: ad_commands ad_commands_requested_by_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ad_commands
+    ADD CONSTRAINT ad_commands_requested_by_fkey FOREIGN KEY (requested_by) REFERENCES auth.users(id) ON DELETE SET NULL;
 
 
 --
@@ -2122,6 +2173,19 @@ CREATE POLICY "Service role manages seo_rankings_daily" ON public.seo_rankings_d
 --
 
 ALTER TABLE public.ad_campaigns ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: ad_commands; Type: ROW SECURITY; Schema: public; Owner: -
+--
+
+ALTER TABLE public.ad_commands ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: ad_commands ad_commands_service_role; Type: POLICY; Schema: public; Owner: -
+--
+
+CREATE POLICY ad_commands_service_role ON public.ad_commands USING ((auth.role() = 'service_role'::text)) WITH CHECK ((auth.role() = 'service_role'::text));
+
 
 --
 -- Name: ad_metrics_daily; Type: ROW SECURITY; Schema: public; Owner: -
