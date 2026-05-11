@@ -1,5 +1,5 @@
 # Session Handshake
-_Last updated: 2026-05-11 (Budget Tracker design brief locked + Budget Tracker listing copy drafted → `docs/listing-copy/budget-tracker.md`; Product 1 fully spec'd through to Etsy)_
+_Last updated: 2026-05-11 (Debt Payoff design brief v1 drafted → `docs/product-designs/debt-payoff-planner.md`; first cascade from Budget Tracker template, 3 directions pending sign-off)_
 
 ## Project
 Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supabase)
@@ -115,6 +115,7 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
 - [x] **TICKET-111 AI listing copy generator ✅** (2026-05-11) → `src/lib/ai/{prompts,listing-copy}.ts` + `src/app/admin/_actions/ai-copy.ts` + `src/app/admin/products/_components/ai-copy-panel.tsx` + `supabase/migrations/0011_ai_jobs.sql` (applied: `ai_jobs`, `ai_outputs`, `prompt_templates` with 4 seeded v1 templates). Admin can generate Etsy title/description/tags/OG meta via Claude Sonnet 4.6, see per-output cost in USD, and Accept a version to stamp `accepted_at`. 22 new tests, 399 total passing.
 - [x] **TICKET-112 Content engine v1 ✅** (2026-05-11) → `src/lib/content/{atoms,publishing}.ts` + `src/app/admin/content/**` + `src/app/admin/_actions/content.ts` + `src/app/api/cron/publish-queue/route.ts` + `supabase/migrations/0012_content_engine.sql` (applied: `content_atoms`, `content_renditions`, `publishing_queue`, `published_posts` + 3 seed rendition prompts). Atom CRUD → 3-platform Claude rendition with IMAGE_PROMPT extraction → admin approval → publishing-queue cron (`*/15 * * * *`) drains to Instagram Graph / TikTok Content Posting / Pinterest v5 with retry budget. Banana image generation is admin-manual; rendition stores the prompt + accepts a manually-set image_url. 16 new tests, 415 total passing.
 - [x] **🎉 PHASE 2 COMPLETE — 12/12 backend tickets shipped end-to-end (2026-05-11)** — 9 daily/15-min crons, Klaviyo + Etsy webhooks, analytics dashboard at `/admin/analytics`, content engine at `/admin/content`, AI listing copy at `/admin/products/[id]`. Three ad platforms (Meta + Google + TikTok) live with the chartered scope of this session.
+- [x] **TICKET-011 Notion fulfillment plumbing ✅** (2026-05-11) → Phase 1.5 add-on enabling Notion Life OS to ship. `supabase/migrations/0013_notion_fulfillment.sql` (applied) adds `'notion'` to product_files.format. `OrderFulfilledItem` gains `format: 'file'|'notion'`; `OrderFulfilledEmail` switches CTA to "Open & duplicate" + adds how-to hint when any item is notion. `deliver.ts` bypasses Supabase Storage signed-URL for notion items, ships URL as-is, stamps `fulfillment_logs.expires_at=null`. 4 new tests, 419 total passing.
 - [ ] Design phase — Budget Tracker spreadsheet layout/visuals (parallel track)
 - [ ] Build actual spreadsheets (Google Sheets templates)
 - [x] **Wedding (Product 9) signed off** — spreadsheet-only v1, $24/$39/$59, Muslim+Hindu variants in AI Edition, both standalone + Bundle 10 ✅
@@ -157,7 +158,8 @@ Finance spreadsheet products for Etsy — `C:\ETSY\etsy-store` (Next.js + Supaba
   - Design brief approved (D1=A Sheets only / D2=A placeholder mockups / D3=A own 11-page AI PDF) → `docs/product-designs/budget-tracker.md`
   - Listing copy drafted → `docs/listing-copy/budget-tracker.md` (title, $9–$29 variations table, 13 SEO tags, 10 FAQs, 5 thumbnail hooks, production notes, anti-SaaS positioning vs. YNAB $109/yr + Monarch $99/yr)
   - Becomes template for remaining 4 Premium Finance House products + their listing copy
-- [ ] Next product-track step in sequence: Debt Payoff (Product 2) design brief — cascades from Budget Tracker template, ~3h. Then Sinking Funds / Net Worth / Small Business briefs each ~3h. Listing copy for each follows the brief.
+- [x] **Debt Payoff (Product 2) design brief v1 drafted ✅ (2026-05-11)** → `docs/product-designs/debt-payoff-planner.md`. First cascade from Budget Tracker template. 10 sections: identity inheritance, spreadsheet visual system w/ Debt List Input Tab + Dashboard Output w/ Debt Health Score gauge + debt-free trajectory + APR-band donut + payments-due bar + credit-score strip, 5 thumbnails (Hero/Strategy Comparison/Credit Simulator/AI Coach/Anti-Tally), 11-page AI Credit Score Coach PDF spec, asset checklist (flagged tab-count discrepancy for build to reconcile), 3 directions pending sign-off (all A/A/A cascade from Budget). ~36h build estimate.
+- [ ] Awaiting Debt Payoff D1/D2/D3 sign-off + listing copy. Then Sinking Funds (Product 3) design brief next.
 
 ## Notes
 - EtsyHunt has no public API — can't connect backend directly. Path is: publish via etsy MCP → connect live shop to EtsyHunt (read-only). For programmatic keyword research, use Etsy API + DataForSEO instead.

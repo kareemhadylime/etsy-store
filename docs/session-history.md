@@ -2044,3 +2044,128 @@ Two distinct product-track templates now codified:
 
 ### Next session
 Debt Payoff (Product 2) design brief — first cascade from the Budget Tracker template. Then Debt listing copy, then Sinking / NW / Small Business briefs + listings.
+
+---
+
+## Session 2026-05-11 — Debt Payoff (Product 2) design brief v1 (products session)
+
+### Continued — first Budget Tracker template cascade
+User said "continue" — next in sequence. Wrote Debt Payoff design brief, the first of 4 remaining Premium Finance House product briefs that cascade from the Budget Tracker template.
+
+### Done
+- `docs/product-designs/debt-payoff-planner.md` — 10-section brief, ~250 lines
+
+### What cascades from Budget Tracker template (no re-derivation)
+- Section 1 identity — "Same as Budget Tracker: no new palette, no new type, no per-product accent. Premium Finance House from Bundle brief Section 1."
+- Top bar pattern, banner library structure (2 messages, not 3)
+- Cell treatment, conditional formatting conventions, status pills, column-A accent strips
+- Variant tab-hiding strategy (single workbook → derive tiers)
+- All decisions on D1 (Sheets) / D2 (placeholder mockups) / D3 (own AI PDF) — recommendations cascade A/A/A
+
+### What's different per-product
+- **Output Dashboard required visuals** are debt-specific:
+  - Debt Health Score gauge (composite of 4 sub-metrics: debt-paid 40% / interest-saved 30% / on-time-streak 20% / utilization 10%, with 4 mini-gauges below the composite)
+  - Debt-free trajectory line chart (current pace vs. selected strategy, months-to-zero prominent)
+  - APR-band donut (high/mid/low) — visualizes high-APR concentration
+  - Payments-due-this-month bar with late-fee-alert ribbon when next-5-day window hits
+  - Credit score strip (3 bureaus + month-over-month delta)
+- **Banner library** customized: "Tally charges $25/mo. We charge $12 once." (replaces Budget Tracker's "YNAB $109/yr → $9 once" anchor)
+- **5 thumbnails** thematically debt-specific:
+  - #2 Strategy Comparison close-up (Snowball/Avalanche/Custom side-by-side with delta arrows)
+  - #3 Credit Score Simulator preview (pay $X → gain Y points)
+  - #4 AI Credit Score Coach preview (3 prompt cards diagonal)
+  - #5 Anti-Tally / Anti-Credit-Karma comparison — names both competitors directly (text only, no logos) because buyers who searched these names need the explicit alternative
+
+### Why thumbnail #5 names competitors directly
+Debt-tools category has two distinct loser-cohorts:
+- Tally users paying $25/mo for the same scheduling features a spreadsheet can give them once
+- Credit Karma users handing data to a "free" service that monetizes them via lender referrals
+Naming both gives explicit relief to buyers who already feel the trade-off but haven't seen an alternative framed. Higher-conversion than abstract "stop paying for what spreadsheets do free" claims.
+
+### Tab-count discrepancy flagged
+Proposal lists "18 tabs" but the tier breakdowns don't add up cleanly:
+- Essentials: 11 tabs by my count
+- Pro: would be 21 if all listed features get dedicated tabs
+- AI Edition: +1 tab (AI Credit Score Coach hub)
+
+Brief Section 6 flags this for build-phase reconciliation. Likely some Pro features collapse into shared tabs (Credit Score Tracker + Simulator together, etc.). Build tickets will lock the final tab count when ticket breakdown happens.
+
+### AI Credit Score Coach PDF
+11 pages following the Wedding AI Co-Pilot template structure:
+- Cover + Intro
+- 7 prompt pages (each: title + tab callout pill + copy-paste card + worked example)
+- Tips page (with debt-specific guidance: "Claude handles long debt lists better; ChatGPT runs negotiation scripts smoother")
+- Back cover with 12-month update note
+
+The 7 prompts from the proposal: Payoff Strategy Optimizer / AI Credit Score Coach / Utilization Timing Advisor / Consolidation Intelligence / Income Acceleration Coach / Debt Settlement Letter Generator / Health Score Coach.
+
+Full per-prompt content will be drafted in `docs/product-content/debt-payoff-ai-prompts.md` when build moves to production — same pattern as Wedding.
+
+### Cross-product implications
+- Bundle integration: Debt Payoff mockup card uses derivative component `Mockup Card / Debt Payoff` per Premium Finance Brand Kit handoff Section 5b; Bundle Setup Wizard page 6 (Finance variant) sources Debt Payoff Dashboard screenshot.
+- Bundle AI Library has 8 Debt prompts in its reference section (7 from this PDF + 1 cross-product workflow already counted in the Workflows section: "Pay off debt + save for wedding").
+- Build estimate: ~36h, comparable to Budget Tracker's ~37h. Slight up-tick from Credit Score Simulator's 3-bureau matrix logic.
+
+### Pattern established for remaining 3 briefs
+Sinking Funds / Net Worth / Small Business briefs follow this exact template:
+1. Identity inheritance (1 paragraph, cascade reference)
+2. Spreadsheet visual system (Input Tab + Output Dashboard with per-product chart types)
+3. 5 thumbnails with per-product hooks
+4. AI PDF spec (varies in page count: 5-8 prompts → 9-12 pages)
+5. Cross-product references (Bundle integration)
+6. Asset production checklist
+7. 3 directions (all A/A/A cascade unless product-specific reason to override)
+8. Build estimate
+9. Cross-references
+10. Out-of-scope items
+
+Per-brief writing time: ~2.5h (this brief took similar). Listing copy follows at ~1h each.
+
+### Files changed
+- `docs/product-designs/debt-payoff-planner.md` (new)
+- `session-handshake.md` — Debt Payoff brief checkmark + next-step
+
+### Next session
+Either:
+- Lock Debt Payoff D1/D2/D3 (A/A/A cascade) → write Debt Payoff listing copy → move to Sinking Funds brief
+- Skip Debt sign-off and continue with Sinking Funds brief in parallel (all 4 remaining briefs will recommend A/A/A; user can batch-approve at the end)
+
+If the user keeps saying "continue," the efficient pattern is: write all 4 briefs back-to-back, then do the 4 listings, then batch the sign-offs. Saves context-switching.
+
+---
+
+## Session 2026-05-11 — TICKET-011 Notion fulfillment plumbing (Phase 1.5)
+
+### Done
+- Migration `0013_notion_fulfillment.sql` applied via MCP. Drops + re-adds the `product_files_format_check` constraint with `'notion'` in the allowed set. Comment on `product_files.url` documents the dual semantic: storage path for file formats, public duplicatable URL for notion.
+- `src/lib/supabase/types.ts` extends `ProductFormat` with `'notion'`.
+- `src/lib/email/templates/order-fulfilled.tsx`:
+  - `OrderFulfilledItem` gains an optional `format?: 'file' | 'notion'` (defaults to file for back-compat)
+  - The template introspects all items and switches heading + intro + CTA + hint depending on whether the order has files, notion, or both
+  - Notion CTA button reads "Open & duplicate" instead of "Download"
+  - A how-to hint paragraph rendered whenever any notion item is present
+- `src/lib/fulfillment/deliver.ts` detects `file.format === 'notion'` per item and bypasses `generateSignedUrl` — the URL is delivered as-is. `signed_links` count only includes file items (accurate to its name). `fulfillment_logs.expires_at` is set to null for notion items + `metadata.format='notion'` recorded.
+- `src/lib/admin/product-files.ts` upload flow still rejects format='notion' through its Zod enum (file uploads aren't the right path for Notion templates — admin sets that row via SQL or future "add URL" form). `FORMAT_EXTENSIONS` mapping narrowed via `Exclude<ProductFormat, 'notion'>` to keep the type exhaustive.
+- 4 new tests:
+  - deliver.ts: notion-only order (verifies createSignedUrl NOT called, URL passes through, fulfillment_logs.expires_at null, metadata.format='notion')
+  - deliver.ts: mixed file + notion order (one signed URL, one passthrough, three fulfillment_logs)
+  - email template: notion-only render (CTA = "Open & duplicate", how-to hint shown, no "7 days" text)
+  - email template: mixed render (both CTAs visible, how-to hint shown, expiry text still present)
+
+### Verification
+- `npm test` → 72 files / 419 tests passing.
+- `npx tsc --noEmit` → exit 0.
+- `npm run build` → succeeds; existing routes unchanged (no new endpoints — purely additive to the fulfillment flow).
+
+### How Notion Life OS now ships end-to-end
+1. Admin creates a `product_files` row for the Notion Life OS product with `format='notion'`, `url=<public-duplicatable-Notion-page-url>`, `tier='essentials'`
+2. Buyer purchases on Etsy → existing webhook → existing deliver.ts
+3. deliver.ts sees `format='notion'`, skips Storage signing, includes the URL in `OrderFulfilledEmail` with `format='notion'`
+4. Email renders the "Open & duplicate" CTA + how-to hint
+5. Buyer clicks → Notion's own duplicate flow puts the template in their workspace
+
+### Backend session — wrap-up
+TICKET-011 was the last backend-flagged item this session was chartered for. Everything else queued in the handshake (T005/T006 UI, Phase 1 + 2 tickets, this Phase 1.5 add-on, and the ad-platform integrations Meta/Google/TikTok) is done. The products session is doing the design/build work for individual products; the backend is ready to fulfill anything they ship.
+
+### Phase 3 left untouched
+The original Phase 3 preview from `docs/backend-plan.md` — ad write APIs, full 10-platform content engine, affiliate manager, multi-language, Pinterest Shopping + Google Merchant feeds — is intentionally not broken into tickets. Let Phase 2 collect a few weeks of real data before prioritising Phase 3 work.
