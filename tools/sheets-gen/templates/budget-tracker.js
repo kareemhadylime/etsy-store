@@ -140,15 +140,24 @@ function addTopBar(sheet, tabName, tabSubtitle, kpiData) {
   tileRanges.forEach((range, i) => {
     sheet.mergeCells(range);
     const cell = sheet.getCell(range.split(':')[0]);
-    cell.value = {
-      richText: [
-        { text: `${tileLabels[i]}\n`, font: FONTS.kpiLabel },
-        { text: `${tileValues[i]}`,   font: FONTS.kpiValue },
-        ...(tileDeltas[i]
-          ? [{ text: `  ${tileDeltas[i]}`, font: { ...FONTS.kpiDelta, color: argb(COLORS.textMuted) } }]
-          : []),
-      ],
-    };
+    const val = tileValues[i];
+
+    if (val && typeof val === 'object' && 'formula' in val) {
+      // richText cannot contain formula objects — use CHAR(10) concatenation so
+      // the label + live value both appear in one cell and the formula recalculates.
+      cell.value = { formula: `"${tileLabels[i]}"&CHAR(10)&(${val.formula})` };
+      cell.font = { name: 'Inter', size: 11, bold: true, color: argb(COLORS.charcoal) };
+    } else {
+      cell.value = {
+        richText: [
+          { text: `${tileLabels[i]}\n`, font: FONTS.kpiLabel },
+          { text: `${val}`,             font: FONTS.kpiValue },
+          ...(tileDeltas[i]
+            ? [{ text: `  ${tileDeltas[i]}`, font: { ...FONTS.kpiDelta, color: argb(COLORS.textMuted) } }]
+            : []),
+        ],
+      };
+    }
     cell.alignment = { vertical: 'top', horizontal: 'left', indent: 1, wrapText: true };
     cell.fill = FILLS.white;
     cell.border = BORDER_THIN();
@@ -1019,6 +1028,256 @@ function buildRecurringTemplates(workbook) {
   addFooter(sheet, r + 2 + recurring.length + 6);
 }
 
+// ===== TAB: ↩️ Refund Tracker =====
+function buildRefundTracker(workbook) {
+  const sheet = workbook.addWorksheet('↩️ Refund Tracker');
+  setTabColor(sheet, COLORS.alert);
+
+  setupColumns(sheet, { A: 2, B: 12, C: 24, D: 12, E: 14, F: 16, G: 14, H: 30, I: 8, J: 8, K: 8, L: 8, M: 2 });
+
+  addTopBar(sheet, '↩️ Refund Tracker', 'Every return you\'re waiting on. Days column turns red at 30+ days outstanding.', [
+    { label: 'PENDING',       value: { formula: 'COUNTIF(F8:F40,"Pending")' } },
+    { label: 'EXPECTED $',    value: { formula: 'TEXT(SUMIF(F8:F40,"Pending",D8:D40),"$#,##0.00")' } },
+    { label: 'RECEIVED $',    value: { formula: 'TEXT(SUMIF(F8:F40,"Received",D8:D40),"$#,##0.00")' } },
+    { label: 'DISPUTED',      value: { formula: 'COUNTIF(F8:F40,"Disputed")' } },
+    { label: 'OVERDUE (30+)', value: { formula: 'COUNTIFS(F8:F40,"Pending",G8:G40,">"&30)' } },
+    { label: 'TOTAL OWED',    value: { formula: 'TEXT(SUMIFS(D8:D40,F8:F40,"<>Received"),"$#,##0.00")' } },
+  ]);
+
+  let r = addSectionHeader(sheet, 6, 'Refunds in progress',
+    'Flagged when you mark "Refund expected" in Expense Tracker. Update status as refunds arrive. Days turns red at 30+.');
+
+  addTableHeader(sheet, r + 1,
+    ['Date', 'Vendor', 'Amount', 'Expected by', 'Status', 'Days Out', 'Notes'],
+    ['B', 'C', 'D', 'E', 'F', 'G', 'H']);
+
+  const refunds = [
+    { date: '2026-04-12', vendor: 'Amazon',          amt: 34.99,  expected: '2026-04-22', status: 'Received', days: 8,  notes: 'Item returned — credit posted' },
+    { date: '2026-04-18', vendor: 'United Airlines',  amt: 215.00, expected: '2026-05-02', status: 'Pending',  days: 22, notes: 'Flight change fee refund' },
+    { date: '2026-04-25', vendor: 'Walgreens',        amt: 12.49,  expected: '2026-05-09', status: 'Pending',  days: 35, notes: 'Wrong item shipped' },
+    { date: '2026-05-01', vendor: 'Apple Store',      amt: 49.99,  expected: '2026-05-15', status: 'Pending',  days: 11, notes: 'App subscription cancelled' },
+    { date: '2026-03-30', vendor: 'Booking.com',      amt: 189.00, expected: '2026-04-14', status: 'Disputed', days: 43, notes: '⚠️ Escalated to bank dispute' },
+  ];
+
+  refunds.forEach((row, i) => {
+    const ri = r + 2 + i;
+
+    sheet.getCell(`B${ri}`).value = row.date;
+    sheet.getCell(`B${ri}`).font = FONTS.body;
+    sheet.getCell(`B${ri}`).border = BORDER_THIN();
+    sheet.getCell(`B${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`C${ri}`).value = row.vendor;
+    sheet.getCell(`C${ri}`).font = FONTS.bodyBold;
+    sheet.getCell(`C${ri}`).border = BORDER_THIN();
+    sheet.getCell(`C${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`D${ri}`).value = row.amt;
+    sheet.getCell(`D${ri}`).numFmt = '"$"#,##0.00';
+    sheet.getCell(`D${ri}`).font = FONTS.body;
+    sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`D${ri}`).border = BORDER_THIN();
+    sheet.getCell(`D${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`E${ri}`).value = row.expected;
+    sheet.getCell(`E${ri}`).font = FONTS.body;
+    sheet.getCell(`E${ri}`).border = BORDER_THIN();
+    sheet.getCell(`E${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`F${ri}`).value = row.status;
+    sheet.getCell(`F${ri}`).font = { ...FONTS.body, bold: true };
+    sheet.getCell(`F${ri}`).alignment = { horizontal: 'center' };
+    sheet.getCell(`F${ri}`).border = BORDER_THIN();
+    sheet.getCell(`F${ri}`).dataValidation = { type: 'list', formulae: ['"Pending,Received,Disputed"'] };
+
+    sheet.getCell(`G${ri}`).value = row.days;
+    sheet.getCell(`G${ri}`).numFmt = '0" days"';
+    sheet.getCell(`G${ri}`).font = FONTS.body;
+    sheet.getCell(`G${ri}`).alignment = { horizontal: 'center' };
+    sheet.getCell(`G${ri}`).border = BORDER_THIN();
+    sheet.getCell(`G${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`H${ri}`).value = row.notes;
+    sheet.getCell(`H${ri}`).font = FONTS.bodyMuted;
+    sheet.getCell(`H${ri}`).border = BORDER_THIN();
+    sheet.getCell(`H${ri}`).fill = FILLS.white;
+  });
+
+  sheet.addConditionalFormatting({
+    ref: `F${r + 2}:F${r + 2 + refunds.length - 1}`,
+    rules: [
+      { type: 'containsText', operator: 'containsText', text: 'Received', priority: 1, style: { fill: FILLS.successLight, font: { color: argb(COLORS.success), bold: true } } },
+      { type: 'containsText', operator: 'containsText', text: 'Pending',  priority: 2, style: { fill: FILLS.warningLight, font: { color: argb(COLORS.warning), bold: true } } },
+      { type: 'containsText', operator: 'containsText', text: 'Disputed', priority: 3, style: { fill: FILLS.alertLight,   font: { color: argb(COLORS.alert),   bold: true } } },
+    ],
+  });
+
+  sheet.addConditionalFormatting({
+    ref: `G${r + 2}:G${r + 2 + refunds.length - 1}`,
+    rules: [
+      { type: 'cellIs', operator: 'greaterThan', formulae: ['30'], priority: 1, style: { fill: FILLS.alertLight,   font: { color: argb(COLORS.alert),   bold: true } } },
+      { type: 'cellIs', operator: 'between',     formulae: ['14', '30'], priority: 2, style: { fill: FILLS.warningLight, font: { color: argb(COLORS.warning) } } },
+    ],
+  });
+
+  const footerR = r + 2 + refunds.length;
+  addCallout(sheet, `B${footerR + 2}:H${footerR + 3}`,
+    '💡',
+    '30-day rule',
+    'Days column turns red at 30+ days. Call the merchant at 30 days, file a credit card dispute at 45. Chargeback window typically closes at 120 days from purchase — don\'t let disputed refunds age past that.');
+  sheet.getRow(footerR + 2).height = 26;
+  sheet.getRow(footerR + 3).height = 26;
+
+  addFooter(sheet, footerR + 6);
+}
+
+// ===== TAB: 💳 Credit Card Manager =====
+function buildCreditCardManager(workbook) {
+  const sheet = workbook.addWorksheet('💳 Credit Card Manager');
+  setTabColor(sheet, COLORS.charcoal);
+
+  setupColumns(sheet, { A: 2, B: 22, C: 14, D: 12, E: 14, F: 10, G: 12, H: 14, I: 16, J: 14, K: 8, L: 8, M: 2 });
+
+  addTopBar(sheet, '💳 Credit Card Manager', 'Balances, utilization, interest accrual. Keep utilization <30% to protect your credit score.', [
+    { label: 'TOTAL BALANCE', value: { formula: 'TEXT(SUM(C8:C13),"$#,##0")' } },
+    { label: 'TOTAL LIMIT',   value: { formula: 'TEXT(SUM(D8:D13),"$#,##0")' } },
+    { label: 'UTILIZATION',   value: { formula: 'TEXT(IFERROR(SUM(C8:C13)/SUM(D8:D13),0),"0%")' } },
+    { label: 'MIN PAYMENTS',  value: { formula: 'TEXT(SUM(E8:E13),"$#,##0.00")' } },
+    { label: 'MONTHLY INT.',  value: { formula: 'TEXT(SUMPRODUCT((C8:C13)*(F8:F13)/12),"$#,##0.00")' } },
+    { label: 'CARDS',         value: { formula: 'COUNTA(B8:B13)' } },
+  ]);
+
+  let r = addSectionHeader(sheet, 6, 'Credit card dashboard',
+    'Up to 6 cards (Pro tier). Utilization % = balance ÷ limit. Keep under 30% to avoid score impact — under 10% is ideal.');
+
+  addTableHeader(sheet, r + 1,
+    ['Card Name', 'Balance', 'Limit', 'Min. Payment', 'APR', 'Due Date', 'Utilization %', 'Monthly Interest', 'Status'],
+    ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']);
+
+  const cards = [
+    { name: 'Chase Sapphire Preferred', balance: 1240.50, limit: 10000, min: 25.00, apr: 0.2199, due: '5th',  util: 0.124, interest: 22.74, status: '🟢 Good' },
+    { name: 'Citi Double Cash',         balance:  340.00, limit:  5000, min: 25.00, apr: 0.1899, due: '12th', util: 0.068, interest:  5.38, status: '🟢 Good' },
+    { name: 'Amex Gold',                balance: 2890.00, limit:  6000, min: 58.00, apr: 0.2699, due: '22nd', util: 0.482, interest: 65.04, status: '🔴 High' },
+  ];
+
+  cards.forEach((card, i) => {
+    const ri = r + 2 + i;
+
+    sheet.getCell(`B${ri}`).value = card.name;
+    sheet.getCell(`B${ri}`).font = FONTS.bodyBold;
+    sheet.getCell(`B${ri}`).border = BORDER_THIN();
+    sheet.getCell(`B${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`C${ri}`).value = card.balance;
+    sheet.getCell(`C${ri}`).numFmt = '"$"#,##0.00';
+    sheet.getCell(`C${ri}`).font = FONTS.body;
+    sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`C${ri}`).border = BORDER_THIN();
+    sheet.getCell(`C${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`D${ri}`).value = card.limit;
+    sheet.getCell(`D${ri}`).numFmt = '"$"#,##0';
+    sheet.getCell(`D${ri}`).font = FONTS.body;
+    sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`D${ri}`).border = BORDER_THIN();
+    sheet.getCell(`D${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`E${ri}`).value = card.min;
+    sheet.getCell(`E${ri}`).numFmt = '"$"#,##0.00';
+    sheet.getCell(`E${ri}`).font = FONTS.body;
+    sheet.getCell(`E${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`E${ri}`).border = BORDER_THIN();
+    sheet.getCell(`E${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`F${ri}`).value = card.apr;
+    sheet.getCell(`F${ri}`).numFmt = '0.00%';
+    sheet.getCell(`F${ri}`).font = FONTS.body;
+    sheet.getCell(`F${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`F${ri}`).border = BORDER_THIN();
+    sheet.getCell(`F${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`G${ri}`).value = card.due;
+    sheet.getCell(`G${ri}`).font = FONTS.body;
+    sheet.getCell(`G${ri}`).alignment = { horizontal: 'center' };
+    sheet.getCell(`G${ri}`).border = BORDER_THIN();
+    sheet.getCell(`G${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`H${ri}`).value = card.util;
+    sheet.getCell(`H${ri}`).numFmt = '0%';
+    sheet.getCell(`H${ri}`).font = { ...FONTS.body, bold: true };
+    sheet.getCell(`H${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`H${ri}`).border = BORDER_THIN();
+    sheet.getCell(`H${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`I${ri}`).value = card.interest;
+    sheet.getCell(`I${ri}`).numFmt = '"$"#,##0.00';
+    sheet.getCell(`I${ri}`).font = { ...FONTS.body, color: argb(COLORS.alert) };
+    sheet.getCell(`I${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`I${ri}`).border = BORDER_THIN();
+    sheet.getCell(`I${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`J${ri}`).value = card.status;
+    sheet.getCell(`J${ri}`).font = { ...FONTS.body, bold: true };
+    sheet.getCell(`J${ri}`).alignment = { horizontal: 'center' };
+    sheet.getCell(`J${ri}`).border = BORDER_THIN();
+  });
+
+  // CF on Utilization — alert >30%, warning 20-30%, success <20%
+  sheet.addConditionalFormatting({
+    ref: `H${r + 2}:H${r + 2 + cards.length - 1}`,
+    rules: [
+      { type: 'cellIs', operator: 'greaterThan', formulae: ['0.3'],        priority: 1, style: { fill: FILLS.alertLight,   font: { color: argb(COLORS.alert),   bold: true } } },
+      { type: 'cellIs', operator: 'between',     formulae: ['0.2', '0.3'], priority: 2, style: { fill: FILLS.warningLight, font: { color: argb(COLORS.warning), bold: true } } },
+      { type: 'cellIs', operator: 'lessThan',    formulae: ['0.2'],        priority: 3, style: { fill: FILLS.successLight, font: { color: argb(COLORS.success), bold: true } } },
+    ],
+  });
+
+  // Totals row
+  const totalsR = r + 2 + cards.length + 1;
+  sheet.getCell(`B${totalsR}`).value = 'TOTALS';
+  sheet.getCell(`B${totalsR}`).font = FONTS.bodyBold;
+  sheet.getCell(`B${totalsR}`).fill = FILLS.offWhite;
+  sheet.getCell(`B${totalsR}`).border = BORDER_THIN();
+
+  sheet.getCell(`C${totalsR}`).value = { formula: `SUM(C${r + 2}:C${r + 2 + cards.length - 1})` };
+  sheet.getCell(`C${totalsR}`).numFmt = '"$"#,##0.00';
+  sheet.getCell(`C${totalsR}`).font = FONTS.bodyBold;
+  sheet.getCell(`C${totalsR}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`C${totalsR}`).fill = FILLS.offWhite;
+  sheet.getCell(`C${totalsR}`).border = BORDER_THIN();
+
+  sheet.getCell(`D${totalsR}`).value = { formula: `SUM(D${r + 2}:D${r + 2 + cards.length - 1})` };
+  sheet.getCell(`D${totalsR}`).numFmt = '"$"#,##0';
+  sheet.getCell(`D${totalsR}`).font = FONTS.bodyBold;
+  sheet.getCell(`D${totalsR}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`D${totalsR}`).fill = FILLS.offWhite;
+  sheet.getCell(`D${totalsR}`).border = BORDER_THIN();
+
+  sheet.getCell(`E${totalsR}`).value = { formula: `SUM(E${r + 2}:E${r + 2 + cards.length - 1})` };
+  sheet.getCell(`E${totalsR}`).numFmt = '"$"#,##0.00';
+  sheet.getCell(`E${totalsR}`).font = FONTS.bodyBold;
+  sheet.getCell(`E${totalsR}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`E${totalsR}`).fill = FILLS.offWhite;
+  sheet.getCell(`E${totalsR}`).border = BORDER_THIN();
+
+  sheet.getCell(`I${totalsR}`).value = { formula: `SUM(I${r + 2}:I${r + 2 + cards.length - 1})` };
+  sheet.getCell(`I${totalsR}`).numFmt = '"$"#,##0.00';
+  sheet.getCell(`I${totalsR}`).font = { ...FONTS.bodyBold, color: argb(COLORS.alert) };
+  sheet.getCell(`I${totalsR}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`I${totalsR}`).fill = FILLS.offWhite;
+  sheet.getCell(`I${totalsR}`).border = BORDER_THIN();
+
+  const footerR = totalsR + 3;
+  addCallout(sheet, `B${footerR}:J${footerR + 1}`,
+    '💡',
+    'Statement-close trick',
+    'Credit bureaus report balances as of statement close date — not payment date. Pay before statement close to lower reported utilization. Target <10% across all cards for best score impact.');
+  sheet.getRow(footerR).height = 26;
+  sheet.getRow(footerR + 1).height = 26;
+
+  addFooter(sheet, footerR + 4);
+}
+
 // ===== TAB 7: 📅 Bill Calendar =====
 function buildBillCalendar(workbook) {
   const sheet = workbook.addWorksheet('📅 Bill Calendar');
@@ -1362,7 +1621,7 @@ function buildHealthScore(workbook) {
   setupColumns(sheet, { A: 2, B: 28, C: 14, D: 14, E: 18, F: 40, G: 12, H: 12, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
   addTopBar(sheet, '🏆 Financial Health Score', 'Composite of 5 sub-scores. Updates as your data fills in.', [
-    { label: 'SCORE',         value: { formula: 'ROUND(AVERAGE(D12:D16),0)&" / 100"' } },
+    { label: 'SCORE',         value: { formula: 'IFERROR(ROUND(AVERAGE(D21:D25),0),0)&" / 100"' } },
     { label: 'STATUS',        value: 'Healthy' },
     { label: 'CHANGE (MoM)',  value: '+4' },
     { label: 'TREND',         value: '↗ Improving' },
@@ -1374,7 +1633,7 @@ function buildHealthScore(workbook) {
 
   // The Big Score
   sheet.mergeCells(`B${r + 1}:D${r + 5}`);
-  sheet.getCell(`B${r + 1}`).value = { formula: 'ROUND(AVERAGE(D12:D16),0)' };
+  sheet.getCell(`B${r + 1}`).value = { formula: 'IFERROR(ROUND(AVERAGE(D21:D25),0),0)' };
   sheet.getCell(`B${r + 1}`).font = { name: 'Inter', size: 72, bold: true, color: argb(COLORS.success) };
   sheet.getCell(`B${r + 1}`).alignment = { vertical: 'middle', horizontal: 'center' };
   sheet.getCell(`B${r + 1}`).fill = FILLS.ivory;
@@ -1530,6 +1789,401 @@ function buildAnnualSummary(workbook) {
   addFooter(sheet, r + 13);
 }
 
+// ===== TAB: 🚗 Mileage Tracker =====
+function buildMileageTracker(workbook) {
+  const sheet = workbook.addWorksheet('🚗 Mileage Tracker');
+  setTabColor(sheet, COLORS.charcoalLight);
+
+  setupColumns(sheet, { A: 2, B: 12, C: 28, D: 12, E: 12, F: 10, G: 14, H: 14, I: 30, J: 8, K: 8, L: 8, M: 2 });
+
+  addTopBar(sheet, '🚗 Mileage Tracker', 'Business miles → IRS deduction. Update the rate cell each January 1.', [
+    { label: 'YTD MILES',   value: { formula: 'TEXT(SUM(F9:F60),"#,##0")' } },
+    { label: 'IRS RATE',    value: '$0.670/mi' },
+    { label: 'YTD DEDUCT.', value: { formula: 'TEXT(SUM(H9:H60),"$#,##0.00")' } },
+    { label: 'TRIPS',       value: { formula: 'COUNTA(C9:C60)' } },
+    { label: 'AVG TRIP',    value: { formula: 'TEXT(IFERROR(AVERAGE(F9:F60),0),"0.0")&" mi"' } },
+    { label: 'EST. SAVING', value: { formula: 'TEXT(SUM(H9:H60)*0.22,"$#,##0.00")' } },
+  ]);
+
+  // IRS rate input row (row 6) — highlighted as "update annually"
+  sheet.mergeCells('B6:D6');
+  const rateLabel = sheet.getCell('B6');
+  rateLabel.value = '⚠️ IRS MILEAGE RATE — update each Jan 1:';
+  rateLabel.font = { name: 'Inter', size: 9, bold: true, color: argb(COLORS.warning) };
+  rateLabel.fill = FILLS.warningLight;
+  rateLabel.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+  rateLabel.border = {
+    top: { style: 'medium', color: argb(COLORS.warning) },
+    left: { style: 'medium', color: argb(COLORS.warning) },
+    bottom: { style: 'medium', color: argb(COLORS.warning) },
+    right: { style: 'thin', color: argb(COLORS.divider) },
+  };
+  sheet.getRow(6).height = 22;
+
+  sheet.getCell('E6').value = 0.67;
+  sheet.getCell('E6').numFmt = '"$"0.000';
+  sheet.getCell('E6').font = { name: 'Inter', size: 12, bold: true, color: argb(COLORS.warning) };
+  sheet.getCell('E6').fill = FILLS.warningLight;
+  sheet.getCell('E6').alignment = { horizontal: 'center' };
+  sheet.getCell('E6').border = {
+    top: { style: 'medium', color: argb(COLORS.warning) },
+    left: { style: 'thin', color: argb(COLORS.divider) },
+    bottom: { style: 'medium', color: argb(COLORS.warning) },
+    right: { style: 'medium', color: argb(COLORS.warning) },
+  };
+
+  sheet.mergeCells('F6:I6');
+  sheet.getCell('F6').value = '2024: $0.670/mi · 2023: $0.655/mi · Source: IRS.gov — search "standard mileage rates"';
+  sheet.getCell('F6').font = FONTS.bodyMuted;
+  sheet.getCell('F6').fill = FILLS.ivory;
+  sheet.getCell('F6').alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+
+  // Table header at row 8 (skip row 7 as spacer)
+  sheet.getRow(7).height = 6;
+  addTableHeader(sheet, 8,
+    ['Date', 'Purpose / Destination', 'Odo. Start', 'Odo. End', 'Miles', 'Type', 'Deduction $', 'Notes'],
+    ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']);
+
+  const IRS_RATE = 0.67;
+  const trips = [
+    { date: '2026-05-02', purpose: 'Client meeting — Midtown HQ',       odoStart: 24150, odoEnd: 24183, miles: 33, type: 'Business', notes: '' },
+    { date: '2026-05-05', purpose: 'Office supplies — Staples Brooklyn', odoStart: 24183, odoEnd: 24196, miles: 13, type: 'Business', notes: 'Receipt attached' },
+    { date: '2026-05-08', purpose: 'Airport drop-off — JFK Terminal 4',  odoStart: 24196, odoEnd: 24221, miles: 25, type: 'Business', notes: 'Business trip dep.' },
+    { date: '2026-05-10', purpose: 'Medical — Dr. Hernandez',            odoStart: 24221, odoEnd: 24240, miles: 19, type: 'Medical',  notes: '' },
+    { date: '2026-05-12', purpose: 'Charity delivery — Meals on Wheels', odoStart: 24240, odoEnd: 24258, miles: 18, type: 'Charity',  notes: '' },
+  ];
+
+  trips.forEach((trip, i) => {
+    const ri = 9 + i;
+
+    sheet.getCell(`B${ri}`).value = trip.date;
+    sheet.getCell(`B${ri}`).font = FONTS.body;
+    sheet.getCell(`B${ri}`).border = BORDER_THIN();
+    sheet.getCell(`B${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`C${ri}`).value = trip.purpose;
+    sheet.getCell(`C${ri}`).font = FONTS.bodyBold;
+    sheet.getCell(`C${ri}`).border = BORDER_THIN();
+    sheet.getCell(`C${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`D${ri}`).value = trip.odoStart;
+    sheet.getCell(`D${ri}`).numFmt = '#,##0';
+    sheet.getCell(`D${ri}`).font = FONTS.body;
+    sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`D${ri}`).border = BORDER_THIN();
+    sheet.getCell(`D${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`E${ri}`).value = trip.odoEnd;
+    sheet.getCell(`E${ri}`).numFmt = '#,##0';
+    sheet.getCell(`E${ri}`).font = FONTS.body;
+    sheet.getCell(`E${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`E${ri}`).border = BORDER_THIN();
+    sheet.getCell(`E${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`F${ri}`).value = trip.miles;
+    sheet.getCell(`F${ri}`).numFmt = '#,##0.0';
+    sheet.getCell(`F${ri}`).font = { ...FONTS.body, bold: true };
+    sheet.getCell(`F${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`F${ri}`).border = BORDER_THIN();
+    sheet.getCell(`F${ri}`).fill = FILLS.ivory;
+
+    sheet.getCell(`G${ri}`).value = trip.type;
+    sheet.getCell(`G${ri}`).font = FONTS.body;
+    sheet.getCell(`G${ri}`).alignment = { horizontal: 'center' };
+    sheet.getCell(`G${ri}`).border = BORDER_THIN();
+    sheet.getCell(`G${ri}`).fill = FILLS.white;
+    sheet.getCell(`G${ri}`).dataValidation = { type: 'list', formulae: ['"Business,Medical,Charity,Personal"'] };
+
+    sheet.getCell(`H${ri}`).value = +(trip.miles * IRS_RATE).toFixed(2);
+    sheet.getCell(`H${ri}`).numFmt = '"$"#,##0.00';
+    sheet.getCell(`H${ri}`).font = { ...FONTS.body, color: argb(COLORS.success) };
+    sheet.getCell(`H${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`H${ri}`).border = BORDER_THIN();
+    sheet.getCell(`H${ri}`).fill = FILLS.successLight;
+
+    sheet.getCell(`I${ri}`).value = trip.notes;
+    sheet.getCell(`I${ri}`).font = FONTS.bodyMuted;
+    sheet.getCell(`I${ri}`).border = BORDER_THIN();
+    sheet.getCell(`I${ri}`).fill = FILLS.white;
+  });
+
+  // CF on type
+  sheet.addConditionalFormatting({
+    ref: `G9:G${9 + trips.length - 1}`,
+    rules: [
+      { type: 'containsText', operator: 'containsText', text: 'Business', priority: 1, style: { fill: FILLS.successLight, font: { color: argb(COLORS.success), bold: true } } },
+      { type: 'containsText', operator: 'containsText', text: 'Medical',  priority: 2, style: { fill: FILLS.warningLight, font: { color: argb(COLORS.warning), bold: true } } },
+      { type: 'containsText', operator: 'containsText', text: 'Personal', priority: 3, style: { font: { color: argb(COLORS.textMuted) } } },
+    ],
+  });
+
+  // Totals row
+  const totalsR = 9 + trips.length + 1;
+  sheet.getCell(`B${totalsR}`).value = 'YTD TOTALS';
+  sheet.getCell(`B${totalsR}`).font = FONTS.bodyBold;
+  sheet.getCell(`B${totalsR}`).fill = FILLS.offWhite;
+  sheet.getCell(`B${totalsR}`).border = BORDER_THIN();
+
+  sheet.getCell(`F${totalsR}`).value = { formula: `SUM(F9:F${9 + trips.length - 1})` };
+  sheet.getCell(`F${totalsR}`).numFmt = '#,##0.0';
+  sheet.getCell(`F${totalsR}`).font = FONTS.bodyBold;
+  sheet.getCell(`F${totalsR}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`F${totalsR}`).fill = FILLS.offWhite;
+  sheet.getCell(`F${totalsR}`).border = BORDER_THIN();
+
+  sheet.getCell(`H${totalsR}`).value = { formula: `SUM(H9:H${9 + trips.length - 1})` };
+  sheet.getCell(`H${totalsR}`).numFmt = '"$"#,##0.00';
+  sheet.getCell(`H${totalsR}`).font = { ...FONTS.bodyBold, color: argb(COLORS.success) };
+  sheet.getCell(`H${totalsR}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`H${totalsR}`).fill = FILLS.offWhite;
+  sheet.getCell(`H${totalsR}`).border = BORDER_THIN();
+
+  const footerR = totalsR + 3;
+  addCallout(sheet, `B${footerR}:I${footerR + 1}`,
+    '💡',
+    'How this feeds your taxes',
+    'YTD deduction total flows to the Annual Summary Tax Prep section. Share that section with your accountant at year-end. Personal miles are not deductible — use the Type dropdown to keep records clean for the IRS.');
+  sheet.getRow(footerR).height = 26;
+  sheet.getRow(footerR + 1).height = 26;
+
+  addFooter(sheet, footerR + 4);
+}
+
+// ===== TAB: 👫 Household Mode =====
+function buildHouseholdMode(workbook) {
+  const sheet = workbook.addWorksheet('👫 Household Mode');
+  setTabColor(sheet, COLORS.warmGold);
+
+  setupColumns(sheet, { A: 2, B: 24, C: 14, D: 14, E: 3, F: 24, G: 14, H: 14, I: 3, J: 22, K: 14, L: 8, M: 2 });
+
+  addTopBar(sheet, '👫 Household Mode', 'Two earners, one plan. Settlement row shows who owes whom at month end.', [
+    { label: 'PARTNER A',  value: 'Alex' },
+    { label: 'A INCOME',   value: { formula: 'TEXT(SUMIF(D8:D20,"Income",C8:C20),"$#,##0")' } },
+    { label: 'A NET',      value: { formula: 'TEXT(SUM(C8:C20),"$#,##0")' } },
+    { label: 'PARTNER B',  value: 'Jordan' },
+    { label: 'B INCOME',   value: { formula: 'TEXT(SUMIF(H8:H20,"Income",G8:G20),"$#,##0")' } },
+    { label: 'B NET',      value: { formula: 'TEXT(SUM(G8:G20),"$#,##0")' } },
+  ]);
+
+  // Two-column section labels (row 6)
+  sheet.mergeCells('B6:D6');
+  const aLabel = sheet.getCell('B6');
+  aLabel.value = 'PARTNER A — Alex';
+  aLabel.font = FONTS.section;
+  aLabel.fill = FILLS.offWhite;
+  aLabel.border = { bottom: { style: 'medium', color: argb(COLORS.warmGold) } };
+  aLabel.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+  sheet.getRow(6).height = 26;
+
+  sheet.mergeCells('F6:H6');
+  const bLabel = sheet.getCell('F6');
+  bLabel.value = 'PARTNER B — Jordan';
+  bLabel.font = FONTS.section;
+  bLabel.fill = FILLS.offWhite;
+  bLabel.border = { bottom: { style: 'medium', color: argb(COLORS.warmGold) } };
+  bLabel.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+
+  // Table headers at row 7 (same row, different columns)
+  addTableHeader(sheet, 7, ['Item', 'Amount', 'Type'], ['B', 'C', 'D']);
+  addTableHeader(sheet, 7, ['Item', 'Amount', 'Type'], ['F', 'G', 'H']);
+
+  const partnerA = [
+    { name: 'TechCo Salary (net)',  amt:  4500, type: 'Income'  },
+    { name: 'Freelance — design',   amt:   850, type: 'Income'  },
+    { name: 'Rent (Alex\'s share)', amt:  -850, type: 'Expense' },
+    { name: 'Groceries (shared)',   amt:  -320, type: 'Expense' },
+    { name: 'Utilities (shared)',   amt:  -180, type: 'Expense' },
+    { name: 'Personal spend',       amt:  -290, type: 'Expense' },
+    { name: 'Savings transfer',     amt:  -500, type: 'Savings' },
+  ];
+
+  const partnerB = [
+    { name: 'HealthCo Salary (net)',    amt:  3800, type: 'Income'  },
+    { name: 'Rent (Jordan\'s share)',   amt:  -850, type: 'Expense' },
+    { name: 'Groceries (shared)',       amt:  -320, type: 'Expense' },
+    { name: 'Utilities (shared)',       amt:  -180, type: 'Expense' },
+    { name: 'Personal spend',           amt:  -410, type: 'Expense' },
+    { name: 'Student loan payment',     amt:  -320, type: 'Debt'    },
+    { name: 'Savings transfer',         amt:  -400, type: 'Savings' },
+  ];
+
+  const DATA_START = 8;
+  const numRows = Math.max(partnerA.length, partnerB.length);
+
+  for (let i = 0; i < numRows; i++) {
+    const ri = DATA_START + i;
+    if (i < partnerA.length) {
+      const row = partnerA[i];
+      sheet.getCell(`B${ri}`).value = row.name;
+      sheet.getCell(`B${ri}`).font = FONTS.body;
+      sheet.getCell(`B${ri}`).border = BORDER_THIN();
+      sheet.getCell(`B${ri}`).fill = FILLS.white;
+
+      sheet.getCell(`C${ri}`).value = row.amt;
+      sheet.getCell(`C${ri}`).numFmt = '"$"#,##0.00;[Red]"($"#,##0.00")"';
+      sheet.getCell(`C${ri}`).font = { ...FONTS.body, color: argb(row.amt >= 0 ? COLORS.success : COLORS.alert) };
+      sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
+      sheet.getCell(`C${ri}`).border = BORDER_THIN();
+      sheet.getCell(`C${ri}`).fill = FILLS.white;
+
+      sheet.getCell(`D${ri}`).value = row.type;
+      sheet.getCell(`D${ri}`).font = FONTS.body;
+      sheet.getCell(`D${ri}`).alignment = { horizontal: 'center' };
+      sheet.getCell(`D${ri}`).border = BORDER_THIN();
+      sheet.getCell(`D${ri}`).fill = FILLS.white;
+      sheet.getCell(`D${ri}`).dataValidation = { type: 'list', formulae: ['"Income,Expense,Savings,Debt"'] };
+    }
+    if (i < partnerB.length) {
+      const row = partnerB[i];
+      sheet.getCell(`F${ri}`).value = row.name;
+      sheet.getCell(`F${ri}`).font = FONTS.body;
+      sheet.getCell(`F${ri}`).border = BORDER_THIN();
+      sheet.getCell(`F${ri}`).fill = FILLS.white;
+
+      sheet.getCell(`G${ri}`).value = row.amt;
+      sheet.getCell(`G${ri}`).numFmt = '"$"#,##0.00;[Red]"($"#,##0.00")"';
+      sheet.getCell(`G${ri}`).font = { ...FONTS.body, color: argb(row.amt >= 0 ? COLORS.success : COLORS.alert) };
+      sheet.getCell(`G${ri}`).alignment = { horizontal: 'right' };
+      sheet.getCell(`G${ri}`).border = BORDER_THIN();
+      sheet.getCell(`G${ri}`).fill = FILLS.white;
+
+      sheet.getCell(`H${ri}`).value = row.type;
+      sheet.getCell(`H${ri}`).font = FONTS.body;
+      sheet.getCell(`H${ri}`).alignment = { horizontal: 'center' };
+      sheet.getCell(`H${ri}`).border = BORDER_THIN();
+      sheet.getCell(`H${ri}`).fill = FILLS.white;
+      sheet.getCell(`H${ri}`).dataValidation = { type: 'list', formulae: ['"Income,Expense,Savings,Debt"'] };
+    }
+  }
+
+  // Net rows (same row for both partners)
+  const netR = DATA_START + numRows;
+  sheet.getCell(`B${netR}`).value = 'Alex Net';
+  sheet.getCell(`B${netR}`).font = FONTS.bodyBold;
+  sheet.getCell(`B${netR}`).fill = FILLS.offWhite;
+  sheet.getCell(`B${netR}`).border = BORDER_THIN();
+
+  sheet.getCell(`C${netR}`).value = { formula: `SUM(C${DATA_START}:C${netR - 1})` };
+  sheet.getCell(`C${netR}`).numFmt = '"$"#,##0.00;[Red]"($"#,##0.00")"';
+  sheet.getCell(`C${netR}`).font = FONTS.bodyBold;
+  sheet.getCell(`C${netR}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`C${netR}`).fill = FILLS.offWhite;
+  sheet.getCell(`C${netR}`).border = BORDER_THIN();
+
+  sheet.getCell(`F${netR}`).value = 'Jordan Net';
+  sheet.getCell(`F${netR}`).font = FONTS.bodyBold;
+  sheet.getCell(`F${netR}`).fill = FILLS.offWhite;
+  sheet.getCell(`F${netR}`).border = BORDER_THIN();
+
+  sheet.getCell(`G${netR}`).value = { formula: `SUM(G${DATA_START}:G${netR - 1})` };
+  sheet.getCell(`G${netR}`).numFmt = '"$"#,##0.00;[Red]"($"#,##0.00")"';
+  sheet.getCell(`G${netR}`).font = FONTS.bodyBold;
+  sheet.getCell(`G${netR}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`G${netR}`).fill = FILLS.offWhite;
+  sheet.getCell(`G${netR}`).border = BORDER_THIN();
+
+  // Settlement section
+  const settlStart = netR + 3;
+  sheet.mergeCells(`B${settlStart}:H${settlStart}`);
+  const settlTitle = sheet.getCell(`B${settlStart}`);
+  settlTitle.value = 'SHARED EXPENSES SETTLEMENT';
+  settlTitle.font = FONTS.section;
+  settlTitle.fill = FILLS.offWhite;
+  settlTitle.border = { bottom: { style: 'medium', color: argb(COLORS.warmGold) } };
+  settlTitle.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+  sheet.getRow(settlStart).height = 26;
+
+  const settlSubR = settlStart + 1;
+  sheet.mergeCells(`B${settlSubR}:H${settlSubR}`);
+  sheet.getCell(`B${settlSubR}`).value = 'Who paid what for shared expenses. Positive balance = over-contributed (gets reimbursed).';
+  sheet.getCell(`B${settlSubR}`).font = FONTS.bodyMuted;
+  sheet.getRow(settlSubR).height = 18;
+
+  const goldLineR = settlSubR + 1;
+  sheet.mergeCells(`B${goldLineR}:H${goldLineR}`);
+  sheet.getCell(`B${goldLineR}`).fill = FILLS.warmGold;
+  sheet.getRow(goldLineR).height = 3;
+
+  addTableHeader(sheet, goldLineR + 1,
+    ['Shared Expense', 'Total', 'Alex Paid', 'Jordan Paid', 'Alex Balance'],
+    ['B', 'C', 'D', 'F', 'G']);
+
+  const shared = [
+    { name: 'Rent',        total: 1700, alexPaid: 850,  jordanPaid: 850  },
+    { name: 'Groceries',   total: 640,  alexPaid: 320,  jordanPaid: 320  },
+    { name: 'Utilities',   total: 360,  alexPaid: 360,  jordanPaid: 0    },
+    { name: 'Streaming',   total: 47,   alexPaid: 47,   jordanPaid: 0    },
+  ];
+
+  shared.forEach((row, i) => {
+    const ri = goldLineR + 2 + i;
+    sheet.getCell(`B${ri}`).value = row.name;
+    sheet.getCell(`B${ri}`).font = FONTS.body;
+    sheet.getCell(`B${ri}`).border = BORDER_THIN();
+    sheet.getCell(`B${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`C${ri}`).value = row.total;
+    sheet.getCell(`C${ri}`).numFmt = '"$"#,##0';
+    sheet.getCell(`C${ri}`).font = FONTS.body;
+    sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`C${ri}`).border = BORDER_THIN();
+    sheet.getCell(`C${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`D${ri}`).value = row.alexPaid;
+    sheet.getCell(`D${ri}`).numFmt = '"$"#,##0';
+    sheet.getCell(`D${ri}`).font = FONTS.body;
+    sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`D${ri}`).border = BORDER_THIN();
+    sheet.getCell(`D${ri}`).fill = FILLS.white;
+
+    sheet.getCell(`F${ri}`).value = row.jordanPaid;
+    sheet.getCell(`F${ri}`).numFmt = '"$"#,##0';
+    sheet.getCell(`F${ri}`).font = FONTS.body;
+    sheet.getCell(`F${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`F${ri}`).border = BORDER_THIN();
+    sheet.getCell(`F${ri}`).fill = FILLS.white;
+
+    const balance = row.alexPaid - row.total / 2;
+    sheet.getCell(`G${ri}`).value = balance;
+    sheet.getCell(`G${ri}`).numFmt = '"$"#,##0.00;[Red]"($"#,##0.00")"';
+    sheet.getCell(`G${ri}`).font = { ...FONTS.body, bold: true, color: argb(balance >= 0 ? COLORS.success : COLORS.alert) };
+    sheet.getCell(`G${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`G${ri}`).border = BORDER_THIN();
+    sheet.getCell(`G${ri}`).fill = FILLS.white;
+  });
+
+  // Settlement summary
+  const alexTotal = shared.reduce((s, r) => s + r.alexPaid, 0);
+  const jordanTotal = shared.reduce((s, r) => s + r.jordanPaid, 0);
+  const diff = alexTotal - jordanTotal;
+  const summaryText = diff > 0
+    ? `→ Jordan owes Alex $${Math.abs(diff).toFixed(2)} this month`
+    : `→ Alex owes Jordan $${Math.abs(diff).toFixed(2)} this month`;
+
+  const sumR = goldLineR + 2 + shared.length + 1;
+  sheet.mergeCells(`B${sumR}:H${sumR}`);
+  sheet.getCell(`B${sumR}`).value = summaryText;
+  sheet.getCell(`B${sumR}`).font = { name: 'Inter', size: 14, bold: true, color: argb(COLORS.charcoal) };
+  sheet.getCell(`B${sumR}`).alignment = { vertical: 'middle', horizontal: 'center' };
+  sheet.getCell(`B${sumR}`).fill = FILLS.warmGoldLight;
+  sheet.getCell(`B${sumR}`).border = {
+    top:    { style: 'medium', color: argb(COLORS.warmGold) },
+    left:   { style: 'medium', color: argb(COLORS.warmGold) },
+    bottom: { style: 'medium', color: argb(COLORS.warmGold) },
+    right:  { style: 'medium', color: argb(COLORS.warmGold) },
+  };
+  sheet.getRow(sumR).height = 32;
+
+  addCallout(sheet, `B${sumR + 3}:H${sumR + 4}`,
+    '💡',
+    'Simplify with a joint account',
+    'Keep one shared checking account for rent, utilities, and groceries. Each partner transfers their fixed share by the 1st. Personal spending stays in individual accounts — eliminates most of this monthly settlement math.');
+  sheet.getRow(sumR + 3).height = 26;
+  sheet.getRow(sumR + 4).height = 26;
+
+  addFooter(sheet, sumR + 7);
+}
+
 // ===== TAB 12: 🤖 AI Money Advisor =====
 function buildAIAdvisor(workbook) {
   const sheet = workbook.addWorksheet('🤖 AI Money Advisor');
@@ -1615,7 +2269,7 @@ function buildAbout(workbook) {
 
   addTopBar(sheet, 'ℹ️ About & Help', 'Welcome — and quick answers to the questions buyers ask first.', [
     { label: 'VERSION',     value: '1.0' },
-    { label: 'TABS',        value: '13' },
+    { label: 'TABS',        value: '17' },
     { label: 'METHODS',     value: '4' },
     { label: 'AI PROMPTS',  value: '7' },
     { label: 'TIER',        value: 'AI Edition' },
@@ -1703,7 +2357,7 @@ function buildAbout(workbook) {
 
 async function buildBudgetTracker() {
   const t0 = Date.now();
-  console.log('→ Building Budget Tracker — AI Edition v2 (13 of 17 tabs)...');
+  console.log('→ Building Budget Tracker — AI Edition v2 (17 of 17 tabs)...');
 
   const workbook = new ExcelJS.Workbook();
   workbook.creator = 'Premium Finance Studio';
@@ -1720,11 +2374,15 @@ async function buildBudgetTracker() {
   console.log('  • 💵 Income Tracker');       buildIncomeTracker(workbook);
   console.log('  • 💸 Expense Tracker');      buildExpenseTracker(workbook);
   console.log('  • 🔁 Recurring Templates');  buildRecurringTemplates(workbook);
+  console.log('  • ↩️ Refund Tracker');        buildRefundTracker(workbook);
+  console.log('  • 💳 Credit Card Manager');  buildCreditCardManager(workbook);
   console.log('  • 📅 Bill Calendar');        buildBillCalendar(workbook);
   console.log('  • 🎯 Savings Goals');        buildSavingsGoals(workbook);
   console.log('  • 🆘 Emergency Fund');       buildEmergencyFund(workbook);
   console.log('  • 🏆 Financial Health');     buildHealthScore(workbook);
   console.log('  • 📊 Annual Summary');       buildAnnualSummary(workbook);
+  console.log('  • 🚗 Mileage Tracker');      buildMileageTracker(workbook);
+  console.log('  • 👫 Household Mode');       buildHouseholdMode(workbook);
   console.log('  • 🤖 AI Money Advisor');     buildAIAdvisor(workbook);
   console.log('  • ℹ️ About & Help');         buildAbout(workbook);
 
@@ -1734,7 +2392,7 @@ async function buildBudgetTracker() {
   const elapsed = Date.now() - t0;
   console.log(`\n✓ Workbook generated in ${elapsed}ms`);
   console.log(`  Output: ${outPath}`);
-  console.log(`  Tabs:   13 of 17 (Refund Tracker, Mileage, Household Mode, Credit Card Manager remain)`);
+  console.log(`  Tabs:   17 of 17 — complete ✓`);
   console.log(`\n  Upload to Google Sheets to verify:`);
   console.log(`    1. Open Google Drive → New → File Upload → select the .xlsx`);
   console.log(`    2. Right-click the uploaded file → "Open with Google Sheets"`);

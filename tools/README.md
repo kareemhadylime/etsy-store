@@ -36,7 +36,7 @@ tools/
     ├── package-lock.json
     ├── verify.js                          ← entry: node verify.js [filename] — inspect structure
     ├── templates/
-    │   └── budget-tracker.js             ← Budget Tracker — AI Edition (13 of 17 tabs)
+    │   └── budget-tracker.js             ← Budget Tracker — AI Edition (17 of 17 tabs — complete)
     └── output/                            ← generated .xlsx files (gitignored)
 ```
 
@@ -113,7 +113,7 @@ All output files are **gitignored** — they're reproducible by re-running the g
 
 | Product | AI PDF | Sheets | Thumbnails | Status |
 |---|---|---|---|---|
-| Budget Tracker | ✅ Page 3 PoC | ✅ v2 (13/17 tabs) | ⏳ | In progress |
+| Budget Tracker | ✅ Page 3 PoC | ✅ v2 (17/17 tabs) | ⏳ | Sheets complete |
 | Debt Payoff | ⏳ | ⏳ | ⏳ | Pending |
 | Sinking Funds | ⏳ | ⏳ | ⏳ | Pending |
 | Net Worth | ⏳ | ⏳ | ⏳ | Pending |
