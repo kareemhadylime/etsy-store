@@ -5172,3 +5172,40 @@ All 11 products' planning artifacts remain 100% complete. Today's work produced 
 All generator code + handoff doc + handshake update + history entry committed. Future session can pick up from `session-handshake.md` + `docs/session-handoff-2026-05-12.md` + `tools/README.md`.
 
 Next concrete move is in the user's hands: upload v2 .xlsx + verify.
+
+---
+
+## Session 2026-05-17 — Tooling: model-suggester hook + global skill promotion
+
+Meta/tooling session. No product code touched; no planning artifacts changed. Two harness improvements applied.
+
+### What landed
+
+**1. Replicated kareemhady's model-suggester hook into ETSY**
+- New: `C:\ETSY\.claude\hooks\model-suggester.mjs` — verbatim port of kareemhady's `UserPromptSubmit` hook, then user-customized to inject a hard "stop and confirm model switch" gate (no auto-answer until user types `continue` or runs the suggested `/model …`).
+- New: `C:\ETSY\.claude\settings.json` — wires the hook (5s timeout).
+- Memory: `feedback_model_suggester_hook.md` saved under `~/.claude/projects/C--ETSY/memory/` and linked from MEMORY.md so future sessions know not to remove the hook.
+- Verified: complex test prompt → "consider /model opus" (score 12); lightweight → "consider /model sonnet" (score -4); middling → silent.
+- **Note:** these files live at the workspace root `C:\ETSY\.claude\`, OUTSIDE the etsy-store repo. They are harness config for the CWD, not committed to the etsy-store git history.
+
+**2. Promoted `/handoff-push-all` and `/pull-all` from kareemhady project-scope to user-scope**
+- Moved `C:\kareemhady\.claude\skills\{handoff-push-all,pull-all}` → `C:\Users\karee\.claude\skills\{handoff-push-all,pull-all}`.
+- Reason: the skills are explicitly cross-repo (handle 5 Lime projects including etsy-store). Project-scope made them invisible in every project except kareemhady. User-scope makes them available from any CWD on this machine.
+- kareemhady repo will record this as 2 tracked deletions in its own handoff.
+
+### Files changed in etsy-store this session
+None inside the repo. The only artifacts created/touched this session live outside `C:\ETSY\etsy-store\`:
+- `C:\ETSY\.claude\hooks\model-suggester.mjs` (new, untracked workspace config)
+- `C:\ETSY\.claude\settings.json` (new, untracked workspace config)
+- `C:\Users\karee\.claude\projects\C--ETSY\memory\feedback_model_suggester_hook.md` (new memory)
+- `C:\Users\karee\.claude\projects\C--ETSY\memory\MEMORY.md` (index updated)
+- `C:\Users\karee\.claude\skills\{handoff-push-all,pull-all}\SKILL.md` (moved here from kareemhady)
+
+This commit only touches `docs/session-history.md` + `session-handshake.md` (per ETSY standing orders).
+
+### Products track status — unchanged
+Budget Tracker v2 verification still pending with user. Cascade work, thumbnails, and remaining 9 products all in same state as 2026-05-12 handoff.
+
+### Safe to clear ✅
+This session was harness-tooling only; no product state changed. Next session can pick up exactly where 2026-05-12 left off.
+
