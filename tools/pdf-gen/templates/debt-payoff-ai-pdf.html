@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Debt Payoff Planner — AI Credit Coach (Companion PDF)</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Companion guide for the Debt Payoff Planner AI Edition — 7 ChatGPT/Claude prompts paired with specific spreadsheet tabs, with worked examples. By Lime Premium Studios.">
+<meta name="keywords" content="AI debt, debt payoff, credit score, ChatGPT, Claude, debt strategy prompts, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Debt Payoff AI Credit Coach — Companion PDF v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== Lime Premium Studios — palette ===== */
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  @page {
+    size: Letter portrait;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ===== Page wrapper — every page is 8.5x11 with manual page break ===== */
+  .page {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.55in 0.6in 0.5in 0.6in;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+    background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* ===== COVER PAGE (page 1) ===== */
+  .cover {
+    background: var(--background-off-white);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-body {
+    flex: 1;
+    padding: 2.2in 0.9in 0 0.9in;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-eyebrow {
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.32in;
+  }
+  .cover-title {
+    font-size: 48pt;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.28in;
+  }
+  .cover-gold-underline {
+    width: 1.6in;
+    height: 3px;
+    background: var(--secondary-warm-gold);
+    margin-bottom: 0.32in;
+  }
+  .cover-subtitle {
+    font-size: 16pt;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--secondary-warm-gold);
+    line-height: 1.3;
+    max-width: 5.2in;
+  }
+  .cover-bottom-band {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.32in 0.9in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10pt;
+    margin-top: auto;
+  }
+  .cover-bottom-band .wordmark {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .cover-bottom-band .meta {
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  /* ===== INTRO / TIPS / BACK COVER shared layout ===== */
+  .content-header {
+    font-size: 28pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--primary-charcoal);
+    line-height: 1.15;
+    margin-bottom: 0.12in;
+  }
+  .content-divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 2.4in;
+    margin-bottom: 0.24in;
+  }
+  .content-body p {
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.13in;
+  }
+  .content-body .sub-section {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--secondary-warm-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.16in;
+    margin-bottom: 0.07in;
+  }
+  .content-body ol,
+  .content-body ul {
+    padding-left: 0.28in;
+    margin-bottom: 0.13in;
+  }
+  .content-body li {
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.05in;
+  }
+  .content-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .content-body ul.bullets li {
+    padding-left: 0.22in;
+    position: relative;
+  }
+  .content-body ul.bullets li::before {
+    content: '•';
+    color: var(--secondary-warm-gold);
+    font-weight: 700;
+    position: absolute;
+    left: 0.06in;
+  }
+  .content-body strong { font-weight: 600; }
+
+  /* ===== PROMPT PAGE layout (pages 3-9) ===== */
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.18in;
+  }
+  .page-title {
+    font-size: 24pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--primary-charcoal);
+    line-height: 1.15;
+  }
+  .tab-callout {
+    background: var(--secondary-warm-gold);
+    color: var(--surface-white);
+    font-size: 10pt;
+    font-weight: 600;
+    padding: 6pt 14pt;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .tab-callout .emoji { margin-right: 4pt; }
+
+  .divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 2.4in;
+    margin-bottom: 0.16in;
+  }
+
+  .section-label {
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.06in;
+  }
+
+  .prompt-card {
+    background: var(--surface-white);
+    border: 1px solid var(--primary-charcoal);
+    border-radius: 4pt;
+    padding: 0.16in 0.2in;
+    margin-bottom: 0.16in;
+    font-family: 'JetBrains Mono', 'Inter', monospace;
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .prompt-card strong { font-weight: 600; }
+  .prompt-card .num {
+    color: var(--secondary-warm-gold);
+    font-weight: 600;
+  }
+
+  .example-card {
+    background: var(--ivory);
+    border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.12in 0.18in;
+    font-size: 7.5pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+  }
+  .example-card .label {
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--status-warning);
+    margin-bottom: 3pt;
+  }
+  .example-card .input-block,
+  .example-card .output-block { margin-bottom: 0.07in; }
+  .example-card .sub-label {
+    font-weight: 600;
+    color: var(--primary-charcoal);
+    margin-top: 0.05in;
+    margin-bottom: 1pt;
+  }
+  .example-card p { margin-bottom: 0.025in; }
+  .example-card .ranked-item { margin-bottom: 0.04in; }
+  .example-card strong { font-weight: 600; }
+
+  /* ===== Footer (used on most pages) ===== */
+  .footer {
+    position: absolute;
+    bottom: 0.32in;
+    left: 0.6in;
+    right: 0.6in;
+    font-size: 8.5pt;
+    font-style: italic;
+    color: var(--primary-charcoal);
+    opacity: 0.6;
+    text-align: right;
+    border-top: 1px solid var(--neutral-grid);
+    padding-top: 0.07in;
+  }
+
+  /* ===== BACK COVER (page 11) ===== */
+  .back-cover {
+    background: var(--background-off-white);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .back-body {
+    flex: 1;
+    padding: 1.8in 0.9in 0 0.9in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .back-pull-quote {
+    font-size: 22pt;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--primary-charcoal);
+    max-width: 5.2in;
+    margin-bottom: 0.45in;
+  }
+  .back-gold-underline {
+    width: 1.2in;
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    margin-bottom: 0.45in;
+  }
+  .back-mid {
+    font-size: 11pt;
+    line-height: 1.6;
+    color: var(--primary-charcoal);
+    max-width: 5in;
+    margin-bottom: auto;
+  }
+  .back-signoff {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-top: 0.3in;
+  }
+  .back-footer-panel {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.32in 0.9in;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    margin-top: auto;
+  }
+  .back-footer-panel .row-1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.14in;
+    font-weight: 600;
+  }
+  .back-footer-panel .row-1 .meta {
+    opacity: 0.7;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .back-footer-panel p {
+    opacity: 0.85;
+    font-size: 8.5pt;
+    line-height: 1.5;
+  }
+  .back-footer-panel .page-num {
+    text-align: right;
+    margin-top: 0.12in;
+    opacity: 0.6;
+    font-style: italic;
+    font-size: 8.5pt;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================== -->
+<!-- PAGE 1 — COVER                                                 -->
+<!-- ============================================================== -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Debt Payoff Planner · AI Edition</div>
+    <div class="cover-title">AI Credit<br>Coach</div>
+    <div class="cover-gold-underline"></div>
+    <div class="cover-subtitle">Seven prompts. Two AI tools.<br>One debt-free date you can hit.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark" style="display: flex; align-items: center; gap: 12pt;">
+      <svg width="36" height="36" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+        <defs>
+          <linearGradient id="limeGradCover" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#84CC16"/>
+            <stop offset="100%" stop-color="#059669"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradCover)"/>
+        <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+        </g>
+      </svg>
+      <span>LIME PREMIUM STUDIOS</span>
+    </div>
+    <div class="meta">debt-payoff-planner · v1.0</div>
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 2 — INTRO / How to use these prompts                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <h1 class="content-header">How to use these prompts</h1>
+  <div class="content-divider"></div>
+
+  <div class="content-body">
+    <p>Seven questions every debt payoff journey runs into. Seven prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.</p>
+
+    <p>These aren't generic. Each prompt is built to pair with a specific tab in your Debt Payoff Planner. You'll see the tab name on each page — paste the prompt, fill in the placeholders from that tab, send.</p>
+
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (Payoff Strategy Optimizer, Settlement Letter Generator, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the <strong>[PLACEHOLDERS]</strong> with your data from that tab.</li>
+      <li>Read the worked example on the same page to know what good output looks like.</li>
+    </ol>
+
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) <strong>OR</strong> a Claude account (free tier works)</li>
+      <li>Your Debt Payoff Planner open in another window</li>
+      <li>10 minutes the first time; ~3 minutes once you're used to the flow</li>
+    </ul>
+
+    <div class="sub-section">What this PDF won't do</div>
+    <p>It won't run prompts for you. You paste. You read. You decide. The AI suggests; you choose. That separation is on purpose — your debt, your call.</p>
+
+    <p>Your credit-bureau credentials, account numbers, and SSN never enter any AI tool. The prompts only ever see what you paste — usually balances, APRs, and minimums, not account numbers. None of it sends back to us; everything happens in your own AI account.</p>
+
+    <p style="margin-top: 0.18in; font-style: italic; color: var(--secondary-warm-gold);">Turn the page when you're ready.</p>
+  </div>
+
+  <div class="footer">2 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 3 — PROMPT 1: Smart Spending Advisor                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">1. Payoff Strategy Optimizer</div>
+    <div class="tab-callout"><span class="emoji">📊</span>Pairs with: Strategy Comparison</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are helping me pick the right debt-payoff strategy. I have a mix of debts and need to know whether to use Snowball (smallest balance first), Avalanche (highest APR first), or a Custom order. Be specific. Quantify the trade-off in dollars + months.
+
+MY DEBTS (paste from Debt List tab):
+
+[PASTE TABLE: Debt Name · Type · Balance · APR · Minimum · Due Day]
+
+MONTHLY BUDGET AVAILABLE FOR DEBT: $[total monthly across all debts]
+MY PSYCHOLOGY: [pick one — "I need quick wins to stay motivated" / "I want maximum math optimization" / "Mixed — emotional priorities matter too"]
+INCOME: $[net monthly income]
+EXTRA AVAILABLE / MONTH (above minimums): $[amount]
+
+Give me four things:
+
+<span class="num">1.</span> THE NUMBER for each method — months to debt-free, total interest paid, and the dollar delta between Snowball and Avalanche for MY specific data. Don't generalize; calculate.
+
+<span class="num">2.</span> THE FIRST DEBT to attack under each method, with the exact monthly amount (own minimum + any extra). Tell me which debt I'll see paid off first and roughly when.
+
+<span class="num">3.</span> A RECOMMENDATION ranked by fit to my psychology — including a "Hybrid Custom" order if there's a smarter sequence than pure Snowball or pure Avalanche.
+
+<span class="num">4.</span> ONE COUNTERINTUITIVE OBSERVATION about my debt mix that I'd miss if I just ran the numbers (e.g., a promo period ending soon, an unusually high APR worth refinancing first, a small balance that's emotionally outsized).
+
+Stay specific. Cite debt names + dollar amounts from my data.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input (excerpt)</div>
+      <p>Chase Sapphire · Credit Card · $4,250 · 21.99% · $85 · 5th</p>
+      <p>Amex Gold · Credit Card · $2,890 · 26.99% · $58 · 22nd</p>
+      <p>SoFi Personal · Personal Loan · $8,400 · 11.49% · $220 · 1st</p>
+      <p>Subaru Auto · Car Loan · $12,500 · 5.99% · $340 · 15th</p>
+      <p>Sallie Mae · Student Loan · $18,900 · 4.89% · $198 · 10th</p>
+      <p>Care Credit · Medical · $840 · 0.00% promo · $35 · 27th</p>
+      <p style="margin-top: 0.05in;"><em>Total minimums: $936. Extra $250/mo available. Income: $5,800. Psychology: "Mixed".</em></p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">The Numbers (your specific data):</div>
+      <p><strong>Avalanche:</strong> 47 months · $5,840 total interest · first target Amex Gold (26.99%)</p>
+      <p><strong>Snowball:</strong> 49 months · $7,120 total interest · first target Care Credit ($840 smallest)</p>
+      <p><strong>Delta:</strong> Avalanche saves <strong>$1,280 and 2 months</strong> for your specific data.</p>
+      <div class="sub-label">Recommendation (your psychology = mixed):</div>
+      <p><strong>Hybrid:</strong> Kill Care Credit FIRST anyway — its 0% promo ends in ~12 months and APR will jump. Then switch to Avalanche on Amex Gold. You get one quick emotional win + maximum math after.</p>
+      <div class="sub-label">Counterintuitive Observation:</div>
+      <p>Your Amex Gold is only $2,890 — small enough to feel surmountable AND highest APR. Pure Snowball + Pure Avalanche both pick differently; the Hybrid path lets you target it second after Care Credit and still feel the win.</p>
+    </div>
+  </div>
+
+  <div class="footer">3 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 4 — PROMPT 2: Scenario Simulator                          -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">2. AI Credit Score Coach</div>
+    <div class="tab-callout"><span class="emoji">🎮</span>Pairs with: Credit Score Simulator</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are coaching me on my credit score. Tell me what's holding it back and what would move it most over the next 90 days. Be specific — point gain estimates, exact actions, exact dates.
+
+MY CURRENT STATE (paste from Credit Score Tracker + Simulator):
+
+Current FICO score (avg of bureaus): [score]
+Payment history (% on-time, last 12 mo): [%]
+Total CC utilization: [% — total balance ÷ total limit]
+Per-card utilization (highest %): [card name + %]
+Average age of accounts: [years]
+Hard inquiries (last 24 mo): [count]
+Recent derogatory marks: [list any late payments / collections / charge-offs in last 2 years]
+Open accounts: [number]
+Credit mix: [cards / loans / etc.]
+
+GOAL: hit [target] score by [date]
+
+Give me five things:
+
+<span class="num">1.</span> THE GAP ANALYSIS — for each FICO factor (Payment History 35%, Utilization 30%, Length 15%, Mix 10%, New 10%), how strong is my current sub-score and what's the realistic ceiling?
+
+<span class="num">2.</span> THE TOP 3 ACTIONS ranked by point gain, with estimates (e.g., "Drop card X utilization from 78% to 28% by 6/15 → +25 points"). Be conservative; under-promise.
+
+<span class="num">3.</span> THE TIMING — for each action, when in my billing cycle should it land? (Statement-close date matters more than payment-due date for utilization gains.)
+
+<span class="num">4.</span> WHAT NOT TO DO over the next 90 days — closing old cards, opening new ones, large purchases that spike utilization.
+
+<span class="num">5.</span> A REALISTIC CEILING — given my current trajectory, what's the highest score I can actually hit in 90 days? In 1 year? Don't promise 800 if I'm at 670 with active derogatory marks.
+
+Stay specific. Cite my card names and percentages.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Current FICO 692 (avg). Payment history 100% on-time (last 12mo). Total util 47%. Highest per-card: Amex Gold 78%. Avg age 4.3 yr. Hard inquiries 4 (last 24mo). No derogatory marks. 5 cards, 1 student loan. Goal: 740+ by year-end.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Gap Analysis:</div>
+      <p><strong>Payment History (35%):</strong> Strong. At ceiling already.</p>
+      <p><strong>Utilization (30%):</strong> Weak at 47%. Biggest lever — getting to &lt;10% would add ~50 pts.</p>
+      <p><strong>Length (15%):</strong> Moderate. 4.3 yrs is fine; don't close old cards.</p>
+      <p><strong>Mix (10%):</strong> OK. 5 cards + 1 loan is healthy.</p>
+      <p><strong>New Credit (10%):</strong> Mildly hurt by 4 inquiries — they'll age off over next 24mo.</p>
+      <div class="sub-label">Top 3 Actions (90-day window):</div>
+      <div class="ranked-item"><strong>1. Drop Amex Gold to ≤10% by 6/15 → +30–40 pts.</strong> Pay $2,300 to bring balance from $4,680 to $600. Make payment by 6/12 (4 days before statement close on 6/16).</div>
+      <div class="ranked-item"><strong>2. Drop Chase Sapphire to ≤10% by 7/20 → +10–15 pts.</strong> Currently 38% util. Pay $1,400 before 7/17 statement close.</div>
+      <div class="ranked-item"><strong>3. Don't open any new cards or take any new loans until 10/1 → preserves +5–10 pts.</strong> Every new inquiry costs 5–10 pts immediately.</div>
+      <div class="sub-label">Realistic Ceiling:</div>
+      <p>90 days: 730–745 likely. 1 year: 760–780 if you maintain &lt;10% util and add no new credit. Hitting 800+ requires 24+ months of clean payment history at &lt;10% util — possible but not by year-end.</p>
+    </div>
+  </div>
+
+  <div class="footer">4 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 5 — PROMPT 3: Bill Negotiation Scripts                    -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">3. Utilization Timing Advisor</div>
+    <div class="tab-callout"><span class="emoji">💡</span>Pairs with: Utilization Optimizer</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are timing my credit card payments for maximum score impact. Credit bureaus report based on the balance at STATEMENT CLOSE, not payment-due date. Tell me exactly what to pay and when, per card.
+
+MY CREDIT CARDS (paste from Utilization Optimizer tab):
+
+[PASTE TABLE: Card · Balance · Limit · Util % · Statement Close Day · Due Day]
+
+GOAL: get total CC utilization to ≤[%] by [target date]
+EXTRA AVAILABLE THIS MONTH: $[amount]
+
+For each card with utilization above target, give me:
+
+<span class="num">1.</span> THE EXACT $ TO PAY — the amount that brings reported balance to the target % on the next statement close.
+
+<span class="num">2.</span> THE DEADLINE — date 2–3 days before statement close (banks need processing time). Be specific: "Pay $X by [date], not on [date]."
+
+<span class="num">3.</span> THE ORDER — if my extra $ is limited, which card to prioritize first for max point gain. Generally that's the highest individual-card utilization, since FICO scores both per-card AND overall utilization.
+
+<span class="num">4.</span> THE NON-OBVIOUS CARD-LEVEL TRAP — e.g., a card that's reporting on a non-obvious cycle, an authorized-user account that's dragging me down, an old card that should stay open even though I never use it.
+
+<span class="num">5.</span> WHAT WILL THE SCORE DO — a rough 30-day projection in points after the next reporting cycle, given the payments above. Conservative estimate.
+
+Stay specific. Use my card names, my limits, my close dates.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Chase Sapphire: $1,240 bal / $10,000 limit / 12% util / close 6th / due 28th</p>
+      <p>Amex Gold: $4,680 bal / $6,000 limit / 78% util / close 16th / due 8th</p>
+      <p>Citi Double Cash: $340 bal / $5,000 limit / 7% util / close 12th / due 4th</p>
+      <p>Discover It: $0 / $4,500 limit / 0% util / close 22nd / due 14th</p>
+      <p><strong>Goal:</strong> total util ≤10% by 7/15. Extra available this month: $2,500.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Per-card plan:</div>
+      <p><strong>Amex Gold (78% util):</strong> Pay <strong>$4,080</strong> by <strong>6/13</strong> (3 days before 6/16 statement close). Brings balance to $600 → reports as 10%. <em>Score impact alone: +30–40 pts.</em></p>
+      <p><strong>Chase Sapphire (12% util):</strong> Already under target. Pay $240 by 7/3 to drop to 10% next cycle.</p>
+      <p><strong>Citi (7%) + Discover (0%):</strong> Leave alone.</p>
+      <div class="sub-label">Priority order with $2,500 budget:</div>
+      <p>1. Amex: $2,500 against the $4,080 needed → drops Amex to ~36% util. Still big improvement.</p>
+      <p>2. Next month: hit the remaining $1,580 to get Amex below 10%.</p>
+      <div class="sub-label">Non-obvious trap:</div>
+      <p>Amex Gold is a charge card historically — it reports utilization differently than revolving cards. Confirm with Amex which behavior your specific card uses (Charge Card has no preset limit; Pay Over Time has one).</p>
+      <div class="sub-label">30-day projection:</div>
+      <p>If you pay $2,500 to Amex by 6/13: +15–25 pts after 7/15 reporting. Hit the full $4,080 by 7/13 and you'd see +30–40 pts.</p>
+    </div>
+  </div>
+
+  <div class="footer">5 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 6 — PROMPT 4: Cash Flow Intelligence                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">4. Consolidation Intelligence</div>
+    <div class="tab-callout"><span class="emoji">🔄</span>Pairs with: Debt Consolidation</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are picking the single best consolidation path for my debt. I have multiple high-APR debts and I'm considering Personal Loan, Balance Transfer card, or HELOC. Tell me which path saves the most money AND has the lowest risk for MY situation.
+
+MY DEBTS (paste from Debt List):
+[PASTE TABLE: Debt · Balance · APR · Min Payment]
+
+THREE OPTIONS I'M EVALUATING:
+
+<span class="num">A.</span> Personal Loan: $[total balance], [APR]% fixed, [months] term, origination fee [%]
+<span class="num">B.</span> Balance Transfer: $[transfer cap], 0% promo [months], [%] transfer fee, then [%] regular APR
+<span class="num">C.</span> HELOC: $[available], [APR]% variable, [years] draw period, [years] repayment period, fees $[amount]
+
+MY CONTEXT:
+Credit score: [current]
+Income: $[monthly net]
+Home equity (if applicable): $[amount]
+Risk tolerance: [low/medium/high]
+Discipline level: [honest assessment — will I rack up new debt on cleared cards?]
+
+For each option, give me:
+
+<span class="num">1.</span> TOTAL INTEREST PAID over the life of the consolidation vs status quo.
+
+<span class="num">2.</span> THE BREAK-EVEN POINT (when does the consolidation start saving money after fees).
+
+<span class="num">3.</span> THE FAILURE MODE — what specific behavior would make this option backfire? (Personal Loan: maxing the cards back up. BT: not paying off before promo ends. HELOC: putting the house at risk.)
+
+<span class="num">4.</span> THE RECOMMENDATION — which option fits my discipline + risk profile, and why? Be willing to recommend AGAINST consolidation if status quo + Avalanche is better for me.
+
+Don't give me 3 mediocre options. Pick ONE and defend it.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p><strong>Debts:</strong> Chase $4,250 / 21.99%, Amex $2,890 / 26.99%, Care Credit $840 / 0% promo, SoFi loan $8,400 / 11.49%. Total: $16,380. Avg minimums $398/mo.</p>
+      <p><strong>Options:</strong> A. Personal Loan $16k @ 10% / 60mo / 3% fee. B. BT $7,140 @ 0% for 18mo / 4% fee. C. HELOC $50k @ 6.99% variable / 10yr.</p>
+      <p><strong>Context:</strong> 720 FICO, $5,800/mo income, owns home with $80k equity. Risk: medium. Discipline: "I've maxed cards out twice before."</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">By the numbers:</div>
+      <p><strong>A. Personal Loan:</strong> Total interest $4,420 + $480 fee = $4,900. Break-even: 14 mo. Saves $1,640 vs status quo.</p>
+      <p><strong>B. Balance Transfer (cards only, $7,140):</strong> Net interest $0 + $286 fee = $286. SoFi loan untouched. Break-even: month 1. Saves $2,180 IF paid off in 18 months.</p>
+      <p><strong>C. HELOC:</strong> Total interest $5,720 + $400 fees = $6,120. Break-even: 17 mo. Saves $420 vs status quo. <strong>Puts the house at risk.</strong></p>
+      <div class="sub-label">Failure modes:</div>
+      <p><strong>Your specific risk:</strong> You said "maxed cards twice before." That eliminates Option B for you — you'd clear Amex + Chase, then run them back up to ~$3,000 each by month 12. End state: original debt + new BT card debt = worse than status quo.</p>
+      <div class="sub-label">Recommendation:</div>
+      <p><strong>Option A — Personal Loan $16k @ 10% / 60mo.</strong> Saves $1,640 + forces a closed-loan structure that you can't accidentally re-borrow against. Pay off Care Credit's 0% promo with cash flow first. Then take the loan. Then close 2 of your 4 cards (keep oldest for credit-mix). HELOC is off the table — your discipline self-rating + variable rate + house collateral = no.</p>
+    </div>
+  </div>
+
+  <div class="footer">6 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 7 — PROMPT 5: Annual Money Review                         -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">5. Income Acceleration Coach</div>
+    <div class="tab-callout"><span class="emoji">🎯</span>Pairs with: Extra Payment Simulator</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are helping me find an extra $200-$500/month to throw at my debt. Be specific. I've already cut Netflix and brought lunch — don't recommend obvious cuts. Show me realistic side-income options matched to my skills + time available.
+
+MY SITUATION:
+Day job: [title + industry]
+Hours available outside day job: [hrs/week]
+Skills marketable: [list 3-5 — coding, writing, design, language, mechanical, sales, teaching, etc.]
+Risk tolerance: [low/medium/high]
+Need cash: [immediate / 30 days / 60-90 days]
+Region: [city — affects local-market options]
+
+MY DEBT MOTIVATION:
+Current monthly debt minimums: $[amount]
+Extra I could throw with $X/mo side income: $[current extra]
+Months to debt-free if I add $200/mo more: [from Extra Payment Simulator]
+Months to debt-free if I add $500/mo more: [from Extra Payment Simulator]
+
+Give me FIVE realistic side-income ideas, ranked by realistic monthly earning vs. time invested:
+
+<span class="num">1.</span> SPEED RANK — fastest to first dollar (e.g., DoorDash, Instacart, TaskRabbit).
+<span class="num">2.</span> SKILL RANK — best use of one of my listed skills (e.g., freelance writing, tutoring, design contracts).
+<span class="num">3.</span> ASSET RANK — leveraging what I already own (e.g., renting a parking spot, neighborhood pet-sitting, selling unused stuff).
+<span class="num">4.</span> COMPOUND RANK — slow start but ladder up (e.g., building a service business, Etsy / digital products).
+<span class="num">5.</span> EMPLOYER RANK — could I just ask my current employer for a raise / overtime / shift? Often the highest $/hr-invested.
+
+For each: realistic $/month, hours/week needed, time-to-first-dollar, biggest gotcha. Skip "drive Uber" if I don't have a car.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Day job: Mid-level marketing analyst at SaaS company, $68k/yr. Hours available: 8/wk. Skills: SQL, copywriting, Spanish (fluent), spreadsheets. Risk: medium. Need: 60 days. Region: Austin TX.</p>
+      <p>Current monthly debt min: $936. Extra I can add: $200/mo current. Goal: $500/mo extra → debt-free 18 months sooner per the simulator.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="ranked-item"><strong>1. Speed — Bilingual Customer Service Contractor.</strong> $25-40/hr × 6 hrs/wk = ~$700/mo. First dollar in 2 weeks. Apply: Boldly, Athena, LiveOps. Gotcha: tax forms in 30 days, set aside 25%.</div>
+      <div class="ranked-item"><strong>2. Skill — Freelance SQL/Data Audit.</strong> $50-100/hr × 4 hrs/wk = ~$800-1,200/mo. First gig in 30 days via Upwork or LinkedIn. Use day job past projects as portfolio. Gotcha: client overlap with employer — check your contract.</div>
+      <div class="ranked-item"><strong>3. Asset — Sell unused stuff.</strong> One-time $300-1,200 in 2 weeks via Facebook Marketplace + Mercari. Camera gear, old laptop, kitchen appliances. Gotcha: not recurring; treat as a debt one-time chunk to one specific debt.</div>
+      <div class="ranked-item"><strong>4. Compound — Spanish-language marketing writeups for SaaS.</strong> $0-200/mo first 3 mo, $1,500/mo by month 12. Build LinkedIn presence in Spanish-market SaaS niche; case studies from day-job work. Gotcha: 12-month ladder, not 30-day fix.</div>
+      <div class="ranked-item"><strong>5. Employer — Ask for a raise or comp project.</strong> Mid-level SaaS marketing analysts in Austin earn $76-92k median. You're $8k under market. ~1 hr of conversation → $665/mo gross. Highest $/hour by ~50x. Gotcha: ask AFTER your next strong quarter, not before.</div>
+      <div class="sub-label">Recommendation for the 60-day window:</div>
+      <p>Start with #1 (Bilingual CS) — cash within 2 weeks while you set up #2 + ask for #5. Item #3 fills the first 2 weeks of gap. By month 3 you have $500-1,000+/mo new income, enough to add $500 to debt payoff.</p>
+    </div>
+  </div>
+
+  <div class="footer">7 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 8 — PROMPT 6: Category Advisor                            -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">6. Settlement Letter Generator</div>
+    <div class="tab-callout"><span class="emoji">📋</span>Pairs with: Debt List</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are drafting a hardship / settlement letter to a creditor. The goal: get them to (a) waive a late fee, (b) reverse a penalty APR, (c) accept partial settlement on a charged-off debt, or (d) reduce the minimum payment temporarily. Be specific. Don't write generic.
+
+WHAT I'M ASKING FOR: [pick one — late-fee waiver / APR reset / partial settlement / payment plan / dispute / goodwill removal]
+
+CREDITOR: [name]
+ACCOUNT: [last 4 of account, NOT full number — never put full account in AI]
+SITUATION:
+• Account opened: [year]
+• Original balance: $[amount]
+• Current balance: $[amount]
+• Status: [current / 30-day late / 60+ late / charge-off / collection]
+• Late fee or penalty being contested: $[amount]
+• Why I'm asking: [job loss / medical / one-time mistake / divorce / etc.]
+• What I'm offering instead: [amount + terms — e.g., "settle at 40% of balance, paid in 3 installments"]
+
+MY LEVERAGE:
+• Customer for [X] years
+• Otherwise on-time history: [%]
+• Other accounts with this bank: [list]
+
+Write me:
+
+<span class="num">1.</span> THE OPENING — name + relationship + ask in one sentence.
+
+<span class="num">2.</span> THE SITUATION — 2-3 sentences. Factual, not pleading.
+
+<span class="num">3.</span> THE ASK — exactly what you want. Specific amount, specific terms, specific deadline.
+
+<span class="num">4.</span> THE OFFER — what you'll give them in return (continued business, lump-sum, payment-plan commitment).
+
+<span class="num">5.</span> THE CLOSE — clear next step + your contact info placeholder.
+
+Tone: professional. Don't beg. Don't apologize excessively. Banks have legal departments — assume your letter will be scanned, not read. Lead with the ask. Make the action obvious.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p><strong>Ask:</strong> Late-fee waiver + APR reset to original.</p>
+      <p><strong>Creditor:</strong> Chase Sapphire Preferred (acct *4382)</p>
+      <p><strong>Situation:</strong> Opened 2019. Original $0 (revolving). Current $4,250. Status: current now, was 5 days late on April payment. $35 late fee + penalty APR 29.99% triggered (was 21.99%).</p>
+      <p><strong>Why:</strong> Autopay failed because checking account was closed at job change. Single missed payment in 5 years.</p>
+      <p><strong>Leverage:</strong> 5 years, 99.7% on-time, 3 other Chase accounts (checking, savings, mortgage).</p>
+      <p><strong>Offering:</strong> Continued Chase loyalty + commitment to autopay setup within 7 days.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <p style="font-style: italic;">Dear Chase Cardmember Services,</p>
+      <p>I'm writing to request a one-time waiver of the late fee assessed on 4/28/2026 ($35) and reversal of the penalty APR (29.99% → original 21.99%) on my Sapphire Preferred account ending 4382.</p>
+      <p>This was a single missed payment in five years of cardholder history. My checking account at [Bank] was closed during a job change in March; the autopay link broke for the April cycle. The payment was made in full on 4/30, four days late. I have since reinstated autopay against my current checking account at Chase.</p>
+      <p>I'm asking specifically for: (1) the $35 late fee removed, and (2) my APR returned to the original 21.99%. As a Chase customer of five years with a 99.7% on-time history, three other Chase accounts (mortgage, checking, high-yield savings), and an immediate autopay correction in place, this represents an isolated error rather than a pattern.</p>
+      <p>I'd appreciate a written response within 14 days. I can be reached at [your email] or via secure message in the Chase app.</p>
+      <p>Thank you for considering.</p>
+      <p>[Your name] / [account 4382]</p>
+    </div>
+  </div>
+
+  <div class="footer">8 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 9 — PROMPT 7: Health Score Coach                          -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">7. Debt Health Score Coach</div>
+    <div class="tab-callout"><span class="emoji">🤖</span>Pairs with: AI Credit Coach</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are coaching me on my Debt Health Score. Tell me why it's what it is, and the top 3 actions that would raise it most over the next 90 days.
+
+CURRENT DEBT HEALTH SCORE: [score]/100
+
+COMPONENT BREAKDOWN (paste from AI Credit Coach tab):
+• Debt paid (40% weight): [score]/100, % of original paid [%]
+• Interest saved (30% weight): [score]/100, weighted APR [%]
+• On-time streak (20% weight): [score]/100, current streak [months]
+• Utilization (10% weight): [score]/100, current util [%]
+
+MY DEBT SITUATION:
+Total debt: $[amount], original $[amount]
+Highest-APR debt: [name] at [%]
+Lowest-APR debt: [name] at [%]
+Monthly income (take-home): $[amount]
+Monthly minimums: $[amount]
+Extra I can allocate: $[amount]/mo
+
+MY GOAL: hit [target] score by [date]
+
+Tell me:
+
+<span class="num">1.</span> WHY my Debt Health Score is what it is — diagnose the 2 weakest components in plain language.
+
+<span class="num">2.</span> TOP 3 ACTIONS for the next 90 days, ranked by point-impact. Each: what to do, expected point gain, $ cost or behavior change, timeline.
+
+<span class="num">3.</span> ONE ACTION I MIGHT THINK WOULD HELP THAT'S ACTUALLY WRONG for my specific debt mix — e.g., consolidating when status quo + Avalanche is better, paying off the highest-APR debt when the smallest is about to roll off promo.
+
+<span class="num">4.</span> THE 12-MONTH PATH to 80+. Month-by-month action sketch with score projection.
+
+Use real numbers from my data. Skip pep talk.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Score: 41/100. Debt paid 22 (7% of original $52k paid). Interest saved 38 (weighted APR 14.8%). On-time streak 75 (8 months). Utilization 60 (28% util).</p>
+      <p>Total debt $48,400 / original $52,000. Highest-APR: Amex Gold 26.99% / $2,890. Lowest: Sallie Mae 4.89% / $18,900. Income $5,800/mo. Minimums $936. Extra: $250/mo. Goal: 70+ by year-end (8 months).</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Why 41:</div>
+      <p>Two weakest: Debt Paid (22) and Interest Saved (38). Only 7% of original debt is paid down — heavy weight (40%) drags the composite. Weighted APR 14.8% is high because Amex Gold's 26.99% pulls the average up despite its small share.</p>
+      <div class="sub-label">Top 3 Actions:</div>
+      <div class="ranked-item"><strong>1. Avalanche the Amex Gold ($2,890 @ 26.99%) — 90-day target.</strong> Add $250 extra → $308/mo total payment → paid off in ~10 months. After payoff, weighted APR drops from 14.8% → 12.1%. <strong>+18 points</strong> (Interest Saved 38→62 + Debt Paid 22→30).</div>
+      <div class="ranked-item"><strong>2. Maintain on-time streak through month 12 of 12.</strong> Sets you up for Sterling badge. <strong>+12 points</strong> over 4 months (75→87).</div>
+      <div class="ranked-item"><strong>3. Drop CC utilization to ≤10% on each card</strong> by month 90. <strong>+8 points</strong> (Utilization 60→90). Side effect: FICO score climbs ~25 pts, opening refi options on the student loan.</div>
+      <div class="sub-label">What WOULD be wrong:</div>
+      <p>Don't refinance the student loan now. At 4.89% it's already low; refinancing federal → private kills PSLF/IDR optionality (irreversible). The score gain would be small (Interest Saved up ~3 pts) but the risk is permanent.</p>
+      <div class="sub-label">12-month path to 80+:</div>
+      <p>Months 1-3: Avalanche Amex (+18 pts). Months 4-6: Snowball Care Credit before promo ends (+4 pts) + maintain streak (+8 pts). Months 7-9: Avalanche Chase Sapphire (+10 pts). Months 10-12: drop CC util on remaining cards (+8 pts). Projected end: <strong>~89/100.</strong></p>
+      <p style="margin-top: 0.04in;">Combined 90-day impact: ~+38 points → <strong>79/100</strong>. Within reach of 80+ in months 4-5.</p>
+      <div class="sub-label">Obvious but wrong:</div>
+      <p>"Pay off all debt first before building EF." Common but wrong for you — your debt is 14% (not crisis) and EF is 31% (crisis-vulnerable). Build EF to 1-month coverage first, then attack debt.</p>
+      <div class="sub-label">Path to 80+:</div>
+      <p>Months 1–3: Actions above → 76. Months 4–9: $300/mo EF + $100/mo extra debt → EF $4,800, debt ~$8,000 → 82. Months 10–12: hold at 82–84.</p>
+    </div>
+  </div>
+
+  <div class="footer">9 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 10 — TIPS: Which AI should I use?                         -->
+<!-- ============================================================== -->
+<div class="page">
+  <h1 class="content-header">Which AI should I use?</h1>
+  <div class="content-divider"></div>
+
+  <div class="content-body">
+    <p>All seven prompts work in free tiers. The differences are output style, input length, and how well the AI handles structured-data pastes.</p>
+
+    <div class="sub-section">ChatGPT Free</div>
+    <p><strong>Best for:</strong> Payoff Strategy Optimizer, Income Acceleration Coach, Settlement Letter Generator. Conversational tone; great at writing the hardship-letter drafts and revising creditor scripts ("more apologetic," "more direct," "less detail about the hardship").</p>
+    <p><strong>Limit:</strong> ~3,000–4,000 word context per message. If your Debt List is 15+ rows, paste in two batches — debts 1-10 then 11-20 — and ask the AI to combine.</p>
+
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p><strong>Best for:</strong> AI Credit Score Coach, Utilization Timing Advisor, Consolidation Intelligence, Debt Health Score Coach. Handles longer structured input (multiple cards with balances + APRs + limits) cleanly and produces table-formatted, math-anchored output.</p>
+    <p><strong>Limit:</strong> Conversation limits per day on free tier. If you hit a wall, switch to ChatGPT for the next prompt.</p>
+
+    <div class="sub-section">Paid tiers (ChatGPT Plus, Claude Pro)</div>
+    <p>Worth it if you're actively running the plan monthly. The Settlement Letter and Consolidation prompts especially benefit from the longer context window so you can paste your full Debt List + the lender's first response in one shot.</p>
+
+    <div class="sub-section">Universal tips</div>
+    <ol>
+      <li><strong>Paste as text, not screenshots.</strong> Free-tier AI doesn't read spreadsheet screenshots reliably.</li>
+      <li><strong>Never paste account numbers, full SSN, or full card numbers.</strong> Use placeholders ("Chase Sapphire — $5,200 balance" not "Card ending 1234567890").</li>
+      <li><strong>Iterate.</strong> First response is rarely the keeper. "Make it shorter" / "be more specific" / "rerun assuming the lender already declined once" — the AI revises on request.</li>
+      <li><strong>Save what works.</strong> Found a creditor script that got a fee waived? Paste it into the Debt List's Notes column so it doesn't disappear with the conversation.</li>
+    </ol>
+
+    <p style="margin-top: 0.14in; font-style: italic; opacity: 0.75;">Your debt data never leaves your AI conversation. ChatGPT and Claude don't see your spreadsheet — only what you paste, and only during that chat. No bureau, no Plaid, no aggregator.</p>
+  </div>
+
+  <div class="footer">10 / 11 · AI Credit Coach</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 11 — BACK COVER                                           -->
+<!-- ============================================================== -->
+<div class="page back-cover">
+  <div class="back-body">
+    <div class="back-pull-quote">A payoff plan is a contract<br>with yourself. Track it monthly.</div>
+    <div class="back-gold-underline"></div>
+    <div class="back-mid">
+      Seven prompts. Maybe an hour a month using them. Cheaper than the $25/mo debt-management apps that charge to do less, and your balances never touch a third-party aggregator.
+    </div>
+    <div class="back-signoff">Your debts. Your sheet. Your call.</div>
+  </div>
+  <div class="back-footer-panel">
+    <div class="row-1">
+      <span>Debt Payoff Planner · AI Edition</span>
+      <span class="meta">v1.0</span>
+    </div>
+    <p>12-month free updates included. Support replies within 24 hours.</p>
+    <p>AI prompts work in ChatGPT and Claude (free or paid tiers — your choice).</p>
+    <div class="page-num">11 / 11</div>
+  </div>
+</div>
+
+</body>
+</html>

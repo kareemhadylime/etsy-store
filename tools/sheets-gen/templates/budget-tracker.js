@@ -1,5 +1,5 @@
 /**
- * Budget Tracker — Google Sheets template generator (Premium Finance House) — v2
+ * Budget Tracker — Google Sheets template generator (Lime Premium Studios) — v2
  *
  * v2 changes vs PoC:
  *   • Expanded from 5 tabs to 13 (toward full 17-tab spec)
@@ -16,13 +16,20 @@ import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 import { existsSync, mkdirSync } from 'fs';
 
+// Shared Lime Premium Studios design tokens + helpers. Keep this import; the
+// local definitions below are kept as a self-contained fallback so the original
+// Budget Tracker generator still runs even if the lib changes. New products
+// (Debt Payoff, Sinking Funds, Net Worth, Small Biz) should import from the lib.
+// eslint-disable-next-line no-unused-vars
+import * as PFS from '../lib/premium-finance-studio.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const OUTPUT_DIR = resolve(__dirname, '..', 'output');
 if (!existsSync(OUTPUT_DIR)) mkdirSync(OUTPUT_DIR, { recursive: true });
 
 // ============================================================================
-// DESIGN TOKENS — Premium Finance House
+// DESIGN TOKENS — Lime Premium Studios
 // ============================================================================
 
 const COLORS = {
@@ -108,12 +115,24 @@ const BORDER_BOTTOM_GOLD = {
  */
 function addTopBar(sheet, tabName, tabSubtitle, kpiData) {
   // === Row 1: wordmark band ===
+  // Lime leaf logo anchors the row; the unified "Lime Premium Studios" wordmark sits to
+  // its right. Image is added once per workbook (via workbook._limeImageId) then re-inserted
+  // on each worksheet that calls addTopBar.
   sheet.mergeCells('A1:C1');
   const wordmark = sheet.getCell('A1');
-  wordmark.value = '✦ Premium Finance Studio';
+  wordmark.value = '    Lime Premium Studios';
   wordmark.font = { name: 'Inter', size: 11, bold: true, color: argb(COLORS.white) };
   wordmark.fill = FILLS.charcoal;
   wordmark.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+
+  if (sheet.workbook._limeImageId !== undefined) {
+    // Inset the 32×32 logo flush-left within row 1 (32px tall).
+    sheet.addImage(sheet.workbook._limeImageId, {
+      tl: { col: 0, row: 0, nativeColOff: 40000, nativeRowOff: 0 },
+      ext: { width: 28, height: 28 },
+      editAs: 'oneCell',
+    });
+  }
 
   sheet.mergeCells('D1:I1');
   const product = sheet.getCell('D1');
@@ -261,6 +280,10 @@ function addTableHeader(sheet, row, headers, cols) {
 /**
  * Footer band — appears at bottom of each tab.
  */
+// Tier label is patched per-build by applyTierVisibility — generator default is "AI Edition".
+// Footer rewriter looks for the FOOTER_TIER_TOKEN string and swaps it for the actual tier.
+const FOOTER_TIER_TOKEN = 'AI Edition';
+
 function addFooter(sheet, row) {
   sheet.mergeCells(`A${row}:M${row}`);
   const cell = sheet.getCell(`A${row}`);
@@ -269,7 +292,7 @@ function addFooter(sheet, row) {
 
   sheet.mergeCells(`A${row + 1}:M${row + 1}`);
   const footerCell = sheet.getCell(`A${row + 1}`);
-  footerCell.value = '✦  Premium Finance Studio  ·  Budget Tracker AI Edition v1.0  ·  budget-tracker.com  ·  Privacy-first. No Plaid. No app.';
+  footerCell.value = `Lime Premium Studios  ·  Budget Tracker ${FOOTER_TIER_TOKEN} v1.0  ·  Privacy-first. No Plaid. No app.`;
   footerCell.font = FONTS.footer;
   footerCell.fill = FILLS.offWhite;
   footerCell.alignment = { vertical: 'middle', horizontal: 'center' };
@@ -304,13 +327,16 @@ function buildSetupWizard(workbook) {
 
   setupColumns(sheet, { A: 2, B: 32, C: 22, D: 5, E: 32, F: 22, G: 2, H: 12, I: 12, J: 12, K: 12, L: 12, M: 12 });
 
+  // Top-bar tiles read LIVE from the answers below (B-11 fix — previously hardcoded text).
+  // Named ranges (BudgetMethod / Region / MonthlyIncome / HouseholdSize / TargetSavingsRate)
+  // are defined at the bottom of this function and resolved at workbook open.
   addTopBar(sheet, '🧭 Setup Wizard', 'Welcome — five questions to anchor your dashboard.', [
-    { label: 'METHOD',        value: '50/30/20' },
-    { label: 'REGION',        value: 'US' },
-    { label: 'INCOME',        value: '$5,200' },
-    { label: 'HOUSEHOLD',     value: '1' },
-    { label: 'TARGET SAVE',   value: '20%' },
-    { label: 'HEALTH',        value: '— / 100' },
+    { label: 'METHOD',        value: { formula: 'BudgetMethod' } },
+    { label: 'REGION',        value: { formula: 'Region' } },
+    { label: 'INCOME',        value: { formula: 'TEXT(MonthlyIncome,"$#,##0")' } },
+    { label: 'HOUSEHOLD',     value: { formula: 'HouseholdSize&" person"&IF(HouseholdSize=1,"","s")' } },
+    { label: 'TARGET SAVE',   value: { formula: 'TEXT(TargetSavingsRate,"0%")' } },
+    { label: 'HEALTH',        value: { formula: 'IFERROR(\'🏆 Financial Health Score\'!B10&" / 100","— / 100")' } },
   ]);
 
   // Hero
@@ -342,7 +368,7 @@ function buildSetupWizard(workbook) {
     {
       n: '2',
       title: 'Region (for tax + currency)',
-      help: 'Drives mileage rates (US IRS 67¢/mi), tax-deduction categories, currency symbol. Multi-currency support in Pro.',
+      help: 'Drives the IRS mileage rate (US 2025: $0.70/mi per IRS Notice 2024-83) and tax-deduction categories.',
       labelCell: 'E', inputCell: 'F',
       label: 'Region',
       value: 'US',
@@ -357,6 +383,7 @@ function buildSetupWizard(workbook) {
       label: 'Income $/month',
       value: 5200,
       format: '"$"#,##0',
+      numericValidation: { type: 'decimal', operator: 'greaterThanOrEqual', formulae: [0], promptTitle: 'Monthly take-home income', prompt: 'Enter a non-negative dollar amount.' },
     },
     {
       n: '4',
@@ -366,15 +393,17 @@ function buildSetupWizard(workbook) {
       label: 'People',
       value: 1,
       format: '#,##0',
+      numericValidation: { type: 'whole', operator: 'between', formulae: [1, 20], promptTitle: 'Household size', prompt: 'Whole number between 1 and 20.' },
     },
     {
       n: '5',
       title: 'Target savings rate',
-      help: 'What % of income you aim to save. 10% = minimum. 20% = solid. 40%+ = aggressive FIRE-track.',
+      help: 'What % of income you aim to save. 10% = minimum. 20% = solid. 40%+ = aggressive FIRE-track.  ⚠️ Enter as a decimal: 0.20 = 20%.',
       labelCell: 'B', inputCell: 'C',
       label: 'Target % of income',
       value: 0.20,
       format: '0%',
+      numericValidation: { type: 'decimal', operator: 'between', formulae: [0, 1], promptTitle: 'Target savings rate', prompt: 'Decimal between 0 and 1. Enter 0.20 for 20%, NOT 20.' },
     },
   ];
 
@@ -436,6 +465,17 @@ function buildSetupWizard(workbook) {
         promptTitle: q.title,
         prompt: q.help,
       };
+    } else if (q.numericValidation) {
+      // Numeric guardrails — prevent the "20 vs 0.20" foot-gun, negative incomes, household=0, etc.
+      inputCell.dataValidation = {
+        ...q.numericValidation,
+        allowBlank: false,
+        showInputMessage: true,
+        showErrorMessage: true,
+        errorStyle: 'stop',
+        errorTitle: 'Invalid input',
+        error: q.numericValidation.prompt,
+      };
     }
     sheet.getRow(baseRow + 3).height = 28;
   });
@@ -445,7 +485,7 @@ function buildSetupWizard(workbook) {
     'B33:G34',
     '💡',
     'Once you finish, here\'s what gets unlocked:',
-    'Dashboard auto-populates · Health Score starts computing · Budget vs Actual table tracks against your numbers · AI Money Advisor tab activates (AI Edition) · Cash Flow Forecast projects 90 days forward.');
+    'Dashboard auto-populates · Health Score starts computing (AI Edition) · Budget vs Actual table tracks against your numbers · 50/30/20 split computes live · AI Money Advisor prompts activate (AI Edition).');
   sheet.getRow(33).height = 28;
   sheet.getRow(34).height = 28;
 
@@ -473,20 +513,20 @@ function buildDashboard(workbook) {
   setupColumns(sheet, { A: 2, B: 18, C: 12, D: 12, E: 16, F: 8, G: 18, H: 12, I: 12, J: 12, K: 12, L: 12, M: 2 });
 
   addTopBar(sheet, '🏠 Dashboard', 'Your money at a glance — updates the moment you log an expense.', [
-    { label: 'INCOME M-T-D',     value: { formula: 'TEXT(SUM(\'💵 Income Tracker\'!D8:D50),"$#,##0")' } },
-    { label: 'EXPENSES M-T-D',   value: { formula: 'TEXT(SUM(\'💸 Expense Tracker\'!D8:D50),"$#,##0")' } },
-    { label: 'NET FLOW',         value: { formula: 'TEXT(SUM(\'💵 Income Tracker\'!D8:D50)-SUM(\'💸 Expense Tracker\'!D8:D50),"$#,##0;[Red]-$#,##0")' } },
+    { label: 'INCOME M-T-D',     value: { formula: 'TEXT(SUM(\'💵 Income Tracker\'!D11:D50),"$#,##0")' } },
+    { label: 'EXPENSES M-T-D',   value: { formula: 'TEXT(SUM(\'💸 Expense Tracker\'!D11:D60),"$#,##0")' } },
+    { label: 'NET FLOW',         value: { formula: 'TEXT(SUM(\'💵 Income Tracker\'!D11:D50)-SUM(\'💸 Expense Tracker\'!D11:D60),"$#,##0;-$#,##0")' } },
     { label: 'DAY OF MONTH',     value: { formula: 'DAY(TODAY())' } },
-    { label: 'TOP CATEGORY',     value: 'Groceries' },
-    { label: 'HEALTH SCORE',     value: { formula: '\'🏆 Financial Health Score\'!B7&" / 100"' } },
+    { label: 'TOP CATEGORY',     value: { formula: 'IFERROR(INDEX(\'📂 Expense Categories\'!B11:B23,MATCH(MAX(\'📂 Expense Categories\'!D11:D23),\'📂 Expense Categories\'!D11:D23,0)),"—")' } },
+    { label: 'HEALTH SCORE',     value: { formula: 'IFERROR(\'🏆 Financial Health Score\'!B10&" / 100","— / 100")' } },
   ]);
 
   // Section 1: Hero Health Score
   let r = addSectionHeader(sheet, 6, 'Financial Health Score', 'A composite of 5 sub-scores: savings rate · emergency fund · debt-to-income · credit utilization · on-time payment.', 'B:F');
 
-  // Big score number
+  // Big score number — handle both numeric (AI Edition with data) and non-numeric (empty data → "—")
   sheet.mergeCells(`B${r + 1}:C${r + 4}`);
-  sheet.getCell(`B${r + 1}`).value = { formula: "'🏆 Financial Health Score'!B7" };
+  sheet.getCell(`B${r + 1}`).value = { formula: "IFERROR(IF(ISNUMBER('🏆 Financial Health Score'!B10),'🏆 Financial Health Score'!B10,\"—\"),\"—\")" };
   sheet.getCell(`B${r + 1}`).font = FONTS.scoreHuge;
   sheet.getCell(`B${r + 1}`).alignment = { vertical: 'middle', horizontal: 'center' };
   sheet.getCell(`B${r + 1}`).fill = FILLS.ivory;
@@ -498,7 +538,7 @@ function buildDashboard(workbook) {
   sheet.getCell(`D${r + 1}`).font = FONTS.scoreUnit;
   sheet.getCell(`D${r + 1}`).alignment = { vertical: 'middle' };
 
-  sheet.getCell(`D${r + 2}`).value = { formula: 'IF(\'🏆 Financial Health Score\'!B7>=80,"Healthy",IF(\'🏆 Financial Health Score\'!B7>=60,"On Track",IF(\'🏆 Financial Health Score\'!B7>=40,"At Risk","Critical")))' };
+  sheet.getCell(`D${r + 2}`).value = { formula: 'IFERROR(IF(NOT(ISNUMBER(\'🏆 Financial Health Score\'!B10)),"Awaiting data",IF(\'🏆 Financial Health Score\'!B10>=80,"Healthy",IF(\'🏆 Financial Health Score\'!B10>=60,"On Track",IF(\'🏆 Financial Health Score\'!B10>=40,"At Risk","Critical")))),"—")' };
   sheet.getCell(`D${r + 2}`).font = { name: 'Inter', size: 14, bold: true, color: argb(COLORS.success) };
   sheet.getCell(`D${r + 2}`).alignment = { vertical: 'middle' };
 
@@ -521,44 +561,42 @@ function buildDashboard(workbook) {
   const bvaCols = ['G', 'H', 'I', 'J'];
   addTableHeader(sheet, bvaR + 1, ['Category', 'Budget', 'Actual', 'Status'], bvaCols);
 
-  const categories = [
-    { name: 'Groceries',     budget: 400 },
-    { name: 'Dining Out',    budget: 150 },
-    { name: 'Utilities',     budget: 280 },
-    { name: 'Subscriptions', budget: 60  },
-    { name: 'Transport',     budget: 120 },
-    { name: 'Personal',      budget: 100 },
-    { name: 'Entertainment', budget: 80  },
-    { name: 'Healthcare',    budget: 50  },
-  ];
+  // Budget vs Actual reads ALL 13 categories from the Categories tab (rows 11-23). Previously
+  // this hardcoded 8 categories and omitted Rent / Mortgage — the largest line at $1,700.
+  // The category name + budget come from Categories!B11:D23, so editing categories propagates.
+  const numCategories = 13;
 
-  categories.forEach((c, i) => {
+  for (let i = 0; i < numCategories; i++) {
     const row = bvaR + 2 + i;
-    sheet.getCell(`G${row}`).value = c.name;
+    const catRow = 11 + i; // Categories!B11 onwards
+
+    sheet.getCell(`G${row}`).value = { formula: `IFERROR('📂 Expense Categories'!B${catRow},"")` };
     sheet.getCell(`G${row}`).font = FONTS.body;
     sheet.getCell(`G${row}`).border = BORDER_THIN();
 
-    sheet.getCell(`H${row}`).value = c.budget;
+    sheet.getCell(`H${row}`).value = { formula: `IFERROR('📂 Expense Categories'!D${catRow},0)` };
     sheet.getCell(`H${row}`).numFmt = '"$"#,##0';
     sheet.getCell(`H${row}`).font = FONTS.body;
     sheet.getCell(`H${row}`).alignment = { horizontal: 'right' };
     sheet.getCell(`H${row}`).border = BORDER_THIN();
 
-    sheet.getCell(`I${row}`).value = { formula: `SUMIFS('💸 Expense Tracker'!D8:D50,'💸 Expense Tracker'!C8:C50,"${c.name}")` };
+    sheet.getCell(`I${row}`).value = { formula: `IFERROR(SUMIFS('💸 Expense Tracker'!D11:D60,'💸 Expense Tracker'!C11:C60,G${row}),0)` };
     sheet.getCell(`I${row}`).numFmt = '"$"#,##0';
     sheet.getCell(`I${row}`).font = FONTS.body;
     sheet.getCell(`I${row}`).alignment = { horizontal: 'right' };
     sheet.getCell(`I${row}`).border = BORDER_THIN();
 
-    sheet.getCell(`J${row}`).value = { formula: `IF(I${row}>H${row},"🔴 Over",IF(I${row}>H${row}*0.9,"🟡 Approaching","✅ On Track"))` };
+    sheet.getCell(`J${row}`).value = { formula: `IF(G${row}="","",IF(I${row}>H${row},"🔴 Over",IF(I${row}>H${row}*0.9,"🟡 Approaching","✅ On Track")))` };
     sheet.getCell(`J${row}`).font = { ...FONTS.body, bold: true };
     sheet.getCell(`J${row}`).alignment = { horizontal: 'center' };
     sheet.getCell(`J${row}`).border = BORDER_THIN();
-  });
+  }
+  // Use numCategories in downstream layout calculations
+  const categoriesLength = numCategories;
 
   // CF on status
   sheet.addConditionalFormatting({
-    ref: `J${bvaR + 2}:J${bvaR + 2 + categories.length - 1}`,
+    ref: `J${bvaR + 2}:J${bvaR + 2 + categoriesLength - 1}`,
     rules: [
       { type: 'containsText', operator: 'containsText', text: 'Over',        priority: 1, style: { fill: FILLS.alert, font: { color: argb(COLORS.white), bold: true } } },
       { type: 'containsText', operator: 'containsText', text: 'Approaching', priority: 2, style: { fill: FILLS.warning, font: { color: argb(COLORS.white), bold: true } } },
@@ -567,20 +605,20 @@ function buildDashboard(workbook) {
   });
 
   // Section 3: This month's pattern (insights callouts)
-  const insightsR = Math.max(r, bvaR + 2 + categories.length + 1) + 2;
+  const insightsR = Math.max(r, bvaR + 2 + categoriesLength + 1) + 2;
   addSectionHeader(sheet, insightsR, 'This month\'s patterns', 'Cross-tab insights computed automatically.', 'B:L');
 
   addCallout(sheet,
     `B${insightsR + 3}:E${insightsR + 4}`,
     '💡',
-    'Pro tip — Try the Smart Spending Advisor prompt',
-    'AI Money Advisor → page 3 → paste your last-30-days expense data → get 3 ranked spending cuts.');
+    'Spot a pattern this month?',
+    'Sort the Expense Tracker by Category, group by week, and find one row that surprised you. That\'s usually where the next $50/mo lives. AI Edition buyers can paste the same data into Prompt #1 (Smart Spending Advisor) for a ranked list of cuts.');
 
   addCallout(sheet,
     `G${insightsR + 3}:L${insightsR + 4}`,
     '📊',
     'Chart suggestion — Budget vs. Actual',
-    'Highlight G' + (bvaR + 1) + ':J' + (bvaR + 1 + categories.length) + ' → Insert → Chart → Bar chart for a visual view.');
+    'Highlight G' + (bvaR + 1) + ':J' + (bvaR + 1 + categoriesLength) + ' → Insert → Chart → Bar chart for a visual view.');
 
   sheet.getRow(insightsR + 3).height = 28;
   sheet.getRow(insightsR + 4).height = 28;
@@ -597,12 +635,12 @@ function buildExpenseCategories(workbook) {
   setupColumns(sheet, { A: 2, B: 22, C: 18, D: 14, E: 14, F: 14, G: 14, H: 26, I: 14, J: 8, K: 8, L: 8, M: 2 });
 
   addTopBar(sheet, '📂 Expense Categories', 'The master list. Edit categories or budgets here — Dashboard + Expense Tracker pick up changes automatically.', [
-    { label: 'METHOD',         value: '50/30/20' },
-    { label: 'TOTAL BUDGET',   value: { formula: 'TEXT(SUM(D8:D20),"$#,##0")' } },
-    { label: 'CATEGORIES',     value: { formula: 'COUNTA(B8:B20)' } },
-    { label: 'NEEDS %',        value: { formula: 'TEXT(SUMIFS(D8:D20,E8:E20,"Need")/SUM(D8:D20),"0%")' } },
-    { label: 'WANTS %',        value: { formula: 'TEXT(SUMIFS(D8:D20,E8:E20,"Want")/SUM(D8:D20),"0%")' } },
-    { label: 'SAVINGS %',      value: { formula: 'TEXT(SUMIFS(D8:D20,E8:E20,"Savings")/SUM(D8:D20),"0%")' } },
+    { label: 'METHOD',         value: { formula: 'BudgetMethod' } },
+    { label: 'TOTAL BUDGET',   value: { formula: 'TEXT(SUM(D11:D23),"$#,##0")' } },
+    { label: 'CATEGORIES',     value: { formula: 'COUNTA(B11:B23)' } },
+    { label: 'NEEDS %',        value: { formula: 'IFERROR(TEXT(SUMIFS(D11:D23,E11:E23,"Need")/SUM(D11:D23),"0%"),"0%")' } },
+    { label: 'WANTS %',        value: { formula: 'IFERROR(TEXT(SUMIFS(D11:D23,E11:E23,"Want")/SUM(D11:D23),"0%"),"0%")' } },
+    { label: 'SAVINGS %',      value: { formula: 'IFERROR(TEXT(SUMIFS(D11:D23,E11:E23,"Savings")/SUM(D11:D23),"0%"),"0%")' } },
   ]);
 
   let r = addSectionHeader(sheet, 6, 'Master category list', 'Edit names, budgets, and Need/Want/Savings classification. Drives the Budget vs Actual table on Dashboard.');
@@ -706,11 +744,11 @@ function buildIncomeTracker(workbook) {
   setupColumns(sheet, { A: 2, B: 12, C: 24, D: 14, E: 12, F: 16, G: 12, H: 28, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
   addTopBar(sheet, '💵 Income Tracker', 'Every dollar in — by source, by date. Tax-deductible flag for year-end prep.', [
-    { label: 'M-T-D INCOME',  value: { formula: 'TEXT(SUM(D8:D50),"$#,##0")' } },
-    { label: 'SOURCES',       value: { formula: 'COUNTA(C8:C50)' } },
-    { label: 'BIGGEST',       value: { formula: 'TEXT(MAX(D8:D50),"$#,##0")' } },
-    { label: 'AVG / ENTRY',   value: { formula: 'TEXT(AVERAGE(D8:D50),"$#,##0")' } },
-    { label: 'DEDUCTIBLE',    value: { formula: 'TEXT(SUMIFS(D8:D50,E8:E50,"✅"),"$#,##0")' } },
+    { label: 'M-T-D INCOME',  value: { formula: 'TEXT(SUM(D11:D50),"$#,##0")' } },
+    { label: 'SOURCES',       value: { formula: 'COUNTA(C11:C50)' } },
+    { label: 'BIGGEST',       value: { formula: 'TEXT(MAX(D11:D50),"$#,##0")' } },
+    { label: 'AVG / ENTRY',   value: { formula: 'IFERROR(TEXT(AVERAGEIF(D11:D50,">0"),"$#,##0"),"$0")' } },
+    { label: 'DEDUCTIBLE',    value: { formula: 'TEXT(SUMIFS(D11:D50,E11:E50,"✅"),"$#,##0")' } },
     { label: 'TARGET',        value: { formula: 'TEXT(MonthlyIncome,"$#,##0")' } },
   ]);
 
@@ -718,18 +756,22 @@ function buildIncomeTracker(workbook) {
 
   addTableHeader(sheet, r + 1, ['Date', 'Source', 'Amount', 'Tax-Deductible', 'Type', 'Notes'], ['B', 'C', 'D', 'E', 'F', 'G']);
 
+  // N19 fix: dates relative to TODAY() at generation time so the demo data never feels stale.
+  // Dates span the trailing 30 days of the build date — buyers always see a fresh-looking month.
+  const today = new Date();
+  const daysAgo = (d) => { const x = new Date(today); x.setDate(today.getDate() - d); return x; };
   const incomeRows = [
-    { date: '2026-04-01', source: 'TechCo Salary',           amount: 4500, taxDed: false, type: 'Salary',   notes: 'Bi-weekly net 1 of 2' },
-    { date: '2026-04-08', source: 'Freelance — Acme Corp',   amount: 800,  taxDed: false, type: 'Freelance', notes: 'Logo project — invoice paid' },
-    { date: '2026-04-15', source: 'TechCo Salary',           amount: 4500, taxDed: false, type: 'Salary',   notes: 'Bi-weekly net 2 of 2' },
-    { date: '2026-04-18', source: 'Dividends — SCHD',        amount: 87,   taxDed: false, type: 'Investment', notes: 'Q1 dividend payout' },
-    { date: '2026-04-22', source: 'Quarterly Tax Refund',    amount: 412,  taxDed: false, type: 'Refund',   notes: 'NY state' },
-    { date: '2026-04-28', source: 'Cashback — Chase Sapphire', amount: 24, taxDed: false, type: 'Cashback', notes: 'Q1 rotating category bonus' },
+    { date: daysAgo(29), source: 'TechCo Salary',           amount: 4500, taxDed: false, type: 'Salary',     notes: 'Bi-weekly net 1 of 2' },
+    { date: daysAgo(22), source: 'Freelance — Acme Corp',   amount: 800,  taxDed: false, type: 'Freelance',  notes: 'Logo project — invoice paid' },
+    { date: daysAgo(15), source: 'TechCo Salary',           amount: 4500, taxDed: false, type: 'Salary',     notes: 'Bi-weekly net 2 of 2' },
+    { date: daysAgo(12), source: 'Dividends — SCHD',        amount: 87,   taxDed: false, type: 'Investment', notes: 'Q1 dividend payout' },
+    { date: daysAgo(8),  source: 'Quarterly Tax Refund',    amount: 412,  taxDed: false, type: 'Refund',     notes: 'NY state' },
+    { date: daysAgo(2),  source: 'Cashback — Chase Sapphire', amount: 24, taxDed: false, type: 'Cashback',   notes: 'Q1 rotating category bonus' },
   ];
 
   incomeRows.forEach((row, i) => {
     const ri = r + 2 + i;
-    sheet.getCell(`B${ri}`).value = new Date(row.date);
+    sheet.getCell(`B${ri}`).value = row.date instanceof Date ? row.date : new Date(row.date);
     sheet.getCell(`B${ri}`).numFmt = 'mmm d';
     sheet.getCell(`B${ri}`).font = FONTS.body;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
@@ -775,12 +817,13 @@ function buildIncomeTracker(workbook) {
     sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
   }
 
-  // Total row
-  const totalR = r + 2 + incomeRows.length + 1;
+  // Total row — placed BELOW the user-editable range (D11:D50) so top-bar SUM(D11:D50)
+  // doesn't double-count the total. (Was at row 18 = inside the range; fixed for B-05a.)
+  const totalR = 52;
   sheet.getCell(`C${totalR}`).value = 'MONTH TOTAL';
   sheet.getCell(`C${totalR}`).font = FONTS.smallCaps;
   sheet.getCell(`C${totalR}`).alignment = { horizontal: 'right' };
-  sheet.getCell(`D${totalR}`).value = { formula: `SUM(D${r + 2}:D${r + 2 + incomeRows.length - 1})` };
+  sheet.getCell(`D${totalR}`).value = { formula: `SUM(D11:D50)` };
   sheet.getCell(`D${totalR}`).numFmt = '"$"#,##0';
   sheet.getCell(`D${totalR}`).font = { name: 'Inter', size: 16, bold: true, color: argb(COLORS.success) };
   sheet.getCell(`D${totalR}`).alignment = { horizontal: 'right' };
@@ -806,57 +849,60 @@ function buildExpenseTracker(workbook) {
   setupColumns(sheet, { A: 2, B: 10, C: 16, D: 10, E: 22, F: 12, G: 10, H: 26, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
   addTopBar(sheet, '💸 Expense Tracker', 'Every dollar out — by date, by category. Drives Budget vs Actual on Dashboard.', [
-    { label: 'M-T-D EXPENSE', value: { formula: 'TEXT(SUM(D8:D60),"$#,##0")' } },
-    { label: 'ENTRIES',       value: { formula: 'COUNTA(C8:C60)' } },
-    { label: 'AVG / ENTRY',   value: { formula: 'TEXT(AVERAGE(D8:D60),"$#,##0")' } },
-    { label: 'BIGGEST',       value: { formula: 'TEXT(MAX(D8:D60),"$#,##0")' } },
+    { label: 'M-T-D EXPENSE', value: { formula: 'TEXT(SUM(D11:D60),"$#,##0")' } },
+    { label: 'ENTRIES',       value: { formula: 'COUNTA(C11:C60)' } },
+    { label: 'AVG / ENTRY',   value: { formula: 'IFERROR(TEXT(AVERAGEIF(D11:D60,">0"),"$#,##0"),"$0")' } },
+    { label: 'BIGGEST',       value: { formula: 'TEXT(MAX(D11:D60),"$#,##0")' } },
     { label: 'TOP CAT',       value: 'Groceries' },
-    { label: 'BUDGET',        value: { formula: 'TEXT(SUM(\'📂 Expense Categories\'!D8:D20),"$#,##0")' } },
+    { label: 'BUDGET',        value: { formula: 'TEXT(SUM(\'📂 Expense Categories\'!D11:D23),"$#,##0")' } },
   ]);
 
   let r = addSectionHeader(sheet, 6, 'Daily expense log', 'Each row = one transaction. Categories driven by 📂 Expense Categories.');
 
   addTableHeader(sheet, r + 1, ['Date', 'Category', 'Amount', 'Vendor', 'Payment', 'Refund?', 'Notes'], ['B', 'C', 'D', 'E', 'F', 'G', 'H']);
 
-  // 30+ realistic expense rows
+  // N19 fix: dates relative to TODAY() at generation time so the demo data never feels stale.
+  // Trailing 30 days; same helper as Income Tracker.
+  const today2 = new Date();
+  const daysAgo2 = (d) => { const x = new Date(today2); x.setDate(today2.getDate() - d); return x; };
   const expenses = [
-    { date: '2026-04-02', cat: 'Groceries',     amt: 87.32,  vendor: 'Whole Foods',       pay: 'Debit',   refund: false, notes: 'Weekly grocery run' },
-    { date: '2026-04-03', cat: 'Transport',     amt: 4.50,   vendor: 'NYC Metro',         pay: 'Debit',   refund: false, notes: 'Single ride' },
-    { date: '2026-04-04', cat: 'Dining Out',    amt: 11.50,  vendor: 'Uber Eats',         pay: 'Credit',  refund: false, notes: 'Lunch — slow Friday' },
-    { date: '2026-04-04', cat: 'Subscriptions', amt: 9.99,   vendor: 'Netflix',           pay: 'Credit',  refund: false, notes: 'Monthly' },
-    { date: '2026-04-05', cat: 'Dining Out',    amt: 9.20,   vendor: 'Uber Eats',         pay: 'Credit',  refund: false, notes: 'Lunch' },
-    { date: '2026-04-06', cat: 'Personal',      amt: 34.00,  vendor: 'CVS',               pay: 'Debit',   refund: false, notes: 'Toiletries + Rx' },
-    { date: '2026-04-07', cat: 'Dining Out',    amt: 14.10,  vendor: 'Uber Eats',         pay: 'Credit',  refund: false, notes: 'Pad thai' },
-    { date: '2026-04-08', cat: 'Healthcare',    amt: 25.00,  vendor: 'CVS Pharmacy',      pay: 'HSA',     refund: false, notes: 'Co-pay — annual physical' },
-    { date: '2026-04-09', cat: 'Utilities',     amt: 79.99,  vendor: 'Spectrum',          pay: 'Auto-pay', refund: false, notes: 'Internet — April' },
-    { date: '2026-04-10', cat: 'Groceries',     amt: 42.18,  vendor: 'Trader Joe\'s',     pay: 'Debit',   refund: false, notes: '' },
-    { date: '2026-04-11', cat: 'Entertainment', amt: 18.00,  vendor: 'AMC Theatres',      pay: 'Credit',  refund: false, notes: 'Movie night' },
-    { date: '2026-04-12', cat: 'Subscriptions', amt: 16.99,  vendor: 'Spotify Family',    pay: 'Credit',  refund: false, notes: '⚠️ Auto-renewed: was $9.99' },
-    { date: '2026-04-13', cat: 'Transport',     amt: 33.00,  vendor: 'NYC Metro',         pay: 'Debit',   refund: false, notes: 'Weekly pass' },
-    { date: '2026-04-14', cat: 'Dining Out',    amt: 28.40,  vendor: 'Joe\'s Pizza',      pay: 'Cash',    refund: false, notes: 'Dinner with friend' },
-    { date: '2026-04-15', cat: 'Utilities',     amt: 134.20, vendor: 'ConEd Electric',    pay: 'Auto-pay', refund: false, notes: 'April electric — heat lingering' },
-    { date: '2026-04-16', cat: 'Personal',      amt: 22.00,  vendor: 'Sephora',           pay: 'Credit',  refund: false, notes: '' },
-    { date: '2026-04-17', cat: 'Groceries',     amt: 124.00, vendor: 'Whole Foods',       pay: 'Debit',   refund: false, notes: 'Big trip — meal prep' },
-    { date: '2026-04-18', cat: 'Dining Out',    amt: 12.40,  vendor: 'Uber Eats',         pay: 'Credit',  refund: false, notes: 'Late dinner' },
-    { date: '2026-04-19', cat: 'Entertainment', amt: 32.00,  vendor: 'Park Slope Concert',pay: 'Cash',    refund: false, notes: 'Local show' },
-    { date: '2026-04-20', cat: 'Healthcare',    amt: 18.00,  vendor: 'Walgreens',         pay: 'HSA',     refund: false, notes: 'Allergy meds' },
-    { date: '2026-04-21', cat: 'Subscriptions', amt: 14.99,  vendor: 'NYT',               pay: 'Credit',  refund: false, notes: 'Annual sub' },
-    { date: '2026-04-22', cat: 'Groceries',     amt: 28.50,  vendor: 'Bodega',            pay: 'Cash',    refund: false, notes: 'Quick pickup' },
-    { date: '2026-04-23', cat: 'Transport',     amt: 17.80,  vendor: 'Lyft',              pay: 'Credit',  refund: false, notes: 'Late night home' },
-    { date: '2026-04-24', cat: 'Personal',      amt: 8.00,   vendor: 'Etsy',              pay: 'Credit',  refund: false, notes: 'Sticker pack' },
-    { date: '2026-04-25', cat: 'Utilities',     amt: 58.00,  vendor: 'Verizon Mobile',    pay: 'Auto-pay', refund: false, notes: 'April phone' },
-    { date: '2026-04-26', cat: 'Dining Out',    amt: 16.80,  vendor: 'Sweetgreen',        pay: 'Credit',  refund: false, notes: 'Office lunch' },
-    { date: '2026-04-27', cat: 'Healthcare',    amt: 7.00,   vendor: 'Drip Coffee Co.',   pay: 'Debit',   refund: true,  notes: 'Wrong order — refund pending' },
-    { date: '2026-04-28', cat: 'Groceries',     amt: 18.40,  vendor: 'Whole Foods',       pay: 'Debit',   refund: false, notes: 'Restock' },
-    { date: '2026-04-29', cat: 'Entertainment', amt: 9.99,   vendor: 'Apple TV+',         pay: 'Credit',  refund: false, notes: 'Monthly' },
-    { date: '2026-04-30', cat: 'Personal',      amt: 12.50,  vendor: 'Duane Reade',       pay: 'Debit',   refund: false, notes: '' },
+    { date: daysAgo2(29), cat: 'Groceries',     amt: 87.32,  vendor: 'Whole Foods',       pay: 'Debit',   refund: false, notes: 'Weekly grocery run' },
+    { date: daysAgo2(28), cat: 'Transport',     amt: 4.50,   vendor: 'NYC Metro',         pay: 'Debit',   refund: false, notes: 'Single ride' },
+    { date: daysAgo2(27), cat: 'Dining Out',    amt: 11.50,  vendor: 'Uber Eats',         pay: 'Credit',  refund: false, notes: 'Lunch — slow Friday' },
+    { date: daysAgo2(27), cat: 'Subscriptions', amt: 9.99,   vendor: 'Netflix',           pay: 'Credit',  refund: false, notes: 'Monthly' },
+    { date: daysAgo2(26), cat: 'Dining Out',    amt: 9.20,   vendor: 'Uber Eats',         pay: 'Credit',  refund: false, notes: 'Lunch' },
+    { date: daysAgo2(25), cat: 'Personal',      amt: 34.00,  vendor: 'CVS',               pay: 'Debit',   refund: false, notes: 'Toiletries + Rx' },
+    { date: daysAgo2(24), cat: 'Dining Out',    amt: 14.10,  vendor: 'Uber Eats',         pay: 'Credit',  refund: false, notes: 'Pad thai' },
+    { date: daysAgo2(23), cat: 'Healthcare',    amt: 25.00,  vendor: 'CVS Pharmacy',      pay: 'HSA',     refund: false, notes: 'Co-pay — annual physical' },
+    { date: daysAgo2(22), cat: 'Utilities',     amt: 79.99,  vendor: 'Spectrum',          pay: 'Auto-pay', refund: false, notes: 'Internet — current month' },
+    { date: daysAgo2(21), cat: 'Groceries',     amt: 42.18,  vendor: 'Trader Joe\'s',     pay: 'Debit',   refund: false, notes: '' },
+    { date: daysAgo2(20), cat: 'Entertainment', amt: 18.00,  vendor: 'AMC Theatres',      pay: 'Credit',  refund: false, notes: 'Movie night' },
+    { date: daysAgo2(19), cat: 'Subscriptions', amt: 16.99,  vendor: 'Spotify Family',    pay: 'Credit',  refund: false, notes: '⚠️ Auto-renewed: was $9.99' },
+    { date: daysAgo2(18), cat: 'Transport',     amt: 33.00,  vendor: 'NYC Metro',         pay: 'Debit',   refund: false, notes: 'Weekly pass' },
+    { date: daysAgo2(17), cat: 'Dining Out',    amt: 28.40,  vendor: 'Joe\'s Pizza',      pay: 'Cash',    refund: false, notes: 'Dinner with friend' },
+    { date: daysAgo2(16), cat: 'Utilities',     amt: 134.20, vendor: 'ConEd Electric',    pay: 'Auto-pay', refund: false, notes: 'Electric — heat lingering' },
+    { date: daysAgo2(15), cat: 'Personal',      amt: 22.00,  vendor: 'Sephora',           pay: 'Credit',  refund: false, notes: '' },
+    { date: daysAgo2(14), cat: 'Groceries',     amt: 124.00, vendor: 'Whole Foods',       pay: 'Debit',   refund: false, notes: 'Big trip — meal prep' },
+    { date: daysAgo2(13), cat: 'Dining Out',    amt: 12.40,  vendor: 'Uber Eats',         pay: 'Credit',  refund: false, notes: 'Late dinner' },
+    { date: daysAgo2(12), cat: 'Entertainment', amt: 32.00,  vendor: 'Park Slope Concert',pay: 'Cash',    refund: false, notes: 'Local show' },
+    { date: daysAgo2(11), cat: 'Healthcare',    amt: 18.00,  vendor: 'Walgreens',         pay: 'HSA',     refund: false, notes: 'Allergy meds' },
+    { date: daysAgo2(10), cat: 'Subscriptions', amt: 14.99,  vendor: 'NYT',               pay: 'Credit',  refund: false, notes: 'Annual sub' },
+    { date: daysAgo2(9),  cat: 'Groceries',     amt: 28.50,  vendor: 'Bodega',            pay: 'Cash',    refund: false, notes: 'Quick pickup' },
+    { date: daysAgo2(8),  cat: 'Transport',     amt: 17.80,  vendor: 'Lyft',              pay: 'Credit',  refund: false, notes: 'Late night home' },
+    { date: daysAgo2(7),  cat: 'Personal',      amt: 8.00,   vendor: 'Etsy',              pay: 'Credit',  refund: false, notes: 'Sticker pack' },
+    { date: daysAgo2(6),  cat: 'Utilities',     amt: 58.00,  vendor: 'Verizon Mobile',    pay: 'Auto-pay', refund: false, notes: 'Mobile bill' },
+    { date: daysAgo2(5),  cat: 'Dining Out',    amt: 16.80,  vendor: 'Sweetgreen',        pay: 'Credit',  refund: false, notes: 'Office lunch' },
+    { date: daysAgo2(4),  cat: 'Healthcare',    amt: 7.00,   vendor: 'Drip Coffee Co.',   pay: 'Debit',   refund: true,  notes: 'Wrong order — refund pending' },
+    { date: daysAgo2(3),  cat: 'Groceries',     amt: 18.40,  vendor: 'Whole Foods',       pay: 'Debit',   refund: false, notes: 'Restock' },
+    { date: daysAgo2(2),  cat: 'Entertainment', amt: 9.99,   vendor: 'Apple TV+',         pay: 'Credit',  refund: false, notes: 'Monthly' },
+    { date: daysAgo2(1),  cat: 'Personal',      amt: 12.50,  vendor: 'Duane Reade',       pay: 'Debit',   refund: false, notes: '' },
   ];
 
   const cats = ['Groceries', 'Dining Out', 'Utilities', 'Rent / Mortgage', 'Subscriptions', 'Transport', 'Personal', 'Entertainment', 'Healthcare', 'Education', 'Emergency Fund', 'Investing', 'Other'];
 
   expenses.forEach((row, i) => {
     const ri = r + 2 + i;
-    sheet.getCell(`B${ri}`).value = new Date(row.date);
+    sheet.getCell(`B${ri}`).value = row.date instanceof Date ? row.date : new Date(row.date);
     sheet.getCell(`B${ri}`).numFmt = 'mmm d';
     sheet.getCell(`B${ri}`).font = FONTS.body;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
@@ -909,12 +955,12 @@ function buildExpenseTracker(workbook) {
     sheet.getCell(`G${ri}`).alignment = { horizontal: 'center' };
   }
 
-  // Total row
-  const totalR = r + 2 + expenses.length + 1;
+  // Total row — placed BELOW the user-editable range (D11:D60) so top-bar SUM doesn't double-count.
+  const totalR = 62;
   sheet.getCell(`C${totalR}`).value = 'MONTH TOTAL';
   sheet.getCell(`C${totalR}`).font = FONTS.smallCaps;
   sheet.getCell(`C${totalR}`).alignment = { horizontal: 'right' };
-  sheet.getCell(`D${totalR}`).value = { formula: `SUM(D${r + 2}:D${r + 2 + expenses.length - 1})` };
+  sheet.getCell(`D${totalR}`).value = { formula: `SUM(D11:D60)` };
   sheet.getCell(`D${totalR}`).numFmt = '"$"#,##0.00';
   sheet.getCell(`D${totalR}`).font = { name: 'Inter', size: 16, bold: true, color: argb(COLORS.alert) };
   sheet.getCell(`D${totalR}`).alignment = { horizontal: 'right' };
@@ -939,12 +985,15 @@ function buildRecurringTemplates(workbook) {
   setupColumns(sheet, { A: 2, B: 22, C: 16, D: 12, E: 14, F: 14, G: 28, H: 12, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
   addTopBar(sheet, '🔁 Recurring Templates', 'Recurring income + bills set once. The Bill Calendar tab uses these templates.', [
-    { label: 'TEMPLATES',     value: { formula: 'COUNTA(B8:B30)' } },
-    { label: 'MONTHLY TOTAL', value: { formula: 'TEXT(SUM(D8:D30),"$#,##0")' } },
-    { label: 'ACTIVE',        value: { formula: 'COUNTIF(H8:H30,"Active")' } },
-    { label: 'PAUSED',        value: { formula: 'COUNTIF(H8:H30,"Paused")' } },
-    { label: 'NEXT 7 DAYS',   value: '4 bills' },
-    { label: 'ANNUAL',        value: { formula: 'TEXT(SUM(D8:D30)*12,"$#,##0")' } },
+    { label: 'TEMPLATES',     value: { formula: 'COUNTA(B11:B30)' } },
+    { label: 'MONTHLY TOTAL', value: { formula: 'TEXT(SUM(D11:D30),"$#,##0")' } },
+    { label: 'ACTIVE',        value: { formula: 'COUNTIF(H11:H30,"Active")' } },
+    { label: 'PAUSED',        value: { formula: 'COUNTIF(H11:H30,"Paused")' } },
+    // N16 fix: wrap the 7-day window across month boundaries.
+    // If TODAY()+7 stays in this month → simple "between today and today+7".
+    // If it wraps (e.g. day 27 + 7 = day 34) → "today..end-of-month OR 1..wrapped-day".
+    { label: 'NEXT 7 DAYS',   value: { formula: 'IF(DAY(TODAY())+7<=DAY(EOMONTH(TODAY(),0)),COUNTIFS(E11:E30,">="&DAY(TODAY()),E11:E30,"<="&DAY(TODAY())+7,H11:H30,"Active"),COUNTIFS(E11:E30,">="&DAY(TODAY()),H11:H30,"Active")+COUNTIFS(E11:E30,"<="&(DAY(TODAY())+7-DAY(EOMONTH(TODAY(),0))),H11:H30,"Active"))&" bills"' } },
+    { label: 'ANNUAL',        value: { formula: 'TEXT(SUM(D11:D30)*12,"$#,##0")' } },
   ]);
 
   let r = addSectionHeader(sheet, 6, 'Recurring bills + subscriptions', 'Each row repeats every month on its scheduled day. Pause anytime.');
@@ -1020,8 +1069,8 @@ function buildRecurringTemplates(workbook) {
 
   addCallout(sheet, `B${r + 2 + recurring.length + 2}:H${r + 2 + recurring.length + 3}`,
     '💡',
-    'Subscription audit prompt',
-    'Run the Smart Spending Advisor (AI Money Advisor → page 3) once a quarter — it catches auto-renewals like the Spotify family upcharge ⚠️ above. Annual savings often = $100-300.');
+    'Quarterly subscription audit',
+    'Open this tab every quarter, sort by Amount, and ask of every row "did I use this in the last 90 days?" — catches auto-renewals like the Spotify family upcharge ⚠️ above. Annual savings typically $100-300. AI Edition buyers can paste this list into the Bill Negotiation Scripts prompt for a custom script per subscription.');
   sheet.getRow(r + 2 + recurring.length + 2).height = 26;
   sheet.getRow(r + 2 + recurring.length + 3).height = 26;
 
@@ -1036,12 +1085,12 @@ function buildRefundTracker(workbook) {
   setupColumns(sheet, { A: 2, B: 12, C: 24, D: 12, E: 14, F: 16, G: 14, H: 30, I: 8, J: 8, K: 8, L: 8, M: 2 });
 
   addTopBar(sheet, '↩️ Refund Tracker', 'Every return you\'re waiting on. Days column turns red at 30+ days outstanding.', [
-    { label: 'PENDING',       value: { formula: 'COUNTIF(F8:F40,"Pending")' } },
-    { label: 'EXPECTED $',    value: { formula: 'TEXT(SUMIF(F8:F40,"Pending",D8:D40),"$#,##0.00")' } },
-    { label: 'RECEIVED $',    value: { formula: 'TEXT(SUMIF(F8:F40,"Received",D8:D40),"$#,##0.00")' } },
-    { label: 'DISPUTED',      value: { formula: 'COUNTIF(F8:F40,"Disputed")' } },
-    { label: 'OVERDUE (30+)', value: { formula: 'COUNTIFS(F8:F40,"Pending",G8:G40,">"&30)' } },
-    { label: 'TOTAL OWED',    value: { formula: 'TEXT(SUMIFS(D8:D40,F8:F40,"<>Received"),"$#,##0.00")' } },
+    { label: 'PENDING',       value: { formula: 'COUNTIF(F11:F40,"Pending")' } },
+    { label: 'EXPECTED $',    value: { formula: 'TEXT(SUMIF(F11:F40,"Pending",D11:D40),"$#,##0.00")' } },
+    { label: 'RECEIVED $',    value: { formula: 'TEXT(SUMIF(F11:F40,"Received",D11:D40),"$#,##0.00")' } },
+    { label: 'DISPUTED',      value: { formula: 'COUNTIF(F11:F40,"Disputed")' } },
+    { label: 'OVERDUE (30+)', value: { formula: 'COUNTIFS(F11:F40,"Pending",G11:G40,">"&30)' } },
+    { label: 'TOTAL OWED',    value: { formula: 'TEXT(SUMIFS(D11:D40,F11:F40,"<>Received"),"$#,##0.00")' } },
   ]);
 
   let r = addSectionHeader(sheet, 6, 'Refunds in progress',
@@ -1051,18 +1100,23 @@ function buildRefundTracker(workbook) {
     ['Date', 'Vendor', 'Amount', 'Expected by', 'Status', 'Days Out', 'Notes'],
     ['B', 'C', 'D', 'E', 'F', 'G', 'H']);
 
+  // N19 fix: relative-to-build dates so the demo Days Out stays realistic over time.
+  const refToday = new Date();
+  const refDaysAgo = (d) => { const x = new Date(refToday); x.setDate(refToday.getDate() - d); return x; };
+  const refDaysAhead = (d) => { const x = new Date(refToday); x.setDate(refToday.getDate() + d); return x; };
   const refunds = [
-    { date: '2026-04-12', vendor: 'Amazon',          amt: 34.99,  expected: '2026-04-22', status: 'Received', days: 8,  notes: 'Item returned — credit posted' },
-    { date: '2026-04-18', vendor: 'United Airlines',  amt: 215.00, expected: '2026-05-02', status: 'Pending',  days: 22, notes: 'Flight change fee refund' },
-    { date: '2026-04-25', vendor: 'Walgreens',        amt: 12.49,  expected: '2026-05-09', status: 'Pending',  days: 35, notes: 'Wrong item shipped' },
-    { date: '2026-05-01', vendor: 'Apple Store',      amt: 49.99,  expected: '2026-05-15', status: 'Pending',  days: 11, notes: 'App subscription cancelled' },
-    { date: '2026-03-30', vendor: 'Booking.com',      amt: 189.00, expected: '2026-04-14', status: 'Disputed', days: 43, notes: '⚠️ Escalated to bank dispute' },
+    { date: refDaysAgo(8),  vendor: 'Amazon',           amt: 34.99,  expected: refDaysAhead(2),  status: 'Received', notes: 'Item returned — credit posted' },
+    { date: refDaysAgo(22), vendor: 'United Airlines',  amt: 215.00, expected: refDaysAgo(8),    status: 'Pending',  notes: 'Flight change fee refund' },
+    { date: refDaysAgo(35), vendor: 'Walgreens',        amt: 12.49,  expected: refDaysAgo(21),   status: 'Pending',  notes: 'Wrong item shipped' },
+    { date: refDaysAgo(11), vendor: 'Apple Store',      amt: 49.99,  expected: refDaysAhead(3),  status: 'Pending',  notes: 'App subscription cancelled' },
+    { date: refDaysAgo(43), vendor: 'Booking.com',      amt: 189.00, expected: refDaysAgo(28),   status: 'Disputed', notes: '⚠️ Escalated to bank dispute' },
   ];
 
   refunds.forEach((row, i) => {
     const ri = r + 2 + i;
 
-    sheet.getCell(`B${ri}`).value = row.date;
+    sheet.getCell(`B${ri}`).value = row.date instanceof Date ? row.date : new Date(row.date);
+    sheet.getCell(`B${ri}`).numFmt = 'mmm d, yyyy';
     sheet.getCell(`B${ri}`).font = FONTS.body;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
     sheet.getCell(`B${ri}`).fill = FILLS.white;
@@ -1079,7 +1133,8 @@ function buildRefundTracker(workbook) {
     sheet.getCell(`D${ri}`).border = BORDER_THIN();
     sheet.getCell(`D${ri}`).fill = FILLS.white;
 
-    sheet.getCell(`E${ri}`).value = row.expected;
+    sheet.getCell(`E${ri}`).value = row.expected instanceof Date ? row.expected : new Date(row.expected);
+    sheet.getCell(`E${ri}`).numFmt = 'mmm d, yyyy';
     sheet.getCell(`E${ri}`).font = FONTS.body;
     sheet.getCell(`E${ri}`).border = BORDER_THIN();
     sheet.getCell(`E${ri}`).fill = FILLS.white;
@@ -1090,7 +1145,9 @@ function buildRefundTracker(workbook) {
     sheet.getCell(`F${ri}`).border = BORDER_THIN();
     sheet.getCell(`F${ri}`).dataValidation = { type: 'list', formulae: ['"Pending,Received,Disputed"'] };
 
-    sheet.getCell(`G${ri}`).value = row.days;
+    // Days Out is a LIVE formula counting from the refund-claim date to today.
+    // (Previously hardcoded — stale by Day 2 of usage.)
+    sheet.getCell(`G${ri}`).value = { formula: `IF(F${ri}="Received",0,MAX(0,TODAY()-B${ri}))` };
     sheet.getCell(`G${ri}`).numFmt = '0" days"';
     sheet.getCell(`G${ri}`).font = FONTS.body;
     sheet.getCell(`G${ri}`).alignment = { horizontal: 'center' };
@@ -1139,12 +1196,12 @@ function buildCreditCardManager(workbook) {
   setupColumns(sheet, { A: 2, B: 22, C: 14, D: 12, E: 14, F: 10, G: 12, H: 14, I: 16, J: 14, K: 8, L: 8, M: 2 });
 
   addTopBar(sheet, '💳 Credit Card Manager', 'Balances, utilization, interest accrual. Keep utilization <30% to protect your credit score.', [
-    { label: 'TOTAL BALANCE', value: { formula: 'TEXT(SUM(C8:C13),"$#,##0")' } },
-    { label: 'TOTAL LIMIT',   value: { formula: 'TEXT(SUM(D8:D13),"$#,##0")' } },
-    { label: 'UTILIZATION',   value: { formula: 'TEXT(IFERROR(SUM(C8:C13)/SUM(D8:D13),0),"0%")' } },
-    { label: 'MIN PAYMENTS',  value: { formula: 'TEXT(SUM(E8:E13),"$#,##0.00")' } },
-    { label: 'MONTHLY INT.',  value: { formula: 'TEXT(SUMPRODUCT((C8:C13)*(F8:F13)/12),"$#,##0.00")' } },
-    { label: 'CARDS',         value: { formula: 'COUNTA(B8:B13)' } },
+    { label: 'TOTAL BALANCE', value: { formula: 'TEXT(SUM(C11:C20),"$#,##0")' } },
+    { label: 'TOTAL LIMIT',   value: { formula: 'TEXT(SUM(D11:D20),"$#,##0")' } },
+    { label: 'UTILIZATION',   value: { formula: 'TEXT(IFERROR(SUM(C11:C20)/SUM(D11:D20),0),"0%")' } },
+    { label: 'MIN PAYMENTS',  value: { formula: 'TEXT(SUM(E11:E20),"$#,##0.00")' } },
+    { label: 'MONTHLY INT.',  value: { formula: 'TEXT(SUMPRODUCT((C11:C20)*(F11:F20)/12),"$#,##0.00")' } },
+    { label: 'CARDS',         value: { formula: 'COUNTA(B11:B20)' } },
   ]);
 
   let r = addSectionHeader(sheet, 6, 'Credit card dashboard',
@@ -1202,21 +1259,24 @@ function buildCreditCardManager(workbook) {
     sheet.getCell(`G${ri}`).border = BORDER_THIN();
     sheet.getCell(`G${ri}`).fill = FILLS.white;
 
-    sheet.getCell(`H${ri}`).value = card.util;
+    // Utilization is a LIVE formula so it tracks balance/limit changes. CF fires on real value.
+    sheet.getCell(`H${ri}`).value = { formula: `IFERROR(C${ri}/D${ri},0)` };
     sheet.getCell(`H${ri}`).numFmt = '0%';
     sheet.getCell(`H${ri}`).font = { ...FONTS.body, bold: true };
     sheet.getCell(`H${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`H${ri}`).border = BORDER_THIN();
     sheet.getCell(`H${ri}`).fill = FILLS.white;
 
-    sheet.getCell(`I${ri}`).value = card.interest;
+    // Monthly interest = balance × APR / 12 (live)
+    sheet.getCell(`I${ri}`).value = { formula: `C${ri}*F${ri}/12` };
     sheet.getCell(`I${ri}`).numFmt = '"$"#,##0.00';
     sheet.getCell(`I${ri}`).font = { ...FONTS.body, color: argb(COLORS.alert) };
     sheet.getCell(`I${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`I${ri}`).border = BORDER_THIN();
     sheet.getCell(`I${ri}`).fill = FILLS.white;
 
-    sheet.getCell(`J${ri}`).value = card.status;
+    // Status derives from utilization thresholds (>50% high, >30% watch, else good)
+    sheet.getCell(`J${ri}`).value = { formula: `IF(H${ri}>0.5,"🔴 High",IF(H${ri}>0.3,"🟡 Watch","🟢 Good"))` };
     sheet.getCell(`J${ri}`).font = { ...FONTS.body, bold: true };
     sheet.getCell(`J${ri}`).alignment = { horizontal: 'center' };
     sheet.getCell(`J${ri}`).border = BORDER_THIN();
@@ -1286,12 +1346,13 @@ function buildBillCalendar(workbook) {
   setupColumns(sheet, { A: 2, B: 8, C: 26, D: 14, E: 14, F: 16, G: 22, H: 10, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
   addTopBar(sheet, '📅 Bill Calendar', 'Every bill, sorted by day of month. Watch the danger zone.', [
-    { label: 'BILLS THIS MO',  value: { formula: 'COUNTA(B8:B30)' } },
-    { label: 'TOTAL DUE',      value: { formula: 'TEXT(SUM(D8:D30),"$#,##0")' } },
-    { label: 'UPCOMING 7D',    value: '3 bills' },
-    { label: 'PAID',           value: { formula: 'COUNTIF(F8:F30,"✅ Paid")' } },
-    { label: 'OUTSTANDING',    value: { formula: 'TEXT(SUMIFS(D8:D30,F8:F30,"⏳ Due"),"$#,##0")' } },
-    { label: 'OVERDUE',        value: { formula: 'COUNTIF(F8:F30,"🔴 Overdue")' } },
+    { label: 'BILLS THIS MO',  value: { formula: 'COUNT(B11:B30)' } },
+    { label: 'TOTAL DUE',      value: { formula: 'TEXT(SUM(D11:D30),"$#,##0")' } },
+    // N16 fix: month-boundary wrap (same pattern as Recurring Templates).
+    { label: 'UPCOMING 7D',    value: { formula: 'IF(DAY(TODAY())+7<=DAY(EOMONTH(TODAY(),0)),COUNTIFS(B11:B30,">="&DAY(TODAY()),B11:B30,"<="&DAY(TODAY())+7,F11:F30,"<>✅ Paid"),COUNTIFS(B11:B30,">="&DAY(TODAY()),F11:F30,"<>✅ Paid")+COUNTIFS(B11:B30,"<="&(DAY(TODAY())+7-DAY(EOMONTH(TODAY(),0))),F11:F30,"<>✅ Paid"))&" bills"' } },
+    { label: 'PAID',           value: { formula: 'COUNTIF(F11:F30,"✅ Paid")' } },
+    { label: 'OUTSTANDING',    value: { formula: 'TEXT(SUMIFS(D11:D30,F11:F30,"⏳ Due"),"$#,##0")' } },
+    { label: 'OVERDUE',        value: { formula: 'COUNTIF(F11:F30,"🔴 Overdue")' } },
   ]);
 
   let r = addSectionHeader(sheet, 6, 'This month\'s bills', 'Sorted by day of month. Mark each as paid as you go.');
@@ -1361,8 +1422,8 @@ function buildBillCalendar(workbook) {
 
   addCallout(sheet, `B${r + 2 + bills.length + 2}:G${r + 2 + bills.length + 3}`,
     '💡',
-    '.ics export (Pro tier)',
-    'Export this calendar to your phone\'s calendar app via the named-range URL in the Bills tab. Get 3-day-ahead reminders for every bill.');
+    'How to stay ahead of bills',
+    'The UPCOMING 7D tile up top counts everything due in the next 7 days that isn\'t yet ✅ Paid. Open this tab every Sunday, pay anything in the 7-day window, mark ✅ Paid — the Bill Calendar tile and the Financial Health Score (AI Edition) update instantly.');
   sheet.getRow(r + 2 + bills.length + 2).height = 26;
   sheet.getRow(r + 2 + bills.length + 3).height = 26;
 
@@ -1377,12 +1438,14 @@ function buildSavingsGoals(workbook) {
   setupColumns(sheet, { A: 2, B: 22, C: 14, D: 14, E: 14, F: 24, G: 14, H: 18, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
   addTopBar(sheet, '🎯 Savings Goals', 'Where you\'re going. How fast. Track progress + project completion dates.', [
-    { label: 'GOALS',          value: { formula: 'COUNTA(B8:B30)' } },
-    { label: 'TOTAL TARGET',   value: { formula: 'TEXT(SUM(C8:C30),"$#,##0")' } },
-    { label: 'CURRENT $',      value: { formula: 'TEXT(SUM(D8:D30),"$#,##0")' } },
-    { label: 'COMPLETED',      value: { formula: 'COUNTIFS(D8:D30,">="&C8:C30)' } },
-    { label: 'AT RISK',        value: '1' },
-    { label: 'OVERALL %',      value: { formula: 'TEXT(SUM(D8:D30)/SUM(C8:C30),"0%")' } },
+    { label: 'GOALS',          value: { formula: 'COUNTA(B11:B30)' } },
+    { label: 'TOTAL TARGET',   value: { formula: 'TEXT(SUM(C11:C30),"$#,##0")' } },
+    { label: 'CURRENT $',      value: { formula: 'TEXT(SUM(D11:D30),"$#,##0")' } },
+    // COUNTIFS array-criterion (C11:C30) does NOT work in Excel/Sheets without ARRAYFORMULA — silently returns wrong number.
+    // SUMPRODUCT row-wise comparison is the correct portable form. Excludes blank target rows.
+    { label: 'COMPLETED',      value: { formula: 'SUMPRODUCT((D11:D30>=C11:C30)*(C11:C30<>"")*(C11:C30>0))' } },
+    { label: 'AT RISK',        value: { formula: 'COUNTIF(H11:H30,"Behind")+COUNTIF(H11:H30,"At Risk")' } },
+    { label: 'OVERALL %',      value: { formula: 'IFERROR(TEXT(SUM(D11:D30)/SUM(C11:C30),"0%"),"0%")' } },
   ]);
 
   let r = addSectionHeader(sheet, 6, 'Your goals', 'Each row = one goal. Progress bar shows completion %.');
@@ -1425,9 +1488,9 @@ function buildSavingsGoals(workbook) {
     sheet.getCell(`E${ri}`).border = BORDER_THIN();
     sheet.getCell(`E${ri}`).fill = FILLS.white;
 
-    // Visual progress bar via unicode blocks
+    // Visual progress bar via unicode blocks. Inlined (no LET) for Excel 2016+ compatibility.
     sheet.getCell(`F${ri}`).value = {
-      formula: `LET(p,D${ri}/C${ri}*10,REPT("▰",ROUND(p,0))&REPT("▱",10-ROUND(p,0)))`,
+      formula: `REPT("▰",MIN(10,MAX(0,ROUND(IFERROR(D${ri}/C${ri},0)*10,0))))&REPT("▱",MAX(0,10-MIN(10,MAX(0,ROUND(IFERROR(D${ri}/C${ri},0)*10,0)))))`,
     };
     sheet.getCell(`F${ri}`).font = { name: 'Inter', size: 13, color: argb(COLORS.warmGold) };
     sheet.getCell(`F${ri}`).alignment = { horizontal: 'left' };
@@ -1476,26 +1539,31 @@ function buildEmergencyFund(workbook) {
 
   setupColumns(sheet, { A: 2, B: 24, C: 16, D: 16, E: 16, F: 22, G: 18, H: 8, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
-  const monthlyExpenseFormula = `SUM('💸 Expense Tracker'!D8:D60)`;
+  // Live formulas — all derive from the user's monthly burn (Expense Tracker) and current EF balance (input below).
+  // Target months = 6 for dual-income households (HouseholdSize>=2), 3 for single per FRB SCF guidance.
+  const burnFormula = `SUM('💸 Expense Tracker'!D11:D60)`;
+  const efCurrent = `EmergencyFundCurrent`;
+  const targetMonths = `IF(HouseholdSize>=2,6,3)`;
+  const monthsCover = `IFERROR(${efCurrent}/MAX(${burnFormula},1),0)`;
+
   addTopBar(sheet, '🆘 Emergency Fund', 'The single most important number. Months of expenses you could cover if income stopped tomorrow.', [
-    { label: 'CURRENT $',     value: '$5,200' },
-    { label: 'MONTHS COVER',  value: '3.2 mo' },
-    { label: 'TARGET (3MO)',  value: '$9,000' },
-    { label: 'TARGET (6MO)',  value: '$18,000' },
-    { label: 'GAP TO 3MO',    value: '$3,800' },
-    { label: 'STATUS',        value: '🟡 Building' },
+    { label: 'CURRENT $',     value: { formula: `TEXT(${efCurrent},"$#,##0")` } },
+    { label: 'MONTHS COVER',  value: { formula: `TEXT(${monthsCover},"0.0")&" mo"` } },
+    { label: 'TARGET (3MO)',  value: { formula: `TEXT(${burnFormula}*3,"$#,##0")` } },
+    { label: 'TARGET (6MO)',  value: { formula: `TEXT(${burnFormula}*6,"$#,##0")` } },
+    { label: 'GAP TO TARGET', value: { formula: `TEXT(MAX(0,${burnFormula}*${targetMonths}-${efCurrent}),"$#,##0")` } },
+    { label: 'STATUS',        value: { formula: `IF(${monthsCover}>=${targetMonths},"✅ Funded",IF(${monthsCover}>=3,"🟢 Strong",IF(${monthsCover}>=1,"🟡 Building","🔴 At Risk")))` } },
   ]);
 
-  let r = addSectionHeader(sheet, 6, 'Coverage calculator', 'Your monthly burn rate (expenses) drives the target. Save until you hit 3-6 months of cover.');
+  let r = addSectionHeader(sheet, 6, 'Coverage calculator', 'Your monthly burn rate (expenses) drives the target. Enter your current EF balance below; all other numbers compute live.');
 
   // Calculator card — apply ivory fill + border to each cell individually (no outer merge)
-  for (let row = r + 1; row <= r + 8; row++) {
+  for (let row = r + 1; row <= r + 9; row++) {
     for (const col of ['B', 'C', 'D', 'E']) {
       const cell = sheet.getCell(`${col}${row}`);
       cell.fill = FILLS.ivory;
-      // Only outer cells get visible border
       const isTop = row === r + 1;
-      const isBottom = row === r + 8;
+      const isBottom = row === r + 9;
       const isLeft = col === 'B';
       const isRight = col === 'E';
       cell.border = {
@@ -1513,26 +1581,59 @@ function buildEmergencyFund(workbook) {
   sheet.getCell(`B${r + 1}`).font = FONTS.smallCaps;
   sheet.getCell(`B${r + 1}`).alignment = { vertical: 'middle', horizontal: 'center' };
 
-  // The big number — single row, merged
-  sheet.mergeCells(`B${r + 3}:E${r + 4}`);
-  sheet.getCell(`B${r + 3}`).value = 3.2;
-  sheet.getCell(`B${r + 3}`).numFmt = '0.0" months"';
-  sheet.getCell(`B${r + 3}`).font = { name: 'Inter', size: 48, bold: true, color: argb(COLORS.warning) };
-  sheet.getCell(`B${r + 3}`).alignment = { vertical: 'middle', horizontal: 'center' };
-  sheet.getRow(r + 3).height = 32;
+  // User input — current EF balance. This is the ONLY cell the user edits on this tab;
+  // every other number on the tab (and the Health Score EF-Cover sub-score) derives from it.
+  sheet.mergeCells(`B${r + 2}:C${r + 2}`);
+  sheet.getCell(`B${r + 2}`).value = '↓ Your current EF balance';
+  sheet.getCell(`B${r + 2}`).font = { ...FONTS.smallCaps, color: argb(COLORS.charcoal) };
+  sheet.getCell(`B${r + 2}`).alignment = { vertical: 'middle', horizontal: 'right', indent: 1 };
+
+  sheet.mergeCells(`D${r + 2}:E${r + 2}`);
+  const efInput = sheet.getCell(`D${r + 2}`);
+  efInput.value = 5200;
+  efInput.numFmt = '"$"#,##0';
+  efInput.font = { name: 'Inter', size: 14, bold: true, color: argb(COLORS.warmGold) };
+  efInput.alignment = { vertical: 'middle', horizontal: 'center' };
+  efInput.fill = FILLS.white;
+  efInput.border = {
+    top: { style: 'thin', color: argb(COLORS.warmGold) },
+    bottom: { style: 'thin', color: argb(COLORS.warmGold) },
+    left: { style: 'medium', color: argb(COLORS.warmGold) },
+    right: { style: 'thin', color: argb(COLORS.warmGold) },
+  };
+  efInput.dataValidation = {
+    type: 'decimal', operator: 'greaterThanOrEqual', formulae: [0], allowBlank: false,
+    showInputMessage: true, promptTitle: 'Current emergency fund balance',
+    prompt: 'Total cash you could access immediately if income stopped. Non-negative.',
+    showErrorMessage: true, errorStyle: 'stop', errorTitle: 'Invalid input', error: 'Enter a non-negative dollar amount.',
+  };
+  sheet.getRow(r + 2).height = 28;
+
+  // The big number — months cover (live formula)
+  sheet.mergeCells(`B${r + 4}:E${r + 5}`);
+  sheet.getCell(`B${r + 4}`).value = { formula: monthsCover };
+  sheet.getCell(`B${r + 4}`).numFmt = '0.0" months"';
+  sheet.getCell(`B${r + 4}`).font = { name: 'Inter', size: 48, bold: true, color: argb(COLORS.warning) };
+  sheet.getCell(`B${r + 4}`).alignment = { vertical: 'middle', horizontal: 'center' };
   sheet.getRow(r + 4).height = 32;
+  sheet.getRow(r + 5).height = 32;
 
-  // Progress bar
-  sheet.mergeCells(`B${r + 6}:E${r + 6}`);
-  sheet.getCell(`B${r + 6}`).value = '▰▰▰▰▰▰▰▱▱▱  3.2 / 6.0';
-  sheet.getCell(`B${r + 6}`).font = { name: 'Inter', size: 14, color: argb(COLORS.warmGold) };
-  sheet.getCell(`B${r + 6}`).alignment = { horizontal: 'center' };
-
-  // Caption
+  // Progress bar — live REPT-based, target = 3mo single / 6mo dual. Inlined (no LET) for Excel 2016+.
   sheet.mergeCells(`B${r + 7}:E${r + 7}`);
-  sheet.getCell(`B${r + 7}`).value = 'Past the "3-month floor" milestone. Build toward 6 months next.';
-  sheet.getCell(`B${r + 7}`).font = FONTS.bodyMuted;
+  const progressFilled = `MIN(10,MAX(0,ROUND(MIN(${monthsCover}/${targetMonths},1)*10,0)))`;
+  sheet.getCell(`B${r + 7}`).value = {
+    formula: `REPT("▰",${progressFilled})&REPT("▱",10-${progressFilled})&"  "&TEXT(${monthsCover},"0.0")&" / "&${targetMonths}&".0"`
+  };
+  sheet.getCell(`B${r + 7}`).font = { name: 'Inter', size: 14, color: argb(COLORS.warmGold) };
   sheet.getCell(`B${r + 7}`).alignment = { horizontal: 'center' };
+
+  // Dynamic caption — milestone you just hit / next one to aim for
+  sheet.mergeCells(`B${r + 8}:E${r + 8}`);
+  sheet.getCell(`B${r + 8}`).value = {
+    formula: `IF(${monthsCover}>=${targetMonths},"Target met. Now consider longer-horizon investing.",IF(${monthsCover}>=3,"Past the 3-month floor. Build toward 6 months next.",IF(${monthsCover}>=1,"1+ month buffer. Next milestone: 3 months.","Aim for one month of coverage first.")))`
+  };
+  sheet.getCell(`B${r + 8}`).font = FONTS.bodyMuted;
+  sheet.getCell(`B${r + 8}`).alignment = { horizontal: 'center' };
 
   // Right column — milestones
   sheet.mergeCells(`F${r + 1}:G${r + 1}`);
@@ -1540,36 +1641,33 @@ function buildEmergencyFund(workbook) {
   sheet.getCell(`F${r + 1}`).font = FONTS.smallCaps;
   sheet.getCell(`F${r + 1}`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
 
-  const milestones = [
-    { name: '1 month buffer',  target: 3000,  status: '✅ Reached' },
-    { name: '2 month coverage', target: 6000,  status: '✅ Reached' },
-    { name: '3 month floor',   target: 9000,  status: '🟡 5,200 / 9,000' },
-    { name: '4 month cushion', target: 12000, status: '⏳ Pending' },
-    { name: '6 month safety',  target: 18000, status: '⏳ Pending' },
-    { name: '9 month buffer',  target: 27000, status: '⏳ Pending' },
-    { name: '12 month FU money', target: 36000, status: '⏳ Pending' },
-  ];
+  // Milestones — name is fixed, status is live (compares user's EF balance to the milestone target).
+  const milestoneMonths = [1, 2, 3, 4, 6, 9, 12];
+  const milestoneNames = ['1 month buffer', '2 month coverage', '3 month floor', '4 month cushion', '6 month safety', '9 month buffer', '12 month FU money'];
 
-  milestones.forEach((m, i) => {
+  milestoneMonths.forEach((monthsToHit, i) => {
     const ri = r + 2 + i;
-    sheet.getCell(`F${ri}`).value = m.name;
+    sheet.getCell(`F${ri}`).value = milestoneNames[i];
     sheet.getCell(`F${ri}`).font = FONTS.body;
-    sheet.getCell(`G${ri}`).value = m.status;
+    // Live status: ✅ Reached if EF >= target, 🟡 In Progress if partial, ⏳ Pending if zero progress.
+    sheet.getCell(`G${ri}`).value = {
+      formula: `IF(${efCurrent}>=${burnFormula}*${monthsToHit},"✅ Reached",IF(${efCurrent}>0,"🟡 "&TEXT(${efCurrent},"#,##0")&" / "&TEXT(${burnFormula}*${monthsToHit},"#,##0"),"⏳ Pending"))`,
+    };
     sheet.getCell(`G${ri}`).font = FONTS.body;
   });
 
-  // CF on milestones
+  // CF on milestones — Reached/Building/Pending
   sheet.addConditionalFormatting({
     ref: `G${r + 2}:G${r + 8}`,
     rules: [
       { type: 'containsText', operator: 'containsText', text: 'Reached', priority: 1, style: { font: { color: argb(COLORS.success), bold: true } } },
-      { type: 'containsText', operator: 'containsText', text: '5,200',   priority: 2, style: { font: { color: argb(COLORS.warning), bold: true } } },
+      { type: 'containsText', operator: 'containsText', text: '🟡',      priority: 2, style: { font: { color: argb(COLORS.warning), bold: true } } },
       { type: 'containsText', operator: 'containsText', text: 'Pending', priority: 3, style: { font: { color: argb(COLORS.textMuted) } } },
     ],
   });
 
-  // Where to keep it
-  let r2 = addSectionHeader(sheet, r + 11, 'Where to keep it', 'High-yield savings (HYSA) is the right vehicle. Not checking. Not invested. Liquid and earning.');
+  // Where to keep it — section shifted down by 1 row (calculator card grew from 8 to 9 rows)
+  let r2 = addSectionHeader(sheet, r + 12, 'Where to keep it', 'High-yield savings (HYSA) is the right vehicle. Not checking. Not invested. Liquid and earning.');
 
   const vehicles = [
     { name: 'Ally Bank HYSA',         apy: '4.40%', risk: 'None',     access: 'Same day',   note: 'Easy to set up. Solid customer support.' },
@@ -1611,6 +1709,11 @@ function buildEmergencyFund(workbook) {
     'Single income: aim for 6 months. Dual income: 3 months. Self-employed / variable income: 9-12 months.');
 
   addFooter(sheet, r2 + 2 + vehicles.length + 6);
+
+  // Named range — Health Score sub-score 2 (EF Cover) and this tab's own formulas
+  // both reference EmergencyFundCurrent. Single input, many outputs.
+  // The input cell sits at D11 (merged D${r+2}:E${r+2} where r=9 → row 11).
+  workbook.definedNames.add(`'🆘 Emergency Fund'!$D$11`, 'EmergencyFundCurrent');
 }
 
 // ===== TAB 10: 🏆 Financial Health Score =====
@@ -1620,20 +1723,26 @@ function buildHealthScore(workbook) {
 
   setupColumns(sheet, { A: 2, B: 28, C: 14, D: 14, E: 18, F: 40, G: 12, H: 12, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
-  addTopBar(sheet, '🏆 Financial Health Score', 'Composite of 5 sub-scores. Updates as your data fills in.', [
-    { label: 'SCORE',         value: { formula: 'IFERROR(ROUND(AVERAGE(D21:D25),0),0)&" / 100"' } },
-    { label: 'STATUS',        value: 'Healthy' },
-    { label: 'CHANGE (MoM)',  value: '+4' },
-    { label: 'TREND',         value: '↗ Improving' },
-    { label: 'WEAKEST',       value: 'Savings Rate' },
-    { label: 'STRONGEST',     value: 'On-Time Pmt' },
+  // Composite is weighted 25/25/20/15/15 per AI PDF p.9 + Thumbnail #2 + listing FAQ Q6.
+  // Single source of truth — B10 holds the formula; top-bar tiles reference B10 (N18 fix).
+  // N15 guard: when Income + Expense + EF balance are all zero (fresh workbook), show "—" instead
+  // of a vanity 100/100 (sub-scores default to 100 when divisors are zero via IFERROR fallbacks).
+  const HAS_DATA = `(SUM('💵 Income Tracker'!D11:D50)+SUM('💸 Expense Tracker'!D11:D60)+IFERROR(EmergencyFundCurrent,0))>0`;
+  const COMPOSITE_FORMULA = `IF(${HAS_DATA},IFERROR(ROUND(D21*0.25+D22*0.25+D23*0.20+D24*0.15+D25*0.15,0),0),"—")`;
+  addTopBar(sheet, '🏆 Financial Health Score', 'Composite of 5 sub-scores, weighted 25/25/20/15/15. Updates live as your data fills in.', [
+    { label: 'SCORE',         value: { formula: `IF(ISNUMBER(B10),B10&" / 100","— / 100")` } },
+    { label: 'STATUS',        value: { formula: `IF(ISNUMBER(B10),IF(B10>=80,"✅ Healthy",IF(B10>=60,"🟡 On Track",IF(B10>=40,"⚠️ At Risk","🔴 Critical"))),"Awaiting data")` } },
+    { label: 'WEAKEST',       value: { formula: `IF(ISNUMBER(B10),INDEX({"Savings Rate","EF Cover","DTI","Credit Util","On-Time Pmt"},MATCH(MIN(D21:D25),D21:D25,0)),"—")` } },
+    { label: 'STRONGEST',     value: { formula: `IF(ISNUMBER(B10),INDEX({"Savings Rate","EF Cover","DTI","Credit Util","On-Time Pmt"},MATCH(MAX(D21:D25),D21:D25,0)),"—")` } },
+    { label: 'INCOME (M)',    value: { formula: 'TEXT(MAX(MonthlyIncome,SUM(\'💵 Income Tracker\'!D11:D50)),"$#,##0")' } },
+    { label: 'BURN (M)',      value: { formula: 'TEXT(SUM(\'💸 Expense Tracker\'!D11:D60),"$#,##0")' } },
   ]);
 
-  let r = addSectionHeader(sheet, 6, 'Composite score', 'Average of 5 sub-scores weighted equally. 80+ healthy.');
+  let r = addSectionHeader(sheet, 6, 'Composite score', 'Weighted average of 5 sub-scores (25/25/20/15/15). 80+ = healthy.');
 
   // The Big Score
   sheet.mergeCells(`B${r + 1}:D${r + 5}`);
-  sheet.getCell(`B${r + 1}`).value = { formula: 'IFERROR(ROUND(AVERAGE(D21:D25),0),0)' };
+  sheet.getCell(`B${r + 1}`).value = { formula: COMPOSITE_FORMULA };
   sheet.getCell(`B${r + 1}`).font = { name: 'Inter', size: 72, bold: true, color: argb(COLORS.success) };
   sheet.getCell(`B${r + 1}`).alignment = { vertical: 'middle', horizontal: 'center' };
   sheet.getCell(`B${r + 1}`).fill = FILLS.ivory;
@@ -1648,23 +1757,73 @@ function buildHealthScore(workbook) {
   sheet.getCell(`E${r + 1}`).value = '/ 100';
   sheet.getCell(`E${r + 1}`).font = FONTS.scoreUnit;
 
-  sheet.getCell(`E${r + 2}`).value = 'Healthy';
+  sheet.getCell(`E${r + 2}`).value = { formula: `IF(NOT(${HAS_DATA}),"Awaiting data",IF(B10>=80,"Healthy",IF(B10>=60,"On Track",IF(B10>=40,"At Risk","Critical"))))` };
   sheet.getCell(`E${r + 2}`).font = { name: 'Inter', size: 18, bold: true, color: argb(COLORS.success) };
 
-  sheet.getCell(`E${r + 3}`).value = 'You\'re in the top 30% of self-tracked budgeters.';
+  sheet.getCell(`E${r + 3}`).value = { formula: `IF(NOT(${HAS_DATA}),"Add a few rows to the Income + Expense Trackers to start computing your score.",IF(B10>=80,"You're in the top 30% of self-tracked budgeters.",IF(B10>=60,"Solid foundation. Tighten one sub-score to break into Healthy.",IF(B10>=40,"Specific sub-scores need attention. See breakdown below.","Focus on emergency fund + DTI first."))))` };
   sheet.getCell(`E${r + 3}`).font = FONTS.bodyMuted;
 
   // Section: Sub-scores
-  let subR = addSectionHeader(sheet, r + 7, 'Sub-scores breakdown', 'Each sub-score is 0–100. Average becomes the composite.');
+  let subR = addSectionHeader(sheet, r + 7, 'Sub-scores breakdown', 'Each sub-score is 0–100, computed live from your Income / Expense / CC / Bill data.');
 
   addTableHeader(sheet, subR + 1, ['Component', 'Your Value', 'Score', 'Status', 'Why It Matters'], ['B', 'C', 'D', 'E', 'F']);
 
+  // Live-formula sub-scores. Each "Your Value" cell pulls from the trackers; each "Score"
+  // cell applies a 0-100 mapping anchored to a published benchmark (FRB SCF, FICO, etc.).
+  // The composite at B10 then weights these 25/25/20/15/15.
+  //
+  // Sub-score formulas use cross-tab refs guarded by IFERROR so a tier missing a tab
+  // (e.g. Essentials hiding Recurring Templates) won't crash the whole tab.
+  const INCOME_REF = "MAX(MonthlyIncome, SUM('💵 Income Tracker'!D11:D50))";
+  const EXPENSE_REF = "SUM('💸 Expense Tracker'!D11:D60)";
+  const CC_BALANCE_REF = "SUM('💳 Credit Card Manager'!C11:C20)";
+  const CC_LIMIT_REF = "SUM('💳 Credit Card Manager'!D11:D20)";
+  const CC_MIN_REF = "SUM('💳 Credit Card Manager'!E11:E20)";
+  const BILLS_TOTAL_REF = "COUNT('📅 Bill Calendar'!B11:B30)";
+  const BILLS_PAID_REF = "COUNTIF('📅 Bill Calendar'!F11:F30,\"✅ Paid\")+COUNTIF('📅 Bill Calendar'!F11:F30,\"⏸️ Paused\")";
+  const EF_CURRENT_REF = "IFERROR(EmergencyFundCurrent,0)";
+
   const components = [
-    { name: 'Savings Rate',          value: '12%',     val: 0.12, score: 60, why: 'Higher = more buffer between income + spending. Target 20%+.' },
-    { name: 'Emergency Fund Cover',  value: '3.2 mo',  val: 3.2,  score: 75, why: 'Months of expenses you could cover from cash. Target 3-6 months.' },
-    { name: 'Debt-to-Income (DTI)',  value: '28%',     val: 0.28, score: 82, why: 'Total monthly debt payments ÷ income. Under 36% is healthy.' },
-    { name: 'Credit Utilization',    value: '18%',     val: 0.18, score: 88, why: 'Balance ÷ limit on revolving credit. Under 30% protects credit score.' },
-    { name: 'On-Time Payment Rate',  value: '100%',    val: 1.0,  score: 100, why: '% of bills paid on time. Single biggest factor in credit score.' },
+    {
+      name: 'Savings Rate',
+      valueFormula: `IFERROR((${INCOME_REF}-${EXPENSE_REF})/${INCOME_REF},0)`,
+      valueFormat: '0%',
+      // Score: ratio of actual savings rate to target. 100 at hitting target, 50 at half, etc.
+      scoreFormula: `IFERROR(MAX(0,MIN(100,ROUND(((${INCOME_REF}-${EXPENSE_REF})/${INCOME_REF})/TargetSavingsRate*100,0))),0)`,
+      why: 'Net flow ÷ income. Hit your TargetSavingsRate (Setup Wizard q5) for 100. FRB SCF 2022: median household ≈ 7%, healthy ≈ 20%+.',
+    },
+    {
+      name: 'Emergency Fund Cover',
+      valueFormula: `IFERROR(${EF_CURRENT_REF}/MAX(${EXPENSE_REF},1),0)`,
+      valueFormat: '0.0" mo"',
+      // 100 at 3 months (single income) or 6 months (dual). FRB SCF guidance.
+      scoreFormula: `IFERROR(MAX(0,MIN(100,ROUND((${EF_CURRENT_REF}/MAX(${EXPENSE_REF},1))/IF(HouseholdSize>=2,6,3)*100,0))),0)`,
+      why: 'Emergency fund ÷ monthly burn. Target 3 months (single) or 6 months (dual income). Update your EF balance on the Emergency Fund tab.',
+    },
+    {
+      name: 'Debt-to-Income (DTI)',
+      valueFormula: `IFERROR(${CC_MIN_REF}/${INCOME_REF},0)`,
+      valueFormat: '0%',
+      // FRB SCF / CFPB ladder: <=20%→100, <=36%→80, <=43%→50, >43%→20.
+      scoreFormula: `IFERROR(IF(${CC_MIN_REF}/${INCOME_REF}<=0.2,100,IF(${CC_MIN_REF}/${INCOME_REF}<=0.36,80,IF(${CC_MIN_REF}/${INCOME_REF}<=0.43,50,20))),0)`,
+      why: 'CC minimum payments ÷ income (proxy for full DTI). CFPB: <=36% is healthy, <=43% is the conforming-loan ceiling.',
+    },
+    {
+      name: 'Credit Utilization',
+      valueFormula: `IFERROR(${CC_BALANCE_REF}/${CC_LIMIT_REF},0)`,
+      valueFormat: '0%',
+      // FICO methodology — "Amounts Owed" is 30% of score; utilization dominates within that.
+      scoreFormula: `IFERROR(IF(${CC_BALANCE_REF}/${CC_LIMIT_REF}<=0.1,100,IF(${CC_BALANCE_REF}/${CC_LIMIT_REF}<=0.3,80,IF(${CC_BALANCE_REF}/${CC_LIMIT_REF}<=0.5,50,20))),100)`,
+      why: 'CC balance ÷ limit. FICO: <=30% protects credit score, <=10% maximizes it.',
+    },
+    {
+      name: 'On-Time Payment Rate',
+      valueFormula: `IFERROR((${BILLS_PAID_REF})/MAX(${BILLS_TOTAL_REF},1),1)`,
+      valueFormat: '0%',
+      // Linear 0-100. FICO: Payment History is 35% of score — single biggest factor.
+      scoreFormula: `IFERROR(ROUND((${BILLS_PAID_REF})/MAX(${BILLS_TOTAL_REF},1)*100,0),100)`,
+      why: 'Bills paid (or paused) ÷ total bills. FICO: Payment History is 35% of your score — single biggest factor.',
+    },
   ];
 
   components.forEach((c, i) => {
@@ -1674,13 +1833,15 @@ function buildHealthScore(workbook) {
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
     sheet.getCell(`B${ri}`).fill = FILLS.white;
 
-    sheet.getCell(`C${ri}`).value = c.value;
+    sheet.getCell(`C${ri}`).value = { formula: c.valueFormula };
+    sheet.getCell(`C${ri}`).numFmt = c.valueFormat;
     sheet.getCell(`C${ri}`).font = FONTS.body;
     sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`C${ri}`).border = BORDER_THIN();
     sheet.getCell(`C${ri}`).fill = FILLS.white;
 
-    sheet.getCell(`D${ri}`).value = c.score;
+    sheet.getCell(`D${ri}`).value = { formula: c.scoreFormula };
+    sheet.getCell(`D${ri}`).numFmt = '0';
     sheet.getCell(`D${ri}`).font = { name: 'Inter', size: 14, bold: true, color: argb(COLORS.charcoal) };
     sheet.getCell(`D${ri}`).alignment = { horizontal: 'center' };
     sheet.getCell(`D${ri}`).border = BORDER_THIN();
@@ -1710,10 +1871,24 @@ function buildHealthScore(workbook) {
     ],
   });
 
-  addCallout(sheet, `B${subR + 2 + components.length + 2}:F${subR + 2 + components.length + 3}`,
-    '💡',
-    'Path to 100',
-    'Your weakest sub-score is Savings Rate at 60. Bring monthly savings from 12% to 20% of income (around $400/mo more) — that alone lifts your composite from 81 to 89.');
+  // Dynamic "Path to 100" — names the weakest sub-score, its current score, and the action
+  // mapped from a small lookup table. Updates live with the underlying data.
+  const coachR = subR + 2 + components.length + 2;
+  sheet.mergeCells(`B${coachR}:F${coachR + 1}`);
+  sheet.getCell(`B${coachR}`).value = {
+    formula: `IF(NOT(${HAS_DATA}),"💡 Add a few transactions to the Income + Expense Trackers and your emergency fund balance on the Emergency Fund tab — the score and this coaching tip start working as soon as there's data.","💡 Path to 100 — "&INDEX({"Savings Rate","Emergency Fund Cover","Debt-to-Income","Credit Utilization","On-Time Payment Rate"},MATCH(MIN(D21:D25),D21:D25,0))&" is your weakest at "&MIN(D21:D25)&"/100. "&INDEX({"Lift savings toward your TargetSavingsRate (Setup Wizard q5).","Add to your emergency fund — target 3 months (single) or 6 months (dual income).","Pay down CC balances or raise income — DTI <36% is the threshold.","Pay CC balances before statement close — target <30%, ideally <10%.","Pay every bill on time. Single biggest credit-score factor."},MATCH(MIN(D21:D25),D21:D25,0)))`
+  };
+  sheet.getCell(`B${coachR}`).fill = FILLS.ivory;
+  sheet.getCell(`B${coachR}`).font = { ...FONTS.body, bold: true };
+  sheet.getCell(`B${coachR}`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1, wrapText: true };
+  sheet.getCell(`B${coachR}`).border = {
+    left: { style: 'medium', color: argb(COLORS.warmGold) },
+    top: { style: 'thin', color: argb(COLORS.divider) },
+    bottom: { style: 'thin', color: argb(COLORS.divider) },
+    right: { style: 'thin', color: argb(COLORS.divider) },
+  };
+  sheet.getRow(coachR).height = 28;
+  sheet.getRow(coachR + 1).height = 28;
 
   addFooter(sheet, subR + 2 + components.length + 6);
 }
@@ -1723,30 +1898,39 @@ function buildAnnualSummary(workbook) {
   const sheet = workbook.addWorksheet('📊 Annual Summary');
   setTabColor(sheet, COLORS.charcoal);
 
-  setupColumns(sheet, { A: 2, B: 16, C: 10, D: 10, E: 10, F: 10, G: 10, H: 10, I: 10, J: 10, K: 10, L: 10, M: 2 });
+  // Column N added for December (was Jan-Nov only; B-08).
+  setupColumns(sheet, { A: 2, B: 16, C: 9, D: 9, E: 9, F: 9, G: 9, H: 9, I: 9, J: 9, K: 9, L: 9, M: 9, N: 9 });
 
-  addTopBar(sheet, '📊 Annual Summary', 'Year-to-date view. 12 months of income, expenses, savings, net flow.', [
-    { label: 'YTD INCOME',    value: '$24,300' },
-    { label: 'YTD EXPENSES',  value: '$18,200' },
-    { label: 'YTD SAVED',     value: '$6,100' },
-    { label: 'SAVINGS RATE',  value: '25%' },
-    { label: 'BEST MONTH',    value: 'Feb (+$1,800)' },
-    { label: 'WORST MONTH',   value: 'Apr (+$240)' },
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const cols = ['C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N']; // 12 columns Jan-Dec
+
+  // Income / Expense rows in this tab live at r+2 / r+3 / r+4 / r+5 (where r=9 after header).
+  // Spell them out for cross-row formula refs in the top-bar.
+  // r = 9 → income row = 11, expense row = 12, net row = 13, save-rate row = 14.
+  const incomeRowRef = `C11:N11`;
+  const expenseRowRef = `C12:N12`;
+  const netRowRef = `C13:N13`;
+
+  addTopBar(sheet, '📊 Annual Summary', 'Year-to-date view. All 12 months pulled live from Income + Expense Trackers.', [
+    { label: 'YTD INCOME',    value: { formula: `TEXT(SUM(${incomeRowRef}),"$#,##0")` } },
+    { label: 'YTD EXPENSES',  value: { formula: `TEXT(SUM(${expenseRowRef}),"$#,##0")` } },
+    { label: 'YTD SAVED',     value: { formula: `TEXT(SUM(${netRowRef}),"$#,##0;-$#,##0")` } },
+    { label: 'SAVINGS RATE',  value: { formula: `IFERROR(TEXT(SUM(${netRowRef})/SUM(${incomeRowRef}),"0%"),"0%")` } },
+    // N14 guard: when no month has activity, MATCH(0, all-zeros, 0) returns "Jan ($0)" misleadingly.
+    // Show "—" until there's actual data to compare.
+    { label: 'BEST MONTH',    value: { formula: `IF(COUNTIF(${netRowRef},"<>0")=0,"—",IFERROR(INDEX({"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"},MATCH(MAX(${netRowRef}),${netRowRef},0))&" ("&TEXT(MAX(${netRowRef}),"+$#,##0;-$#,##0")&")","—"))` } },
+    { label: 'WORST MONTH',   value: { formula: `IF(COUNTIF(${netRowRef},"<>0")=0,"—",IFERROR(INDEX({"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"},MATCH(MIN(${netRowRef}),${netRowRef},0))&" ("&TEXT(MIN(${netRowRef}),"+$#,##0;-$#,##0")&")","—"))` } },
   ]);
 
-  let r = addSectionHeader(sheet, 6, '12-month overview', 'Track the rhythm of your year. Patterns emerge after 3-4 months.');
+  let r = addSectionHeader(sheet, 6, '12-month overview', 'Every month derives live from Income + Expense Trackers via SUMPRODUCT(MONTH=)).');
 
-  // 12-month table
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const cols = ['C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
-
-  // Header
+  // Header row
   sheet.getCell(`B${r + 1}`).value = 'Metric';
   sheet.getCell(`B${r + 1}`).font = FONTS.headerWhite;
   sheet.getCell(`B${r + 1}`).fill = FILLS.charcoal;
   sheet.getCell(`B${r + 1}`).border = BORDER_THIN(COLORS.charcoal);
 
-  months.slice(0, 11).forEach((m, i) => {
+  months.forEach((m, i) => {
     sheet.getCell(`${cols[i]}${r + 1}`).value = m;
     sheet.getCell(`${cols[i]}${r + 1}`).font = FONTS.headerWhite;
     sheet.getCell(`${cols[i]}${r + 1}`).fill = FILLS.charcoal;
@@ -1755,25 +1939,41 @@ function buildAnnualSummary(workbook) {
   });
   sheet.getRow(r + 1).height = 24;
 
-  // Sample rows
-  const rows = [
-    { label: 'Income',   vals: [5100, 6000, 5400, 5212, 0, 0, 0, 0, 0, 0, 0] },
-    { label: 'Expenses', vals: [3800, 4200, 4100, 1450, 0, 0, 0, 0, 0, 0, 0] },
-    { label: 'Net',      vals: [1300, 1800, 1300, 240,  0, 0, 0, 0, 0, 0, 0] },
-    { label: 'Save Rate', vals: [0.25, 0.30, 0.24, 0.05, 0, 0, 0, 0, 0, 0, 0] },
+  // Data rows — formulas that aggregate from the Trackers by month-of-date.
+  const rowDefs = [
+    {
+      label: 'Income',
+      numFmt: '"$"#,##0',
+      formula: (monthIdx) => `SUMPRODUCT((MONTH('💵 Income Tracker'!B11:B50)=${monthIdx + 1})*('💵 Income Tracker'!D11:D50))`,
+    },
+    {
+      label: 'Expenses',
+      numFmt: '"$"#,##0',
+      formula: (monthIdx) => `SUMPRODUCT((MONTH('💸 Expense Tracker'!B11:B60)=${monthIdx + 1})*('💸 Expense Tracker'!D11:D60))`,
+    },
+    {
+      label: 'Net',
+      numFmt: '"$"#,##0;-"$"#,##0',
+      formula: (monthIdx) => `${cols[monthIdx]}${r + 2}-${cols[monthIdx]}${r + 3}`, // Income − Expenses for the same column
+    },
+    {
+      label: 'Save Rate',
+      numFmt: '0%',
+      formula: (monthIdx) => `IFERROR(${cols[monthIdx]}${r + 4}/${cols[monthIdx]}${r + 2},0)`, // Net / Income
+    },
   ];
 
-  rows.forEach((row, i) => {
+  rowDefs.forEach((rowDef, i) => {
     const ri = r + 2 + i;
-    sheet.getCell(`B${ri}`).value = row.label;
+    sheet.getCell(`B${ri}`).value = rowDef.label;
     sheet.getCell(`B${ri}`).font = FONTS.bodyBold;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
     sheet.getCell(`B${ri}`).fill = FILLS.ivory;
 
-    row.vals.forEach((val, j) => {
+    months.forEach((_, j) => {
       const cell = sheet.getCell(`${cols[j]}${ri}`);
-      cell.value = val || '';
-      cell.numFmt = i === 3 ? '0%' : '"$"#,##0';
+      cell.value = { formula: rowDef.formula(j) };
+      cell.numFmt = rowDef.numFmt;
       cell.font = FONTS.body;
       cell.alignment = { horizontal: 'right' };
       cell.border = BORDER_THIN();
@@ -1781,10 +1981,11 @@ function buildAnnualSummary(workbook) {
     });
   });
 
-  addCallout(sheet, `B${r + 8}:M${r + 9}`,
+  // Total column N+1? Skipped — top-bar already shows YTD totals. Insert callout instead.
+  addCallout(sheet, `B${r + 8}:N${r + 9}`,
     '📊',
-    'Chart suggestion',
-    'Highlight rows 7-10 → Insert → Chart → Line chart to visualize your 12-month income / expenses / net / savings rate trajectory.');
+    'How to read this tab',
+    'Every cell here recomputes from the Income + Expense Trackers. Add a transaction with a date in any month and that month\'s column updates automatically. YTD totals + Best/Worst month live in the top bar.');
 
   addFooter(sheet, r + 13);
 }
@@ -1797,12 +1998,12 @@ function buildMileageTracker(workbook) {
   setupColumns(sheet, { A: 2, B: 12, C: 28, D: 12, E: 12, F: 10, G: 14, H: 14, I: 30, J: 8, K: 8, L: 8, M: 2 });
 
   addTopBar(sheet, '🚗 Mileage Tracker', 'Business miles → IRS deduction. Update the rate cell each January 1.', [
-    { label: 'YTD MILES',   value: { formula: 'TEXT(SUM(F9:F60),"#,##0")' } },
-    { label: 'IRS RATE',    value: '$0.670/mi' },
+    { label: 'YTD MILES',   value: { formula: 'TEXT(SUMIFS(F9:F60,G9:G60,"Business"),"#,##0")' } },
+    { label: 'IRS RATE',    value: { formula: 'TEXT(E6,"$0.000")&"/mi"' } },
     { label: 'YTD DEDUCT.', value: { formula: 'TEXT(SUM(H9:H60),"$#,##0.00")' } },
     { label: 'TRIPS',       value: { formula: 'COUNTA(C9:C60)' } },
-    { label: 'AVG TRIP',    value: { formula: 'TEXT(IFERROR(AVERAGE(F9:F60),0),"0.0")&" mi"' } },
-    { label: 'EST. SAVING', value: { formula: 'TEXT(SUM(H9:H60)*0.22,"$#,##0.00")' } },
+    { label: 'AVG TRIP',    value: { formula: 'TEXT(IFERROR(AVERAGEIF(F9:F60,">0"),0),"0.0")&" mi"' } },
+    { label: 'EST. SAVING', value: { formula: 'TEXT(SUM(H9:H60)*K6,"$#,##0.00")' } },
   ]);
 
   // IRS rate input row (row 6) — highlighted as "update annually"
@@ -1820,7 +2021,7 @@ function buildMileageTracker(workbook) {
   };
   sheet.getRow(6).height = 22;
 
-  sheet.getCell('E6').value = 0.67;
+  sheet.getCell('E6').value = 0.70;
   sheet.getCell('E6').numFmt = '"$"0.000';
   sheet.getCell('E6').font = { name: 'Inter', size: 12, bold: true, color: argb(COLORS.warning) };
   sheet.getCell('E6').fill = FILLS.warningLight;
@@ -1831,12 +2032,36 @@ function buildMileageTracker(workbook) {
     bottom: { style: 'medium', color: argb(COLORS.warning) },
     right: { style: 'medium', color: argb(COLORS.warning) },
   };
+  sheet.getCell('E6').dataValidation = { type: 'decimal', operator: 'between', formulae: [0, 1], allowBlank: false, showInputMessage: true, promptTitle: 'IRS standard mileage rate', prompt: 'Per-mile rate published by IRS. Update each Jan 1.' };
 
   sheet.mergeCells('F6:I6');
-  sheet.getCell('F6').value = '2024: $0.670/mi · 2023: $0.655/mi · Source: IRS.gov — search "standard mileage rates"';
+  sheet.getCell('F6').value = '2025: $0.700/mi · 2024: $0.670/mi · Source: IRS Notice 2024-83 (irs.gov — search "standard mileage rates")';
   sheet.getCell('F6').font = FONTS.bodyMuted;
   sheet.getCell('F6').fill = FILLS.ivory;
   sheet.getCell('F6').alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+
+  // Tax bracket input — drives EST. SAVING calc. Default 22% (median US federal bracket).
+  sheet.mergeCells('J6:J6');
+  sheet.getCell('J6').value = 'Tax bracket:';
+  sheet.getCell('J6').font = { name: 'Inter', size: 9, bold: true, color: argb(COLORS.warning) };
+  sheet.getCell('J6').fill = FILLS.warningLight;
+  sheet.getCell('J6').alignment = { vertical: 'middle', horizontal: 'right', indent: 1 };
+  sheet.getCell('J6').border = {
+    top: { style: 'medium', color: argb(COLORS.warning) },
+    bottom: { style: 'medium', color: argb(COLORS.warning) },
+  };
+  sheet.getCell('K6').value = 0.22;
+  sheet.getCell('K6').numFmt = '0%';
+  sheet.getCell('K6').font = { name: 'Inter', size: 12, bold: true, color: argb(COLORS.warning) };
+  sheet.getCell('K6').fill = FILLS.warningLight;
+  sheet.getCell('K6').alignment = { horizontal: 'center' };
+  sheet.getCell('K6').border = {
+    top: { style: 'medium', color: argb(COLORS.warning) },
+    left: { style: 'thin', color: argb(COLORS.divider) },
+    bottom: { style: 'medium', color: argb(COLORS.warning) },
+    right: { style: 'medium', color: argb(COLORS.warning) },
+  };
+  sheet.getCell('K6').dataValidation = { type: 'decimal', operator: 'between', formulae: [0, 0.37], allowBlank: false, showInputMessage: true, promptTitle: 'Your marginal tax rate', prompt: 'US 2025 federal brackets: 10/12/22/24/32/35/37%. EST. SAVING applies this rate to your YTD deduction.' };
 
   // Table header at row 8 (skip row 7 as spacer)
   sheet.getRow(7).height = 6;
@@ -1844,19 +2069,22 @@ function buildMileageTracker(workbook) {
     ['Date', 'Purpose / Destination', 'Odo. Start', 'Odo. End', 'Miles', 'Type', 'Deduction $', 'Notes'],
     ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']);
 
-  const IRS_RATE = 0.67;
+  // N19 fix: relative dates anchored to build day.
+  const mileToday = new Date();
+  const mileDaysAgo = (d) => { const x = new Date(mileToday); x.setDate(mileToday.getDate() - d); return x; };
   const trips = [
-    { date: '2026-05-02', purpose: 'Client meeting — Midtown HQ',       odoStart: 24150, odoEnd: 24183, miles: 33, type: 'Business', notes: '' },
-    { date: '2026-05-05', purpose: 'Office supplies — Staples Brooklyn', odoStart: 24183, odoEnd: 24196, miles: 13, type: 'Business', notes: 'Receipt attached' },
-    { date: '2026-05-08', purpose: 'Airport drop-off — JFK Terminal 4',  odoStart: 24196, odoEnd: 24221, miles: 25, type: 'Business', notes: 'Business trip dep.' },
-    { date: '2026-05-10', purpose: 'Medical — Dr. Hernandez',            odoStart: 24221, odoEnd: 24240, miles: 19, type: 'Medical',  notes: '' },
-    { date: '2026-05-12', purpose: 'Charity delivery — Meals on Wheels', odoStart: 24240, odoEnd: 24258, miles: 18, type: 'Charity',  notes: '' },
+    { date: mileDaysAgo(20), purpose: 'Client meeting — Midtown HQ',       odoStart: 24150, odoEnd: 24183, miles: 33, type: 'Business', notes: '' },
+    { date: mileDaysAgo(17), purpose: 'Office supplies — Staples Brooklyn', odoStart: 24183, odoEnd: 24196, miles: 13, type: 'Business', notes: 'Receipt attached' },
+    { date: mileDaysAgo(14), purpose: 'Airport drop-off — JFK Terminal 4',  odoStart: 24196, odoEnd: 24221, miles: 25, type: 'Business', notes: 'Business trip dep.' },
+    { date: mileDaysAgo(12), purpose: 'Medical — Dr. Hernandez',            odoStart: 24221, odoEnd: 24240, miles: 19, type: 'Medical',  notes: '' },
+    { date: mileDaysAgo(10), purpose: 'Charity delivery — Meals on Wheels', odoStart: 24240, odoEnd: 24258, miles: 18, type: 'Charity',  notes: '' },
   ];
 
   trips.forEach((trip, i) => {
     const ri = 9 + i;
 
-    sheet.getCell(`B${ri}`).value = trip.date;
+    sheet.getCell(`B${ri}`).value = trip.date instanceof Date ? trip.date : new Date(trip.date);
+    sheet.getCell(`B${ri}`).numFmt = 'mmm d, yyyy';
     sheet.getCell(`B${ri}`).font = FONTS.body;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
     sheet.getCell(`B${ri}`).fill = FILLS.white;
@@ -1894,7 +2122,9 @@ function buildMileageTracker(workbook) {
     sheet.getCell(`G${ri}`).fill = FILLS.white;
     sheet.getCell(`G${ri}`).dataValidation = { type: 'list', formulae: ['"Business,Medical,Charity,Personal"'] };
 
-    sheet.getCell(`H${ri}`).value = +(trip.miles * IRS_RATE).toFixed(2);
+    // Deduction = miles × IRS rate (E6) when Type=Business; charity/medical have different rates but
+    // we let the user override per-row if they need to. Default formula assumes Business rate.
+    sheet.getCell(`H${ri}`).value = { formula: `IF(G${ri}="Business",F${ri}*$E$6,IF(G${ri}="Medical",F${ri}*0.21,IF(G${ri}="Charity",F${ri}*0.14,0)))` };
     sheet.getCell(`H${ri}`).numFmt = '"$"#,##0.00';
     sheet.getCell(`H${ri}`).font = { ...FONTS.body, color: argb(COLORS.success) };
     sheet.getCell(`H${ri}`).alignment = { horizontal: 'right' };
@@ -1917,21 +2147,22 @@ function buildMileageTracker(workbook) {
     ],
   });
 
-  // Totals row
-  const totalsR = 9 + trips.length + 1;
+  // Totals row — placed past the editable F9:F60 range so the top-bar SUM and this total agree.
+  // Previously row 15 (only 5 seed trips); now row 62 so user-added rows roll up correctly.
+  const totalsR = 62;
   sheet.getCell(`B${totalsR}`).value = 'YTD TOTALS';
   sheet.getCell(`B${totalsR}`).font = FONTS.bodyBold;
   sheet.getCell(`B${totalsR}`).fill = FILLS.offWhite;
   sheet.getCell(`B${totalsR}`).border = BORDER_THIN();
 
-  sheet.getCell(`F${totalsR}`).value = { formula: `SUM(F9:F${9 + trips.length - 1})` };
+  sheet.getCell(`F${totalsR}`).value = { formula: `SUM(F9:F60)` };
   sheet.getCell(`F${totalsR}`).numFmt = '#,##0.0';
   sheet.getCell(`F${totalsR}`).font = FONTS.bodyBold;
   sheet.getCell(`F${totalsR}`).alignment = { horizontal: 'right' };
   sheet.getCell(`F${totalsR}`).fill = FILLS.offWhite;
   sheet.getCell(`F${totalsR}`).border = BORDER_THIN();
 
-  sheet.getCell(`H${totalsR}`).value = { formula: `SUM(H9:H${9 + trips.length - 1})` };
+  sheet.getCell(`H${totalsR}`).value = { formula: `SUM(H9:H60)` };
   sheet.getCell(`H${totalsR}`).numFmt = '"$"#,##0.00';
   sheet.getCell(`H${totalsR}`).font = { ...FONTS.bodyBold, color: argb(COLORS.success) };
   sheet.getCell(`H${totalsR}`).alignment = { horizontal: 'right' };
@@ -2143,26 +2374,34 @@ function buildHouseholdMode(workbook) {
     sheet.getCell(`F${ri}`).border = BORDER_THIN();
     sheet.getCell(`F${ri}`).fill = FILLS.white;
 
-    const balance = row.alexPaid - row.total / 2;
-    sheet.getCell(`G${ri}`).value = balance;
-    sheet.getCell(`G${ri}`).numFmt = '"$"#,##0.00;[Red]"($"#,##0.00")"';
-    sheet.getCell(`G${ri}`).font = { ...FONTS.body, bold: true, color: argb(balance >= 0 ? COLORS.success : COLORS.alert) };
+    sheet.getCell(`G${ri}`).value = { formula: `D${ri}-C${ri}/2` };
+    sheet.getCell(`G${ri}`).numFmt = '"$"#,##0.00;"($"#,##0.00")"';
+    sheet.getCell(`G${ri}`).font = { ...FONTS.body, bold: true };
     sheet.getCell(`G${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`G${ri}`).border = BORDER_THIN();
     sheet.getCell(`G${ri}`).fill = FILLS.white;
   });
 
-  // Settlement summary
-  const alexTotal = shared.reduce((s, r) => s + r.alexPaid, 0);
-  const jordanTotal = shared.reduce((s, r) => s + r.jordanPaid, 0);
-  const diff = alexTotal - jordanTotal;
-  const summaryText = diff > 0
-    ? `→ Jordan owes Alex $${Math.abs(diff).toFixed(2)} this month`
-    : `→ Alex owes Jordan $${Math.abs(diff).toFixed(2)} this month`;
+  // CF on Alex Balance — green when positive (Alex over-contributed), red when negative
+  sheet.addConditionalFormatting({
+    ref: `G${goldLineR + 2}:G${goldLineR + 2 + shared.length - 1}`,
+    rules: [
+      { type: 'cellIs', operator: 'greaterThanOrEqual', formulae: ['0'], priority: 1, style: { font: { color: argb(COLORS.success), bold: true } } },
+      { type: 'cellIs', operator: 'lessThan',           formulae: ['0'], priority: 2, style: { font: { color: argb(COLORS.alert),   bold: true } } },
+    ],
+  });
+
+  // Settlement summary — driven by SUM of Alex Balance column (G), not the raw spending gap.
+  // Each row's G holds Alex's over-contribution (alexPaid − total/2). Sum equals the cash
+  // Jordan owes Alex (positive) or Alex owes Jordan (negative). 50/50 split assumed.
+  const balanceStartR = goldLineR + 2;
+  const balanceEndR = goldLineR + 2 + shared.length - 1;
+  const balanceRange = `G${balanceStartR}:G${balanceEndR}`;
+  const settlementFormula = `"→ "&IF(SUM(${balanceRange})>=0,"Jordan owes Alex ","Alex owes Jordan ")&TEXT(ABS(SUM(${balanceRange})),"$#,##0.00")&" this month"`;
 
   const sumR = goldLineR + 2 + shared.length + 1;
   sheet.mergeCells(`B${sumR}:H${sumR}`);
-  sheet.getCell(`B${sumR}`).value = summaryText;
+  sheet.getCell(`B${sumR}`).value = { formula: settlementFormula };
   sheet.getCell(`B${sumR}`).font = { name: 'Inter', size: 14, bold: true, color: argb(COLORS.charcoal) };
   sheet.getCell(`B${sumR}`).alignment = { vertical: 'middle', horizontal: 'center' };
   sheet.getCell(`B${sumR}`).fill = FILLS.warmGoldLight;
@@ -2204,13 +2443,13 @@ function buildAIAdvisor(workbook) {
 
   // 2x4 grid of prompt cards
   const prompts = [
-    { num: '1', title: 'Smart Spending Advisor', pairs: '💸 Expense Tracker',     hint: 'Find non-obvious spending cuts',     page: 'p.3' },
-    { num: '2', title: 'Scenario Simulator',     pairs: '📈 Cash Flow Forecast',  hint: 'Stress-test your budget',           page: 'p.4' },
-    { num: '3', title: 'Bill Negotiation Scripts', pairs: '🔁 Recurring Templates', hint: 'Cut subscriptions w/o cancelling', page: 'p.5' },
-    { num: '4', title: 'Cash Flow Intelligence', pairs: '📈 Cash Flow Forecast',  hint: 'Predict shortfalls 30 days ahead',   page: 'p.6' },
-    { num: '5', title: 'Annual Money Review',    pairs: '📊 Annual Summary',      hint: 'Year-end reflection prompt',        page: 'p.7' },
-    { num: '6', title: 'Category Advisor',       pairs: '📂 Expense Categories',  hint: 'Right-size your category budgets',   page: 'p.8' },
-    { num: '7', title: 'Health Score Coach',     pairs: '🏆 Financial Health',    hint: 'Move the score 10 points',          page: 'p.9' },
+    { num: '1', title: 'Smart Spending Advisor',   pairs: '💸 Expense Tracker',      hint: 'Find non-obvious spending cuts',      page: 'p.3' },
+    { num: '2', title: 'Scenario Simulator',       pairs: '📊 Annual Summary',       hint: 'Stress-test your budget over months', page: 'p.4' },
+    { num: '3', title: 'Bill Negotiation Scripts', pairs: '🔁 Recurring Templates',  hint: 'Cut subscriptions w/o cancelling',    page: 'p.5' },
+    { num: '4', title: 'Cash Flow Intelligence',   pairs: '📅 Bill Calendar',        hint: 'Predict shortfalls 30 days ahead',    page: 'p.6' },
+    { num: '5', title: 'Annual Money Review',      pairs: '📊 Annual Summary',       hint: 'Year-end reflection prompt',          page: 'p.7' },
+    { num: '6', title: 'Category Advisor',         pairs: '📂 Expense Categories',   hint: 'Right-size your category budgets',    page: 'p.8' },
+    { num: '7', title: 'Health Score Coach',       pairs: '🏆 Financial Health Score', hint: 'Move the score 10 points',          page: 'p.9' },
   ];
 
   // Header row
@@ -2270,7 +2509,7 @@ function buildAbout(workbook) {
   addTopBar(sheet, 'ℹ️ About & Help', 'Welcome — and quick answers to the questions buyers ask first.', [
     { label: 'VERSION',     value: '1.0' },
     { label: 'TABS',        value: '17' },
-    { label: 'METHODS',     value: '4' },
+    { label: 'METHODS',     value: '50/30/20' },
     { label: 'AI PROMPTS',  value: '7' },
     { label: 'TIER',        value: 'AI Edition' },
     { label: 'UPDATES',     value: '12 mo free' },
@@ -2298,7 +2537,7 @@ function buildAbout(workbook) {
     { q: 'Where do I add an expense?',
       a: 'The 💸 Expense Tracker tab. Use the existing rows as templates. Category dropdown is data-validated against your master list.' },
     { q: 'How does the Health Score work?',
-      a: 'It\'s the average of 5 sub-scores (savings rate, emergency fund, DTI, credit utilization, on-time payments). See the 🏆 Financial Health Score tab for details + the path to 100.' },
+      a: 'It\'s a weighted composite of 5 sub-scores: Savings Rate 25%, Emergency Fund Cover 25%, Debt-to-Income 20%, Credit Utilization 15%, On-Time Payment 15%. AI Edition only — open the 🏆 Financial Health Score tab to see your live score, sub-score breakdown, and the "Path to 100" coach.' },
     { q: 'Does this connect to my bank?',
       a: 'No. That\'s the privacy gate. Your bank credentials never enter the spreadsheet. You enter expenses manually — usually a 2-minute daily habit.' },
     { q: 'Can I add more categories?',
@@ -2370,14 +2609,82 @@ const AI_TABS = new Set([
 ]);
 
 function applyTierVisibility(workbook, tier) {
-  if (tier === 'ai') return; // all visible
+  if (tier === 'ai') return; // all 17 tabs ship
+  // B-02 fix: previously this function set sheet.state='hidden', which a buyer could undo
+  // with right-click → Unhide. Now we *remove* the tabs entirely, so a $9 Essentials buyer
+  // can't unlock the $29 product. Cross-tab refs to removed sheets are wrapped in IFERROR
+  // upstream (Dashboard/Setup Wizard Health Score tiles → "— / 100" fallback).
+  const toRemove = [];
   workbook.eachSheet((sheet) => {
     if (tier === 'essentials' && (PRO_TABS.has(sheet.name) || AI_TABS.has(sheet.name))) {
-      sheet.state = 'hidden';
+      toRemove.push(sheet);
     } else if (tier === 'pro' && AI_TABS.has(sheet.name)) {
-      sheet.state = 'hidden';
+      toRemove.push(sheet);
     }
   });
+  // Remove in reverse order to avoid id reindexing surprises.
+  toRemove.reverse().forEach((sheet) => workbook.removeWorksheet(sheet.id));
+
+  // Tier-aware product wordmark — every visible sheet's row 1 + footer should reflect what was bought.
+  const tierLabel = { essentials: 'Essentials', pro: 'Pro' }[tier] || 'AI Edition';
+  if (tierLabel !== 'AI Edition') {
+    workbook.eachSheet((sheet) => {
+      // Row 1 product band
+      const product = sheet.getCell('D1');
+      if (product && typeof product.value === 'string' && product.value.startsWith('Budget Tracker —')) {
+        product.value = `Budget Tracker — ${tierLabel}`;
+      }
+      // Footer band — scan all merged cells for the AI Edition token and swap.
+      sheet.eachRow((row) => {
+        row.eachCell((cell) => {
+          if (typeof cell.value === 'string' && cell.value.includes(`Budget Tracker ${FOOTER_TIER_TOKEN}`)) {
+            cell.value = cell.value.replace(`Budget Tracker ${FOOTER_TIER_TOKEN}`, `Budget Tracker ${tierLabel}`);
+          }
+        });
+      });
+    });
+
+    // N8: replace the broken Dashboard Health Score hero panel with a tier-appropriate upgrade pitch
+    // (Health Score tab is removed on Ess/Pro, so the panel's B10 ref returns IFERROR → 0).
+    const dash = workbook.getWorksheet('🏠 Dashboard');
+    if (dash) {
+      // Section header B6 (already merged B6:F6 by addSectionHeader)
+      dash.getCell('B6').value = 'Upgrade to AI Edition for live Financial Health Score';
+      dash.getCell('B7').value = 'AI Edition adds a live 0-100 composite (Savings Rate · Emergency Fund · DTI · Credit Utilization · On-Time Payment), weighted 25/25/20/15/15, with a dynamic "Path to 100" coach. $29 one-time.';
+      // Clear the big score area
+      ['B10', 'D10', 'D11', 'E10', 'E12'].forEach((addr) => { dash.getCell(addr).value = ''; });
+      // Replace the rich-text meaning block at E10 with a single concise upgrade line
+      dash.getCell('E10').value = 'Available in AI Edition ($29).';
+      // K2 HEALTH SCORE top-bar tile — replace formula with constant for clarity on Ess/Pro
+      dash.getCell('K2').value = { richText: [
+        { text: 'HEALTH SCORE\n', font: FONTS.kpiLabel },
+        { text: 'AI Edition', font: { ...FONTS.kpiValue, color: argb(COLORS.warmGold), size: 11 } },
+      ]};
+    }
+
+    // Setup Wizard HEALTH tile — same treatment so the first tab a buyer sees doesn't show "— / 100"
+    const wiz = workbook.getWorksheet('🧭 Setup Wizard');
+    if (wiz) {
+      wiz.getCell('K2').value = { richText: [
+        { text: 'HEALTH\n', font: FONTS.kpiLabel },
+        { text: 'AI Edition', font: { ...FONTS.kpiValue, color: argb(COLORS.warmGold), size: 11 } },
+      ]};
+    }
+  }
+
+  // N10 / N11: About tab numbers must reflect the actual tier.
+  const about = workbook.getWorksheet('ℹ️ About & Help');
+  if (about) {
+    const tabsByTier = { essentials: 11, pro: 15, ai: 17 }[tier];
+    about.getCell('C2').value = { richText: [
+      { text: 'TABS\n', font: FONTS.kpiLabel },
+      { text: String(tabsByTier), font: FONTS.kpiValue },
+    ]};
+    about.getCell('I2').value = { richText: [
+      { text: 'TIER\n', font: FONTS.kpiLabel },
+      { text: tierLabel, font: FONTS.kpiValue },
+    ]};
+  }
 }
 
 async function buildBudgetTracker() {
@@ -2396,12 +2703,27 @@ async function buildBudgetTracker() {
   console.log(`→ Building Budget Tracker — ${tierLabel} (${tierTabCount} visible / 17 total)...`);
 
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = 'Premium Finance Studio';
+
+  // Register the Lime parent-brand logo once. Each worksheet's addTopBar() pulls it from
+  // workbook._limeImageId and re-anchors it at A1. PNG is built by tools/pdf-gen/render-logo.js.
+  const limeLogoPath = resolve(__dirname, '..', 'assets', 'lime-logo-128.png');
+  if (existsSync(limeLogoPath)) {
+    workbook._limeImageId = workbook.addImage({ filename: limeLogoPath, extension: 'png' });
+  } else {
+    console.warn(`  ⚠ Lime logo not found at ${limeLogoPath} — wordmark only`);
+  }
+  // Workbook properties — surfaces in Excel "File → Info" + Finder "Get Info" / Explorer Details.
+  // Unified single brand: Lime Premium Studios.
+  workbook.creator = 'Lime Premium Studios';
+  workbook.lastModifiedBy = 'Lime Premium Studios';
+  workbook.company = 'Lime Premium Studios';
   workbook.created = new Date();
   workbook.modified = new Date();
   workbook.title = `Budget Tracker — ${tierLabel}`;
-  workbook.subject = 'Premium Finance House catalog';
-  workbook.description = `Generated by tools/sheets-gen/templates/budget-tracker.js v2 (tier: ${tier})`;
+  workbook.subject = 'Personal finance · budget tracker spreadsheet';
+  workbook.category = 'Personal Finance';
+  workbook.keywords = 'budget, expense tracker, monthly budget, personal finance, google sheets, excel, lime premium studios';
+  workbook.description = `Budget Tracker ${tierLabel} v1.0 — Lime Premium Studios. ${{essentials: 11, pro: 15, ai: 17}[tier]} tabs. Live 50/30/20 split, weighted Financial Health Score (AI Edition), one-time purchase. Privacy-first — no bank credentials, no Plaid.`;
 
   // Build all 17 tabs — variant differentiation is by tab visibility, not omission
   console.log('  • 🧭 Setup Wizard');         buildSetupWizard(workbook);

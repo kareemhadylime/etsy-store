@@ -27,13 +27,13 @@ This is the single source of truth for publishing Budget Tracker to Etsy. Every 
 ### Title (140 chars max)
 
 ```
-Budget Tracker Spreadsheet | 17 Tabs, 4 Budget Methods, AI Money Advisor | Privacy-First Google Sheets Digital Download
+Budget Tracker Spreadsheet | 11-17 Tabs, AI Money Advisor, Privacy-First | Google Sheets + Excel Digital Download
 ```
 
 ### Subtitle / promotional teaser (159 chars max)
 
 ```
-A real budget brain — not a single-tab template. 17 tabs, 4 methods, 7 AI prompts. One-time fee. Your bank credentials never leave your bank. Built to last.
+A real budget brain — not a single-tab template. Up to 17 tabs, live 50/30/20 split, 7 AI prompts, Financial Health Score. One-time fee. Privacy-first.
 ```
 
 ### Description

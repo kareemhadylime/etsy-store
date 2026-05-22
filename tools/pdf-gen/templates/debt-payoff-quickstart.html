@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Debt Payoff Planner — Quick Start Guide</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Quick start guide for the Lime Premium Studios Debt Payoff Planner — Snowball vs Avalanche walkthrough, tier ladder, and first-30-day plan.">
+<meta name="keywords" content="debt payoff, debt snowball, debt avalanche, credit score, personal finance, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Debt Payoff Planner Quick Start Guide v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  @page {
+    size: Letter portrait;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    width: 8.5in;
+    background: var(--background-off-white);
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.5in 0.55in;
+    position: relative;
+    page-break-after: always;
+    background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ===== Header ===== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.18in;
+  }
+  .h-left { flex: 1; }
+  .eyebrow {
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.04in;
+  }
+  .h-title {
+    font-size: 26pt;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--primary-charcoal);
+    line-height: 1.05;
+    margin-bottom: 0.06in;
+  }
+  .h-sub {
+    font-size: 10pt;
+    color: var(--primary-charcoal);
+    opacity: 0.7;
+    font-style: italic;
+  }
+  .h-badge {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 8pt 14pt;
+    border-radius: 4pt;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.4;
+  }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+
+  .gold-divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 1.6in;
+    margin-bottom: 0.16in;
+  }
+
+  /* ===== Section: 30-second copy walkthrough ===== */
+  .section-label {
+    font-size: 9pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.07in;
+  }
+
+  .copy-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.12in;
+    margin-bottom: 0.2in;
+  }
+  .step {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.14in 0.16in;
+    border: 1px solid var(--neutral-grid);
+    position: relative;
+  }
+  .step-num {
+    position: absolute;
+    top: -10pt;
+    left: 14pt;
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    width: 22pt;
+    height: 22pt;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11pt;
+    font-weight: 700;
+  }
+  .step-time {
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary-warm-gold);
+    margin-top: 0.08in;
+    margin-bottom: 0.04in;
+  }
+  .step-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.04in;
+    line-height: 1.2;
+  }
+  .step-body {
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+  }
+
+  /* ===== Tier-grid: 3 columns ===== */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.14in;
+    margin-bottom: 0.2in;
+  }
+  .tier {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.16in 0.16in;
+    border: 1px solid var(--neutral-grid);
+    display: flex;
+    flex-direction: column;
+  }
+  .tier.ai {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    border-color: var(--primary-charcoal);
+  }
+  .tier-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.06in;
+  }
+  .tier-name {
+    font-size: 13pt;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .tier-price {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--secondary-warm-gold);
+    letter-spacing: -0.02em;
+  }
+  .tier-tabs {
+    font-size: 7.5pt;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.08in;
+  }
+  .tier ul {
+    list-style: none;
+    padding: 0;
+  }
+  .tier li {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    padding-left: 14pt;
+    position: relative;
+    margin-bottom: 0.04in;
+  }
+  .tier li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--secondary-warm-gold);
+    font-weight: 700;
+  }
+  .tier.ai li::before { color: var(--secondary-warm-gold); }
+
+  /* ===== Pro tips strip ===== */
+  .tips {
+    background: var(--ivory);
+    border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.14in 0.18in;
+    margin-bottom: 0.16in;
+  }
+  .tips-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.18in;
+  }
+  .tip {
+    font-size: 8.5pt;
+    line-height: 1.4;
+  }
+  .tip-num {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--secondary-warm-gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.05in;
+  }
+  .tip-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.03in;
+  }
+  .tip-body {
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+  }
+
+  /* ===== Footer band ===== */
+  .footer-band {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.16in 0.55in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+  }
+  .fb-left .wordmark {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2pt;
+  }
+  .fb-left .meta { opacity: 0.65; font-style: italic; }
+  .fb-right { text-align: right; opacity: 0.85; }
+  /* ===== Page-2 walkthrough table ===== */
+  .field-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.18in;
+    font-size: 9pt;
+  }
+  .field-table th {
+    text-align: left;
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 6pt 9pt;
+    font-size: 8.5pt;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .field-table td {
+    padding: 7pt 9pt;
+    border-bottom: 1px solid var(--neutral-grid);
+    line-height: 1.4;
+    vertical-align: top;
+    background: var(--surface-white);
+  }
+  .field-table td.col-field {
+    font-weight: 700;
+    width: 1in;
+  }
+  .field-table td.col-fmt {
+    width: 1.4in;
+    color: var(--secondary-warm-gold);
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+  }
+  .field-table td.col-trap {
+    color: var(--status-alert);
+    font-weight: 600;
+    width: 1.5in;
+  }
+
+  /* ===== Decision flow ===== */
+  .decision-flow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.16in;
+    margin-bottom: 0.16in;
+  }
+  .decision-card {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.16in 0.18in;
+    border: 1px solid var(--neutral-grid);
+    border-left-width: 3pt;
+  }
+  .decision-card.snowball { border-left-color: var(--status-success); }
+  .decision-card.avalanche { border-left-color: var(--status-alert); }
+  .decision-title {
+    font-size: 12pt;
+    font-weight: 700;
+    margin-bottom: 0.06in;
+    letter-spacing: -0.01em;
+  }
+  .decision-when {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    margin-bottom: 0.06in;
+    color: var(--primary-charcoal);
+  }
+  .decision-when strong { color: var(--secondary-warm-gold); }
+  .decision-math {
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+  }
+
+  /* ===== Week-by-week ===== */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.12in;
+    margin-bottom: 0.16in;
+  }
+  .week-card {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.14in 0.14in;
+    border: 1px solid var(--neutral-grid);
+  }
+  .week-num {
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.04in;
+  }
+  .week-title {
+    font-size: 10pt;
+    font-weight: 700;
+    margin-bottom: 0.05in;
+    line-height: 1.2;
+  }
+  .week-body {
+    font-size: 8pt;
+    line-height: 1.45;
+    opacity: 0.85;
+  }
+  .week-body ul { padding-left: 12pt; }
+  .week-body li { margin-bottom: 0.03in; }
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="header">
+  <div class="h-left">
+    <div class="eyebrow">Debt Payoff Planner · Quick Start</div>
+    <h1 class="h-title">List every debt. Pick a method.</h1>
+    <div class="h-sub">From "I don't know where to start" to a debt-free date — in 5 minutes.</div>
+  </div>
+  <div class="h-badge">
+    <div class="label">Edition</div>
+    <div class="ver">AI · v1.0</div>
+  </div>
+</div>
+<div class="gold-divider"></div>
+
+<!-- 4-step setup -->
+<div class="section-label">The 5-Minute Setup</div>
+<div class="copy-flow">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-time">~5 sec</div>
+    <div class="step-title">Open the file</div>
+    <div class="step-body">Click the link in your order email. The .xlsx opens cleanly in Excel 2016+ or imports to Google Sheets via File → Import → Replace.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-time">~3 min</div>
+    <div class="step-title">Fill the Debt List</div>
+    <div class="step-body">Tab 2 — enter every debt. Name, type, balance, APR, minimum, due day. APR as decimal: 0.22 for 22%. Up to 20 debts.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-time">~30 sec</div>
+    <div class="step-title">Compare strategies</div>
+    <div class="step-body">Open Strategy Comparison tab. See Snowball vs Avalanche vs Custom side-by-side. Pick the one you'll finish.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-time">~30 sec</div>
+    <div class="step-title">Set milestones</div>
+    <div class="step-body">Open Milestone Tracker — enter your starting total. Every payment moves the progress bar. Watch the score climb on the Dashboard.</div>
+  </div>
+</div>
+
+<!-- Three tiers — first actions per tier -->
+<div class="section-label">First Three Actions by Tier</div>
+<div class="tiers">
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Essentials</div>
+      <div class="tier-price">$12</div>
+    </div>
+    <div class="tier-tabs">10 Tabs · Snowball + Avalanche</div>
+    <ul>
+      <li>Fill in every debt on the Debt List</li>
+      <li>Pick Snowball or Avalanche from Strategy Comparison</li>
+      <li>Set your starting total on Milestone Tracker</li>
+    </ul>
+  </div>
+
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Pro</div>
+      <div class="tier-price">$19</div>
+    </div>
+    <div class="tier-tabs">18 Tabs · Credit Score + Refinance</div>
+    <ul>
+      <li>Log latest 3-bureau scores on Credit Score Tracker</li>
+      <li>Enter card limits on Utilization Optimizer — see pay-by-date recs</li>
+      <li>Check Refinance Radar — flag any "✅ Strong" candidates</li>
+    </ul>
+  </div>
+
+  <div class="tier ai">
+    <div class="tier-head">
+      <div class="tier-name">AI Edition</div>
+      <div class="tier-price">$29</div>
+    </div>
+    <div class="tier-tabs">21 Tabs · AI Credit Coach + Student Loan</div>
+    <ul>
+      <li>Check your live Debt Health Score — find the weakest sub-component</li>
+      <li>Open AI Credit Coach PDF → Strategy Optimizer prompt</li>
+      <li>Paste prompt + your data into ChatGPT or Claude (free tier OK)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Tips strip -->
+<div class="section-label">Three Things People Wish They'd Known on Day One</div>
+<div class="tips">
+  <div class="tips-row">
+    <div class="tip">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Avalanche saves more. Snowball wins more.</div>
+      <div class="tip-body">Avalanche (highest APR first) saves $1,000–$4,000 on a typical $30k debt load. Snowball (smallest first) keeps you going emotionally. Math vs psychology — pick the one you'll finish.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Pay before statement close, not due date.</div>
+      <div class="tip-body">Credit bureaus report your CC balance on statement-close date. Pay it down BEFORE close → utilization on your credit report drops → score jumps. The Utilization Optimizer tab does the math for you.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">03</div>
+      <div class="tip-title">One missed payment = $35 + score crash.</div>
+      <div class="tip-body">Late payments hit your FICO for 7 years. Set autopay for the MINIMUM on every debt; pay more manually. The Late-Fee Alert tab catches what autopay misses (annual fees, promo expiry, statement changes).</div>
+    </div>
+  </div>
+</div>
+
+<!-- Need help block -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in;">
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">Got Stuck?</div>
+    <div style="font-size: 9pt; line-height: 1.4;">Reply to your order email. We respond within 24 hours, every time. No ticket queue, no chatbot.</div>
+  </div>
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">Updates</div>
+    <div style="font-size: 9pt; line-height: 1.4;">Bug fixes free forever. AI Edition buyers: 12 months of free template refreshes — replies will include the new link.</div>
+  </div>
+</div>
+
+<!-- Footer band -->
+<div class="footer-band">
+  <div class="fb-left" style="display: flex; align-items: center; gap: 10pt;">
+    <svg width="28" height="28" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+      <defs>
+        <linearGradient id="limeGradFooter" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradFooter)"/>
+      <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+      </g>
+    </svg>
+    <div>
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">Debt Payoff Planner · AI Edition · v1.0 · Page 1 / 3</div>
+    </div>
+  </div>
+  <div class="fb-right">Pay them down. Stay paid down.</div>
+</div>
+</div>
+
+<!-- ============================================================================ -->
+<!-- PAGE 2 — Debt List field-by-field walkthrough + Strategy decision tree       -->
+<!-- ============================================================================ -->
+<div class="page">
+<div class="header">
+  <div class="h-left">
+    <div class="eyebrow">Page 2 · Setup Walkthrough</div>
+    <h1 class="h-title">Filling the Debt List, field by field.</h1>
+    <div class="h-sub">The single tab that drives every other number in the workbook. Get this right and the rest is automatic.</div>
+  </div>
+  <div class="h-badge">
+    <div class="label">Time</div>
+    <div class="ver">~3 min</div>
+  </div>
+</div>
+<div class="gold-divider"></div>
+
+<div class="section-label">The 10 fields on each debt row</div>
+<table class="field-table">
+  <thead>
+    <tr><th>Field</th><th>Format</th><th>Why it matters</th><th>Watch out for</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="col-field">Debt Name</td>
+      <td class="col-fmt">Free text</td>
+      <td>Identifies the debt across every tab. Use a name you'd recognize on a statement.</td>
+      <td class="col-trap">Avoid the literal card number — use the issuer + last 4 if needed.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Type</td>
+      <td class="col-fmt">Dropdown</td>
+      <td>Drives the Strategy Comparison color coding + the Student Loan / Medical Debt special tabs.</td>
+      <td class="col-trap">Pick from the list — typed-in values lose categorization.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Balance</td>
+      <td class="col-fmt">$#,##0.00</td>
+      <td>Current payoff amount as of today. Drives every total on the Dashboard.</td>
+      <td class="col-trap">Don't enter the credit limit — that's the line, not the debt.</td>
+    </tr>
+    <tr>
+      <td class="col-field">APR</td>
+      <td class="col-fmt">0.22 = 22%</td>
+      <td>The single most important number. Avalanche ranks debts by APR.</td>
+      <td class="col-trap">DECIMAL not percent — 22% APR is 0.22, NOT 22.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Minimum</td>
+      <td class="col-fmt">$#,##0.00</td>
+      <td>What your lender requires per month. The Snowball + Avalanche cascade uses this.</td>
+      <td class="col-trap">Use the printed minimum, not what you usually pay.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Due Day</td>
+      <td class="col-fmt">1-31</td>
+      <td>Drives the Late-Fee Alert KPIs ("debts at risk in the next 5 days").</td>
+      <td class="col-trap">Day-of-month only, not a full date.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Target Payoff</td>
+      <td class="col-fmt">mmm yyyy</td>
+      <td>Your aspiration date. Compared to the Strategy Comparison projection.</td>
+      <td class="col-trap">Optional — leave blank if you're not sure yet.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Promo Ends</td>
+      <td class="col-fmt">mmm yyyy</td>
+      <td>If this is a 0% promo, when does it reset? Avalanche re-prioritizes when ≤6 mo away.</td>
+      <td class="col-trap">Read the statement carefully — promos end on a specific day, not "after 12 months."</td>
+    </tr>
+    <tr>
+      <td class="col-field">Post APR</td>
+      <td class="col-fmt">0.2599 = 25.99%</td>
+      <td>The rate the debt resets to after promo ends. Decimal format like the APR field.</td>
+      <td class="col-trap">Usually buried in the fine print — search "go-to APR" or "deferred interest."</td>
+    </tr>
+    <tr>
+      <td class="col-field">Notes</td>
+      <td class="col-fmt">Free text</td>
+      <td>Anything you want surfaced when you scan the Debt List.</td>
+      <td class="col-trap">Keep it tight — long notes hide the math.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Plan Settings (below the totals row)</div>
+<div class="tips" style="margin-bottom: 0.18in;">
+  <div style="font-size: 9.5pt; line-height: 1.5;">
+    <strong style="color: var(--secondary-warm-gold);">Income (K40):</strong> Your gross monthly income, pre-tax. This is the denominator for Debt-to-Income (DTI) — surfaced on the top-bar KPI strip. <strong>CFPB norms:</strong> ≤28% housing-only, ≤36% total. Above 43% triggers most mortgage declines. The Essentials and Pro Dashboards swap the Health Score block for a DTI block when income is set.
+  </div>
+</div>
+
+<div class="section-label">Snowball vs. Avalanche — pick the one you'll finish</div>
+<div class="decision-flow">
+  <div class="decision-card snowball">
+    <div class="decision-title">❄️ Snowball — pick this if…</div>
+    <div class="decision-when">…you've started and stopped a payoff plan <strong>at least twice before</strong>. Or your smallest debt is &lt;$2,000 and you'd like to see it gone in &lt;3 months.</div>
+    <div class="decision-math">Math: pays off the smallest balance first. Costs ~$200–$1,000 more in total interest than Avalanche on a typical mix — buys you the momentum to actually finish.</div>
+  </div>
+  <div class="decision-card avalanche">
+    <div class="decision-title">🌊 Avalanche — pick this if…</div>
+    <div class="decision-when">…your highest APR is &gt;20% and your balances are roughly comparable. Or you've already finished a payoff plan and you know you'll grind through.</div>
+    <div class="decision-math">Math: kills the highest-APR debt first. Saves the most total interest. On the standard 5-debt $39,700 portfolio: ~$450 less interest than Snowball.</div>
+  </div>
+</div>
+
+<!-- Footer band -->
+<div class="footer-band">
+  <div class="fb-left" style="display: flex; align-items: center; gap: 10pt;">
+    <svg width="28" height="28" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+      <defs>
+        <linearGradient id="limeGradFooter2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradFooter2)"/>
+      <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+      </g>
+    </svg>
+    <div>
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">Debt Payoff Planner · AI Edition · v1.0 · Page 2 / 3</div>
+    </div>
+  </div>
+  <div class="fb-right">Strategy comparison is on tab 5 (📊).</div>
+</div>
+</div>
+
+<!-- ============================================================================ -->
+<!-- PAGE 3 — First 30 days, week by week                                         -->
+<!-- ============================================================================ -->
+<div class="page">
+<div class="header">
+  <div class="h-left">
+    <div class="eyebrow">Page 3 · Your First 30 Days</div>
+    <h1 class="h-title">A week-by-week playbook.</h1>
+    <div class="h-sub">Day-one momentum matters more than perfection. This is the schedule that gets you to month-end with progress.</div>
+  </div>
+  <div class="h-badge">
+    <div class="label">Cadence</div>
+    <div class="ver">Weekly · ~15 min</div>
+  </div>
+</div>
+<div class="gold-divider"></div>
+
+<div class="section-label">Week-by-week — print this and pin it on the fridge</div>
+<div class="week-grid">
+  <div class="week-card">
+    <div class="week-num">Week 1</div>
+    <div class="week-title">Inventory + first focus</div>
+    <div class="week-body">
+      <ul>
+        <li>Fill every Debt List row from your most recent statements.</li>
+        <li>Open Strategy Comparison — read the "Months to debt-free" row.</li>
+        <li>Pick Snowball or Avalanche. Mark the focus debt on a sticky note.</li>
+        <li>Set autopay for the MINIMUM on every debt — never the balance.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="week-card">
+    <div class="week-num">Week 2</div>
+    <div class="week-title">Find your extra</div>
+    <div class="week-body">
+      <ul>
+        <li>Open the Extra Payment Simulator. Try $25, $50, $100 in cell D6.</li>
+        <li>Watch MONTHS LEFT and INT. SAVED change live.</li>
+        <li>Cancel one recurring subscription this week ($10–$20).</li>
+        <li>Set the extra you can sustain — add to D6 permanently.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="week-card">
+    <div class="week-num">Week 3</div>
+    <div class="week-title">Score + utilization</div>
+    <div class="week-body">
+      <ul>
+        <li>(Pro+) Pull your free 3-bureau score; log on Credit Score Tracker.</li>
+        <li>(Pro+) Enter card limits on Utilization Optimizer.</li>
+        <li>Pay any CC balance to under 10% of its limit BEFORE statement close.</li>
+        <li>(AI Edition) Open AI Credit Coach; read your Debt Health Score.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="week-card">
+    <div class="week-num">Week 4</div>
+    <div class="week-title">Lock in the rhythm</div>
+    <div class="week-body">
+      <ul>
+        <li>Update Debt List balances from this month's statements.</li>
+        <li>Mark a Milestone Tracker date if you hit your first checkpoint.</li>
+        <li>(AI Edition) Run the AI Credit Coach "Path to 100" prompt.</li>
+        <li>Calendar a 15-min recurring monthly slot — same day each month.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Three creditor scripts that actually work</div>
+<div class="tips">
+  <div class="tips-row">
+    <div class="tip">
+      <div class="tip-num">01</div>
+      <div class="tip-title">"Can you waive this late fee?"</div>
+      <div class="tip-body">If your account is &gt;2 years old and otherwise clean, ask. Success rate: ~60% on the first ask, 80% on the second. Tell them you're enrolled in autopay now. Get the rep's name. Note it in the Debt List.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">02</div>
+      <div class="tip-title">"Can you lower my APR?"</div>
+      <div class="tip-body">Works best on cards you've held 12+ months. Mention a 0% promo offer you got in the mail. Many issuers will drop 2-5 percentage points to keep the balance. Document the new rate in the APR column.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">03</div>
+      <div class="tip-title">"I want to settle this for less."</div>
+      <div class="tip-body">For charged-off / collection debts only. Open the AI Credit Coach (AI Edition) — prompt #6 generates the letter for you. Heads up: a 1099-C may follow ($600+ forgiven debt is taxable income).</div>
+    </div>
+  </div>
+</div>
+
+<!-- Pro tier callout block -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in; margin-bottom: 0.16in;">
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">When things go sideways</div>
+    <div style="font-size: 9pt; line-height: 1.45;">Missed a payment? Lost income? Don't hide from the spreadsheet — open it. The Late-Fee Alert + Inquiry &amp; Marks tabs (AI Edition) help you track damage and recover. Goodwill letters work on first-late marks.</div>
+  </div>
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">What we are NOT</div>
+    <div style="font-size: 9pt; line-height: 1.45;">This isn't legal advice, tax advice, or a credit-counseling service. If debt settlement or bankruptcy is on the table, call an NFCC-affiliated nonprofit credit counselor first (free initial consult, nationwide).</div>
+  </div>
+</div>
+
+<!-- Footer band -->
+<div class="footer-band">
+  <div class="fb-left" style="display: flex; align-items: center; gap: 10pt;">
+    <svg width="28" height="28" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+      <defs>
+        <linearGradient id="limeGradFooter3" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradFooter3)"/>
+      <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+      </g>
+    </svg>
+    <div>
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">Debt Payoff Planner · AI Edition · v1.0 · Page 3 / 3</div>
+    </div>
+  </div>
+  <div class="fb-right">15 min a month, every month, until $0.</div>
+</div>
+</div>
+
+</body>
+</html>

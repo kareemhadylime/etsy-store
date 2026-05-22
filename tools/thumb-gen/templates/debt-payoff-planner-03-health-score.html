@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Debt Payoff Planner — Thumbnail 03 Debt Health Score</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-warning-light: #F5E5D0;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 140px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: space-between; align-items: center; padding: 0 90px;
+  }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .tier-pill {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    font-size: 26px; font-weight: 700; padding: 12px 32px; border-radius: 999px; letter-spacing: 0.04em;
+  }
+  .title-block { position: absolute; top: 220px; left: 90px; right: 90px; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 152px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 24px; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 24px; }
+  .title-sub { font-size: 36px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1500px; }
+
+  .score-area {
+    position: absolute; left: 90px; top: 720px; width: 760px; height: 1000px;
+    background: var(--surface-white); border-radius: 24px; padding: 50px 50px;
+    box-shadow: 0 30px 60px rgba(31,42,51,0.15), 0 8px 20px rgba(31,42,51,0.08);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 1px solid rgba(31,42,51,0.06);
+  }
+  .score-label { font-size: 18px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; color: var(--secondary-warm-gold); margin-bottom: 16px; }
+  .score-gauge {
+    width: 460px; height: 460px; border-radius: 50%;
+    background: conic-gradient(
+      var(--status-success) 0deg 277deg,
+      var(--neutral-grid) 277deg 360deg
+    );
+    display: flex; align-items: center; justify-content: center; position: relative;
+    margin-bottom: 28px;
+  }
+  .score-gauge::after {
+    content: ''; position: absolute; inset: 42px;
+    background: var(--surface-white); border-radius: 50%;
+  }
+  .score-number { font-size: 200px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; z-index: 1; }
+  .score-status {
+    font-size: 32px; font-weight: 700; color: var(--status-success);
+    padding: 12px 28px; background: rgba(63, 107, 77, 0.12); border-radius: 12px;
+    margin-bottom: 14px;
+  }
+  .score-anchor { font-size: 20px; opacity: 0.65; }
+
+  .breakdown {
+    position: absolute; right: 90px; top: 720px; width: 980px; height: 1000px;
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .breakdown-title { font-size: 32px; font-weight: 700; margin-bottom: 6px; }
+  .breakdown-sub { font-size: 20px; opacity: 0.7; margin-bottom: 22px; }
+  .subscore-row {
+    display: grid; grid-template-columns: 230px 1fr 90px; align-items: center; gap: 24px;
+    background: var(--surface-white); border-radius: 14px; padding: 24px 28px;
+    border: 1px solid var(--neutral-grid);
+  }
+  .subscore-meta {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .subscore-name { font-size: 26px; font-weight: 700; line-height: 1.05; }
+  .subscore-weight { font-size: 16px; font-weight: 600; opacity: 0.6; letter-spacing: 0.06em; }
+  .subscore-track { background: var(--ivory); height: 22px; border-radius: 11px; overflow: hidden; }
+  .subscore-fill { height: 100%; background: var(--status-success); border-radius: 11px; }
+  .subscore-fill.warn { background: var(--status-warning); }
+  .subscore-fill.alert { background: var(--status-alert); }
+  .subscore-fill.gold { background: var(--secondary-warm-gold); }
+  .subscore-value { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; text-align: right; line-height: 1; }
+
+  .coach-card {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    border-radius: 14px; padding: 26px 30px;
+    border-left: 6px solid var(--secondary-warm-gold);
+    margin-top: 6px;
+  }
+  .coach-label { font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 8px; }
+  .coach-body { font-size: 22px; font-weight: 500; line-height: 1.35; }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; gap: 60px; padding: 0 90px;
+  }
+  .feature { text-align: center; }
+  .feature-num { font-size: 56px; font-weight: 700; color: var(--secondary-warm-gold); line-height: 1; margin-bottom: 6px; }
+  .feature-label { font-size: 20px; font-weight: 500; opacity: 0.85; }
+  .divider-dot { width: 8px; height: 8px; background: var(--secondary-warm-gold); border-radius: 50%; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="tier-pill">AI Edition · $29</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">AI Edition Exclusive · Live Composite</div>
+  <div class="title-main">Debt Health Score</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">A live 0-100 composite of four weighted sub-scores. Moves with every Debt List edit, every milestone you hit.</div>
+</div>
+
+<div class="score-area">
+  <div class="score-label">Your Score</div>
+  <div class="score-gauge">
+    <div class="score-number">77</div>
+  </div>
+  <div class="score-status">🟡 On Track</div>
+  <div class="score-anchor">/ 100 · Updates live</div>
+</div>
+
+<div class="breakdown">
+  <div class="breakdown-title">Four sub-scores, weighted.</div>
+  <div class="breakdown-sub">Each one moves your composite. Worst one tells you what to fix next.</div>
+
+  <div class="subscore-row">
+    <div class="subscore-meta">
+      <div class="subscore-name">Debt paid</div>
+      <div class="subscore-weight">40% weight</div>
+    </div>
+    <div class="subscore-track"><div class="subscore-fill" style="width: 82%"></div></div>
+    <div class="subscore-value">82</div>
+  </div>
+  <div class="subscore-row">
+    <div class="subscore-meta">
+      <div class="subscore-name">Interest saved</div>
+      <div class="subscore-weight">30% weight</div>
+    </div>
+    <div class="subscore-track"><div class="subscore-fill gold" style="width: 71%"></div></div>
+    <div class="subscore-value">71</div>
+  </div>
+  <div class="subscore-row">
+    <div class="subscore-meta">
+      <div class="subscore-name">On-time streak</div>
+      <div class="subscore-weight">20% weight</div>
+    </div>
+    <div class="subscore-track"><div class="subscore-fill" style="width: 83%"></div></div>
+    <div class="subscore-value">83</div>
+  </div>
+  <div class="subscore-row">
+    <div class="subscore-meta">
+      <div class="subscore-name">Utilization</div>
+      <div class="subscore-weight">10% weight</div>
+    </div>
+    <div class="subscore-track"><div class="subscore-fill warn" style="width: 58%"></div></div>
+    <div class="subscore-value">58</div>
+  </div>
+
+  <div class="coach-card">
+    <div class="coach-label">💡 Path to 100 — AI Credit Coach</div>
+    <div class="coach-body">Utilization is your weakest at 58/100. Pay CC balances before statement close — target &lt;30%, ideally &lt;10%.</div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="feature">
+    <div class="feature-num">21</div>
+    <div class="feature-label">Tabs</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">7</div>
+    <div class="feature-label">AI Prompts</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">4</div>
+    <div class="feature-label">Sub-Scores</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">12</div>
+    <div class="feature-label">Months Updates</div>
+  </div>
+</div>
+
+</body>
+</html>

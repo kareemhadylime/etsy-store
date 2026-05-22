@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Debt Payoff Planner — Thumbnail 04 Snowball + Avalanche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-success-light: #D9E5DC;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --status-alert-light: #F0DBD9;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 140px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: space-between; align-items: center; padding: 0 90px;
+  }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .price-pill {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    font-size: 26px; font-weight: 700; padding: 12px 30px; border-radius: 999px;
+  }
+  .title-block { position: absolute; top: 220px; left: 90px; right: 90px; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 124px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 24px; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 24px; }
+  .title-sub { font-size: 36px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1500px; }
+
+  .method-grid {
+    position: absolute; left: 90px; right: 90px; top: 850px; bottom: 240px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+  }
+  .method-card {
+    background: var(--surface-white); border-radius: 24px; padding: 40px 44px;
+    box-shadow: 0 20px 50px rgba(31,42,51,0.10);
+    display: flex; flex-direction: column; gap: 22px;
+    border-top: 16px solid var(--neutral-grid);
+  }
+  .method-card.snowball { border-top-color: var(--status-success); }
+  .method-card.avalanche { border-top-color: var(--status-alert); }
+
+  .method-header { display: flex; justify-content: space-between; align-items: flex-end; }
+  .method-name { font-size: 56px; font-weight: 800; letter-spacing: -0.025em; line-height: 1; }
+  .method-icon { font-size: 64px; }
+  .method-rule { font-size: 22px; font-weight: 600; opacity: 0.65; letter-spacing: -0.01em; }
+
+  .queue { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .queue-debt {
+    display: grid; grid-template-columns: 40px 1fr 90px; align-items: center; gap: 16px;
+    padding: 12px 16px; border-radius: 10px;
+    background: var(--ivory); border: 1px solid var(--neutral-grid);
+  }
+  .queue-debt.focus {
+    background: var(--status-success-light);
+    border-color: var(--status-success);
+  }
+  .method-card.avalanche .queue-debt.focus { background: var(--status-alert-light); border-color: var(--status-alert); }
+  .q-rank { font-size: 24px; font-weight: 800; text-align: center; opacity: 0.55; }
+  .queue-debt.focus .q-rank { opacity: 1; }
+  .q-name { font-size: 22px; font-weight: 600; }
+  .q-apr { font-size: 18px; opacity: 0.6; font-weight: 600; }
+  .q-bal { font-size: 22px; font-weight: 700; text-align: right; letter-spacing: -0.01em; }
+
+  .method-stat {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    border-radius: 12px; padding: 20px 24px;
+  }
+  .method-stat-box .stat-label { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 6px; }
+  .method-stat-box .stat-value { font-size: 38px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+  .method-stat-box .stat-unit { font-size: 18px; font-weight: 500; opacity: 0.75; margin-left: 6px; }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; padding: 0 90px;
+  }
+  .closer {
+    font-size: 36px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.25; text-align: center;
+  }
+  .closer .gold { color: var(--secondary-warm-gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="price-pill">$12 — $29 · One-time</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">Two Methods · Twenty Ranks · One Sheet</div>
+  <div class="title-main">Snowball <span style="opacity:0.4;">vs</span> Avalanche.</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">Both visualized side-by-side. Cascade rolls minimums + your extra payment as each debt hits $0.</div>
+</div>
+
+<div class="method-grid">
+  <div class="method-card snowball">
+    <div class="method-header">
+      <div>
+        <div class="method-name">❄️ Snowball</div>
+        <div class="method-rule">Smallest balance first.</div>
+      </div>
+    </div>
+    <div class="queue">
+      <div class="queue-debt focus">
+        <div class="q-rank">1</div>
+        <div><div class="q-name">Credit Card B</div><div class="q-apr">18.99% APR</div></div>
+        <div class="q-bal">$1,800</div>
+      </div>
+      <div class="queue-debt">
+        <div class="q-rank">2</div>
+        <div><div class="q-name">Medical (0% promo)</div><div class="q-apr">0.00% APR</div></div>
+        <div class="q-bal">$2,300</div>
+      </div>
+      <div class="queue-debt">
+        <div class="q-rank">3</div>
+        <div><div class="q-name">Credit Card A</div><div class="q-apr">22.99% APR</div></div>
+        <div class="q-bal">$5,200</div>
+      </div>
+      <div class="queue-debt">
+        <div class="q-rank">4</div>
+        <div><div class="q-name">Auto Loan</div><div class="q-apr">6.50% APR</div></div>
+        <div class="q-bal">$12,400</div>
+      </div>
+      <div class="queue-debt">
+        <div class="q-rank">5</div>
+        <div><div class="q-name">Student Loan</div><div class="q-apr">5.80% APR</div></div>
+        <div class="q-bal">$18,000</div>
+      </div>
+    </div>
+    <div class="method-stat">
+      <div class="method-stat-box">
+        <div class="stat-label">Debt-free</div>
+        <div class="stat-value">41<span class="stat-unit">mo</span></div>
+      </div>
+      <div class="method-stat-box">
+        <div class="stat-label">Total interest</div>
+        <div class="stat-value">$5,428</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="method-card avalanche">
+    <div class="method-header">
+      <div>
+        <div class="method-name">🌊 Avalanche</div>
+        <div class="method-rule">Highest APR first.</div>
+      </div>
+    </div>
+    <div class="queue">
+      <div class="queue-debt focus">
+        <div class="q-rank">1</div>
+        <div><div class="q-name">Credit Card A</div><div class="q-apr">22.99% APR</div></div>
+        <div class="q-bal">$5,200</div>
+      </div>
+      <div class="queue-debt">
+        <div class="q-rank">2</div>
+        <div><div class="q-name">Credit Card B</div><div class="q-apr">18.99% APR</div></div>
+        <div class="q-bal">$1,800</div>
+      </div>
+      <div class="queue-debt">
+        <div class="q-rank">3</div>
+        <div><div class="q-name">Auto Loan</div><div class="q-apr">6.50% APR</div></div>
+        <div class="q-bal">$12,400</div>
+      </div>
+      <div class="queue-debt">
+        <div class="q-rank">4</div>
+        <div><div class="q-name">Student Loan</div><div class="q-apr">5.80% APR</div></div>
+        <div class="q-bal">$18,000</div>
+      </div>
+      <div class="queue-debt">
+        <div class="q-rank">5</div>
+        <div><div class="q-name">Medical (0% promo)</div><div class="q-apr">0.00% APR</div></div>
+        <div class="q-bal">$2,300</div>
+      </div>
+    </div>
+    <div class="method-stat">
+      <div class="method-stat-box">
+        <div class="stat-label">Debt-free</div>
+        <div class="stat-value">41<span class="stat-unit">mo</span></div>
+      </div>
+      <div class="method-stat-box">
+        <div class="stat-label">Total interest</div>
+        <div class="stat-value">$4,971</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="closer">Avalanche saves <span class="gold">$457</span> on this debt mix. Snowball gets you the first win in <span class="gold">6 months</span>.</div>
+</div>
+
+</body>
+</html>

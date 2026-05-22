@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Debt Payoff Planner — Thumbnail 05 Privacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --status-alert-light: #F0DBD9;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 140px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: space-between; align-items: center; padding: 0 90px;
+  }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .topbar-tag { font-size: 22px; font-weight: 600; color: var(--secondary-warm-gold); letter-spacing: 0.16em; text-transform: uppercase; }
+
+  .title-block { position: absolute; top: 220px; left: 90px; right: 90px; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 156px; font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 24px; }
+  .title-main .strike { text-decoration: line-through; text-decoration-thickness: 10px; text-decoration-color: var(--status-alert); opacity: 0.7; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 24px; }
+  .title-sub { font-size: 36px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1500px; }
+
+  .compare-card {
+    position: absolute; left: 90px; right: 90px; top: 860px; height: 720px;
+    background: var(--surface-white); border-radius: 24px; padding: 48px 56px;
+    box-shadow: 0 30px 60px rgba(31,42,51,0.12);
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+    align-items: center;
+  }
+  .vs-card { text-align: center; display: flex; flex-direction: column; gap: 18px; }
+  .vs-name { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; }
+  .vs-name.strike { text-decoration: line-through; text-decoration-thickness: 5px; text-decoration-color: var(--status-alert); }
+  .vs-cost { font-size: 92px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .vs-cost.muted { opacity: 0.55; }
+  .vs-cost.gold { color: var(--secondary-warm-gold); }
+  .vs-tagline { font-size: 22px; opacity: 0.65; font-weight: 500; line-height: 1.3; }
+  .vs-fine { font-size: 14px; opacity: 0.5; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .center-vs {
+    font-size: 84px; font-weight: 800; color: var(--secondary-warm-gold); text-align: center;
+    letter-spacing: 0.04em;
+  }
+
+  .savings-pill {
+    position: absolute; left: 50%; bottom: 250px; transform: translateX(-50%) translateY(50%);
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 22px 56px; border-radius: 999px;
+    font-size: 32px; font-weight: 700;
+    box-shadow: 0 12px 30px rgba(31,42,51,0.25);
+    border: 4px solid var(--secondary-warm-gold);
+  }
+  .savings-pill .gold { color: var(--secondary-warm-gold); }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; gap: 70px; padding: 0 90px;
+  }
+  .feature-flat { display: flex; gap: 16px; align-items: center; }
+  .feature-icon { font-size: 38px; }
+  .feature-text { display: flex; flex-direction: column; gap: 4px; }
+  .feature-title { font-size: 22px; font-weight: 700; }
+  .feature-body { font-size: 16px; opacity: 0.78; }
+  .divider-tall { width: 2px; height: 80px; background: var(--secondary-warm-gold); opacity: 0.4; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="topbar-tag">Privacy-First · No Plaid · No Bureau</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">No Subscription · No Aggregator · No Upsell</div>
+  <div class="title-main">$25/mo? <span class="strike">Hard pass.</span></div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">Tally charged $25/month to do less than this and now they're shut down. We charge $12-$29 once. You keep it forever.</div>
+</div>
+
+<div class="compare-card">
+  <div class="vs-card">
+    <div class="vs-name strike">Tally</div>
+    <div class="vs-cost muted">$1,500</div>
+    <div class="vs-tagline">$25/month · 60 months</div>
+    <div class="vs-fine">Shut down · Account closed</div>
+  </div>
+
+  <div class="center-vs">VS</div>
+
+  <div class="vs-card">
+    <div class="vs-name">Lime · AI Edition</div>
+    <div class="vs-cost gold">$29</div>
+    <div class="vs-tagline">One-time · Yours forever</div>
+    <div class="vs-fine">No bureau · No Plaid · No SaaS</div>
+  </div>
+</div>
+
+<div class="savings-pill">5-year delta: <span class="gold">$1,471 saved</span></div>
+
+<div class="bottom-band">
+  <div class="feature-flat">
+    <div class="feature-icon">🔒</div>
+    <div class="feature-text">
+      <div class="feature-title">Stays on your device</div>
+      <div class="feature-body">No third-party aggregator</div>
+    </div>
+  </div>
+  <div class="divider-tall"></div>
+  <div class="feature-flat">
+    <div class="feature-icon">📥</div>
+    <div class="feature-text">
+      <div class="feature-title">Instant download</div>
+      <div class="feature-body">Sheets + Excel · both included</div>
+    </div>
+  </div>
+  <div class="divider-tall"></div>
+  <div class="feature-flat">
+    <div class="feature-icon">🔁</div>
+    <div class="feature-text">
+      <div class="feature-title">Bug fixes free forever</div>
+      <div class="feature-body">AI Edition · 12 mo template refreshes</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Debt Payoff Planner — Thumbnail 01 Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 140px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 90px;
+  }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .price-pill {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    font-size: 30px; font-weight: 700; padding: 14px 36px; border-radius: 999px;
+  }
+  .title-block { position: absolute; top: 220px; left: 90px; right: 90px; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 152px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 28px; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 28px; }
+  .title-sub { font-size: 40px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1300px; }
+  .mockup {
+    position: absolute; left: 90px; right: 90px; bottom: 250px; height: 780px;
+    background: var(--surface-white); border-radius: 20px;
+    box-shadow: 0 30px 60px rgba(31,42,51,0.15), 0 8px 20px rgba(31,42,51,0.08);
+    overflow: hidden; border: 1px solid rgba(31,42,51,0.06);
+  }
+  .mockup-header {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 24px 36px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .mockup-tab { font-size: 22px; font-weight: 600; }
+  .mockup-tab-bar { display: flex; gap: 14px; }
+  .mockup-tab-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .mockup-tab-dot.active { background: var(--secondary-warm-gold); }
+  .mockup-body { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; padding: 36px 40px; height: calc(100% - 88px); }
+  .gauge-area {
+    background: var(--ivory); border-radius: 14px; padding: 32px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .gauge-label { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--secondary-warm-gold); margin-bottom: 8px; }
+  .gauge-money { font-size: 100px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+  .gauge-caption { font-size: 26px; font-weight: 600; margin-top: 14px; }
+  .gauge-sub { font-size: 18px; opacity: 0.65; margin-top: 6px; }
+  .gauge-strategy {
+    margin-top: 22px; padding: 12px 22px;
+    background: var(--surface-white); border-radius: 8px;
+    font-size: 18px; font-weight: 600; color: var(--status-alert);
+    border: 1px solid var(--neutral-grid);
+  }
+  .right-stack { display: flex; flex-direction: column; gap: 18px; }
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .kpi-tile { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 10px; padding: 16px 18px; }
+  .kpi-tile.gold { background: var(--secondary-warm-gold); border-color: var(--secondary-warm-gold); }
+  .kpi-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55; margin-bottom: 8px; }
+  .kpi-tile.gold .kpi-label { opacity: 0.65; }
+  .kpi-value { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+  .debts-card { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 10px; padding: 20px 22px; flex: 1; }
+  .debts-title { font-size: 16px; font-weight: 600; margin-bottom: 14px; }
+  .debt-row { display: grid; grid-template-columns: 130px 80px 1fr 80px; align-items: center; gap: 12px; margin-bottom: 9px; }
+  .debt-name { font-size: 14px; font-weight: 500; }
+  .debt-apr { font-size: 13px; font-weight: 600; color: var(--status-alert); }
+  .debt-apr.warn { color: var(--status-warning); }
+  .debt-apr.ok { color: var(--status-success); }
+  .debt-track { background: var(--ivory); height: 16px; border-radius: 8px; overflow: hidden; }
+  .debt-fill { height: 100%; background: var(--primary-charcoal); border-radius: 8px; }
+  .debt-fill.gold { background: var(--secondary-warm-gold); }
+  .debt-fill.alert { background: var(--status-alert); }
+  .debt-bal { font-size: 13px; font-weight: 600; text-align: right; }
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; gap: 90px; padding: 0 90px;
+  }
+  .feature { text-align: center; }
+  .feature-num { font-size: 64px; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+  .feature-label { font-size: 22px; font-weight: 500; opacity: 0.85; }
+  .divider-dot { width: 8px; height: 8px; background: var(--secondary-warm-gold); border-radius: 50%; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="price-pill">$12 — $29 · One-time</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">Google Sheets · Excel · Snowball + Avalanche</div>
+  <div class="title-main">Debt Payoff<br>Planner</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">Real per-strategy math. Not a single-formula template.</div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">
+    <div class="mockup-tab">🏠 Dashboard</div>
+    <div class="mockup-tab-bar">
+      <div class="mockup-tab-dot active"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+    </div>
+  </div>
+  <div class="mockup-body">
+    <div class="gauge-area">
+      <div class="gauge-label">Total Debt</div>
+      <div class="gauge-money">$39,700</div>
+      <div class="gauge-caption">Debt-free in 41 months</div>
+      <div class="gauge-sub">Avalanche · $5,428 interest</div>
+      <div class="gauge-strategy">🌊 Avalanche saves $457 vs ❄️ Snowball</div>
+    </div>
+    <div class="right-stack">
+      <div class="kpi-row">
+        <div class="kpi-tile">
+          <div class="kpi-label">Debts</div>
+          <div class="kpi-value">5 of 20</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-label">Monthly Min</div>
+          <div class="kpi-value">$805</div>
+        </div>
+        <div class="kpi-tile gold">
+          <div class="kpi-label">Weighted APR</div>
+          <div class="kpi-value">8.5%</div>
+        </div>
+      </div>
+      <div class="debts-card">
+        <div class="debts-title">Your debts — sorted by APR</div>
+        <div class="debt-row"><div class="debt-name">Credit Card A</div><div class="debt-apr">22.99%</div><div class="debt-track"><div class="debt-fill alert" style="width: 78%"></div></div><div class="debt-bal">$5,200</div></div>
+        <div class="debt-row"><div class="debt-name">Credit Card B</div><div class="debt-apr">18.99%</div><div class="debt-track"><div class="debt-fill alert" style="width: 62%"></div></div><div class="debt-bal">$1,800</div></div>
+        <div class="debt-row"><div class="debt-name">Auto Loan</div><div class="debt-apr warn">6.50%</div><div class="debt-track"><div class="debt-fill gold" style="width: 38%"></div></div><div class="debt-bal">$12,400</div></div>
+        <div class="debt-row"><div class="debt-name">Student Loan</div><div class="debt-apr warn">5.80%</div><div class="debt-track"><div class="debt-fill gold" style="width: 33%"></div></div><div class="debt-bal">$18,000</div></div>
+        <div class="debt-row"><div class="debt-name">Medical (0% promo)</div><div class="debt-apr ok">0%</div><div class="debt-track"><div class="debt-fill" style="width: 12%"></div></div><div class="debt-bal">$2,300</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="feature">
+    <div class="feature-num">21</div>
+    <div class="feature-label">Tabs</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">3</div>
+    <div class="feature-label">Strategies</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">20</div>
+    <div class="feature-label">Debt Slots</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">7</div>
+    <div class="feature-label">AI Prompts</div>
+  </div>
+</div>
+
+</body>
+</html>

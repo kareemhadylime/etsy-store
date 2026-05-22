@@ -32,7 +32,8 @@ const TAXONOMY_ID = 12487;                // Personal Finance Templates
 const description = readFileSync(resolve(ETSY_ROOT, '.tmp-bt-description.txt'), 'utf8').trimEnd();
 
 const listing = {
-  title: 'Budget Tracker Spreadsheet | 17 Tabs, 4 Budget Methods, AI Money Advisor | Privacy-First Google Sheets Digital Download',
+  // Synced from docs/listing-copy/budget-tracker.md §1 — honest tab-count range (11/15/17 per tier).
+  title: 'Budget Tracker Spreadsheet | 11-17 Tabs, AI Money Advisor, Privacy-First | Google Sheets + Excel Digital Download',
   description,
   price: 9,
   quantity: 999,

@@ -10,39 +10,39 @@ _References: [proposal](../product-proposals/debt-payoff-planner.md) · [design 
 ## 1. Title (140 char)
 
 ```
-Debt Payoff Planner Spreadsheet | 18 Tabs, Snowball + Avalanche, AI Credit Score Coach | Privacy-First Google Sheets Digital Download
+Debt Payoff Planner Spreadsheet | 10-21 Tabs, Snowball + Avalanche, AI Credit Coach | Google Sheets + Excel Digital Download
 ```
 
-**SEO notes:** Front-loads "Debt Payoff Planner Spreadsheet" — highest-volume keyword in the debt category. "Snowball + Avalanche" + "Credit Score Coach" signal depth + AI differentiation. "Privacy-First" + "Google Sheets" close platform + value-prop loop.
+**SEO notes:** Front-loads "Debt Payoff Planner Spreadsheet" — highest-volume keyword in the debt category. "Snowball + Avalanche" + "AI Credit Coach" signal depth + AI differentiation. Tab range "10-21" honestly reflects tier ladder (Essentials 10 / Pro 18 / AI 21). "Google Sheets + Excel" closes the platform claim.
 
 ## 2. Subtitle / promotional teaser (159 char)
 
 ```
-Get out of debt AND rebuild your credit score in one sheet. 18 tabs, 8 debt types, 3 strategies, 7 AI prompts. No subscription. No bank handshake. Pay once.
+Get out of debt AND raise your credit score in one sheet. Up to 21 tabs, 8 debt types, 3 strategies, 7 AI prompts. One-time fee. Privacy-first.
 ```
 
-## 3. Description (3,287 char)
+## 3. Description (~3,200 char)
 
 ```
-Get out of debt AND rebuild your credit score in one spreadsheet. Not two apps. Not three subscriptions.
+Get out of debt AND raise your credit score in one spreadsheet. Not two apps. Not three subscriptions.
 
-Tally charges $25/month to do this. Credit Karma is free but monetizes your data via lender referrals. We're $12 once. You keep it forever. Your debt data and credit scores never leave your device.
+Tally charged $25/month to do this (now shut down). Credit Karma is free but monetizes your data via lender referrals. This is $12 once. You keep it forever. Your debt data and credit scores never leave your device.
 
 — What you get —
 
-▸ ESSENTIALS ($12) — 11 tabs: Dashboard, Debt List (up to 10 debts across 8 types), Snowball Method, Avalanche Method, Strategy Comparison Matrix, Payment Calendar, Late-Fee Alert Monitor, Milestone Tracker, Credit Score Tracker (basic, 1 bureau), FICO factor education panel, Debt Health Score 0–100.
+▸ ESSENTIALS ($12) — 10 tabs: Dashboard with sorted-by-APR debts table, Debt List (up to 20 across 8 types), Snowball Method (cascading payoff math), Avalanche Method (highest-APR-first with annual-interest column), Strategy Comparison Matrix (Snowball vs Avalanche vs Custom side-by-side), Payment Calendar (month-boundary-aware days-until-due), Late-Fee Alert Monitor (incident ledger), Milestone Tracker (visual progress + 25/50/75/100% badges), Extra Payment Simulator (try +$50/$100/$250/$500 scenarios), About & Help.
 
-▸ PRO ($19) — Everything in Essentials + 7 more tabs (18 total): Custom Method (your priority order), Debt Consolidation (3-way comparison), Balance Transfer Analyzer, Credit Score Tracker (all 3 bureaus), Credit Score Simulator (what-if scoring), Credit Utilization Optimizer, Hard Inquiry + Derogatory Marks Tracker, On-Time Payment Streak (gamified), Student Loan Tab (IDR + PSLF), Extra Payment Simulator, Refinance Radar, Net Worth Impact Tracker, Up to 20 debts, Dark mode.
+▸ PRO ($19) — Everything in Essentials + 8 more tabs (18 total): Custom Method (your rank-driven order), Debt Consolidation (3-way Personal Loan / Balance Transfer / HELOC comparison with break-even math), Balance Transfer Analyzer (5-input promo calculator), Credit Score Tracker (3 bureaus × 12 months + FICO factor weights), Credit Score Simulator (5 levers with point-gain projection), Credit Utilization Optimizer (per-card statement-close-day timing), On-Time Payment Streak (3/6/12/24-month milestone badges), Refinance Radar (current market rates vs your APRs + Strong/Maybe/Stay candidacy flags).
 
-▸ AI EDITION ($29) — Everything in Pro + AI Credit Score Coach tab with 7 ChatGPT/Claude prompts: Payoff Strategy Optimizer / Credit Score Coach / Utilization Timing Advisor / Consolidation Intelligence / Income Acceleration Coach / Debt Settlement Letter Generator / Health Score Coach. Designed for free-tier AI — no subscription needed.
+▸ AI EDITION ($29) — Everything in Pro + 3 more tabs (21 total): AI Credit Coach (weighted Debt Health Score 0-100 + dynamic "Path to 100" coach + 7 prompts hub), Inquiry & Marks Tracker (2-year hard-inquiry countdown + 7-10 year derogatory falloff dates), Student Loan Tab (Federal vs Private split + PSLF eligibility tracker + IDR plan picker). Companion AI Credit Coach PDF ships with 7 prompts: Payoff Strategy Optimizer / AI Credit Score Coach / Utilization Timing Advisor / Consolidation Intelligence / Income Acceleration Coach / Settlement Letter Generator / Debt Health Score Coach. Works on ChatGPT or Claude free tier.
 
-— 3 payoff strategies, one sheet —
+— 3 payoff strategies, side-by-side —
 
 ✓ Snowball Method (smallest balance first — psychological wins)
-✓ Avalanche Method (highest APR first — math-optimal)
-✓ Custom Method (your priority order — for emotional debts)
+✓ Avalanche Method (highest APR first — math-optimal, typically saves $1k-$4k over Snowball)
+✓ Custom Method (Pro+, your rank-driven order — for emotional or promo-period priorities)
 
-Pick your method in the Dashboard. The sheet shows you side-by-side: which strategy gets you debt-free faster, which saves more interest, which fits your psychology. Switch any time.
+The Strategy Comparison tab shows you the dollar + month delta for YOUR specific debt mix. Switch any time.
 
 — 8 debt types supported —
 
@@ -82,9 +82,9 @@ Single variation type — **Tier**. 3 values.
 
 | Variation | Value | Price | What's included |
 |---|---|---|---|
-| Tier | Essentials | $12.00 | 11 tabs — Dashboard, Debt List (up to 10), Snowball, Avalanche, Strategy Comparison Matrix, Payment Calendar, Late-Fee Alert Monitor, Milestone Tracker, Credit Score Tracker (basic 1-bureau), FICO factor education panel, Debt Health Score 0–100 |
-| Tier | Pro | $19.00 | 17 tabs — All Essentials + Custom Method + Debt Consolidation + Balance Transfer Analyzer + Credit Score Tracker (3 bureaus) + Credit Score Simulator + Credit Utilization Optimizer + Inquiry & Marks Tracker + On-Time Payment Streak + Student Loan Tab + Extra Payment Simulator + Refinance Radar + Net Worth Impact. Up to 20 debts. Dark mode. |
-| Tier | AI Edition | $29.00 | 18 tabs — All Pro + AI Credit Score Coach with 7 prompts (Payoff Strategy Optimizer / Credit Score Coach / Utilization Timing / Consolidation / Income Acceleration / Settlement Letter / Health Score Coach). Includes 12-month free template refreshes. |
+| Tier | Essentials | $12.00 | 10 tabs — Dashboard · Debt List (up to 20, 8 types) · Snowball · Avalanche · Strategy Comparison Matrix · Payment Calendar · Late-Fee Alert Monitor · Extra Payment Simulator · Milestone Tracker · About & Help |
+| Tier | Pro | $19.00 | 18 tabs — All Essentials + Custom Method + Debt Consolidation (3-way) + Balance Transfer Analyzer + Credit Score Tracker (3 bureaus) + Credit Score Simulator + Credit Utilization Optimizer + On-Time Payment Streak + Refinance Radar |
+| Tier | AI Edition | $29.00 | 21 tabs — All Pro + AI Credit Coach (weighted Debt Health Score 0–100 + 7 prompts) + Inquiry & Marks Tracker + Student Loan Tab. Includes companion AI Credit Coach PDF + 12-month free template refreshes. |
 
 ## 5. Tags (13, all under 20 char)
 

@@ -57,3 +57,6 @@ next-env.d.ts
 # python bytecode (tools/qa helper scripts)
 __pycache__/
 *.pyc
+
+# QA scratch dir — ad-hoc Stage-B fixtures, recalc dumps, debug logs (regeneratable)
+tools/qa/scratch/
