@@ -53,3 +53,7 @@ next-env.d.ts
 
 # scratch files from session work (regenerable)
 .tmp-*
+
+# python bytecode (tools/qa helper scripts)
+__pycache__/
+*.pyc
