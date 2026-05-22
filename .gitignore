@@ -50,3 +50,6 @@ next-env.d.ts
 
 .vercel
 .env*.local
+
+# scratch files from session work (regenerable)
+.tmp-*

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Budget Tracker — Thumbnail 05 Privacy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 2000px;
+    height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .eyebrow {
+    position: absolute;
+    top: 100px;
+    left: 90px;
+    right: 90px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+  }
+  .title {
+    position: absolute;
+    top: 170px;
+    left: 90px;
+    right: 90px;
+    text-align: center;
+    font-size: 100px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    color: var(--primary-charcoal);
+  }
+  .gold-bar {
+    position: absolute;
+    top: 430px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 8px;
+    background: var(--secondary-warm-gold);
+  }
+
+  /* Two-column compare */
+  .compare {
+    position: absolute;
+    top: 530px;
+    left: 90px;
+    right: 90px;
+    bottom: 220px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+
+  .col {
+    background: var(--surface-white);
+    border-radius: 22px;
+    padding: 56px 50px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 40px rgba(31,42,51,0.10);
+    border: 1px solid rgba(31,42,51,0.05);
+    overflow: hidden;
+    position: relative;
+  }
+  .col.dark {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+  }
+
+  .col-tag {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+    align-self: flex-start;
+  }
+  .col-tag.bad { background: var(--status-alert); color: var(--surface-white); }
+  .col-tag.good { background: var(--secondary-warm-gold); color: var(--primary-charcoal); }
+
+  .col-title {
+    font-size: 56px;
+    font-weight: 700;
+    color: inherit;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 38px;
+  }
+
+  /* Flow visualization */
+  .flow-block {
+    margin-bottom: 30px;
+  }
+  .flow-label {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 14px;
+  }
+  .flow-source {
+    background: var(--ivory);
+    color: var(--primary-charcoal);
+    border-radius: 10px;
+    padding: 18px 24px;
+    font-size: 22px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .col.dark .flow-source { background: rgba(255,255,255,0.08); color: var(--surface-white); }
+
+  .arrow-down {
+    text-align: center;
+    margin: 16px 0;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .arrow-down.bad { color: var(--status-alert); }
+  .arrow-down.good { color: var(--status-success); }
+
+  /* Bad: list of third parties */
+  .third-parties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .third {
+    background: rgba(155, 58, 48, 0.20);
+    color: var(--surface-white);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 22px;
+    font-weight: 600;
+    border: 1px solid rgba(155, 58, 48, 0.45);
+  }
+
+  /* Good: single destination */
+  .destination {
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    border-radius: 10px;
+    padding: 26px 28px;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: -0.005em;
+  }
+
+  /* Bullet list */
+  .bullets {
+    list-style: none;
+    margin-top: auto;
+  }
+  .bullets li {
+    font-size: 22px;
+    line-height: 1.45;
+    padding: 8px 0;
+    padding-left: 38px;
+    position: relative;
+    font-weight: 500;
+  }
+  .bullets li::before {
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .col.dark .bullets li::before {
+    content: '✕';
+    background: rgba(155, 58, 48, 0.40);
+    color: var(--surface-white);
+  }
+  .col:not(.dark) .bullets li::before {
+    content: '✓';
+    background: var(--status-success);
+    color: var(--surface-white);
+  }
+
+  /* Bottom band */
+  .bottom-band {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 160px;
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .bb-text {
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .bb-text .accent { color: var(--secondary-warm-gold); }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Privacy By Design · Zero Account Linking</div>
+<div class="title">Your bank credentials<br>never leave your bank.</div>
+<div class="gold-bar"></div>
+
+<div class="compare">
+
+  <!-- Bad side -->
+  <div class="col dark">
+    <div class="col-tag bad">Budget Apps</div>
+    <div class="col-title">YNAB · Monarch · Copilot</div>
+
+    <div class="flow-block">
+      <div class="flow-label">Your Bank Login</div>
+      <div class="flow-source">user@bank.com · ••••••••</div>
+      <div class="arrow-down bad">▼ shared with</div>
+      <div class="third-parties">
+        <span class="third">Plaid</span>
+        <span class="third">Yodlee</span>
+        <span class="third">App servers</span>
+        <span class="third">3rd-party APIs</span>
+      </div>
+    </div>
+
+    <ul class="bullets">
+      <li>$99 — $109 every year, forever</li>
+      <li>Account lock-in if you stop paying</li>
+      <li>Data leaves your control</li>
+    </ul>
+  </div>
+
+  <!-- Good side -->
+  <div class="col">
+    <div class="col-tag good">Budget Tracker</div>
+    <div class="col-title">A Sheet in your Drive.</div>
+
+    <div class="flow-block">
+      <div class="flow-label">Your Bank Login</div>
+      <div class="flow-source">Stays in your bank app ✓</div>
+      <div class="arrow-down good">▼ destination</div>
+      <div class="destination">Only your Google Drive</div>
+    </div>
+
+    <ul class="bullets">
+      <li>$9 — $29 once. Keep it forever.</li>
+      <li>Cancel? Nothing to cancel.</li>
+      <li>Your data, your file.</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="bottom-band">
+  <div class="bb-text">No Plaid <span class="accent">·</span> No aggregator <span class="accent">·</span> No subscription</div>
+</div>
+
+</body>
+</html>

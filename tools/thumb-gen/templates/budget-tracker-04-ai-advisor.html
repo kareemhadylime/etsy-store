@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Budget Tracker — Thumbnail 04 AI Advisor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 2000px;
+    height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .eyebrow {
+    position: absolute;
+    top: 110px;
+    left: 90px;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+  }
+  .title {
+    position: absolute;
+    top: 180px;
+    left: 90px;
+    right: 90px;
+    font-size: 130px;
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--surface-white);
+  }
+  .title .accent { color: var(--secondary-warm-gold); }
+  .gold-bar {
+    position: absolute;
+    top: 510px;
+    left: 90px;
+    width: 220px;
+    height: 8px;
+    background: var(--secondary-warm-gold);
+  }
+  .subtitle {
+    position: absolute;
+    top: 560px;
+    left: 90px;
+    right: 90px;
+    font-size: 38px;
+    font-weight: 500;
+    color: var(--surface-white);
+    opacity: 0.7;
+    max-width: 1500px;
+    line-height: 1.35;
+  }
+
+  /* Stack of 3 prompt cards angled */
+  .stack {
+    position: absolute;
+    top: 770px;
+    left: 200px;
+    right: 200px;
+    height: 980px;
+  }
+  .card {
+    position: absolute;
+    width: 1500px;
+    background: var(--surface-white);
+    color: var(--primary-charcoal);
+    border-radius: 18px;
+    padding: 36px 44px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.2);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .card.c1 { top: 0;   left: 0;   transform: rotate(-3deg);  z-index: 3; }
+  .card.c2 { top: 180px; left: 100px; transform: rotate(1deg);   z-index: 2; }
+  .card.c3 { top: 360px; left: 60px;  transform: rotate(-1.5deg); z-index: 1; }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+  }
+  .card-num {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--secondary-warm-gold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .card-tab-pill {
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 999px;
+  }
+  .card-name {
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .card-prompt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+    background: var(--ivory);
+    border-left: 4px solid var(--secondary-warm-gold);
+    padding: 16px 22px;
+    border-radius: 4px;
+  }
+
+  /* Bottom band */
+  .bottom-band {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 160px;
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    padding: 0 90px;
+  }
+  .pill {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    font-size: 26px;
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+  }
+  .bottom-band .label {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">AI Edition · Built for ChatGPT &amp; Claude</div>
+<div class="title">7 AI prompts.<br><span class="accent">No subscription.</span></div>
+<div class="gold-bar"></div>
+<div class="subtitle">Free-tier ready. Paste, replace placeholders, get specific dollar recommendations back.</div>
+
+<div class="stack">
+
+  <div class="card c1">
+    <div class="card-header">
+      <div class="card-num">PROMPT 01</div>
+      <div class="card-tab-pill">💸 Expense Tracker</div>
+    </div>
+    <div class="card-name">Smart Spending Advisor</div>
+    <div class="card-prompt">Find me three non-obvious spending cuts with exact dollar amounts. Don't recommend obvious ones I've already considered. Stay specific. Cite vendors + dollars from my data.</div>
+  </div>
+
+  <div class="card c2">
+    <div class="card-header">
+      <div class="card-num">PROMPT 04</div>
+      <div class="card-tab-pill">📈 Cash Flow Forecast</div>
+    </div>
+    <div class="card-name">Cash Flow Intelligence</div>
+    <div class="card-prompt">Flag any of the next 90 days where I'm projected to dip below my emergency-fund buffer. Tell me why + two specific actions (one delay, one accelerate).</div>
+  </div>
+
+  <div class="card c3">
+    <div class="card-header">
+      <div class="card-num">PROMPT 07</div>
+      <div class="card-tab-pill">🏆 Health Score</div>
+    </div>
+    <div class="card-name">Health Score Coach</div>
+    <div class="card-prompt">Diagnose my 2 weakest components. Give me the top 3 actions for the next 90 days, ranked by point-impact. One obvious-but-wrong action I should avoid.</div>
+  </div>
+
+</div>
+
+<div class="bottom-band">
+  <div class="pill">ChatGPT Free</div>
+  <div class="label">OR</div>
+  <div class="pill">Claude Free</div>
+</div>
+
+</body>
+</html>

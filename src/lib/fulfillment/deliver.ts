@@ -127,49 +127,59 @@ export async function deliverOrderFiles(orderId: string): Promise<DeliveryResult
   for (const item of order.order_items) {
     const product = item.products
     if (!product) continue
-    const file =
-      product.product_files?.find((f) => f.tier === item.tier) ??
-      product.product_files?.[0] ??
-      null
-    if (!file) continue
 
-    // Notion templates ship as a public duplicatable URL — no signing needed.
-    // T011 Phase 1.5 plumbing: format='notion' bypasses Supabase Storage
-    // entirely and uses the stored URL as-is.
-    const isNotion = file.format === 'notion'
-    let deliveryUrl: string | null
-    if (isNotion) {
-      deliveryUrl = file.url
-    } else {
-      deliveryUrl = await generateSignedUrl(supabase, bucket, file.url, expiresInSeconds)
-      if (!deliveryUrl) continue
-      signedCount += 1
+    // All files matching the purchased tier — Budget Tracker AI ships 3
+    // (xlsx + AI PDF + quickstart). Fall back to the first file when nothing
+    // matches the tier (legacy data without proper tier tagging).
+    const allFiles = product.product_files ?? []
+    const tierFiles = allFiles.filter((f) => f.tier === item.tier)
+    const filesToDeliver = tierFiles.length > 0 ? tierFiles : allFiles.slice(0, 1)
+    if (filesToDeliver.length === 0) continue
+
+    let itemDelivered = false
+    for (const file of filesToDeliver) {
+      // Notion templates ship as a public duplicatable URL — no signing needed.
+      // T011 Phase 1.5 plumbing: format='notion' bypasses Supabase Storage
+      // entirely and uses the stored URL as-is.
+      const isNotion = file.format === 'notion'
+      let deliveryUrl: string | null
+      if (isNotion) {
+        deliveryUrl = file.url
+      } else {
+        deliveryUrl = await generateSignedUrl(supabase, bucket, file.url, expiresInSeconds)
+        if (!deliveryUrl) continue
+        signedCount += 1
+      }
+
+      emailItems.push({
+        productName: product.name,
+        tier: item.tier,
+        downloadUrl: deliveryUrl,
+        format: isNotion ? 'notion' : 'file',
+      })
+
+      await fulfillmentLogs.insert({
+        order_id: order.id,
+        type: 'file_link_generated',
+        recipient_email: order.customers.email,
+        file_url: deliveryUrl,
+        expires_at: isNotion ? null : expiresAt,
+        metadata: {
+          product_slug: product.slug,
+          tier: item.tier,
+          file_id: file.id,
+          format: file.format,
+        },
+      })
+
+      itemDelivered = true
     }
 
-    emailItems.push({
-      productName: product.name,
-      tier: item.tier,
-      downloadUrl: deliveryUrl,
-      format: isNotion ? 'notion' : 'file',
-    })
-
-    await fulfillmentLogs.insert({
-      order_id: order.id,
-      type: 'file_link_generated',
-      recipient_email: order.customers.email,
-      file_url: deliveryUrl,
-      expires_at: isNotion ? null : expiresAt,
-      metadata: {
-        product_slug: product.slug,
-        tier: item.tier,
-        file_id: file.id,
-        format: file.format,
-      },
-    })
-
-    await orderItemsTable
-      .update({ delivered_at: new Date().toISOString() })
-      .eq('id', item.id)
+    if (itemDelivered) {
+      await orderItemsTable
+        .update({ delivered_at: new Date().toISOString() })
+        .eq('id', item.id)
+    }
   }
 
   if (emailItems.length === 0) {

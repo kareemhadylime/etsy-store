@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Budget Tracker — AI Money Advisor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== Premium Finance House — palette ===== */
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  @page {
+    size: Letter portrait;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ===== Page wrapper — every page is 8.5x11 with manual page break ===== */
+  .page {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.55in 0.6in 0.5in 0.6in;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+    background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* ===== COVER PAGE (page 1) ===== */
+  .cover {
+    background: var(--background-off-white);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-body {
+    flex: 1;
+    padding: 2.2in 0.9in 0 0.9in;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-eyebrow {
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.32in;
+  }
+  .cover-title {
+    font-size: 48pt;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.28in;
+  }
+  .cover-gold-underline {
+    width: 1.6in;
+    height: 3px;
+    background: var(--secondary-warm-gold);
+    margin-bottom: 0.32in;
+  }
+  .cover-subtitle {
+    font-size: 16pt;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--secondary-warm-gold);
+    line-height: 1.3;
+    max-width: 5.2in;
+  }
+  .cover-bottom-band {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.32in 0.9in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10pt;
+    margin-top: auto;
+  }
+  .cover-bottom-band .wordmark {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .cover-bottom-band .meta {
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  /* ===== INTRO / TIPS / BACK COVER shared layout ===== */
+  .content-header {
+    font-size: 28pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--primary-charcoal);
+    line-height: 1.15;
+    margin-bottom: 0.12in;
+  }
+  .content-divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 2.4in;
+    margin-bottom: 0.24in;
+  }
+  .content-body p {
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.13in;
+  }
+  .content-body .sub-section {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--secondary-warm-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.16in;
+    margin-bottom: 0.07in;
+  }
+  .content-body ol,
+  .content-body ul {
+    padding-left: 0.28in;
+    margin-bottom: 0.13in;
+  }
+  .content-body li {
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.05in;
+  }
+  .content-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .content-body ul.bullets li {
+    padding-left: 0.22in;
+    position: relative;
+  }
+  .content-body ul.bullets li::before {
+    content: '•';
+    color: var(--secondary-warm-gold);
+    font-weight: 700;
+    position: absolute;
+    left: 0.06in;
+  }
+  .content-body strong { font-weight: 600; }
+
+  /* ===== PROMPT PAGE layout (pages 3-9) ===== */
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.18in;
+  }
+  .page-title {
+    font-size: 24pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--primary-charcoal);
+    line-height: 1.15;
+  }
+  .tab-callout {
+    background: var(--secondary-warm-gold);
+    color: var(--surface-white);
+    font-size: 10pt;
+    font-weight: 600;
+    padding: 6pt 14pt;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .tab-callout .emoji { margin-right: 4pt; }
+
+  .divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 2.4in;
+    margin-bottom: 0.16in;
+  }
+
+  .section-label {
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.06in;
+  }
+
+  .prompt-card {
+    background: var(--surface-white);
+    border: 1px solid var(--primary-charcoal);
+    border-radius: 4pt;
+    padding: 0.16in 0.2in;
+    margin-bottom: 0.16in;
+    font-family: 'JetBrains Mono', 'Inter', monospace;
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .prompt-card strong { font-weight: 600; }
+  .prompt-card .num {
+    color: var(--secondary-warm-gold);
+    font-weight: 600;
+  }
+
+  .example-card {
+    background: var(--ivory);
+    border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.12in 0.18in;
+    font-size: 7.5pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+  }
+  .example-card .label {
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--status-warning);
+    margin-bottom: 3pt;
+  }
+  .example-card .input-block,
+  .example-card .output-block { margin-bottom: 0.07in; }
+  .example-card .sub-label {
+    font-weight: 600;
+    color: var(--primary-charcoal);
+    margin-top: 0.05in;
+    margin-bottom: 1pt;
+  }
+  .example-card p { margin-bottom: 0.025in; }
+  .example-card .ranked-item { margin-bottom: 0.04in; }
+  .example-card strong { font-weight: 600; }
+
+  /* ===== Footer (used on most pages) ===== */
+  .footer {
+    position: absolute;
+    bottom: 0.32in;
+    left: 0.6in;
+    right: 0.6in;
+    font-size: 8.5pt;
+    font-style: italic;
+    color: var(--primary-charcoal);
+    opacity: 0.6;
+    text-align: right;
+    border-top: 1px solid var(--neutral-grid);
+    padding-top: 0.07in;
+  }
+
+  /* ===== BACK COVER (page 11) ===== */
+  .back-cover {
+    background: var(--background-off-white);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .back-body {
+    flex: 1;
+    padding: 1.8in 0.9in 0 0.9in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .back-pull-quote {
+    font-size: 22pt;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--primary-charcoal);
+    max-width: 5.2in;
+    margin-bottom: 0.45in;
+  }
+  .back-gold-underline {
+    width: 1.2in;
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    margin-bottom: 0.45in;
+  }
+  .back-mid {
+    font-size: 11pt;
+    line-height: 1.6;
+    color: var(--primary-charcoal);
+    max-width: 5in;
+    margin-bottom: auto;
+  }
+  .back-signoff {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-top: 0.3in;
+  }
+  .back-footer-panel {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.32in 0.9in;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    margin-top: auto;
+  }
+  .back-footer-panel .row-1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.14in;
+    font-weight: 600;
+  }
+  .back-footer-panel .row-1 .meta {
+    opacity: 0.7;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .back-footer-panel p {
+    opacity: 0.85;
+    font-size: 8.5pt;
+    line-height: 1.5;
+  }
+  .back-footer-panel .page-num {
+    text-align: right;
+    margin-top: 0.12in;
+    opacity: 0.6;
+    font-style: italic;
+    font-size: 8.5pt;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================== -->
+<!-- PAGE 1 — COVER                                                 -->
+<!-- ============================================================== -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Budget Tracker · AI Edition</div>
+    <div class="cover-title">AI Money<br>Advisor</div>
+    <div class="cover-gold-underline"></div>
+    <div class="cover-subtitle">Seven prompts. Two AI tools.<br>One budget you can actually run.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark">PREMIUM FINANCE STUDIO</div>
+    <div class="meta">budget-tracker · v1.0</div>
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 2 — INTRO / How to use these prompts                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <h1 class="content-header">How to use these prompts</h1>
+  <div class="content-divider"></div>
+
+  <div class="content-body">
+    <p>Seven questions every budget hits at least once. Seven prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.</p>
+
+    <p>These aren't generic. Each prompt is built to pair with a specific tab in your Budget Tracker. You'll see the tab name on each page — paste the prompt, fill in the placeholders from that tab, send.</p>
+
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (Smart Spending Advisor, Cash Flow Intelligence, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the <strong>[PLACEHOLDERS]</strong> with your data from that tab.</li>
+      <li>Read the worked example on the same page to know what good output looks like.</li>
+    </ol>
+
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) <strong>OR</strong> a Claude account (free tier works)</li>
+      <li>Your Budget Tracker open in another window</li>
+      <li>10 minutes the first time; ~3 minutes once you're used to the flow</li>
+    </ul>
+
+    <div class="sub-section">What this PDF won't do</div>
+    <p>It won't run prompts for you. You paste. You read. You decide. The AI suggests; you choose. That separation is on purpose — your money, your call.</p>
+
+    <p>Your bank credentials never enter any AI tool. The prompts only ever see what you paste — usually summary numbers, not transaction-level data. None of it sends back to us; everything happens in your own AI account.</p>
+
+    <p style="margin-top: 0.18in; font-style: italic; color: var(--secondary-warm-gold);">Turn the page when you're ready.</p>
+  </div>
+
+  <div class="footer">2 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 3 — PROMPT 1: Smart Spending Advisor                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">1. Smart Spending Advisor</div>
+    <div class="tab-callout"><span class="emoji">💸</span>Pairs with: Expense Tracker</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are helping me find spending cuts in my budget. Be specific. Don't recommend obvious cuts I've already considered (cancel Netflix, eat out less). Find non-obvious patterns.
+
+LAST 30 DAYS OF EXPENSE DATA (paste from Expense Tracker, sorted by date):
+
+[PASTE TABLE: Date · Category · Vendor · Amount]
+
+TARGET CUT: $[amount]/month
+HOUSEHOLD CONTEXT: income $[amount]/month, region [city], household size [number]
+
+Find me three things:
+
+<span class="num">1.</span> THREE RANKED SPENDING CUTS with exact dollar amounts, ordered by least-painful first. Each cut should name a specific pattern (not a category) — e.g., "$340/month spent on $8–12 lunch deliveries 3–4 times a week" not "reduce dining."
+
+<span class="num">2.</span> ONE NON-OBVIOUS PATTERN you noticed — something that looks fine on the surface but is actually a leak (subscription that auto-renewed at a higher rate, vendor I'm being charged at twice, "category creep" where one category gradually expanded).
+
+<span class="num">3.</span> ONE CATEGORY I'M UNDER-SPENDING ON that might be hurting me long-term (no savings, no emergency fund, no professional development).
+
+Stay specific. Cite vendors + dollar amounts from my data.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input (excerpt)</div>
+      <p>Whole Foods · Groceries · $87 · Apr 3</p>
+      <p>Uber Eats · Dining · $11.50 · Apr 4</p>
+      <p>Uber Eats · Dining · $9.20 · Apr 5</p>
+      <p>Uber Eats · Dining · $14.10 · Apr 7</p>
+      <p>... [continues, lots of small dining]</p>
+      <p>Spotify Family · Subscriptions · $16.99 (auto-renewed; was $9.99) · Apr 12</p>
+      <p>Whole Foods · Groceries · $124 · Apr 17</p>
+      <p style="margin-top: 0.05in;"><em>Target cut: $400/mo. Income: $5,200/mo, NYC, single household.</em></p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Three Ranked Cuts:</div>
+      <div class="ranked-item"><strong>1. Lunch delivery habit ($380/mo)</strong> — 14 Uber Eats orders averaging $11.50 = ~$160 last month; you're on pace for ~$380. Bring lunch 3 days/week → $230 saved.</div>
+      <div class="ranked-item"><strong>2. Groceries front-of-store impulse buys ($120/mo)</strong> — 6 of 8 grocery trips ended with a $40+ receipt for what feels like staples. Going with a list → ~$120 saved.</div>
+      <div class="ranked-item"><strong>3. Spotify Family auto-renewal upcharge ($7/mo)</strong> — went from $9.99 to $16.99 on April 12. You're not using the family slots. Cancel + restart at solo $11.99 → $5/mo saved.</div>
+      <div class="sub-label">Non-obvious Pattern:</div>
+      <p>Coffee shop visits jumped from 4 to 11/week starting March 18. Looks like a habit forming. Currently $44/mo, on track for $120/mo by August if pattern holds.</p>
+      <div class="sub-label">Under-spending:</div>
+      <p>Emergency fund. Last month you added $0. With your income, $260/mo is the floor for getting to 3 months coverage in 18 months.</p>
+    </div>
+  </div>
+
+  <div class="footer">3 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 4 — PROMPT 2: Scenario Simulator                          -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">2. Scenario Simulator</div>
+    <div class="tab-callout"><span class="emoji">📈</span>Pairs with: Cash Flow Forecast</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are modeling the 12-month impact of three changes I'm considering. Show me how each plays out.
+
+CURRENT SITUATION:
+Monthly income (take-home): $[amount]
+Monthly fixed expenses: $[amount]
+Monthly variable expenses (3-month avg): $[amount]
+Current savings rate: [%]
+Current emergency fund: $[amount]
+Active debt: $[amount] at avg [%] APR
+Other context: [age / kids / housing / etc.]
+
+CHANGES I'M CONSIDERING:
+<span class="num">1.</span> [Describe — e.g., "raise rent by $300/mo for a better place"]
+<span class="num">2.</span> [Describe — e.g., "drop one coffee subscription saving $50/mo"]
+<span class="num">3.</span> [Describe — e.g., "take on $400/mo car payment, sell current car"]
+
+For each change:
+• 12-month $ delta (positive = saved, negative = spent)
+• Effect on savings rate (percentage points)
+• Effect on emergency fund timeline (months sooner/later to 3-month target)
+• One non-obvious second-order effect
+
+Then tell me which combination(s) work together, and which create the most stable next-year trajectory. Skip "talk to a financial advisor."</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Income $5,200/mo. Fixed $2,800. Variable $1,400. Savings rate 19%. EF $4,200. Debt $0. 32, no kids, renting in Brooklyn.</p>
+      <p><strong>Changes:</strong> (1) Raise rent $300/mo for a better apartment, (2) Drop coffee subscription saving $50/mo, (3) Take on $400/mo car payment + sell current car at $1,200 trade-in value.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output (abbreviated)</div>
+      <div class="ranked-item"><strong>Change 1 (rent +$300):</strong> 12-mo cost = −$3,600. Savings rate drops to 13.2%. EF timeline pushes back 5 months. <em>2nd-order:</em> rent ratcheting — most landlords raise yearly, so this becomes the new floor.</div>
+      <div class="ranked-item"><strong>Change 2 (drop coffee, save $50):</strong> 12-mo gain = +$600. Savings rate up to 20%. EF 1 month sooner. <em>2nd-order:</em> tiny vs. the others.</div>
+      <div class="ranked-item"><strong>Change 3 (car payment $400 + sell at $1,200):</strong> 12-mo cost = −$2,400. Savings rate drops to 14.4%. EF pushes back 4 months. <em>2nd-order:</em> insurance + parking + registration usually means real monthly cost is $500–600, not $400.</div>
+      <div class="sub-label">Combinations:</div>
+      <p>All three together: −$5,400, savings rate 8.6%. <strong>Doesn't work.</strong></p>
+      <p>Just Change 1: tight but doable. Change 1 + 2: most stable — the coffee drop offsets ~$600 of the rent increase.</p>
+      <div class="sub-label">Recommendation:</div>
+      <p>Change 1 + 2 only. Defer Change 3 to year 2 after EF hits 3 months.</p>
+    </div>
+  </div>
+
+  <div class="footer">4 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 5 — PROMPT 3: Bill Negotiation Scripts                    -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">3. Bill Negotiation Scripts</div>
+    <div class="tab-callout"><span class="emoji">🔁</span>Pairs with: Recurring Templates</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">Write me a negotiation script for [VENDOR — e.g., my internet provider, cell phone carrier, gym, insurance company, cable, etc.]. I want to lower the bill without losing the service.
+
+VENDOR: [name]
+SERVICE TYPE: [internet / phone / gym / insurance / cable / streaming bundle / etc.]
+CURRENT BILL: $[amount]/month
+MY TARGET BILL: $[amount]/month (or specify "any reduction")
+HOW LONG I'VE BEEN A CUSTOMER: [months/years]
+WHY I'M NEGOTIATING: [bill went up / saw competitor offer / generally too expensive]
+MY LEVERAGE: [competitor offer I have / long-time customer / bundling considerations / etc.]
+MEDIUM: [phone call to retention dept / chat / email / in-person]
+
+Give me:
+<span class="num">1.</span> THE OPENING — first 30 seconds of the script. Friendly but clear.
+<span class="num">2.</span> THE SPECIFIC ASK — exactly what number to request.
+<span class="num">3.</span> THREE FALLBACK POSITIONS — if they say no to the first ask.
+<span class="num">4.</span> THE WALK-AWAY POINT — the specific number below which I cancel.
+<span class="num">5.</span> WHAT TO SAY IF THEY OFFER A CONTRACT EXTENSION OR LOCK-IN.
+
+Tone: warm, not whiny. Don't lead with "your bill is too high." Lead with the situation.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p><strong>Vendor:</strong> Spectrum internet. <strong>Service:</strong> 400/20 Mbps cable. <strong>Current:</strong> $89/mo. <strong>Target:</strong> $59/mo (saw Verizon Fios offer). <strong>Customer:</strong> 4 years. <strong>Leverage:</strong> Verizon Fios offer in writing. <strong>Medium:</strong> retention phone call.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Opening (30 sec):</div>
+      <p>"Hi [name], I've been with Spectrum for four years and I'm calling because I just received a Verizon Fios offer for similar service at $59/month. Before I switch, I wanted to give you the chance to match or beat — what can you do?"</p>
+      <div class="sub-label">Specific Ask:</div>
+      <p>"$59/month for 12 months. No contract. Same 400/20 plan."</p>
+      <div class="sub-label">Fallback 1 (if they offer $69):</div>
+      <p>"Closer. Can we get to $59 by either dropping the modem rental ($15/mo) since I have my own, or extending the promo to 24 months?"</p>
+      <div class="sub-label">Fallback 2:</div>
+      <p>"OK, what's your loyalty offer? Most retention departments have something below standard for 4-year customers."</p>
+      <div class="sub-label">Fallback 3:</div>
+      <p>"Let me think about it overnight and call back. Can you note my account?" (Pressures them — retention has escalation tiers.)</p>
+      <div class="sub-label">Walk-away:</div>
+      <p>$75/mo. Above that, switch to Verizon.</p>
+      <div class="sub-label">On contract extension:</div>
+      <p>"I'll commit to 12 months only. No 24-month contracts — too much can change in 2 years."</p>
+    </div>
+  </div>
+
+  <div class="footer">5 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 6 — PROMPT 4: Cash Flow Intelligence                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">4. Cash Flow Intelligence</div>
+    <div class="tab-callout"><span class="emoji">📈</span>Pairs with: Cash Flow Forecast</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are looking at my next 90 days of cash flow. Flag any months where I'm projected to dip below my emergency-fund buffer. Recommend specific actions.
+
+INCOMING (next 90 days):
+• Regular paychecks: [dates + amounts]
+• Expected one-off income: [tax refund / bonus / freelance / etc.]
+
+OUTGOING (next 90 days):
+• Recurring monthly bills (paste from Recurring Templates): [list]
+• Known one-off expenses (paste from Bill Calendar): [list]
+• Variable spending estimate (3-month avg): $[amount]/month
+
+CURRENT ACCOUNT BALANCE: $[amount]
+EMERGENCY FUND BUFFER (cash I won't touch): $[amount]
+DANGER THRESHOLD: $[amount] — flag any month where balance projected to dip below this
+
+For each danger month:
+<span class="num">1.</span> The projected low point (date + balance)
+<span class="num">2.</span> WHY it happens (which expense + which timing)
+<span class="num">3.</span> TWO SPECIFIC ACTIONS to fix — one that delays a discretionary expense, one that accelerates an income event
+<span class="num">4.</span> The "if I do nothing" downside
+
+Use concrete dates and dollar amounts. Don't say "watch your spending."</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Today: Apr 1. Balance: $3,200. Buffer: $2,000. Danger: $2,400. Paychecks: $2,400 on Apr 15, May 1, May 15, Jun 1, Jun 15. Variable $1,400/mo. Bills: Rent $1,800 (1st), Internet $89 (15th), Phone $65 (20th), Gym $45 (28th). One-off: $200 wedding gift May 5, $720 car insurance renewal May 18. Expected tax refund $1,200 around May 20.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Danger Month: May 18–19</div>
+      <p><strong>Projected low:</strong> $2,140 on May 18 (after car insurance hits).</p>
+      <p><strong>Why:</strong> Car insurance $720 lands same week as Internet $89, Phone $65, and $200 wedding gift on May 5. Tax refund expected May 20 but uncertain timing.</p>
+      <div class="sub-label">Two Fixes:</div>
+      <div class="ranked-item"><strong>1. Delay —</strong> Pay car insurance May 25 instead of May 18; most insurers allow 10-day grace. Or convert annual → monthly ($60/mo) at next renewal. Low point becomes $2,860, well above threshold.</div>
+      <div class="ranked-item"><strong>2. Accelerate —</strong> File tax return now. IRS direct deposit averages 21 days, so filing by Apr 28 lands refund around May 19. May 18 dip becomes one-day pain.</div>
+      <div class="sub-label">Do Nothing Downside:</div>
+      <p>1-day dip below buffer. If refund delays past May 25, you're at $1,940 — below buffer with another paycheck not until Jun 1. An unrelated car repair or medical bill in that 12-day window = overdraft fees + EF touch.</p>
+    </div>
+  </div>
+
+  <div class="footer">6 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 7 — PROMPT 5: Annual Money Review                         -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">5. Annual Money Review</div>
+    <div class="tab-callout"><span class="emoji">📊</span>Pairs with: Annual Summary</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are writing my year-end money review. Look across the full 12 months and tell me what changed.
+
+ANNUAL DATA (paste from Annual Summary tab):
+Total income: $[amount]
+Total expenses: $[amount]
+Savings rate: [%]
+Year-end emergency fund: $[amount] (vs. year-start: $[amount])
+Top 5 categories by spend: [list with $ each]
+Top 5 vendors by spend: [list with $ each]
+Subscription audit (cancelled / new / kept): [list]
+Big purchases (>$300): [list with $ + date + reason]
+YoY comparison: [savings rate change · income change · top-category shifts]
+
+Give me:
+<span class="num">1.</span> THREE WINS (better than I'd have guessed at year-start). Be specific.
+<span class="num">2.</span> THREE MISSES (off track). Don't be soft.
+<span class="num">3.</span> THREE LESSONS (structural observations, not platitudes).
+<span class="num">4.</span> THREE PRIORITIES NEXT YEAR (specific $ + categories, not "save more").
+<span class="num">5.</span> ONE THING TO WATCH (metric not a priority yet but could become one).
+
+Keep each section under 80 words. No motivational ending.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Income $62,000. Expenses $48,400. Savings rate 22% (from 14%). EF $3,800 → $6,400. Top categories: Rent $18k · Groceries $5.2k · Dining $3.4k · Transport $2.8k · Subs $1.15k. Subs: cancelled Hulu+WSJ ($28/mo), added Notion AI+Claude Pro ($30/mo). Big: $1,400 coat, $900 Vermont trip, $480 running shoes.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Wins:</div>
+      <p>Savings rate jumped 8 points despite barely changing spending — income increase landed mostly in savings, not lifestyle creep. Subscription audit caught Hulu auto-renewal at higher rate. Dining dropped $700, consistent shift from May (cook-Sundays habit).</p>
+      <div class="sub-label">Misses:</div>
+      <p>EF hit $6,400 of $7,500 target. Last 4 months EF contributions stopped — likely diverted to Vermont + coat. Running shoes cost $480 across 3 purchases. Transport up $700 — Uber, not gas. Habit forming.</p>
+      <div class="sub-label">Lessons:</div>
+      <p>Income increases without renegotiation default to savings — keep that. Big purchases ($1,400 coat + $900 trip) sequenced badly with annual expenses. Subscriptions need quarterly audit, not annual.</p>
+      <div class="sub-label">Priorities:</div>
+      <p>Finish EF: $1,100 to go, target end-March. Cap "discretionary one-offs" at $2,500/year (last year ~$2,800). Investigate transport jump — switch back to subway-default.</p>
+      <div class="sub-label">Watch:</div>
+      <p>AI tool subscriptions $30/mo. If you use them, fine. If not, this is the next subscription audit.</p>
+    </div>
+  </div>
+
+  <div class="footer">7 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 8 — PROMPT 6: Category Advisor                            -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">6. Category Advisor</div>
+    <div class="tab-callout"><span class="emoji">📂</span>Pairs with: Expense Categories</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are looking at my expense categories and comparing them to typical-household benchmarks. Tell me where I'm over-spending vs. typical, under-spending vs. typical, and which categories I should actually care about.
+
+MY MONTHLY EXPENSE BREAKDOWN (paste from Expense Categories, 3-month avg):
+[Category | $ this month | $ as % of income | Notes]
+
+MY HOUSEHOLD CONTEXT:
+• Monthly income (take-home): $[amount]
+• Region: [city, state]
+• Household size: [number]
+• Age range: [your age decade]
+• Housing situation: [renting / owning / w/parents / etc.]
+
+For each category I list:
+<span class="num">1.</span> TYPICAL RANGE for my context (BLS data, Fed surveys — rough percentages)
+<span class="num">2.</span> WHERE I FALL — under, at, or over typical
+<span class="num">3.</span> WHETHER IT MATTERS — some categories don't move the dial even when "over"
+
+Then recommend:
+• ONE CATEGORY to investigate first (biggest gap, easiest to address)
+• ONE CATEGORY I'm under that might be hurting me long-term
+• ONE CATEGORY where I'm "over" but it's fine (some over-spend is rational)
+
+Skip the "consult a financial advisor" close.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Income $5,200/mo. Bay Area, single, 32, renting. Housing $2,200 (42%) · Groceries $480 (9%) · Dining $340 (7%) · Transport $180 (3%) · Subs $95 (1.8%) · Health $140 (2.7%) · Personal $90 (1.7%) · Savings/EF $0 (0%) · 401k $260 (5%) · Charity $0.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Per-category analysis:</div>
+      <p><strong>Housing 42%</strong> — Bay Area typical 30–45% single. At typical.</p>
+      <p><strong>Groceries 9%</strong> — typical 8–12%. At typical. Minor.</p>
+      <p><strong>Dining 7%</strong> — typical 5–8% for your decade. At typical.</p>
+      <p><strong>Transport 3%</strong> — LOW. Typical 8–15% (car-owner) or 4–6% (transit). Fine — you're transit-dependent.</p>
+      <p><strong>Health 2.7%</strong> — LOW. Typical 4–8%. Either under-insured, under-investing in preventive, or genuinely healthy.</p>
+      <p><strong>Savings/EF 0% — RED FLAG.</strong> Typical 5–15%. Not building any buffer.</p>
+      <p><strong>Retirement 5%</strong> — low end of typical 5–15%.</p>
+      <div class="sub-label">Investigate first:</div>
+      <p>Savings/EF. Healthy savings via retirement (5%) but zero EF flow. A car repair puts you in debt.</p>
+      <div class="sub-label">Under but hurting:</div>
+      <p>Same — EF. 0% means 401k contributions are at risk if you lose your job.</p>
+      <div class="sub-label">Over but fine:</div>
+      <p>Housing — Bay Area at 42% is fine for a single income. Trying to "save" by getting a worse apartment usually backfires in commute creep.</p>
+    </div>
+  </div>
+
+  <div class="footer">8 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 9 — PROMPT 7: Health Score Coach                          -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">7. Health Score Coach</div>
+    <div class="tab-callout"><span class="emoji">🏆</span>Pairs with: Financial Health Score</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are coaching me on my Financial Health Score. Tell me why it's what it is, and the top 3 actions that would raise it most over the next 90 days.
+
+CURRENT HEALTH SCORE: [score]/100
+
+COMPONENT BREAKDOWN (paste from Financial Health Score tab):
+• Savings rate (25% weight): [score]/100, current rate [%]
+• Emergency fund (25% weight): [score]/100, current $[amount], target $[amount]
+• Debt-to-income (20% weight): [score]/100, current [%], total debt $[amount]
+• Credit utilization (15% weight): [score]/100, current [%]
+• On-time bill rate (15% weight): [score]/100, current [%]
+
+MY CONSTRAINTS:
+Monthly income: $[amount] · Fixed: $[amount] · Discretionary: $[amount]
+Anything I should know: [job change / family event / etc.]
+
+Tell me:
+<span class="num">1.</span> WHY my Health Score is what it is — diagnose the 2 weakest components.
+<span class="num">2.</span> TOP 3 ACTIONS for the next 90 days, ranked by point-impact. Each: what to do, expected point gain, $ cost, timeline.
+<span class="num">3.</span> ONE ACTION I MIGHT CONSIDER OBVIOUS BUT IS ACTUALLY WRONG for my situation.
+<span class="num">4.</span> WHAT I'D NEED TO DO to hit 80+ within 12 months. Specific monthly path.
+
+Use real numbers. Skip aspirational pep talk.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Score: 47/100. Savings 38 (9%, target 15%). EF 28 ($2,400 of $7,800). DTI 72 (16% ratio, $11k @ 14%). Utilization 41 (44% across 3 cards). On-time 92 (1 missed in 12mo). Income $4,800, Fixed $3,200, Discretionary $1,600. Recently job-changed, income stable.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Why 47:</div>
+      <p>Two weakest: EF (28) and Utilization (41). EF at 31% of target; would take ~18mo at $300/mo. Utilization at 44% hurts FICO (penalizes above 30%) AND raises monthly interest.</p>
+      <div class="sub-label">Top 3 Actions:</div>
+      <div class="ranked-item"><strong>1. Pay credit cards to 28% utilization</strong> — $700 payment. <strong>+14 points</strong> (utilization 41→75). One-time, this month.</div>
+      <div class="ranked-item"><strong>2. Automate $300/mo to EF</strong> — <strong>+10 points</strong> over 90 days. Shift from discretionary. Ongoing.</div>
+      <div class="ranked-item"><strong>3. Raise savings rate 9% → 12%</strong> — <strong>+5 points</strong>. $144/mo from discretionary. Ongoing.</div>
+      <p style="margin-top: 0.04in;">Combined 90-day impact: ~+29 points → <strong>76/100</strong>. Within reach of 80+.</p>
+      <div class="sub-label">Obvious but wrong:</div>
+      <p>"Pay off all debt first before building EF." Common but wrong for you — your debt is 14% (not crisis) and EF is 31% (crisis-vulnerable). Build EF to 1-month coverage first, then attack debt.</p>
+      <div class="sub-label">Path to 80+:</div>
+      <p>Months 1–3: Actions above → 76. Months 4–9: $300/mo EF + $100/mo extra debt → EF $4,800, debt ~$8,000 → 82. Months 10–12: hold at 82–84.</p>
+    </div>
+  </div>
+
+  <div class="footer">9 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 10 — TIPS: Which AI should I use?                         -->
+<!-- ============================================================== -->
+<div class="page">
+  <h1 class="content-header">Which AI should I use?</h1>
+  <div class="content-divider"></div>
+
+  <div class="content-body">
+    <p>All seven prompts work in free tiers. The differences are output style, input length, and how well the AI handles structured-data pastes.</p>
+
+    <div class="sub-section">ChatGPT Free</div>
+    <p><strong>Best for:</strong> Smart Spending Advisor, Bill Negotiation Scripts, Annual Money Review, Category Advisor. Conversational tone; good at editing on follow-up ("make this shorter," "more direct," "less corporate").</p>
+    <p><strong>Limit:</strong> ~3,000–4,000 word context per message. If your expense data is huge, paste in batches.</p>
+
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p><strong>Best for:</strong> Scenario Simulator, Cash Flow Intelligence, Health Score Coach. Handles longer structured input (expense lists, multiple scenarios) cleanly. Better at table-formatted output.</p>
+    <p><strong>Limit:</strong> Conversation limits per day on free tier. If you hit a wall, switch to ChatGPT for the next prompt.</p>
+
+    <div class="sub-section">Paid tiers (ChatGPT Plus, Claude Pro)</div>
+    <p>Worth it if you're actively running the budget weekly. Skip if monthly.</p>
+
+    <div class="sub-section">Universal tips</div>
+    <ol>
+      <li><strong>Paste as text, not screenshots.</strong> Free-tier AI doesn't read budget screenshots well.</li>
+      <li><strong>Never paste account numbers, full SSN, or passwords.</strong> Use placeholders ("$5,000 in checking" not "$5,000 in account 1234567890").</li>
+      <li><strong>Iterate.</strong> First response is rarely the keeper. "Make it shorter" / "be more specific" / "rerun with this new constraint" — the AI revises on request.</li>
+      <li><strong>Save what works.</strong> Found a great negotiation script? Paste it into your spreadsheet's Notes column so it doesn't disappear with the conversation.</li>
+    </ol>
+
+    <p style="margin-top: 0.14in; font-style: italic; opacity: 0.75;">Your budget data never leaves your AI conversation. ChatGPT and Claude don't see your spreadsheet — only what you paste, and only during that chat.</p>
+  </div>
+
+  <div class="footer">10 / 11 · AI Money Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 11 — BACK COVER                                           -->
+<!-- ============================================================== -->
+<div class="page back-cover">
+  <div class="back-body">
+    <div class="back-pull-quote">A budget is a decision tool.<br>Run it weekly.</div>
+    <div class="back-gold-underline"></div>
+    <div class="back-mid">
+      Seven prompts. Maybe an hour a month using them. Saves the alternative of paying $109/year to YNAB to make these same decisions slightly more automated in someone else's UI.
+    </div>
+    <div class="back-signoff">Your money. Your sheet. Your call.</div>
+  </div>
+  <div class="back-footer-panel">
+    <div class="row-1">
+      <span>Budget Tracker · AI Edition</span>
+      <span class="meta">v1.0</span>
+    </div>
+    <p>12-month free updates included. Support replies within 24 hours.</p>
+    <p>AI prompts work in ChatGPT and Claude (free or paid tiers — your choice).</p>
+    <div class="page-num">11 / 11</div>
+  </div>
+</div>
+
+</body>
+</html>

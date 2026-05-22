@@ -193,6 +193,52 @@ describe('deliverOrderFiles', () => {
     )
   })
 
+  it('delivers all tier-matching files when a product has multiple (Budget Tracker AI Edition)', async () => {
+    single.mockResolvedValueOnce({
+      data: {
+        id: 'order-bt-ai',
+        total: 29,
+        customer_id: 'cust-bt',
+        customers: { email: 'buyer@example.com', name: 'Sam' },
+        order_items: [
+          {
+            id: 'oi-bt-ai',
+            tier: 'ai',
+            product_id: 'p-bt',
+            products: {
+              id: 'p-bt',
+              name: 'Budget Tracker',
+              slug: 'budget-tracker',
+              product_files: [
+                { id: 'f-xlsx',   tier: 'ai',         url: 'budget-tracker/ai/budget-tracker-ai-edition.xlsx', format: 'sheets', label: 'BT AI xlsx' },
+                { id: 'f-pdf',    tier: 'ai',         url: 'budget-tracker/ai/ai-money-advisor.pdf',           format: 'pdf',    label: 'AI Money Advisor' },
+                { id: 'f-qs',     tier: 'ai',         url: 'budget-tracker/quickstart.pdf',                    format: 'pdf',    label: 'Quick Start' },
+                // Files for other tiers should be filtered out
+                { id: 'f-essxlsx', tier: 'essentials', url: 'budget-tracker/essentials/x.xlsx',               format: 'sheets', label: 'should be excluded' },
+              ],
+            },
+          },
+        ],
+      },
+      error: null,
+    })
+    createSignedUrl
+      .mockResolvedValueOnce({ data: { signedUrl: 'https://example.com/signed/xlsx' }, error: null })
+      .mockResolvedValueOnce({ data: { signedUrl: 'https://example.com/signed/ai-pdf' }, error: null })
+      .mockResolvedValueOnce({ data: { signedUrl: 'https://example.com/signed/qs' }, error: null })
+
+    const { deliverOrderFiles } = await import('../deliver')
+    const result = await deliverOrderFiles('order-bt-ai')
+
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.signed_links).toBe(3) // all 3 ai-tier files signed
+    expect(createSignedUrl).toHaveBeenCalledTimes(3) // essentials file filtered out
+    expect(fulfillInsert).toHaveBeenCalledTimes(4) // 3 file_link_generated + 1 email_sent
+    expect(orderItemsUpdateEq).toHaveBeenCalledTimes(1) // delivered_at set once per item, not per file
+    expect(orderItemsUpdateEq).toHaveBeenCalledWith('id', 'oi-bt-ai')
+  })
+
   it('handles a mixed order with both file and notion items', async () => {
     single.mockResolvedValueOnce({
       data: {

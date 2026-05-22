@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Budget Tracker — Thumbnail 02 Health Score</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 2000px;
+    height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .eyebrow {
+    position: absolute;
+    top: 100px;
+    left: 90px;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+  }
+  .title {
+    position: absolute;
+    top: 170px;
+    left: 90px;
+    right: 90px;
+    font-size: 96px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    color: var(--primary-charcoal);
+    max-width: 1700px;
+  }
+  .gold-bar {
+    position: absolute;
+    top: 410px;
+    left: 90px;
+    width: 220px;
+    height: 8px;
+    background: var(--secondary-warm-gold);
+  }
+
+  /* Big central gauge */
+  .gauge-wrap {
+    position: absolute;
+    top: 530px;
+    left: 90px;
+    width: 780px;
+    height: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .gauge-label {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 30px;
+  }
+  .gauge-big {
+    width: 640px;
+    height: 640px;
+    border-radius: 50%;
+    background:
+      conic-gradient(
+        var(--status-success) 0deg 230deg,
+        var(--neutral-grid) 230deg 360deg
+      );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(31,42,51,0.12);
+  }
+  .gauge-big::after {
+    content: '';
+    position: absolute;
+    inset: 60px;
+    background: var(--surface-white);
+    border-radius: 50%;
+  }
+  .gauge-num {
+    font-size: 240px;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    color: var(--primary-charcoal);
+    z-index: 1;
+    line-height: 1;
+  }
+  .gauge-suffix {
+    position: absolute;
+    bottom: 165px;
+    right: 145px;
+    font-size: 42px;
+    font-weight: 500;
+    color: var(--primary-charcoal);
+    opacity: 0.5;
+    z-index: 1;
+  }
+  .gauge-caption {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    margin-top: 36px;
+    letter-spacing: -0.01em;
+  }
+  .gauge-delta {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--status-success);
+    margin-top: 8px;
+  }
+
+  /* Right column — 5 component breakdown */
+  .components {
+    position: absolute;
+    top: 530px;
+    right: 90px;
+    width: 980px;
+  }
+  .components-header {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 30px;
+  }
+  .comp-row {
+    background: var(--surface-white);
+    border: 1px solid var(--neutral-grid);
+    border-radius: 14px;
+    padding: 26px 30px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 1fr 80px 220px 90px;
+    gap: 22px;
+    align-items: center;
+    box-shadow: 0 6px 14px rgba(31,42,51,0.04);
+  }
+  .comp-name {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--primary-charcoal);
+    letter-spacing: -0.01em;
+  }
+  .comp-weight {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primary-charcoal);
+    opacity: 0.5;
+    text-align: right;
+  }
+  .comp-track {
+    background: var(--ivory);
+    height: 18px;
+    border-radius: 9px;
+    overflow: hidden;
+  }
+  .comp-fill {
+    height: 100%;
+    border-radius: 9px;
+  }
+  .comp-fill.success { background: var(--status-success); }
+  .comp-fill.warning { background: var(--status-warning); }
+  .comp-fill.alert { background: var(--status-alert); }
+  .comp-fill.gold { background: var(--secondary-warm-gold); }
+  .comp-score {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    text-align: right;
+    letter-spacing: -0.02em;
+  }
+
+  /* Bottom band */
+  .bottom-band {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 130px;
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .bottom-band .accent { color: var(--secondary-warm-gold); margin: 0 18px; }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Financial Health Score · AI Edition</div>
+<div class="title">See exactly why your money<br>works (or doesn't).</div>
+<div class="gold-bar"></div>
+
+<div class="gauge-wrap">
+  <div class="gauge-label">Composite · 0—100</div>
+  <div class="gauge-big">
+    <div class="gauge-num">72</div>
+  </div>
+  <div class="gauge-caption">On the right track</div>
+  <div class="gauge-delta">▲ +4 this month</div>
+</div>
+
+<div class="components">
+  <div class="components-header">Five Components · One Score</div>
+
+  <div class="comp-row">
+    <div class="comp-name">Savings Rate</div>
+    <div class="comp-weight">25%</div>
+    <div class="comp-track"><div class="comp-fill success" style="width: 82%"></div></div>
+    <div class="comp-score">82</div>
+  </div>
+  <div class="comp-row">
+    <div class="comp-name">Emergency Fund</div>
+    <div class="comp-weight">25%</div>
+    <div class="comp-track"><div class="comp-fill gold" style="width: 64%"></div></div>
+    <div class="comp-score">64</div>
+  </div>
+  <div class="comp-row">
+    <div class="comp-name">Debt-to-Income</div>
+    <div class="comp-weight">20%</div>
+    <div class="comp-track"><div class="comp-fill success" style="width: 78%"></div></div>
+    <div class="comp-score">78</div>
+  </div>
+  <div class="comp-row">
+    <div class="comp-name">Credit Utilization</div>
+    <div class="comp-weight">15%</div>
+    <div class="comp-track"><div class="comp-fill warning" style="width: 58%"></div></div>
+    <div class="comp-score">58</div>
+  </div>
+  <div class="comp-row">
+    <div class="comp-name">On-Time Bill Rate</div>
+    <div class="comp-weight">15%</div>
+    <div class="comp-track"><div class="comp-fill success" style="width: 92%"></div></div>
+    <div class="comp-score">92</div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  Diagnose <span class="accent">·</span> Coach <span class="accent">·</span> Track <span class="accent">·</span> Improve
+</div>
+
+</body>
+</html>

@@ -5209,3 +5209,89 @@ Budget Tracker v2 verification still pending with user. Cascade work, thumbnails
 ### Safe to clear ✅
 This session was harness-tooling only; no product state changed. Next session can pick up exactly where 2026-05-12 left off.
 
+
+
+---
+
+## Session 2026-05-22 — Budget Tracker SHIPPED to Etsy as draft + full backend integration
+
+Pushed Budget Tracker from "planning + 17-tab xlsx generated" all the way to "Etsy draft listing live with thumbnails + variations + DB rows + multi-file delivery patched." Single longest cascade session to date. **591/591 vitest pass.**
+
+### What landed (chronological)
+
+**1. AI Money Advisor 11-page PDF** — built `tools/pdf-gen/templates/budget-tracker-ai-pdf.html` as a single consolidated HTML with `.page` divs + `page-break-after`. Includes cover, intro, 7 prompt pages (3 was the prior PoC; 1-2 + 4-11 are new), tips ("Which AI should I use?"), back cover. 852 KB output, 11 pages. New utility `tools/pdf-gen/preview-pages.js` renders per-page PNGs for visual QA.
+
+**2. Thumbnail pipeline + 5 BT thumbnails** — new `tools/thumb-gen/` directory: Puppeteer HTML→2000×2000 PNG with batch mode. 5 thumbnails:
+  - `01-hero.html/png` — dashboard mockup w/ 72 health-score gauge + KPIs + budget-vs-actual bars
+  - `02-health-score.html/png` — close-up of 72 gauge + 5-component breakdown
+  - `03-methods.html/png` — 2×2 grid of budget methods (50/30/20 pie, Zero-Based bars, Envelope cards, Pay Yourself First stack)
+  - `04-ai-advisor.html/png` — 3 prompt cards diagonal stack on charcoal bg + ChatGPT/Claude pills
+  - `05-privacy.html/png` — bad-vs-good two-column compare
+
+**3. Quick Start 1-pager** — `tools/pdf-gen/templates/budget-tracker-quickstart.html` (262 KB) — 30-second copy-flow + first-3-actions per tier + 3 pro tips + support/updates block. Premium Finance House throughout.
+
+**4. Tier-variant xlsx** — extended `tools/sheets-gen/templates/budget-tracker.js` with `--tier=essentials|pro|ai` CLI flag. Generates 3 .xlsx files via tab-visibility (Essentials hides 6, Pro hides 2, AI Edition shows all 17). Verified via inline script.
+
+**5. Supabase Storage upload** — created `tools/storage-upload/upload-budget-tracker.js` using `@supabase/supabase-js` + service-role key read from `.env.local`. Bucket `downloads` created via SQL (private, 50 MB cap, MIME-restricted to xlsx + pdf). Uploaded 5 unique files (1,275 KB) under `budget-tracker/{quickstart.pdf, essentials/, pro/, ai/}/`. Vercel env pull written URL with literal `\n` — added parser fix.
+
+**6. DB rows** — 7 `product_files` INSERT for product `eabbb871-…` (one row per tier × file). `products.etsy_listing_id` and `etsy_url` updated after listing creation.
+
+**7. `deliver.ts` multi-file patch** — changed `.find()` to `.filter()` + inner loop so BT AI Edition's 3 files all reach the email. `order_items.delivered_at` set once per item (not per file). New vitest case covers the 3-file scenario. All 591 tests pass.
+
+**8. Etsy OAuth refresh** — local Etsy MCP (at `C:\Users\karee\etsy-mcp-server\`) had expired token. Ran bundled `get-token.js` (PKCE flow → browser auth → terminal output), updated `claude_desktop_config.json` with new access_token + refresh_token, killed stale MCP processes (PIDs 37272, 18796), Claude respawned with new env. `etsy_get_me` returned user 1240666221 / kareem@limeinc.cc.
+
+**9. Shop discovery** — direct `openapi.etsy.com/v3/users/{id}/shops` call (MCP's `etsy_get_me` doesn't include shop_id) → shop_id 65897101, shop_name `LimeStudiosCo`, vacation mode on.
+
+**10. Shop section created** — `etsy_create_shop_section` → "Budget Spreadsheets" (shop_section_id 58647960).
+
+**11. Taxonomy** — downloaded full taxonomy, walked tree. Three candidate L6 nodes:
+  - 12476 Planner Templates
+  - 12478 Bookkeeping Templates
+  - **12487 Personal Finance Templates ← chosen** (most specific fit)
+  
+  Note: the listing-copy spec said "Money & Bill Organizers" but that node was retired from Etsy taxonomy.
+
+**12. Listing creation** — Etsy MCP's `etsy_create_listing` rejected request because it doesn't expose Etsy's `type: "download"` field; sent listing as physical → 400 "shipping_profile_id required." Wrote `tools/etsy-publish/create-budget-tracker.js` direct fetch POST with `type: "download"` + form-urlencoded body. Also Etsy enum was updated `2020_2024` → `2020_2026`, switched to `made_to_order`. Listing 4509524430 created as `draft`.
+
+**13. Thumbnails uploaded to Etsy** — multipart POST `/listings/{id}/images` × 5. All accepted, ranks 1-5, listing_image_ids returned. Cover image = rank 1 (hero dashboard).
+
+**14. Etsy digital file uploaded** — POST `/listings/{id}/files` with the quickstart PDF (262 KB). First attempt rejected with "File names must be between 3 and 70 characters and contain only letters, numbers, hyphens, underscores, or periods" — `name` field used em-dash + spaces. Re-sent with `Budget-Tracker-Quick-Start.pdf` → accepted. `listing_file_id 1489366522193`. Note: this is for Etsy's "instant download" requirement; real per-tier fulfillment still flows through our webhook → Resend email → Supabase signed URLs.
+
+**15. 3-tier variations** — PUT `/listings/{id}/inventory` with 3 products on `property_id 513` (custom property 1, name "Tier"): BT-ESSENTIALS $9, BT-PRO $19, BT-AI-EDITION $29. All `is_enabled: true`. `price_on_property` + `sku_on_property` set.
+
+**16. Publish manifest** — wrote `docs/publish-manifests/budget-tracker.md` as the persistent record of the publish playbook (title + tags + variations + bucket structure + smoke-test steps).
+
+### Files added
+- `tools/pdf-gen/templates/budget-tracker-ai-pdf.html` (~770 lines, 11 pages)
+- `tools/pdf-gen/templates/budget-tracker-quickstart.html`
+- `tools/pdf-gen/preview-pages.js`
+- `tools/thumb-gen/{package.json, generate.js, generate-all.js, templates/budget-tracker-{01,02,03,04,05}-*.html}`
+- `tools/storage-upload/upload-budget-tracker.js`
+- `tools/etsy-publish/{create-budget-tracker.js, upload-budget-tracker-images.js, upload-budget-tracker-file.js, set-budget-tracker-variations.js}`
+- `docs/publish-manifests/budget-tracker.md`
+- `~/.claude/projects/C--ETSY/memory/feedback_chat_is_secure.md` (memory — outside repo)
+
+### Files modified
+- `tools/sheets-gen/templates/budget-tracker.js` — `--tier=` CLI flag + `applyTierVisibility()`
+- `src/lib/fulfillment/deliver.ts` — `.find()` → `.filter()` + inner loop
+- `src/lib/fulfillment/__tests__/deliver.test.ts` — new multi-file test
+- `.gitignore` — added `.tmp-*`
+- `session-handshake.md` (this commit)
+- `docs/session-history.md` (this entry)
+
+### Decisions made
+- **Bucket structure** — `downloads/budget-tracker/{quickstart.pdf shared, tier/file.ext}`. Quickstart deduplicated across tiers (one Storage file, three product_files rows pointing at same URL).
+- **Etsy-hosted file = quickstart only** — real tier-specific delivery (xlsx + AI PDF) ships via our webhook. Etsy file is the "instant download" safety net so the listing satisfies Etsy's digital requirement.
+- **Taxonomy 12487** chosen over 12478 because BT is personal finance, not bookkeeping.
+- **Memory rule added** — chat-is-secure → don't redact secrets from .env.local or warn about rotation just because something appeared in chat.
+
+### Blockers / out-of-scope this session
+- Etsy MCP's `etsy_create_listing` lacks `type` parameter — worked around via direct API call. **Future improvement:** patch the local MCP to accept `type`.
+- Etsy MCP's `etsy_get_me` doesn't return shop_id — worked around via direct call to `/users/{id}/shops`. **Future improvement:** add `etsy_list_my_shops` tool.
+- Shop `LimeStudiosCo` is in vacation mode — user must take it off vacation + flip listing to `active` on Etsy.com to go live.
+
+### Next session pickup
+1. Confirm BT listing went live on Etsy + first sale flows through end-to-end (Etsy webhook → `deliver.ts` → buyer email with all 3 AI Edition files).
+2. Cascade Product #2 (Debt Payoff Planner) through the same pipeline. ~3-4h.
+
+### Safe to clear ✅

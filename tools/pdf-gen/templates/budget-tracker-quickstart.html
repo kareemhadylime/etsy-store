@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Budget Tracker — Quick Start</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  @page {
+    size: Letter portrait;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    width: 8.5in;
+    height: 11in;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    padding: 0.5in 0.55in;
+    position: relative;
+  }
+
+  /* ===== Header ===== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.18in;
+  }
+  .h-left { flex: 1; }
+  .eyebrow {
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.04in;
+  }
+  .h-title {
+    font-size: 26pt;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--primary-charcoal);
+    line-height: 1.05;
+    margin-bottom: 0.06in;
+  }
+  .h-sub {
+    font-size: 10pt;
+    color: var(--primary-charcoal);
+    opacity: 0.7;
+    font-style: italic;
+  }
+  .h-badge {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 8pt 14pt;
+    border-radius: 4pt;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.4;
+  }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+
+  .gold-divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 1.6in;
+    margin-bottom: 0.16in;
+  }
+
+  /* ===== Section: 30-second copy walkthrough ===== */
+  .section-label {
+    font-size: 9pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.07in;
+  }
+
+  .copy-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.12in;
+    margin-bottom: 0.2in;
+  }
+  .step {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.14in 0.16in;
+    border: 1px solid var(--neutral-grid);
+    position: relative;
+  }
+  .step-num {
+    position: absolute;
+    top: -10pt;
+    left: 14pt;
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    width: 22pt;
+    height: 22pt;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11pt;
+    font-weight: 700;
+  }
+  .step-time {
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary-warm-gold);
+    margin-top: 0.08in;
+    margin-bottom: 0.04in;
+  }
+  .step-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.04in;
+    line-height: 1.2;
+  }
+  .step-body {
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+  }
+
+  /* ===== Tier-grid: 3 columns ===== */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.14in;
+    margin-bottom: 0.2in;
+  }
+  .tier {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.16in 0.16in;
+    border: 1px solid var(--neutral-grid);
+    display: flex;
+    flex-direction: column;
+  }
+  .tier.ai {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    border-color: var(--primary-charcoal);
+  }
+  .tier-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.06in;
+  }
+  .tier-name {
+    font-size: 13pt;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .tier-price {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--secondary-warm-gold);
+    letter-spacing: -0.02em;
+  }
+  .tier-tabs {
+    font-size: 7.5pt;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.08in;
+  }
+  .tier ul {
+    list-style: none;
+    padding: 0;
+  }
+  .tier li {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    padding-left: 14pt;
+    position: relative;
+    margin-bottom: 0.04in;
+  }
+  .tier li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--secondary-warm-gold);
+    font-weight: 700;
+  }
+  .tier.ai li::before { color: var(--secondary-warm-gold); }
+
+  /* ===== Pro tips strip ===== */
+  .tips {
+    background: var(--ivory);
+    border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.14in 0.18in;
+    margin-bottom: 0.16in;
+  }
+  .tips-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.18in;
+  }
+  .tip {
+    font-size: 8.5pt;
+    line-height: 1.4;
+  }
+  .tip-num {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--secondary-warm-gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.05in;
+  }
+  .tip-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.03in;
+  }
+  .tip-body {
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+  }
+
+  /* ===== Footer band ===== */
+  .footer-band {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.16in 0.55in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+  }
+  .fb-left .wordmark {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2pt;
+  }
+  .fb-left .meta { opacity: 0.65; font-style: italic; }
+  .fb-right { text-align: right; opacity: 0.85; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="h-left">
+    <div class="eyebrow">Budget Tracker · Quick Start</div>
+    <h1 class="h-title">Make a copy in 30 seconds.</h1>
+    <div class="h-sub">From inbox to your first dashboard, in less time than it takes to brew coffee.</div>
+  </div>
+  <div class="h-badge">
+    <div class="label">Edition</div>
+    <div class="ver">AI · v1.0</div>
+  </div>
+</div>
+<div class="gold-divider"></div>
+
+<!-- 4-step copy flow -->
+<div class="section-label">The 30-Second Setup</div>
+<div class="copy-flow">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-time">~5 sec</div>
+    <div class="step-title">Open the file</div>
+    <div class="step-body">Click the Google Sheets link in your order email. It opens in view-only mode.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-time">~5 sec</div>
+    <div class="step-title">Make a copy</div>
+    <div class="step-body">File → Make a copy. Rename to something like "My Budget · 2026". Save to your Drive.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-time">~15 sec</div>
+    <div class="step-title">Run Setup Wizard</div>
+    <div class="step-body">Tab 1 — pick budget method, currency, income. Toggle Household / AI tier.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-time">~5 sec</div>
+    <div class="step-title">Open Dashboard</div>
+    <div class="step-body">Tab 2 — your KPIs + Health Score appear once Setup Wizard is complete.</div>
+  </div>
+</div>
+
+<!-- Three tiers — first actions per tier -->
+<div class="section-label">First Three Actions by Tier</div>
+<div class="tiers">
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Essentials</div>
+      <div class="tier-price">$9</div>
+    </div>
+    <div class="tier-tabs">10 Tabs · 50/30/20 Ready</div>
+    <ul>
+      <li>Enter last 30 days of expenses into Expense Tracker</li>
+      <li>Set monthly targets in Expense Categories</li>
+      <li>Set Emergency Fund target (3× monthly expenses)</li>
+    </ul>
+  </div>
+
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Pro</div>
+      <div class="tier-price">$19</div>
+    </div>
+    <div class="tier-tabs">14 Tabs · Forecast + Household</div>
+    <ul>
+      <li>Add monthly bills to Recurring Templates (auto-fill saves 20 min/wk)</li>
+      <li>Run 90-day Cash Flow Forecast — catch danger months early</li>
+      <li>If two earners — enable Household Mode + settlement row</li>
+    </ul>
+  </div>
+
+  <div class="tier ai">
+    <div class="tier-head">
+      <div class="tier-name">AI Edition</div>
+      <div class="tier-price">$29</div>
+    </div>
+    <div class="tier-tabs">17 Tabs · ChatGPT + Claude Ready</div>
+    <ul>
+      <li>Check Financial Health Score — diagnose your 2 weakest components</li>
+      <li>Open AI Money Advisor → Smart Spending Advisor prompt</li>
+      <li>Paste prompt + your data into ChatGPT or Claude (free tier OK)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Tips strip -->
+<div class="section-label">Three Things People Wish They'd Known on Day One</div>
+<div class="tips">
+  <div class="tips-row">
+    <div class="tip">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Run it weekly, not daily.</div>
+      <div class="tip-body">10 minutes every Sunday beats 2 minutes every day. Budgets work when you see the pattern, not the transaction.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Tag tax-deductible as you go.</div>
+      <div class="tip-body">Toggle the Tax-Deductible flag in Expense Tracker. Year-end you'll thank yourself when CPA prep takes 15 minutes instead of 4 hours.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Don't optimize what doesn't matter.</div>
+      <div class="tip-body">Housing is 40% of most budgets and almost never the lever. Look at the next-biggest 3 — that's where the dollars actually move.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Need help block -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in;">
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">Got Stuck?</div>
+    <div style="font-size: 9pt; line-height: 1.4;">Reply to your order email. We respond within 24 hours, every time. No ticket queue, no chatbot.</div>
+  </div>
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">Updates</div>
+    <div style="font-size: 9pt; line-height: 1.4;">Bug fixes free forever. AI Edition buyers: 12 months of free template refreshes — replies will include the new link.</div>
+  </div>
+</div>
+
+<!-- Footer band -->
+<div class="footer-band">
+  <div class="fb-left">
+    <div class="wordmark">Premium Finance Studio</div>
+    <div class="meta">Budget Tracker · AI Edition · v1.0</div>
+  </div>
+  <div class="fb-right">Your money. Your sheet. Your call.</div>
+</div>
+
+</body>
+</html>
