@@ -1,5 +1,25 @@
 # Etsy Store — Session Handoff
 
+## 🧹 2026-05-23 (PM3) — Sweep-up push: 7 prior-session commits never reached origin
+
+End-of-session housekeeping pass — no new work this session (the session was MileHall-focused), but `git rev-list origin/main..HEAD --count` returned **7** unpushed commits from the earlier Net Worth Tracker work + the subsequent Wedding Planner / All-in-One Bundle builds. Pushing them now per the cross-project standing-order so origin reflects the actual local state and Vercel auto-deploy can pick them up.
+
+**Commits pushed (oldest → newest):**
+
+- `f9591e2` `feat(net-worth): build Product 4 end-to-end (sheets + AI PDF + quickstart + 5 thumbnails)`
+- `d9688ed` `chore: commit stray small-business-ai-pdf.html from prior session`
+- `99a19b5` `qa(net-worth): 2-round audit complete — SHIP-WITH-FIXES, 22 fixed + 5 complements`
+- `c9bd7f1` `fix(net-worth): promote 22 QA fixes + 5 complements into template generator`
+- `2006795` `test(net-worth): verify all 5 personas pass end-to-end on promoted workbook`
+- `712d060` `feat(bundle): build Product 10 All-in-One Premium Bundle end-to-end (4 SKUs)`
+- `fd409d1` `feat(wedding): build Product 9 Wedding Budget & Planner end-to-end (22 tabs × 3 tiers)`
+
+**State left in:** All 7 commits are well-formed feature/qa/fix commits with substantive content; no rebase or squashing needed. Working tree is otherwise clean.
+
+**Next session:** Whatever was already queued for the Etsy work — no MileHall-side coupling.
+
+---
+
 ## 🟢 2026-05-23 (PM2) — Net Worth Tracker (Product 4): end-to-end build complete, ready for QA
 
 User direction at session start: "Product 3 is completed & under Audit — work on Product 4 now." Cascade
