@@ -6069,3 +6069,149 @@ Dusty rose `#C9A0A0` + deep mauve `#8B5A6B` + sage `#8FA98F` + amber `#D4A574` +
 "Wedding Budget & Planner Spreadsheet | 22 Tabs, Guest List, Seating Chart, RSVP Tracker, AI Wedding Co-Pilot, Honeymoon Budget | Excel + Google Sheets"
 
 ### Safe to clear ✅
+
+---
+
+## Session 2026-05-23 (PM11) — Family & Education Planner: promote QA fixes + Round 3 + close all gaps
+
+### User direction
+> "promote fixes" → "yes" (re-run personas) → "cover all gaps"
+
+Picked up from PM8's SHIP-WITH-FIXES verdict. Took the bundle from "fixes applied to disposable copies" → "fixes promoted to generator + Round 3 validated + buyer-expectation gaps closed → SHIP-ready".
+
+### Step 1 — Promote 109 fixes into the generator
+Ported every change from `tools/qa/fixed/*.xlsx` and `tools/qa/output/fix-changelog.md` into `tools/sheets-gen/templates/family-education-planner.js`:
+
+**New ⚙️ Settings & FX tab** in all 3 tiers (~150 lines added):
+- 5 named ranges: `Inflation` (5%, C7) · `EduReturn` (6%, C8) · `K12Inflation` (3%, C9) · `RetReturn` (7%, C10) · `BaseCurrency` (USD, C13)
+- 6-currency FX table (USD/EGP/AED/GBP/CAD/EUR) at rows 15-21 with cross-rates
+- Built FIRST in main() so downstream tabs can reference the names
+
+**Child Profiles spine extended**:
+- Column M (Currency) — per-child currency dropdown matching BaseCurrency options
+- Column N (Custody %) — 0–1 decimal, defaults 1.0
+- Column L renamed "Special Needs" → "Category" with Standard/Special Needs/Gifted dropdown
+- C10 (Federal tax bracket) DV switched from list to decimal 0–0.50 + showInputMessage tooltip clarifying decimal form (closes FEP-029 foot-gun)
+
+**College Savings Planner — 4 cell-level fixes × 4 child rows**:
+- D8-D11: VLOOKUP corrected to `$B$19:$C$25` (was `B22:C28` — off by 3 rows, silently zeroed 3 most popular tiers); scholarship offset via SUMIFS on Won status; Child Profiles!N custody multiplier; POWER(1+Inflation, Yrs) FV adjustment
+- I8-I11: EduReturn named range (was hardcoded 1.06); MAX(0) clamp on negative rec_mo when overfunded; goal-past returns 0
+- J8-J11: Status pill guards (empty / past / funded / on-track / at-risk / falling-behind)
+- B28 callout: references Settings & FX (no hardcoded 6%/0.06)
+
+**K-12 Cost Map**:
+- A2 SUM range C25:O28 → C24:O27 (FEP-002 fix — was double-counting SUM row + skipping Child 1)
+- C24:O27 inflation POWER(1.03, ...) → POWER(1+K12Inflation, ...)
+- B29 disclosure callout on the K → current-grade limitation
+
+**Dashboard**:
+- A2 dropped SUMPRODUCT(IF()) #VALUE!-prone antipattern; reads B10 directly + empty-roster guard
+- B10 empty-roster returns blank (no false 14/100)
+- E18/E19 + E37/E38 + B45 tier-aware: Pro-only refs (Retirement Impact / Literacy / Family Health Budget / Savings Goals Timeline) replaced with literal neutral values when tier === 'essentials'
+- 4-cell complement KPI block at rows ~60-61: Funding Gap All Kids / Ed Burden % / Next Goal In / Life Ins Gap
+
+**529 vs Whole Life KPI ribbon**: A2/C2/E2 now read row 40 (year 18) instead of row 24 (year 2). Was showing $11,025 / $7,070 / $3,955 — now shows $161,054 / $74,943 / $86,111.
+
+**EFC SAI Calculator**: F25/F27/F31/F33 + E30 all reference column B (where mergeCells anchors the value) instead of empty column E. Returns ~$30,794 on the AI Edition seed (was $0).
+
+**Aid Letter Comparison**:
+- C2 BEST NET excludes empty 5th-college (`MIN(IF(C15:G15>0, C15:G15))`)
+- I2 APPEAL OPEN reads row 16 (dates) not row 19 (Verdict text); IFERROR guards SUMPRODUCT
+- G17 Days-to-Appeal has empty-college guard
+
+**Health Budget K2**: ISNUMBER guards on E11/E13 operands prevent #VALUE!.
+
+**Literacy Milestones E22**: dynamic %-complete formula (was literal 0). Later tightened from `COUNTIF(✓)/COUNTA(all)` to `COUNTIF(✓)/(COUNTIF(✓)+COUNTIF(⏳))` so "—" placeholders don't dilute the denominator.
+
+**Life Insurance E26**: `MAX(15, MAX(yrs-to-college)+4)` — was using age column called "yrs to college".
+
+**About tab**: tierMetadata drives tab counts (Essentials 11 / Pro 20 / AI 21) + KPI tile labels + product band. Seed-data disclosure note added.
+
+**main() orchestration**: Settings & FX builds FIRST so named ranges exist before downstream refs. Tier tab counts updated.
+
+All 3 tiers built first-try cleanly after the port (Essentials 99ms · Pro 142ms · AI 171ms).
+
+### Step 2 — Round 3 persona re-validation
+Dispatched via general-purpose runtime (the named QA agent isn't in this session's dispatch table — registered at session start only). All 5 personas driven through the regenerated AI Edition file via openpyxl write + LibreOffice recalc + data_only read.
+
+**Results**: 4/5 personas PASS · 33/36 individual cell checks PASS.
+- **Persona 1 Mariam (EGP 16-yr)**: 4/4 PASS. D8=4,133,029 (was 1,400,000 sticker), I8=13,004 EGP/mo (was 4,132), J8=🔴
+- **Persona 2 Mohamed (3 kids parallel USD)**: 9/9 PASS. All within $0.50 of reference.
+- **Persona 3 Tarek (multi-currency)**: 9/9 PASS. Settings & FX named ranges resolve, FX table populated, M17/M18/M19 = GBP/USD/CAD.
+- **Persona 4 Sara (catch-up + scholarship offset)**: 3/6 FAIL — scholarship offset broken.
+- **Persona 5 Layla (blended custody)**: 8/8 PASS. Hadi D9=$80,294 (custody 0.5 multiplier works), Categories land.
+
+Tier sanity: AI 0 errors / Pro 0 errors / Essentials 2 #NAME? errors in Annual Family Review.
+
+**Two NEW issues caught:**
+- **FEP3-001 CRITICAL** — CSP D8-D11 SUMIFS used `F:F` for BOTH sum_range and "Won" criteria range. The Scholarship Tracker seed loop writes Status to column F (overriding earlier amount write) and Award $ to column G, despite the header labels saying the opposite. So summing F:F (Status text) returned 0 for every "Won" match. Persona 4 Aya evaluated to $124,800 instead of expected $104,000 (no scholarship offset).
+- **FEP3-002 HIGH** — Essentials Annual Family Review C12/C13 still referenced `'👴 Retirement Impact'!E11` and `'🏥 Family Health Budget'!C24`. Both are Pro-only tabs. Round 2 ghost-ref cleanup only covered Dashboard. Result: 2 #NAME? errors on first open.
+
+### Step 3 — Fix the Round 3 findings
+- **FEP3-001**: changed sum_range from `'🏆 Scholarship Tracker'!F8:F40` to `'🏆 Scholarship Tracker'!G8:G40` (the Award $ column). Also swapped the misleading header labels (F=Status, G=Award $) to match the seed-write reality.
+- **FEP3-002**: made `buildAnnualFamilyReview` tier-aware (capture `workbook._tier` at top); savingsRows for Retirement balance + HSA balance use `essentialsLiteral` fallback in Essentials.
+
+Rebuilt + recalc-verified:
+- Persona 4 Aya D8 = **$104,000** exactly (scholarship offset works)
+- Persona 4 Aya I8 = **$4,507/mo** (ref ~$4,400, within 2.5%)
+- Persona 4 Omar D9 = **$140,383** (ref $140,389, within $6)
+- Persona 4 Aya J8 = **🔴 Falling behind** (1500 < 0.6 × 4507)
+- Essentials Annual Family Review: **0** #NAME? errors
+
+### Step 4 — Close buyer-expectation gaps (FEP-027/028 cosmetic)
+- **Literacy Milestones pre-seeded** based on each child's age in SEED_FAMILY: Emma (age 8) ages 5/6/7 ✓ + age 8 ⏳ · Liam (age 4) age 5 ⏳ · Noah (age 1) all — · Slot 4 empty all —. Lifts Dashboard literacy sub-score from 0 to 60% on first open.
+- **Literacy E22 formula tightened**: `COUNTIF(✓) / (COUNTIF(✓) + COUNTIF(⏳))` — only count parent-acknowledged cells in the denominator, not "—" placeholders. Otherwise an 8-year-old shows 6% literacy instead of ~75%.
+- **Thumbnail 01 hero** updated: `$17,000 → $140,000` ed-savings + `$970/mo → $1,650/mo` for internal consistency with the 50%/24%/8% per-child progress bars and the 81/100 Family Health Score. Re-rendered to PNG.
+- **Thumbnail 03 EFC + Aid** updated: `$8,420 → $30,794` EFC value to match what the calculator actually produces for the $156K-AGI seed family. Re-rendered.
+- **About tab seed-data disclosure** added at B8 row: explains the example family + thumbnail aspirations vs the buyer's actual data.
+- **FEP-033 verified resolved**: Essentials shows `Family & Education Planner — Essentials`, TIER tile "Essentials", footer "Family & Education Planner Essentials v1.0". All tier labels propagate correctly.
+
+### Step 5 — FEP3-003 caught during final verification
+Essentials final check exposed Emma D8 = $0 (showing "✓ Funded" status — wrong). Root cause: the outer IFERROR on the CSP D8 formula was swallowing the inner SUMIFS Scholarship Tracker reference when the tab is hidden in Essentials. The whole formula collapsed to 0.
+
+**Fix**: wrap only the SUMIFS in `IFERROR(SUMIFS(...), 0)` so when Scholarship Tracker is absent, the offset becomes 0 but the rest of the target formula keeps evaluating. After fix:
+- Essentials Emma D8 = $456,090 ✓
+- Pro Emma D8 = $456,090 ✓
+- AI Emma D8 = $456,090 ✓
+
+### Final verification across all 3 tiers
+Scanned every cell of every tab for #REF / #NAME / #VALUE / #DIV / #NUM / #N/A:
+- AI Edition (21 tabs): **0 errors**
+- Pro (20 tabs): **0 errors**
+- Essentials (11 tabs): **0 errors**
+
+Reference values match:
+- CSP Emma D8 = $456,090 (all tiers)
+- CSP Emma I8 = $2,725/mo
+- CSP Emma J8 = 🔴 Falling behind
+- EFC F33 = $30,794
+- 529 vs WL D40 = $161,054 / E40 = $74,943
+- K-12 13-yr total = $23,427
+- Literacy E22 = 60% (3✓ / 5 actionable)
+- Family Health Score: AI/Pro 26/100 · Essentials 36/100 (honest reflection of the seed family's gaps)
+
+### File inventory (final, all regenerated this session)
+```
+tools/sheets-gen/output/family-education-planner-{essentials,pro,ai-edition}.xlsx   (3 files, 82-128KB)
+tools/pdf-gen/output/family-education-{ai-pdf,quickstart}.pdf                       (12pp + 1pp)
+tools/thumb-gen/output/family-education-planner-{01-hero,02-account-comparison,03-efc-aid,04-ai-advisor,05-anti-greenlight}.png   (5×2000²)
+```
+
+Reports:
+- `tools/qa/output/family-education-planner-qa-round1-report.md` (453 lines)
+- `tools/qa/output/fix-changelog.md` (560 lines, 109 changes)
+- `tools/qa/output/family-education-planner-qa-round3-validation.md`
+
+### Verdict: SHIP
+
+### Next session pickup
+1. **Push to Etsy as draft** via `mcp__etsy__etsy_create_listing` cascade from Budget Tracker pattern:
+   - Taxonomy 12487 (Personal Finance Templates)
+   - 13 tags from `docs/listing-copy/family-education-planner.md` §5
+   - 3-tier variations via property_id 513 at $14/$22/$32
+   - New shop section "Family & Education Spreadsheets"
+   - Suggested title: "Family & Education Planner Spreadsheet | 18 Tabs, 529 vs UTMA, EFC Calculator, Scholarship Tracker, AI Family Finance Advisor"
+2. **Upload to Supabase Storage** — push all 5 files (3 xlsx + 2 PDFs) to `downloads` bucket; create `product_files` rows for the 3 tiers.
+3. **Unblock Life Bundle (Product 10)** — its constituent file list includes family-education-planner-{essentials,pro,ai-edition}.xlsx so the Life SKUs can now ship.
+
+### Safe to clear ✅

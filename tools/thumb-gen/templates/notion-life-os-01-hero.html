@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notion Life OS — Thumb 01 Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #1F2A33;
+    --gold: #C9A14A;
+    --ivory: #F7F5F0;
+    --off-white: #FAF7F0;
+    --grid: #D8DCDF;
+    --notion-blue: #2383E2;
+    --notion-blue-soft: #E7F1FB;
+    --success: #3F6B4D;
+    --warn: #B57A2A;
+    --alert: #9B3A30;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--ivory);
+    color: var(--charcoal);
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Top band — outside Notion, Premium Finance House */
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 140px;
+    background: var(--charcoal); color: white;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 90px;
+  }
+  .wordmark { font-size: 26px; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; }
+  .price-pill {
+    background: var(--gold); color: var(--charcoal);
+    font-size: 30px; font-weight: 800; padding: 14px 36px; border-radius: 999px;
+    letter-spacing: -0.01em;
+  }
+
+  /* Title block */
+  .title-block { position: absolute; top: 200px; left: 90px; right: 90px; }
+  .eyebrow {
+    font-size: 26px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px;
+  }
+  .title-main {
+    font-size: 148px; font-weight: 800; line-height: 0.94; letter-spacing: -0.035em;
+    color: var(--charcoal); margin-bottom: 22px;
+  }
+  .title-main .accent { color: var(--gold); }
+  .gold-bar { width: 220px; height: 8px; background: var(--gold); margin-bottom: 24px; }
+  .title-sub {
+    font-size: 36px; font-weight: 500; line-height: 1.30;
+    color: var(--charcoal); opacity: 0.78; max-width: 1700px;
+  }
+
+  /* Browser-frame mockup */
+  .browser {
+    position: absolute; left: 90px; right: 90px; bottom: 230px; height: 870px;
+    background: white; border-radius: 18px;
+    box-shadow: 0 30px 60px rgba(31,42,51,0.18), 0 8px 20px rgba(31,42,51,0.10);
+    overflow: hidden;
+    border: 1px solid rgba(31,42,51,0.08);
+  }
+  .browser-chrome {
+    height: 56px; background: #F2F1EE;
+    border-bottom: 1px solid var(--grid);
+    display: flex; align-items: center; padding: 0 22px;
+    gap: 10px;
+  }
+  .dot { width: 14px; height: 14px; border-radius: 50%; }
+  .dot.r { background: #FF5F57; }
+  .dot.y { background: #FEBC2E; }
+  .dot.g { background: #28C840; }
+  .url-pill {
+    margin-left: 22px; flex: 1;
+    background: white; border: 1px solid var(--grid); border-radius: 8px;
+    height: 32px;
+    display: flex; align-items: center; padding: 0 14px;
+    font-size: 16px; color: #6E7682;
+    max-width: 560px;
+  }
+  .url-pill .lock { color: var(--success); margin-right: 8px; font-weight: 700; }
+
+  /* Inside Notion — Notion-blue accent zone */
+  .notion-page { display: grid; grid-template-columns: 200px 1fr; height: calc(100% - 56px); }
+  .sidebar { background: #FBFAF8; border-right: 1px solid var(--grid); padding: 16px 12px; }
+  .sb-workspace { font-size: 13px; font-weight: 700; color: var(--charcoal); margin-bottom: 14px; opacity: 0.7; }
+  .sb-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; font-size: 14px; color: var(--charcoal); border-radius: 4px; }
+  .sb-item.active { background: var(--notion-blue-soft); color: var(--notion-blue); font-weight: 700; }
+  .sb-emoji { font-size: 14px; }
+
+  .content { padding: 22px 36px; overflow: hidden; }
+  .page-banner {
+    height: 90px; border-radius: 6px;
+    background: linear-gradient(135deg, #1F2A33 0%, #8C7235 75%, #C9A14A 100%);
+    position: relative; margin-bottom: 16px;
+  }
+  .page-banner::after {
+    content: '';
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px; height: 56px;
+    background: radial-gradient(circle, transparent 40%, rgba(255,255,255,0.18) 40% 50%, transparent 50%);
+    opacity: 0.30;
+  }
+  .page-h1 { font-size: 38px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .page-sub {
+    background: var(--notion-blue-soft);
+    border-left: 4px solid var(--notion-blue);
+    padding: 10px 14px; border-radius: 4px;
+    font-size: 14px; color: var(--charcoal);
+    margin-bottom: 18px;
+  }
+
+  /* 3-callout KPI row */
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+  .kpi {
+    background: white; border: 1px solid var(--grid);
+    border-left: 4px solid var(--notion-blue);
+    border-radius: 6px; padding: 14px 16px;
+  }
+  .kpi-label { font-size: 11px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; opacity: 0.55; margin-bottom: 4px; }
+  .kpi-value { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+  .kpi-value.alert { color: var(--alert); }
+  .kpi-value.success { color: var(--success); }
+
+  /* Linked-database table preview */
+  .lv-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .lv-title::before { content: '🎯  '; }
+  .lv-table {
+    background: white; border: 1px solid var(--grid); border-radius: 6px;
+    overflow: hidden; font-size: 13px;
+  }
+  .lv-header { display: grid; grid-template-columns: 1.4fr 0.9fr 0.9fr 1.6fr 0.9fr; background: #FBFAF8; border-bottom: 1px solid var(--grid); padding: 10px 14px; font-weight: 700; color: var(--charcoal); opacity: 0.7; letter-spacing: 0.04em; }
+  .lv-row { display: grid; grid-template-columns: 1.4fr 0.9fr 0.9fr 1.6fr 0.9fr; padding: 10px 14px; border-bottom: 1px solid var(--grid); align-items: center; }
+  .lv-row:last-child { border-bottom: none; }
+  .lv-row .name { font-weight: 600; }
+  .lv-row .name .icon { margin-right: 6px; }
+  .lv-row .bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .lv-row .bar-mono { font-family: 'Inter', monospace; font-size: 12px; letter-spacing: -0.02em; color: var(--charcoal); }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; }
+  .pill.green { background: #E5F0E8; color: var(--success); }
+  .pill.yellow { background: #FBEDD1; color: var(--warn); }
+  .pill.red { background: #F5DDD9; color: var(--alert); }
+
+  /* Bottom band — feature counts */
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 170px;
+    background: var(--charcoal); color: white;
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 0 90px;
+  }
+  .feat { display: flex; flex-direction: column; align-items: center; }
+  .feat-num { font-size: 64px; font-weight: 800; color: var(--gold); line-height: 1.0; letter-spacing: -0.02em; }
+  .feat-label { font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="price-pill">$24 · One-time</div>
+  </div>
+
+  <div class="title-block">
+    <div class="eyebrow">Notion Life OS · Essentials</div>
+    <div class="title-main">Notion Budget OS.<br><span class="accent">Yours in 60 seconds.</span></div>
+    <div class="gold-bar"></div>
+    <div class="title-sub">Six pre-wired pages. Five databases. Rollups, formulas, and a real dashboard — not a blank page with a header.</div>
+  </div>
+
+  <div class="browser">
+    <div class="browser-chrome">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <div class="url-pill"><span class="lock">🔒</span>notion.so/lime-premium/Notion-Budget-OS</div>
+    </div>
+    <div class="notion-page">
+      <div class="sidebar">
+        <div class="sb-workspace">YOUR WORKSPACE</div>
+        <div class="sb-item active"><span class="sb-emoji">🏠</span>Notion Budget OS</div>
+        <div class="sb-item" style="margin-left:14px"><span class="sb-emoji">💵</span>Income</div>
+        <div class="sb-item" style="margin-left:14px"><span class="sb-emoji">💳</span>Expense</div>
+        <div class="sb-item" style="margin-left:14px"><span class="sb-emoji">🎯</span>Budget by Category</div>
+        <div class="sb-item" style="margin-left:14px"><span class="sb-emoji">🔁</span>Recurring Bills</div>
+        <div class="sb-item" style="margin-left:14px"><span class="sb-emoji">🧹</span>Subscriptions Audit</div>
+      </div>
+      <div class="content">
+        <div class="page-banner"></div>
+        <div class="page-h1">💰 Notion Budget OS</div>
+        <div class="page-sub">💡 Your monthly money brain — already wired. Replace the seed data with your real numbers; everything else updates itself.</div>
+
+        <div class="kpi-row">
+          <div class="kpi"><div class="kpi-label">Spent This Month</div><div class="kpi-value">$535.19</div></div>
+          <div class="kpi"><div class="kpi-label">Total Monthly Budget</div><div class="kpi-value">$1,180.00</div></div>
+          <div class="kpi"><div class="kpi-label">Remaining</div><div class="kpi-value success">$644.81</div></div>
+        </div>
+
+        <div class="lv-title">Budget by Category · this month</div>
+        <div class="lv-table">
+          <div class="lv-header"><div>NAME</div><div>TARGET</div><div>SPENT</div><div>PROGRESS</div><div>STATUS</div></div>
+          <div class="lv-row">
+            <div class="name"><span class="icon">🛒</span>Groceries</div><div>$500</div><div>$218.45</div>
+            <div class="bar-wrap"><span class="bar-mono">▰▰▰▰▱▱▱▱▱▱ 44%</span></div>
+            <div><span class="pill green">🟢 On track</span></div>
+          </div>
+          <div class="lv-row">
+            <div class="name"><span class="icon">🚗</span>Transport</div><div>$250</div><div>$94.05</div>
+            <div class="bar-wrap"><span class="bar-mono">▰▰▰▱▱▱▱▱▱▱ 38%</span></div>
+            <div><span class="pill green">🟢 On track</span></div>
+          </div>
+          <div class="lv-row">
+            <div class="name"><span class="icon">🍽️</span>Dining</div><div>$200</div><div>$76.70</div>
+            <div class="bar-wrap"><span class="bar-mono">▰▰▰▰▱▱▱▱▱▱ 38%</span></div>
+            <div><span class="pill green">🟢 On track</span></div>
+          </div>
+          <div class="lv-row">
+            <div class="name"><span class="icon">📺</span>Subscriptions</div><div>$80</div><div>$22.99</div>
+            <div class="bar-wrap"><span class="bar-mono">▰▰▰▱▱▱▱▱▱▱ 29%</span></div>
+            <div><span class="pill green">🟢 On track</span></div>
+          </div>
+          <div class="lv-row">
+            <div class="name"><span class="icon">🛍️</span>Shopping</div><div>$150</div><div>$123.00</div>
+            <div class="bar-wrap"><span class="bar-mono">▰▰▰▰▰▰▰▰▱▱ 82%</span></div>
+            <div><span class="pill yellow">🟡 Watch</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-band">
+    <div class="feat"><div class="feat-num">6</div><div class="feat-label">Pages</div></div>
+    <div class="feat"><div class="feat-num">5</div><div class="feat-label">Databases</div></div>
+    <div class="feat"><div class="feat-num">13</div><div class="feat-label">Views</div></div>
+    <div class="feat"><div class="feat-num">25</div><div class="feat-label">Seed Rows</div></div>
+    <div class="feat"><div class="feat-num">$0</div><div class="feat-label">Subscription</div></div>
+  </div>
+</body>
+</html>

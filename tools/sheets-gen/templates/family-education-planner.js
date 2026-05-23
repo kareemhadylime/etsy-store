@@ -1025,7 +1025,12 @@ function buildCollegeSavingsPlanner(workbook) {
     // adjusted future cost, not today's sticker.
     // [FIX FEP-015] Scholarship offset: subtract SUMIFS of Won scholarships for this child.
     // [FIX FEP-021] Custody share: multiply by Child Profiles!N (1.0 / 0.5 / etc.).
-    sheet.getCell(`D${ri}`).value = { formula: `IFERROR(IF('👶 Child Profiles'!C${childRow}="",0,(IFERROR(VLOOKUP('👶 Child Profiles'!H${childRow},$B$19:$C$25,2,FALSE),0)-(SUMIFS('🏆 Scholarship Tracker'!F8:F40,'🏆 Scholarship Tracker'!C8:C40,'👶 Child Profiles'!C${childRow},'🏆 Scholarship Tracker'!F8:F40,"Won")))*IF(ISNUMBER('👶 Child Profiles'!N${childRow}),'👶 Child Profiles'!N${childRow},1)*POWER(1+Inflation,'👶 Child Profiles'!F${childRow})),0)` };
+    // [FIX FEP3-001 + FEP3-003] Scholarship SUMIFS sum_range G:G (Award $); Status criteria on F:F.
+    // [FIX FEP3-003] The SUMIFS is wrapped in IFERROR(...,0) so when Scholarship Tracker is absent
+    // (Essentials tier), only the offset becomes 0 — not the entire target. Without this fix,
+    // Essentials CSP D8 read $0 because the outer IFERROR caught the missing-tab #REF! and
+    // collapsed the whole formula. Emma's target should be $456K in Essentials too.
+    sheet.getCell(`D${ri}`).value = { formula: `IFERROR(IF('👶 Child Profiles'!C${childRow}="",0,(IFERROR(VLOOKUP('👶 Child Profiles'!H${childRow},$B$19:$C$25,2,FALSE),0)-IFERROR(SUMIFS('🏆 Scholarship Tracker'!G8:G40,'🏆 Scholarship Tracker'!C8:C40,'👶 Child Profiles'!C${childRow},'🏆 Scholarship Tracker'!F8:F40,"Won"),0))*IF(ISNUMBER('👶 Child Profiles'!N${childRow}),'👶 Child Profiles'!N${childRow},1)*POWER(1+Inflation,'👶 Child Profiles'!F${childRow})),0)` };
     sheet.getCell(`D${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`D${ri}`).font = FONTS.body;
     sheet.getCell(`D${ri}`).alignment = { horizontal: 'right', indent: 1 };
@@ -1730,8 +1735,10 @@ function buildScholarshipTracker(workbook) {
 
   // === Table ===
   let r = 7;
+  // [FIX FEP3-001] Header labels swapped F↔G to match the seed-write loop reality
+  // (F=Status dropdown, G=Award $ numeric).
   addTableHeader(sheet, r,
-    ['Scholarship', 'Child', 'Category', 'Award Range', 'Award $', 'Status', 'Deadline', 'Days Left', 'Action Required', 'Submitted', 'Notes'],
+    ['Scholarship', 'Child', 'Category', 'Award Range', 'Status', 'Award $', 'Deadline', 'Days Left', 'Action Required', 'Submitted', 'Notes'],
     ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']);
 
   // Seed rows — realistic per the AI prompt's worked example
@@ -2587,8 +2594,21 @@ function buildFinancialLiteracyMilestones(workbook) {
     sheet.getCell(`B${ri}`).fill = FILLS.ivory;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
 
+    // [COMPLEMENT] Pre-seed realistic status marks based on each child's age in the seed family:
+    //   Emma age 8  (col C): ages 5/6/7 → ✓, age 8 → ⏳ (in progress)
+    //   Liam age 4  (col D): age 5 → ⏳ (approaching)
+    //   Noah age 1  (col E): all → — (not yet)
+    //   Slot 4 empty (col F): all → —
+    // This lifts the Dashboard literacy sub-score from 0 to ~0.5-0.8 and makes the Family
+    // Health Score reflect a real family-with-young-kids state on first open.
+    const seedStatus = {
+      C: (age) => age <= 7 ? '✓' : (age === 8 ? '⏳' : '—'),
+      D: (age) => age === 5 ? '⏳' : '—',
+      E: () => '—',
+      F: () => '—',
+    };
     ['C', 'D', 'E', 'F'].forEach((col) => {
-      sheet.getCell(`${col}${ri}`).value = '—';
+      sheet.getCell(`${col}${ri}`).value = seedStatus[col](m.age);
       sheet.getCell(`${col}${ri}`).font = FONTS.body;
       sheet.getCell(`${col}${ri}`).alignment = { horizontal: 'center' };
       sheet.getCell(`${col}${ri}`).fill = FILLS.white;
@@ -2614,9 +2634,12 @@ function buildFinancialLiteracyMilestones(workbook) {
   sheet.getCell(`B22`).border = BORDER_THIN();
   sheet.mergeCells(`B22:D22`);
 
-  // [FIX FEP-023] E22 was a literal 0 — Dashboard literacy sub-score always rendered 🔴. Now a
-  // proper percent-complete formula counting ✓ marks across all 4-child × 13-milestone cells.
-  sheet.getCell(`E22`).value = { formula: `IFERROR(COUNTIF(C8:F${r + milestones.length},"✓")/MAX(1,COUNTA(C8:F${r + milestones.length})*1),0)` };
+  // [FIX FEP-023 + complement] E22 was a literal 0 — Dashboard literacy sub-score always rendered 🔴.
+  // Now: ✓ count over (✓+⏳) — only count cells the parent has acknowledged as in-progress-or-done.
+  // The "—" placeholder cells (default state) are excluded from the denominator, otherwise an
+  // 8-year-old child's literacy ratio reads ~6% (52 total cells, ~3 actionable) instead of ~75%
+  // (4 actionable, 3 done). This makes the Dashboard Family Health Score truthful on first open.
+  sheet.getCell(`E22`).value = { formula: `IFERROR(COUNTIF(C8:F${r + milestones.length},"✓")/MAX(1,COUNTIF(C8:F${r + milestones.length},"✓")+COUNTIF(C8:F${r + milestones.length},"⏳")),0)` };
   sheet.getCell(`E22`).numFmt = '0%';
   sheet.getCell(`E22`).font = { ...FONTS.bodyBold, color: argb(COLORS.success) };
   sheet.getCell(`E22`).alignment = { horizontal: 'right', indent: 1 };
@@ -2807,6 +2830,9 @@ function buildFamilyBudget(workbook) {
 // ============================================================================
 
 function buildAnnualFamilyReview(workbook) {
+  // [FIX FEP3-002] Tier-aware: Retirement Impact + Family Health Budget rows are Pro-only tabs.
+  // Essentials gets static placeholders to avoid #NAME? errors on first open.
+  const tier = workbook._tier || 'ai';
   const sheet = workbook.addWorksheet('📊 Annual Family Review');
   setTabColor(sheet, COLORS.warmGold);
   setupColumns(sheet, { A: 2, B: 22, C: 18, D: 18, E: 22, F: 4, G: 4, H: 4, I: 4, J: 4, K: 4, L: 4, M: 2 });
@@ -2829,10 +2855,17 @@ function buildAnnualFamilyReview(workbook) {
   // === Section 1 — Savings progress ===
   let r = addSectionHeader(sheet, 6, 'Savings progress', 'Year-over-year delta on the core family numbers.');
 
+  // [FIX FEP3-002] Pro-only refs replaced with literal placeholders in Essentials.
   const savingsRows = [
     { label: 'Education savings total',     formula: `SUM('👶 Child Profiles'!I${CP.CHILD_FIRST_ROW}:I${CP.CHILD_LAST_ROW})` },
-    { label: 'Retirement balance',           formula: `'👴 Retirement Impact'!E11` },
-    { label: 'HSA balance',                  formula: `'🏥 Family Health Budget'!C24` },
+    { label: 'Retirement balance',
+      formula: tier === 'essentials' ? null : `'👴 Retirement Impact'!E11`,
+      essentialsLiteral: 0,
+      essentialsNote: 'Pro tier tracks retirement balance via Retirement Impact tab.' },
+    { label: 'HSA balance',
+      formula: tier === 'essentials' ? null : `'🏥 Family Health Budget'!C24`,
+      essentialsLiteral: 0,
+      essentialsNote: 'Pro tier tracks HSA balance via Family Health Budget tab.' },
     { label: 'Emergency fund (assumed)',     val: 32000 },
   ];
 
@@ -2846,8 +2879,15 @@ function buildAnnualFamilyReview(workbook) {
     sheet.getCell(`B${ri}`).fill = FILLS.ivory;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
 
-    if (s.formula) sheet.getCell(`C${ri}`).value = { formula: s.formula };
-    else sheet.getCell(`C${ri}`).value = s.val;
+    // [FIX FEP3-002] Honor essentialsLiteral fallback for Pro-only refs in Essentials.
+    if (s.formula) {
+      sheet.getCell(`C${ri}`).value = { formula: s.formula };
+    } else if (s.essentialsLiteral !== undefined) {
+      sheet.getCell(`C${ri}`).value = s.essentialsLiteral;
+      if (s.essentialsNote) sheet.getCell(`C${ri}`).note = s.essentialsNote;
+    } else {
+      sheet.getCell(`C${ri}`).value = s.val;
+    }
     sheet.getCell(`C${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`C${ri}`).font = FONTS.bodyBold;
     sheet.getCell(`C${ri}`).alignment = { horizontal: 'right', indent: 1 };
@@ -3241,6 +3281,13 @@ function buildAbout(workbook) {
   sheet.getCell('B7').value = 'A spreadsheet that handles every dollar from pregnancy through college launch. Up to 4 children. Privacy-first.';
   sheet.getCell('B7').font = FONTS.bodyMuted;
   sheet.getRow(7).height = 22;
+
+  // [COMPLEMENT] Seed-data disclosure — sets expectations for first-open buyers.
+  sheet.mergeCells('B8:C8');
+  sheet.getCell('B8').value = '📋  Seed data shown is an example family (Emma 8 / Liam 4 / Noah 1, NY state, $156K HHI). Replace with your numbers on Child Profiles + Family Budget — every tab recomputes. The Etsy listing thumbnails show aspirational dashboards (Family Health Score 81/100, etc.) — your actual score will reflect your family\'s current state and improve as you tighten the plan.';
+  sheet.getCell('B8').font = { ...FONTS.bodyMuted, italic: true };
+  sheet.getCell('B8').alignment = { wrapText: true, vertical: 'top' };
+  sheet.getRow(8).height = 50;
 
   let r = addSectionHeader(sheet, 10, 'How this spreadsheet is wired',
     'Child Profiles is the input spine. Every downstream tab reads from it.');

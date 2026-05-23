@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notion Budget OS — Home banner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1500px; height: 600px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: linear-gradient(135deg, #1F2A33 0%, #2A3A45 45%, #8C7235 80%, #C9A14A 100%);
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* faint diagonal stripe texture to lift gradient */
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(135deg, rgba(255,255,255,0.018) 0 2px, transparent 2px 80px);
+    pointer-events: none;
+  }
+  /* subtle vignette */
+  body::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(31,42,51,0.30) 100%);
+    pointer-events: none;
+  }
+  .glyph {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 240px; height: 240px;
+    opacity: 0.30;
+  }
+  .glyph svg { width: 100%; height: 100%; stroke: #FFFFFF; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  /* studio mark — tiny, bottom-right */
+  .studio {
+    position: absolute;
+    bottom: 24px; right: 36px;
+    color: rgba(255,255,255,0.55);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="glyph">
+    <!-- 💰 wallet outline, 240×240, 2px-style stroke (scaled to 4 since viewBox is 100) -->
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <!-- wallet body -->
+      <rect x="14" y="30" width="72" height="50" rx="6" />
+      <!-- wallet flap arch -->
+      <path d="M 22 30 L 22 22 Q 22 16 28 16 L 70 16 Q 76 16 76 22 L 76 30" />
+      <!-- coin slot / clasp -->
+      <circle cx="74" cy="55" r="6" />
+      <line x1="74" y1="51" x2="74" y2="59" />
+    </svg>
+  </div>
+  <div class="studio">Lime Premium Studios</div>
+</body>
+</html>

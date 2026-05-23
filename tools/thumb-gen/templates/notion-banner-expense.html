@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notion Budget OS — Expense banner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1500px; height: 600px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: linear-gradient(135deg, #1F2A33 0%, #2A3A45 45%, #8C7235 80%, #C9A14A 100%);
+    position: relative;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(135deg, rgba(255,255,255,0.018) 0 2px, transparent 2px 80px);
+    pointer-events: none;
+  }
+  body::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(31,42,51,0.30) 100%);
+    pointer-events: none;
+  }
+  .glyph {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 240px; height: 240px;
+    opacity: 0.30;
+  }
+  .glyph svg { width: 100%; height: 100%; stroke: #FFFFFF; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .studio {
+    position: absolute;
+    bottom: 24px; right: 36px;
+    color: rgba(255,255,255,0.55);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="glyph">
+    <!-- 💳 credit card outline -->
+    <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <rect x="12" y="28" width="76" height="48" rx="6" />
+      <!-- magnetic strip -->
+      <line x1="12" y1="42" x2="88" y2="42" />
+      <!-- chip -->
+      <rect x="20" y="52" width="14" height="10" rx="2" />
+      <!-- card number dots -->
+      <line x1="42" y1="60" x2="50" y2="60" />
+      <line x1="56" y1="60" x2="64" y2="60" />
+      <line x1="70" y1="60" x2="80" y2="60" />
+    </svg>
+  </div>
+  <div class="studio">Lime Premium Studios</div>
+</body>
+</html>

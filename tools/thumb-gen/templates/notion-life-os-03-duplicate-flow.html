@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notion Life OS — Thumb 03 Duplicate Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #1F2A33;
+    --gold: #C9A14A;
+    --ivory: #F7F5F0;
+    --grid: #D8DCDF;
+    --notion-blue: #2383E2;
+    --notion-blue-soft: #E7F1FB;
+    --success: #3F6B4D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--ivory);
+    color: var(--charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 140px;
+    background: var(--charcoal); color: white;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 90px;
+  }
+  .wordmark { font-size: 26px; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; }
+  .price-pill {
+    background: var(--gold); color: var(--charcoal);
+    font-size: 28px; font-weight: 800; padding: 12px 30px; border-radius: 999px;
+  }
+
+  .headline {
+    position: absolute; top: 190px; left: 90px; right: 90px; text-align: center;
+  }
+  .eyebrow {
+    font-size: 24px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px;
+  }
+  .h-main {
+    font-size: 140px; font-weight: 800; line-height: 0.95; letter-spacing: -0.035em;
+    color: var(--charcoal);
+  }
+  .h-main .gold { color: var(--gold); }
+  .gold-bar { width: 180px; height: 6px; background: var(--gold); margin: 22px auto 18px; }
+  .h-sub {
+    font-size: 28px; font-weight: 500; line-height: 1.35;
+    opacity: 0.78; max-width: 1500px; margin: 0 auto;
+  }
+
+  /* 3-step strip */
+  .strip {
+    position: absolute;
+    left: 90px; right: 90px;
+    top: 850px; height: 770px;
+    display: grid;
+    grid-template-columns: 1fr 90px 1fr 90px 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+  .step {
+    background: white;
+    border: 1px solid var(--grid);
+    border-radius: 16px;
+    padding: 36px 32px 26px;
+    position: relative;
+    display: flex; flex-direction: column;
+    box-shadow: 0 14px 30px rgba(31,42,51,0.08);
+  }
+  .step-num {
+    position: absolute;
+    top: -28px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: var(--charcoal);
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 800; letter-spacing: -0.02em;
+    box-shadow: 0 6px 16px rgba(201,161,74,0.40);
+  }
+  .step-title {
+    font-size: 26px; font-weight: 800; letter-spacing: -0.01em;
+    margin-top: 12px; margin-bottom: 6px;
+    text-align: center;
+  }
+  .step-sub { font-size: 16px; opacity: 0.65; text-align: center; margin-bottom: 22px; }
+
+  /* Step 1 — Etsy email mockup */
+  .email-mock {
+    background: #F7F4EE; border: 1px solid var(--grid);
+    border-radius: 8px; padding: 18px; flex: 1; display: flex; flex-direction: column;
+  }
+  .em-hdr { font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 6px; }
+  .em-from { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .em-subj { font-size: 14px; opacity: 0.7; margin-bottom: 14px; }
+  .em-body { font-size: 13px; line-height: 1.5; color: var(--charcoal); flex: 1; }
+  .em-body strong { color: var(--charcoal); }
+  .em-btn {
+    background: var(--charcoal); color: white;
+    padding: 14px 0; text-align: center;
+    border-radius: 8px;
+    font-size: 16px; font-weight: 700; letter-spacing: 0.04em;
+    margin-top: 16px;
+  }
+
+  /* Step 2 — Notion duplicate button */
+  .notion-mock {
+    background: white; border: 1px solid var(--grid);
+    border-radius: 8px; flex: 1; display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .n-chrome {
+    background: #FBFAF8; border-bottom: 1px solid var(--grid);
+    padding: 10px 14px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px;
+  }
+  .n-chrome .left { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .n-dup-btn {
+    background: var(--notion-blue); color: white;
+    padding: 8px 16px; border-radius: 4px;
+    font-size: 14px; font-weight: 700;
+    box-shadow: 0 4px 10px rgba(35,131,226,0.35);
+    position: relative;
+  }
+  .n-dup-btn::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border: 3px dashed var(--gold);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  .n-body { padding: 20px; flex: 1; }
+  .n-banner {
+    height: 60px; border-radius: 4px;
+    background: linear-gradient(135deg, #1F2A33 0%, #8C7235 75%, #C9A14A 100%);
+    margin-bottom: 12px;
+  }
+  .n-h1 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .n-call {
+    background: var(--notion-blue-soft); border-left: 3px solid var(--notion-blue);
+    padding: 8px 10px; border-radius: 4px;
+    font-size: 12px; margin-bottom: 12px;
+  }
+  .n-rows { font-size: 12px; }
+  .n-row { display: flex; justify-content: space-between; padding: 4px 2px; border-bottom: 1px solid var(--grid); }
+  .n-row:last-child { border-bottom: none; }
+
+  /* Step 3 — Buyer's own workspace */
+  .ws-mock {
+    background: white; border: 1px solid var(--grid);
+    border-radius: 8px; flex: 1; display: grid;
+    grid-template-columns: 100px 1fr;
+    overflow: hidden;
+  }
+  .ws-side {
+    background: #FBFAF8; border-right: 1px solid var(--grid);
+    padding: 14px 8px;
+  }
+  .ws-side-title { font-size: 9px; font-weight: 700; opacity: 0.55; letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 8px; }
+  .ws-item { font-size: 11px; padding: 4px 4px; display: flex; align-items: center; gap: 4px; }
+  .ws-item.active { background: var(--notion-blue-soft); color: var(--notion-blue); font-weight: 700; border-radius: 3px; }
+  .ws-content { padding: 16px; }
+  .ws-banner { height: 50px; border-radius: 4px;
+    background: linear-gradient(135deg, #1F2A33 0%, #8C7235 75%, #C9A14A 100%);
+    margin-bottom: 10px; }
+  .ws-h1 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+  .ws-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+  .ws-k { background: #FBFAF8; border-left: 2px solid var(--notion-blue); padding: 6px 8px; border-radius: 3px; font-size: 10px; }
+  .ws-k .l { opacity: 0.55; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; font-size: 8px; margin-bottom: 2px; }
+  .ws-k .v { font-size: 14px; font-weight: 800; }
+  .ws-check { font-size: 14px; color: var(--success); font-weight: 700; text-align: center; margin-top: 8px; }
+
+  /* Arrows between steps */
+  .arrow {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .arrow svg { width: 70px; height: 70px; stroke: var(--gold); stroke-width: 6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 170px;
+    background: var(--charcoal); color: white;
+    display: flex; justify-content: center; align-items: center;
+    padding: 0 90px;
+    text-align: center;
+  }
+  .bb {
+    font-size: 32px; font-weight: 600; letter-spacing: -0.01em;
+  }
+  .bb .gold { color: var(--gold); font-weight: 800; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="price-pill">Notion Life OS · $24</div>
+  </div>
+
+  <div class="headline">
+    <div class="eyebrow">From purchase to workspace</div>
+    <div class="h-main">One click to <span class="gold">your workspace.</span></div>
+    <div class="gold-bar"></div>
+    <div class="h-sub">Buy on Etsy → open the email → click <strong>Duplicate</strong> in Notion. 60 seconds, free Notion tier, no subscription.</div>
+  </div>
+
+  <div class="strip">
+    <!-- Step 1 -->
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Open the email</div>
+      <div class="step-sub">Etsy delivers instantly</div>
+      <div class="email-mock">
+        <div class="em-hdr">From: Lime Premium Studios</div>
+        <div class="em-from">Your Notion Budget OS is ready</div>
+        <div class="em-subj">Order #LP-4509524430 · Essentials</div>
+        <div class="em-body">
+          Thanks for your purchase! Click below to open the Notion template, then click <strong>Duplicate</strong> top-right to copy it into your own workspace.<br><br>
+          The 5-page <strong>Setup Guide PDF</strong> is also attached.
+        </div>
+        <div class="em-btn">Open &amp; duplicate →</div>
+      </div>
+    </div>
+
+    <div class="arrow"><svg viewBox="0 0 100 100"><polyline points="30,30 70,50 30,70"/></svg></div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Click "Duplicate"</div>
+      <div class="step-sub">Top-right of Notion's page</div>
+      <div class="notion-mock">
+        <div class="n-chrome">
+          <div class="left"><span style="color:var(--charcoal);font-size:14px">💰</span>Notion Budget OS</div>
+          <div class="n-dup-btn">Duplicate</div>
+        </div>
+        <div class="n-body">
+          <div class="n-banner"></div>
+          <div class="n-h1">💰 Notion Budget OS</div>
+          <div class="n-call">💡 Your monthly money brain — already wired.</div>
+          <div class="n-rows">
+            <div class="n-row"><div>Spent this month</div><div><strong>$535.19</strong></div></div>
+            <div class="n-row"><div>Total budget</div><div><strong>$1,180.00</strong></div></div>
+            <div class="n-row"><div>Remaining</div><div style="color:var(--success);font-weight:700">$644.81</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow"><svg viewBox="0 0 100 100"><polyline points="30,30 70,50 30,70"/></svg></div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Your workspace</div>
+      <div class="step-sub">Yours forever, fully editable</div>
+      <div class="ws-mock">
+        <div class="ws-side">
+          <div class="ws-side-title">YOUR WORKSPACE</div>
+          <div class="ws-item active">🏠 Budget OS</div>
+          <div class="ws-item">💵 Income</div>
+          <div class="ws-item">💳 Expense</div>
+          <div class="ws-item">🎯 Budget</div>
+          <div class="ws-item">🔁 Recurring</div>
+          <div class="ws-item">🧹 Subs</div>
+        </div>
+        <div class="ws-content">
+          <div class="ws-banner"></div>
+          <div class="ws-h1">💰 Notion Budget OS</div>
+          <div class="ws-kpis">
+            <div class="ws-k"><div class="l">Spent</div><div class="v">$535</div></div>
+            <div class="ws-k"><div class="l">Budget</div><div class="v">$1,180</div></div>
+          </div>
+          <div class="ws-check">✓ Duplicated · ready to edit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-band">
+    <div class="bb">Works on the <span class="gold">free Notion tier</span> · No bank connection · Your data, your workspace.</div>
+  </div>
+</body>
+</html>

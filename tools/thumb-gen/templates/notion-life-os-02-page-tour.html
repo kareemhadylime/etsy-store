@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notion Life OS — Thumb 02 Page Tour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #1F2A33;
+    --gold: #C9A14A;
+    --ivory: #F7F5F0;
+    --grid: #D8DCDF;
+    --notion-blue: #2383E2;
+    --notion-blue-soft: #E7F1FB;
+    --success: #3F6B4D;
+    --warn: #B57A2A;
+    --alert: #9B3A30;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: linear-gradient(160deg, #1F2A33 0%, #2A3540 50%, #3A4954 100%);
+    color: white;
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(135deg, rgba(255,255,255,0.012) 0 2px, transparent 2px 100px);
+    pointer-events: none;
+  }
+
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 120px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 90px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .wordmark { font-size: 22px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: white; }
+  .price-pill {
+    background: var(--gold); color: var(--charcoal);
+    font-size: 26px; font-weight: 800; padding: 12px 30px; border-radius: 999px;
+  }
+
+  .headline {
+    position: absolute; top: 170px; left: 90px; right: 90px;
+    text-align: center;
+  }
+  .eyebrow {
+    font-size: 24px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px;
+  }
+  .h-main {
+    font-size: 140px; font-weight: 800; line-height: 0.95; letter-spacing: -0.035em;
+    color: white;
+  }
+  .h-main .gold { color: var(--gold); }
+  .gold-bar { width: 180px; height: 6px; background: var(--gold); margin: 22px auto 18px; }
+  .h-sub {
+    font-size: 30px; font-weight: 500; line-height: 1.35;
+    color: rgba(255,255,255,0.78); max-width: 1500px; margin: 0 auto;
+  }
+
+  /* 4 page cards fanned diagonally */
+  .pages { position: absolute; left: 60px; right: 60px; bottom: 200px; height: 1000px; }
+  .card {
+    position: absolute;
+    width: 720px; height: 760px;
+    background: white; color: var(--charcoal);
+    border-radius: 14px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.45), 0 8px 22px rgba(0,0,0,0.30);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .card.c1 { left: 40px;  bottom: 0;   transform: rotate(-9deg); z-index: 1; }
+  .card.c2 { left: 480px; bottom: 80px; transform: rotate(-3deg); z-index: 2; }
+  .card.c3 { left: 920px; bottom: 80px; transform: rotate(3deg);  z-index: 3; }
+  .card.c4 { left: 1340px; bottom: 0;   transform: rotate(9deg);  z-index: 4; }
+
+  .pb {
+    height: 130px;
+    background: linear-gradient(135deg, #1F2A33 0%, #8C7235 75%, #C9A14A 100%);
+    position: relative;
+  }
+  .pb svg { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; stroke: white; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: 0.35; }
+
+  .pc { padding: 26px 30px; }
+  .pc h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .pc .blue-call {
+    background: var(--notion-blue-soft);
+    border-left: 4px solid var(--notion-blue);
+    padding: 10px 14px; border-radius: 4px;
+    font-size: 16px; margin-bottom: 18px; color: var(--charcoal);
+  }
+  .row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 4px; border-bottom: 1px solid var(--grid);
+    font-size: 16px;
+  }
+  .row:last-child { border-bottom: none; }
+  .row .l { font-weight: 600; }
+  .row .r { font-weight: 700; color: var(--charcoal); }
+  .pill { padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+  .pill.g { background: #E5F0E8; color: var(--success); }
+  .pill.y { background: #FBEDD1; color: var(--warn); }
+  .pill.r { background: #F5DDD9; color: var(--alert); }
+
+  .kpi-mini { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .kpi-mini .km { background: #FBFAF8; border-left: 3px solid var(--notion-blue); padding: 10px 12px; border-radius: 4px; }
+  .kpi-mini .kl { font-size: 10px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; opacity: 0.55; margin-bottom: 4px; }
+  .kpi-mini .kv { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+
+  .cal {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    font-size: 12px; text-align: center;
+  }
+  .cal .day { background: #FBFAF8; padding: 8px 0; border-radius: 4px; color: var(--charcoal); }
+  .cal .day.due { background: #FBEDD1; color: var(--warn); font-weight: 700; }
+  .cal .day.paid { background: #E5F0E8; color: var(--success); font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="price-pill">Notion Life OS · $24</div>
+  </div>
+
+  <div class="headline">
+    <div class="eyebrow">Six pages. Five databases. Pre-wired.</div>
+    <div class="h-main">6 pages.<br><span class="gold">Pre-wired. Premium.</span></div>
+    <div class="gold-bar"></div>
+    <div class="h-sub">Home dashboard + Income + Expense + Budget + Recurring + Subscriptions. Every page already has data, formulas, and views.</div>
+  </div>
+
+  <div class="pages">
+    <!-- Card 1 — Expense -->
+    <div class="card c1">
+      <div class="pb"><svg viewBox="0 0 100 100"><rect x="12" y="28" width="76" height="48" rx="6"/><line x1="12" y1="42" x2="88" y2="42"/><rect x="20" y="52" width="14" height="10" rx="2"/></svg></div>
+      <div class="pc">
+        <h1>💳 Expense</h1>
+        <div class="blue-call">💡 This month — 10 expenses · $535.19 total</div>
+        <div class="row"><div class="l">Whole Foods</div><div class="r">$87.40</div></div>
+        <div class="row"><div class="l">Trader Joe's</div><div class="r">$38.90</div></div>
+        <div class="row"><div class="l">Shell — gas</div><div class="r">$52.30</div></div>
+        <div class="row"><div class="l">Bella Trattoria</div><div class="r">$64.20</div></div>
+        <div class="row"><div class="l">Nike online</div><div class="r">$95.00</div></div>
+        <div class="row"><div class="l">Netflix</div><div class="r">$22.99</div></div>
+      </div>
+    </div>
+
+    <!-- Card 2 — Budget by Category -->
+    <div class="card c2">
+      <div class="pb"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="36"/><circle cx="50" cy="50" r="24"/><circle cx="50" cy="50" r="12"/><line x1="78" y1="22" x2="50" y2="50"/></svg></div>
+      <div class="pc">
+        <h1>🎯 Budget</h1>
+        <div class="blue-call">💡 Target vs. actual · auto-rollup</div>
+        <div class="row"><div class="l">🛒 Groceries · $500</div><div class="r"><span class="pill g">🟢 44%</span></div></div>
+        <div class="row"><div class="l">🚗 Transport · $250</div><div class="r"><span class="pill g">🟢 38%</span></div></div>
+        <div class="row"><div class="l">🍽️ Dining · $200</div><div class="r"><span class="pill g">🟢 38%</span></div></div>
+        <div class="row"><div class="l">📺 Subscriptions · $80</div><div class="r"><span class="pill g">🟢 29%</span></div></div>
+        <div class="row"><div class="l">🛍️ Shopping · $150</div><div class="r"><span class="pill y">🟡 82%</span></div></div>
+        <div class="row"><div class="l">Total · $1,180</div><div class="r">$535.19</div></div>
+      </div>
+    </div>
+
+    <!-- Card 3 — Recurring Bills (calendar view) -->
+    <div class="card c3">
+      <div class="pb"><svg viewBox="0 0 100 100"><path d="M 28 38 A 26 26 0 0 1 78 38"/><polyline points="68,32 78,38 72,48"/><path d="M 72 62 A 26 26 0 0 1 22 62"/><polyline points="32,68 22,62 28,52"/></svg></div>
+      <div class="pc">
+        <h1>🔁 Recurring</h1>
+        <div class="blue-call">💡 Calendar view · due in next 7 days</div>
+        <div class="cal">
+          <div class="day">S</div><div class="day">M</div><div class="day">T</div><div class="day">W</div><div class="day">T</div><div class="day">F</div><div class="day">S</div>
+          <div class="day paid">1<br>Rent</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+          <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div>
+          <div class="day paid">15<br>Internet</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day due">20<br>Phone</div><div class="day">21</div>
+        </div>
+        <div style="margin-top:14px; font-size:14px;">
+          <div class="row"><div class="l">Rent — May 1</div><div class="r"><span class="pill g">🟢 Paid</span></div></div>
+          <div class="row"><div class="l">Phone — May 20</div><div class="r"><span class="pill y">🟡 Due soon</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 — Subscriptions Audit -->
+    <div class="card c4">
+      <div class="pb"><svg viewBox="0 0 100 100"><line x1="22" y1="78" x2="60" y2="40"/><path d="M 54 34 L 80 60 L 72 68 L 46 42 Z"/></svg></div>
+      <div class="pc">
+        <h1>🧹 Subscriptions</h1>
+        <div class="blue-call">💡 Sorted by annual cost · biggest leaks first</div>
+        <div class="kpi-mini">
+          <div class="km"><div class="kl">Monthly total</div><div class="kv">$113.96</div></div>
+          <div class="km"><div class="kl">Annual total</div><div class="kv">$1,367.52</div></div>
+        </div>
+        <div class="row"><div class="l">Gym · $49.99/mo</div><div class="r"><span class="pill r">🔴 Kill</span></div></div>
+        <div class="row"><div class="l">Netflix · $22.99/mo</div><div class="r"><span class="pill g">🟢 Keep</span></div></div>
+        <div class="row"><div class="l">Spotify · $16.99/mo</div><div class="r"><span class="pill g">🟢 Keep</span></div></div>
+        <div class="row"><div class="l">Magazine · $14/mo</div><div class="r"><span class="pill y">🟡 Watch</span></div></div>
+        <div class="row"><div class="l">Cloud 2TB · $9.99/mo</div><div class="r"><span class="pill g">🟢 Keep</span></div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
