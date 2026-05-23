@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notion Budget OS — Setup Guide</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="5-page setup guide for the Notion Budget OS Essentials template — duplicate instructions, first-day actions, customization tips, troubleshooting.">
+<meta name="keywords" content="notion, budget template, setup guide, life os">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Notion Life OS Setup Guide v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --neutral-text: #6E7682;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body { width: 8.5in; background: var(--background-off-white); }
+  .page {
+    width: 8.5in; height: 11in;
+    padding: 0.55in 0.55in 1.0in 0.55in;
+    position: relative;
+    page-break-after: always;
+    background: var(--background-off-white);
+    overflow: hidden;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ===== Cover ===== */
+  .cover { padding: 0; }
+  .cover-band-top {
+    height: 1.2in; background: var(--primary-charcoal);
+    color: var(--surface-white);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 0.55in;
+  }
+  .cover-wordmark { font-size: 13pt; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .cover-tier {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    padding: 6pt 16pt; border-radius: 4pt;
+    font-size: 9pt; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .cover-content { padding: 0.7in 0.55in 0; }
+  .cover-eyebrow {
+    font-size: 11pt; font-weight: 600; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--secondary-warm-gold);
+    margin-bottom: 0.16in;
+  }
+  .cover-title {
+    font-size: 52pt; font-weight: 800; line-height: 0.96;
+    letter-spacing: -0.025em; margin-bottom: 0.20in;
+  }
+  .cover-gold-bar { width: 1.4in; height: 5pt; background: var(--secondary-warm-gold); margin-bottom: 0.20in; }
+  .cover-sub {
+    font-size: 14pt; font-weight: 400; line-height: 1.45;
+    color: var(--primary-charcoal); opacity: 0.78; max-width: 5.5in;
+    margin-bottom: 0.40in;
+  }
+
+  /* Cover mock — minimal Notion page preview */
+  .cover-mock {
+    width: 5.8in; height: 3.2in;
+    background: white;
+    border: 1px solid var(--neutral-grid);
+    border-radius: 8pt;
+    box-shadow: 0 12pt 24pt rgba(31,42,51,0.10);
+    overflow: hidden;
+    margin: 0.20in 0;
+  }
+  .cm-banner {
+    height: 0.7in;
+    background: linear-gradient(135deg, #1F2A33 0%, #8C7235 75%, #C9A14A 100%);
+  }
+  .cm-body { padding: 0.18in 0.22in; }
+  .cm-h1 { font-size: 18pt; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.06in; }
+  .cm-call {
+    background: #E7F1FB; border-left: 3pt solid #2383E2;
+    padding: 6pt 10pt; border-radius: 3pt;
+    font-size: 8pt; margin-bottom: 0.10in;
+  }
+  .cm-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6pt; }
+  .cm-k { background: var(--ivory); border-left: 2pt solid #2383E2; padding: 6pt 8pt; border-radius: 3pt; }
+  .cm-k .l { font-size: 6pt; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; opacity: 0.55; }
+  .cm-k .v { font-size: 12pt; font-weight: 800; letter-spacing: -0.02em; }
+
+  .cover-list { font-size: 11pt; line-height: 1.7; margin-top: 0.30in; }
+  .cover-list li { padding-left: 24pt; position: relative; list-style: none; }
+  .cover-list li::before {
+    content: '▸'; position: absolute; left: 4pt;
+    color: var(--secondary-warm-gold); font-weight: 800;
+  }
+  .cover-band-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 0.22in 0.55in;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 9pt;
+  }
+  .cover-band-bottom .left { font-weight: 600; letter-spacing: 0.08em; }
+  .cover-band-bottom .right { opacity: 0.7; font-style: italic; }
+
+  /* ===== Standard page header ===== */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 0.18in;
+  }
+  .eyebrow {
+    font-size: 8pt; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--secondary-warm-gold);
+    margin-bottom: 0.05in;
+  }
+  .h-title {
+    font-size: 26pt; font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 0.06in;
+  }
+  .h-sub {
+    font-size: 10.5pt; font-style: italic;
+    color: var(--primary-charcoal); opacity: 0.7;
+  }
+  .h-badge {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 8pt 14pt; border-radius: 4pt;
+    font-size: 8pt; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; text-align: right; line-height: 1.4;
+  }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+  .gold-divider {
+    height: 2pt; background: var(--secondary-warm-gold);
+    width: 1.6in; margin-bottom: 0.18in;
+  }
+  .section-label {
+    font-size: 9pt; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--secondary-warm-gold);
+    margin-bottom: 0.10in;
+  }
+
+  /* ===== Step blocks ===== */
+  .step {
+    display: grid; grid-template-columns: 28pt 1fr;
+    gap: 0.14in; margin-bottom: 0.16in;
+    background: var(--surface-white); border: 1px solid var(--neutral-grid);
+    border-left: 4pt solid var(--secondary-warm-gold);
+    border-radius: 6pt; padding: 0.14in 0.18in;
+  }
+  .step-num {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    width: 24pt; height: 24pt; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12pt; font-weight: 800;
+  }
+  .step-body { font-size: 10pt; line-height: 1.5; }
+  .step-body .st-title { font-size: 12pt; font-weight: 700; margin-bottom: 0.05in; }
+  .step-body strong { font-weight: 700; }
+  .step-body em { font-style: normal; color: var(--secondary-warm-gold); font-weight: 700; }
+  .step-body code {
+    background: var(--ivory); border: 1px solid var(--neutral-grid);
+    padding: 1pt 5pt; border-radius: 3pt; font-size: 9pt;
+    font-family: 'Inter', monospace;
+  }
+  .step-note {
+    margin-top: 0.06in;
+    font-size: 9pt; color: var(--neutral-text); font-style: italic;
+  }
+
+  /* ===== Annotated screenshot block ===== */
+  .screenshot {
+    background: var(--surface-white);
+    border: 1px solid var(--neutral-grid);
+    border-radius: 6pt;
+    padding: 0.16in;
+    margin-bottom: 0.14in;
+    position: relative;
+  }
+  .screenshot-label {
+    font-size: 8pt; font-weight: 700;
+    letter-spacing: 0.10em; text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.08in;
+  }
+  .screenshot-mock {
+    background: var(--ivory);
+    border: 1px solid var(--neutral-grid);
+    border-radius: 4pt; padding: 0.14in 0.18in;
+    font-size: 9pt;
+    position: relative;
+  }
+  .gold-circle {
+    border: 2pt solid var(--secondary-warm-gold);
+    border-radius: 50%;
+    padding: 4pt 8pt;
+    display: inline-block;
+    font-weight: 700;
+  }
+  .annotation {
+    position: absolute;
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    font-size: 7.5pt; font-weight: 800;
+    padding: 3pt 8pt; border-radius: 3pt;
+    letter-spacing: 0.04em;
+  }
+
+  /* ===== Two-column troubleshoot ===== */
+  .qa-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.14in; margin-bottom: 0.14in;
+  }
+  .qa-card {
+    background: var(--surface-white); border: 1px solid var(--neutral-grid);
+    border-top: 3pt solid var(--secondary-warm-gold);
+    border-radius: 4pt; padding: 0.12in 0.14in;
+  }
+  .qa-q {
+    font-size: 9.5pt; font-weight: 700; color: var(--primary-charcoal);
+    margin-bottom: 0.05in;
+  }
+  .qa-a {
+    font-size: 9pt; line-height: 1.45; color: var(--primary-charcoal);
+    opacity: 0.85;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    position: absolute;
+    bottom: 0.35in; left: 0.55in; right: 0.55in;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 7.5pt;
+    color: var(--primary-charcoal); opacity: 0.55;
+    border-top: 1px solid var(--neutral-grid);
+    padding-top: 0.10in;
+  }
+  .footer .right { font-style: italic; }
+  .footer-mark {
+    font-weight: 700; color: var(--secondary-warm-gold);
+    letter-spacing: 0.10em; text-transform: uppercase;
+  }
+
+  /* ===== Customization tips list ===== */
+  .tip-card {
+    background: var(--surface-white); border: 1px solid var(--neutral-grid);
+    border-left: 3pt solid var(--secondary-warm-gold);
+    border-radius: 4pt; padding: 0.10in 0.14in;
+    margin-bottom: 0.10in;
+    font-size: 10pt; line-height: 1.5;
+  }
+  .tip-card .tip-h {
+    font-weight: 700; font-size: 10.5pt; margin-bottom: 0.04in;
+  }
+  .tip-card .tip-h em {
+    font-style: normal; color: var(--secondary-warm-gold);
+    font-size: 9pt; font-weight: 600; letter-spacing: 0.04em;
+    margin-left: 8pt;
+  }
+  .tip-card .tip-detail { opacity: 0.78; }
+  .tip-card code {
+    background: var(--ivory); border: 1px solid var(--neutral-grid);
+    padding: 0pt 4pt; border-radius: 3pt; font-size: 9pt;
+    font-family: 'Inter', monospace;
+  }
+
+  /* ===== Back cover ===== */
+  .back-mark {
+    margin-top: 0.40in;
+    text-align: center;
+    font-size: 9pt;
+    color: var(--neutral-text);
+    line-height: 1.6;
+  }
+  .back-mark .br {
+    font-size: 14pt; font-weight: 800; color: var(--secondary-warm-gold);
+    letter-spacing: 0.22em; text-transform: uppercase;
+    margin-bottom: 0.10in;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PAGE 1 — COVER ===== -->
+<div class="page cover">
+  <div class="cover-band-top">
+    <div class="cover-wordmark">Lime Premium Studios</div>
+    <div class="cover-tier">Essentials</div>
+  </div>
+  <div class="cover-content">
+    <div class="cover-eyebrow">Notion Life OS · Setup Guide</div>
+    <div class="cover-title">Notion Budget OS<br>— Setup Guide</div>
+    <div class="cover-gold-bar"></div>
+    <div class="cover-sub">
+      A 5-page walkthrough. Duplicate the workspace, set up your first month, customize what matters — most buyers are done in under 15 minutes.
+    </div>
+
+    <div class="cover-mock">
+      <div class="cm-banner"></div>
+      <div class="cm-body">
+        <div class="cm-h1">💰 Notion Budget OS</div>
+        <div class="cm-call">💡 Your monthly money brain — already wired. Replace the seed data with your real numbers.</div>
+        <div class="cm-kpis">
+          <div class="cm-k"><div class="l">Spent</div><div class="v">$535</div></div>
+          <div class="cm-k"><div class="l">Budget</div><div class="v">$1,180</div></div>
+          <div class="cm-k"><div class="l">Remaining</div><div class="v">$644</div></div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="cover-list">
+      <li>Page 2 — How to duplicate the template into your Notion workspace</li>
+      <li>Page 3 — First-day actions: get your real data in</li>
+      <li>Page 4 — Customization tips: the 5 things people change most</li>
+      <li>Page 5 — Troubleshooting + support</li>
+    </ul>
+  </div>
+  <div class="cover-band-bottom">
+    <div class="left">NOTION LIFE OS · v1.0</div>
+    <div class="right">Premium · Private · Yours forever</div>
+  </div>
+</div>
+
+<!-- ===== PAGE 2 — DUPLICATE INSTRUCTIONS ===== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 2 of 5 · Duplicate</div>
+      <div class="h-title">Click. Duplicate. Done.</div>
+      <div class="h-sub">From your purchase email to a workspace you control — about 60 seconds.</div>
+    </div>
+    <div class="h-badge"><div class="label">Setup Guide</div><div class="ver">v1.0</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">3 steps</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="st-title">Open the link in your purchase email</div>
+      The email from <strong>Lime Premium Studios</strong> contains a "Open &amp; duplicate" button. Click it. The Notion template opens in your browser. If you're not logged in to Notion, you'll be prompted — <em>free Notion accounts work just fine</em>.
+      <div class="step-note">If you don't have a Notion account, sign up free at <code>notion.so</code> first, then come back and click the link.</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="st-title">Click "Duplicate" at the top-right of the page</div>
+      Notion shows a <strong>Duplicate</strong> button in the top-right corner of the page, just under your account menu. Click it.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="st-title">Pick your workspace</div>
+      If you have more than one Notion workspace, Notion will ask which one to copy into. Pick the personal workspace where you want your budget to live. <em>The template lands in your sidebar instantly.</em>
+    </div>
+  </div>
+
+  <div class="screenshot">
+    <div class="screenshot-label">What the duplicate button looks like</div>
+    <div class="screenshot-mock" style="padding-right: 1.6in;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div><strong>💰 Notion Budget OS</strong> &nbsp;&nbsp;<span style="opacity:0.6;">/ public template</span></div>
+        <span class="gold-circle">Duplicate</span>
+      </div>
+      <div style="margin-top:0.10in; opacity:0.65; font-size:8.5pt;">Top-right of the page. Same row as Share, Comment, and the ⋯ menu.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div><span class="footer-mark">Lime Premium Studios</span> · Notion Life OS Essentials v1.0</div>
+    <div class="right">Page 2 of 5</div>
+  </div>
+</div>
+
+<!-- ===== PAGE 3 — FIRST-DAY ACTIONS ===== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 3 of 5 · First-day actions</div>
+      <div class="h-title">Your first 5 minutes inside.</div>
+      <div class="h-sub">The seed data shows what the template can do. Replace it with your real numbers, one short step at a time.</div>
+    </div>
+    <div class="h-badge"><div class="label">Setup Guide</div><div class="ver">v1.0</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">5 actions · ~5 minutes</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="st-title">Open <code>💵 Income</code> — add your most recent paycheck</div>
+      Click the database row marked "Paycheck — Acme Corp" and either edit it to match your real income or click <em>+ New</em> to add a fresh row. Keep at least one example row visible until you're comfortable with the structure.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="st-title">Open <code>🎯 Budget by Category</code> — adjust the 5 starter categories</div>
+      Categories ship as Groceries / Transport / Dining / Subscriptions / Shopping with sensible monthly targets ($500 / $250 / $200 / $80 / $150). Rename them to match your life and reset the Target ($/mo) column. Add new categories with <em>+ New</em> if you need them.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="st-title">Open <code>💳 Expense</code> — add the last 3 expenses you remember</div>
+      Just type from memory — coffee, gas, groceries, an Amazon order. Tag each one with a category from your updated Budget list. The Home dashboard's KPI row updates as you go.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="st-title">Open <code>🔁 Recurring Bills</code> — log your rent + 2 biggest bills</div>
+      Rent / mortgage, internet, phone — whatever auto-charges every month. Set the Due Day, Frequency, and Last Paid date. The <strong>Next Due</strong> column computes itself from there, and the Status pill turns yellow when something's coming up in 7 days.
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <div class="st-title">Come back to <code>🏠 Home</code> — see your numbers</div>
+      The 3-callout KPI row at the top of Home now reflects you, not the seed family. <em>Spent / Budget / Remaining</em> update live as you add to Expense. Bookmark this page in Notion's sidebar — it's the daily landing surface.
+    </div>
+  </div>
+
+  <div class="footer">
+    <div><span class="footer-mark">Lime Premium Studios</span> · Notion Life OS Essentials v1.0</div>
+    <div class="right">Page 3 of 5</div>
+  </div>
+</div>
+
+<!-- ===== PAGE 4 — CUSTOMIZATION TIPS ===== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 4 of 5 · Customization</div>
+      <div class="h-title">The 5 things people change first.</div>
+      <div class="h-sub">Notion's databases are flexible — none of this breaks the template. Make it yours.</div>
+    </div>
+    <div class="h-badge"><div class="label">Setup Guide</div><div class="ver">v1.0</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">Common edits</div>
+
+  <div class="tip-card">
+    <div class="tip-h">Rename a category <em>2 minutes</em></div>
+    <div class="tip-detail">Open <code>🎯 Budget by Category</code> → click the category name → type the new name. The relation in <code>💳 Expense</code> updates automatically — no manual fixup needed. Renaming "Groceries" to "Food" keeps all linked expenses tied.</div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-h">Add a new category <em>1 minute</em></div>
+    <div class="tip-detail">In <code>🎯 Budget by Category</code> click <em>+ New</em> → fill in Name, Icon (an emoji), Color (Blue / Green / Yellow / Red only — per the design system), and the monthly target. The Home dashboard's gallery view picks it up on next refresh.</div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-h">Change the currency <em>3 minutes</em></div>
+    <div class="tip-detail">Each numeric column with <code>$</code> formatting is configured as Notion's <strong>Dollar</strong> number type. Click any Amount column header → <em>Edit property</em> → <em>Number format</em> → pick your currency (Notion supports EUR, GBP, JPY, etc.). Repeat in Income · Expense · Budget · Recurring · Subscriptions.</div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-h">Archive instead of delete <em>1 minute</em></div>
+    <div class="tip-detail">For old months you want out of view but not gone, add an "Archived" checkbox property to any database and filter the default views to <code>Archived ≠ true</code>. Deleting a row also works — Notion keeps it in Trash for 30 days.</div>
+  </div>
+
+  <div class="tip-card">
+    <div class="tip-h">Connect Notion AI <em>Coming in AI Edition</em></div>
+    <div class="tip-detail">Notion AI works on any of these databases out of the box — try "/ AI" inside any cell. The dedicated AI Co-Pilot page with 30+ pre-written prompts ships in the <strong>AI Edition</strong> tier once Essentials sells through. Watch for an email upgrade offer.</div>
+  </div>
+
+  <div class="footer">
+    <div><span class="footer-mark">Lime Premium Studios</span> · Notion Life OS Essentials v1.0</div>
+    <div class="right">Page 4 of 5</div>
+  </div>
+</div>
+
+<!-- ===== PAGE 5 — TROUBLESHOOTING + SUPPORT ===== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 5 of 5 · Help</div>
+      <div class="h-title">Troubleshooting + support.</div>
+      <div class="h-sub">Five things that occasionally trip people up, plus how to reach us.</div>
+    </div>
+    <div class="h-badge"><div class="label">Setup Guide</div><div class="ver">v1.0</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">Common issues</div>
+
+  <div class="qa-grid">
+    <div class="qa-card">
+      <div class="qa-q">Q. The KPI row on Home shows zeros.</div>
+      <div class="qa-a">The 3 KPI cards pull from the inline <strong>📊 Dashboard Stats</strong> database. Notion rollups need at least one row in Expense and one in Budget by Category to compute — they're seeded for you, so if everything reads zero, you probably deleted the seed rows. Add one expense + one budget category to restore.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-q">Q. The Sync indicator spins forever.</div>
+      <div class="qa-a">Notion occasionally lags on duplicate of large workspaces. Hard-refresh the page (Cmd/Ctrl + Shift + R). If formulas still show <em>—</em>, give Notion 2-3 minutes to finish the duplicate operation in the background.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-q">Q. Mobile looks different.</div>
+      <div class="qa-a">Notion's mobile apps collapse 3-column callout rows into a single stack. The KPI row, dashboard, and linked views all still work — they just stack vertically. The template was designed dashboard-first so mobile scrolling stays clean.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-q">Q. I'm on Notion's free tier.</div>
+      <div class="qa-a">Every feature in this template works on Notion Free: databases, rollups, formulas, calendar views, linked databases, page covers. Notion's free-tier limit (1,000 blocks) is more than enough for personal budgeting — most buyers stay under 200 blocks for years.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-q">Q. I want to share with my partner.</div>
+      <div class="qa-a">Click <em>Share</em> at the top-right of any page → invite by email. Notion's free tier supports a few guest collaborators per workspace. For a fully shared household budget you'll want a Notion Plus workspace ($10/mo) — but that's Notion's pricing, not ours.</div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-q">Q. Notion changed something and my template broke.</div>
+      <div class="qa-a">Email <strong>support@limepremiumstudios.com</strong> — we ship free updates when Notion makes breaking changes. Include a screenshot of the breakage and we'll get you a patched duplicate link within a few days.</div>
+    </div>
+  </div>
+
+  <div style="background: var(--primary-charcoal); color: var(--surface-white); padding: 0.20in 0.24in; border-radius: 6pt; margin-top: 0.14in;">
+    <div style="font-size: 9pt; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.06in;">What's next</div>
+    <div style="font-size: 10pt; line-height: 1.55;">
+      <strong>Pro tier</strong> (Net Worth + Investment Portfolio databases) and <strong>AI Edition</strong> (30+ Notion AI prompts + ChatGPT/Claude prompt sidebar) ship when Essentials hits 5+ sales/week. Essentials buyers get an upgrade discount equal to your purchase price when those tiers launch.
+    </div>
+  </div>
+
+  <div class="back-mark">
+    <div class="br">Lime Premium Studios</div>
+    <div>Notion Life OS Essentials v1.0 · support@limepremiumstudios.com</div>
+    <div style="margin-top: 0.06in; opacity: 0.7;">Your data stays in your Notion workspace. We never see it.</div>
+  </div>
+
+  <div class="footer">
+    <div><span class="footer-mark">Lime Premium Studios</span> · Notion Life OS Essentials v1.0</div>
+    <div class="right">Page 5 of 5</div>
+  </div>
+</div>
+
+</body>
+</html>
