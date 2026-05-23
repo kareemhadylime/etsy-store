@@ -144,7 +144,8 @@ function buildDashboard(workbook) {
       { label: 'TOTAL NW',     value: { formula: `TEXT(('💼 Assets Summary'!N${ASSETS.TOTAL_ROW})-('📉 Liabilities Summary'!N${LIABS.TOTAL_ROW}),"$#,##0")` } },
       { label: 'MoM CHANGE',   value: { formula: `TEXT(IFERROR(('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW})-('💼 Assets Summary'!M${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!M${LIABS.TOTAL_ROW}),0),"$#,##0")` } },
       { label: 'YoY CHANGE',   value: { formula: `TEXT(IFERROR(('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW})/MAX(1,('💼 Assets Summary'!C${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!C${LIABS.TOTAL_ROW}))-1,0),"0.0%")` } },
-      { label: 'DEBT/ASSET',   value: { formula: `TEXT(IFERROR('📉 Liabilities Summary'!N${LIABS.TOTAL_ROW}/'💼 Assets Summary'!N${ASSETS.TOTAL_ROW},0),"0.0%")` } },
+      // [FIX NWT-009] Pre-fix returned 0% when assets=0. Now shows ∞ if any debt, or — if both zero.
+      { label: 'DEBT/ASSET',   value: { formula: `IF('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}=0,IF('📉 Liabilities Summary'!N${LIABS.TOTAL_ROW}>0,"∞","—"),TEXT('📉 Liabilities Summary'!N${LIABS.TOTAL_ROW}/'💼 Assets Summary'!N${ASSETS.TOTAL_ROW},"0.0%"))` } },
       { label: 'FIRE % FUNDED',value: { formula: `TEXT(IFERROR(('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW})/'🔥 FIRE Calculator'!E12,0),"0.0%")` } },
       { label: 'AGE PCTILE',   value: { formula: `IFERROR('👥 Age Benchmark'!E12,"—")` } },
     ],
@@ -191,8 +192,9 @@ function buildDashboard(workbook) {
     },
     {
       label: 'Allocation drift',
+      // [FIX NWT-006] Asset Allocation drift cells live at F11:F20 (10 classes), not F12:F21.
       // Pulled from Asset Allocation (Pro). Falls back to 0.8 if tab missing (Essentials).
-      formula: `IFERROR(MAX(0,1-MAX('📈 Asset Allocation'!F12:F21)/0.2),0.8)`,
+      formula: `IFERROR(MAX(0,1-MAX('📈 Asset Allocation'!F11:F20)/0.2),0.8)`,
     },
     {
       label: 'FIRE progress',
@@ -242,13 +244,18 @@ function buildDashboard(workbook) {
   // === SECTION 2 — Asset mix donut substitute (right column, H:L) ===
   let mR = addSectionHeader(sheet, 6, 'Asset mix vs. target', 'Per-class current % side-by-side with target %. Drift >5pp triggers alert pill.', 'H:L');
 
+  // [FIX NWT-008] Pre-fix used rows like '14:14' which formats as `SUM(N14:14)` — LibreOffice
+  // evaluates this as #VALUE! (swallowed by IFERROR → 0). All categories showed 0%. Also the
+  // category-to-row mapping had errors (Real Estate should aggregate rows 14+15 not 14 alone;
+  // Other should include 13 + 22:24, not row 15 which is Real Estate Investment).
+  // Use canonical `numericFormula` strings instead of range-tail concatenation.
   const mixRows = [
-    { label: '🏠 Real Estate',       rows: '14:14', target: 0.25 },
-    { label: '📊 Stocks & Funds',    rows: '16:17', target: 0.40 },
-    { label: '🥇 Metals & Crypto',   rows: '19:20', target: 0.05 },
-    { label: '💵 Cash & HYSA',       rows: '9:11',  target: 0.10 },
-    { label: '🏢 Business Equity',   rows: '21:21', target: 0.10 },
-    { label: '💎 Other',             rows: '15:15', target: 0.10 },
+    { label: '🏠 Real Estate',     formula: `SUM('💼 Assets Summary'!N14:N15)`,                                 target: 0.25 },
+    { label: '📊 Stocks & Funds',  formula: `SUM('💼 Assets Summary'!N16:N18)`,                                 target: 0.40 },
+    { label: '🥇 Metals & Crypto', formula: `SUM('💼 Assets Summary'!N19:N20)`,                                 target: 0.05 },
+    { label: '💵 Cash & HYSA',     formula: `SUM('💼 Assets Summary'!N9:N12)`,                                  target: 0.10 },
+    { label: '🏢 Business Equity', formula: `'💼 Assets Summary'!N21`,                                          target: 0.10 },
+    { label: '💎 Other',           formula: `'💼 Assets Summary'!N13+SUM('💼 Assets Summary'!N22:N24)`,        target: 0.10 },
   ];
 
   addTableHeader(sheet, mR + 1, ['Class', 'Current %', 'Target %', 'Drift'], ['H', 'J', 'K', 'L']);
@@ -262,7 +269,7 @@ function buildDashboard(workbook) {
     sheet.getCell(`H${row}`).border = BORDER_THIN();
     sheet.mergeCells(`H${row}:I${row}`);
 
-    sheet.getCell(`J${row}`).value = { formula: `IFERROR(SUM('💼 Assets Summary'!N${mr.rows})/'💼 Assets Summary'!N${ASSETS.TOTAL_ROW},0)` };
+    sheet.getCell(`J${row}`).value = { formula: `IFERROR((${mr.formula})/'💼 Assets Summary'!N${ASSETS.TOTAL_ROW},0)` };
     sheet.getCell(`J${row}`).numFmt = '0.0%';
     sheet.getCell(`J${row}`).font = FONTS.body;
     sheet.getCell(`J${row}`).alignment = { horizontal: 'right' };
@@ -335,7 +342,62 @@ function buildDashboard(workbook) {
   sheet.getRow(fR + 9).height = 28;
   sheet.getRow(fR + 10).height = 28;
 
-  addFooter(sheet, fR + 14, { productName: PRODUCT_NAME });
+  // [COMPLEMENT NWT-022 + NWT-023] Liquidity & FI snapshot block — 4 KPI cells.
+  // Months of expenses (liquid) · Liquid net worth · FI progress · NW delta MoM
+  const lR = fR + 12;
+  sheet.mergeCells(`B${lR}:L${lR}`);
+  sheet.getCell(`B${lR}`).value = 'Liquidity & FI snapshot';
+  sheet.getCell(`B${lR}`).font = FONTS.section;
+  sheet.getCell(`B${lR}`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+  sheet.getRow(lR).height = 22;
+
+  const liqKpis = [
+    {
+      label: 'MONTHS OF EXPENSES',
+      formula: `IFERROR(SUM('💼 Assets Summary'!N9:N12)/('🔥 FIRE Calculator'!C11/12),0)`,
+      fmt: '0.0',
+      cellsLabel: 'B',
+      cellsValue: 'D',
+    },
+    {
+      label: 'LIQUID NET WORTH',
+      formula: `SUM('💼 Assets Summary'!N9:N12)-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW}`,
+      fmt: '"$"#,##0',
+      cellsLabel: 'E',
+      cellsValue: 'G',
+    },
+    {
+      label: 'FI PROGRESS',
+      formula: `IFERROR(('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW})/'🔥 FIRE Calculator'!E12,0)`,
+      fmt: '0.0%',
+      cellsLabel: 'H',
+      cellsValue: 'J',
+    },
+    {
+      label: 'NW DELTA MoM',
+      formula: `('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW})-('💼 Assets Summary'!M${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!M${LIABS.TOTAL_ROW})`,
+      fmt: '+$#,##0;-$#,##0;$0',
+      cellsLabel: 'K',
+      cellsValue: 'L',
+    },
+  ];
+
+  liqKpis.forEach((k) => {
+    sheet.getCell(`${k.cellsLabel}${lR + 1}`).value = k.label;
+    sheet.getCell(`${k.cellsLabel}${lR + 1}`).font = FONTS.smallCaps;
+    sheet.getCell(`${k.cellsLabel}${lR + 1}`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+    sheet.getCell(`${k.cellsLabel}${lR + 1}`).fill = FILLS.ivory;
+    sheet.getCell(`${k.cellsLabel}${lR + 1}`).border = BORDER_THIN();
+    sheet.getCell(`${k.cellsValue}${lR + 1}`).value = { formula: k.formula };
+    sheet.getCell(`${k.cellsValue}${lR + 1}`).numFmt = k.fmt;
+    sheet.getCell(`${k.cellsValue}${lR + 1}`).font = { ...FONTS.bodyBold, color: argb(COLORS.warmGold) };
+    sheet.getCell(`${k.cellsValue}${lR + 1}`).alignment = { vertical: 'middle', horizontal: 'right' };
+    sheet.getCell(`${k.cellsValue}${lR + 1}`).fill = FILLS.white;
+    sheet.getCell(`${k.cellsValue}${lR + 1}`).border = BORDER_THIN();
+  });
+  sheet.getRow(lR + 1).height = 28;
+
+  addFooter(sheet, lR + 4, { productName: PRODUCT_NAME });
 }
 
 // ============================================================================
@@ -346,7 +408,9 @@ function buildAssetsSummary(workbook) {
   const sheet = workbook.addWorksheet('💼 Assets Summary');
   setTabColor(sheet, COLORS.success);
   // Sage column-A strip (asset tab) — 12 monthly columns (C-N) + class label (B)
-  setupColumns(sheet, { A: 2, B: 26, C: 10, D: 10, E: 10, F: 10, G: 10, H: 10, I: 10, J: 10, K: 10, L: 10, M: 10, N: 11, O: 2 });
+  // [COMPLEMENT] Widened C-N from 10 to 16 so 8-digit HNW values ($99,999,999) render without
+  // #### truncation. Persona 3 (Kareem) requires this — $5.2M Dubai RE displays as `$5,208,454`.
+  setupColumns(sheet, { A: 2, B: 26, C: 16, D: 16, E: 16, F: 16, G: 16, H: 16, I: 16, J: 16, K: 16, L: 16, M: 16, N: 16, O: 2 });
 
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
@@ -453,7 +517,8 @@ function buildAssetsSummary(workbook) {
 function buildLiabilitiesSummary(workbook) {
   const sheet = workbook.addWorksheet('📉 Liabilities Summary');
   setTabColor(sheet, COLORS.alert);
-  setupColumns(sheet, { A: 2, B: 26, C: 10, D: 10, E: 10, F: 10, G: 10, H: 10, I: 10, J: 10, K: 10, L: 10, M: 10, N: 11, O: 2 });
+  // [COMPLEMENT] Widened C-N from 10 to 16 — 8-digit HNW liability balances render cleanly.
+  setupColumns(sheet, { A: 2, B: 26, C: 16, D: 16, E: 16, F: 16, G: 16, H: 16, I: 16, J: 16, K: 16, L: 16, M: 16, N: 16, O: 2 });
 
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
@@ -571,12 +636,13 @@ function buildNWHistory(workbook) {
     tabSubtitle: '5-year month-by-month log. Driver breakdown decomposes change into Savings / Market / Debt paydown / Other.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'ROW COUNT',   value: { formula: `COUNTA(B12:B71)` } },
-      { label: 'PEAK NW',     value: { formula: `TEXT(IFERROR(MAX(E12:E71),0),"$#,##0")` } },
-      { label: 'TROUGH',      value: { formula: `TEXT(IFERROR(MIN(IF(E12:E71>0,E12:E71)),0),"$#,##0")` } },
-      { label: '12-MO AVG MOM', value: { formula: `TEXT(IFERROR(AVERAGE(F12:F23),0),"$#,##0")` } },
-      { label: 'BEST MONTH',  value: { formula: `IFERROR(INDEX(B12:B71,MATCH(MAX(F12:F71),F12:F71,0)),"—")` } },
-      { label: 'WORST MONTH', value: { formula: `IFERROR(INDEX(B12:B71,MATCH(MIN(F12:F71),F12:F71,0)),"—")` } },
+      // [FIX NWT-006] Data rows are 11-70, not 12-71. [FIX NWT-018] MIN(IF()) → MINIFS portable.
+      { label: 'ROW COUNT',   value: { formula: `COUNTA(B11:B70)` } },
+      { label: 'PEAK NW',     value: { formula: `TEXT(IFERROR(MAX(E11:E70),0),"$#,##0")` } },
+      { label: 'TROUGH',      value: { formula: `TEXT(IFERROR(MINIFS(E11:E70,E11:E70,">0"),0),"$#,##0")` } },
+      { label: '12-MO AVG MOM', value: { formula: `TEXT(IFERROR(AVERAGE(F11:F22),0),"$#,##0")` } },
+      { label: 'BEST MONTH',  value: { formula: `IFERROR(INDEX(B11:B70,MATCH(MAX(F11:F70),F11:F70,0)),"—")` } },
+      { label: 'WORST MONTH', value: { formula: `IFERROR(INDEX(B11:B70,MATCH(MIN(F11:F70),F11:F70,0)),"—")` } },
     ],
   });
 
@@ -639,19 +705,20 @@ function buildNWHistory(workbook) {
     sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`D${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`E${ri}`).value = { formula: `IFERROR(C${ri}-D${ri},"")` };
+    // [FIX NWT-007] Empty-row guards so future placeholder rows (year 2-5) don't show $0 NW.
+    sheet.getCell(`E${ri}`).value = { formula: `IF(C${ri}="","",IFERROR(C${ri}-D${ri},""))` };
     sheet.getCell(`E${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`E${ri}`).font = { ...FONTS.bodyBold, color: argb(COLORS.success) };
     sheet.getCell(`E${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`E${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`F${ri}`).value = i === 0 ? null : { formula: `IFERROR(E${ri}-E${ri - 1},"")` };
+    sheet.getCell(`F${ri}`).value = i === 0 ? null : { formula: `IF(OR(E${ri}="",E${ri - 1}=""),"",IFERROR(E${ri}-E${ri - 1},""))` };
     sheet.getCell(`F${ri}`).numFmt = '+$#,##0;-$#,##0;$0';
     sheet.getCell(`F${ri}`).font = FONTS.body;
     sheet.getCell(`F${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`F${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`G${ri}`).value = i < 12 ? null : { formula: `IFERROR(E${ri}-E${ri - 12},"")` };
+    sheet.getCell(`G${ri}`).value = i < 12 ? null : { formula: `IF(OR(E${ri}="",E${ri - 12}=""),"",IFERROR(E${ri}-E${ri - 12},""))` };
     sheet.getCell(`G${ri}`).numFmt = '+$#,##0;-$#,##0;$0';
     sheet.getCell(`G${ri}`).font = FONTS.body;
     sheet.getCell(`G${ri}`).alignment = { horizontal: 'right' };
@@ -706,12 +773,13 @@ function buildVehicleDepreciation(workbook) {
     tabSubtitle: `KBB-method depreciation curve per vehicle. ${tier === 'essentials' ? '2 vehicles' : '5 vehicles + TCO + lease-vs-own'}.`,
     bannerText: BANNER,
     kpiData: [
-      { label: 'VEHICLES',     value: { formula: `COUNTA(B12:B16)` } },
-      { label: 'TOTAL VALUE',  value: { formula: `TEXT(SUM(G12:G16),"$#,##0")` } },
-      { label: 'YR-1 DEPREC',  value: { formula: `TEXT(IFERROR(SUM(G12:G16)-SUM(H12:H16),0),"$#,##0")` } },
-      { label: 'YR-5 PROJ',    value: { formula: `TEXT(IFERROR(SUM(G12:G16)*0.4,0),"$#,##0")` } },
-      { label: 'AVG AGE',      value: { formula: `IFERROR(TEXT(YEAR(TODAY())-AVERAGE(C12:C16),"0"),"—")` } },
-      { label: 'TCO/MO TOT',   value: { formula: `TEXT(SUM(K12:K16),"$#,##0")` } },
+      // [FIX NWT-006] 5 vehicle rows at 11-15, not 12-16.
+      { label: 'VEHICLES',     value: { formula: `COUNTA(B11:B15)` } },
+      { label: 'TOTAL VALUE',  value: { formula: `TEXT(SUM(G11:G15),"$#,##0")` } },
+      { label: 'YR-1 DEPREC',  value: { formula: `TEXT(IFERROR(SUM(G11:G15)-SUM(H11:H15),0),"$#,##0")` } },
+      { label: 'YR-5 PROJ',    value: { formula: `TEXT(IFERROR(SUM(G11:G15)*0.4,0),"$#,##0")` } },
+      { label: 'AVG AGE',      value: { formula: `IFERROR(TEXT(YEAR(TODAY())-AVERAGE(C11:C15),"0"),"—")` } },
+      { label: 'TCO/MO TOT',   value: { formula: `TEXT(SUM(K11:K15),"$#,##0")` } },
     ],
   });
 
@@ -765,7 +833,8 @@ function buildVehicleDepreciation(workbook) {
     sheet.getCell(`G${ri}`).border = BORDER_THIN();
 
     // Year-5 projection = current * 0.59 (15% year 1, 10% each subsequent → 0.85 × 0.9^4 ≈ 0.557)
-    sheet.getCell(`H${ri}`).value = { formula: `IFERROR(G${ri}*0.557,"")` };
+    // [FIX NWT-001] Empty-row guard so placeholder rows don't show $0.
+    sheet.getCell(`H${ri}`).value = { formula: `IF(B${ri}="","",IFERROR(G${ri}*0.557,""))` };
     sheet.getCell(`H${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`H${ri}`).font = { ...FONTS.body, color: argb(COLORS.alert) };
     sheet.getCell(`H${ri}`).alignment = { horizontal: 'right' };
@@ -778,7 +847,8 @@ function buildVehicleDepreciation(workbook) {
     sheet.getCell(`I${ri}`).dataValidation = { type: 'list', formulae: ['"Own,Lease"'], allowBlank: true };
 
     // Year depreciation = current_KBB × 0.10
-    sheet.getCell(`J${ri}`).value = { formula: `IFERROR(G${ri}*0.1,"")` };
+    // [FIX NWT-001] Empty-row guard.
+    sheet.getCell(`J${ri}`).value = { formula: `IF(B${ri}="","",IFERROR(G${ri}*0.1,""))` };
     sheet.getCell(`J${ri}`).numFmt = '-"$"#,##0';
     sheet.getCell(`J${ri}`).font = { ...FONTS.body, color: argb(COLORS.alert) };
     sheet.getCell(`J${ri}`).alignment = { horizontal: 'right' };
@@ -824,12 +894,13 @@ function buildRealEstate(workbook) {
     tabSubtitle: 'Primary + Vacation + Investment with equity / LTV / appreciation. Rental cash flow on investment row.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'PROPERTIES',     value: { formula: `COUNTA(B12:B14)` } },
-      { label: 'TOTAL VALUE',    value: { formula: `TEXT(SUM(C12:C14),"$#,##0")` } },
-      { label: 'TOTAL EQUITY',   value: { formula: `TEXT(SUM(F12:F14),"$#,##0")` } },
-      { label: 'AVG LTV',        value: { formula: `TEXT(IFERROR(AVERAGE(G12:G14),0),"0.0%")` } },
-      { label: 'RENTAL CF/MO',   value: { formula: `TEXT(IFERROR(K14,0),"$#,##0")` } },
-      { label: 'TOTAL DEBT',     value: { formula: `TEXT(SUM(D12:D14),"$#,##0")` } },
+      // [FIX NWT-006 + NWT-015] 3 property rows at 11-13, not 12-14. Pre-fix excluded Primary.
+      { label: 'PROPERTIES',     value: { formula: `COUNTA(B11:B13)` } },
+      { label: 'TOTAL VALUE',    value: { formula: `TEXT(SUM(C11:C13),"$#,##0")` } },
+      { label: 'TOTAL EQUITY',   value: { formula: `TEXT(SUM(F11:F13),"$#,##0")` } },
+      { label: 'AVG LTV',        value: { formula: `TEXT(IFERROR(AVERAGE(G11:G13),0),"0.0%")` } },
+      { label: 'RENTAL CF/MO',   value: { formula: `TEXT(IFERROR(L13,0),"$#,##0")` } },
+      { label: 'TOTAL DEBT',     value: { formula: `TEXT(SUM(D11:D13),"$#,##0")` } },
     ],
   });
 
@@ -949,12 +1020,15 @@ function buildStocksAndFunds(workbook) {
     tabSubtitle: '7-account split: 401k · IRA · Roth · SEP · HSA · 529 · Taxable. GOOGLEFINANCE drives live prices.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'POSITIONS',   value: { formula: `COUNTA(C12:C36)` } },
-      { label: 'TOTAL VALUE', value: { formula: `TEXT(SUM(H12:H36),"$#,##0")` } },
-      { label: 'COST BASIS',  value: { formula: `TEXT(SUMPRODUCT(D12:D36,F12:F36),"$#,##0")` } },
-      { label: 'UNREALIZED',  value: { formula: `TEXT(SUM(H12:H36)-SUMPRODUCT(D12:D36,F12:F36),"$#,##0")` } },
-      { label: 'AVG YIELD',   value: { formula: `TEXT(IFERROR(SUMPRODUCT(H12:H36,J12:J36)/SUM(H12:H36),0),"0.00%")` } },
-      { label: 'ACCOUNTS',    value: { formula: `IFERROR(COUNTA(B12:B36)-COUNTIF(B12:B36,B11),"7")` } },
+      // [FIX NWT-006] 25 position rows at 11-35, not 12-36.
+      // [FIX NWT-017] COST BASIS pre-fix used SUMPRODUCT(D,F) — but F already holds D*E (cost basis $),
+      // so multiplying by shares gave nonsense ~$14.7M off. Correct: SUM(F).
+      { label: 'POSITIONS',   value: { formula: `COUNTA(C11:C35)` } },
+      { label: 'TOTAL VALUE', value: { formula: `TEXT(SUM(H11:H35),"$#,##0")` } },
+      { label: 'COST BASIS',  value: { formula: `TEXT(SUM(F11:F35),"$#,##0")` } },
+      { label: 'UNREALIZED',  value: { formula: `TEXT(SUM(H11:H35)-SUM(F11:F35),"$#,##0")` } },
+      { label: 'AVG YIELD',   value: { formula: `TEXT(IFERROR(SUMPRODUCT(H11:H35,J11:J35)/SUM(H11:H35),0),"0.00%")` } },
+      { label: 'ACCOUNTS',    value: { formula: `IFERROR(COUNTA(B11:B35)-COUNTIF(B11:B35,B10),"7")` } },
     ],
   });
 
@@ -1083,12 +1157,14 @@ function buildMetalsAndCrypto(workbook) {
     tabSubtitle: 'Precious metals (gold/silver/platinum/palladium) + Crypto (BTC/ETH/altcoins). Cold-storage flag for crypto safety.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'METALS $',   value: { formula: `TEXT(SUM(H12:H17),"$#,##0")` } },
-      { label: 'CRYPTO $',   value: { formula: `TEXT(SUM(H20:H26),"$#,##0")` } },
-      { label: 'GOLD oz',    value: { formula: `IFERROR(D12,"—")` } },
-      { label: 'BTC',        value: { formula: `IFERROR(D20,"—")` } },
-      { label: 'COMBINED',   value: { formula: `TEXT(SUM(H12:H26),"$#,##0")` } },
-      { label: 'COLD WALLET',value: { formula: `COUNTIF(L20:L26,"✓")` } },
+      // [FIX NWT-006] Metals at rows 11-16 (6 metal rows under section header at row 6).
+      // Crypto section header starts at row 19 (r+10=19), header at 22, data at 24-30.
+      { label: 'METALS $',   value: { formula: `TEXT(SUM(H11:H16),"$#,##0")` } },
+      { label: 'CRYPTO $',   value: { formula: `TEXT(SUM(H24:H30),"$#,##0")` } },
+      { label: 'GOLD oz',    value: { formula: `IFERROR(D11,"—")` } },
+      { label: 'BTC',        value: { formula: `IFERROR(D24,"—")` } },
+      { label: 'COMBINED',   value: { formula: `TEXT(SUM(H11:H16)+SUM(H24:H30),"$#,##0")` } },
+      { label: 'COLD WALLET',value: { formula: `COUNTIF(L24:L30,"✓")` } },
     ],
   });
 
@@ -1302,6 +1378,15 @@ function buildFIRECalculator(workbook) {
     { label: 'Inflation assumption', value: 0.025 },
   ];
 
+  // [COMPLEMENT] Cell-comment tooltips on every FIRE Calculator input so hover-help reduces input error.
+  const inputTooltips = [
+    'Your current age. Used to compute Age-at-FIRE and Coast FIRE benchmarks.',
+    'Annual post-tax spending. Multiply by your FIRE multiple (next row) to get your FIRE Number.',
+    'FIRE multiple. 25 = traditional 4% rule (Trinity Study). 28 = more conservative. 33 = ultra-conservative.',
+    'Monthly amount you save into invested accounts. Drives the years-to-FIRE math in all 3 scenarios below.',
+    'Long-run inflation assumption (decimal — 2.5% = 0.025). Used in real-return calculations.',
+  ];
+
   inputs.forEach((inp, i) => {
     const ri = r + 1 + i;
     sheet.getCell(`B${ri}`).value = inp.label;
@@ -1316,13 +1401,17 @@ function buildFIRECalculator(workbook) {
     sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`C${ri}`).fill = FILLS.white;
     sheet.getCell(`C${ri}`).border = BORDER_THIN(COLORS.warmGold);
+    sheet.getCell(`C${ri}`).note = inputTooltips[i];
   });
 
   // FIRE number computation (row 12 — referenced by Dashboard FIRE meter)
+  // [FIX NWT-002] Inputs grid lands at rows 10-14 (age=C10, annual spend=C11, multiple=C12,
+  // monthly savings=C13, inflation=C14). Pre-fix referenced C8*C9 which are addSectionHeader
+  // subtitle/underline rows → returned 0. Correct refs: C11 (annual spend) × C12 (FIRE multiple).
   sheet.getCell(`D11`).value = 'FIRE NUMBER';
   sheet.getCell(`D11`).font = FONTS.smallCaps;
   sheet.getCell(`D11`).alignment = { horizontal: 'center' };
-  sheet.getCell(`E12`).value = { formula: `IFERROR(C8*C9,1450000)` };
+  sheet.getCell(`E12`).value = { formula: `IFERROR(C11*C12,1450000)` };
   sheet.getCell(`E12`).numFmt = '"$"#,##0';
   sheet.getCell(`E12`).font = { name: 'Inter', size: 22, bold: true, color: argb(COLORS.charcoal) };
   sheet.getCell(`E12`).alignment = { horizontal: 'center', vertical: 'middle' };
@@ -1336,9 +1425,15 @@ function buildFIRECalculator(workbook) {
   sheet.getRow(12).height = 36;
 
   // === SCENARIOS section — 3 scenarios at returns 4% / 6% / 8% ===
-  let sR = addSectionHeader(sheet, r + 7, 'Three FIRE scenarios', `Years to reach FIRE number. ${tier === 'essentials' ? 'Conservative shown — upgrade to Pro for all 3.' : 'Pick your anchor; 6% real return is the defensible midpoint.'}`);
-
-  addTableHeader(sheet, sR + 1, ['Scenario', 'Real Return', 'Years to FIRE', 'Age at FIRE', 'Monthly $ needed', 'Notes'], ['B', 'C', 'D', 'E', 'G']);
+  // [FIX NWT-003] Pre-fix called addSectionHeader at row 16 which merged A16:M16, A17:M17, A18:M18
+  // — overlapping scenario rows 16/18/20 and making cells unwriteable. Replace with a single-row
+  // title at row 15 (no subtitle merge) + column sub-labels at the row-16/18/20 cell level so
+  // the scenario rows (B/C/E/F/G column data) stay reachable.
+  sheet.mergeCells(`B15:M15`);
+  sheet.getCell(`B15`).value = `Three FIRE scenarios — ${tier === 'essentials' ? 'Conservative shown; upgrade to Pro for all 3.' : 'Pick your anchor; 6% real return is the defensible midpoint.'}`;
+  sheet.getCell(`B15`).font = FONTS.section;
+  sheet.getCell(`B15`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+  sheet.getRow(15).height = 22;
 
   // Scenarios on rows 16/18/20 — match KPI references above
   const scenarios = [
@@ -1362,14 +1457,17 @@ function buildFIRECalculator(workbook) {
 
     // Years to FIRE = log( (FIRE × r + PMT*12) / (NW × r + PMT*12) ) / log(1+r)
     // Approximation using future-value algebra. PMT = monthly savings × 12.
-    sheet.getCell(`E${s.row}`).value = { formula: `IFERROR(LOG((E12*C${s.row}+C10*12)/(MAX(1,'💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW})*C${s.row}+C10*12))/LOG(1+C${s.row}),"—")` };
+    // [FIX NWT-004] Pre-fix referenced C10*12 (age × 12 = $444 treated as annual savings).
+    // Correct: C13*12 = monthly savings × 12 = $22,200 annual savings.
+    sheet.getCell(`E${s.row}`).value = { formula: `IFERROR(LOG((E12*C${s.row}+C13*12)/(MAX(1,'💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW})*C${s.row}+C13*12))/LOG(1+C${s.row}),"—")` };
     sheet.getCell(`E${s.row}`).numFmt = '0.0';
     sheet.getCell(`E${s.row}`).font = { ...FONTS.bodyBold, color: argb(COLORS.success) };
     sheet.getCell(`E${s.row}`).alignment = { horizontal: 'right' };
     sheet.getCell(`E${s.row}`).fill = FILLS.white;
     sheet.getCell(`E${s.row}`).border = BORDER_THIN();
 
-    sheet.getCell(`F${s.row}`).value = { formula: `IFERROR(C7+E${s.row},"")` };
+    // [FIX NWT-005] Age at FIRE: pre-fix used C7 (section subtitle row, blank). Correct: C10 (age).
+    sheet.getCell(`F${s.row}`).value = { formula: `IFERROR(C10+E${s.row},"")` };
     sheet.getCell(`F${s.row}`).numFmt = '0';
     sheet.getCell(`F${s.row}`).font = FONTS.body;
     sheet.getCell(`F${s.row}`).alignment = { horizontal: 'center' };
@@ -1585,8 +1683,11 @@ function buildAgeBenchmark(workbook) {
     tabSubtitle: 'Your NW vs. age-group median / average / top decile / FIRE community.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'YOUR AGE',     value: { formula: `'🔥 FIRE Calculator'!C7` } },
+      // [FIX NWT-005 bleed-through] Pre-fix referenced FIRE Calc!C7 (section subtitle blank).
+      // Correct: C10 (age).
+      { label: 'YOUR AGE',     value: { formula: `'🔥 FIRE Calculator'!C10` } },
       { label: 'YOUR NW',      value: { formula: `TEXT('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW},"$#,##0")` } },
+      // [FIX NWT-006] Age cohort data lives at rows 11-15 (not 12-16). Active cohort is row 12 (35-44).
       { label: 'AGE MEDIAN',   value: { formula: `TEXT(D12,"$#,##0")` } },
       { label: 'TOP 10%',      value: { formula: `TEXT(F12,"$#,##0")` } },
       { label: 'YOUR %ILE',    value: { formula: `E12` } },
@@ -1685,12 +1786,14 @@ function buildAssetAllocation(workbook) {
     tabSubtitle: 'Current % vs. target % side-by-side. Drift >5pp triggers alert pill. Rebalancing suggestions auto-generate.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'CLASSES',      value: { formula: `COUNTA(B12:B21)` } },
-      { label: 'TOTAL',        value: { formula: `TEXT(SUM(C12:C21),"$#,##0")` } },
-      { label: 'ON TARGET',    value: { formula: `COUNTIF(G12:G21,"✅ On target")` } },
-      { label: 'MILD DRIFT',   value: { formula: `COUNTIF(G12:G21,"🟡 Mild drift")` } },
-      { label: 'SIGNIFICANT',  value: { formula: `COUNTIF(G12:G21,"🔴 Significant")` } },
-      { label: 'AGE OVERLAY',  value: { formula: `IFERROR("110-"&'🔥 FIRE Calculator'!C7&" = "&(110-'🔥 FIRE Calculator'!C7)&"% stocks","—")` } },
+      // [FIX NWT-006] 10 class rows at 11-20, not 12-21.
+      // [FIX NWT-005 bleed] FIRE Calc!C7 → C10 for age.
+      { label: 'CLASSES',      value: { formula: `COUNTA(B11:B20)` } },
+      { label: 'TOTAL',        value: { formula: `TEXT(SUM(C11:C20),"$#,##0")` } },
+      { label: 'ON TARGET',    value: { formula: `COUNTIF(G11:G20,"✅ On target")` } },
+      { label: 'MILD DRIFT',   value: { formula: `COUNTIF(G11:G20,"🟡 Mild drift")` } },
+      { label: 'SIGNIFICANT',  value: { formula: `COUNTIF(G11:G20,"🔴 Significant")` } },
+      { label: 'AGE OVERLAY',  value: { formula: `IFERROR("110-"&'🔥 FIRE Calculator'!C10&" = "&(110-'🔥 FIRE Calculator'!C10)&"% stocks","—")` } },
     ],
   });
 
@@ -1723,7 +1826,7 @@ function buildAssetAllocation(workbook) {
     sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`C${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`D${ri}`).value = { formula: `IFERROR(C${ri}/SUM($C$12:$C$21),0)` };
+    sheet.getCell(`D${ri}`).value = { formula: `IFERROR(C${ri}/SUM($C$11:$C$20),0)` };
     sheet.getCell(`D${ri}`).numFmt = '0.0%';
     sheet.getCell(`D${ri}`).font = FONTS.body;
     sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
@@ -1746,7 +1849,7 @@ function buildAssetAllocation(workbook) {
     sheet.getCell(`G${ri}`).alignment = { horizontal: 'center' };
     sheet.getCell(`G${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`H${ri}`).value = { formula: `IF(F${ri}>0.05,"Reduce by $"&TEXT(F${ri}*SUM($C$12:$C$21),"#,##0"),IF(F${ri}<-0.05,"Add $"&TEXT(-F${ri}*SUM($C$12:$C$21),"#,##0"),IF(ABS(F${ri})>0.02,"Watch","Hold")))` };
+    sheet.getCell(`H${ri}`).value = { formula: `IF(F${ri}>0.05,"Reduce by $"&TEXT(F${ri}*SUM($C$11:$C$20),"#,##0"),IF(F${ri}<-0.05,"Add $"&TEXT(-F${ri}*SUM($C$11:$C$20),"#,##0"),IF(ABS(F${ri})>0.02,"Watch","Hold")))` };
     sheet.getCell(`H${ri}`).font = FONTS.body;
     sheet.getCell(`H${ri}`).alignment = { horizontal: 'left', indent: 1 };
     sheet.getCell(`H${ri}`).border = BORDER_THIN();
@@ -1787,12 +1890,13 @@ function buildRetirementTracker(workbook) {
     tabSubtitle: '7 retirement account types. IRS contribution limits + employer match utilization + projected balance @ 65.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'ACCOUNTS',     value: { formula: `COUNTA(B12:B18)` } },
-      { label: 'TOTAL BAL',    value: { formula: `TEXT(SUM(C12:C18),"$#,##0")` } },
-      { label: 'YTD CONTRIB',  value: { formula: `TEXT(SUM(E12:E18),"$#,##0")` } },
-      { label: 'ROOM LEFT',    value: { formula: `TEXT(SUM(G12:G18),"$#,##0")` } },
-      { label: 'MATCH GAP',    value: { formula: `TEXT(SUM(I12:I18),"$#,##0")` } },
-      { label: 'PROJ @ 65',    value: { formula: `TEXT(SUM(J12:J18),"$#,##0")` } },
+      // [FIX NWT-006] 7 account rows at 11-17, not 12-18.
+      { label: 'ACCOUNTS',     value: { formula: `COUNTA(B11:B17)` } },
+      { label: 'TOTAL BAL',    value: { formula: `TEXT(SUM(C11:C17),"$#,##0")` } },
+      { label: 'YTD CONTRIB',  value: { formula: `TEXT(SUM(E11:E17),"$#,##0")` } },
+      { label: 'ROOM LEFT',    value: { formula: `TEXT(SUM(G11:G17),"$#,##0")` } },
+      { label: 'MATCH GAP',    value: { formula: `TEXT(SUM(I11:I17),"$#,##0")` } },
+      { label: 'PROJ @ 65',    value: { formula: `TEXT(SUM(J11:J17),"$#,##0")` } },
     ],
   });
 
@@ -1900,12 +2004,13 @@ function buildTaxLossHarvesting(workbook) {
     tabSubtitle: 'Surface opportunities. Stay in control of trades. Wash-sale window (30-day pre/post) flagged automatically.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'POSITIONS',     value: { formula: `COUNTA(B12:B26)` } },
-      { label: 'UNREAL GAINS',  value: { formula: `TEXT(SUMIF(F12:F26,">0"),"$#,##0")` } },
-      { label: 'UNREAL LOSSES', value: { formula: `TEXT(SUMIF(F12:F26,"<0"),"$#,##0")` } },
-      { label: 'HARVEST OPPS',  value: { formula: `COUNTIF(I12:I26,"💡 Harvest")` } },
-      { label: 'WASH BLOCKED',  value: { formula: `COUNTIF(I12:I26,"⏳ Wash window")` } },
-      { label: 'POTENTIAL TAX', value: { formula: `TEXT(-SUMIF(F12:F26,"<0")*0.22,"$#,##0")` } },
+      // [FIX NWT-006 + NWT-036] 15 position rows at 11-25, not 12-26. Status column is J (not I).
+      { label: 'POSITIONS',     value: { formula: `COUNTA(B11:B25)` } },
+      { label: 'UNREAL GAINS',  value: { formula: `TEXT(SUMIF(G11:G25,">0"),"$#,##0")` } },
+      { label: 'UNREAL LOSSES', value: { formula: `TEXT(SUMIF(G11:G25,"<0"),"$#,##0")` } },
+      { label: 'HARVEST OPPS',  value: { formula: `COUNTIF(J11:J25,"💡 Harvest")` } },
+      { label: 'WASH BLOCKED',  value: { formula: `COUNTIF(J11:J25,"⏳ Wash window")` } },
+      { label: 'POTENTIAL TAX', value: { formula: `TEXT(-SUMIF(G11:G25,"<0")*0.22,"$#,##0")` } },
     ],
   });
 
@@ -2020,12 +2125,13 @@ function buildGeographicExposure(workbook) {
     tabSubtitle: 'Your wealth by country. Concentration risk flag when single country > 40%. FX risk surface.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'COUNTRIES',     value: { formula: `COUNTA(B12:B21)` } },
-      { label: 'TOTAL',         value: { formula: `TEXT(SUM(C12:C21),"$#,##0")` } },
-      { label: 'TOP COUNTRY',   value: { formula: `IFERROR(INDEX(B12:B21,MATCH(MAX(C12:C21),C12:C21,0)),"—")` } },
-      { label: 'TOP %',         value: { formula: `TEXT(IFERROR(MAX(D12:D21),0),"0.0%")` } },
-      { label: 'CONCENTRATION', value: { formula: `IF(MAX(D12:D21)>0.4,"🔴 High","🟢 OK")` } },
-      { label: 'EM EXPOSURE',   value: { formula: `TEXT(IFERROR(SUMIF(G12:G21,"Emerging",C12:C21)/SUM(C12:C21),0),"0.0%")` } },
+      // [FIX NWT-006] 10 country rows at 11-20, not 12-21. Classification col is H (not G).
+      { label: 'COUNTRIES',     value: { formula: `COUNTA(B11:B20)` } },
+      { label: 'TOTAL',         value: { formula: `TEXT(SUM(C11:C20),"$#,##0")` } },
+      { label: 'TOP COUNTRY',   value: { formula: `IFERROR(INDEX(B11:B20,MATCH(MAX(C11:C20),C11:C20,0)),"—")` } },
+      { label: 'TOP %',         value: { formula: `TEXT(IFERROR(MAX(D11:D20),0),"0.0%")` } },
+      { label: 'CONCENTRATION', value: { formula: `IF(MAX(D11:D20)>0.4,"🔴 High","🟢 OK")` } },
+      { label: 'EM EXPOSURE',   value: { formula: `TEXT(IFERROR(SUMIF(H11:H20,"Emerging",C11:C20)/SUM(C11:C20),0),"0.0%")` } },
     ],
   });
 
@@ -2056,7 +2162,7 @@ function buildGeographicExposure(workbook) {
     sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`C${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`D${ri}`).value = { formula: `IFERROR(C${ri}/SUM($C$12:$C$21),0)` };
+    sheet.getCell(`D${ri}`).value = { formula: `IFERROR(C${ri}/SUM($C$11:$C$20),0)` };
     sheet.getCell(`D${ri}`).numFmt = '0.0%';
     sheet.getCell(`D${ri}`).font = FONTS.bodyBold;
     sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
@@ -2126,11 +2232,12 @@ function buildInsuranceEstate(workbook) {
     tabSubtitle: 'Life insurance death benefit + per-policy detail + underinsured flag (vs. 10× annual income rule).',
     bannerText: BANNER,
     kpiData: [
-      { label: 'POLICIES',      value: { formula: `COUNTA(B12:B16)` } },
-      { label: 'TOTAL DB',      value: { formula: `TEXT(SUM(D12:D16),"$#,##0")` } },
-      { label: 'ANNUAL PREM',   value: { formula: `TEXT(SUM(E12:E16),"$#,##0")` } },
+      // [FIX NWT-006] 5 policy rows at 11-15, not 12-16.
+      { label: 'POLICIES',      value: { formula: `COUNTA(B11:B15)` } },
+      { label: 'TOTAL DB',      value: { formula: `TEXT(SUM(D11:D15),"$#,##0")` } },
+      { label: 'ANNUAL PREM',   value: { formula: `TEXT(SUM(E11:E15),"$#,##0")` } },
       { label: 'INCOME × 10',   value: { formula: `TEXT(108000*10,"$#,##0")` } },
-      { label: 'UNDER/OVER',    value: { formula: `IF(SUM(D12:D16)<108000*10,"🔴 Under","🟢 Adequate")` } },
+      { label: 'UNDER/OVER',    value: { formula: `IF(SUM(D11:D15)<108000*10,"🔴 Under","🟢 Adequate")` } },
       { label: 'ESTATE VAL',    value: { formula: `TEXT('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW},"$#,##0")` } },
     ],
   });
@@ -2303,12 +2410,13 @@ function buildAnnualSummary(workbook) {
     tabSubtitle: 'Year-end snapshot + best/worst asset class + tax-prep summary. ' + (tier === 'essentials' ? 'Essentials: 1-year view.' : 'Pro+: 5-year YoY + tax-prep.'),
     bannerText: BANNER,
     kpiData: [
-      { label: 'NW START YR', value: { formula: `TEXT(D12,"$#,##0")` } },
-      { label: 'NW END YR',   value: { formula: `TEXT(E12,"$#,##0")` } },
-      { label: 'CHANGE $',    value: { formula: `TEXT(F12,"$#,##0")` } },
-      { label: 'CHANGE %',    value: { formula: `TEXT(G12,"0.0%")` } },
-      { label: 'BEST CLASS',  value: { formula: `H12` } },
-      { label: 'WORST',       value: { formula: `I12` } },
+      // [FIX NWT-006 + NWT-016] 5 year rows at 11-15 (most recent year = row 11), not 12-16.
+      { label: 'NW START YR', value: { formula: `TEXT(D11,"$#,##0")` } },
+      { label: 'NW END YR',   value: { formula: `TEXT(E11,"$#,##0")` } },
+      { label: 'CHANGE $',    value: { formula: `TEXT(F11,"$#,##0")` } },
+      { label: 'CHANGE %',    value: { formula: `TEXT(G11,"0.0%")` } },
+      { label: 'BEST CLASS',  value: { formula: `H11` } },
+      { label: 'WORST',       value: { formula: `I11` } },
     ],
   });
 
@@ -2545,15 +2653,254 @@ function buildAIWealthIntelligence(workbook) {
 }
 
 // ============================================================================
+// TAB 20a — ⚙️ SETTINGS & FX (All tiers) — [COMPLEMENT NWT-021]
+// Closes the multi-currency gap. Persona 3 (Kareem, HNW multi-currency) requires this.
+// ============================================================================
+
+function buildSettingsAndFX(workbook) {
+  const sheet = workbook.addWorksheet('⚙️ Settings & FX');
+  setTabColor(sheet, COLORS.warmGold);
+  setupColumns(sheet, { A: 2, B: 18, C: 16, D: 14, E: 40, F: 4, G: 4, H: 4, I: 4, J: 4, K: 4, L: 4, M: 2 });
+
+  addTopBar(sheet, {
+    productName: `${PRODUCT_NAME} — AI Edition`,
+    tabName: '⚙️ Settings & FX',
+    tabSubtitle: 'Base currency + foreign-currency exchange rates. Update rates monthly or quarterly — your local bank or oanda.com.',
+    bannerText: BANNER,
+    // Base currency input lives at C5 (NOT C4 — top-bar's addTopBar merges A4:M4 as subtitle).
+    // FX data lives at B11:D20 (section header consumes rows 6-8, table header at 10, data 11-20).
+    kpiData: [
+      { label: 'BASE CURRENCY', value: { formula: `C5` } },
+      { label: 'CURRENCIES',    value: '10' },
+      { label: 'LAST UPDATE',   value: { formula: `IFERROR(TEXT(MAX(D11:D20),"mmm d, yyyy"),"—")` } },
+      { label: 'EGP→USD',       value: { formula: `IFERROR(TEXT(VLOOKUP("EGP",B11:D20,2,FALSE),"0.0000"),"—")` } },
+      { label: 'AED→USD',       value: { formula: `IFERROR(TEXT(VLOOKUP("AED",B11:D20,2,FALSE),"0.0000"),"—")` } },
+      { label: 'CAD→USD',       value: { formula: `IFERROR(TEXT(VLOOKUP("CAD",B11:D20,2,FALSE),"0.0000"),"—")` } },
+    ],
+  });
+
+  // === Base currency setup — row 5 (row 4 reserved by addTopBar subtitle merge) ===
+  sheet.getCell('B5').value = 'Base currency';
+  sheet.getCell('B5').font = FONTS.bodyBold;
+  sheet.getCell('B5').alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+  sheet.getCell('B5').fill = FILLS.ivory;
+  sheet.getCell('B5').border = BORDER_THIN();
+  sheet.getCell('C5').value = 'USD';
+  sheet.getCell('C5').font = { ...FONTS.bodyBold, color: argb(COLORS.warmGold) };
+  sheet.getCell('C5').alignment = { horizontal: 'center' };
+  sheet.getCell('C5').fill = FILLS.white;
+  sheet.getCell('C5').border = BORDER_THIN(COLORS.warmGold);
+  sheet.getCell('C5').dataValidation = { type: 'list', formulae: ['"USD,EUR,GBP,CAD,AUD,AED,SAR,EGP,INR,JPY"'], allowBlank: false };
+  sheet.getCell('C5').note = 'The currency every foreign-currency asset converts INTO. Change here cascades through the rate table below — but only the base-currency column.';
+
+  let r = addSectionHeader(sheet, 6, 'Exchange-rate table — 10 currencies', 'Rate-to-base = how many BASE units one unit of this currency is worth. Example: EGP→USD = 0.0203 means 1 EGP = $0.0203 USD.');
+
+  addTableHeader(sheet, r + 1, ['Currency', 'Rate to Base', 'Last Updated', 'Notes'], ['B', 'C', 'D', 'E']);
+
+  // 10 currencies — seeded with realistic mid-2026 rates against USD base.
+  const fxSeed = [
+    { ccy: 'USD', rate: 1.0000,  notes: 'Base — never changes' },
+    { ccy: 'EUR', rate: 1.0700,  notes: 'European Union' },
+    { ccy: 'GBP', rate: 1.2600,  notes: 'United Kingdom' },
+    { ccy: 'CAD', rate: 0.7150,  notes: 'Canada' },
+    { ccy: 'AUD', rate: 0.6500,  notes: 'Australia' },
+    { ccy: 'AED', rate: 0.2723,  notes: 'United Arab Emirates (pegged to USD)' },
+    { ccy: 'SAR', rate: 0.2667,  notes: 'Saudi Arabia (pegged to USD)' },
+    { ccy: 'EGP', rate: 0.0203,  notes: 'Egypt' },
+    { ccy: 'INR', rate: 0.0120,  notes: 'India' },
+    { ccy: 'JPY', rate: 0.0064,  notes: 'Japan' },
+  ];
+
+  fxSeed.forEach((f, i) => {
+    const ri = r + 2 + i;
+    sheet.getCell(`B${ri}`).value = f.ccy;
+    sheet.getCell(`B${ri}`).font = { ...FONTS.bodyBold, color: argb(COLORS.warmGold) };
+    sheet.getCell(`B${ri}`).alignment = { horizontal: 'center' };
+    sheet.getCell(`B${ri}`).fill = FILLS.white;
+    sheet.getCell(`B${ri}`).border = BORDER_THIN();
+
+    sheet.getCell(`C${ri}`).value = f.rate;
+    sheet.getCell(`C${ri}`).numFmt = '0.0000';
+    sheet.getCell(`C${ri}`).font = FONTS.body;
+    sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`C${ri}`).fill = FILLS.white;
+    sheet.getCell(`C${ri}`).border = BORDER_THIN();
+    sheet.getCell(`C${ri}`).dataValidation = { type: 'decimal', operator: 'greaterThan', formulae: [0], allowBlank: true };
+
+    sheet.getCell(`D${ri}`).value = new Date();
+    sheet.getCell(`D${ri}`).numFmt = 'mmm d, yyyy';
+    sheet.getCell(`D${ri}`).font = FONTS.bodyMuted;
+    sheet.getCell(`D${ri}`).alignment = { horizontal: 'center' };
+    sheet.getCell(`D${ri}`).fill = FILLS.white;
+    sheet.getCell(`D${ri}`).border = BORDER_THIN();
+
+    sheet.getCell(`E${ri}`).value = f.notes;
+    sheet.getCell(`E${ri}`).font = FONTS.bodyMuted;
+    sheet.getCell(`E${ri}`).alignment = { horizontal: 'left', indent: 1 };
+    sheet.getCell(`E${ri}`).fill = FILLS.white;
+    sheet.getCell(`E${ri}`).border = BORDER_THIN();
+  });
+
+  addCallout(sheet, `B${r + 13}:L${r + 14}`,
+    '💱',
+    'How to enter foreign-currency assets',
+    'Two patterns: (1) Convert to base manually before entering — put the USD equivalent in Assets Summary. (2) Use `=value_in_native*VLOOKUP("AED",\'⚙️ Settings & FX\'!B11:C20,2,FALSE)` to auto-convert. Update rates monthly or quarterly; mid-2026 rates seeded as starter.');
+  sheet.getRow(r + 13).height = 32;
+  sheet.getRow(r + 14).height = 32;
+
+  addFooter(sheet, r + 18, { productName: PRODUCT_NAME });
+}
+
+// ============================================================================
+// TAB 20b — 📄 STATEMENT (1-page) (All tiers) — [COMPLEMENT NWT-029]
+// One-page printable balance sheet for advisor / lender / underwriter handoff.
+// ============================================================================
+
+function buildStatement(workbook) {
+  const sheet = workbook.addWorksheet('📄 Statement (1-page)');
+  setTabColor(sheet, COLORS.warmGold);
+  setupColumns(sheet, { A: 2, B: 28, C: 16, D: 4, E: 28, F: 16, G: 2 });
+
+  // No top bar — clean printable look
+  sheet.mergeCells('B2:F2');
+  sheet.getCell('B2').value = 'PERSONAL BALANCE SHEET';
+  sheet.getCell('B2').font = { name: 'Inter', size: 22, bold: true, color: argb(COLORS.charcoal) };
+  sheet.getCell('B2').alignment = { horizontal: 'center', vertical: 'middle' };
+  sheet.getRow(2).height = 36;
+
+  sheet.mergeCells('B3:F3');
+  sheet.getCell('B3').value = { formula: `"As of "&TEXT(TODAY(),"mmmm d, yyyy")` };
+  sheet.getCell('B3').font = { ...FONTS.bodyMuted, size: 12 };
+  sheet.getCell('B3').alignment = { horizontal: 'center', vertical: 'middle' };
+  sheet.getRow(3).height = 24;
+
+  // Gold divider
+  sheet.mergeCells('B4:F4');
+  sheet.getCell('B4').fill = FILLS.warmGold;
+  sheet.getRow(4).height = 3;
+
+  // === ASSETS section ===
+  sheet.mergeCells('B6:C6');
+  sheet.getCell('B6').value = 'ASSETS';
+  sheet.getCell('B6').font = { name: 'Inter', size: 14, bold: true, color: argb(COLORS.success) };
+  sheet.getCell('B6').alignment = { vertical: 'middle', horizontal: 'left' };
+  sheet.getRow(6).height = 24;
+
+  const assetRows = [
+    { label: 'Checking',                     ref: `'💼 Assets Summary'!N9` },
+    { label: 'HYSA',                         ref: `'💼 Assets Summary'!N10` },
+    { label: 'Money Market',                 ref: `'💼 Assets Summary'!N11` },
+    { label: 'Vehicles',                     ref: `'💼 Assets Summary'!N13` },
+    { label: 'Real Estate (Primary)',        ref: `'💼 Assets Summary'!N14` },
+    { label: 'Real Estate (Investment)',     ref: `'💼 Assets Summary'!N15` },
+    { label: 'Stocks & Funds (Taxable)',     ref: `'💼 Assets Summary'!N16` },
+    { label: '401k / IRA / Roth',            ref: `'💼 Assets Summary'!N17` },
+    { label: 'HSA / 529',                    ref: `'💼 Assets Summary'!N18` },
+    { label: 'Metals & Crypto',              ref: `'💼 Assets Summary'!N19+'💼 Assets Summary'!N20` },
+    { label: 'Business Equity',              ref: `'💼 Assets Summary'!N21` },
+    { label: 'Other',                        ref: `'💼 Assets Summary'!N12+'💼 Assets Summary'!N22+'💼 Assets Summary'!N23+'💼 Assets Summary'!N24` },
+  ];
+
+  assetRows.forEach((a, i) => {
+    const ri = 7 + i;
+    sheet.getCell(`B${ri}`).value = a.label;
+    sheet.getCell(`B${ri}`).font = FONTS.body;
+    sheet.getCell(`B${ri}`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+    sheet.getCell(`B${ri}`).border = { bottom: { style: 'thin', color: argb(COLORS.divider) } };
+
+    sheet.getCell(`C${ri}`).value = { formula: a.ref };
+    sheet.getCell(`C${ri}`).numFmt = '"$"#,##0';
+    sheet.getCell(`C${ri}`).font = FONTS.body;
+    sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`C${ri}`).border = { bottom: { style: 'thin', color: argb(COLORS.divider) } };
+  });
+
+  // TOTAL ASSETS
+  const taRow = 7 + assetRows.length + 1;
+  sheet.getCell(`B${taRow}`).value = 'TOTAL ASSETS';
+  sheet.getCell(`B${taRow}`).font = { name: 'Inter', size: 12, bold: true, color: argb(COLORS.success) };
+  sheet.getCell(`B${taRow}`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+  sheet.getCell(`B${taRow}`).border = { top: { style: 'medium', color: argb(COLORS.success) } };
+  sheet.getCell(`C${taRow}`).value = { formula: `'💼 Assets Summary'!N${ASSETS.TOTAL_ROW}` };
+  sheet.getCell(`C${taRow}`).numFmt = '"$"#,##0';
+  sheet.getCell(`C${taRow}`).font = { name: 'Inter', size: 12, bold: true, color: argb(COLORS.success) };
+  sheet.getCell(`C${taRow}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`C${taRow}`).border = { top: { style: 'medium', color: argb(COLORS.success) } };
+
+  // === LIABILITIES section ===
+  sheet.mergeCells('E6:F6');
+  sheet.getCell('E6').value = 'LIABILITIES';
+  sheet.getCell('E6').font = { name: 'Inter', size: 14, bold: true, color: argb(COLORS.alert) };
+  sheet.getCell('E6').alignment = { vertical: 'middle', horizontal: 'left' };
+
+  for (let i = 0; i < LIABS.ROW_COUNT; i++) {
+    const ri = 7 + i;
+    sheet.getCell(`E${ri}`).value = LIABS.CATEGORIES[i];
+    sheet.getCell(`E${ri}`).font = FONTS.body;
+    sheet.getCell(`E${ri}`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+    sheet.getCell(`E${ri}`).border = { bottom: { style: 'thin', color: argb(COLORS.divider) } };
+
+    sheet.getCell(`F${ri}`).value = { formula: `'📉 Liabilities Summary'!N${LIABS.FIRST_ROW + i}` };
+    sheet.getCell(`F${ri}`).numFmt = '"$"#,##0';
+    sheet.getCell(`F${ri}`).font = FONTS.body;
+    sheet.getCell(`F${ri}`).alignment = { horizontal: 'right' };
+    sheet.getCell(`F${ri}`).border = { bottom: { style: 'thin', color: argb(COLORS.divider) } };
+  }
+
+  const tlRow = 7 + LIABS.ROW_COUNT + 1;
+  sheet.getCell(`E${tlRow}`).value = 'TOTAL LIABILITIES';
+  sheet.getCell(`E${tlRow}`).font = { name: 'Inter', size: 12, bold: true, color: argb(COLORS.alert) };
+  sheet.getCell(`E${tlRow}`).alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+  sheet.getCell(`E${tlRow}`).border = { top: { style: 'medium', color: argb(COLORS.alert) } };
+  sheet.getCell(`F${tlRow}`).value = { formula: `'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW}` };
+  sheet.getCell(`F${tlRow}`).numFmt = '"$"#,##0';
+  sheet.getCell(`F${tlRow}`).font = { name: 'Inter', size: 12, bold: true, color: argb(COLORS.alert) };
+  sheet.getCell(`F${tlRow}`).alignment = { horizontal: 'right' };
+  sheet.getCell(`F${tlRow}`).border = { top: { style: 'medium', color: argb(COLORS.alert) } };
+
+  // === NET WORTH big cell ===
+  const nwRow = Math.max(taRow, tlRow) + 3;
+  sheet.mergeCells(`B${nwRow}:F${nwRow + 1}`);
+  sheet.getCell(`B${nwRow}`).value = { formula: `"NET WORTH: "&TEXT('💼 Assets Summary'!N${ASSETS.TOTAL_ROW}-'📉 Liabilities Summary'!N${LIABS.TOTAL_ROW},"$#,##0")` };
+  sheet.getCell(`B${nwRow}`).font = { name: 'Inter', size: 28, bold: true, color: argb(COLORS.charcoal) };
+  sheet.getCell(`B${nwRow}`).alignment = { horizontal: 'center', vertical: 'middle' };
+  sheet.getCell(`B${nwRow}`).fill = FILLS.warmGoldLight;
+  sheet.getCell(`B${nwRow}`).border = {
+    top: { style: 'medium', color: argb(COLORS.warmGold) },
+    bottom: { style: 'medium', color: argb(COLORS.warmGold) },
+  };
+  sheet.getRow(nwRow).height = 44;
+  sheet.getRow(nwRow + 1).height = 20;
+
+  // Footer wordmark
+  sheet.mergeCells(`B${nwRow + 4}:F${nwRow + 4}`);
+  sheet.getCell(`B${nwRow + 4}`).value = `Lime Premium Studios · ${PRODUCT_NAME} · One-page statement for advisor / lender / underwriter handoff`;
+  sheet.getCell(`B${nwRow + 4}`).font = FONTS.footer;
+  sheet.getCell(`B${nwRow + 4}`).alignment = { horizontal: 'center', vertical: 'middle' };
+
+  // Print area + fit-to-page (Letter portrait)
+  sheet.pageSetup = {
+    orientation: 'portrait',
+    paperSize: 1, // 1 = Letter
+    fitToPage: true,
+    fitToWidth: 1,
+    fitToHeight: 1,
+    margins: { left: 0.5, right: 0.5, top: 0.5, bottom: 0.5, header: 0.3, footer: 0.3 },
+    printArea: `B2:F${nwRow + 4}`,
+  };
+}
+
+// ============================================================================
 // TAB 20 — ℹ️ ABOUT & HELP (All tiers)
 // ============================================================================
 
 function buildAbout(workbook) {
   const tier = workbook._tier || 'ai';
+  // [COMPLEMENT] Counts updated for the +2 always-visible tabs (Settings & FX, Statement).
   const tierMetadata = {
-    essentials: { label: 'Essentials', tabs: '9',  prompts: '0' },
-    pro:        { label: 'Pro',        tabs: '19', prompts: '0' },
-    ai:         { label: 'AI Edition', tabs: '20', prompts: '7' },
+    essentials: { label: 'Essentials', tabs: '11', prompts: '0' },
+    pro:        { label: 'Pro',        tabs: '21', prompts: '0' },
+    ai:         { label: 'AI Edition', tabs: '22', prompts: '7' },
   }[tier];
 
   const sheet = workbook.addWorksheet('ℹ️ About & Help');
@@ -2649,12 +2996,13 @@ async function buildNetWorthTracker() {
     process.exit(1);
   }
   const tierLabel = { essentials: 'Essentials', pro: 'Pro', ai: 'AI Edition' }[tier];
-  // Tab counts (post-applyTierVisibility):
-  //   Essentials =  9 visible (8 core + About)
-  //   Pro        = 19 visible (18 core + About)
-  //   AI Edition = 20 visible (19 core + About)
-  const tierTabCount = { essentials: 9, pro: 19, ai: 20 }[tier];
-  console.log(`→ Building ${PRODUCT_NAME} — ${tierLabel} (${tierTabCount} visible / 20 total)...`);
+  // Tab counts (post-applyTierVisibility) — +2 from the 5 complements (Settings & FX + Statement
+  // added in all 3 tiers).
+  //   Essentials = 11 visible (8 core + About + Settings & FX + Statement)
+  //   Pro        = 21 visible (18 core + About + Settings & FX + Statement)
+  //   AI Edition = 22 visible (19 core + About + Settings & FX + Statement)
+  const tierTabCount = { essentials: 11, pro: 21, ai: 22 }[tier];
+  console.log(`→ Building ${PRODUCT_NAME} — ${tierLabel} (${tierTabCount} visible / 22 total)...`);
 
   const workbook = new ExcelJS.Workbook();
   workbook._tier = tier;
@@ -2691,6 +3039,9 @@ async function buildNetWorthTracker() {
   console.log('  • 🤝 Estate Access (Pro)');        buildEstateAccess(workbook);
   console.log('  • 📊 Annual Summary');             buildAnnualSummary(workbook);
   console.log('  • 🤖 AI Wealth Intelligence (AI)'); buildAIWealthIntelligence(workbook);
+  // [COMPLEMENT] New tabs added in all 3 tiers (NWT-021 + NWT-029).
+  console.log('  • ⚙️ Settings & FX');               buildSettingsAndFX(workbook);
+  console.log('  • 📄 Statement (1-page)');         buildStatement(workbook);
   console.log('  • ℹ️ About & Help');                buildAbout(workbook);
 
   applyTierVisibility(workbook, tier, { proTabs: PRO_TABS, aiTabs: AI_TABS, productName: PRODUCT_NAME });
@@ -2704,7 +3055,7 @@ async function buildNetWorthTracker() {
   const elapsed = Date.now() - t0;
   console.log(`\n✓ Workbook generated in ${elapsed}ms`);
   console.log(`  Output: ${outPath}`);
-  console.log(`  Tier:   ${tierLabel} — ${tierTabCount} of 20 tabs visible`);
+  console.log(`  Tier:   ${tierLabel} — ${tierTabCount} of 22 tabs visible`);
 }
 
 buildNetWorthTracker().catch((err) => {
