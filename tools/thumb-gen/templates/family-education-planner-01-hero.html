@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Family &amp; Education Planner — Thumbnail 01 Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 140px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .price-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); font-size: 30px; font-weight: 700; padding: 14px 36px; border-radius: 999px; }
+  .title-block { position: absolute; top: 220px; left: 90px; right: 90px; }
+  .title-eyebrow { font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 24px; }
+  .title-main { font-size: 144px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 28px; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 28px; }
+  .title-sub { font-size: 40px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1500px; }
+  .mockup { position: absolute; left: 90px; right: 90px; bottom: 250px; height: 780px; background: var(--surface-white); border-radius: 20px; box-shadow: 0 30px 60px rgba(31,42,51,0.15), 0 8px 20px rgba(31,42,51,0.08); overflow: hidden; border: 1px solid rgba(31,42,51,0.06); }
+  .mockup-header { background: var(--primary-charcoal); color: var(--surface-white); padding: 24px 36px; display: flex; justify-content: space-between; align-items: center; }
+  .mockup-tab { font-size: 22px; font-weight: 600; }
+  .mockup-tab-bar { display: flex; gap: 14px; }
+  .mockup-tab-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .mockup-tab-dot.active { background: var(--secondary-warm-gold); }
+  .mockup-body { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; padding: 36px 40px; height: calc(100% - 88px); }
+  .gauge-area { background: var(--ivory); border-radius: 14px; padding: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .gauge-label { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--secondary-warm-gold); margin-bottom: 8px; }
+  .gauge-score { font-size: 120px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.0; color: var(--status-success); }
+  .gauge-out-of { font-size: 32px; opacity: 0.5; font-weight: 600; margin-left: 8px; }
+  .gauge-caption { font-size: 22px; font-weight: 600; margin-top: 8px; color: var(--status-success); }
+  .gauge-money { font-size: 56px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-top: 14px; }
+  .gauge-sub { font-size: 18px; opacity: 0.65; margin-top: 6px; text-align: center; }
+  .conflict-row { margin-top: 22px; padding: 12px 22px; background: var(--surface-white); border-radius: 8px; font-size: 18px; font-weight: 600; color: var(--secondary-warm-gold); border: 1px solid var(--neutral-grid); text-align: center; width: 100%; }
+  .right-stack { display: flex; flex-direction: column; gap: 18px; }
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .kpi-tile { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 10px; padding: 16px 18px; }
+  .kpi-tile.gold { background: var(--secondary-warm-gold); border-color: var(--secondary-warm-gold); }
+  .kpi-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55; margin-bottom: 8px; }
+  .kpi-tile.gold .kpi-label { opacity: 0.65; }
+  .kpi-value { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+  .chart-card { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 10px; padding: 20px 22px; flex: 1; display: flex; flex-direction: column; }
+  .chart-title { font-size: 16px; font-weight: 600; margin-bottom: 14px; }
+  .chart-area { flex: 1; position: relative; }
+  .child-bars { display: flex; flex-direction: column; gap: 14px; }
+  .child-bar { display: grid; grid-template-columns: 100px 1fr 80px; align-items: center; gap: 14px; }
+  .child-name { font-size: 17px; font-weight: 700; }
+  .bar-track { background: var(--neutral-grid); height: 22px; border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-fill.green { background: var(--status-success); }
+  .bar-fill.amber { background: var(--status-warning); }
+  .bar-fill.red { background: var(--status-alert); }
+  .bar-pct { font-size: 16px; font-weight: 600; text-align: right; }
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: center; align-items: center; gap: 90px; padding: 0 90px; }
+  .feature { text-align: center; }
+  .feature-num { font-size: 64px; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+  .feature-label { font-size: 22px; font-weight: 500; opacity: 0.85; }
+  .divider-dot { width: 8px; height: 8px; background: var(--secondary-warm-gold); border-radius: 50%; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="price-pill">$14 — $32 · One-time</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">Pregnancy → College Launch · Google Sheets · Excel</div>
+  <div class="title-main">Family &amp; Education<br>Planner</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">18 tabs · up to 4 children · 8 AI prompts · privacy-first</div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">
+    <div class="mockup-tab">🏠 Dashboard</div>
+    <div class="mockup-tab-bar">
+      <div class="mockup-tab-dot active"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+    </div>
+  </div>
+  <div class="mockup-body">
+    <div class="gauge-area">
+      <div class="gauge-label">Family Health Score</div>
+      <div><span class="gauge-score">81</span><span class="gauge-out-of">/100</span></div>
+      <div class="gauge-caption">🟢 On Track</div>
+      <div class="gauge-money">$17,000</div>
+      <div class="gauge-sub">Total education savings<br>$970/mo across 3 kids</div>
+      <div class="conflict-row">⚠ 1 goal conflict in 2026–28 window</div>
+    </div>
+    <div class="right-stack">
+      <div class="kpi-row">
+        <div class="kpi-tile">
+          <div class="kpi-label">Children</div>
+          <div class="kpi-value">3</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-label">Yrs to college</div>
+          <div class="kpi-value">10</div>
+        </div>
+        <div class="kpi-tile gold">
+          <div class="kpi-label">Budget Surplus</div>
+          <div class="kpi-value">$1,860/mo</div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Education savings vs. target — per child</div>
+        <div class="chart-area">
+          <div class="child-bars">
+            <div class="child-bar">
+              <div class="child-name">Emma · 8</div>
+              <div class="bar-track"><div class="bar-fill green" style="width:50%"></div></div>
+              <div class="bar-pct">50%</div>
+            </div>
+            <div class="child-bar">
+              <div class="child-name">Liam · 4</div>
+              <div class="bar-track"><div class="bar-fill amber" style="width:24%"></div></div>
+              <div class="bar-pct">24%</div>
+            </div>
+            <div class="child-bar">
+              <div class="child-name">Noah · 1</div>
+              <div class="bar-track"><div class="bar-fill red" style="width:8%"></div></div>
+              <div class="bar-pct">8%</div>
+            </div>
+            <div class="child-bar" style="opacity:0.35;">
+              <div class="child-name">— · —</div>
+              <div class="bar-track"></div>
+              <div class="bar-pct">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="feature">
+    <div class="feature-num">18</div>
+    <div class="feature-label">Tabs</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">4</div>
+    <div class="feature-label">Kids Max</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">50</div>
+    <div class="feature-label">State 529s</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">8</div>
+    <div class="feature-label">AI Prompts</div>
+  </div>
+</div>
+
+</body>
+</html>

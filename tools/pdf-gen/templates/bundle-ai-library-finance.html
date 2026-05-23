@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Premium Finance Bundle — AI Master Prompt Library</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="60 ChatGPT and Claude prompts + 10 cross-product workflows for the Premium Finance Bundle (5 spreadsheets).">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Premium Finance Bundle AI Master Prompt Library v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { width: 8.5in; background: var(--background-off-white); }
+  .page { width: 8.5in; height: 11in; padding: 0.55in 0.55in 0.85in 0.55in; position: relative; page-break-after: always; background: var(--background-off-white); }
+  .page:last-child { page-break-after: auto; }
+
+  .cover { padding: 0; }
+  .cover-band-top { height: 1.2in; background: var(--primary-charcoal); color: var(--surface-white); display: flex; align-items: center; justify-content: space-between; padding: 0 0.6in; }
+  .cover-wordmark { font-size: 13pt; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .cover-tier-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); padding: 6pt 16pt; border-radius: 4pt; font-size: 9pt; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+  .cover-body { padding: 0.7in 0.6in; height: calc(11in - 1.2in - 0.7in); display: flex; flex-direction: column; justify-content: space-between; }
+  .cover-eyebrow { font-size: 11pt; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.18in; }
+  .cover-title { font-size: 60pt; font-weight: 700; line-height: 0.94; letter-spacing: -0.025em; margin-bottom: 0.18in; }
+  .cover-title em { font-style: italic; color: var(--secondary-warm-gold); font-weight: 600; }
+  .cover-gold-bar { width: 2.0in; height: 6pt; background: var(--secondary-warm-gold); margin-bottom: 0.22in; }
+  .cover-sub { font-size: 15pt; font-weight: 400; line-height: 1.5; max-width: 6.0in; opacity: 0.78; margin-bottom: 0.4in; }
+  .cover-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.20in; }
+  .cover-stat { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 8pt; padding: 0.20in 0.20in; }
+  .cover-stat .num { font-size: 42pt; font-weight: 800; color: var(--secondary-warm-gold); letter-spacing: -0.03em; line-height: 1; }
+  .cover-stat .label { font-size: 9pt; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.08in; opacity: 0.65; }
+  .cover-band-bottom { position: absolute; bottom: 0; left: 0; right: 0; background: var(--primary-charcoal); color: var(--surface-white); padding: 0.20in 0.6in; display: flex; justify-content: space-between; align-items: center; font-size: 9pt; }
+  .cover-band-bottom .left { font-weight: 700; letter-spacing: 0.10em; }
+  .cover-band-bottom .right { opacity: 0.75; font-style: italic; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.18in; }
+  .h-left { flex: 1; }
+  .eyebrow { font-size: 8pt; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.05in; }
+  .h-title { font-size: 24pt; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.06in; }
+  .h-sub { font-size: 10pt; font-style: italic; opacity: 0.7; }
+  .h-badge { background: var(--primary-charcoal); color: var(--surface-white); padding: 6pt 12pt; border-radius: 4pt; font-size: 8pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; line-height: 1.4; }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+  .gold-divider { height: 2pt; background: var(--secondary-warm-gold); width: 1.6in; margin-bottom: 0.18in; }
+
+  .divider-page { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5in 0.6in; background: var(--primary-charcoal); color: var(--surface-white); height: 11in; }
+  .divider-page .divider-title { font-size: 52pt; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.24in; }
+  .divider-page .divider-gold-line { width: 2.5in; height: 3pt; background: var(--secondary-warm-gold); margin-bottom: 0.24in; }
+  .divider-page .divider-sub { font-size: 16pt; font-style: italic; color: var(--secondary-warm-gold); max-width: 5.5in; line-height: 1.45; }
+
+  .products-row { display: flex; gap: 6pt; margin-bottom: 0.14in; flex-wrap: wrap; }
+  .product-chip { display: inline-flex; align-items: center; gap: 4pt; background: var(--ivory); border: 1px solid var(--neutral-grid); border-radius: 999pt; padding: 4pt 10pt; font-size: 8pt; font-weight: 600; }
+  .when-block { background: var(--ivory); border-left: 3pt solid var(--secondary-warm-gold); padding: 0.10in 0.14in; font-size: 9pt; line-height: 1.45; margin-bottom: 0.14in; }
+  .when-block strong { color: var(--secondary-warm-gold); }
+  .prompt-card { background: var(--surface-white); border: 1px solid var(--primary-charcoal); border-radius: 6pt; padding: 0.10in 0.14in; margin-bottom: 0.10in; }
+  .prompt-num { font-size: 7pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.04in; }
+  .prompt-title { font-size: 10.5pt; font-weight: 700; line-height: 1.25; margin-bottom: 0.06in; }
+  .prompt-body { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 7pt; line-height: 1.5; white-space: pre-wrap; background: var(--ivory); padding: 0.08in 0.10in; border-radius: 4pt; }
+  .worked-example { background: var(--ivory); border-radius: 6pt; padding: 0.10in 0.14in; margin-top: 0.10in; }
+  .worked-example .we-label { font-size: 7pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.04in; }
+  .worked-example .we-body { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 7pt; line-height: 1.5; white-space: pre-wrap; }
+
+  .ref-product-bar { background: var(--primary-charcoal); color: var(--surface-white); padding: 8pt 14pt; border-radius: 6pt; margin-bottom: 0.12in; display: flex; justify-content: space-between; align-items: center; }
+  .ref-product-bar .name { font-size: 13pt; font-weight: 700; }
+  .ref-product-bar .pages { font-size: 8pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--secondary-warm-gold); }
+  .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.12in; }
+  .ref-card { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.10in 0.12in; }
+  .ref-card .ref-num { font-size: 7pt; font-weight: 700; letter-spacing: 0.14em; color: var(--secondary-warm-gold); margin-bottom: 0.04in; }
+  .ref-card .ref-title { font-size: 9.5pt; font-weight: 700; line-height: 1.2; margin-bottom: 0.06in; }
+  .ref-card .ref-prompt { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 6.5pt; line-height: 1.5; opacity: 0.85; margin-bottom: 0.05in; }
+  .ref-card .ref-tab { font-size: 7pt; font-style: italic; color: var(--secondary-warm-gold); }
+
+  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in; margin-bottom: 0.18in; }
+  .tip-card { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in; border-top: 3pt solid var(--secondary-warm-gold); }
+  .tip-card .tip-title { font-size: 11pt; font-weight: 700; margin-bottom: 0.06in; }
+  .tip-card .tip-body { font-size: 9pt; line-height: 1.45; }
+  .tip-card .tip-body strong { color: var(--secondary-warm-gold); }
+  .universal-tips { background: var(--ivory); border-radius: 6pt; padding: 0.14in 0.18in; }
+  .universal-tips .ut-title { font-size: 9pt; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.10in; }
+  .universal-tips ol { padding-left: 0.22in; font-size: 8.5pt; line-height: 1.5; }
+  .universal-tips li { margin-bottom: 0.05in; }
+  .universal-tips li strong { color: var(--primary-charcoal); }
+
+  .back-cover { background: var(--primary-charcoal); color: var(--surface-white); padding: 1.4in 0.6in; height: 11in; display: flex; flex-direction: column; justify-content: space-between; }
+  .back-quote { text-align: center; font-style: italic; font-size: 24pt; font-weight: 400; line-height: 1.3; margin-bottom: 0.4in; }
+  .back-quote em { color: var(--secondary-warm-gold); }
+  .back-mid { font-size: 13pt; line-height: 1.6; text-align: center; max-width: 5.5in; margin: 0 auto; opacity: 0.85; }
+  .back-mid strong { color: var(--secondary-warm-gold); }
+  .back-band { background: rgba(255,255,255,0.04); border-top: 1pt solid rgba(255,255,255,0.10); padding: 0.24in 0.4in; font-size: 9pt; }
+  .back-band .left { font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.06in; color: var(--secondary-warm-gold); }
+  .back-band .row { font-size: 8.5pt; line-height: 1.6; opacity: 0.80; }
+
+  .footer-band { position: absolute; bottom: 0; left: 0; right: 0; background: var(--primary-charcoal); color: var(--surface-white); padding: 0.10in 0.55in; display: flex; justify-content: space-between; align-items: center; font-size: 8pt; }
+  .fb-left .wordmark { font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; }
+  .fb-left .meta { opacity: 0.65; font-style: italic; }
+  .fb-right { text-align: right; opacity: 0.85; font-style: italic; }
+
+  .intro-body { font-size: 10pt; line-height: 1.55; max-width: 6.5in; margin-bottom: 0.18in; }
+  .intro-body p { margin-bottom: 0.12in; }
+  .intro-body p strong { color: var(--secondary-warm-gold); }
+  .intro-sub { font-size: 11pt; font-weight: 700; color: var(--primary-charcoal); margin-bottom: 0.06in; margin-top: 0.10in; }
+  .intro-sub::before { content: '— '; color: var(--secondary-warm-gold); }
+  .intro-sub::after { content: ' —'; color: var(--secondary-warm-gold); }
+</style>
+</head>
+<body>
+
+<!-- ========================================================== PAGE 1 — COVER -->
+<div class="page cover">
+  <div class="cover-band-top">
+    <div class="cover-wordmark">Lime Premium Studios</div>
+    <div class="cover-tier-pill">AI Edition</div>
+  </div>
+  <div class="cover-body">
+    <div>
+      <div class="cover-eyebrow">Premium Finance Bundle · 5 Spreadsheets</div>
+      <div class="cover-title">AI Master<br>Prompt <em>Library.</em></div>
+      <div class="cover-gold-bar"></div>
+      <div class="cover-sub">60 prompts. 10 cross-product workflows. Built for buyers who live in ChatGPT or Claude.</div>
+    </div>
+    <div class="cover-stats">
+      <div class="cover-stat"><div class="num">10</div><div class="label">Workflows</div></div>
+      <div class="cover-stat"><div class="num">60</div><div class="label">Prompts</div></div>
+      <div class="cover-stat"><div class="num">5</div><div class="label">Products</div></div>
+    </div>
+  </div>
+  <div class="cover-band-bottom">
+    <div class="left">PROMPT LIBRARY · v1.0</div>
+    <div class="right">Copy. Paste. Edit. Decide.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 2 — INTRO -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Page 2 · Intro + How to Use</div>
+      <div class="h-title">How this library works.</div>
+      <div class="h-sub">Two halves. Front and back.</div>
+    </div>
+    <div class="h-badge"><div class="label">Variant</div><div class="ver">Finance · 28pp</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="intro-body">
+    <p><strong>THE FRONT (workflows)</strong> is the unique bundle value — 10 cross-product workflows you can't run with a single spreadsheet. "Pay off debt while saving for a major goal." "Build a 10-year net-worth roadmap." "Launch a side business without breaking the personal budget." These are decisions that span products. The prompts chain together to make the decision-making concrete.</p>
+    <p><strong>THE BACK (per-product reference)</strong> is the depth. 60 prompts organized by spreadsheet, four to a page. Use them as you work in each product. Faster lookup than scrolling Reddit for prompt ideas.</p>
+
+    <div class="intro-sub">How to use a workflow</div>
+    <p>Each workflow lists the products it touches at the top (color-coded chips). Inside the workflow: a short intro on when to run it, 3–5 prompts in sequence, copy-paste-ready, with [PLACEHOLDERS] for your data. A worked example shows what the chain produces end-to-end.</p>
+    <p>Run them in order. The output of one prompt feeds the next. If you only need part of a workflow, the prompts also work standalone.</p>
+
+    <div class="intro-sub">How to use the per-product reference</div>
+    <p>Pages 15 onward. Each spreadsheet gets 2–3 pages. Each page has 4 prompts in a 2×2 grid: title, copy-paste prompt, the tab it pairs with. Use them à la carte.</p>
+
+    <div class="intro-sub">Where these run</div>
+    <p>All prompts work in ChatGPT's free tier or Claude's free tier. Some workflows that weave 4+ products together with long data run better in paid tiers — flagged where it matters. See the Tips section on page 28 for guidance.</p>
+
+    <div class="intro-sub">What this PDF won't do</div>
+    <p>It won't run prompts for you. You paste, you read, you decide. Your money, your call.</p>
+    <p style="margin-top: 0.16in;">Turn the page when you're ready.</p>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 2 / 28 · AI Master Prompt Library</div></div>
+    <div class="fb-right">Workflows up front. Reference at the back.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 3 — SECTION DIVIDER: WORKFLOWS -->
+<div class="page divider-page">
+  <div class="divider-title">Cross-Product<br>Workflows</div>
+  <div class="divider-gold-line"></div>
+  <div class="divider-sub">The decisions a single spreadsheet can't make alone.</div>
+  <div style="position: absolute; bottom: 0.4in; left: 0; right: 0; text-align: center; font-size: 9pt; opacity: 0.5;">Page 3 / 28</div>
+</div>
+
+<!-- ========================================================== PAGE 4 — WORKFLOW 1 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 1 of 10</div>
+      <div class="h-title">Plan a year of sinking funds.</div>
+      <div class="h-sub">Turn a list of goals into a calendar of contributions.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Beginner</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">🪣 Sinking Funds</div>
+    <div class="product-chip">📊 Budget Tracker</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> You know what you want to save for next year but you're not sure how to split a fixed monthly savings budget. This workflow turns a list of goals into a calendar of contributions.</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Available-to-sink calculation</div>
+    <div class="prompt-body">Given my budget data, calculate how much I have available each month for sinking funds.
+
+MONTHLY TAKE-HOME INCOME: $[amount]
+FIXED MONTHLY EXPENSES: [paste from Recurring Templates]
+VARIABLE EXPENSES (3-mo avg): [paste from Annual Summary]
+EMERGENCY FUND CONTRIBUTION: $[amount]
+DEBT MINIMUM PAYMENTS: $[amount]
+
+Tell me: (1) Total committed monthly spend, (2) Income minus committed = available to sink, (3) A reality-check buffer (5-10%) to leave unallocated. Just numbers. Brief reasoning. Skip the lecture.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Goal ranking</div>
+    <div class="prompt-body">Here are my sinking-fund goals. Rank, allocate, tell me which I can't fully fund.
+
+AVAILABLE MONTHLY: $[from Prompt 1]
+GOALS: [name | target | target date | priority hint]
+
+For each: (1) Months remaining, (2) Monthly contribution needed, (3) Cumulative monthly burden when added to higher-priority goals.
+
+Rank: must-fund > should-fund > nice-to-have. For any that don't fit: extend date, reduce target, or drop.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Calendar generation</div>
+    <div class="prompt-body">Build a 12-month contribution calendar based on the ranking from Prompt 2.
+
+Format as table: rows = months, columns = funds. Add a "Total" row per month and verify against my available-to-sink. Include a "rollover" column showing unused budget that bleeds to highest-priority underfunded goal. Flag any fund needing a single-month spike and suggest an earlier start date.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">INPUT: $400/mo available. Goals: Christmas $1,200 by Dec, Vacation $2,400 by Jun, Car Repair $1,500 by Mar.
+
+OUTPUT: Jan $100/$200/$100 = $400. Feb same. Mar Car fully funded mid-Mar; rolls to Vacation. Jun Vacation hits $2,400. Dec Christmas hits $1,200.
+
+Flag: Vacation hits target. Car Repair 2 weeks before typical inspection date.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 4 / 28 · Workflow 1 of 10</div></div>
+    <div class="fb-right">Goals → calendar.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 5 — WORKFLOW 2 (Finance variant: major goal substitute) -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 2 of 10</div>
+      <div class="h-title">Pay off debt + save for a major goal.</div>
+      <div class="h-sub">Both can't be your #1 priority — but the right split lets both progress.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Advanced</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">📉 Debt Payoff</div>
+    <div class="product-chip">🪣 Sinking Funds</div>
+    <div class="product-chip">📊 Budget Tracker</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> You have meaningful debt and a major savings goal (down payment, vehicle, business launch fund, sabbatical). This workflow finds the right split so both progress.</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Debt + goal cost snapshot</div>
+    <div class="prompt-body">Build a single-month financial picture.
+
+DEBT TOTAL: $[amount] · TOTAL MIN PAYMENTS: $[amount] · HIGHEST APR: [%] · LOWEST APR: [%] · DEBT-FREE DATE AT MIN: [date]
+
+GOAL: [describe — house DP / vehicle / business launch / sabbatical] · TARGET AMOUNT: $[total] · TARGET DATE: [date] · ALREADY SAVED: $[amount] · GAP: $[delta]
+
+EXTRA AVAILABLE EACH MONTH: $[amount]
+
+Tell me, in numbers: (1) Months until goal, (2) Monthly saving rate needed, (3) Monthly extra-to-debt at current trajectory, (4) Debt-free date shift if I dropped the goal entirely. Baseline data only. Don't recommend yet.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Split the extra</div>
+    <div class="prompt-body">Propose three splits of my "extra available" between debt and goal:
+
+OPTION A — Aggressive goal (80% goal / 20% debt)
+OPTION B — Balanced (50/50)
+OPTION C — Aggressive debt (20% goal / 80% debt)
+
+For each: (1) Will goal be fully funded by target date? (Y/N + gap), (2) New debt-free date, (3) Total interest paid, (4) Trade-off in one line. Then recommend one. Brief reasoning.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Stretch-month strategy</div>
+    <div class="prompt-body">Identify months where I likely have extra income (bonus, tax refund, side gig, gift) and propose how to deploy.
+
+EXPECTED WINDFALLS: Tax refund $[amount] in [month]; Annual bonus $[amount] in [month]; Other [describe]
+
+For each: 100% to debt (and date impact), 100% to goal (and gap impact), or split %.
+
+Default rule: if highest-APR debt > 8%, lean windfall-to-debt; else lean goal. Override only with specific reason.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">INPUT: $12k debt at 19% APR · Goal: $20k down payment in 14 mo · $8k saved · $500/mo extra.
+
+Months until goal: 14. Saving rate needed: ($20k − $8k)/14 = $857/mo (exceeds $500).
+Option A: $400 goal + $100 debt → goal gap $6.4k at target date.
+Option B: $250/$250 → goal gap $8.5k.
+Option C: $100/$400 → goal gap $10.6k.
+RECOMMENDATION: None fully funds goal. Either (a) reduce target ~$5k, (b) extend date 6+ mo, or (c) accept partial gap.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 5 / 28 · Workflow 2 of 10</div></div>
+    <div class="fb-right">Honest trade-offs.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 6 — WORKFLOW 3 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 3 of 10</div>
+      <div class="h-title">Combine finances with a partner.</div>
+      <div class="h-sub">Two budgets, two net worths, two sets of habits. This walks the merge.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Intermediate</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">📊 Budget Tracker</div>
+    <div class="product-chip">💰 Net Worth Tracker</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> Any time two people consolidate their money — newly married, moving in together, formalizing a long-term partnership.</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Merge the budgets</div>
+    <div class="prompt-body">Merge two pre-existing budgets into one. Flag conflicts.
+
+PERSON A BUDGET: [list with $] · PERSON B BUDGET: [list with $] · JOINT INCOME: $[combined monthly]
+
+For each category: if both have it, propose new joint target (sum is rarely right). If only one has it, decide keep or merge. Flag conflicts. Suggest 3-5 NEW joint categories neither had (date nights, future home repairs, holiday hosting).
+
+Format: Joint Category | A old | B old | New joint | Notes.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Joint vs. individual expenses</div>
+    <div class="prompt-body">Some expenses stay individual (hobbies, friend gifts). Others are joint. Draw the line.
+
+CATEGORIES (from Prompt 1): [list]
+
+Classify each: JOINT (joint account, both visible) · INDIVIDUAL (each gets fixed allowance) · HYBRID (joint default, opt-out personal spend within).
+
+Recommend individual allowance per person (typically 5-15% of after-fixed-costs income each).</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Combine net worth</div>
+    <div class="prompt-body">Merge two Net Worth statements. Flag imbalances.
+
+PERSON A ASSETS + LIABILITIES: [data] · PERSON B ASSETS + LIABILITIES: [data]
+
+Show: (1) Combined NW, (2) Asset class allocation post-merge, (3) Liability mix + combined debt-to-asset ratio, (4) Allocation imbalance (90% retirement on one side, 90% cash on other is a flag).
+
+Recommend 3 first-30-days actions. Concrete steps. Skip "consult a financial advisor."</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">INPUT: A: Rent $1,200, Groceries $400, Subs $80. B: Rent $1,400, Groceries $500, Books $40.
+
+OUTPUT: Rent → $1,800 new place. Groceries → $700 joint. Subs → $80 (A keeps Spotify Family). Books → Individual B allowance.
+
+NEW JOINT: Date nights $150, Home repairs SF $100, Holiday hosting $50.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 6 / 28 · Workflow 3 of 10</div></div>
+    <div class="fb-right">Two lives, one ledger.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 7 — WORKFLOW 4 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 4 of 10</div>
+      <div class="h-title">Launch a side business — keep personal budget intact.</div>
+      <div class="h-sub">The first 6 months are usually a loss. Keep personal finances safe while the business finds footing.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Advanced</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">🏢 Small Business</div>
+    <div class="product-chip">📊 Budget Tracker</div>
+    <div class="product-chip">💰 Net Worth Tracker</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> You want to start something on the side (consulting, Etsy shop, freelance, productized service).</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Startup cost separation</div>
+    <div class="prompt-body">Separate startup costs from personal budget.
+
+ONE-TIME STARTUP COSTS: [list with $]
+MONTHLY RECURRING BUSINESS COSTS: [list with $]
+CURRENT MONTHLY HOUSEHOLD SURPLUS: $[amount]
+
+Tell me: (1) Total one-time, (2) Total ongoing monthly, (3) Max business outflow I can absorb without dipping into EF, (4) Recommended "business escrow" amount = pool to cover first 6 months ops + buffer.
+
+Format: "You can absorb $X/mo. Pre-fund $Y for 6 mo. Don't exceed $Z one-time without external financing."</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Go/no-go revenue thresholds</div>
+    <div class="prompt-body">Three revenue milestones with explicit go/no-go decisions.
+
+Monthly business cost: $[amount] · Acceptable monthly loss first 6 mo: $[default $200] · Revenue target by mo 12: $[amount]
+
+Build: M3 minimum to continue · M6 break-even check · M12 contribution-margin check.
+
+For each: threshold AND specific action if under (cut, pivot, wind down, continue). Be specific about wind-down trigger.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Tax-prep separation from Day 1</div>
+    <div class="prompt-body">Set up tax separation Day 1 to avoid Year-1 nightmare.
+
+STRUCTURE: [sole prop / LLC / S-corp] · STATE: [state] · Y1 EXPECTED REV: $[amount] · SEPARATE BANK: [yes/no]
+
+Give me: (1) Three things to do this week, (2) Expense categories with IRS Schedule mapping, (3) Quarterly estimated tax dates + first-payment estimate, (4) One thing Year-1 owners typically screw up.
+
+Practical. Skip "consult a CPA" — tell me how to set this up myself.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">INPUT: Etsy shop, $800 startup, $120/mo recurring, $600/mo household surplus.
+
+Absorb $400/mo. Pre-fund $720 (6 × $120) + $300 = $1,020. Don't exceed $800 one-time.
+
+Milestones: M3 $300 rev continue. M6 $120/mo break-even must hit; else cut Canva, pivot. M12 $500/mo gross + 30% margin = $150 profit.
+
+If M6 misses: wind down. Refund inventory, downgrade subs, write off as learning.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 7 / 28 · Workflow 4 of 10</div></div>
+    <div class="fb-right">Side business safely.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 8 — WORKFLOW 5 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 5 of 10</div>
+      <div class="h-title">Build a 10-year net-worth roadmap.</div>
+      <div class="h-sub">Long-term decisions need a long-term view.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Advanced</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">💰 Net Worth Tracker</div>
+    <div class="product-chip">📉 Debt Payoff</div>
+    <div class="product-chip">📈 Investment (ref)</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> Project net worth 10 years out under three savings/debt-paydown strategies, then highlight milestones every 2 years.</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Baseline projection</div>
+    <div class="prompt-body">Project net worth 10 years out at three savings rates.
+
+CURRENT NW: $[amount] · MONTHLY SAVINGS: $[amount] · EXPECTED REAL RETURN: 7% · CURRENT DEBT: $[amount] · DEBT-FREE DATE: [date]
+
+Project NW end-of-year for 10 years under: SCENARIO A maintain · SCENARIO B +25% rate · SCENARIO C +50% rate.
+
+Show me the curve. Where does compounding inflect (year where annual returns exceed annual contributions)?</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Debt-fast vs. invest-difference vs. hybrid</div>
+    <div class="prompt-body">Three strategies. Same 10-year window.
+
+S1 DEBT FAST · S2 INVEST DIFFERENCE (pay minimums only, invest the difference at [%]) · S3 HYBRID 60% debt / 40% invest.
+
+For each: year-by-year NW table, total interest paid, total investment value at year 10, risk level + one-sentence rationale.
+
+Recommend one based on my highest debt APR. Rule of thumb: if APR > expected return + 2%, pay fast. Else, hybrid.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Milestone map (every 2 years)</div>
+    <div class="prompt-body">Build a milestone map: Y2 short-term · Y4 mid-term · Y6 wealth-building · Y8 stretch · Y10 FIRE check.
+
+For each: target number, "earliest realistic" date, one leading indicator to monitor quarterly.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">INPUT: NW $40k · Savings $500/mo · 7% return · Debt $15k at 18% APR.
+
+S-A: Y10 NW $128k. S-B (+25%): $146k. S-C (+50%): $164k.
+Strategy 1 (Debt fast): $138k, interest $2.1k, low risk. Strategy 2 (Invest diff): $119k, interest $9.4k, high risk (APR > return). Strategy 3 (Hybrid 60/40): $131k.
+RECOMMENDATION: Strategy 1. 18% well above 7% — killing debt first wins.
+
+MILESTONES: Y2 debt-free + $15k EF · Y4 $40k investments · Y6 $75k, passive covers phone+internet · Y8 $115k Coast FIRE · Y10 $138k.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 8 / 28 · Workflow 5 of 10</div></div>
+    <div class="fb-right">Decade-out view.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 9 — WORKFLOW 6 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 6 of 10</div>
+      <div class="h-title">Pay off debt vs. invest the difference.</div>
+      <div class="h-sub">Run the math for your APR, return, and timeline.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Intermediate</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">📉 Debt Payoff</div>
+    <div class="product-chip">💰 Net Worth Tracker</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> You have extra cash. Should it go to debt or investments?</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">The math</div>
+    <div class="prompt-body">$[amount]/mo extra. Debt or invest?
+
+HIGHEST-APR DEBT: Balance $[n] · APR [%] · Min $[n]
+INVESTMENT: [taxable/Roth/401k] · Expected real return [%, default 7] · Marginal tax bracket [%]
+HORIZON: 10 years. No 401k match left on table.
+
+Compare in real terms: (1) Y10 net wealth if I pay extra to debt then invest freed cash, (2) Y10 net wealth if I pay only minimums and invest the extra.
+
+Account for after-tax cost of debt interest (most consumer debt non-deductible).</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Decision framework</div>
+    <div class="prompt-body">Build a 4-question yes/no flowchart that ends in "Pay Debt First" / "Invest the Difference" / "Hybrid 60/40":
+
+(1) APR threshold — below this, lean investments
+(2) Volatility tolerance — can I stomach 15% drawdowns while paying debt interest?
+(3) Psychological factor — is "debt-free" worth more than 1-2% wealth edge?
+(4) Liquidity — does investing instead of paying leave me without buffer?</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">90-day action plan</div>
+    <div class="prompt-body">Whichever path: 90-day plan.
+
+WEEK 1: [specific action] · ... · DAY 90: [check-in metric]
+
+If "Pay Debt First": order of debts (snowball vs avalanche), monthly extra amount.
+If "Invest Difference": account choice (Roth vs taxable), allocation, auto-invest setup.
+If "Hybrid": split across both tracks.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">INPUT: $400/mo extra · Highest debt $8k at 6.5% APR · Return 7% · 10-yr horizon.
+
+MATH: Y10 NW "pay first" $54.3k. "Invest diff" $54.8k. Wash (investing edges $0.5k).
+
+DECISION: Q1 APR (6.5%) > return (7%)? No → lean invest. Q2 tolerate 15% drawdowns? Yes → invest. Q3 value debt-free? Maybe → marginally debt. Q4 sufficient liquidity? Yes → invest.
+
+RECOMMENDED: HYBRID 60% INVEST / 40% DEBT.
+
+90-DAY: W1 auto-invest $240/mo Roth IRA index. W2 extra debt $160/mo auto-pay. Day 90 review.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 9 / 28 · Workflow 6 of 10</div></div>
+    <div class="fb-right">Where extra cash goes.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 10 — WORKFLOW 7 (Finance variant: major goal reverse-engineer) -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 7 of 10</div>
+      <div class="h-title">Reverse-engineer a major savings goal.</div>
+      <div class="h-sub">From total → monthly allocations. Using benchmarks and your priorities.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Intermediate</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">🪣 Sinking Funds</div>
+    <div class="product-chip">📊 Budget Tracker</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> You know your total savings target (down payment, sabbatical, business launch, vehicle, multi-year travel). You don't know how to break it into monthly contributions across the planning window.</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Priority weighting + sub-budgets</div>
+    <div class="prompt-body">I have a major savings goal. Break it into sub-budgets matching my priorities.
+
+TOTAL TARGET: $[amount] · TARGET DATE: [date] · GOAL TYPE: [house DP / vehicle / sabbatical / business launch / multi-year travel / other]
+
+For each typical sub-budget within this goal type (e.g., for a house: DP + closing costs + emergency reserves + immediate furnishing + moving), give priority rank 1 (essential) to 5 (nice-to-have).
+
+PRIORITY RANKS (paste yours): [...]
+
+Suggest an allocation % per sub-budget that matches MY priorities, not a generic rule. Respect MY priorities.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Reality-check the allocation</div>
+    <div class="prompt-body">Check the allocation from Prompt 1 against realistic pricing.
+
+REGION / CONTEXT: [city, state / business industry / etc.]
+
+For each sub-budget with $ allocation: (1) Realistic for context? (2) If under-allocated, flag + tell me typical. (3) If over-allocated, suggest alternatives (cheaper paths, phased approach, DIY vs hire).
+
+End with a "realistic total" respecting minimums. If my total can't cover minimums, name 1-3 sub-budgets to cut hardest.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Contingency + swap-out plan</div>
+    <div class="prompt-body">Build a 5-10% contingency buffer + swap-out plan.
+
+CONTINGENCY: 5-10% of total. Hold separate. Don't allocate to a specific sub-budget.
+
+SWAP-OUT PLAN: For each of the 3 highest-cost sub-budgets, give me one $200-$500 swap-out I could trigger if a vendor / cost surprises me later. Stack from least painful to most. Easy ones queued = no scrambling later.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">INPUT: $50k goal — house DP in Austin TX, 24-month window.
+
+ALLOCATION: DP 70% ($35k), Closing 12% ($6k), Reserves 10% ($5k), Furnishing 6% ($3k), Moving 2% ($1k).
+
+REGIONAL CHECK: Austin starter home ~$350k. 20% DP = $70k. Your $35k = 10% DP → PMI required. Recommend either (a) reduce home target to ~$250k for 20% DP, (b) accept PMI for first 2-3 years.
+
+CONTINGENCY: $3k (6%). SWAP-OUTS queued: (1) Skip professional movers ~$800, (2) Used furniture for first year ~$1.5k, (3) Smaller-market suburb cuts price ~$30k.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 10 / 28 · Workflow 7 of 10</div></div>
+    <div class="fb-right">Total → monthly.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 11 — WORKFLOW 8 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 8 of 10</div>
+      <div class="h-title">Quarterly financial check-in across all products.</div>
+      <div class="h-sub">Every 90 days. Pull all five spreadsheets. Five minutes.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Beginner</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">📊 Budget</div>
+    <div class="product-chip">📉 Debt</div>
+    <div class="product-chip">🪣 Sinking</div>
+    <div class="product-chip">💰 NW</div>
+    <div class="product-chip">🏢 Small Biz</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> Every 90 days. Single document for partner / accountant / future self.</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Cross-product snapshot</div>
+    <div class="prompt-body">Build a quarterly snapshot. Don't analyze — consolidate.
+
+PERIOD: [Q1 2026] · DATE RANGE: [start] to [end]
+
+From each spreadsheet, give me the headline:
+- Budget — actual vs budget % + Top 3 over-categories
+- Debt Payoff — total debt change ($Δ + %) + debt-free date shift
+- Sinking Funds — % of funded goals on track + flagged risks
+- Net Worth — NW change ($Δ + %) + driver
+- Small Business (if app) — revenue, gross profit, cash
+
+Format: 2-column table Spreadsheet | Headline. Scannable.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Wins, misses, lessons</div>
+    <div class="prompt-body">3 biggest wins, 3 misses, 3 lessons.
+
+WIN: positive surprise. MISS: negative variance vs plan. LESSON: pattern that should change next quarter's plan.
+
+One sentence each. Specific. "Spent less on dining" isn't a win. "Spent $300 less; new habit of cooking Sundays" is. Don't editorialize.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Next-quarter priorities</div>
+    <div class="prompt-body">5 priorities for next quarter.
+
+Each: specific (not "save more"), measurable, attached to a spreadsheet, trade-off explicit.
+
+Order by which is most fragile.
+
+End with one "watch this" — metric to monitor but not yet a priority.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">END OF Q2:
+Budget 94% used · Debt -$2,200, date moved up 1mo · Sinking 4/7 funded · NW +$3,400 · Side biz flat.
+
+WINS: Debt accelerated · Cooking habit stuck · NW growth from savings (sustainable).
+MISSES: Vacation behind · Q2 healthcare surprise $800 · Side biz M1 unmet.
+NEXT-Q: (1) DP fund +$4k by EOQ3, (2) Side biz decide Aug 15, (3) Build $1k healthcare buffer, (4) Hold debt pace, (5) Catch Vacation +$300/mo.
+WATCH: Joint income (job change considered).</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 11 / 28 · Workflow 8 of 10</div></div>
+    <div class="fb-right">Quarterly cadence.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 12 — WORKFLOW 9 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 9 of 10</div>
+      <div class="h-title">End-of-year tax-prep prompt chain.</div>
+      <div class="h-sub">December or early January. Clean handoff to your accountant.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Advanced</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">🏢 Small Business</div>
+    <div class="product-chip">📊 Budget Tracker</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> Pull tax-relevant data from your spreadsheets into a clean tax-prep summary.</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Categorize deductibles</div>
+    <div class="prompt-body">Pull deductible expenses for [TAX YEAR]. Categorize per IRS Schedule.
+
+PERSONAL DEDUCTIBLES (Budget filtered tax-deductible=TRUE): [list]
+BUSINESS DEDUCTIBLES (Small Biz filtered deductible): [list]
+
+For each: map to Schedule A · Schedule C · Schedule E · "Personal — not deductible".
+
+Flag ambiguous: home office %, mixed personal/biz (phone, internet), mileage without full records.
+
+Output: clean per-Schedule summary table.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Mileage + home office</div>
+    <div class="prompt-body">MILEAGE: [list with date, purpose, miles, business-y/n]
+IRS BUSINESS MILEAGE RATE: [look up — 67¢/mi 2024]
+
+HOME OFFICE: Office sqft [n] · Total home sqft [n] · Annual home costs $[n]. Or IRS simplified $5/sqft up to 300.
+
+Give me: (1) Total miles + deduction + records audit-risk note, (2) Actual-method total + simplified total. Recommend whichever higher unless near audit-threshold.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Quarterly estimated tax check</div>
+    <div class="prompt-body">Quarterly payments made? Q4 true-up?
+
+PAYMENTS: Q1 $[n] [date] · Q2 $[n] [date] · Q3 $[n] [date]
+YTD LIABILITY: Profit $[n] · Federal at [%]: $[n] · State: $[n]
+
+Calc: total paid · total liability · Q4 true-up · safe-harbor check (100% last year OR 90% this year? No penalty if yes).
+
+If Q4 needed, exact amount + IRS portal URL.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">INPUT: TY 2025, sole prop, ~$8k revenue, $2k expenses.
+
+SCHEDULE C: Ads $480 · Supplies $620 · Software $240 · Home office (sep) · Mileage (sep) · Total ~$1,340 + mileage + home office.
+
+Mileage: 850 mi × $0.67 = $570. Audit risk medium.
+Home office actual: $1,200 (8% of $15k). Simplified: $1,000. Use actual.
+
+Q4 true-up: $580 by Jan 15. Safe harbor: 90% of this year = $792 needed; have $300. PAY $600.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 12 / 28 · Workflow 9 of 10</div></div>
+    <div class="fb-right">Tax-time ready.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 13 — WORKFLOW 10 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Workflow 10 of 10</div>
+      <div class="h-title">"What changed this month?"</div>
+      <div class="h-sub">First of every month. Five minutes. Anomaly detection across all 5.</div>
+    </div>
+    <div class="h-badge"><div class="label">Difficulty</div><div class="ver">Beginner</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="products-row">
+    <div class="product-chip">📊 Budget</div>
+    <div class="product-chip">📉 Debt</div>
+    <div class="product-chip">🪣 Sinking</div>
+    <div class="product-chip">💰 NW</div>
+    <div class="product-chip">🏢 Small Biz</div>
+  </div>
+
+  <div class="when-block"><strong>When to use this.</strong> First of every month. AI-powered anomaly detection across all five spreadsheets.</div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 1 / 3</div>
+    <div class="prompt-title">Detect anomalies</div>
+    <div class="prompt-body">Compare this month vs baseline (last 3-mo avg OR last year same month).
+
+THIS MONTH ([month, year]): Budget · Debt · Sinking · NW · Small Biz (if app)
+LAST 3 MONTH AVG: [paste]
+
+For each, flag: Material variance (>15% delta) POSITIVE/NEGATIVE · One-time vs recurring · Pattern continuation (3rd month?) vs one-month deviation.
+
+Output table: Item | This Mo | Baseline | Δ% | Type.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 2 / 3</div>
+    <div class="prompt-title">Explain the why</div>
+    <div class="prompt-body">For each material variance, 2-3 plausible explanations.
+
+VARIANCES (Prompt 1): [list]
+
+For each: (1) Most likely cause (seasonality, holidays), (2) Alternative cause (behavior change), (3) "Weirder" cause (sub auto-renewal doubled).
+
+End with Yes/No question to confirm. Don't speculate beyond data.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-num">Prompt 3 / 3</div>
+    <div class="prompt-title">Action items</div>
+    <div class="prompt-body">Convert variances + explanations into a short action list.
+
+Tag each:
+- IGNORE: known one-off
+- INVESTIGATE: specific thing to check
+- FIX: recurring issue to change
+- WATCH: monitor before acting
+
+Output: 3-5 item bulleted list. Skip items with no action.</div>
+  </div>
+
+  <div class="worked-example">
+    <div class="we-label">Worked example</div>
+    <div class="we-body">VARIANCES (Oct vs trailing 3-mo avg):
+Dining $420 vs $245 +71% one-off · Subs $134 vs $89 +51% recurring (3rd mo) · Vacation $0 vs $250 -100% one-off · NW +$680 vs $1,800 -62% one-off · Side biz $720 vs $420 +71% pattern.
+
+WHYS: Dining anniversary + work events. One-off. Subs cloud storage auto-renewal $45. 3rd mo +. Investigate. Vacation paused for car repair. Resume Nov. NW market down. One-off. Side biz holiday pickup.
+
+ACTIONS: (1) INVESTIGATE cloud storage. (2) FIX resume Vacation Nov 1 +$300. (3) WATCH side biz Nov hits M1. (4) IGNORE NW dip.</div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 13 / 28 · Workflow 10 of 10</div></div>
+    <div class="fb-right">Monthly diff.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 14 — DIVIDER: PER-PRODUCT REFERENCE -->
+<div class="page divider-page">
+  <div class="divider-title">Per-Product<br>Reference</div>
+  <div class="divider-gold-line"></div>
+  <div class="divider-sub">À la carte prompts. Use as needed.</div>
+  <div style="position: absolute; bottom: 0.4in; left: 0; right: 0; text-align: center; font-size: 9pt; opacity: 0.5;">Page 14 / 28</div>
+</div>
+
+<!-- ========================================================== PAGE 15 — BUDGET 1-4 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Per-Product Reference</div>
+      <div class="h-title">📊 Budget Tracker — prompts 1-4 of 12</div>
+    </div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">15 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-product-bar">
+    <div class="name">📊 Budget Tracker</div>
+    <div class="pages">3 pages · 12 prompts</div>
+  </div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">B1</div>
+      <div class="ref-title">Smart Spending Advisor</div>
+      <div class="ref-prompt">Paste last-30-days expense data. Give me 3 ranked spending cuts with exact $ and one-sentence rationale.
+
+EXPENSES: [from Expense Tracker]
+TARGET CUT: $[amount]/mo
+
+Find non-obvious patterns — category creep, vendor lock-in, one-offs that became recurring.</div>
+      <div class="ref-tab">Tab: 💸 Expense Tracker</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B2</div>
+      <div class="ref-title">Scenario Simulator</div>
+      <div class="ref-prompt">Model 12-mo impact of three spending changes.
+
+CHANGE 1/2/3: [description + $ impact]
+
+For each: total saved over 12 mo, savings rate change, NW projection at Y1.</div>
+      <div class="ref-tab">Tab: 📈 Cash Flow Forecast</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B3</div>
+      <div class="ref-title">Bill Negotiation Scripts</div>
+      <div class="ref-prompt">Negotiation script for [VENDOR].
+
+Current: $[n]/mo · Target: $[n]/mo · Service length: [yrs]
+
+Opening (don't lead with "too high"), specific ask, 2 fallbacks, walk-away.</div>
+      <div class="ref-tab">Tab: 🔁 Recurring Templates</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B4</div>
+      <div class="ref-title">Cash Flow Intelligence</div>
+      <div class="ref-prompt">Forecast next 90 days. Flag months projected below $[buffer].
+
+INCOMING / OUTGOING / ONE-OFFS: [from Recurring + Bill Calendar]
+
+For danger months: 2 specific actions.</div>
+      <div class="ref-tab">Tab: 📈 Cash Flow Forecast</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 15 / 28 · Budget prompts 1-4</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 16 — BUDGET 5-8 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">📊 Budget Tracker — prompts 5-8 of 12</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">16 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">B5</div>
+      <div class="ref-title">Annual Money Review</div>
+      <div class="ref-prompt">Generate year-end review.
+
+DATA (Annual Summary): [income, expenses, savings rate, top categories]
+
+3 wins, 3 misses, 3 lessons, 3 priorities. Each under 20 words.</div>
+      <div class="ref-tab">Tab: 📊 Annual Summary</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B6</div>
+      <div class="ref-title">Category Advisor</div>
+      <div class="ref-prompt">Compare my category spending to benchmarks.
+
+DATA (3-mo avg): [list with $]
+CONTEXT: Income $[n], region [city], household size [n]
+
+For each: UNDER / AT / OVER typical. Recommend 1 to investigate first.</div>
+      <div class="ref-tab">Tab: 📂 Expense Categories</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B7</div>
+      <div class="ref-title">Health Score Coach</div>
+      <div class="ref-prompt">Score [n]/100. Breakdown: Savings rate / EF / DTI / Util / On-time.
+
+Top 3 actions to raise 10+ points in 90 days. Specific. Skip "save more."</div>
+      <div class="ref-tab">Tab: 🏆 Financial Health Score</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B8</div>
+      <div class="ref-title">Subscription Audit</div>
+      <div class="ref-prompt">Rank subs by annual cost ÷ last-30-days usage.
+
+SUBSCRIPTIONS: [Name | monthly | last used]
+
+Output: KILL / WATCH / KEEP. Sort each by annual cost desc.</div>
+      <div class="ref-tab">Tab: 🔁 Recurring Templates</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 16 / 28 · Budget prompts 5-8</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 17 — BUDGET 9-12 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">📊 Budget Tracker — prompts 9-12 of 12</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">17 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">B9</div>
+      <div class="ref-title">Recurring Templates Builder</div>
+      <div class="ref-prompt">Find recurring patterns I haven't set up.
+
+LAST 6 MO EXPENSES: [data]
+
+Group by vendor + amount. 4+ in 6 mo is likely recurring. List candidates: frequency + amount.</div>
+      <div class="ref-tab">Tab: 🔁 Recurring Templates</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B10</div>
+      <div class="ref-title">Savings Rate Optimizer</div>
+      <div class="ref-prompt">Current rate [%]. Goal [%].
+
+5 fastest paths to raise by 5 pp, ordered least painful first. Each: monthly $ saved, pp impact, one-line "what you give up."</div>
+      <div class="ref-tab">Tab: 🏆 Financial Health Score</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B11</div>
+      <div class="ref-title">Big Purchase Analyzer</div>
+      <div class="ref-prompt">Considering [ITEM]. Cost $[n]. Should I?
+
+FINANCIALS: Monthly surplus · EF status · Active debt at [%] · Competing goals
+
+Frame: opportunity cost, payback period, 1-sentence Yes/No/Wait.</div>
+      <div class="ref-tab">Tab: 🎯 Savings Goals</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">B12</div>
+      <div class="ref-title">Emergency Fund Right-sizing</div>
+      <div class="ref-prompt">Calculate right-sized EF.
+
+INPUTS: Monthly fixed $[n] · Income stability · Job market · Single/dual income · Other liquidity
+
+Target as multiple of monthly fixed (3-12 mo). Compare to current. Recommend stop/maintain/accelerate.</div>
+      <div class="ref-tab">Tab: 🆘 Emergency Fund</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 17 / 28 · Budget prompts 9-12</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 18 — DEBT 1-4 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">📉 Debt Payoff — prompts 1-4 of 8</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">18 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-product-bar">
+    <div class="name">📉 Debt Payoff Planner</div>
+    <div class="pages">2 pages · 8 prompts</div>
+  </div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">D1</div>
+      <div class="ref-title">Strategy Picker</div>
+      <div class="ref-prompt">Compare snowball vs avalanche.
+
+DEBTS: [name | balance | APR | min]
+EXTRA: $[amount]
+
+Compare: total interest, debt-free date, psychological factor. Recommend one. If APR spread <3%, methods converge.</div>
+      <div class="ref-tab">Tab: 📊 Strategy Comparison Matrix</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">D2</div>
+      <div class="ref-title">Credit Score Coach</div>
+      <div class="ref-prompt">Score [n]. Breakdown: Payment hist · Util · Length · New credit · Mix.
+
+Top 3 actions to raise 30+ points in 6 mo. Specific, timeline, risk level.</div>
+      <div class="ref-tab">Tab: 📊 Credit Score Tracker</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">D3</div>
+      <div class="ref-title">Refinance Radar</div>
+      <div class="ref-prompt">For each debt, refinance sense at current rates.
+
+DEBTS: [list with APR] · MARKET RATES: [paste] · SCORE: [n]
+
+For each: refi-eligible likelihood, new rate range, break-even months on fees, recommend.</div>
+      <div class="ref-tab">Tab: 🔁 Refinance Radar</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">D4</div>
+      <div class="ref-title">Balance Transfer Analyzer</div>
+      <div class="ref-prompt">Should I do a balance transfer?
+
+DEBT: [name, balance, current APR]
+OFFER: [card, fee %, promo APR, promo months]
+
+Calc: fee $, total interest in promo window vs status quo, break-even date, risk if not paid before promo expires.</div>
+      <div class="ref-tab">Tab: 💳 Balance Transfer Analyzer</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 18 / 28 · Debt prompts 1-4</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 19 — DEBT 5-8 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">📉 Debt Payoff — prompts 5-8 of 8</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">19 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">D5</div>
+      <div class="ref-title">Negotiation Scripts (Creditor/Collection)</div>
+      <div class="ref-prompt">Script for [debt type].
+
+DEBT: [name, balance, APR, status]
+MY ASK: [reduced balance / lower APR / payment plan]
+MY LEVERAGE: [hardship / offers / loyalty]
+
+Opening, specific ask, fallbacks, walk-away. Warm but firm.</div>
+      <div class="ref-tab">Tab: 🔁 Refinance Radar</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">D6</div>
+      <div class="ref-title">PSLF / IDR Eligibility</div>
+      <div class="ref-prompt">Federal student loans. PSLF + IDR fit.
+
+BALANCE · EMPLOYER · QUALIFYING YEARS · INCOME · FAMILY SIZE
+
+PSLF y/n/maybe. If eligible, monthly under each IDR (SAVE/PAYE/IBR/ICR). Time to forgiveness. Tax implications.</div>
+      <div class="ref-tab">Tab: 🎓 Student Loan Tab</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">D7</div>
+      <div class="ref-title">Late Fee Recovery Plan</div>
+      <div class="ref-prompt">Missed a payment. Recovery.
+
+WHICH · HOW LATE · WHY
+
+(1) Script to call creditor for fee waiver, (2) Credit-bureau impact if late lands, (3) Prevention plan (auto-pay, calendar alert).</div>
+      <div class="ref-tab">Tab: ⚠️ Late-Fee Alert Monitor</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">D8</div>
+      <div class="ref-title">Debt-Free Date Forecaster</div>
+      <div class="ref-prompt">Given current trajectory, when am I debt-free?
+
+TOTAL DEBT · WEIGHTED AVG APR · TOTAL MIN · EXTRA MONTHLY · ANNUAL WINDFALLS
+
+Output: 3 scenarios — current, +50%, -50% extra. Annual interest under each.</div>
+      <div class="ref-tab">Tab: 🏠 Dashboard</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 19 / 28 · Debt prompts 5-8</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 20 — SINKING 1-4 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">🪣 Sinking Funds — prompts 1-4 of 8</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">20 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-product-bar">
+    <div class="name">🪣 Sinking Funds Planner</div>
+    <div class="pages">2 pages · 8 prompts</div>
+  </div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">S1</div>
+      <div class="ref-title">Fund Priority Ranker</div>
+      <div class="ref-prompt">Rank funds by urgency × gap.
+
+FUNDS: [name | target | date | balance | vehicle]
+AVAILABLE: $[n]
+
+For each: months to date, monthly needed, urgency 1-10. Output ranked table. Recommend allocation.</div>
+      <div class="ref-tab">Tab: 🎯 Priority Matrix</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">S2</div>
+      <div class="ref-title">Volatility Glide Path</div>
+      <div class="ref-prompt">For funds <2 yr from target, right vehicle?
+
+FUNDS: [name | date | vehicle]
+
+By horizon: <12mo cash · 12-24mo HYSA · 2-5yr short bond/CD · 5+yr stock/ETF.
+
+Flag wrong-vehicle. Propose glide-path move.</div>
+      <div class="ref-tab">Tab: 🌅 Wealth Glide Path</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">S3</div>
+      <div class="ref-title">Tax-Efficient Placement</div>
+      <div class="ref-prompt">Taxable / Roth IRA / HSA / 529 per fund?
+
+FUNDS: [name | annual contrib | horizon | use case]
+
+Rules: HSA first (medical) · Roth for retirement-adjacent 5+yr · 529 for education · Taxable for rest.</div>
+      <div class="ref-tab">Tab: 🧮 Tax Efficiency Analyzer</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">S4</div>
+      <div class="ref-title">Goal Conflict Resolver</div>
+      <div class="ref-prompt">Two+ funds want same budget. Resolve.
+
+CONFLICTING FUNDS: [list with date + need]
+AVAILABLE / GAP
+
+Resolve: stretch dates · reduce amounts · partial-fund rest. Revised plan.</div>
+      <div class="ref-tab">Tab: 📉 Funding Gap Analyzer</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 20 / 28 · Sinking prompts 1-4</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 21 — SINKING 5-8 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">🪣 Sinking Funds — prompts 5-8 of 8</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">21 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">S5</div>
+      <div class="ref-title">Withdraw-or-Skip Decision</div>
+      <div class="ref-prompt">Something came up. Withdraw or skip a month?
+
+NEED · CANDIDATE FUNDS · OPTION B (skip)
+
+Recommend (a) withdraw + rebuild plan or (b) skip + which contribution + date impact.</div>
+      <div class="ref-tab">Tab: 📅 Spending Tracker</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">S6</div>
+      <div class="ref-title">Annual Rebuild Plan</div>
+      <div class="ref-prompt">Year-end. For each withdrawn fund: new rebuild contribution, updated date if unrealistic, "rebuild from budget" or "delay other goals."</div>
+      <div class="ref-tab">Tab: 🔄 Annual Summary</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">S7</div>
+      <div class="ref-title">EF vs. Sinking Split</div>
+      <div class="ref-prompt">How to split between EF and sinking?
+
+EF BAL · 3-MO TARGET · MONTHLY · ACTIVE FUNDS
+
+Rule: EF to 3-mo first, then 50/50 to 6-mo, then 80/20 sinking/EF. Apply. Specific monthly $.</div>
+      <div class="ref-tab">Tab: 🆘 Emergency Fund</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">S8</div>
+      <div class="ref-title">Holiday-Specific Allocator</div>
+      <div class="ref-prompt">Front-load December across prior 11 months.
+
+DEC COSTS: Gifts · Travel · Hosting · Other
+CURRENT MO · MO REMAINING
+
+Monthly per category. Total. Compare to available-to-sink. Flag if exceeds.</div>
+      <div class="ref-tab">Tab: 🪣 Fund Manager</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 21 / 28 · Sinking prompts 5-8</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 22 — NET WORTH 1-4 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">💰 Net Worth — prompts 1-4 of 12</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">22 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-product-bar">
+    <div class="name">💰 Net Worth Tracker</div>
+    <div class="pages">3 pages · 12 prompts</div>
+  </div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">N1</div>
+      <div class="ref-title">Monthly NW Narrative</div>
+      <div class="ref-prompt">Explain NW change in plain English.
+
+THIS MO · LAST MO · DELTA · ASSET CHANGES · LIABILITY CHANGES · NEW SAVINGS · MARKET MOVEMENT
+
+Decompose into: savings, market, debt paydown, other one-offs. 4-line summary.</div>
+      <div class="ref-tab">Tab: 🏠 Dashboard</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N2</div>
+      <div class="ref-title">FIRE Forecaster</div>
+      <div class="ref-prompt">When can I retire?
+
+CURRENT NW · ANNUAL SAVINGS · ANNUAL EXPENSES · REAL RETURN 7% · WITHDRAWAL 4%
+
+Output: FIRE number (25× expenses), years to FIRE, years to Coast FIRE, Lean/Reg/Fat FIRE thresholds.</div>
+      <div class="ref-tab">Tab: 🔥 FIRE Calculator</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N3</div>
+      <div class="ref-title">Asset Allocation Advisor</div>
+      <div class="ref-prompt">Appropriate for age + risk?
+
+AGE · RISK · ALLOCATION: Stocks/Bonds/RE/Cash/Crypto-Metals
+
+Compare to age-appropriate (110 minus age = stock %). Identify drift. 1-3 rebalance trades.</div>
+      <div class="ref-tab">Tab: 📈 Asset Allocation</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N4</div>
+      <div class="ref-title">Tax-Loss Harvesting Coach</div>
+      <div class="ref-prompt">Walk portfolio for TLH ops.
+
+UNREALIZED LOSSES · SHORT vs LONG · WASH SALE risk?
+
+For each: tax savings at [%], wash-safe replacement, action.</div>
+      <div class="ref-tab">Tab: 📉 Tax-Loss Harvesting Log</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 22 / 28 · NW prompts 1-4</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 23 — NET WORTH 5-8 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">💰 Net Worth — prompts 5-8 of 12</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">23 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">N5</div>
+      <div class="ref-title">Geographic Exposure</div>
+      <div class="ref-prompt">Where is wealth concentrated?
+
+EQUITY BY COUNTRY · RE BY LOCATION · FX CASH
+
+Compute $ per country. Compare home % vs typical 30-40% home-bias. Flag overconcentration. Recommend.</div>
+      <div class="ref-tab">Tab: 🌍 Geographic Exposure</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N6</div>
+      <div class="ref-title">Estate Planning Advisor</div>
+      <div class="ref-prompt">What's missing in my estate plan?
+
+Will · POA · Healthcare proxy · Retirement benef · Life ins benef · TOD bank · Trust · Digital legacy
+ASSETS · FAMILY
+
+5-item action list ordered by urgency.</div>
+      <div class="ref-tab">Tab: 🛡️ Insurance & Estate</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N7</div>
+      <div class="ref-title">Drift Alert Reader</div>
+      <div class="ref-prompt">Allocation drifted. Rebalance now or wait?
+
+DRIFT: [class | target | current | drift]
+
+For each >5%: $ to rebalance, tax cost of selling, redirect new contributions alternative. Recommend sale/redirect/wait.</div>
+      <div class="ref-tab">Tab: 📈 Asset Allocation</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N8</div>
+      <div class="ref-title">Beneficiary Audit</div>
+      <div class="ref-prompt">Beneficiaries align with will?
+
+ACCOUNTS · WILL DESIGNATES
+
+Flag: no beneficiary (probate risk), contradicts will, last reviewed >2yrs. Action list.</div>
+      <div class="ref-tab">Tab: 🤝 Beneficiary & Estate Access</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 23 / 28 · NW prompts 5-8</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 24 — NET WORTH 9-12 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">💰 Net Worth — prompts 9-12 of 12</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">24 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">N9</div>
+      <div class="ref-title">Vehicle TCO Calculator</div>
+      <div class="ref-prompt">5-yr TCO.
+
+VEHICLE · PURCHASE · CURRENT VALUE · FINANCING · INSURANCE · MAINT+REG+FUEL · DEPRECIATION
+
+5-yr TCO. Compare to transit/rideshare/leasing if data available.</div>
+      <div class="ref-tab">Tab: 🚗 Vehicle Depreciation</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N10</div>
+      <div class="ref-title">Real Estate Hold-vs-Sell</div>
+      <div class="ref-prompt">Keep or sell?
+
+PROPERTY · PURCHASE · VALUE · MORTGAGE · ANNUAL EXP · RENTAL INC · ALT RETURN 7%
+
+Compute: equity if sold, annual carry vs rental cash flow, 5-yr ROI hold vs sell-invest. Recommend.</div>
+      <div class="ref-tab">Tab: 🏠 Real Estate</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N11</div>
+      <div class="ref-title">Retirement Catch-up</div>
+      <div class="ref-prompt">Behind on retirement.
+
+AGE · BALANCE · TARGET AGE · TARGET INCOME · CURRENT RATE · REAL RETURN 7%
+
+Required annual, catch-up limits (50+), priority order (401k match → HSA → Roth → backdoor → taxable), 3 actions this month.</div>
+      <div class="ref-tab">Tab: 🎓 Retirement Tracker</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">N12</div>
+      <div class="ref-title">Crypto Allocation Check</div>
+      <div class="ref-prompt">Crypto allocation appropriate?
+
+HOLDINGS · TOTAL CRYPTO · TOTAL NW · CRYPTO % NW
+
+Rule: ≤5% risk-averse, ≤10% moderate, ≤20% aggressive. If over: 3-6 mo sell plan. If under + want more: DCA plan.</div>
+      <div class="ref-tab">Tab: 🥇 Metals & Crypto</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 24 / 28 · NW prompts 9-12</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 25 — SMALL BIZ 1-4 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">🏢 Small Business — prompts 1-4 of 12</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">25 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-product-bar">
+    <div class="name">🏢 Small Business Finance Kit</div>
+    <div class="pages">3 pages · 12 prompts</div>
+  </div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">SB1</div>
+      <div class="ref-title">P&L Anomaly Detector</div>
+      <div class="ref-prompt">Review P&L last 3 mo. Flag anomalies.
+
+P&L DATA: [data]
+
+Compare current to trailing 2-mo avg. Flag margin compression, cost spikes, revenue concentration >40%.
+
+Output 5-item table: Line | This Mo | Trailing Avg | Δ% | Flag.</div>
+      <div class="ref-tab">Tab: 📊 P&L Statement</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB2</div>
+      <div class="ref-title">Cash Flow Coach</div>
+      <div class="ref-prompt">Predict cash danger months next 90.
+
+CURRENT CASH · INCOMING · OUTGOING · ONE-OFFS
+
+Running cash. Flag months below $[buffer]. 2 actions per danger month.</div>
+      <div class="ref-tab">Tab: 🔮 Cash Flow Forecast</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB3</div>
+      <div class="ref-title">Customer Profitability Ranker</div>
+      <div class="ref-prompt">Rank customers by gross margin.
+
+CUSTOMER REV · DIRECT COSTS
+
+GM% per customer. Top 5, bottom 5, negative-margin. Keep / raise / fire (customer).</div>
+      <div class="ref-tab">Tab: 📊 Customer Profitability</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB4</div>
+      <div class="ref-title">Pricing Strategist</div>
+      <div class="ref-prompt">Model price change impact.
+
+CURRENT · PROPOSED · VOLUME · EXPECTED CHANGE · UNIT COST
+
+Current profit, new profit, break-even volume drop. Safe / risky / net-positive.</div>
+      <div class="ref-tab">Tab: 📊 P&L Statement</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 25 / 28 · Small Biz prompts 1-4</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 26 — SMALL BIZ 5-8 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">🏢 Small Business — prompts 5-8 of 12</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">26 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">SB5</div>
+      <div class="ref-title">Customer Concentration Risk</div>
+      <div class="ref-prompt">Identify concentration risk.
+
+CUSTOMER REV YTD: [customer | rev | %]
+
+Flag: single >25% high · top-3 >50% med · top-10 >80% low-med. Impact if they leave. Diversification plan.</div>
+      <div class="ref-tab">Tab: 📊 Customer Profitability</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB6</div>
+      <div class="ref-title">Receivables Aging Action</div>
+      <div class="ref-prompt">Walk aging. Prioritize collection.
+
+RECEIVABLES: [customer | $ | days overdue | last contact]
+
+By bucket: 0-30 monitor · 31-60 reminder script · 61-90 escalate script · 90+ collections decision.</div>
+      <div class="ref-tab">Tab: ⏳ Receivables Aging</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB7</div>
+      <div class="ref-title">Inventory Reorder Optimizer</div>
+      <div class="ref-prompt">Optimal reorder point per SKU.
+
+INVENTORY: [SKU | current | velocity | lead time | unit cost]
+
+Each: reorder = (velocity/30) × lead × 1.5. Reorder qty (EOQ or fixed). Flag below now.</div>
+      <div class="ref-tab">Tab: 📦 Inventory Tracker</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB8</div>
+      <div class="ref-title">Tax Prep Categorizer</div>
+      <div class="ref-prompt">Categorize business expenses by Schedule C.
+
+EXPENSES: [date | cat | vendor | amount]
+
+Map to Schedule C line. Flag personal-not-biz or gray-area. Per-Schedule summary for accountant.</div>
+      <div class="ref-tab">Tab: 🧮 Tax Prep Summary</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 26 / 28 · Small Biz prompts 5-8</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 27 — SMALL BIZ 9-12 -->
+<div class="page">
+  <div class="header">
+    <div class="h-left"><div class="eyebrow">Per-Product Reference</div><div class="h-title">🏢 Small Business — prompts 9-12 of 12</div></div>
+    <div class="h-badge"><div class="label">Pages</div><div class="ver">27 / 28</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="ref-grid">
+    <div class="ref-card">
+      <div class="ref-num">SB9</div>
+      <div class="ref-title">PO Negotiation Script</div>
+      <div class="ref-prompt">Script for [SUPPLIER].
+
+CURRENT PO · MY GOAL · MY LEVERAGE
+
+Opening, ask, fallbacks, walk-away. Warm but firm.</div>
+      <div class="ref-tab">Tab: 🏭 Supplier & PO Manager</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB10</div>
+      <div class="ref-title">Project Profitability</div>
+      <div class="ref-prompt">Actual profitability of [PROJECT].
+
+TIME LOG · MATERIAL COSTS · REVENUE
+
+Total cost (labor at internal rate + materials + overhead), GP + margin %, vs target. Take more / raise / avoid?</div>
+      <div class="ref-tab">Tab: 📋 Project Costing</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB11</div>
+      <div class="ref-title">Hiring Cost Modeler</div>
+      <div class="ref-prompt">Should I hire?
+
+ROLE · SALARY · BURDEN 25-30%
+
+Fully loaded monthly, break-even rev needed, decision rule (hire if >2.5× loaded in rev). Contract alternative.</div>
+      <div class="ref-tab">Tab: 👥 HR Employee Records</div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-num">SB12</div>
+      <div class="ref-title">Burn Rate / Runway</div>
+      <div class="ref-prompt">What's my runway?
+
+CASH · MONTHLY BURN · MONTHLY REV · NET BURN
+
+Runway months at current. Then: 20% rev up, 20% exp cut. Which safer? Recommend.</div>
+      <div class="ref-tab">Tab: 💧 Cash Flow Statement</div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 27 / 28 · Small Biz prompts 9-12</div></div>
+    <div class="fb-right">À la carte.</div>
+  </div>
+</div>
+
+<!-- ========================================================== PAGE 28 — TIPS -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Page 28 · Tips</div>
+      <div class="h-title">Where to run these prompts.</div>
+      <div class="h-sub">ChatGPT, Claude, Notion AI — strengths, limits, when each wins.</div>
+    </div>
+    <div class="h-badge"><div class="label">Tier guide</div><div class="ver">Free + Paid</div></div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-title">ChatGPT Free Tier</div>
+      <div class="tip-body"><strong>Best for:</strong> negotiation scripts, vendor messages, prompt iteration. Conversational tone, fast revisions.<br><br><strong>Limit:</strong> ~3,000-4,000 word context per single message. If you paste a long expense list, split it: batch 1, analysis, batch 2, ask to combine.<br><br>Free as of 2026 includes GPT-4o-mini free + GPT-4o limited daily.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">Claude Free (claude.ai)</div>
+      <div class="tip-body"><strong>Best for:</strong> P&L anomaly detection, customer profitability, anything with longer input + structured table output.<br><br><strong>Limit:</strong> daily message limit on free tier. Wait or switch to ChatGPT.<br><br><strong>Strength:</strong> Claude handles very long pastes — useful for cross-product workflows pasting from 3+ spreadsheets.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">Notion AI</div>
+      <div class="tip-body"><strong>Best for:</strong> if you also own Notion Life OS. Lives inside your workspace. Most per-product reference prompts paste directly into a Notion AI block.<br><br><strong>Cost:</strong> $10/mo add-on. Worth it if using Notion Life OS — reads your databases in-context.<br><br><strong>Doesn't:</strong> things Claude/ChatGPT do better with full context. Use for in-context Notion tasks only.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-title">Paid tier — worth it?</div>
+      <div class="tip-body"><strong>Worth it if:</strong> using these prompts heavily over 2-3 months (year-end tax prep, big finance merge, business launch period).<br><br>Paid tiers run faster, allow larger uploads (helpful for cross-product workflows), higher daily limits.<br><br><strong>Skip if:</strong> occasional use. Free tiers do the job for individual prompts.</div>
+    </div>
+  </div>
+
+  <div class="universal-tips">
+    <div class="ut-title">Universal tips</div>
+    <ol>
+      <li><strong>Paste data as text, not screenshots.</strong> AI in free tiers can't read images well.</li>
+      <li><strong>Read the worked example first.</strong> It tells you what good output looks like.</li>
+      <li><strong>Iterate.</strong> "Make it 30 words shorter" / "be more direct" — AI revises on request.</li>
+      <li><strong>Save what works.</strong> Copy great paragraphs into your spreadsheet's Notes column. Otherwise it disappears with the conversation.</li>
+      <li><strong>Never paste account numbers, full SSN, or passwords.</strong> Use placeholders for sensitive numbers.</li>
+      <li><strong>Workflows beat standalone prompts for big decisions.</strong> The 10 cross-product workflows are the bundle's unique value.</li>
+    </ol>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left"><div class="wordmark">Lime Premium Studios</div><div class="meta">Page 28 / 28 · Tips · End of Library</div></div>
+    <div class="fb-right">Workflows beat prompts.</div>
+  </div>
+</div>
+
+<!-- ========================================================== BACK COVER -->
+<div class="page back-cover">
+  <div style="text-align: center;">
+    <div style="font-size: 11pt; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.2in;">Premium Finance Bundle · AI Edition</div>
+  </div>
+
+  <div>
+    <div class="back-quote">You're not buying prompts.<br>You're buying <em>time.</em></div>
+
+    <div class="back-mid">
+      Sixty prompts and ten workflows took us <strong>80+ hours</strong> to write, test, and revise.<br>
+      You can read them in an afternoon and use them for a decade.<br><br>
+      Make a decision today.<br>
+      Make a better one tomorrow.<br>
+      Repeat.<br><br>
+      <strong>That's the whole game.</strong>
+    </div>
+  </div>
+
+  <div class="back-band">
+    <div class="left">Lime Premium Studios</div>
+    <div class="row">Premium Finance Bundle · AI Edition · v1.0</div>
+    <div class="row">Reply to your order email · 24-hour response</div>
+    <div class="row">This PDF ships with your AI Edition bundle purchase.</div>
+    <div class="row">12-month free template refreshes included.</div>
+  </div>
+</div>
+
+</body>
+</html>

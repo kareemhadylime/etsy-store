@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bundle Thumbnail 04 — AI Library Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33; --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0; --surface-white: #FFFFFF;
+    --neutral-grid: #D8DCDF; --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 140px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; align-items: center; justify-content: space-between; padding: 0 100px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .tag-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); padding: 12px 32px; border-radius: 999px; font-size: 22px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  .title-block { position: absolute; top: 220px; left: 100px; right: 100px; text-align: center; }
+  .title-eyebrow { font-size: 30px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 22px; }
+  .title-main { font-size: 130px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; }
+  .title-main em { font-style: italic; color: var(--secondary-warm-gold); font-weight: 600; }
+  .gold-bar { width: 280px; height: 10px; background: var(--secondary-warm-gold); margin: 28px auto; }
+  .title-sub { font-size: 36px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1500px; margin: 0 auto; }
+
+  /* Workflow page in front, reference page peeking behind */
+  .preview-area {
+    position: absolute; top: 800px; left: 100px; right: 100px; bottom: 280px;
+  }
+  .preview-page {
+    position: absolute; width: 920px; height: 900px;
+    background: var(--surface-white);
+    border: 2px solid var(--neutral-grid);
+    border-radius: 18px;
+    box-shadow: 0 30px 60px rgba(31,42,51,0.20), 0 12px 24px rgba(31,42,51,0.12);
+    overflow: hidden;
+  }
+  .preview-page.back { left: 800px; top: 50px; transform: rotate(6deg); z-index: 1; }
+  .preview-page.front { left: 30px; top: 0; transform: rotate(-2deg); z-index: 2; }
+
+  .pg-band { background: var(--primary-charcoal); color: var(--surface-white); padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+  .pg-band .tag { background: var(--secondary-warm-gold); color: var(--primary-charcoal); padding: 5px 14px; border-radius: 6px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; }
+
+  .pg-content { padding: 30px 36px; }
+  .pg-eyebrow { font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 12px; }
+  .pg-title { font-size: 36px; font-weight: 700; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 16px; }
+  .pg-mini-bar { width: 130px; height: 4px; background: var(--secondary-warm-gold); margin-bottom: 18px; }
+
+  .pg-chips { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .pg-chip { background: var(--ivory); border: 1px solid var(--neutral-grid); padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+
+  .pg-when { background: var(--ivory); border-left: 3px solid var(--secondary-warm-gold); padding: 12px 16px; font-size: 14px; line-height: 1.4; margin-bottom: 18px; }
+
+  .pg-prompt-card { background: var(--surface-white); border: 1.5px solid var(--primary-charcoal); border-radius: 6px; padding: 12px 16px; margin-bottom: 12px; }
+  .pg-prompt-num { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 4px; }
+  .pg-prompt-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .pg-prompt-body { font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.5; background: var(--ivory); padding: 8px 10px; border-radius: 4px; }
+
+  /* Back page (reference grid) */
+  .ref-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+  .ref-card-mini { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6px; padding: 10px 12px; }
+  .ref-card-mini .num { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: var(--secondary-warm-gold); margin-bottom: 4px; }
+  .ref-card-mini .title { font-size: 13px; font-weight: 700; margin-bottom: 4px; line-height: 1.2; }
+  .ref-card-mini .body { font-family: 'JetBrains Mono', monospace; font-size: 9px; line-height: 1.4; opacity: 0.75; }
+  .ref-card-mini .tab { font-size: 10px; font-style: italic; color: var(--secondary-warm-gold); margin-top: 4px; }
+
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 220px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; align-items: center; justify-content: center; padding: 0 100px; gap: 60px; }
+  .b-stat { text-align: center; }
+  .b-stat .num { font-size: 80px; font-weight: 800; color: var(--secondary-warm-gold); letter-spacing: -0.03em; line-height: 1; }
+  .b-stat .lbl { font-size: 22px; font-weight: 600; opacity: 0.85; margin-top: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .b-divider { width: 4px; height: 100px; background: rgba(255,255,255,0.18); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="tag-pill">AI Edition Only · 60+ Prompts</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">For Buyers Who Live in ChatGPT or Claude</div>
+  <div class="title-main">60+ AI Prompts.<br><em>10 Workflows.</em></div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">Cross-product workflows that a single spreadsheet can't run. Plus per-product reference at the back.</div>
+</div>
+
+<div class="preview-area">
+  <!-- Back page: per-product reference grid -->
+  <div class="preview-page back">
+    <div class="pg-band">
+      <div>AI MASTER LIBRARY · p.22</div>
+      <div class="tag">REFERENCE</div>
+    </div>
+    <div class="pg-content">
+      <div class="pg-eyebrow">Per-Product Reference</div>
+      <div class="pg-title">💰 Net Worth — prompts 1–4 of 12</div>
+      <div class="pg-mini-bar"></div>
+      <div class="ref-grid">
+        <div class="ref-card-mini">
+          <div class="num">N1</div>
+          <div class="title">Monthly NW Narrative</div>
+          <div class="body">Explain NW change this month in plain English. Decompose delta into savings, market, debt paydown, other.</div>
+          <div class="tab">Tab: 🏠 Dashboard</div>
+        </div>
+        <div class="ref-card-mini">
+          <div class="num">N2</div>
+          <div class="title">FIRE Forecaster</div>
+          <div class="body">When can I retire? Years to FIRE, Coast FIRE, Lean/Reg/Fat thresholds for my expenses.</div>
+          <div class="tab">Tab: 🔥 FIRE Calc</div>
+        </div>
+        <div class="ref-card-mini">
+          <div class="num">N3</div>
+          <div class="title">Allocation Advisor</div>
+          <div class="body">Compare to age-appropriate target (110 minus age = stock %). Identify drift. 1-3 rebalance trades.</div>
+          <div class="tab">Tab: 📈 Asset Allocation</div>
+        </div>
+        <div class="ref-card-mini">
+          <div class="num">N4</div>
+          <div class="title">TLH Coach</div>
+          <div class="body">Walk portfolio for tax-loss harvesting. Wash-safe replacements. Tax savings at marginal rate.</div>
+          <div class="tab">Tab: 📉 TLH Log</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Front page: workflow page -->
+  <div class="preview-page front">
+    <div class="pg-band">
+      <div>AI MASTER LIBRARY · p.5</div>
+      <div class="tag">WORKFLOW</div>
+    </div>
+    <div class="pg-content">
+      <div class="pg-eyebrow">Workflow 2 of 10</div>
+      <div class="pg-title">Pay off debt + save for wedding.</div>
+      <div class="pg-mini-bar"></div>
+
+      <div class="pg-chips">
+        <div class="pg-chip">📉 Debt Payoff</div>
+        <div class="pg-chip">🪣 Sinking Funds</div>
+        <div class="pg-chip">💍 Wedding</div>
+      </div>
+
+      <div class="pg-when"><strong style="color: var(--secondary-warm-gold);">When to use this.</strong> Engaged. Meaningful debt. Wedding to pay for. Both can't be #1 — but the right split lets both progress.</div>
+
+      <div class="pg-prompt-card">
+        <div class="pg-prompt-num">Prompt 1 / 3</div>
+        <div class="pg-prompt-title">Debt + wedding cost snapshot</div>
+        <div class="pg-prompt-body">DEBT TOTAL: $[amount] · APR · DEBT-FREE DATE
+WEDDING BUDGET: $[total] · DATE · SAVED · GAP
+EXTRA AVAILABLE: $[amount]
+
+Tell me: months to wedding, monthly saving rate needed, monthly extra-to-debt at current trajectory, debt-free date shift if I dropped wedding.</div>
+      </div>
+
+      <div class="pg-prompt-card">
+        <div class="pg-prompt-num">Prompt 2 / 3</div>
+        <div class="pg-prompt-title">Split the extra</div>
+        <div class="pg-prompt-body">Three splits: Aggressive wedding 80/20 · Balanced 50/50 · Aggressive debt 20/80. For each: wedding gap, new debt-free date, total interest, trade-off in one line. Recommend.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="b-stat"><div class="num">60+</div><div class="lbl">Prompts</div></div>
+  <div class="b-divider"></div>
+  <div class="b-stat"><div class="num">10</div><div class="lbl">Workflows</div></div>
+  <div class="b-divider"></div>
+  <div class="b-stat"><div class="num">30</div><div class="lbl">Pages</div></div>
+</div>
+
+</body>
+</html>

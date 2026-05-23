@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bundle Thumbnail 03 — Setup Wizard Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33; --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0; --surface-white: #FFFFFF;
+    --neutral-grid: #D8DCDF; --ivory: #FAF7F0;
+    --wedding-rose: #C9A0A0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 140px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; align-items: center; justify-content: space-between; padding: 0 100px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .tag-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); padding: 12px 32px; border-radius: 999px; font-size: 24px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  .title-block { position: absolute; top: 220px; left: 100px; right: 100px; text-align: center; }
+  .title-eyebrow { font-size: 30px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 22px; }
+  .title-main { font-size: 130px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; }
+  .gold-bar { width: 280px; height: 10px; background: var(--secondary-warm-gold); margin: 28px auto; }
+  .title-sub { font-size: 36px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1500px; margin: 0 auto; }
+
+  /* Fan of 3 PDF pages */
+  .pages-fan {
+    position: absolute; top: 800px; left: 50%; transform: translateX(-50%);
+    width: 1400px; height: 900px;
+  }
+  .pdf-page {
+    position: absolute;
+    width: 660px; height: 854px;
+    background: var(--surface-white);
+    border: 2px solid var(--neutral-grid);
+    border-radius: 14px;
+    box-shadow: 0 30px 60px rgba(31,42,51,0.20), 0 12px 24px rgba(31,42,51,0.12);
+    overflow: hidden;
+  }
+  .pdf-page.p1 { left: 40px;  top: 30px;  transform: rotate(-10deg); z-index: 1; }
+  .pdf-page.p2 { left: 370px; top: 0px;   transform: rotate(0deg);   z-index: 2; }
+  .pdf-page.p3 { left: 700px; top: 30px;  transform: rotate(10deg);  z-index: 1; }
+
+  .pdf-band-top { background: var(--primary-charcoal); color: var(--surface-white); padding: 12px 22px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; }
+  .pdf-band-top .tier { background: var(--secondary-warm-gold); color: var(--primary-charcoal); padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; }
+  .pdf-content { padding: 36px 32px; }
+  .pdf-eyebrow { font-size: 14px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 16px; }
+  .pdf-title { font-size: 44px; font-weight: 700; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .pdf-mini-bar { width: 140px; height: 5px; background: var(--secondary-warm-gold); margin-bottom: 22px; }
+  .pdf-sub { font-size: 18px; font-style: italic; opacity: 0.7; line-height: 1.4; margin-bottom: 30px; }
+
+  .pdf-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+  .pdf-card-mini { background: var(--ivory); border-radius: 8px; padding: 14px 16px; border-left: 4px solid var(--secondary-warm-gold); }
+  .pdf-card-mini .h { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .pdf-card-mini .b { font-size: 12px; line-height: 1.4; opacity: 0.7; }
+
+  .pdf-stack-mini { margin-top: 30px; }
+  .stack-mini-card { background: var(--ivory); border-radius: 6px; padding: 10px 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
+  .stack-mini-card .num { background: var(--secondary-warm-gold); color: var(--primary-charcoal); width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+  .stack-mini-card.wedding .num { background: var(--wedding-rose); }
+  .stack-mini-card .name { font-weight: 700; flex: 1; padding: 0 12px; }
+  .stack-mini-card .time { font-size: 11px; opacity: 0.6; }
+
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 220px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; align-items: center; justify-content: center; padding: 0 100px; gap: 60px; }
+  .b-stat { text-align: center; }
+  .b-stat .num { font-size: 80px; font-weight: 800; color: var(--secondary-warm-gold); letter-spacing: -0.03em; line-height: 1; }
+  .b-stat .lbl { font-size: 22px; font-weight: 600; opacity: 0.85; margin-top: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .b-divider { width: 4px; height: 100px; background: rgba(255,255,255,0.18); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="tag-pill">Setup Wizard Included</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">9 or 10-Page Setup Walkthrough</div>
+  <div class="title-main">Setup Wizard.<br>Page by page.</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">Linear order. Cross-product diagram. Troubleshooting. Pinned next to your desk.</div>
+</div>
+
+<div class="pages-fan">
+  <!-- Page 1 (back, troubleshooting hint) -->
+  <div class="pdf-page p1">
+    <div class="pdf-band-top">
+      <div>SETUP WIZARD · p.10</div>
+      <div class="tier">v1.0</div>
+    </div>
+    <div class="pdf-content">
+      <div class="pdf-eyebrow">Troubleshooting + Support</div>
+      <div class="pdf-title">When something doesn't add up.</div>
+      <div class="pdf-mini-bar"></div>
+      <div class="pdf-sub">Six issues we see most often, with the one-line fix for each.</div>
+      <div class="pdf-cards">
+        <div class="pdf-card-mini"><div class="h">Q1.</div><div class="b">NW + Debt totals don't match. Sync first Saturday.</div></div>
+        <div class="pdf-card-mini"><div class="h">Q2.</div><div class="b">Wedding fund ≠ Wedding sheet. Update Wedding "Saved" field.</div></div>
+        <div class="pdf-card-mini"><div class="h">Q3.</div><div class="b">Budget says $500 to save but Sinking shows behind. Real shortfall.</div></div>
+        <div class="pdf-card-mini"><div class="h">Q4.</div><div class="b">Small Biz profit doesn't reflect in Budget. Manual copy by design.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2 (front, order rationale) -->
+  <div class="pdf-page p2">
+    <div class="pdf-band-top">
+      <div>SETUP WIZARD · p.2</div>
+      <div class="tier">v1.0</div>
+    </div>
+    <div class="pdf-content">
+      <div class="pdf-eyebrow">The Setup Order</div>
+      <div class="pdf-title">Set them up<br>in this order.</div>
+      <div class="pdf-mini-bar"></div>
+      <div class="pdf-sub">Why the order matters: data flows downstream.</div>
+      <div class="pdf-stack-mini">
+        <div class="stack-mini-card"><div class="num">1</div><div class="name">📊 Budget Tracker</div><div class="time">~12 min</div></div>
+        <div class="stack-mini-card"><div class="num">2</div><div class="name">🪣 Sinking Funds</div><div class="time">~8 min</div></div>
+        <div class="stack-mini-card"><div class="num">3</div><div class="name">💰 Net Worth</div><div class="time">~10 min</div></div>
+        <div class="stack-mini-card"><div class="num">4</div><div class="name">📉 Debt Payoff</div><div class="time">~7 min</div></div>
+        <div class="stack-mini-card"><div class="num">5</div><div class="name">🏢 Small Business</div><div class="time">~10 min</div></div>
+        <div class="stack-mini-card wedding"><div class="num">6</div><div class="name">💍 Wedding (Life)</div><div class="time">~15 min</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 3 (back, product setup) -->
+  <div class="pdf-page p3">
+    <div class="pdf-band-top">
+      <div>SETUP WIZARD · p.3</div>
+      <div class="tier">v1.0</div>
+    </div>
+    <div class="pdf-content">
+      <div class="pdf-eyebrow">Product 1 of 5</div>
+      <div class="pdf-title">📊 Budget Tracker.</div>
+      <div class="pdf-mini-bar"></div>
+      <div class="pdf-sub">The foundation. Every other spreadsheet borrows from it.</div>
+      <div class="pdf-stack-mini">
+        <div class="stack-mini-card"><div class="num">1</div><div class="name">Open the file</div></div>
+        <div class="stack-mini-card"><div class="num">2</div><div class="name">Fill 📥 Income tab</div></div>
+        <div class="stack-mini-card"><div class="num">3</div><div class="name">Customize 14 categories</div></div>
+      </div>
+      <div style="margin-top: 26px; background: var(--ivory); border-left: 4px solid var(--secondary-warm-gold); padding: 14px 16px; font-size: 14px; line-height: 1.4;">
+        <strong style="color: var(--secondary-warm-gold);">Feeds into →</strong> Sinking Funds (available-to-sink) · Net Worth (savings rate) · Debt Payoff (extra-monthly)
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="b-stat"><div class="num">10</div><div class="lbl">Pages</div></div>
+  <div class="b-divider"></div>
+  <div class="b-stat"><div class="num">6</div><div class="lbl">Products covered</div></div>
+  <div class="b-divider"></div>
+  <div class="b-stat"><div class="num">45m</div><div class="lbl">Total setup</div></div>
+</div>
+
+</body>
+</html>

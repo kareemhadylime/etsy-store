@@ -10,7 +10,7 @@ _References: [proposal](../product-proposals/small-business-finance-kit.md) · [
 ## 1. Title (140 char)
 
 ```
-Small Business Finance Kit Spreadsheet | 23 Tabs, P&L, Payroll, Invoicing, AI CFO | QuickBooks Alternative Google Sheets Download
+Small Business Finance Kit Spreadsheet | 25 Tabs, P&L, Payroll, Invoicing, AI CFO | QuickBooks Alternative Google Sheets Download
 ```
 
 **SEO notes:** Front-loads "Small Business Finance Kit Spreadsheet" — head term in the small-business / bookkeeping category. "23 Tabs" + "P&L, Payroll, Invoicing" + "AI CFO" signal depth + AI for the founder cohort. "QuickBooks Alternative" is the highest-volume comparison search term + earns the listing into QuickBooks-alternative searches.
@@ -24,7 +24,7 @@ The complete financial back-office in one spreadsheet. P&L, invoicing, payroll, 
 ## 3. Description (3,478 char — largest in catalog)
 
 ```
-The complete financial back-office for small business owners. 23 tabs. AI that thinks like a CFO. One-time fee.
+The complete financial back-office for small business owners. 25 tabs. AI that thinks like a CFO. One-time fee.
 
 QuickBooks Online charges $35–$235/month — that's $420–$2,820/year, forever. FreshBooks starts at $19/month. Wave is free but limited and harvests your data. We're $24 once. You keep it forever. Your books stay yours, no vendor lock-in, no surprise pricing tier changes.
 
@@ -34,9 +34,9 @@ Built for solopreneurs, Etsy/e-commerce sellers, service businesses (trades, sal
 
 ▸ ESSENTIALS ($24) — 9 tabs: Dashboard (Business Health Score 0–100), Revenue Tracker, Expense Tracker (with tax-deductible flag), P&L Statement (monthly + annual), Cash Flow Statement, Invoice Tracker (up to 50 invoices) + 5 invoice templates, Break-Even Calculator, Tax Prep Summary.
 
-▸ PRO ($39) — Everything in Essentials + 13 more tabs (22 total): Balance Sheet, 10 invoice templates (vs. 5), Recurring Invoice Schedule (set-once monthly bills), Receivables + Payables Aging (0–30 / 31–60 / 61–90 / 90+ buckets), Customer/Vendor Profitability pivot, Inventory Tracker + Supplier/PO Manager, Asset Depreciation, Loan Amortization, HR Employee Records, Payroll & Payslips (up to 10 employees), Social Security Tracker, Project/Job Costing, KPI Dashboard (gross margin, net margin, EBITDA, runway, CAC, MoM growth), 90-day Cash Flow Forecast (segmented by top 5 customers). Multi-currency + multi-rate sales tax. Dark mode.
+▸ PRO ($39) — Everything in Essentials + 15 more tabs (24 total): Balance Sheet, 10 invoice templates (vs. 5), Recurring Invoice Schedule (set-once monthly bills), Receivables + Payables Aging (0–30 / 31–60 / 61–90 / 90+ buckets), Customer/Vendor Profitability pivot, Inventory Tracker + Supplier/PO Manager, Asset Depreciation, Loan Amortization, HR Employee Records, Payroll & Payslips (up to 10 employees), Social Security Tracker, Project/Job Costing, KPI Dashboard (gross margin, net margin, EBITDA, runway, CAC, MoM growth), 90-day Cash Flow Forecast (segmented by top 5 customers). Multi-currency + multi-rate sales tax. Dark mode.
 
-▸ AI EDITION ($54) — Everything in Pro + AI Business Co-Pilot tab with 8 ChatGPT/Claude prompts: P&L Analyst (flags margin compression + cost anomalies) / Cash Flow Coach (predicts danger months 60 days ahead) / Depreciation Assistant / Supplier Negotiation Brief / Tax Prep Advisor / Pricing Strategist (models price-change impact on profit) / Annual Business Review / Customer Concentration Risk (flags when one client > 30% of revenue).
+▸ AI EDITION ($54) — Everything in Pro + AI Business Co-Pilot tab with 8 ChatGPT/Claude prompts: P&L Analyst (flags margin compression + cost anomalies) / Cash Flow Coach (predicts danger months 60 days ahead) / Depreciation Assistant / Supplier Negotiation Brief / Tax Prep Advisor / Pricing Strategist (models price-change impact on profit) / Annual Business Review / Customer Concentration Risk (flags when one client > 30% of revenue). 25 tabs total.
 
 — Every number a CFO would ask for —
 
@@ -85,8 +85,8 @@ Single variation type — **Tier**. 3 values.
 | Variation | Value | Price | What's included |
 |---|---|---|---|
 | Tier | Essentials | $24.00 | 9 tabs — Dashboard, Revenue Tracker, Expense Tracker (with tax-deductible flag), P&L Statement (monthly + annual), Cash Flow Statement, Invoice Tracker (up to 50) + 5 invoice templates, Break-Even Calculator, Tax Prep Summary |
-| Tier | Pro | $39.00 | 22 tabs — All Essentials + Balance Sheet + 10 invoice templates + Recurring Invoice Schedule + Receivables/Payables Aging + Customer/Vendor Profitability + Inventory Tracker + Supplier/PO Manager + Asset Depreciation + Loan Amortization + HR Employee Records + Payroll & Payslips (up to 10) + Social Security Tracker + Project/Job Costing + KPI Dashboard + 90-day Cash Flow Forecast. Multi-currency + multi-rate sales tax. Dark mode. |
-| Tier | AI Edition | $54.00 | 23 tabs — All Pro + AI Business Co-Pilot with 8 prompts (P&L Analyst / Cash Flow Coach / Depreciation Assistant / Supplier Negotiation / Tax Prep Advisor / Pricing Strategist / Annual Business Review / Customer Concentration Risk). Includes 12-month free template refreshes. |
+| Tier | Pro | $39.00 | 24 tabs — All Essentials + Balance Sheet + 10 invoice templates + Recurring Invoice Schedule + Receivables/Payables Aging + Customer/Vendor Profitability + Inventory Tracker + Supplier/PO Manager + Asset Depreciation + Loan Amortization + HR Employee Records + Payroll & Payslips (up to 10) + Social Security Tracker + Project/Job Costing + KPI Dashboard + 90-day Cash Flow Forecast. Multi-currency + multi-rate sales tax. Dark mode. |
+| Tier | AI Edition | $54.00 | 25 tabs — All Pro + AI Business Co-Pilot with 8 prompts (P&L Analyst / Cash Flow Coach / Depreciation Assistant / Supplier Negotiation / Tax Prep Advisor / Pricing Strategist / Annual Business Review / Customer Concentration Risk). Includes 12-month free template refreshes. |
 
 ## 5. Tags (13, all under 20 char)
 
@@ -131,7 +131,7 @@ Single variation type — **Tier**. 3 values.
 > A: Google Sheets primary; Excel courtesy export included. Some Pro/AI features (live FX rates for multi-currency, automatic sales-tax-rate lookups via GOOGLEFINANCE) only work in Sheets. The core P&L, payroll, and invoicing math works in both. If Excel is your primary tool, multi-currency entries need manual FX updates.
 
 > **Q: How is this different from QuickBooks, FreshBooks, or Wave?**
-> A: Four things. (1) Price — $24–$54 once vs. QuickBooks $35–$235/month or FreshBooks $19+/month. Over 5 years at QuickBooks Online basic, that's $2,046 saved. (2) Ownership — it's your spreadsheet. No subscription that gets killed if you stop paying. No data hostage situation if you want to leave. (3) Privacy — Wave is "free" because they sell your business data to integration partners; we don't have a way to sell your data because we never see it. (4) Depth — 23 tabs covering P&L + Balance Sheet + Payroll + Inventory + Project Costing + Tax Prep + AI in one file. Most apps require add-ons or higher tiers for full coverage.
+> A: Four things. (1) Price — $24–$54 once vs. QuickBooks $35–$235/month or FreshBooks $19+/month. Over 5 years at QuickBooks Online basic, that's $2,046 saved. (2) Ownership — it's your spreadsheet. No subscription that gets killed if you stop paying. No data hostage situation if you want to leave. (3) Privacy — Wave is "free" because they sell your business data to integration partners; we don't have a way to sell your data because we never see it. (4) Depth — 25 tabs covering P&L + Balance Sheet + Payroll + Inventory + Project Costing + Tax Prep + AI in one file. Most apps require add-ons or higher tiers for full coverage.
 
 > **Q: Does it connect to my bank or payment processor?**
 > A: No. That's the privacy gate. You enter transactions manually (~30 min/week for most solopreneurs) or import a CSV from your bank/Stripe/PayPal and paste. The trade-off: 30 min/week of manual entry vs. handing your full business financial picture to a SaaS aggregator that monetizes you to lenders, payroll services, and software integrations. We chose privacy.
@@ -142,7 +142,7 @@ Single variation type — **Tier**. 3 values.
 > **Q: I'm an Etsy seller. Will this work for me?**
 > A: Yes. The Revenue Tracker handles Etsy fees + payment processing fees as separate cost categories. The Inventory Tracker handles SKU-level cost-of-goods. The Tax Prep Summary maps to Schedule C for sole props. The proposal mentioned vertical-specific "Etsy Seller Edition" — that's planned as a separate add-on listing with marketplace-specific tabs (returns tracking, Star Seller metrics, ad spend ROAS by listing). This kit is the universal version; works for any small business.
 
-> **Q: I'm starting out — do I need all 23 tabs?**
+> **Q: I'm starting out — do I need all 25 tabs?**
 > A: No. Most early-stage solopreneurs use 8–10 tabs (Revenue + Expense + P&L + Cash Flow + Invoice Tracker + Break-Even + Tax Prep). The Essentials tier ($24) covers exactly that. Pro adds the operational depth (Receivables Aging, Inventory, Payroll, KPI Dashboard) you grow into. AI Edition adds the strategic depth (concentration risk, pricing analysis). Start with Essentials; upgrade when your business outgrows it.
 
 > **Q: Customer Concentration Risk — what does that flag exactly?**
@@ -161,7 +161,7 @@ Single variation type — **Tier**. 3 values.
 
 Per design brief Section 3 — designer pulls strings from here:
 
-- **Thumbnail #1 (hero — Dashboard):** "**Small Business Finance Kit · $24 — $54**" + "23 tabs · P&L · Payroll · AI CFO · Anti-QuickBooks"
+- **Thumbnail #1 (hero — Dashboard):** "**Small Business Finance Kit · $24 — $54**" + "25 tabs · P&L · Payroll · AI CFO · Anti-QuickBooks"
 - **Thumbnail #2 (KPI Dashboard close-up — 8 KPIs in 2×4 grid):** "**Every number a CFO would ask for. None of the consulting fees.**"
 - **Thumbnail #3 (Invoice Tracker + Cash Flow Forecast 2-panel):** "**See danger months 60 days early. Get paid on time.**"
 - **Thumbnail #4 (AI Business Co-Pilot preview):** "**8 AI prompts. Thinks like a CFO. Free-tier ready.**"

@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Premium Finance Bundle — Setup Wizard</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Setup Wizard for the Premium Finance Bundle — 5 spreadsheets in setup order, cross-product references, troubleshooting.">
+<meta name="keywords" content="finance bundle, budget tracker, debt payoff, sinking funds, net worth tracker, small business, setup wizard">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Premium Finance Bundle Setup Wizard v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body { width: 8.5in; background: var(--background-off-white); }
+  .page {
+    width: 8.5in; height: 11in;
+    padding: 0.55in 0.55in 1.0in 0.55in;
+    position: relative;
+    page-break-after: always;
+    background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ===== Cover ===== */
+  .cover {
+    height: 11in;
+    padding: 0;
+    background: var(--background-off-white);
+    position: relative;
+  }
+  .cover-band-top {
+    height: 1.2in; background: var(--primary-charcoal);
+    color: var(--surface-white);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 0.6in;
+  }
+  .cover-wordmark { font-size: 13pt; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .cover-tier {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    padding: 6pt 16pt; border-radius: 4pt;
+    font-size: 9pt; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .cover-content { padding: 0.6in 0.6in; }
+  .cover-eyebrow {
+    font-size: 11pt; font-weight: 600; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--secondary-warm-gold);
+    margin-bottom: 0.16in;
+  }
+  .cover-title {
+    font-size: 54pt; font-weight: 700; line-height: 0.96;
+    letter-spacing: -0.025em; margin-bottom: 0.20in;
+  }
+  .cover-gold-bar { width: 1.4in; height: 5pt; background: var(--secondary-warm-gold); margin-bottom: 0.20in; }
+  .cover-sub {
+    font-size: 14pt; font-weight: 400; line-height: 1.45;
+    color: var(--primary-charcoal); opacity: 0.78; max-width: 5.5in;
+    margin-bottom: 0.35in;
+  }
+
+  /* Hero card stack on cover */
+  .stack {
+    height: 4.2in;
+    position: relative;
+    margin: 0.20in 0;
+  }
+  .stack-card {
+    position: absolute;
+    width: 3.6in; height: 2.7in;
+    background: var(--surface-white);
+    border: 1px solid var(--neutral-grid);
+    border-radius: 8pt;
+    box-shadow: 0 8pt 18pt rgba(31,42,51,0.10);
+    overflow: hidden;
+  }
+  .stack-card.c1 { left: 0.0in; bottom: 0.0in; transform: rotate(-6deg); z-index: 1; }
+  .stack-card.c2 { left: 0.9in; bottom: 0.4in; transform: rotate(-3deg); z-index: 2; }
+  .stack-card.c3 { left: 1.8in; bottom: 0.8in; transform: rotate(0deg); z-index: 3; }
+  .stack-card.c4 { left: 2.7in; bottom: 1.2in; transform: rotate(3deg); z-index: 4; }
+  .stack-card.c5 { left: 3.6in; bottom: 1.6in; transform: rotate(6deg); z-index: 5; }
+  .stack-card .header {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 8pt 12pt; font-size: 9pt; font-weight: 700;
+  }
+  .stack-card .body {
+    padding: 12pt 14pt;
+    display: flex; flex-direction: column; gap: 4pt;
+  }
+  .stack-card .kpi {
+    font-size: 16pt; font-weight: 700;
+    color: var(--secondary-warm-gold); letter-spacing: -0.02em;
+  }
+  .stack-card .kpi-label {
+    font-size: 7pt; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; opacity: 0.55; margin-bottom: 2pt;
+  }
+  .stack-card .bar {
+    height: 6pt; background: var(--ivory); border-radius: 3pt;
+    margin-top: 4pt; overflow: hidden;
+  }
+  .stack-card .bar-fill { height: 100%; background: var(--secondary-warm-gold); }
+
+  .cover-savings-badge {
+    position: absolute;
+    top: 2.4in; right: 0.6in;
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    width: 1.6in; height: 1.6in;
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-weight: 700;
+    box-shadow: 0 4pt 12pt rgba(201,161,74,0.4);
+    text-align: center;
+    line-height: 1.0;
+    transform: rotate(-8deg);
+    z-index: 10;
+  }
+  .cover-savings-badge .num { font-size: 30pt; letter-spacing: -0.02em; }
+  .cover-savings-badge .word {
+    font-size: 9pt; letter-spacing: 0.16em; text-transform: uppercase;
+    margin-top: 4pt;
+  }
+
+  .cover-band-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 0.22in 0.6in;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 9pt;
+  }
+  .cover-band-bottom .left { font-weight: 600; letter-spacing: 0.08em; }
+  .cover-band-bottom .right { opacity: 0.7; font-style: italic; }
+
+  /* ===== Standard page header ===== */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 0.20in;
+  }
+  .eyebrow {
+    font-size: 8pt; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--secondary-warm-gold);
+    margin-bottom: 0.05in;
+  }
+  .h-title {
+    font-size: 28pt; font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 0.06in;
+  }
+  .h-sub {
+    font-size: 10.5pt; font-style: italic;
+    color: var(--primary-charcoal); opacity: 0.7;
+  }
+  .h-badge {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 8pt 14pt; border-radius: 4pt;
+    font-size: 8pt; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; text-align: right; line-height: 1.4;
+  }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+  .gold-divider {
+    height: 2pt; background: var(--secondary-warm-gold);
+    width: 1.6in; margin-bottom: 0.20in;
+  }
+  .section-label {
+    font-size: 9pt; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--secondary-warm-gold);
+    margin-bottom: 0.10in;
+  }
+
+  /* ===== Setup-order rationale (page 2) ===== */
+  .order-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in;
+    margin-bottom: 0.18in;
+  }
+  .order-card {
+    background: var(--surface-white); border-radius: 6pt;
+    padding: 0.16in 0.18in;
+    border: 1px solid var(--neutral-grid);
+    border-left: 4pt solid var(--secondary-warm-gold);
+    position: relative;
+  }
+  .order-card .num {
+    position: absolute; top: 0.10in; right: 0.16in;
+    font-size: 38pt; font-weight: 800; line-height: 1;
+    color: var(--secondary-warm-gold); opacity: 0.18;
+  }
+  .order-card .name {
+    font-size: 13pt; font-weight: 700; margin-bottom: 0.05in;
+    letter-spacing: -0.01em;
+  }
+  .order-card .why {
+    font-size: 9pt; line-height: 1.4; color: var(--primary-charcoal); opacity: 0.78;
+  }
+  .order-rationale-block {
+    background: var(--ivory); border-left: 3pt solid var(--secondary-warm-gold);
+    padding: 0.14in 0.18in; margin-bottom: 0.16in;
+    font-size: 9.5pt; line-height: 1.5;
+  }
+  .order-rationale-block strong { color: var(--secondary-warm-gold); }
+
+  /* ===== Per-product setup pages (3-7) ===== */
+  .product-block {
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 0.22in; margin-bottom: 0.20in;
+  }
+  .product-actions { background: var(--surface-white); border-radius: 8pt; padding: 0.20in 0.22in; border: 1px solid var(--neutral-grid); }
+  .product-action {
+    display: grid; grid-template-columns: 28pt 1fr;
+    gap: 0.12in; margin-bottom: 0.14in;
+  }
+  .product-action:last-child { margin-bottom: 0; }
+  .action-num {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    width: 24pt; height: 24pt; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12pt; font-weight: 700;
+  }
+  .action-content { font-size: 9.5pt; line-height: 1.45; }
+  .action-content strong { font-weight: 700; color: var(--primary-charcoal); }
+  .action-content em { font-style: normal; color: var(--secondary-warm-gold); font-weight: 600; }
+
+  .product-mock {
+    background: var(--surface-white); border-radius: 8pt;
+    border: 1px solid var(--neutral-grid); overflow: hidden;
+    box-shadow: 0 4pt 12pt rgba(31,42,51,0.06);
+  }
+  .product-mock .mock-header {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 8pt 14pt; font-size: 9pt; font-weight: 700;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .product-mock .mock-dots { display: flex; gap: 4pt; }
+  .product-mock .mock-dot { width: 6pt; height: 6pt; border-radius: 50%; background: rgba(255,255,255,0.2); }
+  .product-mock .mock-dot.active { background: var(--secondary-warm-gold); }
+  .product-mock .mock-body { padding: 0.14in 0.16in; min-height: 1.8in; }
+  .mock-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 0.08in; margin-bottom: 0.10in; }
+  .mock-kpi { background: var(--ivory); padding: 8pt 10pt; border-radius: 4pt; }
+  .mock-kpi-label { font-size: 6.5pt; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; margin-bottom: 2pt; }
+  .mock-kpi-value { font-size: 14pt; font-weight: 700; letter-spacing: -0.02em; }
+  .mock-bars { padding: 0; }
+  .mock-bar-row { display: grid; grid-template-columns: 1fr 50pt 26pt; gap: 6pt; align-items: center; margin-bottom: 5pt; font-size: 7.5pt; }
+  .mock-bar-name { font-weight: 500; }
+  .mock-bar-track { background: var(--ivory); height: 7pt; border-radius: 4pt; overflow: hidden; }
+  .mock-bar-fill { height: 100%; background: var(--secondary-warm-gold); }
+  .mock-bar-fill.green { background: var(--status-success); }
+  .mock-bar-fill.red { background: var(--status-alert); }
+  .mock-bar-pct { font-size: 7pt; font-weight: 700; text-align: right; }
+
+  .first-tab-callout {
+    background: var(--ivory);
+    border-left: 3pt solid var(--secondary-warm-gold);
+    padding: 0.12in 0.16in;
+    font-size: 9pt; line-height: 1.45;
+    margin-bottom: 0.16in;
+  }
+  .first-tab-callout strong { color: var(--secondary-warm-gold); }
+
+  .feeds-into {
+    display: flex; align-items: center; gap: 0.12in;
+    margin-bottom: 0.10in; padding: 0.10in 0.14in;
+    background: var(--surface-white); border: 1px dashed var(--neutral-grid);
+    border-radius: 6pt;
+  }
+  .feeds-into .label {
+    font-size: 7.5pt; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--secondary-warm-gold);
+  }
+  .feeds-into .body {
+    font-size: 9pt; line-height: 1.4; flex: 1;
+  }
+
+  /* ===== Cross-product reference diagram ===== */
+  .diagram {
+    background: var(--surface-white); border-radius: 8pt;
+    border: 1px solid var(--neutral-grid);
+    padding: 0.30in;
+    height: 5.6in;
+    position: relative;
+    margin-bottom: 0.18in;
+  }
+  .node {
+    position: absolute;
+    width: 1.5in;
+    padding: 8pt 10pt;
+    background: var(--surface-white);
+    border: 2pt solid var(--primary-charcoal);
+    border-radius: 8pt;
+    text-align: center;
+    box-shadow: 0 2pt 6pt rgba(31,42,51,0.10);
+  }
+  .node.foundation { border-color: var(--secondary-warm-gold); background: var(--ivory); }
+  .node-emoji { font-size: 14pt; margin-bottom: 2pt; }
+  .node-name { font-size: 9pt; font-weight: 700; line-height: 1.2; }
+  .node-sub { font-size: 6.5pt; opacity: 0.65; margin-top: 2pt; letter-spacing: 0.06em; text-transform: uppercase; }
+  .arrow { position: absolute; }
+
+  .diagram-legend {
+    display: flex; gap: 0.30in; align-items: center;
+    padding: 0.10in 0.14in;
+    font-size: 8pt;
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.06in; }
+  .legend-swatch { width: 12pt; height: 12pt; border-radius: 3pt; }
+  .legend-swatch.gold { background: var(--secondary-warm-gold); }
+  .legend-swatch.charcoal { background: var(--primary-charcoal); }
+
+  /* ===== Troubleshooting (page 9) ===== */
+  .troubles {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.16in; margin-bottom: 0.18in;
+  }
+  .trouble-card {
+    background: var(--surface-white); border-radius: 6pt;
+    padding: 0.14in 0.16in;
+    border: 1px solid var(--neutral-grid);
+    border-top: 3pt solid var(--status-warning);
+  }
+  .trouble-q {
+    font-size: 9.5pt; font-weight: 700; margin-bottom: 0.06in; line-height: 1.3;
+  }
+  .trouble-q::before { content: 'Q: '; color: var(--secondary-warm-gold); font-weight: 700; }
+  .trouble-a {
+    font-size: 8.5pt; line-height: 1.45; opacity: 0.85;
+  }
+  .trouble-a::before { content: 'A: '; color: var(--secondary-warm-gold); font-weight: 700; }
+
+  .support-block {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    border-radius: 8pt;
+    padding: 0.20in 0.24in;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.24in;
+  }
+  .support-block .item { font-size: 9pt; line-height: 1.5; }
+  .support-block .item strong { color: var(--secondary-warm-gold); display: block; font-size: 8pt; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.06in; }
+
+  /* ===== Footer band ===== */
+  .footer-band {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 0.14in 0.55in;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 8.5pt;
+  }
+  .fb-left { display: flex; align-items: center; gap: 10pt; }
+  .fb-left .wordmark { font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2pt; }
+  .fb-left .meta { opacity: 0.65; font-style: italic; }
+  .fb-right { text-align: right; opacity: 0.85; font-style: italic; }
+  .lime-mark {
+    width: 24pt; height: 24pt; border-radius: 4pt; flex-shrink: 0;
+    background: linear-gradient(135deg, #84CC16 0%, #059669 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12pt; color: white; font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- =====================================================================
+     PAGE 1 — Cover
+     ===================================================================== -->
+<div class="page cover">
+  <div class="cover-band-top">
+    <div class="cover-wordmark">Lime Premium Studios</div>
+    <div class="cover-tier">Pro · AI Edition</div>
+  </div>
+
+  <div class="cover-content">
+    <div class="cover-eyebrow">Premium Finance Bundle · 5 Spreadsheets</div>
+    <div class="cover-title">Setup<br>Wizard</div>
+    <div class="cover-gold-bar"></div>
+    <div class="cover-sub">Five spreadsheets, set up in the right order so the data flows correctly the first time. No fixing the same thing twice.</div>
+
+    <div class="stack">
+      <div class="stack-card c1">
+        <div class="header">📊 Budget Tracker</div>
+        <div class="body">
+          <div class="kpi-label">Saved this mo</div>
+          <div class="kpi">$1,840</div>
+          <div class="bar"><div class="bar-fill" style="width: 62%"></div></div>
+        </div>
+      </div>
+      <div class="stack-card c2">
+        <div class="header">🪣 Sinking Funds</div>
+        <div class="body">
+          <div class="kpi-label">7 funds tracked</div>
+          <div class="kpi">$13,150</div>
+          <div class="bar"><div class="bar-fill" style="width: 48%"></div></div>
+        </div>
+      </div>
+      <div class="stack-card c3">
+        <div class="header">💰 Net Worth Tracker</div>
+        <div class="body">
+          <div class="kpi-label">Net worth</div>
+          <div class="kpi">$326,400</div>
+          <div class="bar"><div class="bar-fill" style="width: 72%"></div></div>
+        </div>
+      </div>
+      <div class="stack-card c4">
+        <div class="header">📉 Debt Payoff</div>
+        <div class="body">
+          <div class="kpi-label">Debt-free in</div>
+          <div class="kpi">22 mo</div>
+          <div class="bar"><div class="bar-fill" style="width: 38%"></div></div>
+        </div>
+      </div>
+      <div class="stack-card c5">
+        <div class="header">🏢 Small Business</div>
+        <div class="body">
+          <div class="kpi-label">P&amp;L margin</div>
+          <div class="kpi">31%</div>
+          <div class="bar"><div class="bar-fill" style="width: 56%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-savings-badge">
+      <div class="num">$36</div>
+      <div class="word">Saved</div>
+    </div>
+  </div>
+
+  <div class="cover-band-bottom">
+    <div class="left">SETUP WIZARD · v1.0</div>
+    <div class="right">Open in order. Set up once. Use forever.</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 2 — Setup order rationale
+     ===================================================================== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 2 · The Setup Order</div>
+      <div class="h-title">Set them up in this order.</div>
+      <div class="h-sub">Why the order matters: data flows downstream. Set them up out of order and you'll fix the same fields twice.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Time</div>
+      <div class="ver">~45 min</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="order-rationale-block">
+    <strong>The principle.</strong> Budget Tracker is the foundation — it defines your income, fixed expenses, and saving capacity. Sinking Funds and Debt Payoff borrow Budget's categories. Net Worth pulls balances from Debt Payoff and from your bank/account list. Small Business is independent but its net profit feeds back into Budget. Set up in the wrong order and you'll re-enter categories, re-classify expenses, and rebuild the same plan twice.
+  </div>
+
+  <div class="order-grid">
+    <div class="order-card">
+      <div class="num">1</div>
+      <div class="name">📊 Budget Tracker</div>
+      <div class="why">Foundation. Defines income, fixed expenses, category structure, savings capacity. Every other product borrows from here.</div>
+    </div>
+    <div class="order-card">
+      <div class="num">2</div>
+      <div class="name">🪣 Sinking Funds</div>
+      <div class="why">Borrows monthly available-to-sink from Budget. Set up after Budget so you know the real capacity, not aspirational.</div>
+    </div>
+    <div class="order-card">
+      <div class="num">3</div>
+      <div class="name">💰 Net Worth Tracker</div>
+      <div class="why">Pulls liability balances from Debt Payoff and asset balances from your account list. Needs all account names in place.</div>
+    </div>
+    <div class="order-card">
+      <div class="num">4</div>
+      <div class="name">📉 Debt Payoff Planner</div>
+      <div class="why">Use the same debt list you put in Net Worth. Snowball/avalanche calculations need Net Worth's APRs already entered.</div>
+    </div>
+    <div class="order-card" style="grid-column: span 2;">
+      <div class="num">5</div>
+      <div class="name">🏢 Small Business Finance Kit</div>
+      <div class="why">Mostly standalone. Its monthly net profit feeds back into Budget as a separate "Side Business" income line. Set up last; revisit Budget after first month to wire profit back.</div>
+    </div>
+  </div>
+
+  <div class="first-tab-callout">
+    <strong>Each product has an Input tab and an Output Dashboard.</strong> Input tabs are where you enter data (your numbers, your accounts, your debts). Output Dashboards visualize what you entered. You only ever edit the Input tab. The Dashboard updates automatically.
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Finance Bundle · Setup Wizard · v1.0 · Page 2 / 9</div>
+      </div>
+    </div>
+    <div class="fb-right">Foundation first. Dependents next.</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 3 — Budget Tracker setup
+     ===================================================================== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 3 · Product 1 of 5</div>
+      <div class="h-title">📊 Budget Tracker.</div>
+      <div class="h-sub">The foundation. Set this up first — every other spreadsheet borrows from it.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Time</div>
+      <div class="ver">~12 min</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">Open. Do these 3 things. You're done.</div>
+  <div class="product-block">
+    <div class="product-actions">
+      <div class="product-action">
+        <div class="action-num">1</div>
+        <div class="action-content"><strong>Open the file.</strong> Click the link in your order email. Opens in Excel 2016+ or import to Google Sheets via <em>File → Import → Replace spreadsheet</em>.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">2</div>
+        <div class="action-content"><strong>Fill in the 📥 Income tab first.</strong> Add take-home pay (after tax + benefits). One row per income source — primary, spouse, side gigs. Frequency dropdown handles weekly/biweekly/monthly conversion automatically.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">3</div>
+        <div class="action-content"><strong>Customize the 14 expense categories.</strong> Default list works for most. Rename "Pets" to "Childcare" if needed. Add custom categories on the same tab. Categories you create here flow into Sinking Funds and Net Worth.</div>
+      </div>
+    </div>
+    <div class="product-mock">
+      <div class="mock-header">
+        <div>🏠 Dashboard</div>
+        <div class="mock-dots">
+          <div class="mock-dot active"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+        </div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-kpis">
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Income MTD</div>
+            <div class="mock-kpi-value">$5,840</div>
+          </div>
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Spend MTD</div>
+            <div class="mock-kpi-value">$4,000</div>
+          </div>
+        </div>
+        <div class="mock-bars">
+          <div class="mock-bar-row"><div class="mock-bar-name">Rent / Mortgage</div><div class="mock-bar-track"><div class="mock-bar-fill green" style="width: 95%"></div></div><div class="mock-bar-pct">95%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Groceries</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 72%"></div></div><div class="mock-bar-pct">72%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Transport</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 64%"></div></div><div class="mock-bar-pct">64%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Dining</div><div class="mock-bar-track"><div class="mock-bar-fill red" style="width: 118%"></div></div><div class="mock-bar-pct">118%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Subscriptions</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 45%"></div></div><div class="mock-bar-pct">45%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feeds-into">
+    <div class="label">Feeds into →</div>
+    <div class="body"><strong>Sinking Funds</strong> (monthly available-to-sink) · <strong>Net Worth Tracker</strong> (savings rate component) · <strong>Debt Payoff</strong> (extra-monthly-available for debt acceleration)</div>
+  </div>
+
+  <div class="first-tab-callout">
+    <strong>Pro tip — set up Recurring Templates next.</strong> If you have a monthly Spotify, gym, and insurance — log them once on the <em>🔁 Recurring Templates</em> tab, the Expense Tracker auto-populates each month.
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Finance Bundle · Setup Wizard · v1.0 · Page 3 / 9</div>
+      </div>
+    </div>
+    <div class="fb-right">Time to set up: ~12 min</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 4 — Sinking Funds setup
+     ===================================================================== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 4 · Product 2 of 5</div>
+      <div class="h-title">🪣 Sinking Funds Planner.</div>
+      <div class="h-sub">Multi-fund tracker with target dates and contribution math. Set up after Budget — needs your monthly available-to-sink.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Time</div>
+      <div class="ver">~8 min</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">Open. Do these 3 things. You're done.</div>
+  <div class="product-block">
+    <div class="product-actions">
+      <div class="product-action">
+        <div class="action-num">1</div>
+        <div class="action-content"><strong>Open the file.</strong> Same delivery email. Sinking Funds is the second download.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">2</div>
+        <div class="action-content"><strong>Fill in the 🪣 Fund Manager tab.</strong> One row per fund: name, target $, target date, current balance, monthly contribution, vehicle (Cash / CD / ETF / Metals). 17 pre-built categories. Up to 17 funds.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">3</div>
+        <div class="action-content"><strong>Open the 🎯 Priority Matrix tab.</strong> Algorithm ranks funds by (1 − funding%) × urgency × override. Top-ranked fund gets your next dollar. Bump its monthly contribution by $25–$50.</div>
+      </div>
+    </div>
+    <div class="product-mock">
+      <div class="mock-header">
+        <div>🪣 Fund Manager</div>
+        <div class="mock-dots">
+          <div class="mock-dot"></div>
+          <div class="mock-dot active"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+        </div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-kpis">
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Total Saved</div>
+            <div class="mock-kpi-value">$13,150</div>
+          </div>
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Monthly $</div>
+            <div class="mock-kpi-value">$1,290</div>
+          </div>
+        </div>
+        <div class="mock-bars">
+          <div class="mock-bar-row"><div class="mock-bar-name">Emergency Fund</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 36%"></div></div><div class="mock-bar-pct">36%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Christmas</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 33%"></div></div><div class="mock-bar-pct">33%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Car Repair</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 30%"></div></div><div class="mock-bar-pct">30%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Down Payment</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 21%"></div></div><div class="mock-bar-pct">21%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Vacation</div><div class="mock-bar-track"><div class="mock-bar-fill red" style="width: 20%"></div></div><div class="mock-bar-pct">20%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feeds-into">
+    <div class="label">Pulls from ←</div>
+    <div class="body"><strong>Budget Tracker</strong> (your available-to-sink number — income minus committed expenses)</div>
+  </div>
+  <div class="feeds-into">
+    <div class="label">Feeds into →</div>
+    <div class="body"><strong>Net Worth Tracker</strong> (each fund's balance is a savings asset)</div>
+  </div>
+
+  <div class="first-tab-callout">
+    <strong>Vehicle matters more than discipline.</strong> A 4-year Down Payment fund earns 4.5% in HYSA but 6–8% expected in a 60/40 ETF/bond mix. Over $25K × 4 years that's $2,000–3,000. Pick the right vehicle first; auto-contribute second.
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Finance Bundle · Setup Wizard · v1.0 · Page 4 / 9</div>
+      </div>
+    </div>
+    <div class="fb-right">Time to set up: ~8 min</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 5 — Net Worth Tracker setup
+     ===================================================================== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 5 · Product 3 of 5</div>
+      <div class="h-title">💰 Net Worth Tracker.</div>
+      <div class="h-sub">Assets, liabilities, monthly delta, FIRE projection. Set up after Sinking Funds — your fund balances are already assets.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Time</div>
+      <div class="ver">~10 min</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">Open. Do these 3 things. You're done.</div>
+  <div class="product-block">
+    <div class="product-actions">
+      <div class="product-action">
+        <div class="action-num">1</div>
+        <div class="action-content"><strong>Open the file.</strong> Third file in the bundle download.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">2</div>
+        <div class="action-content"><strong>Fill in the 📋 Assets tab.</strong> One row per account: name, type (Cash / HYSA / 401k / Roth / Brokerage / Real Estate / Metals / Crypto / Vehicle), institution, current balance. Include your Sinking Funds balances as separate rows.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">3</div>
+        <div class="action-content"><strong>Fill in the 💳 Liabilities tab.</strong> One row per debt: name, original balance, current balance, APR, monthly payment. <em>Copy this list — you'll paste it into Debt Payoff next.</em></div>
+      </div>
+    </div>
+    <div class="product-mock">
+      <div class="mock-header">
+        <div>🏠 Dashboard</div>
+        <div class="mock-dots">
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot active"></div>
+          <div class="mock-dot"></div>
+        </div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-kpis">
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Net Worth</div>
+            <div class="mock-kpi-value">$326,400</div>
+          </div>
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">FIRE Progress</div>
+            <div class="mock-kpi-value">23%</div>
+          </div>
+        </div>
+        <div class="mock-bars">
+          <div class="mock-bar-row"><div class="mock-bar-name">Cash + HYSA</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 18%"></div></div><div class="mock-bar-pct">$58K</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">401k + Roth</div><div class="mock-bar-track"><div class="mock-bar-fill green" style="width: 42%"></div></div><div class="mock-bar-pct">$137K</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Real Estate</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 28%"></div></div><div class="mock-bar-pct">$92K</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Brokerage</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 12%"></div></div><div class="mock-bar-pct">$39K</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feeds-into">
+    <div class="label">Pulls from ←</div>
+    <div class="body"><strong>Sinking Funds</strong> (fund balances as savings assets) · <strong>Debt Payoff</strong> (liability balances mirror your debt list)</div>
+  </div>
+
+  <div class="first-tab-callout">
+    <strong>Liability list is the bridge.</strong> The debts you enter here are the same debts you'll enter in Debt Payoff next. Keep names identical. When Debt Payoff updates a balance after a monthly payment, copy the new number back into Net Worth's Liabilities tab once a month.
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Finance Bundle · Setup Wizard · v1.0 · Page 5 / 9</div>
+      </div>
+    </div>
+    <div class="fb-right">Time to set up: ~10 min</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 6 — Debt Payoff Planner setup
+     ===================================================================== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 6 · Product 4 of 5</div>
+      <div class="h-title">📉 Debt Payoff Planner.</div>
+      <div class="h-sub">Snowball + avalanche calculators with full month-by-month projection. Set up after Net Worth — your debt list is ready to paste.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Time</div>
+      <div class="ver">~7 min</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">Open. Do these 3 things. You're done.</div>
+  <div class="product-block">
+    <div class="product-actions">
+      <div class="product-action">
+        <div class="action-num">1</div>
+        <div class="action-content"><strong>Open the file.</strong> Fourth file in your bundle download.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">2</div>
+        <div class="action-content"><strong>Paste your debts into the 📋 Debt List tab.</strong> Use the same list you put in Net Worth Liabilities. Up to 10 debts: name, balance, APR, minimum payment.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">3</div>
+        <div class="action-content"><strong>Set your Extra Monthly on the 📊 Strategy Comparison tab.</strong> The number from Budget's "available for debt" cell. Snowball, Avalanche, and Custom all calculate side-by-side. Pick the strategy whose math you can live with.</div>
+      </div>
+    </div>
+    <div class="product-mock">
+      <div class="mock-header">
+        <div>📊 Strategy</div>
+        <div class="mock-dots">
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot active"></div>
+        </div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-kpis">
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Total Debt</div>
+            <div class="mock-kpi-value">$39,700</div>
+          </div>
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Debt-Free</div>
+            <div class="mock-kpi-value">22 mo</div>
+          </div>
+        </div>
+        <div class="mock-bars">
+          <div class="mock-bar-row"><div class="mock-bar-name">Credit Card A</div><div class="mock-bar-track"><div class="mock-bar-fill red" style="width: 88%"></div></div><div class="mock-bar-pct">22.99%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Credit Card B</div><div class="mock-bar-track"><div class="mock-bar-fill red" style="width: 76%"></div></div><div class="mock-bar-pct">18.99%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Auto Loan</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 32%"></div></div><div class="mock-bar-pct">6.50%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Student Loan</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 28%"></div></div><div class="mock-bar-pct">5.80%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feeds-into">
+    <div class="label">Pulls from ←</div>
+    <div class="body"><strong>Net Worth Tracker</strong> (your debt list — same names, same balances)</div>
+  </div>
+
+  <div class="first-tab-callout">
+    <strong>Snowball vs. Avalanche in one sentence.</strong> Snowball pays the smallest balance first (psychological momentum). Avalanche pays the highest APR first (mathematical optimum). The Strategy Comparison tab shows the dollar gap between them — usually $200–$2,000 of interest over the payoff window. Either way, the gap is small. Pick the one you'll actually stick with.
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Finance Bundle · Setup Wizard · v1.0 · Page 6 / 9</div>
+      </div>
+    </div>
+    <div class="fb-right">Time to set up: ~7 min</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 7 — Small Business setup
+     ===================================================================== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 7 · Product 5 of 5</div>
+      <div class="h-title">🏢 Small Business Finance Kit.</div>
+      <div class="h-sub">P&L, invoicing, expense logger, tax prep. Mostly standalone — its monthly net profit feeds back into Budget as side-income.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Time</div>
+      <div class="ver">~10 min</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">Open. Do these 3 things. You're done.</div>
+  <div class="product-block">
+    <div class="product-actions">
+      <div class="product-action">
+        <div class="action-num">1</div>
+        <div class="action-content"><strong>Open the file.</strong> Fifth and final spreadsheet in your bundle download.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">2</div>
+        <div class="action-content"><strong>Fill in the 📥 Revenue tab.</strong> One row per income stream: customer, product/service, invoice date, amount, paid status. The Recurring Revenue section handles your repeat customers.</div>
+      </div>
+      <div class="product-action">
+        <div class="action-num">3</div>
+        <div class="action-content"><strong>Fill in the 📤 Expense tab.</strong> One row per business expense with Schedule C category dropdown (advertising / supplies / travel / etc.). The Tax Prep Summary tab aggregates these for year-end. <em>Keep business + personal expenses separate — don't mix them.</em></div>
+      </div>
+    </div>
+    <div class="product-mock">
+      <div class="mock-header">
+        <div>🏠 Dashboard</div>
+        <div class="mock-dots">
+          <div class="mock-dot active"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+          <div class="mock-dot"></div>
+        </div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-kpis">
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Revenue YTD</div>
+            <div class="mock-kpi-value">$197K</div>
+          </div>
+          <div class="mock-kpi">
+            <div class="mock-kpi-label">Net Margin</div>
+            <div class="mock-kpi-value">31%</div>
+          </div>
+        </div>
+        <div class="mock-bars">
+          <div class="mock-bar-row"><div class="mock-bar-name">Acme Realty</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 22%"></div></div><div class="mock-bar-pct">22%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">BlueSky Co</div><div class="mock-bar-track"><div class="mock-bar-fill green" style="width: 18%"></div></div><div class="mock-bar-pct">18%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Northwind</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 14%"></div></div><div class="mock-bar-pct">14%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">Contoso</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 12%"></div></div><div class="mock-bar-pct">12%</div></div>
+          <div class="mock-bar-row"><div class="mock-bar-name">22 others</div><div class="mock-bar-track"><div class="mock-bar-fill" style="width: 34%"></div></div><div class="mock-bar-pct">34%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feeds-into">
+    <div class="label">Feeds back into →</div>
+    <div class="body"><strong>Budget Tracker</strong> (monthly net profit goes in Budget's Income tab as "Side Business" — re-import each month-end)</div>
+  </div>
+
+  <div class="first-tab-callout">
+    <strong>Day-one separation prevents a year-one nightmare.</strong> Open a separate bank account + card for the business this week. Even sole-proprietor businesses benefit — clean separation makes Schedule C 10× faster at tax time. Mixed-use expenses (cell phone, internet) get logged with a business-use % on the same tab.
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Finance Bundle · Setup Wizard · v1.0 · Page 7 / 9</div>
+      </div>
+    </div>
+    <div class="fb-right">Time to set up: ~10 min</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 8 — Cross-product reference diagram
+     ===================================================================== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 8 · How the 5 Connect</div>
+      <div class="h-title">Cross-product data flow.</div>
+      <div class="h-sub">Where each spreadsheet's data goes. Set them up in order; the references take care of themselves once data lives in the right place.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Reference</div>
+      <div class="ver">Diagram</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="diagram">
+    <!-- Budget Tracker = foundation node, top-left -->
+    <div class="node foundation" style="top: 0.3in; left: 0.4in;">
+      <div class="node-emoji">📊</div>
+      <div class="node-name">Budget Tracker</div>
+      <div class="node-sub">Foundation</div>
+    </div>
+
+    <!-- Sinking Funds, top-right -->
+    <div class="node" style="top: 0.3in; right: 0.4in;">
+      <div class="node-emoji">🪣</div>
+      <div class="node-name">Sinking Funds</div>
+      <div class="node-sub">Goals</div>
+    </div>
+
+    <!-- Net Worth, center -->
+    <div class="node foundation" style="top: 2.0in; left: 50%; transform: translateX(-50%);">
+      <div class="node-emoji">💰</div>
+      <div class="node-name">Net Worth Tracker</div>
+      <div class="node-sub">Wealth hub</div>
+    </div>
+
+    <!-- Debt Payoff, bottom-left -->
+    <div class="node" style="top: 3.6in; left: 0.4in;">
+      <div class="node-emoji">📉</div>
+      <div class="node-name">Debt Payoff</div>
+      <div class="node-sub">Liabilities</div>
+    </div>
+
+    <!-- Small Business, bottom-right -->
+    <div class="node" style="top: 3.6in; right: 0.4in;">
+      <div class="node-emoji">🏢</div>
+      <div class="node-name">Small Business</div>
+      <div class="node-sub">Side income</div>
+    </div>
+
+    <!-- Arrows: SVG overlay -->
+    <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;" viewBox="0 0 720 540">
+      <defs>
+        <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+          <polygon points="0 0, 8 4, 0 8" fill="#C9A14A"/>
+        </marker>
+      </defs>
+      <!-- Budget → Sinking Funds (top arc) -->
+      <path d="M 175,80 Q 360,40 545,80" stroke="#C9A14A" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="0"/>
+      <text x="360" y="35" font-family="Inter" font-size="9" font-weight="600" fill="#C9A14A" text-anchor="middle">categories + available-to-sink</text>
+
+      <!-- Budget → Net Worth (left diagonal) -->
+      <path d="M 120,120 Q 200,200 320,250" stroke="#C9A14A" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)"/>
+      <text x="170" y="170" font-family="Inter" font-size="9" font-weight="600" fill="#C9A14A" text-anchor="middle" transform="rotate(40,170,170)">savings rate</text>
+
+      <!-- Sinking Funds → Net Worth (right diagonal) -->
+      <path d="M 600,120 Q 520,200 400,250" stroke="#C9A14A" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)"/>
+      <text x="550" y="170" font-family="Inter" font-size="9" font-weight="600" fill="#C9A14A" text-anchor="middle" transform="rotate(-40,550,170)">fund balances</text>
+
+      <!-- Net Worth ↔ Debt Payoff (down-left, double-headed) -->
+      <path d="M 320,330 Q 220,380 175,420" stroke="#C9A14A" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" marker-start="url(#arrowhead)"/>
+      <text x="220" y="380" font-family="Inter" font-size="9" font-weight="600" fill="#C9A14A" text-anchor="middle">liability list ↔ balances</text>
+
+      <!-- Net Worth ↔ Small Business (down-right, single arrow back to Budget) -->
+      <path d="M 400,330 Q 500,380 545,420" stroke="#C9A14A" stroke-width="2.5" fill="none" marker-end="url(#arrowhead)" marker-start="url(#arrowhead)"/>
+      <text x="500" y="380" font-family="Inter" font-size="9" font-weight="600" fill="#C9A14A" text-anchor="middle">biz equity</text>
+
+      <!-- Small Business → Budget (bottom feedback loop) -->
+      <path d="M 545,460 Q 360,520 175,460" stroke="#9B3A30" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="4 3"/>
+      <text x="360" y="535" font-family="Inter" font-size="9" font-weight="600" fill="#9B3A30" text-anchor="middle">net profit → "Side Business" income line (monthly)</text>
+    </svg>
+  </div>
+
+  <div class="diagram-legend">
+    <div class="legend-item">
+      <div class="legend-swatch gold"></div>
+      <div>Solid gold arrow = data flows automatically once set up</div>
+    </div>
+    <div class="legend-item">
+      <div style="width: 24pt; height: 2pt; background: repeating-linear-gradient(to right, #9B3A30 0px, #9B3A30 4px, transparent 4px, transparent 7px);"></div>
+      <div>Dashed red arrow = manual monthly copy</div>
+    </div>
+  </div>
+
+  <div class="first-tab-callout">
+    <strong>Net Worth is the wealth hub.</strong> Once set up, it pulls liability balances from Debt Payoff and asset balances from your account list (which includes your Sinking Funds). Update it once a month — first weekend is a good ritual.
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Finance Bundle · Setup Wizard · v1.0 · Page 8 / 9</div>
+      </div>
+    </div>
+    <div class="fb-right">Five spreadsheets. One picture.</div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     PAGE 9 — Troubleshooting + Support
+     ===================================================================== -->
+<div class="page">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Page 9 · Troubleshooting + Support</div>
+      <div class="h-title">When something doesn't add up.</div>
+      <div class="h-sub">Five issues we see most often, with the one-line fix for each. If you don't see your problem here, email us.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Need help</div>
+      <div class="ver">24-hr reply</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="troubles">
+    <div class="trouble-card">
+      <div class="trouble-q">My Net Worth and Debt Payoff debt totals don't match.</div>
+      <div class="trouble-a">You probably updated one but not the other after this month's payment. Set the first Saturday of every month as your "sync day" — open both, copy the current balance from Debt Payoff into Net Worth Liabilities. 30 seconds, done.</div>
+    </div>
+    <div class="trouble-card">
+      <div class="trouble-q">My Budget says I have $500/mo to save but Sinking Funds shows the funds are behind.</div>
+      <div class="trouble-a">Sinking Funds calculates required-monthly from target dates. If you allocated $500 across 6 funds but the math says you need $720 to hit all targets, that's a real shortfall. Use the Priority Matrix to decide which fund slips its target date.</div>
+    </div>
+    <div class="trouble-card">
+      <div class="trouble-q">Small Business profit is showing up but Budget income doesn't reflect it.</div>
+      <div class="trouble-a">Small Business doesn't auto-push to Budget. End of each month, open the Small Business P&L, note net profit, then open Budget Income tab and add a "Side Business" line for that amount. Manual by design — gives you control over what counts as income.</div>
+    </div>
+    <div class="trouble-card">
+      <div class="trouble-q">I changed a category name in Budget — now Sinking Funds shows the old name.</div>
+      <div class="trouble-a">Sinking Funds borrowed Budget's category list at setup. They don't auto-sync. If you rename "Pets" to "Childcare" in Budget, also rename it in Sinking Funds Fund Manager. Reverse is true too — rename in one place, then mirror to the other.</div>
+    </div>
+    <div class="trouble-card">
+      <div class="trouble-q">Excel formulas show #VALUE! or #REF! errors when I open in Sheets.</div>
+      <div class="trouble-a">Some Excel functions don't translate (mainly array formulas). Use <em>File → Import → Replace spreadsheet</em> instead of opening the .xlsx directly. Google's importer handles the formula translation. If a specific cell still errors, email us with the cell address — we ship a patch.</div>
+    </div>
+    <div class="trouble-card">
+      <div class="trouble-q">My Dashboard KPIs show $0 even though I entered data.</div>
+      <div class="trouble-a">Dashboard KPIs read named cells, not column references. If you inserted a row at the top of an Input tab, you shifted the named cells. Undo with Ctrl+Z, then add rows below the data block, not above. (Both Excel and Sheets respect named ranges automatically if you add rows in the middle.)</div>
+    </div>
+  </div>
+
+  <div class="support-block">
+    <div class="item">
+      <strong>Reach Us</strong>
+      Reply to your order email. We answer within 24 hours, every email, no chatbot.
+    </div>
+    <div class="item">
+      <strong>Updates</strong>
+      Bug fixes are free forever. AI Edition bundle buyers get 12 months of free template refreshes — included in the price.
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Finance Bundle · Setup Wizard · v1.0 · Page 9 / 9</div>
+      </div>
+    </div>
+    <div class="fb-right">Set up once. Use forever.</div>
+  </div>
+</div>
+
+</body>
+</html>

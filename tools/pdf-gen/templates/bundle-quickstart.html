@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Premium Bundle — Quick Start</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Quick start 1-pager for the Premium Finance + Life Bundles — 5-minute setup pointer.">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Premium Bundle Quick Start v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --wedding-rose: #C9A0A0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { width: 8.5in; background: var(--background-off-white); }
+  .page { width: 8.5in; height: 11in; padding: 0.4in 0.50in 0.9in 0.50in; position: relative; background: var(--background-off-white); overflow: hidden; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.12in; }
+  .h-left { flex: 1; }
+  .eyebrow { font-size: 8pt; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.05in; }
+  .h-title { font-size: 26pt; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; margin-bottom: 0.05in; }
+  .h-sub { font-size: 10pt; font-style: italic; opacity: 0.7; max-width: 5.6in; line-height: 1.35; }
+  .h-badge { background: var(--primary-charcoal); color: var(--surface-white); padding: 8pt 14pt; border-radius: 4pt; font-size: 8pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; line-height: 1.4; }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+  .gold-divider { height: 2pt; background: var(--secondary-warm-gold); width: 1.4in; margin-bottom: 0.14in; }
+  .section-label { font-size: 9pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--secondary-warm-gold); margin-bottom: 0.07in; }
+
+  /* Setup order row */
+  .order-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.08in;
+    margin-bottom: 0.14in;
+  }
+  .order-cell {
+    background: var(--surface-white);
+    border: 1px solid var(--neutral-grid);
+    border-radius: 6pt;
+    padding: 0.08in 0.06in;
+    text-align: center;
+    position: relative;
+  }
+  .order-cell.foundation { border: 2pt solid var(--secondary-warm-gold); background: var(--ivory); }
+  .order-cell.wedding { border-color: var(--wedding-rose); }
+  .order-num {
+    position: absolute; top: -8pt; left: 50%; transform: translateX(-50%);
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    width: 18pt; height: 18pt; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9pt; font-weight: 700;
+  }
+  .order-cell.wedding .order-num { background: var(--wedding-rose); }
+  .order-emoji { font-size: 14pt; margin: 0.06in 0 0.02in; }
+  .order-name { font-size: 8pt; font-weight: 700; line-height: 1.15; margin-bottom: 0.01in; }
+  .order-time { font-size: 6.5pt; opacity: 0.6; }
+
+  /* Two-column body */
+  .two-col {
+    display: grid; grid-template-columns: 1.3fr 1fr;
+    gap: 0.16in; margin-bottom: 0.14in;
+  }
+  .step-list { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 8pt; padding: 0.14in 0.16in; }
+  .step-item { display: grid; grid-template-columns: 24pt 1fr; gap: 0.10in; margin-bottom: 0.10in; }
+  .step-item:last-child { margin-bottom: 0; }
+  .step-circle {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    width: 20pt; height: 20pt; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10pt; font-weight: 700;
+  }
+  .step-body { font-size: 8.5pt; line-height: 1.4; }
+  .step-body strong { font-weight: 700; }
+  .step-body em { font-style: normal; color: var(--secondary-warm-gold); font-weight: 600; }
+
+  .bundle-files {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    border-radius: 8pt; padding: 0.14in 0.16in;
+  }
+  .bundle-files .bf-title {
+    font-size: 8.5pt; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--secondary-warm-gold);
+    margin-bottom: 0.07in;
+  }
+  .bundle-files ul { list-style: none; padding: 0; font-size: 8.5pt; line-height: 1.55; }
+  .bundle-files li { padding-left: 18pt; position: relative; }
+  .bundle-files li::before { content: '▸'; position: absolute; left: 0; color: var(--secondary-warm-gold); }
+  .bundle-files .note {
+    font-size: 7.5pt; font-style: italic; opacity: 0.7;
+    margin-top: 0.08in; padding-top: 0.07in;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* Tips row */
+  .tips-row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.12in; margin-bottom: 0.12in;
+  }
+  .tip {
+    background: var(--surface-white); border: 1px solid var(--neutral-grid);
+    border-radius: 6pt; padding: 0.10in 0.12in;
+    border-top: 3pt solid var(--secondary-warm-gold);
+  }
+  .tip-num {
+    font-size: 18pt; font-weight: 800; letter-spacing: -0.02em;
+    color: var(--secondary-warm-gold); line-height: 1; margin-bottom: 0.04in;
+  }
+  .tip-title { font-size: 9.5pt; font-weight: 700; margin-bottom: 0.03in; line-height: 1.2; }
+  .tip-body { font-size: 7.5pt; line-height: 1.4; opacity: 0.85; }
+
+  /* Support split block */
+  .support-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.12in;
+  }
+  .support-card {
+    background: var(--ivory); border-left: 3pt solid var(--secondary-warm-gold);
+    padding: 0.10in 0.14in;
+    font-size: 8.5pt; line-height: 1.4;
+  }
+  .support-card strong {
+    color: var(--secondary-warm-gold); font-size: 8pt;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    display: block; margin-bottom: 0.04in;
+  }
+
+  .footer-band {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 0.14in 0.50in;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 8.5pt;
+  }
+  .fb-left { display: flex; align-items: center; gap: 10pt; }
+  .fb-left .wordmark { font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; }
+  .fb-left .meta { opacity: 0.65; font-style: italic; }
+  .fb-right { text-align: right; opacity: 0.85; font-style: italic; }
+  .lime-mark { width: 22pt; height: 22pt; border-radius: 4pt; flex-shrink: 0; background: linear-gradient(135deg, #84CC16 0%, #059669 100%); display: flex; align-items: center; justify-content: center; font-size: 11pt; color: white; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Premium Bundle · Quick Start (1 page)</div>
+      <div class="h-title">Open in order. Pin this.</div>
+      <div class="h-sub">5 or 6 spreadsheets, set up in the right sequence so data flows correctly the first time. Detailed walkthrough in the Setup Wizard PDF; this is the at-a-glance reference.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Time</div>
+      <div class="ver">~45-60 min</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <!-- Order strip -->
+  <div class="section-label">The Order</div>
+  <div class="order-strip">
+    <div class="order-cell foundation">
+      <div class="order-num">1</div>
+      <div class="order-emoji">📊</div>
+      <div class="order-name">Budget Tracker</div>
+      <div class="order-time">~12 min</div>
+    </div>
+    <div class="order-cell">
+      <div class="order-num">2</div>
+      <div class="order-emoji">🪣</div>
+      <div class="order-name">Sinking Funds</div>
+      <div class="order-time">~8 min</div>
+    </div>
+    <div class="order-cell foundation">
+      <div class="order-num">3</div>
+      <div class="order-emoji">💰</div>
+      <div class="order-name">Net Worth</div>
+      <div class="order-time">~10 min</div>
+    </div>
+    <div class="order-cell">
+      <div class="order-num">4</div>
+      <div class="order-emoji">📉</div>
+      <div class="order-name">Debt Payoff</div>
+      <div class="order-time">~7 min</div>
+    </div>
+    <div class="order-cell">
+      <div class="order-num">5</div>
+      <div class="order-emoji">🏢</div>
+      <div class="order-name">Small Business</div>
+      <div class="order-time">~10 min</div>
+    </div>
+    <div class="order-cell wedding">
+      <div class="order-num">6</div>
+      <div class="order-emoji">💍</div>
+      <div class="order-name">Wedding<br><span style="font-size: 6pt; font-weight: 500; opacity: 0.7;">(Life Bundle)</span></div>
+      <div class="order-time">~15 min</div>
+    </div>
+  </div>
+
+  <!-- Two columns: 3 essential steps + delivery contents -->
+  <div class="two-col">
+    <div class="step-list">
+      <div class="section-label" style="margin-bottom: 0.10in;">Three Things to Do First</div>
+      <div class="step-item">
+        <div class="step-circle">1</div>
+        <div class="step-body"><strong>Save all files to one folder.</strong> Make a <em>"Finance Bundle"</em> folder in Google Drive or your file system. Drop all 5 (or 6) spreadsheets + both PDFs there. Bookmark it.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">2</div>
+        <div class="step-body"><strong>Open Budget Tracker first.</strong> Fill the <em>📥 Income</em> tab + customize the 14 expense categories. Categories you create here flow into every other spreadsheet — pick names you'll recognize 12 months later.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">3</div>
+        <div class="step-body"><strong>Then follow the order above.</strong> Sinking Funds borrows Budget's available-to-sink. Net Worth pulls account list. Debt Payoff uses Net Worth's liability list. Small Business is mostly standalone. Wedding (Life Bundle) sits at the end and borrows the Wedding sub-fund balance.</div>
+      </div>
+    </div>
+
+    <div class="bundle-files">
+      <div class="bf-title">What's in your bundle</div>
+      <ul>
+        <li><strong>5 or 6 Google Sheets</strong> (Pro tier OR AI tier of each)</li>
+        <li><strong>Setup Wizard PDF</strong> (9 or 10 pp — page-by-page walkthrough)</li>
+        <li><strong>This Quick Start 1-pager</strong></li>
+        <li><strong>Cross-product reference diagram</strong> (in the Setup Wizard)</li>
+        <li><strong>AI Master Prompt Library PDF</strong> (~28 or 30 pp — AI Edition only)</li>
+      </ul>
+      <div class="note">AI Edition bundles: includes 60+ ChatGPT/Claude prompts and 10 cross-product workflows. Pro tier bundles: no AI library — buy AI Edition if you want it.</div>
+    </div>
+  </div>
+
+  <!-- 3 tips -->
+  <div class="section-label">Three Things People Wish They'd Known on Day One</div>
+  <div class="tips-row">
+    <div class="tip">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Setup order matters.</div>
+      <div class="tip-body">Net Worth pulls categories from Budget and balances from Debt Payoff. Set them up out of order and you'll re-enter the same data twice. Follow the order above and Setup-Wizard p. 2 explains why.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Input tabs only — never edit Dashboards.</div>
+      <div class="tip-body">Every spreadsheet has Input tab(s) and an Output Dashboard. Dashboards update automatically from Input tabs. If you "fix" a Dashboard cell directly, you break the formula. Edit Input tabs only.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">03</div>
+      <div class="tip-title">First Saturday = sync day.</div>
+      <div class="tip-body">Set a recurring calendar slot — 15 min first Saturday of each month. Copy debt balances Debt → Net Worth, copy biz net profit Small Biz → Budget, update Sinking Funds balances. 30 seconds per spreadsheet. Done.</div>
+    </div>
+  </div>
+
+  <!-- Support / updates -->
+  <div class="support-row">
+    <div class="support-card">
+      <strong>Got Stuck?</strong>
+      Reply to your order email. We answer within 24 hours, every email, no chatbot. The Setup Wizard PDF has a Troubleshooting page covering 6 common issues.
+    </div>
+    <div class="support-card">
+      <strong>Updates</strong>
+      Bug fixes free forever. AI Edition bundle buyers get 12 months of free template refreshes — included in the price. You're flagged in our system for proactive update emails.
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="lime-mark">L</div>
+      <div>
+        <div class="wordmark">Lime Premium Studios</div>
+        <div class="meta">Premium Bundle · Quick Start 1-pager · v1.0</div>
+      </div>
+    </div>
+    <div class="fb-right">Open. Order. Sync first Saturday.</div>
+  </div>
+</div>
+
+</body>
+</html>

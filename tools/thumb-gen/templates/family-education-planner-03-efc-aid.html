@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Family &amp; Education Planner — Thumbnail 03 EFC + Aid Letter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 130px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 26px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .tabs-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); font-size: 22px; font-weight: 700; padding: 12px 28px; border-radius: 999px; }
+
+  .headline { position: absolute; top: 180px; left: 90px; right: 90px; }
+  .headline-eyebrow { font-size: 28px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 22px; }
+  .headline-main { font-size: 116px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; max-width: 1700px; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin: 32px 0; }
+  .headline-sub { font-size: 36px; font-weight: 500; opacity: 0.78; max-width: 1500px; }
+
+  .panels { position: absolute; left: 90px; right: 90px; bottom: 250px; height: 850px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 30px; }
+  .panel { background: var(--surface-white); border-radius: 20px; box-shadow: 0 30px 60px rgba(31,42,51,0.15); overflow: hidden; border: 1px solid rgba(31,42,51,0.06); display: flex; flex-direction: column; }
+  .panel-head { background: var(--primary-charcoal); color: var(--surface-white); padding: 24px 36px; font-size: 22px; font-weight: 600; }
+  .panel-body { flex: 1; padding: 36px; display: flex; flex-direction: column; justify-content: center; }
+
+  .efc-label { font-size: 18px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--secondary-warm-gold); text-align: center; margin-bottom: 16px; }
+  .efc-amount { font-size: 144px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; text-align: center; color: var(--status-success); margin-bottom: 14px; }
+  .efc-sub { font-size: 22px; opacity: 0.7; text-align: center; margin-bottom: 36px; }
+  .efc-inputs { display: flex; flex-direction: column; gap: 14px; padding: 0 18px; }
+  .efc-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 22px; padding: 12px 0; border-bottom: 1px solid var(--neutral-grid); }
+  .efc-row:last-child { border-bottom: none; }
+  .efc-row-label { font-weight: 600; opacity: 0.7; }
+  .efc-row-value { font-weight: 700; }
+
+  .aid-table { width: 100%; border-collapse: collapse; font-size: 21px; }
+  .aid-table th { background: var(--ivory); padding: 14px 12px; text-align: left; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-warm-gold); border-bottom: 2px solid var(--secondary-warm-gold); }
+  .aid-table th.num { text-align: right; }
+  .aid-table td { padding: 16px 12px; border-bottom: 1px solid var(--neutral-grid); }
+  .aid-table td.num { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .aid-table tr:last-child td { border-bottom: none; }
+  .college-name { font-weight: 700; font-size: 22px; }
+  .verdict-pill { font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.06em; text-transform: uppercase; display: inline-block; }
+  .verdict-pill.good { background: var(--status-success); color: white; }
+  .verdict-pill.warn { background: var(--status-warning); color: white; }
+  .verdict-pill.bad { background: var(--status-alert); color: white; }
+
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: center; align-items: center; padding: 0 90px; text-align: center; }
+  .bottom-text { font-size: 34px; font-weight: 600; }
+  .bottom-text .gold { color: var(--secondary-warm-gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios · Family &amp; Education Planner</div>
+  <div class="tabs-pill">🧮 EFC Calculator · 📑 Aid Letter Compare</div>
+</div>
+
+<div class="headline">
+  <div class="headline-eyebrow">FAFSA · Net Price · Appeal Window</div>
+  <div class="headline-main">See what college<br>actually costs.</div>
+  <div class="gold-bar"></div>
+  <div class="headline-sub">Before they admit your kid.</div>
+</div>
+
+<div class="panels">
+  <div class="panel">
+    <div class="panel-head">🧮 Expected Family Contribution</div>
+    <div class="panel-body">
+      <div class="efc-label">Your EFC / SAI</div>
+      <div class="efc-amount">$8,420</div>
+      <div class="efc-sub">Annual · per FAFSA formula</div>
+      <div class="efc-inputs">
+        <div class="efc-row"><div class="efc-row-label">AGI</div><div class="efc-row-value">$156,000</div></div>
+        <div class="efc-row"><div class="efc-row-label">Family size</div><div class="efc-row-value">5</div></div>
+        <div class="efc-row"><div class="efc-row-label">In college</div><div class="efc-row-value">1</div></div>
+        <div class="efc-row"><div class="efc-row-label">Parent assets</div><div class="efc-row-value">$75K</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">📑 Aid Letter Comparison — Emma</div>
+    <div class="panel-body" style="padding: 30px;">
+      <table class="aid-table">
+        <thead>
+          <tr>
+            <th>College</th>
+            <th class="num">Sticker</th>
+            <th class="num">Grants</th>
+            <th class="num">Net / yr</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="college-name">SUNY Binghamton</td>
+            <td class="num">$28K</td>
+            <td class="num">$8K</td>
+            <td class="num" style="color: var(--status-success);">$20K</td>
+            <td><span class="verdict-pill good">🟢 Affordable</span></td>
+          </tr>
+          <tr>
+            <td class="college-name">Williams</td>
+            <td class="num">$84K</td>
+            <td class="num">$58K</td>
+            <td class="num" style="color: var(--status-success);">$26K</td>
+            <td><span class="verdict-pill good">🟢 Affordable</span></td>
+          </tr>
+          <tr>
+            <td class="college-name">Bowdoin</td>
+            <td class="num">$82K</td>
+            <td class="num">$45K</td>
+            <td class="num" style="color: var(--status-warning);">$37K</td>
+            <td><span class="verdict-pill warn">🟡 Stretch</span></td>
+          </tr>
+          <tr>
+            <td class="college-name">Smith</td>
+            <td class="num">$80K</td>
+            <td class="num">$42K</td>
+            <td class="num" style="color: var(--status-alert);">$38K</td>
+            <td><span class="verdict-pill bad">🔴 Appeal</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="bottom-text">EFC Calculator + Aid Letter Comparison + <span class="gold">AI Appeal Coach</span> · $14–$32 once</div>
+</div>
+
+</body>
+</html>

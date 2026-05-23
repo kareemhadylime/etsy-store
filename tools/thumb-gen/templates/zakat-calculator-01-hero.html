@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zakat Calculator — Thumbnail 01 Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --teal-deep: #2C5F5D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 140px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .price-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); font-size: 30px; font-weight: 700; padding: 14px 36px; border-radius: 999px; }
+  .title-block { position: absolute; top: 220px; left: 90px; right: 90px; }
+  .title-eyebrow { font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 24px; }
+  .title-main { font-size: 152px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 24px; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 12px; }
+  .teal-bar { width: 110px; height: 4px; background: var(--teal-deep); margin-bottom: 28px; opacity: 0.75; }
+  .title-sub { font-size: 38px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1600px; }
+  .mockup { position: absolute; left: 90px; right: 90px; bottom: 250px; height: 780px; background: var(--surface-white); border-radius: 20px; box-shadow: 0 30px 60px rgba(31,42,51,0.15), 0 8px 20px rgba(31,42,51,0.08); overflow: hidden; border: 1px solid rgba(31,42,51,0.06); }
+  .mockup-header { background: var(--primary-charcoal); color: var(--surface-white); padding: 24px 36px; display: flex; justify-content: space-between; align-items: center; }
+  .mockup-tab { font-size: 22px; font-weight: 600; }
+  .mockup-tab-bar { display: flex; gap: 14px; }
+  .mockup-tab-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .mockup-tab-dot.active { background: var(--secondary-warm-gold); }
+  .mockup-body { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; padding: 36px 40px; height: calc(100% - 88px); }
+  .gauge-area { background: var(--ivory); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .gauge-label { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--secondary-warm-gold); margin-bottom: 8px; }
+  .gauge-status { font-size: 60px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.0; color: var(--status-success); }
+  .gauge-caption { font-size: 22px; font-weight: 600; margin-top: 6px; color: var(--status-success); }
+  .gauge-money { font-size: 64px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-top: 14px; color: var(--teal-deep); }
+  .gauge-sub { font-size: 18px; opacity: 0.65; margin-top: 6px; }
+  .madhhab-row { margin-top: 18px; padding: 12px 22px; background: var(--surface-white); border-radius: 8px; font-size: 18px; font-weight: 600; color: var(--teal-deep); border: 1px solid var(--neutral-grid); text-align: center; width: 100%; }
+  .right-stack { display: flex; flex-direction: column; gap: 16px; }
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .kpi-tile { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 10px; padding: 16px 18px; }
+  .kpi-tile.gold { background: var(--secondary-warm-gold); border-color: var(--secondary-warm-gold); }
+  .kpi-tile.teal { background: var(--teal-deep); border-color: var(--teal-deep); color: var(--surface-white); }
+  .kpi-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55; margin-bottom: 8px; }
+  .kpi-tile.gold .kpi-label { opacity: 0.65; }
+  .kpi-tile.teal .kpi-label { opacity: 0.7; color: var(--surface-white); }
+  .kpi-value { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+  .breakdown-card { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 10px; padding: 20px 22px; flex: 1; display: flex; flex-direction: column; }
+  .breakdown-title { font-size: 16px; font-weight: 600; margin-bottom: 14px; }
+  .breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--neutral-grid); font-size: 16px; }
+  .breakdown-row:last-child { border-bottom: none; }
+  .breakdown-row .b-label { font-weight: 500; }
+  .breakdown-row .b-amount { font-weight: 700; color: var(--teal-deep); }
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: center; align-items: center; gap: 80px; padding: 0 90px; }
+  .feature { text-align: center; }
+  .feature-num { font-size: 64px; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+  .feature-label { font-size: 22px; font-weight: 500; opacity: 0.85; }
+  .divider-dot { width: 8px; height: 8px; background: var(--secondary-warm-gold); border-radius: 50%; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="price-pill">$9 — $29 · One-time</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">Google Sheets · Excel · Madhhab-Aware</div>
+  <div class="title-main">Zakat<br>Calculator</div>
+  <div class="gold-bar"></div>
+  <div class="teal-bar"></div>
+  <div class="title-sub">22 tabs · 4 Madhhabs · AI Advisor citing NZF UK + AAOIFI fatwas</div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">
+    <div class="mockup-tab">🏠 Dashboard</div>
+    <div class="mockup-tab-bar">
+      <div class="mockup-tab-dot active"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+    </div>
+  </div>
+  <div class="mockup-body">
+    <div class="gauge-area">
+      <div class="gauge-label">Nisab Status</div>
+      <div class="gauge-status">✓ ABOVE</div>
+      <div class="gauge-caption">🟢 Obligated</div>
+      <div class="gauge-money">$4,500</div>
+      <div class="gauge-sub">Zakat due · 2.5%</div>
+      <div class="madhhab-row">Shafi\'i · Gold Nisab · Hawl per-asset</div>
+    </div>
+    <div class="right-stack">
+      <div class="kpi-row">
+        <div class="kpi-tile">
+          <div class="kpi-label">Zakatable</div>
+          <div class="kpi-value">$180K</div>
+        </div>
+        <div class="kpi-tile gold">
+          <div class="kpi-label">Nisab</div>
+          <div class="kpi-value">$6,300</div>
+        </div>
+        <div class="kpi-tile teal">
+          <div class="kpi-label">Fitr (×4)</div>
+          <div class="kpi-value">$90</div>
+        </div>
+      </div>
+      <div class="breakdown-card">
+        <div class="breakdown-title">Per-asset Zakat breakdown</div>
+        <div class="breakdown-row"><span class="b-label">💰 Cash &amp; bank</span><span class="b-amount">$375</span></div>
+        <div class="breakdown-row"><span class="b-label">🥇 Gold (110g)</span><span class="b-amount">$200</span></div>
+        <div class="breakdown-row"><span class="b-label">💎 Crypto</span><span class="b-amount">$1,069</span></div>
+        <div class="breakdown-row"><span class="b-label">📈 Stocks</span><span class="b-amount">$469</span></div>
+        <div class="breakdown-row"><span class="b-label">🏦 EOSB (UAE)</span><span class="b-amount">$1,000</span></div>
+        <div class="breakdown-row"><span class="b-label">💰 Sukuk + Rental</span><span class="b-amount">$1,115</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="feature">
+    <div class="feature-num">22</div>
+    <div class="feature-label">Tabs</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">4</div>
+    <div class="feature-label">Madhhabs</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">9</div>
+    <div class="feature-label">Currencies</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">8</div>
+    <div class="feature-label">AI Prompts</div>
+  </div>
+</div>
+
+</body>
+</html>

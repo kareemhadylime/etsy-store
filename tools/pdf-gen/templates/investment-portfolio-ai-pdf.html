@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Investment Portfolio Tracker — AI Portfolio Intelligence (Companion PDF)</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Companion guide for the Investment Portfolio Tracker AI Edition — 8 ChatGPT/Claude prompts paired with specific spreadsheet tabs, with worked examples drawn from a single fictional persona (TECHCO senior SWE, $280K portfolio). By Lime Premium Studios.">
+<meta name="keywords" content="investment portfolio, asset allocation, tax-loss harvesting, concentration risk, look-through analysis, scenario simulator, dividend optimizer, position health, quarterly review, ChatGPT, Claude, AI portfolio prompts, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="AI Portfolio Intelligence — Companion PDF v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white); color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .page {
+    width: 8.5in; height: 11in; padding: 0.5in 0.55in 0.45in 0.55in;
+    position: relative; page-break-after: always; break-after: page;
+    overflow: hidden; background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  .cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .cover-body { flex: 1; padding: 2.2in 0.9in 0 0.9in; display: flex; flex-direction: column; }
+  .cover-eyebrow { font-size: 9pt; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-title { font-size: 46pt; font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; color: var(--primary-charcoal); margin-bottom: 0.28in; }
+  .cover-gold-underline { width: 1.6in; height: 3px; background: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-subtitle { font-size: 15pt; font-style: italic; font-weight: 400; color: var(--secondary-warm-gold); line-height: 1.3; max-width: 5.2in; }
+  .cover-bottom-band { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; margin-top: auto; }
+  .cover-bottom-band .wordmark { font-weight: 600; letter-spacing: 0.04em; }
+  .cover-bottom-band .meta { opacity: 0.7; font-style: italic; }
+
+  .content-header { font-size: 26pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; margin-bottom: 0.1in; }
+  .content-divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.2in; }
+  .content-body p { font-size: 10pt; line-height: 1.5; color: var(--primary-charcoal); margin-bottom: 0.1in; }
+  .content-body .sub-section { font-size: 9.5pt; font-weight: 600; color: var(--secondary-warm-gold); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.14in; margin-bottom: 0.06in; }
+  .content-body ol, .content-body ul { padding-left: 0.28in; margin-bottom: 0.1in; }
+  .content-body li { font-size: 10pt; line-height: 1.5; color: var(--primary-charcoal); margin-bottom: 0.04in; }
+  .content-body ul { list-style: none; padding-left: 0; }
+  .content-body ul.bullets li { padding-left: 0.22in; position: relative; }
+  .content-body ul.bullets li::before { content: '•'; color: var(--secondary-warm-gold); font-weight: 700; position: absolute; left: 0.06in; }
+  .content-body strong { font-weight: 600; }
+
+  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.12in; }
+  .page-title { font-size: 19pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; max-width: 5.4in; }
+  .tab-callout { background: var(--secondary-warm-gold); color: var(--surface-white); font-size: 9pt; font-weight: 600; padding: 5pt 12pt; border-radius: 999px; white-space: nowrap; }
+  .divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.14in; }
+  .section-label { font-size: 8pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-warm-gold); margin-bottom: 0.05in; }
+
+  .prompt-card {
+    background: var(--surface-white); border: 1px solid var(--primary-charcoal); border-radius: 4pt;
+    padding: 0.12in 0.16in; margin-bottom: 0.12in;
+    font-family: 'JetBrains Mono', 'Inter', monospace; font-size: 7.5pt; line-height: 1.35;
+    color: var(--primary-charcoal); white-space: pre-wrap; word-wrap: break-word;
+  }
+  .prompt-card strong { font-weight: 600; }
+
+  .example-card {
+    background: var(--ivory); border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.1in 0.16in; font-size: 7pt; line-height: 1.4; color: var(--primary-charcoal);
+  }
+  .example-card .label { font-size: 6.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--status-warning); margin-bottom: 3pt; }
+  .example-card .input-block, .example-card .output-block { margin-bottom: 0.06in; }
+  .example-card .sub-label { font-weight: 600; color: var(--primary-charcoal); margin-top: 0.05in; margin-bottom: 1pt; }
+  .example-card p { margin-bottom: 0.025in; }
+  .example-card strong { font-weight: 600; }
+
+  .footer {
+    position: absolute; bottom: 0.28in; left: 0.55in; right: 0.55in;
+    font-size: 8pt; font-style: italic; color: var(--primary-charcoal); opacity: 0.6;
+    text-align: right; border-top: 1px solid var(--neutral-grid); padding-top: 0.06in;
+  }
+
+  .back-cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .back-body { flex: 1; padding: 1.6in 0.9in 0 0.9in; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .back-pull-quote { font-size: 22pt; font-style: italic; font-weight: 400; line-height: 1.3; color: var(--primary-charcoal); max-width: 5.2in; margin-bottom: 0.4in; }
+  .back-gold-underline { width: 1.2in; height: 2px; background: var(--secondary-warm-gold); margin-bottom: 0.4in; }
+  .back-mid { font-size: 10.5pt; line-height: 1.55; color: var(--primary-charcoal); max-width: 5in; margin-bottom: auto; }
+  .back-signoff { font-weight: 600; font-size: 9.5pt; letter-spacing: 0.04em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-top: 0.3in; }
+  .back-footer-panel { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; font-size: 9pt; line-height: 1.55; margin-top: auto; }
+  .back-footer-panel .row-1 { display: flex; justify-content: space-between; margin-bottom: 0.12in; font-weight: 600; }
+  .back-footer-panel .row-1 .meta { opacity: 0.7; font-style: italic; font-weight: 400; }
+  .back-footer-panel p { opacity: 0.85; font-size: 8.5pt; line-height: 1.5; }
+  .back-footer-panel .page-num { text-align: right; margin-top: 0.1in; opacity: 0.6; font-style: italic; font-size: 8pt; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — COVER -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Investment Portfolio Tracker · AI Edition</div>
+    <div class="cover-title">AI Portfolio<br>Intelligence</div>
+    <div class="cover-gold-underline"></div>
+    <div class="cover-subtitle">Eight prompts. Bloomberg-terminal discipline.<br>Free-tier ready.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark" style="display:flex;align-items:center;gap:12pt;">
+      <svg width="36" height="36" viewBox="0 0 64 64" style="flex-shrink:0;">
+        <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/><stop offset="100%" stop-color="#059669"/>
+        </linearGradient></defs>
+        <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#lg1)"/>
+        <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+        </g>
+      </svg>
+      <span>LIME PREMIUM STUDIOS</span>
+    </div>
+    <div class="meta">investment-portfolio-tracker · v1.0</div>
+  </div>
+</div>
+
+<!-- PAGE 2 — INTRO -->
+<div class="page">
+  <h1 class="content-header">How to use these prompts</h1>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>Eight decisions every self-directed investor hits across a fiscal year. Eight prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.</p>
+    <p>Each prompt pairs with a specific tab in your Investment Portfolio Tracker. You'll see the tab name on each page — paste, fill in placeholders, send.</p>
+
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (Allocation Advisor, Tax-Loss Harvesting Scout, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the <strong>[PLACEHOLDERS]</strong> with your data.</li>
+      <li>Read the worked example on the same page to see what good output looks like.</li>
+    </ol>
+
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) <strong>OR</strong> a Claude account (free tier works)</li>
+      <li>Your Investment Portfolio Tracker open in another window</li>
+      <li>15 minutes the first time; ~3-5 minutes once familiar</li>
+    </ul>
+
+    <div class="sub-section">What this PDF won't do</div>
+    <p>It won't execute trades. It won't move money between accounts. It won't file your taxes. It won't rebalance your 401k allocation. You paste, you read, you decide. The AI proposes the move; you execute it at your broker, plan administrator, or accountant's office.</p>
+    <p>Your account numbers, brokerage logins, SSN, and routing numbers never enter any AI tool. Use the spreadsheet's labels ("Brokerage Taxable," "401k Plan") instead of identifiers. Ticker symbols are public information — safe to share freely. Everything happens in your own AI account.</p>
+    <p>The 8 prompts assume you've already entered your positions. If you haven't, fill out the Holdings Master tab first; everything downstream depends on it.</p>
+    <p style="margin-top:0.16in;font-style:italic;opacity:0.75;">Turn the page when you're ready.</p>
+  </div>
+  <div class="footer">2 / 12</div>
+</div>
+
+<!-- PAGE 3 — PROMPT 1: Allocation Advisor -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">1. Allocation Advisor — Drift from target. What to rebalance.</h1>
+    <div class="tab-callout">Pairs with: 📈 Asset Allocation</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are diagnosing my asset allocation drift and recommending specific rebalancing trades. Be precise about contribution-based vs sell-based rebalancing given my tax situation.
+
+MY CURRENT ALLOCATION (paste from Asset Allocation tab):
+[Asset class | Current $ | Current % | Target % | Drift]
+
+MY CONTEXT:
+- Age: [number]
+- Years to FIRE / retirement target: [number]
+- Last rebalance date: [date]
+- Tax-loss harvesting opportunities currently available (yes/no): [yes/no]
+- Unrealized gains in taxable accounts: $[amount]
+- New monthly contributions available for redirection: $[amount/month]
+- Constraints: [401k mid-quarter rebalancing locked? other constraints?]
+
+For each asset class:
+1. ABSOLUTE DRIFT — current % minus target %
+2. STATUS — On target (within ±2pp) / Mild drift (2-5pp) / Significant drift (>5pp)
+3. CAUSE — price appreciation, depreciation, neglected contributions, new contribution
+
+Then:
+1. RANK the drifts by significance + tax-cost-to-correct
+2. RECOMMEND 1-3 specific rebalancing moves with $ amounts:
+   - Contribution-rebalancing (redirect new contributions) — preferred when tax cost would be high
+   - Sell-rebalancing (sell appreciated to buy underweight) — only when tax cost is low or in a tax-advantaged account
+3. FLAG any move that has tax implications + estimated tax cost
+4. EXPLAIN the trade-off if suggesting selling appreciated taxable holdings
+
+Don't recommend leveraged ETFs. Don't recommend "diversify into alts." Don't recommend financial advisor services.</div>
+
+  <div class="section-label">Worked example — output</div>
+  <div class="example-card">
+    <div class="label">Example (TECHCO senior SWE · age 38 · $280K · 12 yrs to FIRE)</div>
+    <p><strong>Allocation</strong>: US Eq 56% / Intl 11% / Bonds 8% / REITs 5% / Metals 5% / Crypto 6% / Cash 5% / RSU 2%. Target: 50/15/12/5/5/3/5/5. Drifters: US +6.4pp, Intl -3.6pp, Bonds -4.1pp, Crypto +3.4pp.</p>
+    <p class="sub-label">Output:</p>
+    <p><strong>Move 1 (THIS MONTH):</strong> Redirect 100% of $1,800/mo contributions to Bonds (via 401k + Roth IRA). Bond gap closes in 6.4 months. <strong>Zero tax cost.</strong></p>
+    <p><strong>Move 2 (MONTH 7+):</strong> Once bonds gap closes, redirect to International. Gap closes in 5.6 months. Zero tax cost.</p>
+    <p><strong>Move 3 (DEFER):</strong> US Equities overweight stays. Don't sell appreciated taxable shares to rebalance — you'd realize ~$3,600 in LTCG for a correction natural contribution-rebalancing handles in 12 months.</p>
+    <p><strong>One thing NOT to do:</strong> Don't rebalance via leveraged inverse-equity ETFs (SQQQ, SH) to "hedge" the US overweight. Those decay due to volatility drag — they compound LOSSES over multi-month holding.</p>
+  </div>
+  <div class="footer">3 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 4 — PROMPT 2: Tax-Loss Harvesting Scout -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">2. Tax-Loss Harvesting Scout — Wash-sale-safe sell/buy pairs</h1>
+    <div class="tab-callout">Pairs with: 📉 Tax-Loss Harvesting</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are scouting tax-loss harvesting opportunities. Identify positions with unrealized losses, name wash-sale-safe replacement securities, estimate tax savings, and flag any 30-day wash-sale-window risk.
+
+MY POSITIONS WITH UNREALIZED LOSSES (paste from Tax-Loss Harvesting tab):
+[Ticker | Account | Shares | Cost basis avg | Current price | Holding period | Unrealized $ loss | % loss]
+
+RECENT TRADING ACTIVITY (last 30 days + planned next 30 days):
+- Bought in last 30 days: [list with ticker + date]
+- Sold in last 30 days: [list]
+- Planned buys next 30 days: [list]
+
+MY TAX CONTEXT:
+- Marginal federal rate: [%]
+- State rate: [%]
+- Estimated short-term capital gains this year: $[amount]
+- Estimated long-term capital gains this year: $[amount]
+- Carry-forward losses from prior years: $[amount]
+
+For each candidate position:
+1. RECOMMENDED ACTION — Harvest now / Wait / Skip (and why)
+2. WASH-SALE WINDOW CHECK — any same-or-substantially-identical security bought 30 days before OR planned 30 days after (in ANY account including IRA, including spouse's accounts)
+3. WASH-SALE-SAFE REPLACEMENT — name 1-2 alternatives that maintain similar exposure without triggering wash-sale
+4. ESTIMATED TAX SAVINGS — short-term at marginal rate; long-term at LTCG rate; include state
+
+Then:
+1. RANK harvesting candidates by tax savings × execution risk
+2. FLAG any position where holding-period day-count matters
+3. ONE THING NOT TO DO this cycle
+
+CRITICAL: Wash-sale rule applies across ALL your accounts including spouse's accounts and IRAs. Don't suggest a sell that creates a wash-sale via a recent IRA buy. Be paranoid about this.</div>
+
+  <div class="section-label">Worked example — output</div>
+  <div class="example-card">
+    <p><strong>BND</strong> (-$450 long-term): 🟡 Wait — opportunity exists but small. Wash window clear. Replace with AGG or SCHZ. ~$85 saved — skip unless harvesting concurrently.</p>
+    <p><strong>VXUS</strong> (-$414 long-term): 🔴 SKIP — wash-sale risk. You bought 5 shares VXUS in Roth IRA 8 days ago. IRS would disallow $414 loss AND IRA basis is NOT adjusted (permanent tax loss). Wait 22 more days, OR sell to non-substantially-identical international ETF NOW.</p>
+    <p><strong>ARKK</strong> (-$648 short-term): 🟢 HARVEST NOW. Wash window clear. Replace with QQQ / XLK / FBCG. <strong>$200 tax saved</strong> (short-term loss offsets ordinary income at marginal rate). Best single harvest opportunity this cycle.</p>
+    <p><strong>One thing NOT to do:</strong> Don't harvest VTI (your largest position) just because it's down 2% this month. The $400/mo auto-contribution + recent 12-day-ago purchase would trigger wash-sale — disrupting contribution flow isn't worth the harvest.</p>
+    <p><strong>Total potential harvest:</strong> ~$328 this cycle (ARKK + VXUS after window).</p>
+  </div>
+  <div class="footer">4 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 5 — PROMPT 3: Concentration Risk Alerter -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">3. Concentration Risk Alerter — Single position, sector, employer</h1>
+    <div class="tab-callout">Pairs with: 🎁 Options & RSUs + 📊 Holdings Master</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are auditing my portfolio for concentration risk across three dimensions: single-position risk / sector risk / employer-stock risk. Name specific positions where I'm dangerously exposed and tell me what to do.
+
+MY HOLDINGS (paste from Holdings Master):
+[Ticker | Account | Shares | Current price | Position $ | % of portfolio]
+
+EMPLOYER STOCK / RSUs / ESPP (paste from Options & RSUs):
+[Grant type | Grant date | Vest schedule | Vested $ in portfolio | Unvested $ remaining]
+
+MY CONTEXT:
+- Employer industry: [tech / healthcare / finance / consumer / etc.]
+- Years at current employer: [number]
+- Other income sources (primary income only / secondary income / etc.): [pattern]
+- Equity-grant cadence: [annual refresh / one-time / sporadic]
+- Lockup periods or sale restrictions currently active: [yes/no]
+
+THRESHOLDS to flag against:
+- SINGLE POSITION >20% = HIGH risk
+- SECTOR >40% = HIGH risk (industries are correlated)
+- EMPLOYER STOCK >10% = HIGH risk (compounds employment risk)
+
+For my portfolio:
+1. CALCULATE: total % in top-1 / top-3 / top-5 positions
+2. CALCULATE: % per GICS sector (Tech / Healthcare / Financials / etc.)
+3. CALCULATE: % in employer-related securities (vested RSUs + ESPP + employer stock)
+4. FLAG every threshold-breaking concentration
+
+For each flagged concentration:
+1. WHAT'S THE RISK in plain English (use historical examples — Enron 2001, Lehman 2008)
+2. THE TWO MOVES that reduce concentration
+3. EMPLOYER-STOCK SPECIFIC: sell-on-vest vs hold for LTCG
+4. ONE NON-OBVIOUS RISK (e.g., your tech ETF + employer tech RSUs together = sector + employer compounding)</div>
+
+  <div class="section-label">Worked example — output</div>
+  <div class="example-card">
+    <p><strong>Top-1 (VTI):</strong> 30.6%. <strong>Top-3:</strong> 51%. <strong>Top-5:</strong> 73.7%.</p>
+    <p><strong>🟡 VTI 30.6% — MILD</strong> (index ETF, not single-stock risk). Don't sell to "diversify within US equities" — you'd buy something similar. Reduce by NOT contributing more to VTI; let drift normalize.</p>
+    <p><strong>🔴 TECH SECTOR ~32% — HIGH RISK.</strong> Your direct tech (AAPL/MSFT/GOOGL) + tech-heavy ETF weighting + your EMPLOYER is tech + your salary is tech = single-sector dependency. Lehman 2008 = financial workers with bank stock + bank job hit doubly. <strong>Move:</strong> Stop adding to AAPL/MSFT/GOOGL; overweight defensive (XLV / XLP) at $200/mo.</p>
+    <p><strong>🟢 EMPLOYER STOCK 3.1% — within band.</strong> BUT unvested $39K over next 3 yrs could push to 15-18% if you don't sell-on-vest. Default policy: <strong>sell on vest.</strong> The 1-yr LTCG wait costs more than the LTCG-vs-STCG differential — extra 6-15% volatility tax on TECHCO underperformance.</p>
+    <p><strong>Non-obvious risk:</strong> Tech sector ~32% + tech RSUs + tech job = three things move together in a 2000-style cycle. Hedge = secondary income + non-tech sector overweight + 6-mo cash buffer.</p>
+  </div>
+  <div class="footer">5 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 6 — PROMPT 4: Look-Through Analyzer -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">4. Look-Through Analyzer — Your true exposure under the hood</h1>
+    <div class="tab-callout">Pairs with: 🗂️ ETFs & Mutual Funds</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are analyzing the underlying holdings of my ETFs and mutual funds to reveal my TRUE portfolio exposure. Look-through reveals hidden concentration that ticker-level analysis misses.
+
+MY FUND HOLDINGS (paste from ETFs & Mutual Funds tab):
+[Ticker | Position $ | % of portfolio | Fund objective]
+
+FOR EACH FUND, PASTE THE TOP-10 HOLDINGS from the fund's official disclosure:
+- VTI top 10: [paste list with weight %]
+- VOO top 10: [paste]
+- VXUS top 10: [paste]
+- (etc.)
+
+MY INDIVIDUAL STOCK HOLDINGS (separate from funds):
+[Ticker | Position $ | % of portfolio]
+
+For my portfolio, calculate:
+1. TRUE EXPOSURE PER MEGA-CAP STOCK (combining direct + ETF look-through):
+   - For each of top 10 names across all funds: total $ exposure + % of portfolio
+   - Compare to my "direct" position (what I see in Holdings Master)
+2. HIDDEN OVERLAPS — funds whose top-10 holdings significantly overlap (paying ER on duplicates)
+3. HIDDEN CONCENTRATIONS — single stocks exceeding 5% via look-through (even though they don't appear that big at ticker level)
+
+Then:
+1. THE TOP 3 LOOK-THROUGH CONCENTRATIONS — combined % of portfolio
+2. THE LARGEST FUND OVERLAP — which two funds share the most
+3. ONE RECOMMENDATION to reduce hidden concentration
+4. ONE INSIGHT about my portfolio I probably didn't realize</div>
+
+  <div class="section-label">Worked example — output</div>
+  <div class="example-card">
+    <p><strong>Top 3 look-through concentrations:</strong></p>
+    <p><strong>1. AAPL: 7.9%</strong> of portfolio (5.2% direct + 2.7% via VTI/VOO look-through). You THINK 5.2%; you actually have 7.9%.</p>
+    <p><strong>2. MSFT: 6.9%</strong> (4.4% direct + 2.5% look-through).</p>
+    <p><strong>3. GOOGL: 5.2%</strong> (3.7% direct + 1.5% look-through).</p>
+    <p><strong>Largest fund overlap:</strong> VTI and VOO are 80-90% identical in top-10 (S&P 500 is included in VTI). Combined $112K = 40% of portfolio is functionally ONE large US equity position split across two ETFs. <strong>You're paying expense ratios on both</strong> for essentially the same exposure.</p>
+    <p><strong>Recommendation:</strong> Don't accumulate both — pick one (VTI for broader coverage including mid/small caps). Let VOO drift down as % of portfolio.</p>
+    <p><strong>Insight you probably didn't realize:</strong> The "30.6% in VTI" you see is actually ~7.9% in AAPL alone — mega-cap names grew so large in cap-weighted indices that two of your ETFs share heavy weighting in the same handful of stocks. This isn't a problem IF "be heavy in mega-cap US tech" is your thesis. If you bought VTI + VOO thinking you were diversified, you were buying the same companies twice.</p>
+  </div>
+  <div class="footer">6 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 7 — PROMPT 5: Market Scenario Analyst -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">5. Market Scenario Analyst — Drop 30%? Add $5K/mo? Impact + recovery.</h1>
+    <div class="tab-callout">Pairs with: 🎯 Scenario Simulator</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are running scenario analysis on my portfolio. Two types: market shocks (drop X%, rally Y%) and contribution changes (add/remove $/month). For each, calculate impact AND recovery timeline.
+
+MY PORTFOLIO (paste from Holdings Master + Asset Allocation):
+- Total portfolio value: $[amount]
+- Asset class breakdown: [%]
+- Average annual return assumption (historical real): [%]
+- Annual contribution rate: $[amount/yr]
+
+SCENARIOS TO RUN:
+
+MARKET SHOCKS:
+- Mild correction: -10% equities, -5% bonds, -25% crypto
+- Moderate: -20% equities, -10% bonds, -50% crypto
+- Severe: -35% equities, -15% bonds, -75% crypto (2008-style)
+- Mild rally: +15% equities, +5% bonds, +50% crypto
+- Strong rally: +30% equities, +10% bonds, +100% crypto
+
+CONTRIBUTION CHANGES:
+- Add $500/mo / Add $1,000/mo / Reduce $500/mo / Pause 12 months
+
+MY FIRE TARGET:
+- FIRE number: $[amount]
+- Years to FIRE (current trajectory): [#]
+
+For each scenario:
+1. POST-SHOCK PORTFOLIO VALUE
+2. % CHANGE from current
+3. RECOVERY TIMELINE given continuing contributions
+4. PSYCHOLOGICAL CHECKPOINT — worst-case interim valuation
+5. RECOMMENDED ACTION during this scenario (often: do nothing; sometimes: rebalance)
+
+End with: SCENARIO MOST LIKELY in next 10 yrs / SCENARIO MOST WORTH PREPARING FOR / ONE WRONG REACTION per scenario.
+
+Don't predict. Run the math. The math doesn't predict — it conditions.</div>
+
+  <div class="section-label">Worked example — output</div>
+  <div class="example-card">
+    <p><strong>Moderate correction (-20% equities):</strong> Portfolio $215K (-23%, -$65K). Recovery ~18 months. FIRE delay ~12 mo. <strong>Action:</strong> Continue contributions. Don't try to time the bottom. The -25 to -30% drawdown phase is where investors capitulate; investors who sell here lock in losses.</p>
+    <p><strong>Severe (-35%):</strong> $158K (-44%). Recovery ~36 mo. FIRE delay ~24 mo. <strong>This is the BEST contribution environment of the cycle.</strong> If job secure, INCREASE contributions. Lump-sum cash buffer if you have one. 2008-2009 actually dropped 50%+ before recovery; second-leg-down trap is where most retail capitulates.</p>
+    <p><strong>Add $500/mo extra:</strong> FIRE 12yr → 10yr 7mo. Saves 1yr 5mo. <strong>Single highest-leverage action you control.</strong></p>
+    <p><strong>Most likely:</strong> Mild correction (-10 to -15%) every 2-3 years. Normal market behavior — budget for it.</p>
+    <p><strong>Most worth preparing for:</strong> Severe correction (-35 to -50%) once per decade. Not "likely" in any given year (~10-15%) but likely SOMEWHERE in your 12-yr FIRE window. Preparation = emergency fund + clear "don't sell during drawdown" rule written down BEFORE the drawdown.</p>
+    <p><strong>Wrong reactions:</strong> Mild → sell to "preserve capital" (locks in 11% loss). Moderate → stop contributing (misses buying opportunity). Severe → capitulation at -40 to -50% (biggest wealth-destroyer in retail investing).</p>
+  </div>
+  <div class="footer">7 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 8 — PROMPT 6: Dividend Income Optimizer -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">6. Dividend Income Optimizer — Yield-boosting moves, no timing risk</h1>
+    <div class="tab-callout">Pairs with: 💰 Dividend Income Calendar</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are optimizing my dividend income WITHOUT chasing yield. Specifically: improving yield-on-cost without excessive risk, smoothing cash-flow calendar across the year, identifying tax-inefficient placements.
+
+MY DIVIDEND POSITIONS (paste from Dividend Income Calendar tab):
+[Ticker | Shares | Account | Annual div $ | Yield-on-cost % | Yield-current % | Frequency | Ex-div months]
+
+MY CONTEXT:
+- Total dividend income last 12 months: $[amount]
+- % of portfolio generating dividends: [%]
+- Marginal federal tax rate: [%]
+- State rate: [%]
+- Dividend reinvestment policy: [reinvest all / cash out / per-position]
+- Income need: [retirement supplement / current spending / pure reinvest]
+- Years to needing dividend income: [#]
+
+For my dividend positions:
+1. CALENDAR ANALYSIS — month-by-month projected for next 12 months. Flag cash-gap months.
+2. TAX-PLACEMENT — flag high-dividend payers misplaced in taxable. REITs pay non-qualified — these belong in IRAs.
+3. YIELD-CHASE RISK — flag positions >7% yield (often distressed / yield traps).
+4. CASH-GAP-FILLING — 1 ticker to add that pays cash-gap months.
+5. DRIP vs CASH-OUT per position based on years-to-income-need.
+
+End with: THREE MOVES / ONE TICKER TO RESEARCH / ONE THING NOT TO DO.
+
+Don't recommend specific high-yield stocks just for yield. Don't recommend MLPs/BDCs without explaining tax complexity. Verify qualified vs non-qualified status.</div>
+
+  <div class="section-label">Worked example — output</div>
+  <div class="example-card">
+    <p><strong>Cash-gap months:</strong> Jan/Apr/Jul/Oct = $0. Quarterly cycle (Mar/Jun/Sep/Dec) is heavy.</p>
+    <p><strong>🔴 VNQ IN TAXABLE = MISPLACED.</strong> Non-qualified REIT dividends taxed at 24% federal + 6.85% state = 30.85%. If VNQ were in Roth IRA, $170/yr tax-free forever. Current annual drag: $52/yr. <strong>Move 1: Swap VNQ to Roth IRA at next contribution cycle.</strong></p>
+    <p><strong>Move 2:</strong> Stop adding to SCHD/VYM (similar). Pick DGRO instead — dividend-growth focus matters more than current yield over 12-yr horizon. Today's 3% grower becomes tomorrow's 5%+ yield-on-cost.</p>
+    <p><strong>Move 3:</strong> Avoid BDCs / MLPs / mREITs to "fill cash gaps." 8-12% yields with structural complexity (Schedule K-1 filings, UBTI risk in IRAs, mREIT unsustainable yields).</p>
+    <p><strong>One ticker to research:</strong> O (Realty Income) — monthly-paying retail REIT. Hold in Roth (non-qualified). Research before buying.</p>
+    <p><strong>One thing NOT to do:</strong> Don't buy QYLD or covered-call income ETFs marketed as 10-12% yield. The "yield" is mostly return-of-capital (your own money) — NAV erodes; total-return-negative for buy-and-hold. Yield trap.</p>
+  </div>
+  <div class="footer">8 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 9 — PROMPT 7: Position Health Check -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">7. Position Health Check — Fundamentals + risk summary</h1>
+    <div class="tab-callout">Pairs with: 📊 Holdings Master + 📈 Stocks Tracker</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are evaluating the health of a specific position I own. Quick diagnostic — not deep research, but enough to decide hold / trim / sell / add.
+
+THE POSITION:
+- Ticker: [SYMBOL]
+- Shares: [#]
+- Cost basis avg: $[per share]
+- Current price: $[per share]
+- Position size: $[total] / [% of my portfolio]
+- Holding period: [years/months]
+- Account: [taxable / IRA / 401k / Roth]
+- My original thesis when I bought: [why I bought, what I expected]
+
+CONTEXT FOR EVALUATION:
+- Current market cap: $[approx]
+- Sector: [GICS]
+- Recent news / events (last 90 days that I know of): [list]
+- Dividend status: [pays / doesn't pay / cut / suspended]
+
+PROVIDE QUICK DIAGNOSTIC:
+1. FUNDAMENTAL CHECK — current P/E, P/S, FCF yield, debt/equity vs sector median
+2. THESIS STATUS — is the original reason still true? Has the company executed?
+3. RISK CHECK — sector-specific risks (commodity / regulatory / customer concentration)
+4. POSITION-SIZE CHECK — over-concentrated relative to conviction? Under-allocated relative to thesis?
+5. TAX-LOT STATUS — short-term vs long-term + unrealized gain/loss
+
+Then:
+1. RECOMMENDED ACTION — hold / trim / sell / add (with reasoning)
+2. ONE METRIC TO MONITOR going forward (the one number that would change your conclusion)
+3. ONE RED FLAG that would trigger immediate sell
+4. ONE WAY TO IMPROVE THESIS UNDERSTANDING before any major action
+
+Don't recommend specific dollar targets. Don't predict price. Be specific about which metric to watch, not where it should be.</div>
+
+  <div class="section-label">Worked example — output</div>
+  <div class="example-card">
+    <p><strong>AAPL diagnostic:</strong> P/E ~29x (sector median 24x; mature large-cap 18x). FCF yield ~3.5% (healthy). Net cash positive. <strong>Nothing extreme in either direction.</strong></p>
+    <p><strong>Thesis check:</strong> ✅ Premium brand intact. ✅ Services growth confirmed (~13% YoY, now ~22% of revenue). 🟡 AI integration lagging vs MSFT/GOOGL — not yet a thesis breaker but worth monitoring.</p>
+    <p><strong>Risk:</strong> 🔴 China geopolitical exposure ~17-19% of revenue + manufacturing concentration. Largest risk. 🟡 App Store regulatory ~$25B/yr at risk in worst-case unbundling.</p>
+    <p><strong>Position-size:</strong> 5.2% direct + 2.7% look-through = 7.9% true. Upper edge of "reasonable" for high-conviction single-name.</p>
+    <p><strong>Recommended action:</strong> HOLD, but stop accumulating direct AAPL. Redirect new contributions away; let position drift as % of portfolio.</p>
+    <p><strong>One metric to monitor:</strong> Services revenue growth rate. If services growth slows below 8% YoY for two consecutive quarters, bull case weakens — hardware-only AAPL trades at 18-22x P/E historically.</p>
+    <p><strong>One red flag → sell:</strong> Major US-China decoupling event (tariffs expanding to consumer goods) disrupting manufacturing. Tactical trim 50% on such a headline.</p>
+  </div>
+  <div class="footer">9 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 10 — PROMPT 8: Quarterly Portfolio Review -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">8. Quarterly Portfolio Review</h1>
+    <div class="tab-callout">Pairs with: 📊 Annual Summary</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are writing my quarter-end portfolio review. Look at the full quarter and tell me what worked, what didn't, and what to do next quarter.
+
+QUARTER DATA (paste from Annual Summary / Performance & Returns):
+- Portfolio start of quarter: $[amount]
+- Portfolio end of quarter: $[amount]
+- Quarter change: $[amount] ($/%)
+- Year-to-date change: $[amount] ($/%)
+- Best month / Worst month: [month + change %]
+
+CONTRIBUTIONS + DRAWS THIS QUARTER:
+- Total contributed: $[amount]
+- Total withdrawn: $[amount]
+- Major one-offs (bonus / RSU vest): [list]
+
+PERFORMANCE BREAKDOWN:
+- Best class / Worst class / Best position / Worst position
+
+DRIFT + REBALANCING:
+- Largest drift / Rebalancing moves made / Dividends received
+
+vs BENCHMARK:
+- Portfolio quarter return: [%]
+- S&P 500 quarter return: [%]
+- Custom benchmark return: [%]
+- Outperformance: [pp]
+
+Give me:
+1. THREE WINS — specific outcomes better than planned
+2. THREE MISSES — honest diagnosis, not pep talk
+3. THREE LESSONS — patterns I now see (not "rebalance more" — observations about HOW I'm investing)
+4. THREE PRIORITIES NEXT QUARTER — specific actions with $ targets
+5. ONE STRUCTURAL CHANGE to consider (account move, allocation shift, tax-treatment opt)
+
+Each section under 80 words. No motivational ending. CFO writes a board update — that's the tone.</div>
+
+  <div class="section-label">Worked example — output</div>
+  <div class="example-card">
+    <p><strong>Three wins:</strong> (1) RSU vest $13K preserved as portfolio capital, not lifestyle spending. (2) Tech sector overweight worked — +21.4% AAPL while broad market rallied. (3) International underperformance contained — only -2.1% on a quarter the dollar rallied.</p>
+    <p><strong>Three misses:</strong> (1) NO REBALANCING despite Q2 ending +4pp overweight US equities; Q3's tech rally pushed drift to +6.4pp. (2) RSU $13K wasn't redirected to underweight bonds/international — treated as "windfall stays invested" rather than "windfall fills allocation gap." (3) 401k bond/international contribution flow was zero — auto-contributions still equity-heavy default.</p>
+    <p><strong>Three lessons:</strong> (1) Drift detection without rebalancing trigger = drift accumulates. Need hard-coded rule: >5pp = rebalance regardless of opinion. (2) RSU vests are tax-FREE rebalance opportunity (sell-on-vest = no incremental gain). Use them. (3) 401k allocation needs manual quarterly review — defaults are equity-heavy by design.</p>
+    <p><strong>Three priorities Q4:</strong> Sell vested RSU $6K → buy bonds/intl. Redirect 100% of $1,800/mo to bonds + intl for 6 mo. Audit 401k fund allocation.</p>
+    <p><strong>Structural change:</strong> Set CALENDAR-BASED REBALANCE RULE: end-of-Q4 every year, rebalance to target within ±2pp regardless of opinion. Calendar > opinion.</p>
+  </div>
+  <div class="footer">10 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 11 — TIPS -->
+<div class="page">
+  <h1 class="content-header">Which AI should I use?</h1>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>All eight prompts work in free tiers. Differences come down to output style + how each handles long position data.</p>
+
+    <div class="sub-section">ChatGPT Free</div>
+    <p>Best for: Market Scenario Analyst, Quarterly Portfolio Review, Position Health Check, Dividend Income Optimizer. Conversational tone; writes narrative summaries cleanly. Fluent at "explain this differently" iteration.</p>
+    <p><strong>Limit:</strong> ~3,000-4,000 word context per message. If you paste 20+ positions with multiple ETF top-10 holdings, you'll exceed context. Batch by category.</p>
+
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p>Best for: Allocation Advisor, Tax-Loss Harvesting Scout, Concentration Risk Alerter, Look-Through Analyzer. Better at multi-position tables, structured calculations, wash-sale-window checks that need precise rule application. Handles longer portfolio data in one paste.</p>
+    <p><strong>Limit:</strong> Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.</p>
+
+    <div class="sub-section">Paid tiers (ChatGPT Plus, Claude Pro)</div>
+    <p>Worth it if running quarterly reviews + monthly TLH scans across 30+ positions. Paid Claude can ingest your full Holdings Master + 5-fund top-10 disclosures in one paste. For ≤20 positions, free works.</p>
+
+    <div class="sub-section">Universal tips</div>
+    <ul class="bullets">
+      <li><strong>Paste as TEXT, not screenshots.</strong> Free-tier AI doesn't read spreadsheet screenshots well.</li>
+      <li><strong>Never paste account numbers, brokerage logins, SSN, routing numbers.</strong> Use labels ("Brokerage Taxable," "Roth IRA") instead. Ticker symbols + approximate position sizes are public-information-equivalent and safe to share.</li>
+      <li><strong>Wash-sale rule applies across ALL accounts</strong> including spouse's accounts and IRAs. Tax-Loss Harvesting Scout: include EVERY account's recent activity — missing one IRA buy creates a wash-sale you'll discover at tax time.</li>
+      <li><strong>Position Health Check is FAST but SHALLOW.</strong> Don't treat AI output as substitute for reading the 10-K + earnings transcript. Use AI to surface questions; do the reading to answer.</li>
+      <li><strong>Save good output.</strong> Paste sharp Quarterly Reviews + concentration analyses into the matching tab's Notes column. Build your own playbook over quarters.</li>
+    </ul>
+
+    <p style="margin-top:0.14in;font-style:italic;opacity:0.8;">Your portfolio data never leaves your AI conversation. The AI never sees your spreadsheet — only what you paste, only during that chat. Your brokerage credentials never enter the picture.</p>
+  </div>
+  <div class="footer">11 / 12 · AI Portfolio Intelligence</div>
+</div>
+
+<!-- PAGE 12 — BACK COVER -->
+<div class="page back-cover">
+  <div class="back-body">
+    <div class="back-pull-quote">A portfolio is the sum of decisions you made. The good ones and the lazy ones.</div>
+    <div class="back-gold-underline"></div>
+    <div class="back-mid">
+      Eight prompts. Roughly an hour a quarter using them. Saves the alternative of paying Sharesight $96/year to track positions you already entered manually, Stock Rover $300/year for the same risk metrics this spreadsheet computes, or Kubera $200/year to display the same numbers.
+      <br><br>
+      <strong>$2,980 saved over five years.</strong><br>
+      Your portfolio. Your sheet. Your call.
+    </div>
+    <div class="back-signoff">Lime Premium Studios · Privacy-first since day one</div>
+  </div>
+  <div class="back-footer-panel">
+    <div class="row-1">
+      <div>Investment Portfolio Tracker (AI Edition)</div>
+      <div class="meta">v1.0 · investment-portfolio-tracker.com</div>
+    </div>
+    <p>This PDF ships with your purchase of the Investment Portfolio Tracker AI Edition. AI prompts work in ChatGPT and Claude (free or paid tiers — your choice).</p>
+    <p style="margin-top:0.08in;">12-month free updates included with AI Edition. support@limepremiumstudios.com · Reply within 24 hours.</p>
+    <div class="page-num">12 / 12</div>
+  </div>
+</div>
+
+</body>
+</html>

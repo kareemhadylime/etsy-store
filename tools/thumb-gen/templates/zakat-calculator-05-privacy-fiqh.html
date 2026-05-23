@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zakat Calculator — Thumbnail 05 Privacy + Fiqh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --teal-deep: #2C5F5D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--primary-charcoal); color: var(--surface-white); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 120px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .wordmark { font-size: 24px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .crumb { font-size: 18px; color: var(--secondary-warm-gold); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .hero { position: absolute; top: 180px; left: 90px; right: 90px; }
+  .hero-eyebrow { font-size: 26px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 22px; }
+  .hero-title { font-size: 134px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 14px; color: var(--surface-white); }
+  .hero-title .accent { color: var(--secondary-warm-gold); }
+  .gold-bar { width: 160px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 10px; }
+  .teal-bar { width: 80px; height: 4px; background: var(--teal-deep); margin-bottom: 28px; }
+  .hero-sub { font-size: 32px; font-weight: 500; opacity: 0.78; line-height: 1.4; max-width: 1700px; }
+
+  .pillars { position: absolute; left: 90px; right: 90px; top: 730px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .pillar { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); border-radius: 18px; padding: 40px 36px; }
+  .pillar-icon-row { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+  .pillar-icon { width: 70px; height: 70px; border-radius: 50%; background: var(--secondary-warm-gold); color: var(--primary-charcoal); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800; flex-shrink: 0; }
+  .pillar-icon.teal { background: var(--teal-deep); color: var(--surface-white); }
+  .pillar-tag { font-size: 16px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--secondary-warm-gold); }
+  .pillar-title { font-size: 44px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 18px; line-height: 1.05; }
+  .pillar-body { font-size: 19px; line-height: 1.5; opacity: 0.85; margin-bottom: 18px; }
+  .pillar-list { list-style: none; padding: 0; }
+  .pillar-list li { padding: 8px 0; font-size: 18px; padding-left: 26px; position: relative; opacity: 0.9; }
+  .pillar-list li::before { content: '✓'; position: absolute; left: 0; top: 6px; color: var(--secondary-warm-gold); font-weight: 700; font-size: 18px; }
+
+  .quote-band { position: absolute; bottom: 320px; left: 90px; right: 90px; padding: 36px 48px; background: rgba(201,161,74,0.10); border-left: 6px solid var(--secondary-warm-gold); border-radius: 8px; }
+  .quote-text { font-size: 28px; font-style: italic; font-weight: 400; line-height: 1.4; color: var(--surface-white); }
+  .quote-author { font-size: 16px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-top: 12px; }
+
+  .price-band { position: absolute; bottom: 0; left: 0; right: 0; height: 240px; background: var(--secondary-warm-gold); color: var(--primary-charcoal); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .price-headline { font-size: 56px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .price-sub { font-size: 24px; font-weight: 600; opacity: 0.78; }
+  .price-sub strong { color: var(--teal-deep); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="crumb">Privacy · Fiqh · One Hijri Year</div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">No accounts. No cloud sync. No sharing.</div>
+  <div class="hero-title">Your wealth.<br><span class="accent">Your sheet.</span></div>
+  <div class="gold-bar"></div>
+  <div class="teal-bar"></div>
+  <div class="hero-sub">Religious + financial sensitivity acknowledged. Built for both.</div>
+</div>
+
+<div class="pillars">
+  <div class="pillar">
+    <div class="pillar-icon-row">
+      <div class="pillar-icon">🔒</div>
+      <div class="pillar-tag">Privacy-First</div>
+    </div>
+    <div class="pillar-title">Your data never leaves your device.</div>
+    <div class="pillar-body">No bank linking. No Plaid. No aggregator scraping your accounts. Your wealth profile lives in your Google Drive or local Excel file — that\'s it.</div>
+    <ul class="pillar-list">
+      <li>No accounts to create</li>
+      <li>No cloud sync to opt out of</li>
+      <li>Use labels not bank names ("Cash A")</li>
+      <li>AI tools only see what YOU paste</li>
+    </ul>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-icon-row">
+      <div class="pillar-icon teal">⚖️</div>
+      <div class="pillar-tag">Fiqh-Grounded</div>
+    </div>
+    <div class="pillar-title">Every ruling cites a scholarly source.</div>
+    <div class="pillar-body">Where Madhhabs differ, the sheet surfaces both positions honestly — not one-size-fits-all. Calculate informed, not blind.</div>
+    <ul class="pillar-list">
+      <li>NZF UK · AAOIFI Standard 21</li>
+      <li>Islamic Relief Zakat Guide</li>
+      <li>AMP India · Imam Nawawi Al-Majmu\'</li>
+      <li>Quranic basis: At-Tawbah 9:60</li>
+    </ul>
+  </div>
+</div>
+
+<div class="quote-band">
+  <div class="quote-text">"Zakat isn\'t an app. It\'s an obligation paid in your own books. Eight prompts. Roughly an hour a Hijri year using them. Your wealth. Your Madhhab. Your sheet. Your call."</div>
+  <div class="quote-author">— From the AI Zakat Advisor back cover</div>
+</div>
+
+<div class="price-band">
+  <div class="price-headline">$9 once. Calculate every year.</div>
+  <div class="price-sub">Essentials $9 · Pro $19 · <strong>AI Edition $29</strong> · No subscription, ever.</div>
+</div>
+
+</body>
+</html>

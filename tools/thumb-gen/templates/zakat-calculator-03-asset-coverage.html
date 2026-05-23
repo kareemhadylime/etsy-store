@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zakat Calculator — Thumbnail 03 Asset Coverage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --teal-deep: #2C5F5D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 120px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 24px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .crumb { font-size: 18px; color: var(--secondary-warm-gold); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .hero { position: absolute; top: 170px; left: 90px; right: 90px; }
+  .hero-eyebrow { font-size: 26px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 22px; }
+  .hero-title { font-size: 116px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 16px; }
+  .gold-bar { width: 160px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 10px; }
+  .teal-bar { width: 80px; height: 4px; background: var(--teal-deep); margin-bottom: 24px; opacity: 0.75; }
+  .hero-sub { font-size: 32px; font-weight: 500; opacity: 0.78; line-height: 1.4; max-width: 1700px; }
+
+  .compare { position: absolute; left: 90px; right: 90px; top: 700px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .side { background: var(--surface-white); border-radius: 20px; padding: 36px; border: 1px solid var(--neutral-grid); box-shadow: 0 8px 20px rgba(31,42,51,0.04); }
+  .side.ours { background: var(--primary-charcoal); color: var(--surface-white); border-color: var(--primary-charcoal); }
+  .side-tag { font-size: 14px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 16px; }
+  .side-title { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; margin-bottom: 28px; }
+  .side.ours .side-title { color: var(--surface-white); }
+  .side:not(.ours) .side-title { color: var(--primary-charcoal); }
+  .row { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px dashed var(--neutral-grid); font-size: 20px; }
+  .side.ours .row { border-bottom-color: rgba(255,255,255,0.12); }
+  .row:last-child { border-bottom: none; }
+  .row .ico { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; margin-right: 16px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+  .row .ico.cross { background: var(--status-alert); color: var(--surface-white); }
+  .row .ico.check { background: var(--secondary-warm-gold); color: var(--primary-charcoal); }
+  .row .lbl { font-weight: 500; }
+
+  .footer-band { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: var(--teal-deep); color: var(--surface-white); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 90px; text-align: center; }
+  .fb-title { font-size: 36px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .fb-sub { font-size: 22px; font-weight: 500; opacity: 0.78; }
+  .fb-sub strong { color: var(--secondary-warm-gold); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="crumb">Modern Assets · 18 Tabs</div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Free online calculators handle 5% of your situation</div>
+  <div class="hero-title">Crypto. Sukuk.<br>EOSB. Qada.</div>
+  <div class="gold-bar"></div>
+  <div class="teal-bar"></div>
+  <div class="hero-sub">Every modern Zakat asset gets its own tab. Every ruling cites a scholar.</div>
+</div>
+
+<div class="compare">
+  <div class="side">
+    <div class="side-tag">Free Online Calc</div>
+    <div class="side-title">Cash + Gold.<br>That\'s it.</div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Cryptocurrency (BTC + ETH + staked + LP)</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Sukuk by structure (Ijarah / Musharakah / Murabahah)</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">EOSB &amp; Pension (DB / DC / SIPP accessibility)</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Stocks intent toggle (Speculator vs Dividend)</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Agricultural Zakat (10% / 5% / 7.5%)</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Rental property net income</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Qada (missed years) recovery tracker</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Zakat al-Fitr per family member</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Hawl tracker per account (Hijri ↔ Greg)</div></div>
+    <div class="row"><div class="ico cross">×</div><div class="lbl">Distribution Tracker (8 categories)</div></div>
+  </div>
+  <div class="side ours">
+    <div class="side-tag">Zakat Calculator</div>
+    <div class="side-title">Every modern<br>asset. Every year.</div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Cryptocurrency (BTC + ETH + staked + LP)</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Sukuk by structure (Ijarah / Musharakah / Murabahah)</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">EOSB &amp; Pension (DB / DC / SIPP accessibility)</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Stocks intent toggle (Speculator vs Dividend)</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Agricultural Zakat (10% / 5% / 7.5%)</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Rental property net income</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Qada (missed years) recovery tracker</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Zakat al-Fitr per family member</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Hawl tracker per account (Hijri ↔ Greg)</div></div>
+    <div class="row"><div class="ico check">✓</div><div class="lbl">Distribution Tracker (8 categories)</div></div>
+  </div>
+</div>
+
+<div class="footer-band">
+  <div class="fb-title">18 product tabs. 4 Madhhabs. One Hijri year.</div>
+  <div class="fb-sub">Pay <strong>$9 once</strong> — calculate every year, no subscription.</div>
+</div>
+
+</body>
+</html>

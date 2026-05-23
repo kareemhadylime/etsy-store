@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zakat Calculator — Thumbnail 04 AI Advisor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --teal-deep: #2C5F5D;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 120px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 24px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .crumb { font-size: 18px; color: var(--secondary-warm-gold); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .hero { position: absolute; top: 170px; left: 90px; right: 90px; }
+  .hero-eyebrow { font-size: 26px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 22px; }
+  .hero-title { font-size: 122px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 16px; max-width: 1750px; }
+  .gold-bar { width: 160px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 10px; }
+  .teal-bar { width: 80px; height: 4px; background: var(--teal-deep); margin-bottom: 24px; opacity: 0.75; }
+  .hero-sub { font-size: 32px; font-weight: 500; opacity: 0.78; line-height: 1.4; max-width: 1700px; }
+
+  .prompt-stack { position: absolute; left: 90px; right: 90px; top: 720px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; }
+
+  .prompt-card { background: var(--surface-white); border-radius: 18px; border: 2px solid var(--primary-charcoal); padding: 30px 36px; }
+  .prompt-tag { display: inline-block; background: var(--secondary-warm-gold); color: var(--primary-charcoal); font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; margin-bottom: 18px; }
+  .prompt-title { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; line-height: 1.15; }
+  .prompt-text { font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.5; color: var(--primary-charcoal); white-space: pre-wrap; }
+  .prompt-text .placeholder { color: var(--secondary-warm-gold); font-weight: 700; }
+
+  .answer-card { background: var(--ivory); border-left: 6px solid var(--teal-deep); padding: 30px 36px; border-radius: 12px; display: flex; flex-direction: column; }
+  .answer-tag { font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-deep); margin-bottom: 14px; }
+  .answer-line { font-size: 18px; line-height: 1.5; margin-bottom: 14px; color: var(--primary-charcoal); }
+  .answer-line strong { color: var(--teal-deep); font-weight: 700; }
+  .cite-pill { display: inline-block; background: var(--teal-deep); color: var(--surface-white); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 999px; margin-right: 6px; }
+
+  .prompt-row { position: absolute; bottom: 220px; left: 90px; right: 90px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .mini-prompt { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 12px; padding: 18px 22px; }
+  .mini-prompt .num { font-size: 28px; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; }
+  .mini-prompt .lbl { font-size: 16px; font-weight: 600; line-height: 1.3; }
+
+  .footer-band { position: absolute; bottom: 0; left: 0; right: 0; height: 180px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .fb-left { font-size: 24px; font-weight: 600; }
+  .fb-left .accent { color: var(--secondary-warm-gold); }
+  .fb-right { background: var(--secondary-warm-gold); color: var(--primary-charcoal); font-size: 26px; font-weight: 700; padding: 16px 36px; border-radius: 999px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="crumb">AI Edition · 8 Prompts · Fatwa-Cited</div>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">Eight prompts. Mandatory citations. Free-tier AI compatible.</div>
+  <div class="hero-title">Paste. Read.<br>Pay your Zakat.</div>
+  <div class="gold-bar"></div>
+  <div class="teal-bar"></div>
+  <div class="hero-sub">Every AI response cites NZF UK, AAOIFI Standard 21, Islamic Relief, or AMP India.</div>
+</div>
+
+<div class="prompt-stack">
+  <div class="prompt-card">
+    <div class="prompt-tag">Prompt 2 · Crypto/DeFi Zakat</div>
+    <div class="prompt-title">Calculate Zakat on my crypto positions, with edge cases.</div>
+    <div class="prompt-text">My holdings:
+- BTC | 0.35 | $68,000 spot | <span class="placeholder">[Wallet A]</span> | Spot
+- ETH | 4.2  | $3,800 spot  | <span class="placeholder">[Wallet B]</span> | Staked (Lido)
+- USDC | 3,000 | $1.00 | <span class="placeholder">[DeFi Wallet]</span> | Stablecoin
+- ETH-USDC LP | $9K underlying
+
+Madhhab: <span class="placeholder">[Shafi'i]</span>. Hawl: BTC + ETH 18mo. USDC 8mo.
+
+Per position, tell me: Zakatable? Valuation basis? Edge-case treatment? Calculation? One operational note. Cite NZF UK 2024 + AAOIFI 2023.</div>
+  </div>
+
+  <div class="answer-card">
+    <div class="answer-tag">AI Response (excerpt)</div>
+    <div class="answer-line"><span class="cite-pill">NZF UK 2024 §3</span><strong>BTC ($23,800):</strong> Zakatable. Hawl met. $595.</div>
+    <div class="answer-line"><span class="cite-pill">AAOIFI §5.4</span><strong>ETH staked + rewards:</strong> Both Zakatable. $420.</div>
+    <div class="answer-line"><span class="cite-pill">NZF UK 2024</span><strong>USDC ($3K):</strong> Cash-equivalent. Substitution rule if other cash exceeded Nisab continuously. $75.</div>
+    <div class="answer-line"><span class="cite-pill">NZF UK 2024 §4</span><strong>ETH-USDC LP:</strong> Look-through to underlying. $225.</div>
+    <div class="answer-line" style="margin-top: 8px; padding-top: 14px; border-top: 1px dashed var(--neutral-grid);"><strong>Total: $1,315 Zakat on crypto positions.</strong></div>
+    <div class="answer-line"><strong>NOT YET CONSENSUS:</strong> DeFi lending — verify with mufti.</div>
+  </div>
+</div>
+
+<div class="prompt-row">
+  <div class="mini-prompt"><div class="num">01</div><div class="lbl">Setup Wizard by Madhhab</div></div>
+  <div class="mini-prompt"><div class="num">03</div><div class="lbl">Nisab Method Picker</div></div>
+  <div class="mini-prompt"><div class="num">05</div><div class="lbl">Pension Analyser (DB/DC)</div></div>
+  <div class="mini-prompt"><div class="num">07</div><div class="lbl">Qada Recovery Coach</div></div>
+</div>
+
+<div class="footer-band">
+  <div class="fb-left">Works on <span class="accent">ChatGPT free</span> + <span class="accent">Claude free.</span> No data sent to us.</div>
+  <div class="fb-right">AI Edition · $29</div>
+</div>
+
+</body>
+</html>

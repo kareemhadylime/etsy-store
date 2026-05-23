@@ -131,7 +131,9 @@ function buildDashboard(workbook) {
       { label: 'RECEIVABLES',     value: { formula: `TEXT(SUMIFS('🧾 Invoice Tracker'!F11:F60,'🧾 Invoice Tracker'!H11:H60,"<>Paid",'🧾 Invoice Tracker'!H11:H60,"<>Cancelled"),"$#,##0")` } },
       { label: tier === 'ai' ? 'HEALTH SCORE' : 'BIZ MARGIN',
         value: tier === 'ai'
-          ? { formula: `IFERROR(ROUND(MIN(100,MAX(0,(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💵 Revenue Tracker'!F12:F111))*100+30)),0),"—")` }
+          ? { formula: `IFERROR(ROUND(MIN(100,MAX(0,` +
+              `(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💵 Revenue Tracker'!F12:F111))*100` +
+              `)),0),"—")` }
           : { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),"0.0%"),"—")` } },
     ],
   });
@@ -148,7 +150,7 @@ function buildDashboard(workbook) {
     const scoreCell = sheet.getCell(`B${r + 1}`);
     scoreCell.value = { formula:
       `IFERROR(ROUND(MIN(100,MAX(0,` +
-      `(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💵 Revenue Tracker'!F12:F111))*100+30` +
+      `(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💵 Revenue Tracker'!F12:F111))*100` +
       `)),0)&" / 100","—")` };
     scoreCell.font = { name: 'Inter', size: 56, bold: true, color: argb(COLORS.success) };
     scoreCell.alignment = { vertical: 'middle', horizontal: 'center' };
@@ -1147,7 +1149,7 @@ function buildInvoiceTracker(workbook) {
       { label: 'OVERDUE',           value: { formula: `TEXT(SUMIF(H11:H60,"Overdue",F11:F60),"$#,##0")` } },
       { label: 'INVOICES',          value: { formula: `COUNTA(B11:B60)` } },
       { label: 'AVG TICKET',        value: { formula: `IFERROR(TEXT(AVERAGE(F11:F60),"$#,##0"),"—")` } },
-      { label: 'DSO (DAYS)',        value: { formula: `IFERROR(TEXT(SUMIFS(I11:I60,H11:H60,"<>Paid",H11:H60,"<>Cancelled")/MAX(1,COUNTIFS(H11:H60,"<>Paid",H11:H60,"<>Cancelled")),"0")&" days","—")` } },
+      { label: 'DSO (DAYS)',        value: { formula: `IFERROR(TEXT(SUMIFS(I11:I60,H11:H60,"<>Paid",H11:H60,"<>Cancelled",B11:B60,"<>")/MAX(1,COUNTIFS(H11:H60,"<>Paid",H11:H60,"<>Cancelled",B11:B60,"<>")),"0")&" days","—")` } },
     ],
   });
 

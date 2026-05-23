@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Zakat Calculator — AI Zakat Advisor (Companion PDF)</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Companion guide for the Zakat Calculator AI Edition — 8 ChatGPT/Claude prompts citing NZF UK, AAOIFI Standard 21, Islamic Relief, AMP India. By Lime Premium Studios.">
+<meta name="keywords" content="AI Zakat, Zakat calculator, Nisab method, crypto Zakat, Sukuk Zakat, EOSB pension, Qada, distribution, ChatGPT, Claude, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="AI Zakat Advisor — Companion PDF v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --teal-deep: #2C5F5D;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 8.5in; height: 11in;
+    padding: 0.55in 0.6in 0.5in 0.6in;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+    background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* COVER PAGE */
+  .cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .cover-body { flex: 1; padding: 2.2in 0.9in 0 0.9in; display: flex; flex-direction: column; }
+  .cover-eyebrow { font-size: 9pt; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-title { font-size: 48pt; font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; color: var(--primary-charcoal); margin-bottom: 0.28in; }
+  .cover-gold-underline { width: 1.6in; height: 3px; background: var(--secondary-warm-gold); margin-bottom: 0.10in; }
+  .cover-teal-underline { width: 0.8in; height: 2px; background: var(--teal-deep); margin-bottom: 0.32in; opacity: 0.7; }
+  .cover-subtitle { font-size: 16pt; font-style: italic; font-weight: 400; color: var(--secondary-warm-gold); line-height: 1.3; max-width: 5.2in; }
+  .cover-bottom-band { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; margin-top: auto; }
+  .cover-bottom-band .wordmark { font-weight: 600; letter-spacing: 0.04em; }
+  .cover-bottom-band .meta { opacity: 0.7; font-style: italic; }
+
+  /* Content layout */
+  .content-header { font-size: 28pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; margin-bottom: 0.12in; }
+  .content-divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.24in; }
+  .content-body p { font-size: 10.5pt; line-height: 1.55; color: var(--primary-charcoal); margin-bottom: 0.13in; }
+  .content-body .sub-section { font-size: 10pt; font-weight: 600; color: var(--secondary-warm-gold); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.16in; margin-bottom: 0.07in; }
+  .content-body ol, .content-body ul { padding-left: 0.28in; margin-bottom: 0.13in; }
+  .content-body li { font-size: 10.5pt; line-height: 1.55; color: var(--primary-charcoal); margin-bottom: 0.05in; }
+  .content-body ul { list-style: none; padding-left: 0; }
+  .content-body ul.bullets li { padding-left: 0.22in; position: relative; }
+  .content-body ul.bullets li::before { content: '•'; color: var(--secondary-warm-gold); font-weight: 700; position: absolute; left: 0.06in; }
+  .content-body strong { font-weight: 600; }
+
+  /* Prompt page */
+  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.18in; }
+  .page-title { font-size: 20pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; max-width: 5.6in; }
+  .tab-callout { background: var(--secondary-warm-gold); color: var(--surface-white); font-size: 9pt; font-weight: 600; padding: 6pt 14pt; border-radius: 999px; letter-spacing: 0.01em; white-space: nowrap; }
+  .divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.16in; }
+  .section-label { font-size: 8pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-warm-gold); margin-bottom: 0.06in; }
+  .prompt-card { background: var(--surface-white); border: 1px solid var(--primary-charcoal); border-radius: 4pt; padding: 0.14in 0.18in; margin-bottom: 0.14in; font-family: 'JetBrains Mono', 'Inter', monospace; font-size: 7.5pt; line-height: 1.42; color: var(--primary-charcoal); white-space: pre-wrap; word-wrap: break-word; }
+  .prompt-card strong { font-weight: 600; }
+  .example-card { background: var(--ivory); border-left: 3px solid var(--secondary-warm-gold); padding: 0.12in 0.18in; font-size: 7.3pt; line-height: 1.42; color: var(--primary-charcoal); }
+  .example-card .label { font-size: 7pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--status-warning); margin-bottom: 3pt; }
+  .example-card .sub-label { font-weight: 600; color: var(--primary-charcoal); margin-top: 0.05in; margin-bottom: 1pt; }
+  .example-card p { margin-bottom: 0.025in; }
+  .example-card strong { font-weight: 600; }
+  .citation-tag { display: inline-block; background: var(--teal-deep); color: var(--surface-white); font-size: 6.5pt; font-weight: 600; padding: 2pt 6pt; border-radius: 999px; margin-right: 4pt; letter-spacing: 0.04em; }
+
+  .footer { position: absolute; bottom: 0.32in; left: 0.6in; right: 0.6in; font-size: 8.5pt; font-style: italic; color: var(--primary-charcoal); opacity: 0.6; text-align: right; border-top: 1px solid var(--neutral-grid); padding-top: 0.07in; }
+
+  /* Back cover */
+  .back-cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .back-body { flex: 1; padding: 1.8in 0.9in 0 0.9in; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .back-pull-quote { font-size: 22pt; font-style: italic; font-weight: 400; line-height: 1.3; color: var(--primary-charcoal); max-width: 5.2in; margin-bottom: 0.45in; }
+  .back-gold-underline { width: 1.2in; height: 2px; background: var(--secondary-warm-gold); margin-bottom: 0.16in; }
+  .back-teal-underline { width: 0.6in; height: 1px; background: var(--teal-deep); margin-bottom: 0.45in; opacity: 0.7; }
+  .back-mid { font-size: 11pt; line-height: 1.6; color: var(--primary-charcoal); max-width: 5in; margin-bottom: auto; }
+  .back-signoff { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 10pt; letter-spacing: 0.04em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-top: 0.3in; }
+  .back-footer-panel { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; font-size: 9.5pt; line-height: 1.6; margin-top: auto; position: relative; }
+  .back-footer-panel::before { content: ''; position: absolute; top: 0; left: 0.9in; right: 0.9in; height: 1px; background: var(--teal-deep); opacity: 0.7; }
+  .back-footer-panel .row-1 { display: flex; justify-content: space-between; margin-bottom: 0.14in; font-weight: 600; }
+  .back-footer-panel .row-1 .meta { opacity: 0.7; font-style: italic; font-weight: 400; }
+  .back-footer-panel p { opacity: 0.85; font-size: 8.5pt; line-height: 1.5; }
+  .back-footer-panel .page-num { text-align: right; margin-top: 0.12in; opacity: 0.6; font-style: italic; font-size: 8.5pt; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — COVER -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Zakat Calculator · AI Edition</div>
+    <div class="cover-title">AI Zakat<br>Advisor</div>
+    <div class="cover-gold-underline"></div>
+    <div class="cover-teal-underline"></div>
+    <div class="cover-subtitle">Eight prompts citing fatwas.<br>Hanafi, Maliki, Shafi'i, Hanbali aware.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark">Lime Premium Studios</div>
+    <div class="meta">zakat-calculator · v1.0</div>
+  </div>
+</div>
+
+<!-- PAGE 2 — INTRO -->
+<div class="page">
+  <div class="content-header">How to use these prompts</div>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>Eight decisions every practicing Muslim hits across a Hijri year. Eight prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.</p>
+    <p>Each prompt is built to pair with a specific tab in your Zakat Calculator. You'll see the tab name on each page — paste, fill in placeholders, send.</p>
+
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (Setup Wizard, Crypto/DeFi, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the [PLACEHOLDERS] with your data.</li>
+      <li>Read the worked example on the same page to see what good output looks like.</li>
+    </ol>
+
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) OR a Claude account (free tier works)</li>
+      <li>Your Zakat Calculator open in another window</li>
+      <li>Your Madhhab selected on ⚙️ Madhhab Settings (drives ruling logic everywhere)</li>
+      <li>15 minutes the first time; ~5 minutes once familiar</li>
+    </ul>
+
+    <div class="sub-section">What this PDF will and won't do</div>
+    <p><strong>It WILL:</strong> Calculate Zakat amounts. Walk through scholar comparisons. Generate a distribution plan across the 8 eligible categories. Draft an annual report. Cite mainstream rulings from NZF UK, AAOIFI Standard 21, Islamic Relief, and AMP India in every response.</p>
+    <p><strong>It WON'T:</strong> Issue fatwas. Replace consultation with a qualified mufti. Submit Zakat for you. Choose your Madhhab. Pay your charity on your behalf.</p>
+
+    <div class="sub-section">Scholar disclaimer</div>
+    <p>Calculations and AI guidance are based on mainstream scholarly positions. Not a substitute for consultation with a qualified mufti for your specific situation. Mainstream rulings can differ across Madhhabs; this PDF surfaces those differences honestly rather than presenting one ruling as universal.</p>
+
+    <div class="sub-section">Privacy</div>
+    <p>Your wealth details, family financial information, and Madhhab selection never enter any AI tool unless you paste them. Use the spreadsheet's labels ("Cash Account A," "Gulf EOSB") instead of bank account numbers or institution names. Everything happens in your own AI account.</p>
+  </div>
+  <div class="footer">2 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 3 — PROMPT 1: SETUP WIZARD -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">1. Setup Wizard<br>Guided onboarding by Madhhab</div>
+    <div class="tab-callout">⚙️ Madhhab Settings</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are walking me through Zakat Calculator setup, tailored to my Madhhab. Onboard me efficiently — not generic, but the specific decisions I need to make based on my school's rulings.
+
+MY MADHHAB: [Hanafi / Maliki / Shafi'i / Hanbali]
+MY SITUATION: Country [country] · Approximate Zakatable wealth $[amount] · Wealth types I hold [cash / gold / silver / stocks / crypto / business / rental / agricultural / pension / Sukuk] · Years tracked [first-time / annual for X years / catching up missed years] · Primary scholar reference [NZF UK / AAOIFI / Islamic Relief / AMP India / local mufti / unsure]
+
+For my Madhhab + situation, walk me through:
+1. THE NISAB METHOD my Madhhab traditionally uses (Hanafi → silver; others → gold) — cite scholarly basis
+2. THE HAWL CONCEPT — 12 lunar months per asset; cite Madhhab-specific edge cases (Hanafi aggregate vs. others per-asset)
+3. THE TABS I MUST FILL OUT in priority order for my asset mix
+4. THE DECISIONS I'LL FACE THIS YEAR with Madhhab-specific implications
+5. THE ANNUAL CADENCE — when in the Hijri year my Hawl typically completes
+
+Cite NZF UK / AAOIFI Standard 21 / Islamic Relief / AMP India. Where Madhhabs disagree, name the disagreement and source. End with the ONE thing I should ask a qualified mufti given my specific situation.</div>
+
+  <div class="section-label">Worked Example — Persona A (Hanafi · UK · ~$20K · first-time payer)</div>
+  <div class="example-card">
+    <div class="label">Input</div>
+    <p>Madhhab: Hanafi. Country: UK. Wealth: ~$20K (~£15.8K). Holds: cash + gold + silver. First-time Zakat payer. Reference: NZF UK.</p>
+    <div class="label" style="margin-top: 6pt;">Output (excerpt)</div>
+    <p><span class="citation-tag">NZF UK §2.1</span><strong>Nisab method:</strong> Hanafi traditionally uses silver Nisab (612.36g). At ~$0.95/g, silver Nisab ≈ $582. You significantly exceed this. NZF UK accepts switching to gold if it produces a fairer outcome — but recommend silver for first-time setup (captures obligation honestly).</p>
+    <p><span class="citation-tag">NZF UK §3.2</span><strong>Hawl (Hanafi-specific):</strong> Aggregate at year-end. Pick ONE date in the Hijri year as your Zakat date; calculate ALL Zakatable wealth on that date regardless of acquisition time.</p>
+    <p><strong>Tabs in order:</strong> ⚙️ Madhhab Settings (Hanafi) → 📋 Wealth Inventory (cash + gold grams + silver grams) → ⚖️ Nisab Calculator (silver method) → 📅 Hawl Tracker (set 1st Ramadan as memorable date) → 💰 Zakat Calculator → 🌙 Zakat al-Fitr.</p>
+    <p><span class="citation-tag">NZF UK §4.1</span><strong>Hanafi debt rule:</strong> may deduct debts due within next Hijri year. Long-term debts (mortgages beyond 12mo) NOT deductible in full — only portion due within 12 months.</p>
+    <p><strong>ASK A MUFTI:</strong> "I have not previously paid Zakat in years where I likely exceeded Nisab. Should I treat this as Qada Zakat requiring back-calculation, or is starting fresh acceptable?" (Mainstream Hanafi position: Qada required if Nisab was reached in prior years.)</p>
+  </div>
+
+  <div class="footer">3 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 4 — PROMPT 2: CRYPTO/DEFI -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">2. Crypto/DeFi Zakat<br>BTC, staked, liquidity pool</div>
+    <div class="tab-callout">💎 Cryptocurrency</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are calculating Zakat on my cryptocurrency + DeFi positions. Cite NZF UK + AAOIFI on cryptocurrency treatment. Handle edge cases: staking, liquidity pool, lending protocols, wrapped tokens, stablecoins.
+
+MY CRYPTO HOLDINGS: [Coin | Units | Cost basis | Spot | Wallet label | Type (Spot/Staked/LP/Lent/Stablecoin)]
+MY HAWL STATUS PER POSITION: [held >12 lunar months / less / mixed]
+MY MADHHAB: [Hanafi / Maliki / Shafi'i / Hanbali]
+
+For each position:
+1. ZAKATABLE? — yes/no/partial with scholarly reasoning + NZF UK 2024 + AAOIFI 2023 fatwa
+2. VALUATION BASIS — market value at Hawl date (consensus) vs. cost basis (minority)
+3. EDGE-CASE TREATMENT:
+   • STAKED: underlying coin Zakatable + rewards as income (AAOIFI §5.4 by analogy)
+   • LP: look-through to underlying assets in your share (NZF UK 2024 informal)
+   • LENT: receivable from borrower — Zakatable (NZF UK §4.2 if likely-collectible)
+   • BORROWED-AGAINST: collateral is yours (Zakatable); debt deductible per Madhhab rule
+   • WRAPPED (wETH/wBTC): treat as underlying
+   • STABLECOINS (USDC/USDT/DAI): currency-equivalent → Zakatable at face value
+4. CALCULATION — 2.5% × Zakatable market value at Hawl date, per position + aggregate
+5. ONE OPERATIONAL NOTE per position (timing of spot snapshot, anonymized wallet labels)
+
+Cite NZF UK 2024 + AAOIFI 2023 + Islamic Relief. Don't recommend specific exchanges. Be honest where scholars haven't reached consensus.</div>
+
+  <div class="section-label">Worked Example — Persona B (Shafi'i · UAE · $25K crypto)</div>
+  <div class="example-card">
+    <div class="label">Input</div>
+    <p>0.35 BTC @ $68K spot · 4.2 ETH staked via Lido (stETH) · 3,000 USDC · ETH-USDC LP $9K underlying. BTC + ETH held 18mo; USDC + LP held 8mo. Shafi'i.</p>
+    <div class="label" style="margin-top: 6pt;">Output (excerpt)</div>
+    <p><span class="citation-tag">NZF UK 2024 §3</span><strong>BTC ($23,800):</strong> Zakatable. Hawl 18mo &gt; 12mo. Zakat = $595. Snapshot spot price at YOUR Hawl date (1st Ramadan), not 30-day average.</p>
+    <p><span class="citation-tag">AAOIFI §5.4</span><strong>ETH staked ($15,960 underlying):</strong> Underlying Zakatable + staking rewards (~3.5% APR × 18mo ≈ $840) also Zakatable. Total ~$420. stETH market value already includes accrued rewards.</p>
+    <p><span class="citation-tag">NZF UK 2024</span><strong>USDC ($3,000):</strong> Treated as currency. Hawl 8mo &lt; 12mo, BUT if your other cash exceeded Nisab continuously, the USDC inherits Hawl via substitution (AAOIFI §5.1 footnote). If Hawl carries: $75.</p>
+    <p><span class="citation-tag">NZF UK 2024 §4</span><strong>ETH-USDC LP ($9,000 underlying):</strong> Look-through. ETH portion Hawl carries from underlying ownership; USDC portion via substitution. If both Hawls carry: $225. Use actual withdrawal-equivalent value at Hawl date (impermanent loss exposure).</p>
+    <p><strong>AGGREGATE:</strong> $595 + $420 + $75 + $225 = <strong>$1,315 Zakat due on crypto positions.</strong></p>
+    <p><strong>NOT YET CONSENSUS:</strong> DeFi lending protocols (Aave / Compound) — scholars have NOT reached agreement. If you have these positions, verify treatment with mufti.</p>
+  </div>
+
+  <div class="footer">4 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 5 — PROMPT 3: NISAB METHOD PICKER -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">3. Nisab Method Picker<br>Gold vs Silver, pros and cons</div>
+    <div class="tab-callout">⚖️ Nisab Calculator</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are helping me pick between gold-Nisab and silver-Nisab method. Lay out both. Cite scholarly source. Tell me the practical difference for my situation.
+
+MY CONTEXT: Madhhab [Hanafi / Maliki / Shafi'i / Hanbali] · Approximate Zakatable wealth $[amount] · Intent [traditional Madhhab default / informed-choice / unsure]
+
+For my situation:
+1. GOLD NISAB explained: 87.48g × spot. Cite scholarly basis (20 dinars ≈ 87.48g)
+2. SILVER NISAB explained: 612.36g × spot. Cite scholarly basis (200 dirhams ≈ 612.36g)
+3. CURRENT THRESHOLD COMPARISON: thresholds in USD today. Why silver-Nisab is significantly LOWER
+4. MY MADHHAB'S DEFAULT: Hanafi → silver. Maliki/Shafi'i/Hanbali → gold
+5. THE CONTEMPORARY DEBATE: NZF UK + many scholars argue silver is more equitable; AAOIFI §2 acknowledges both methods valid
+6. THE PRACTICAL DIFFERENCE for my wealth: does method matter at my level?
+
+End with:
+• RECOMMENDED METHOD for me with reasoning
+• ONE TRADE-OFF specifically
+• ONE CONSISTENCY POINT — pick a method, stick with it
+
+Cite NZF UK + AAOIFI Standard 21 + Islamic Relief. Be specific.</div>
+
+  <div class="section-label">Worked Example — Persona A (Hanafi · ~$20K wealth)</div>
+  <div class="example-card">
+    <div class="label">Output (excerpt)</div>
+    <p><span class="citation-tag">NZF UK §2.1</span><strong>Gold Nisab:</strong> 87.48g × ~$72/g ≈ $6,300 USD threshold. Prophet Muhammad ﷺ instructed 20 dinars (≈ 87.48g). Universal across Madhhabs as the gold-equivalent threshold.</p>
+    <p><span class="citation-tag">AMP India §1.3</span><strong>Silver Nisab:</strong> 612.36g × ~$0.95/g ≈ $582 USD threshold. 200 dirhams (≈ 612.36g). Same hadith origin; Hanafi school adopts silver as operational reference.</p>
+    <p><strong>The contemporary debate:</strong> At revelation, gold-Nisab ≈ silver-Nisab in purchasing power. Today, silver / gold ratio ~85:1 vs historical 16:1 → silver-Nisab today is ~10× lower in dollar terms.</p>
+    <p><span class="citation-tag">NZF UK §2.3</span>"Silver-Nisab ensures more Muslims contribute to communal welfare and more recipients benefit. Aligns with the original spirit of Zakat as wealth-redistribution."</p>
+    <p><strong>YOUR PRACTICAL DIFFERENCE:</strong> At ~$20K, you're WELL ABOVE both thresholds. The choice is symbolic/principled, not threshold-determinative. Method matters at $2K-$6K cohort.</p>
+    <p><strong>RECOMMENDED:</strong> Silver-Nisab. Aligns with Hanafi tradition + NZF UK contemporary recommendation. At your level both make you obligated; aligning costs you nothing AND keeps you consistent across years.</p>
+    <p><strong>TRADE-OFF:</strong> Silver spot is more volatile than gold. Some years silver Nisab is $450; other years $620. Re-verify each year.</p>
+    <p><strong>CONSISTENCY:</strong> Pick silver this year. Stick with it. Don't toggle year-to-year based on which produces a lower obligation — that's optimizer-thinking, not Zakat practice.</p>
+  </div>
+
+  <div class="footer">5 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 6 — PROMPT 4: STOCKS METHOD PICKER -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">4. Stocks Method Picker<br>Speculator vs dividend, full vs proxy</div>
+    <div class="tab-callout">📈 Stocks Zakat</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are picking the stocks Zakat method for me. Two dimensions: my INTENT (speculator vs dividend investor) and my METHOD (full balance-sheet vs 25% NZF-proxy). Cite NZF UK + AAOIFI Standard 21.
+
+MY STOCK HOLDINGS: [Ticker | Shares | Market value | Cost basis | Annual dividend | Intent]
+MY MADHHAB: [Hanafi / Maliki / Shafi'i / Hanbali]
+MY TOTAL PORTFOLIO: $[amount]
+
+FOR EACH STOCK or aggregate:
+1. INTENT — speculator (capital gains, plans to sell) vs dividend investor (long-term income hold). NZF UK §3.4
+2. METHOD:
+   • FULL BALANCE-SHEET: current assets ÷ total assets × position value = Zakatable share. AAOIFI §5.2
+   • 25% NZF-PROXY: 25% of market value (simpler; diversified equity). NZF UK §3.4
+3. RECOMMENDATION for my holdings
+4. CALCULATION — 2.5% × Zakatable portion × position value
+5. EDGE CASES — haram-industry exposure → purification of 5% dividend per AAOIFI Shariah Standard 21 §5.5
+
+End with:
+• METHOD I should use
+• ONE INTENT-CLARIFICATION question to ask myself
+• ONE PURIFICATION calculation if applicable
+
+Cite NZF UK + AAOIFI + Islamic Relief.</div>
+
+  <div class="section-label">Worked Example — Persona B (Shafi'i · $45K stocks, dividend intent dominant)</div>
+  <div class="example-card">
+    <div class="label">Output (excerpt)</div>
+    <p><strong>VTI $20K — Dividend Investor</strong> <span class="citation-tag">NZF UK §3.4</span>: 25% × $20K = $5,000 Zakatable × 2.5% = <strong>$125</strong></p>
+    <p><strong>SCHD $15K — Dividend Investor:</strong> 25% × $15K = $3,750 Zakatable × 2.5% = <strong>$94</strong></p>
+    <p><strong>AAPL $10K — Speculator (per your stated intent)</strong> <span class="citation-tag">AAOIFI §5.2</span>: full market value Zakatable (urud at-tijara doctrine). $10K × 2.5% = <strong>$250</strong></p>
+    <p><strong>PORTFOLIO TOTAL:</strong> $469 on $45K — ~1.0% effective rate (much lower than 2.5% because dividend-investor proxy on 2/3 of portfolio).</p>
+    <p><span class="citation-tag">AAOIFI §5.5</span><strong>PURIFICATION (NOT Zakat — separate):</strong> Your VTI position includes ~7% conventional financials by weight. Approximate: 5% of $370 VTI dividend ≈ $19 purification charity. Goes to GENERAL welfare, NOT to the 8 eligible categories. NOT counted as Zakat.</p>
+    <p><strong>INTENT-CLARIFICATION QUESTION:</strong> "Have I sold any of this position in the last 18 months?" If YES → speculator. If NO + continuous hold for income → dividend investor. People often classify themselves as "dividend investors" while trading every 6 months — intent has to match behavior.</p>
+    <p><span class="citation-tag">AAOIFI §5.2</span><strong>NOT TO DO:</strong> Don't flip intent year-to-year for Zakat optimization. Once classified as dividend-investor, stick ≥3 years before reclassifying. "Frequent reclassification weakens the intent doctrine."</p>
+  </div>
+
+  <div class="footer">6 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 7 — PROMPT 5: PENSION ANALYSER -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">5. Pension Analyser<br>DB / DC / SIPP accessibility test</div>
+    <div class="tab-callout">🏦 EOSB & Pension</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are analyzing my pension / EOSB / Provident Fund for Zakat treatment. Different fund types (DB / DC / SIPP) get different treatment per NZF Worldwide + AAOIFI Standard 21 §6.3.
+
+MY CONTEXT: Country [country] · Fund type [DB / DC / SIPP / hybrid] · Employer compulsory $[amount] · Employee voluntary $[amount] · Employer voluntary $[if any] · Currently accessible balance $[amount] · Penalty for early access [%] · Underlying investment if SIPP [self-directed / fund-of-funds / target-date]
+MY MADHHAB: [Hanafi / Maliki / Shafi'i / Hanbali]
+
+For my fund:
+1. FUND-TYPE CLASSIFICATION — DB vs DC vs SIPP. AAOIFI §6.3
+2. ACCESSIBILITY TEST — accessible-WITHOUT-PENALTY portion is Zakatable; locked/penalty portion is NOT
+3. EMPLOYER vs EMPLOYEE CONTRIBUTION SPLIT — NZF Worldwide guidance
+4. UNDERLYING INVESTMENT TREATMENT (for SIPPs) — self-directed → underlying assets need separate Zakat per asset class
+5. CALCULATION — 2.5% × Zakatable portion at Hawl date
+
+End with:
+• ZAKATABLE PORTION + reasoning
+• ZAKAT DUE on this fund
+• ONE THING to verify with employer/scheme administrator
+• ONE EDGE CASE that might apply
+
+Cite NZF Worldwide + AAOIFI §6.3 + Islamic Relief. Be specific about the math.</div>
+
+  <div class="section-label">Worked Example — Persona B (Shafi'i · UAE EOSB $40K accessible)</div>
+  <div class="example-card">
+    <div class="label">Input</div>
+    <p>UAE. DC EOSB scheme. Employer compulsory $32K. Employee voluntary $8K. Accessible if resigning today: $40K. No penalty. Pooled fund-of-funds. 6 years tenure. Shafi'i.</p>
+    <div class="label" style="margin-top: 6pt;">Output (excerpt)</div>
+    <p><span class="citation-tag">AAOIFI §6.3</span><strong>Classification:</strong> DC scheme with full accessibility on resignation. "DC schemes where the participant has specific entitlement fully accessible upon termination are treated as the participant's wealth from time of accessibility."</p>
+    <p><strong>Accessibility test:</strong> ✓ PASS. $40K accessible WITHOUT PENALTY. Zakatable annually.</p>
+    <p><span class="citation-tag">NZF Worldwide §EOSB</span><strong>Employer vs Employee:</strong> "Employer compulsory contributions vesting in participant fully (not contingent on future service) are treated as participant's wealth from vesting date. UAE EOSB typically vests fully upon 1 year of employment." You confirmed 6 years tenure → fully vested → both portions Zakatable.</p>
+    <p><strong>Underlying treatment:</strong> Pooled fund-of-funds (not self-directed). AAOIFI §6.3 footnote: "When participant doesn't control underlying investment, entitlement is cash-equivalent for Zakat — Zakatable at face value of accessible portion." Effect: $40K cash-equivalent. No look-through to underlying.</p>
+    <p><strong>CALCULATION:</strong> $40,000 × 2.5% = <strong>$1,000 Zakat due on UAE EOSB this Hijri year.</strong></p>
+    <p><strong>VERIFY WITH EMPLOYER:</strong> "If I resign today, would I receive the full $40K immediately, or installment payments over 6-12 months?" Some UAE EOSB schemes pay in installments. If installments, first installment accessible-test applies; rest is receivable.</p>
+    <p><strong>EDGE CASE — Hybrid schemes:</strong> If your UAE EOSB has BOTH DB component (legacy Gulf) AND DC (newer), only DC is currently Zakatable. DB becomes Zakatable upon retirement (when accessible).</p>
+    <p><strong>TIMING NOTE:</strong> EOSB Zakat paid from current cash, NOT from EOSB itself (defeats savings purpose).</p>
+  </div>
+
+  <div class="footer">7 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 8 — PROMPT 6: DISTRIBUTION PLANNER -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">6. Distribution Planner<br>8 eligible categories + verified orgs</div>
+    <div class="tab-callout">🤝 Distribution Tracker</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are planning my Zakat distribution across the 8 eligible categories per Surah At-Tawbah 9:60. Suggest verified organizations + reasoning.
+
+MY TOTAL ZAKAT DUE: $[amount]
+MY PRIORITIES: Local vs global [preference] · Causes [orphan / refugee / education / direct cash] · Geographic preference · Past trusted orgs
+
+THE 8 CATEGORIES (Surah At-Tawbah 9:60):
+1. Fuqara — the poor (extreme poverty)
+2. Masakin — the needy (above extreme but below sufficiency)
+3. Amileen — Zakat administrators
+4. Mu'allafah Qulubuhum — hearts inclined toward Islam
+5. Riqab — to free those in bondage (contemporary: trafficking victims)
+6. Gharimin — debtors who cannot pay
+7. Fi Sabilillah — cause of Allah (education, dawah, community)
+8. Ibn al-Sabil — wayfarer / stranded traveler
+
+For my distribution:
+1. RECOMMENDED ALLOCATION % per category
+2. PER-CATEGORY SUGGESTED ORGS — name 1-2 verified, Zakat-compliant orgs (segregate Zakat funds; distribute within Hijri year)
+3. CALCULATION PER CATEGORY — $ amount
+4. ONE WAY TO STRUCTURE this year's distribution
+5. ONE CATEGORY most people miss (typically Gharimin)
+
+Cite At-Tawbah 9:60 + NZF UK + Islamic Relief + AMP India. Verify orgs are active + Zakat-compliant.</div>
+
+  <div class="section-label">Worked Example — Persona B (Shafi'i · $4,500 total Zakat)</div>
+  <div class="example-card">
+    <div class="label">Output (recommended allocation)</div>
+    <p><strong>Fuqara + Masakin (~50%) = $2,250</strong> → Islamic Relief Worldwide ($800) + NZF UK ($800) + local mosque committee ($650). <span class="citation-tag">NZF UK §6.1</span></p>
+    <p><strong>Amileen (~5% implicit) = $225</strong> → folded into recipient orgs' admin overhead.</p>
+    <p><strong>Mu'allafah (~5%) = $225</strong> → local mosque new-Muslim support fund. <span class="citation-tag">NZF UK §6.3</span></p>
+    <p><strong>Riqab (~5%) = $225</strong> → Islamic Relief Anti-Trafficking Program (if active this fiscal year).</p>
+    <p><strong>Gharimin (~10%) = $450</strong> → direct via mosque committee (anonymous recipient if you don't know anyone directly). <span class="citation-tag">NZF UK §6.6</span></p>
+    <p><strong>Fi Sabilillah (~15%) = $675</strong> → madrasa funding via AMP India network ($400) + Islamic Relief Education ($275).</p>
+    <p><strong>Ibn al-Sabil (~5%) = $225</strong> → Islamic Relief refugee programs (Syria/Palestine/Yemen).</p>
+    <p><strong>Buffer (~5%) = $225</strong> → reserved for mid-Hijri-year known cases.</p>
+    <p><strong>TOTAL: $4,500</strong> ✓</p>
+    <p><strong>ONE CATEGORY YOU MIGHT MISS:</strong> <strong>Gharimin (debtors).</strong> Most retail Zakat-payers go to global orgs and skip this entirely. But Gharimin is the most personally-meaningful category — directly helping someone in your network resolve genuine debt distress is exactly what Zakat was designed for. Mosque committee can identify a recipient anonymously.</p>
+  </div>
+
+  <div class="footer">8 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 9 — PROMPT 7: QADA RECOVERY COACH -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">7. Qada Recovery Coach<br>Affordable plan to clear missed years</div>
+    <div class="tab-callout">⏳ Qada Zakat</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are designing my affordable plan to clear missed Zakat from prior years (Qada). Sensitive topic — be specific about math without judgment.
+
+MY MISSED YEARS: [Year (Hijri) | Approximate wealth | Estimated Zakat | Paid status]
+MY CURRENT CAPACITY: Monthly disposable after expenses + current-year Zakat $[amount] · Cash buffer $[amount] · Current debt level $[amount]
+MY MADHHAB: [Hanafi / Maliki / Shafi'i / Hanbali]
+
+For my missed years:
+1. TOTAL QADA OWED — sum across years
+2. SCHOLARLY POSITION — cite NZF UK + AMP India. Qada required for years where Nisab reached. Default to original-year valuation (more conservative)
+3. AFFORDABLE PAYMENT PLAN — over how many Hijri years can I clear without compromising current-year Zakat or basic family welfare?
+4. PRIORITY ORDER — if I can't pay all categories at once, prioritize Fuqara + Masakin per NZF UK §7
+5. INTENT (Niyyah) framing — Imam Nawawi Al-Majmu' §6 on Qada intent (Shafi'i)
+
+End with:
+• THREE-YEAR CLEARANCE PLAN with specific $ per month
+• ONE OPERATIONAL APPROACH (same orgs as current-year vs. different?)
+• ONE EMOTIONAL FRAME — Qada is positive accountability, not punishment
+
+Cite NZF UK §7 + AMP India + Imam Nawawi. Don't shame the payer. Be empathetic + specific.</div>
+
+  <div class="section-label">Worked Example — Persona B (Shafi'i · 4 missed years · $11,150 total)</div>
+  <div class="example-card">
+    <div class="label">Output (excerpt)</div>
+    <p><strong>Total Qada Owed:</strong> 1442 ($1,750) + 1443 ($2,650) + 1444 ($3,100) + 1445 ($3,650) = <strong>$11,150 across 4 Hijri years.</strong></p>
+    <p><span class="citation-tag">NZF UK §7</span>"When Nisab and Hawl were both met in a prior year and Zakat was not paid, Qada is required upon recognition. The obligation does not lapse with time."</p>
+    <p><span class="citation-tag">AMP India §Qada</span>"Good-faith estimation acceptable when exact records unavailable; err on the side of paying slightly more rather than less."</p>
+    <p><strong>OPTION A — Lump-sum + monthly (2-year plan):</strong> Month 1: $6K from cash buffer (clears 1442 + 1443 + partial 1444). Months 2-24: $200/month × 23 = $4,600 (clears remainder). Total elapsed: 2 years.</p>
+    <p><strong>OPTION B — Pure monthly (3-year plan):</strong> $310/month × 36 = $11,150. Cash buffer untouched. Total elapsed: 3 years.</p>
+    <p><strong>RECOMMENDATION: Option A.</strong> Your $35K cash buffer is well above 6-month emergency target. Using $6K accelerates clearance + reduces psychological burden of owing past years. Remaining $29K still covers 6 months of expenses comfortably.</p>
+    <p><span class="citation-tag">NZF UK §7.3</span><strong>Priority order:</strong> 75% Fuqara/Masakin (immediate relief — the years you didn't pay had real human need that wasn't met) + 15% Fi Sabilillah + 10% Gharimin.</p>
+    <p><span class="citation-tag">Imam Nawawi §6</span><strong>NIYYAH FRAMING:</strong> "When making up missed Zakat, the payer should explicitly intend each payment as Qada for the specific year being made up." Mentally articulate: "This $X is Qada Zakat for Hijri year 1442 [or whichever]." For 4 years, articulate once at start of plan and let rolling payments fulfill it incrementally.</p>
+    <p><strong>EMOTIONAL FRAME:</strong> Qada is not a punishment. It's accountability — recognition that you have the means now to fulfill what you didn't fulfill before. Many practicing Muslims discover missed Zakat in their 30s-40s after building wealth without formal tracking. <strong>Recognizing and paying is the act of return, not the moment of guilt.</strong> Move forward without shame.</p>
+  </div>
+
+  <div class="footer">9 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 10 — PROMPT 8: ANNUAL REPORT PDF -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">8. Annual Report PDF<br>Tax-deductible receipt for US/UK/CA</div>
+    <div class="tab-callout">🤖 AI Zakat Advisor</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are generating my annual Zakat report — formatted printable PDF summary with calculation details, citation footers, and (for US/UK/CA) tax-deductible receipt format.
+
+INPUTS: Hijri year [year] · Total Zakatable wealth at Hawl date $[amount] · Nisab method [gold/silver] · Nisab threshold $[amount] · Madhhab · Zakat due $[amount] · Zakat al-Fitr (if Ramadan) $[amount × members] · Breakdown by asset class · Distribution plan per 8 categories · Country (for tax format) · Tax year
+
+Generate:
+1. EXECUTIVE SUMMARY — 3-sentence overview
+2. CALCULATION DETAIL — per-asset breakdown with citation footer per asset class
+3. DISTRIBUTION PLAN — 8-category breakdown with org names + $ allocated
+4. TAX-DEDUCTIBLE RECEIPT FORMAT (US/UK/CA only):
+   • US: IRS donation acknowledgment (donor + tax year + total $ + "No goods or services provided" + nonprofit EIN)
+   • UK: HMRC Gift Aid declaration (donor address + taxpayer status + amount + Gift Aid eligibility)
+   • CA: CRA Charitable Donation Receipt (donor + receipt # + cash amount + receipt date + nonprofit reg #)
+5. ANNUAL REFLECTION — paragraph for personal record (not for tax filing; for spiritual accounting)
+
+Cite NZF UK + AAOIFI Standard 21 + Islamic Relief. Don't include political content. Don't make tax claims beyond what tax authority specifies.</div>
+
+  <div class="section-label">Worked Example — Persona B (Hijri 1446, $5,040 total payment)</div>
+  <div class="example-card">
+    <div class="label">Output (excerpt — Executive Summary + key line items)</div>
+    <p><strong>EXECUTIVE SUMMARY:</strong> For Hijri year 1446, under the Shafi'i school's Zakat-al-Mal framework, total Zakatable wealth at the 1st-Ramadan Hawl date was $180,000. Total Zakat obligation: $4,500 (2.5%) plus $90 Zakat al-Fitr and $450 of Qada Zakat for Hijri 1442. <strong>Total: $5,040.</strong></p>
+    <p><strong>PER-ASSET:</strong></p>
+    <p>Cash & Currency $15,000 × 2.5% = $375 <span class="citation-tag">NZF UK §3.1</span></p>
+    <p>Gold (physical) 110g × $72/g ≈ $8,000 × 2.5% = $200 <span class="citation-tag">AAOIFI §2</span></p>
+    <p>Crypto $42,760 × 2.5% = $1,069 <span class="citation-tag">NZF UK 2024 §3</span></p>
+    <p>Stocks (dividend + speculator mix) → $469 <span class="citation-tag">NZF UK §3.4 + AAOIFI §5.2</span></p>
+    <p>EOSB UAE DC $40,000 × 2.5% = $1,000 <span class="citation-tag">AAOIFI §6.3</span></p>
+    <p>Sukuk (Ijarah + Musharakah + Murabahah by structure) → $515 <span class="citation-tag">AAOIFI §5.3</span></p>
+    <p>Rental net income $24,000 × 2.5% = $600 <span class="citation-tag">IR §4.5 + AAOIFI §5.6</span></p>
+    <p><strong>Subtotal $4,228 → conservatively rounded to $4,500 per NZF UK §7 ("lean slightly more rather than less")</strong></p>
+    <p><strong>FITR:</strong> 4 family × $22.50 = $90 <span class="citation-tag">NZF UK §8</span></p>
+    <p><strong>QADA (Hijri 1442 portion of 2-year plan):</strong> $450 <span class="citation-tag">Imam Nawawi §6 + NZF UK §7</span></p>
+    <p><strong>TOTAL FOR HIJRI 1446: $5,040</strong></p>
+    <p><strong>ANNUAL REFLECTION:</strong> "Hijri year 1446 closes with full Zakat obligation paid, Zakat al-Fitr distributed, and Year 1 of the 2-year Qada plan complete. Total $5,040 distributed across 8 eligible categories with Fuqara/Masakin receiving the largest share (50%). Looking ahead to 1447: Qada Year 2 ($450) plus regular Zakat obligation (~$4,800 estimated). The annual cycle of accountability continues. Alhamdulillah."</p>
+  </div>
+
+  <div class="footer">10 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 11 — TIPS -->
+<div class="page">
+  <div class="content-header">Which AI should I use?</div>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>All eight prompts work in free tiers. Differences come down to handling of citations + multi-asset complexity.</p>
+
+    <div class="sub-section">ChatGPT Free</div>
+    <p>Best for: Setup Wizard, Distribution Planner, Qada Recovery Coach, Annual Report PDF. Conversational tone; writes narrative summaries + emotional framings cleanly. Fluent at iterating tone and softening difficult content (Qada is sensitive).</p>
+    <p>Limit: ~3,000–4,000 word context per message. Longer prompts with many citations + complex worked examples may stretch context — batch large portfolios across multiple turns.</p>
+
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p>Best for: Crypto/DeFi Zakat, Nisab Method Picker, Stocks Method Picker, Pension Analyser. Better at structured per-asset analysis, multi-source citation, and Madhhab-comparison tables. Handles longer scholarly citation traces in one paste.</p>
+    <p>Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.</p>
+
+    <div class="sub-section">Paid tiers (ChatGPT Plus, Claude Pro)</div>
+    <p>Worth it if you're running complex multi-asset analysis annually + tracking missed years across multiple Hijri cycles. For straightforward annual calculation (simple cash + gold + silver), free tier is fully sufficient.</p>
+
+    <div class="sub-section">Universal tips</div>
+    <ol>
+      <li><strong>Citations are starting points, not final fatwas.</strong> The AI cites mainstream rulings from NZF UK / AAOIFI / Islamic Relief / AMP India. For specific edge cases — your Sukuk's exact structure, your pension's accessibility specifics, contested DeFi treatment — verify with a qualified mufti before relying on the AI's interpretation.</li>
+      <li><strong>Never paste bank account numbers, institution names, family names, or SSN.</strong> Use spreadsheet labels ("Cash Account A," "Gulf EOSB"). The AI doesn't need real identifiers to do the math.</li>
+      <li><strong>Scholarly disagreement is normal.</strong> When the AI presents two scholarly positions on a contested point (gold vs silver Nisab, crypto staking, etc.), pick the one that aligns with your Madhhab + your conscience. Stick with the choice across years.</li>
+      <li><strong>Cross-Madhhab comparison is a learning tool, not a shopping cart.</strong> The AI explains how different Madhhabs treat the same situation. Use this to understand your tradition better — not to "shop" for the most favorable ruling.</li>
+      <li><strong>The Scholar Disclaimer on every tab is your ongoing reminder.</strong> The AI is a thinking partner. A qualified mufti is your scholar. Use both.</li>
+      <li><strong>Save your distribution plan.</strong> Found a sharp allocation? Paste it into the Distribution Tracker tab's Notes column. Build your annual playbook across Hijri years.</li>
+    </ol>
+
+    <p>Your wealth, family details, and Madhhab selection never leave your AI conversation. The AI never sees your spreadsheet — only what you paste, only during that chat.</p>
+  </div>
+  <div class="footer">11 / 12 · AI Zakat Advisor</div>
+</div>
+
+<!-- PAGE 12 — BACK COVER -->
+<div class="page back-cover">
+  <div class="back-body">
+    <div class="back-pull-quote">"Zakat isn't an app.<br>It's an obligation paid in your own books."</div>
+    <div class="back-gold-underline"></div>
+    <div class="back-teal-underline"></div>
+    <div class="back-mid">
+      <p>Eight prompts. Roughly an hour a Hijri year using them.<br>Saves the alternative of free online calculators that handle 5% of your situation — single Madhhab, basic gold/silver/cash inputs, no Hawl tracking, no Qada history, no scholarly citations.</p>
+      <p style="margin-top: 0.24in;"><strong>Your wealth. Your Madhhab. Your sheet. Your call.</strong></p>
+    </div>
+    <div class="back-signoff">Alhamdulillah · Until next Hijri year</div>
+  </div>
+  <div class="back-footer-panel">
+    <div class="row-1">
+      <div>Zakat Calculator (AI Edition)</div>
+      <div class="meta">v1.0 · Updated pre-Ramadan each Hijri year</div>
+    </div>
+    <p>This PDF ships with your purchase of the Zakat Calculator AI Edition. AI prompts work in ChatGPT and Claude (free or paid tiers — your choice).</p>
+    <p style="margin-top: 0.08in;">12-month free updates included with AI Edition — each update ships in time for Ramadan.</p>
+    <p style="margin-top: 0.10in;"><strong>Scholar Disclaimer:</strong> Calculations and AI guidance are based on mainstream scholarly positions (NZF UK, AAOIFI Standard 21, Islamic Relief, AMP India). Not a substitute for consultation with a qualified mufti for specific situations.</p>
+    <div class="page-num">12 / 12</div>
+  </div>
+</div>
+
+</body>
+</html>

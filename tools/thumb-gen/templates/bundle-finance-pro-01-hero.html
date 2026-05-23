@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Premium Finance Bundle Pro — Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Top band */
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 140px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 100px;
+  }
+  .wordmark { font-size: 30px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .tier-pill {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    font-size: 26px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 14px 40px; border-radius: 999px;
+  }
+
+  /* Title block */
+  .title-block { position: absolute; top: 220px; left: 100px; right: 100px; }
+  .title-eyebrow {
+    font-size: 30px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 140px; font-weight: 700; line-height: 0.94; letter-spacing: -0.025em; margin-bottom: 24px; }
+  .gold-bar { width: 280px; height: 10px; background: var(--secondary-warm-gold); margin-bottom: 28px; }
+  .title-sub { font-size: 38px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1500px; }
+
+  /* Card stack — angled fan */
+  .stack {
+    position: absolute;
+    left: 120px; right: 120px;
+    bottom: 350px;
+    height: 950px;
+  }
+  .card {
+    position: absolute;
+    width: 660px; height: 480px;
+    background: var(--surface-white);
+    border-radius: 18px;
+    box-shadow: 0 30px 60px rgba(31,42,51,0.18), 0 12px 24px rgba(31,42,51,0.10);
+    overflow: hidden;
+    border: 1px solid rgba(31,42,51,0.06);
+  }
+  /* 5 cards fanning bottom-left to top-right */
+  .card.c1 { left: 0px;   bottom: 0px;   transform: rotate(-7deg); z-index: 1; }
+  .card.c2 { left: 220px; bottom: 90px;  transform: rotate(-3.5deg); z-index: 2; }
+  .card.c3 { left: 440px; bottom: 180px; transform: rotate(0deg); z-index: 3; }
+  .card.c4 { left: 660px; bottom: 270px; transform: rotate(3.5deg); z-index: 4; }
+  .card.c5 { left: 880px; bottom: 360px; transform: rotate(7deg); z-index: 5; }
+  .card-header {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 24px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .card-tab { font-size: 26px; font-weight: 700; }
+  .card-dots { display: flex; gap: 8px; }
+  .card-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .card-dot.active { background: var(--secondary-warm-gold); }
+  .card-body { padding: 36px 38px; }
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 24px; }
+  .kpi-tile { background: var(--ivory); padding: 16px 22px; border-radius: 10px; }
+  .kpi-label {
+    font-size: 16px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.55; margin-bottom: 6px;
+  }
+  .kpi-value { font-size: 38px; font-weight: 700; letter-spacing: -0.02em; color: var(--secondary-warm-gold); }
+  .kpi-tile.gold { background: var(--secondary-warm-gold); }
+  .kpi-tile.gold .kpi-label { opacity: 0.65; color: var(--primary-charcoal); }
+  .kpi-tile.gold .kpi-value { color: var(--primary-charcoal); }
+  .bar-row { display: grid; grid-template-columns: 1fr 120px 70px; gap: 14px; align-items: center; margin-bottom: 12px; }
+  .bar-name { font-size: 18px; font-weight: 500; }
+  .bar-track { background: var(--ivory); height: 14px; border-radius: 7px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--secondary-warm-gold); border-radius: 7px; }
+  .bar-fill.green { background: var(--status-success); }
+  .bar-fill.red { background: var(--status-alert); }
+  .bar-pct { font-size: 16px; font-weight: 700; text-align: right; }
+
+  /* Savings badge */
+  .savings-badge {
+    position: absolute; top: 980px; right: 100px;
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 20px 50px rgba(201,161,74,0.5);
+    transform: rotate(-12deg);
+    z-index: 10;
+    text-align: center;
+  }
+  .savings-num { font-size: 100px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .savings-word { font-size: 30px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 8px; }
+
+  /* Bottom band — products pill + price */
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 280px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 100px;
+  }
+  .products-pill {
+    display: flex; align-items: center; gap: 24px;
+  }
+  .products-pill .label {
+    background: var(--surface-white); color: var(--primary-charcoal);
+    padding: 18px 40px; border-radius: 999px;
+    font-size: 36px; font-weight: 800; letter-spacing: 0.10em;
+  }
+  .products-pill .value-line {
+    font-size: 34px; font-weight: 600; opacity: 0.82;
+  }
+  .products-pill .value-line strong { color: var(--secondary-warm-gold); font-weight: 800; }
+
+  .price-stack { text-align: right; }
+  .price-stack .struck {
+    font-size: 32px; opacity: 0.5; text-decoration: line-through;
+  }
+  .price-stack .price {
+    font-size: 80px; font-weight: 800; color: var(--secondary-warm-gold); letter-spacing: -0.02em; line-height: 1;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="tier-pill">Pro Bundle · $79</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">5 Spreadsheets · Built to Work Together</div>
+  <div class="title-main">Premium<br>Finance Bundle.</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">$115 of spreadsheets for $79. Forever.</div>
+</div>
+
+<div class="stack">
+  <!-- Card 1 — Budget -->
+  <div class="card c1">
+    <div class="card-header">
+      <div class="card-tab">📊 Budget Tracker</div>
+      <div class="card-dots">
+        <div class="card-dot active"></div><div class="card-dot"></div><div class="card-dot"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="kpi-row">
+        <div class="kpi-tile"><div class="kpi-label">Income MTD</div><div class="kpi-value">$5,840</div></div>
+        <div class="kpi-tile"><div class="kpi-label">Saved</div><div class="kpi-value">$1,840</div></div>
+      </div>
+      <div class="bar-row"><div class="bar-name">Groceries</div><div class="bar-track"><div class="bar-fill" style="width: 72%"></div></div><div class="bar-pct">72%</div></div>
+      <div class="bar-row"><div class="bar-name">Dining</div><div class="bar-track"><div class="bar-fill red" style="width: 118%"></div></div><div class="bar-pct">118%</div></div>
+      <div class="bar-row"><div class="bar-name">Subscriptions</div><div class="bar-track"><div class="bar-fill" style="width: 45%"></div></div><div class="bar-pct">45%</div></div>
+    </div>
+  </div>
+
+  <!-- Card 2 — Sinking Funds -->
+  <div class="card c2">
+    <div class="card-header">
+      <div class="card-tab">🪣 Sinking Funds</div>
+      <div class="card-dots">
+        <div class="card-dot"></div><div class="card-dot active"></div><div class="card-dot"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="kpi-row">
+        <div class="kpi-tile"><div class="kpi-label">Total Saved</div><div class="kpi-value">$13,150</div></div>
+        <div class="kpi-tile gold"><div class="kpi-label">Funds</div><div class="kpi-value">7</div></div>
+      </div>
+      <div class="bar-row"><div class="bar-name">Emergency</div><div class="bar-track"><div class="bar-fill" style="width: 36%"></div></div><div class="bar-pct">36%</div></div>
+      <div class="bar-row"><div class="bar-name">Down Payment</div><div class="bar-track"><div class="bar-fill" style="width: 21%"></div></div><div class="bar-pct">21%</div></div>
+      <div class="bar-row"><div class="bar-name">Vacation</div><div class="bar-track"><div class="bar-fill red" style="width: 20%"></div></div><div class="bar-pct">20%</div></div>
+    </div>
+  </div>
+
+  <!-- Card 3 — Net Worth (front) -->
+  <div class="card c3">
+    <div class="card-header">
+      <div class="card-tab">💰 Net Worth Tracker</div>
+      <div class="card-dots">
+        <div class="card-dot"></div><div class="card-dot"></div><div class="card-dot active"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="kpi-row">
+        <div class="kpi-tile gold"><div class="kpi-label">Net Worth</div><div class="kpi-value">$326,400</div></div>
+        <div class="kpi-tile"><div class="kpi-label">FIRE Progress</div><div class="kpi-value">23%</div></div>
+      </div>
+      <div class="bar-row"><div class="bar-name">401k + Roth</div><div class="bar-track"><div class="bar-fill green" style="width: 42%"></div></div><div class="bar-pct">$137K</div></div>
+      <div class="bar-row"><div class="bar-name">Real Estate</div><div class="bar-track"><div class="bar-fill" style="width: 28%"></div></div><div class="bar-pct">$92K</div></div>
+      <div class="bar-row"><div class="bar-name">Cash + HYSA</div><div class="bar-track"><div class="bar-fill" style="width: 18%"></div></div><div class="bar-pct">$58K</div></div>
+    </div>
+  </div>
+
+  <!-- Card 4 — Debt Payoff -->
+  <div class="card c4">
+    <div class="card-header">
+      <div class="card-tab">📉 Debt Payoff</div>
+      <div class="card-dots">
+        <div class="card-dot"></div><div class="card-dot"></div><div class="card-dot"></div><div class="card-dot active"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="kpi-row">
+        <div class="kpi-tile"><div class="kpi-label">Total Debt</div><div class="kpi-value">$39,700</div></div>
+        <div class="kpi-tile"><div class="kpi-label">Debt-Free</div><div class="kpi-value">22 mo</div></div>
+      </div>
+      <div class="bar-row"><div class="bar-name">CC A</div><div class="bar-track"><div class="bar-fill red" style="width: 88%"></div></div><div class="bar-pct">22.99%</div></div>
+      <div class="bar-row"><div class="bar-name">CC B</div><div class="bar-track"><div class="bar-fill red" style="width: 76%"></div></div><div class="bar-pct">18.99%</div></div>
+      <div class="bar-row"><div class="bar-name">Auto Loan</div><div class="bar-track"><div class="bar-fill" style="width: 32%"></div></div><div class="bar-pct">6.50%</div></div>
+    </div>
+  </div>
+
+  <!-- Card 5 — Small Business -->
+  <div class="card c5">
+    <div class="card-header">
+      <div class="card-tab">🏢 Small Business</div>
+      <div class="card-dots">
+        <div class="card-dot active"></div><div class="card-dot"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="kpi-row">
+        <div class="kpi-tile"><div class="kpi-label">Revenue YTD</div><div class="kpi-value">$197K</div></div>
+        <div class="kpi-tile gold"><div class="kpi-label">Net Margin</div><div class="kpi-value">31%</div></div>
+      </div>
+      <div class="bar-row"><div class="bar-name">Acme Realty</div><div class="bar-track"><div class="bar-fill" style="width: 22%"></div></div><div class="bar-pct">22%</div></div>
+      <div class="bar-row"><div class="bar-name">BlueSky Co</div><div class="bar-track"><div class="bar-fill green" style="width: 18%"></div></div><div class="bar-pct">18%</div></div>
+      <div class="bar-row"><div class="bar-name">Northwind</div><div class="bar-track"><div class="bar-fill" style="width: 14%"></div></div><div class="bar-pct">14%</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Savings badge -->
+<div class="savings-badge">
+  <div class="savings-num">$36</div>
+  <div class="savings-word">Saved</div>
+</div>
+
+<!-- Bottom band -->
+<div class="bottom-band">
+  <div class="products-pill">
+    <div class="label">5 PRODUCTS</div>
+    <div class="value-line"><strong>$115</strong> value · 31% off</div>
+  </div>
+  <div class="price-stack">
+    <div class="struck">$115 unbundled</div>
+    <div class="price">$79</div>
+  </div>
+</div>
+
+</body>
+</html>

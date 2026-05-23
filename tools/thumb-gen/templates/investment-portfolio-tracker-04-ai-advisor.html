@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Investment Portfolio Tracker — Thumbnail 04 AI Advisor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 140px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .price-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); font-size: 30px; font-weight: 700; padding: 14px 36px; border-radius: 999px; }
+  .title-block { position: absolute; top: 180px; left: 90px; right: 90px; text-align: center; }
+  .title-eyebrow { font-size: 26px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 18px; }
+  .title-main { font-size: 110px; font-weight: 700; line-height: 1.0; letter-spacing: -0.025em; margin-bottom: 14px; }
+  .title-sub { font-size: 32px; font-weight: 500; opacity: 0.7; }
+  .cards-area { position: absolute; top: 590px; left: 0; right: 0; bottom: 280px; display: flex; justify-content: center; align-items: center; }
+  .card-stack { position: relative; width: 1700px; height: 1000px; }
+  .prompt-card { position: absolute; width: 720px; min-height: 420px; background: var(--surface-white); border-radius: 18px; box-shadow: 0 26px 50px rgba(31,42,51,0.18), 0 6px 16px rgba(31,42,51,0.08); padding: 38px 40px; border: 1px solid rgba(31,42,51,0.06); }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 2px solid var(--secondary-warm-gold); }
+  .card-num { background: var(--primary-charcoal); color: var(--surface-white); width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; }
+  .card-pill { background: var(--ivory); color: var(--secondary-warm-gold); font-size: 14px; font-weight: 700; padding: 8px 18px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .card-title { font-size: 32px; font-weight: 700; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; margin-bottom: 16px; }
+  .card-body { font-size: 18px; line-height: 1.5; color: var(--primary-charcoal); opacity: 0.78; }
+  .card-tags { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+  .card-tag { background: rgba(201,161,74,0.18); color: var(--secondary-warm-gold); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 6px; letter-spacing: 0.05em; }
+  .card-1 { top: 0; left: 0; transform: rotate(-3deg); z-index: 1; }
+  .card-2 { top: 240px; left: 470px; transform: rotate(1deg); z-index: 3; box-shadow: 0 36px 70px rgba(31,42,51,0.22); }
+  .card-3 { top: 480px; left: 940px; transform: rotate(4deg); z-index: 2; }
+  .ai-logos { position: absolute; top: 0; right: 0; display: flex; gap: 16px; align-items: center; }
+  .ai-logo { background: var(--primary-charcoal); color: var(--surface-white); padding: 10px 18px; border-radius: 999px; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; }
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 230px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 14px; padding: 0 90px; }
+  .bottom-msg { font-size: 42px; font-weight: 700; text-align: center; letter-spacing: -0.01em; }
+  .bottom-msg em { font-style: normal; color: var(--secondary-warm-gold); }
+  .bottom-sub { font-size: 22px; opacity: 0.7; }
+  .ai-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,161,74,0.18); color: var(--secondary-warm-gold); padding: 6px 16px; border-radius: 999px; font-size: 18px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="price-pill">$34 · AI Edition</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">🤖 AI Portfolio Intelligence</div>
+  <div class="title-main">8 AI prompts.<br>Wash-sale-safe.</div>
+  <div class="title-sub">ChatGPT and Claude · Free tier works · Your data never leaves your AI</div>
+</div>
+
+<div class="cards-area">
+  <div class="card-stack">
+
+    <div class="prompt-card card-1">
+      <div class="card-header">
+        <div class="card-num">1</div>
+        <div class="card-pill">📈 Asset Allocation</div>
+      </div>
+      <div class="card-title">Allocation Advisor</div>
+      <div class="card-body">"You are diagnosing my asset allocation drift and recommending specific rebalancing trades. Be precise about contribution-based vs sell-based rebalancing given my tax situation..."</div>
+      <div class="card-tags">
+        <span class="card-tag">DRIFT</span>
+        <span class="card-tag">REBALANCE</span>
+        <span class="card-tag">TAX-AWARE</span>
+      </div>
+    </div>
+
+    <div class="prompt-card card-2">
+      <div class="card-header">
+        <div class="card-num">2</div>
+        <div class="card-pill">📉 Tax-Loss Harvesting</div>
+      </div>
+      <div class="card-title">Tax-Loss Harvesting Scout</div>
+      <div class="card-body">"You are scouting tax-loss harvesting opportunities. Identify positions with unrealized losses, name wash-sale-safe replacement securities, estimate tax savings, and flag any 30-day wash-sale-window risk across ALL accounts including spouse + IRAs..."</div>
+      <div class="card-tags">
+        <span class="card-tag">WASH-SALE SAFE</span>
+        <span class="card-tag">CROSS-ACCOUNT</span>
+        <span class="card-tag">$ SAVED</span>
+      </div>
+    </div>
+
+    <div class="prompt-card card-3">
+      <div class="card-header">
+        <div class="card-num">3</div>
+        <div class="card-pill">🎁 Options & RSUs</div>
+      </div>
+      <div class="card-title">Concentration Risk Alerter</div>
+      <div class="card-body">"You are auditing my portfolio for concentration risk: single position &gt;20%, sector &gt;40%, employer stock &gt;10%. Name specific positions where I'm dangerously exposed and tell me what to do — including the employer-stock + employer-job compounding risk..."</div>
+      <div class="card-tags">
+        <span class="card-tag">RSU</span>
+        <span class="card-tag">LOOK-THROUGH</span>
+        <span class="card-tag">SECTOR</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="bottom-msg">8 AI prompts. <em>Free-tier ready.</em></div>
+  <div class="bottom-sub">Allocation · TLH · Concentration · Look-Through · Scenario · Dividend · Position Health · Quarterly Review</div>
+</div>
+
+</body>
+</html>

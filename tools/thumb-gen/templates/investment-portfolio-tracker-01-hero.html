@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Investment Portfolio Tracker — Thumbnail 01 Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 140px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .price-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); font-size: 30px; font-weight: 700; padding: 14px 36px; border-radius: 999px; }
+  .title-block { position: absolute; top: 200px; left: 90px; right: 90px; }
+  .title-eyebrow { font-size: 26px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 22px; }
+  .title-main { font-size: 130px; font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; margin-bottom: 24px; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin-bottom: 26px; }
+  .title-sub { font-size: 36px; font-weight: 500; opacity: 0.78; line-height: 1.35; max-width: 1500px; }
+  .mockup { position: absolute; left: 90px; right: 90px; bottom: 260px; height: 840px; background: var(--surface-white); border-radius: 20px; box-shadow: 0 30px 60px rgba(31,42,51,0.15), 0 8px 20px rgba(31,42,51,0.08); overflow: hidden; border: 1px solid rgba(31,42,51,0.06); }
+  .mockup-header { background: var(--primary-charcoal); color: var(--surface-white); padding: 24px 36px; display: flex; justify-content: space-between; align-items: center; }
+  .mockup-tab { font-size: 22px; font-weight: 600; }
+  .mockup-tab-bar { display: flex; gap: 14px; }
+  .mockup-tab-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .mockup-tab-dot.active { background: var(--secondary-warm-gold); }
+  .mockup-body { display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; padding: 36px 40px; height: calc(100% - 88px); }
+  .donut-area { background: var(--ivory); border-radius: 14px; padding: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .donut-label { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--secondary-warm-gold); margin-bottom: 14px; }
+  .donut-svg { width: 320px; height: 320px; }
+  .donut-money { font-size: 50px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-top: 14px; color: var(--primary-charcoal); }
+  .donut-sub { font-size: 18px; opacity: 0.65; margin-top: 4px; }
+  .top5 { margin-top: 18px; width: 100%; }
+  .top5-title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.7; margin-bottom: 10px; }
+  .top5-row { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; font-size: 15px; }
+  .top5-tkr { font-weight: 700; color: var(--secondary-warm-gold); width: 60px; }
+  .top5-bar { flex: 1; height: 12px; background: rgba(31,42,51,0.08); border-radius: 6px; overflow: hidden; }
+  .top5-bar-fill { height: 100%; background: var(--primary-charcoal); border-radius: 6px; }
+  .top5-pct { font-weight: 600; width: 50px; text-align: right; font-feature-settings: "tnum"; }
+  .right-stack { display: flex; flex-direction: column; gap: 18px; }
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .kpi-tile { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 10px; padding: 16px 18px; }
+  .kpi-tile.gold { background: var(--secondary-warm-gold); border-color: var(--secondary-warm-gold); }
+  .kpi-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55; margin-bottom: 8px; }
+  .kpi-tile.gold .kpi-label { opacity: 0.65; }
+  .kpi-value { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; font-feature-settings: "tnum"; text-align: right; }
+  .chart-card { background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 10px; padding: 20px 22px; flex: 1; display: flex; flex-direction: column; }
+  .chart-title { font-size: 16px; font-weight: 600; margin-bottom: 14px; }
+  .chart-area { flex: 1; position: relative; }
+  .chart-svg { width: 100%; height: 100%; }
+  .drift-strip { background: var(--ivory); border-left: 4px solid var(--secondary-warm-gold); border-radius: 8px; padding: 12px 18px; font-size: 14px; }
+  .drift-strip strong { font-weight: 700; }
+  .drift-pill { display: inline-block; background: var(--status-warning); color: white; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-left: 6px; }
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: center; align-items: center; gap: 60px; padding: 0 90px; }
+  .feature { text-align: center; }
+  .feature-num { font-size: 60px; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 6px; font-feature-settings: "tnum"; }
+  .feature-label { font-size: 20px; font-weight: 500; opacity: 0.85; }
+  .divider-dot { width: 8px; height: 8px; background: var(--secondary-warm-gold); border-radius: 50%; opacity: 0.6; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="price-pill">$17 — $34 · One-time</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">Google Sheets · GOOGLEFINANCE · AI-Powered</div>
+  <div class="title-main">Investment<br>Portfolio<br>Tracker</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">19 tabs · 10 asset classes · Live prices · 8 AI prompts</div>
+</div>
+
+<div class="mockup">
+  <div class="mockup-header">
+    <div class="mockup-tab">🏠 Dashboard</div>
+    <div class="mockup-tab-bar">
+      <div class="mockup-tab-dot active"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+      <div class="mockup-tab-dot"></div>
+    </div>
+  </div>
+  <div class="mockup-body">
+    <div class="donut-area">
+      <div class="donut-label">Asset Allocation · 10 Classes</div>
+      <svg class="donut-svg" viewBox="0 0 200 200">
+        <!-- Donut chart segments -->
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#1F2A33" stroke-width="40" stroke-dasharray="176 264" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#C9A14A" stroke-width="40" stroke-dasharray="66 374" stroke-dashoffset="-176" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#3F6B4D" stroke-width="40" stroke-dasharray="44 396" stroke-dashoffset="-242" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#B57A2A" stroke-width="40" stroke-dasharray="35 405" stroke-dashoffset="-286" transform="rotate(-90 100 100)"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#D8DCDF" stroke-width="40" stroke-dasharray="119 321" stroke-dashoffset="-321" transform="rotate(-90 100 100)"/>
+        <text x="100" y="95" text-anchor="middle" font-family="Inter" font-size="16" font-weight="700" fill="#1F2A33">$280K</text>
+        <text x="100" y="115" text-anchor="middle" font-family="Inter" font-size="9" fill="#888">PORTFOLIO</text>
+      </svg>
+      <div class="top5">
+        <div class="top5-title">Top 5 Holdings</div>
+        <div class="top5-row"><span class="top5-tkr">VTI</span><div class="top5-bar"><div class="top5-bar-fill" style="width:100%"></div></div><span class="top5-pct">30.6%</span></div>
+        <div class="top5-row"><span class="top5-tkr">VXUS</span><div class="top5-bar"><div class="top5-bar-fill" style="width:37%"></div></div><span class="top5-pct">11.4%</span></div>
+        <div class="top5-row"><span class="top5-tkr">VOO</span><div class="top5-bar"><div class="top5-bar-fill" style="width:31%"></div></div><span class="top5-pct">9.4%</span></div>
+        <div class="top5-row"><span class="top5-tkr">BND</span><div class="top5-bar"><div class="top5-bar-fill" style="width:26%"></div></div><span class="top5-pct">7.9%</span></div>
+        <div class="top5-row"><span class="top5-tkr">BTC</span><div class="top5-bar"><div class="top5-bar-fill" style="width:21%"></div></div><span class="top5-pct">6.4%</span></div>
+      </div>
+    </div>
+
+    <div class="right-stack">
+      <div class="kpi-row">
+        <div class="kpi-tile">
+          <div class="kpi-label">Total Value</div>
+          <div class="kpi-value">$280,520</div>
+        </div>
+        <div class="kpi-tile">
+          <div class="kpi-label">YTD Return</div>
+          <div class="kpi-value" style="color:#3F6B4D">+8.5%</div>
+        </div>
+        <div class="kpi-tile gold">
+          <div class="kpi-label">YTD Dividends</div>
+          <div class="kpi-value">$1,255</div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Portfolio NAV vs Cost Basis · 24 months</div>
+        <div class="chart-area">
+          <svg class="chart-svg" viewBox="0 0 600 280" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="trajGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1F2A33" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#1F2A33" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <line x1="40" y1="40" x2="580" y2="40" stroke="#D8DCDF" stroke-width="1" stroke-dasharray="2,2"/>
+            <line x1="40" y1="120" x2="580" y2="120" stroke="#D8DCDF" stroke-width="1" stroke-dasharray="2,2"/>
+            <line x1="40" y1="200" x2="580" y2="200" stroke="#D8DCDF" stroke-width="1" stroke-dasharray="2,2"/>
+            <!-- Cost basis (warm-gold dashed) -->
+            <path d="M40,220 L80,212 L120,204 L160,196 L200,188 L240,180 L280,172 L320,164 L360,156 L400,148 L440,140 L480,132 L520,124 L580,116" stroke="#C9A14A" stroke-width="3" fill="none" stroke-dasharray="8,5" stroke-linecap="round"/>
+            <!-- Actual NAV (charcoal solid) -->
+            <path d="M40,230 L70,220 L110,215 L150,205 L190,210 L230,195 L270,180 L310,170 L350,180 L390,150 L420,130 L450,110 L500,90 L580,70 L580,260 L40,260 Z" fill="url(#trajGrad)"/>
+            <path d="M40,230 L70,220 L110,215 L150,205 L190,210 L230,195 L270,180 L310,170 L350,180 L390,150 L420,130 L450,110 L500,90 L580,70" stroke="#1F2A33" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Today marker -->
+            <circle cx="580" cy="70" r="8" fill="#C9A14A" stroke="#fff" stroke-width="3"/>
+            <text x="500" y="55" font-family="Inter" font-size="13" font-weight="600" fill="#1F2A33">Today: $280K</text>
+          </svg>
+        </div>
+      </div>
+      <div class="drift-strip">
+        <strong>⚠ Allocation drift:</strong> US Equities +6.4pp · Bonds -4.1pp · Intl -3.6pp <span class="drift-pill">Action needed</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="feature">
+    <div class="feature-num">19</div>
+    <div class="feature-label">Tabs</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">10</div>
+    <div class="feature-label">Asset Classes</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">8</div>
+    <div class="feature-label">AI Prompts</div>
+  </div>
+  <div class="divider-dot"></div>
+  <div class="feature">
+    <div class="feature-num">60</div>
+    <div class="feature-label">Positions</div>
+  </div>
+</div>
+
+</body>
+</html>

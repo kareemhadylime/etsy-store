@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Family &amp; Education Planner — AI Family Finance Advisor (Companion PDF)</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Companion guide for the Family & Education Planner AI Edition — 8 ChatGPT/Claude prompts paired with specific spreadsheet tabs, with worked examples drawn from a single fictional family (Emma 8 / Liam 4 / Noah 1 in NY state). By Lime Premium Studios.">
+<meta name="keywords" content="family planner, college savings, 529, EFC calculator, scholarship, life insurance, childcare, FAFSA, ChatGPT, Claude, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="AI Family Finance Advisor — Companion PDF v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white); color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .page {
+    width: 8.5in; height: 11in; padding: 0.5in 0.55in 0.45in 0.55in;
+    position: relative; page-break-after: always; break-after: page;
+    overflow: hidden; background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* COVER */
+  .cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .cover-body { flex: 1; padding: 2.2in 0.9in 0 0.9in; display: flex; flex-direction: column; }
+  .cover-eyebrow { font-size: 9pt; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-title { font-size: 44pt; font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; color: var(--primary-charcoal); margin-bottom: 0.28in; }
+  .cover-gold-underline { width: 1.6in; height: 3px; background: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-subtitle { font-size: 15pt; font-style: italic; font-weight: 400; color: var(--secondary-warm-gold); line-height: 1.3; max-width: 5.2in; }
+  .cover-bottom-band { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; margin-top: auto; }
+  .cover-bottom-band .wordmark { font-weight: 600; letter-spacing: 0.04em; }
+  .cover-bottom-band .meta { opacity: 0.7; font-style: italic; }
+
+  /* Content header */
+  .content-header { font-size: 26pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; margin-bottom: 0.1in; }
+  .content-divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.2in; }
+  .content-body p { font-size: 10pt; line-height: 1.5; color: var(--primary-charcoal); margin-bottom: 0.1in; }
+  .content-body .sub-section { font-size: 9.5pt; font-weight: 600; color: var(--secondary-warm-gold); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.14in; margin-bottom: 0.06in; }
+  .content-body ol, .content-body ul { padding-left: 0.28in; margin-bottom: 0.1in; }
+  .content-body li { font-size: 10pt; line-height: 1.5; color: var(--primary-charcoal); margin-bottom: 0.04in; }
+  .content-body ul { list-style: none; padding-left: 0; }
+  .content-body ul.bullets li { padding-left: 0.22in; position: relative; }
+  .content-body ul.bullets li::before { content: '•'; color: var(--secondary-warm-gold); font-weight: 700; position: absolute; left: 0.06in; }
+  .content-body strong { font-weight: 600; }
+
+  /* PROMPT PAGE */
+  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.12in; }
+  .page-title { font-size: 18pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; max-width: 5.0in; }
+  .tab-callout { background: var(--secondary-warm-gold); color: var(--surface-white); font-size: 9pt; font-weight: 600; padding: 5pt 12pt; border-radius: 999px; white-space: nowrap; }
+  .divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.14in; }
+  .section-label { font-size: 8pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-warm-gold); margin-bottom: 0.05in; }
+
+  .prompt-card {
+    background: var(--surface-white); border: 1px solid var(--primary-charcoal); border-radius: 4pt;
+    padding: 0.12in 0.16in; margin-bottom: 0.12in;
+    font-family: 'JetBrains Mono', 'Inter', monospace; font-size: 7.5pt; line-height: 1.35;
+    color: var(--primary-charcoal); white-space: pre-wrap; word-wrap: break-word;
+  }
+  .prompt-card strong { font-weight: 600; }
+
+  .example-card {
+    background: var(--ivory); border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.1in 0.16in; font-size: 7pt; line-height: 1.4; color: var(--primary-charcoal);
+  }
+  .example-card .label { font-size: 6.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--status-warning); margin-bottom: 3pt; }
+  .example-card .sub-label { font-weight: 600; color: var(--primary-charcoal); margin-top: 0.05in; margin-bottom: 1pt; }
+  .example-card p { margin-bottom: 0.025in; }
+  .example-card strong { font-weight: 600; }
+
+  /* Footer */
+  .footer {
+    position: absolute; bottom: 0.28in; left: 0.55in; right: 0.55in;
+    font-size: 8pt; font-style: italic; color: var(--primary-charcoal); opacity: 0.6;
+    text-align: right; border-top: 1px solid var(--neutral-grid); padding-top: 0.06in;
+  }
+
+  /* BACK COVER */
+  .back-cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .back-body { flex: 1; padding: 1.6in 0.9in 0 0.9in; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .back-pull-quote { font-size: 22pt; font-style: italic; font-weight: 400; line-height: 1.3; color: var(--primary-charcoal); max-width: 5.2in; margin-bottom: 0.4in; }
+  .back-gold-underline { width: 1.2in; height: 2px; background: var(--secondary-warm-gold); margin-bottom: 0.4in; }
+  .back-mid { font-size: 10.5pt; line-height: 1.55; color: var(--primary-charcoal); max-width: 5in; margin-bottom: auto; }
+  .back-signoff { font-weight: 600; font-size: 9.5pt; letter-spacing: 0.04em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-top: 0.3in; }
+  .back-footer-panel { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; font-size: 9pt; line-height: 1.55; margin-top: auto; }
+  .back-footer-panel .row-1 { display: flex; justify-content: space-between; margin-bottom: 0.12in; font-weight: 600; }
+  .back-footer-panel .row-1 .meta { opacity: 0.7; font-style: italic; font-weight: 400; }
+  .back-footer-panel p { opacity: 0.85; font-size: 8.5pt; line-height: 1.5; }
+  .back-footer-panel .page-num { text-align: right; margin-top: 0.1in; opacity: 0.6; font-style: italic; font-size: 8pt; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — COVER -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Family &amp; Education Planner · AI Edition</div>
+    <div class="cover-title">AI Family Finance<br>Advisor</div>
+    <div class="cover-gold-underline"></div>
+    <div class="cover-subtitle">Eight prompts. Pregnancy through college launch.<br>Picks the right account per child.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark" style="display:flex;align-items:center;gap:12pt;">
+      <svg width="36" height="36" viewBox="0 0 64 64" style="flex-shrink:0;">
+        <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/><stop offset="100%" stop-color="#059669"/>
+        </linearGradient></defs>
+        <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#lg1)"/>
+        <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+        </g>
+      </svg>
+      <span>LIME PREMIUM STUDIOS</span>
+    </div>
+    <div class="meta">family-education-planner · v1.0</div>
+  </div>
+</div>
+
+<!-- PAGE 2 — INTRO -->
+<div class="page">
+  <h1 class="content-header">How to use these prompts</h1>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>Eight decisions every parent hits across the 18 years from pregnancy through college launch. Eight prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.</p>
+    <p>Each prompt pairs with a specific tab in your Family &amp; Education Planner. You'll see the tab name on each page — paste, fill in placeholders, send.</p>
+
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (Account Type Picker, Aid Appeal Coach, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the <strong>[PLACEHOLDERS]</strong> with your data.</li>
+      <li>Read the worked example on the same page to see what good output looks like.</li>
+    </ol>
+
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) <strong>OR</strong> a Claude account (free tier works)</li>
+      <li>Your Family &amp; Education Planner open in another window</li>
+      <li>15 minutes the first time; ~5 minutes once familiar</li>
+    </ul>
+
+    <div class="sub-section">What this PDF won't do</div>
+    <p>It won't open the 529 account, submit FAFSA, apply for scholarships, write the actual life insurance application, or sign your kid up for daycare. You paste, you read, you decide. The AI proposes the move; you execute it at your brokerage, financial-aid office, scholarship portal, or insurance broker.</p>
+    <p>Your kids' names, SSNs, school addresses, and financial-aid PINs never enter any AI tool. Use the spreadsheet's labels ("Child A," "Target College #1") instead of identifiers. Everything happens in your own AI account. The scholarship-marketing list will never see this conversation.</p>
+    <p style="margin-top:0.16in;font-style:italic;opacity:0.75;">Turn the page when you're ready.</p>
+  </div>
+  <div class="footer">2 / 12</div>
+</div>
+
+<!-- PAGE 3 — PROMPT 1: Account Type Picker -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">1. Account Type Picker — Which account per child?</h1>
+    <div class="tab-callout">Pairs with: 💰 Account Type Comparison</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are recommending the right college-savings vehicle for each of my children. 529 / Coverdell ESA / UTMA-UGMA / ABLE. Per child, with reasoning.
+
+MY CHILDREN (paste from Child Profiles):
+[Child label | DOB or age | Target school tier | Special needs flag (yes/no) | Current savings vehicle (if any)]
+
+MY HOUSEHOLD CONTEXT:
+- Marital status: [single / married / partnered / divorced]
+- Residency state: [state — drives 529 deduction]
+- Federal tax bracket: [12% / 22% / 24% / 32% / 35% / 37%]
+- State tax bracket: [%]
+- Annual saveable income for kids' education: $[amount]
+- Other goals competing with education savings: [list]
+- Risk tolerance for kids' funds: [conservative / moderate / aggressive]
+
+For each child, recommend:
+1. THE VEHICLE — 529 / Coverdell / UTMA-UGMA / ABLE / split
+2. WHY — based on age + target school + special-needs status + your tax bracket
+3. CONTRIBUTION TARGET — annual $ to hit target for their start year
+4. STATE-LEVEL OPTIMIZATION — in-state vs out-of-state 529 (if 529 is the rec)
+5. ONE TRADE-OFF to be aware of (e.g., UTMA loses parental control at 18-21)
+
+Then flag any child where MIXED strategy makes sense (e.g., 529 for college + UTMA for K-12 private school + ABLE for special-needs supplemental). Don't recommend whole-life insurance as a college savings vehicle.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Children: Emma age 8, private mid-tier target, no special needs, $14K in 529. Liam age 4, in-state public + maybe private K-12, no SN, no vehicle. Noah age 1, undecided, mild autism diagnosis, no vehicle. Context: married, NY, 24% fed + 6.85% state. $8,400/yr saveable.</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>Emma (8, 10 yrs to college, private mid-tier):</strong> Continue 529 — current choice is correct. Aggressive growth horizon, NY $5K MFJ deduction = $685/yr fed+state savings. Contribution target $420/mo to hit ~$45K by 18. Stay in NY Direct Plan. Trade-off: leftover 529 has 10% penalty on non-qualified withdrawal, but SECURE 2.0 lets $35K roll to Roth IRA after 15-yr hold.</p>
+    <p><strong>Liam (4, 14 yrs, in-state + maybe private K-12):</strong> 529 + small UTMA split. 529 for college (tax-free); small UTMA ~$3K for private K-12 flexibility since 529 K-12 capped at $10K/yr. Target: $180/mo 529 + $60/mo UTMA. NY Direct Plan. Trade-off: UTMA becomes Liam's at 21 — irrevocable — and counts heavier on FAFSA as student asset.</p>
+    <p><strong>Noah (1, 17 yrs, autism):</strong> SPLIT — ABLE + 529 + small UTMA. ABLE is THE special-needs vehicle: $18K/yr cap (2026), tax-free growth, excluded from SSI/Medicaid up to $100K, broad use (housing, transport, ed, health). Target: $130/mo ABLE + $80/mo 529 + $40/mo UTMA = $250/mo. NYABLE preferred for state-deduction stacking. Trade-off: ABLE has Medicaid-payback provision.</p>
+    <p><strong>MIXED STRATEGY FLAG:</strong> Noah's case is highest-leverage decision — most special-needs families miss ABLE entirely.</p>
+    <p><strong>TOTAL ALLOCATION:</strong> Emma $420/mo + Liam $240/mo + Noah $250/mo = $910/mo = $10,920/yr. Saveable $8,400 = $2,520 short. RECONCILIATION: drop Liam's UTMA $60/mo for now (revisit when K-12 decision real), still $1,800 short — drop Emma's 529 by $150/mo OR ramp Noah from $150 → $250 over year 1.</p>
+  </div>
+  <div class="footer">3 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 4 — PROMPT 2: Scholarship Matching Engine -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">2. Scholarship Matching Engine — Realistic, not spam</h1>
+    <div class="tab-callout">Pairs with: 🏆 Scholarship Tracker</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are matching my child to scholarships they have a realistic shot at winning. Not 500 long-shot lottery-tickets — 5 to 7 well-fit candidates plus positioning advice.
+
+MY STUDENT:
+- Graduation year: [year]
+- GPA (unweighted / weighted): [X / Y]
+- Test scores: SAT [score] / ACT [score]
+- Class rank or percentile: [%ile or "not ranked"]
+- Intended major(s) or field of interest: [list]
+- Demographics relevant for eligibility: [first-gen / underrepresented / military family / etc.]
+- Geographic: [state + city or region]
+
+ACTIVITIES + LEADERSHIP:
+[List 5-8 activities with role + duration + accomplishment]
+
+STORY HOOKS:
+- One challenge overcome or unique experience: [brief]
+- One commitment that defines them: [brief]
+- One unusual interest or knowledge area: [brief]
+
+TARGET COLLEGES: [List or "still exploring"]
+
+Give me:
+1. FIVE TO SEVEN scholarship categories with realistic fit:
+   - Local/regional · State-level · Major-specific · Activity-specific
+   - Demographic-specific (if applicable) · Merit-based · College-specific
+   For each: name 2-3 specific scholarships + WHY they fit + APPROXIMATE AWARD RANGE + APPLICATION CADENCE
+2. POSITIONING ADVICE — three angles to emphasize
+3. TIME-PLANNING — when in junior + senior year to focus on each
+4. ONE SCAM TO AVOID (specific — "you've been selected" emails, paid services, etc.)
+
+Quality over volume. Don't pad with 50 long-shots.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Emma, grad 2032 (now 8th). GPA 3.85. SAT TBD. Top 15%. Interested env science + public policy. First-gen. Upstate NY. Activities: Science Olympiad (2yr, regional medal) / Stream cleanup founder (50 vol) / JV soccer. Hooks: watershed advocacy at 12 / EMT parents. Targets: SUNY + Bowdoin / Williams / Smith.</p>
+    <div class="label" style="margin-top:0.08in;">Example output (abbreviated)</div>
+    <p><strong>1. LOCAL/REGIONAL (strongest fit):</strong> Adirondack Community Trust ($1.5K-$5K) · local Rotary/Kiwanis/Elks ($500-$2.5K). WHY: first-gen + env advocacy in upstate NY = perfect community foundation match. Low applicant pools. Due Feb-April senior year.</p>
+    <p><strong>2. STATE:</strong> NYS HESC merit + Excelsior (free SUNY tuition if income <$125K). Annual, FAFSA-tied.</p>
+    <p><strong>3. MAJOR (env sci/policy):</strong> EPA student opps · Sierra Club/NWF · Udall (college level). Watershed story is gold here.</p>
+    <p><strong>4. ACTIVITY:</strong> Science Olympiad scholarships · Prudential Spirit of Community (stream cleanup founder = perfect fit).</p>
+    <p><strong>5. FIRST-GEN:</strong> First Gen College Bound · QuestBridge (fall senior year app).</p>
+    <p><strong>6. MERIT:</strong> National Merit (PSAT junior year) · Coca-Cola Scholars. Apply but don't bet.</p>
+    <p><strong>7. COLLEGE-SPECIFIC:</strong> Williams/Bowdoin/Smith all meet-100%-need; Tyler/Tyng Scholars at Smith/Williams are unicorn merit awards.</p>
+    <p><strong>POSITIONING:</strong> (1) "First-gen environmental advocate" — leads with watershed campaign founding. (2) "Service household values" — EMT parents frames volunteer work. (3) "Upstate NY rural voice" — geographic diversity at Northeast LACs.</p>
+    <p><strong>SCAM:</strong> "You've been selected — pay $25 application fee" — no legitimate scholarship charges fees. ScholarshipOwl-style sites sell contact info to lenders. Use FastWeb (free) or apply directly.</p>
+  </div>
+  <div class="footer">4 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 5 — PROMPT 3: Life Insurance Advisor -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">3. Life Insurance Advisor — DIME, term vs whole life</h1>
+    <div class="tab-callout">Pairs with: 🛡️ Life Insurance Calculator</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are recommending the right life insurance for me using the DIME method. Honest about whole life vs term. Not selling me anything.
+
+MY HOUSEHOLD CONTEXT:
+- My age: [#]  Spouse's age: [#]  My role: [primary/secondary/stay-at-home]
+- Children: [count + ages]
+- Existing life insurance: [employer + individual]
+
+DIME INPUTS:
+- DEBT (non-mortgage): credit cards, car, student, medical, business: $[total]
+- INCOME × years of replacement (typical 10-20 yr): years [#] × $[annual] = $[total]
+- MORTGAGE balance outstanding: $[amount]
+- EDUCATION per child remaining: count [#] × $[per child] = $[total]
+DIME TOTAL: $[sum]
+
+ADDITIONAL:
+- Spouse earning capacity if I die: [substantial / partial / none]
+- Existing investments + EF: $[amount]  Years to FI: [years]
+
+Give me:
+1. DIME-CALCULATED COVERAGE — your math
+2. ADJUSTED COVERAGE — DIME minus investments minus spouse capacity
+3. RECOMMENDED TERM — typically 20-30 yr
+4. RECOMMENDED POLICY TYPE — term (almost always) vs whole life
+5. ONE WHOLE-LIFE SCENARIO where it might make sense (special-needs trust / very-HNW estate)
+6. APPROXIMATE PREMIUM RANGE for recommended coverage
+
+EXPLICITLY explain why whole life is usually wrong for college funding even though it gets pitched as such. Cite the after-tax math.
+
+Don't recommend specific insurance companies. Don't recommend an agent. Just the diagnostic.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Me 36, primary earner. Spouse 35, secondary. Children: Emma 8, Liam 4, Noah 1. Existing: $200K employer life. DIME: Debt $22K + Income 18yr×$95K=$1,710K + Mortgage $268K + Ed 3×$80K=$240K = $2,240K. Spouse capacity ~$45K/yr. Investments $310K. FI 17yr.</p>
+    <div class="label" style="margin-top:0.08in;">Example output (abbreviated)</div>
+    <p><strong>DIME TOTAL:</strong> $2,240,000.</p>
+    <p><strong>ADJUSTED COVERAGE:</strong> $2,240K − investments $310K − spouse capacity $810K (45K × 18yr) = $1,120K net need. Round to <strong>$1,250,000 range</strong> with inflation buffer. Employer $200K stays on top; total household $1,450K.</p>
+    <p><strong>RECOMMENDED TERM:</strong> 25 years. Covers Noah age 1 → age 26 (through college + career start) and your run to FI (year 17). 30-yr adds premium for diminishing benefit.</p>
+    <p><strong>POLICY TYPE:</strong> 25-year level TERM. At 36 healthy, $1.25M of 25yr term ≈ $50-75/month (~$700/yr). Same $1.25M whole life ≈ $900-$1,200/month (~$12K/yr) — 15-17× more.</p>
+    <p><strong>WHOLE LIFE SCENARIO:</strong> Noah (special-needs) — if you anticipate lifelong financial support after both parents gone, a small ($100-200K) whole-life policy per parent structured for special-needs trust funding is defensible. Talk to a fee-only planner specializing in SN planning before pulling the trigger.</p>
+    <p><strong>WHY WHOLE LIFE IS WRONG FOR COLLEGE:</strong> After-tax internal returns net 2-4% (after agent commission + fees) vs 529+index 5-8%. FAFSA: 529 counted at 5.6%, whole life cash value excluded — but the diff is $10K-$30K of borderline aid, not enough to justify 15× cost premium. Insurance benefit is real, but term provides same at 1/15 cost. Emma's $80K college target: $5K/yr at 6% in 529 = $95K by 18; same $5K/yr in whole life ≈ $45-55K cash value at year 10 + you'd need to BORROW against your own policy with interest. 529 wins clearly.</p>
+    <p><strong>PREMIUM RANGE:</strong> $48-$78/month for $1.25M 25yr term at age 36 non-smoker.</p>
+    <p><strong>NEXT:</strong> 3-4 independent broker quotes (Policygenius, Term4Sale). Underwriting 4-8 wks. Do within 90 days — premiums climb with each birthday.</p>
+  </div>
+  <div class="footer">5 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 6 — PROMPT 4: College Affordability Coach -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">4. College Affordability Coach — What can we afford?</h1>
+    <div class="tab-callout">Pairs with: 🎓 College Savings + 📑 Aid Letter Compare</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are coaching me through what we can realistically afford for my child's college. Honest math, not pep talk.
+
+MY CHILD'S COLLEGE TARGETS (from Aid Letter Comparison if available):
+[College | Type | Sticker | Aid (grants+scholarships, NOT loans) | Net price | Length 2yr/4yr]
+
+MY FAMILY'S FINANCIAL POSITION:
+- EFC / SAI: $[amount]
+- College savings earmarked: $[amount]
+- Annual saveable remaining: $[amount/yr] × [years left]
+- Parent loan willingness: [none / Parent PLUS up to $X / co-sign private up to $X]
+- Student work willingness: [yes/no + hrs/wk]
+- Other children with college needs: [count + ages]
+
+CHILD'S ACADEMIC PROFILE:
+- GPA: [#]  Test scores: [SAT/ACT]  Honors/AP/IB: [yes/no + count]
+- Likely merit aid eligibility: [high/medium/low]
+
+For EACH target college:
+1. 4-YEAR NET COST after current aid + savings
+2. ANNUAL FUNDING GAP
+3. FUNDING SOURCES to fill gap (savings draw / student earnings / federal loans / Parent PLUS / private / merit aid pending)
+4. AFFORDABILITY VERDICT — Comfortable / Stretch / Reach / Don't
+5. ONE OPTIMIZATION specific to that college
+
+Rank colleges by FAMILY-LEVEL value (not prestige). Recommend a likely-acceptance + financial-safety college if missing.
+
+Don't recommend "just take more loans." Don't recommend "they'll work it out." Be specific about long-term debt math.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Emma targets: SUNY Bing (in-state, $28K/$8K aid/$20K net), Bowdoin ($82K/$45K/$37K), Williams ($84K/$58K/$26K need-blind), Smith ($80K/$42K/$38K). EFC $8,420. Savings $45K. Saveable $0 remaining. Parent PLUS up to $20K. Student work 12hr/wk ($8K/yr). Other kids: Liam 4yr later, Noah 10yr later. Emma 3.92/1410/4 AP. Merit: medium-high LACs.</p>
+    <div class="label" style="margin-top:0.08in;">Example output (abbreviated)</div>
+    <p><strong>1. SUNY BINGHAMTON:</strong> 4yr net $80K − savings $45K − work $32K = $3K gap. ✅ COMFORTABLE. Apply Honors College + SUNY Empire Scholarship.</p>
+    <p><strong>2. BOWDOIN:</strong> 4yr net $148K − $45K − $32K = $71K gap. Fed loans cap $31K + PPLUS $20K = $51K available. STILL $20K SHORT. ⚠️ STRETCH bordering DON'T. Optimization: apply ED only if you can stomach the financial commitment; appeal once received — Bowdoin meets 100% need so appeal citing changed circumstances + Williams offer could close gap.</p>
+    <p><strong>3. WILLIAMS:</strong> 4yr net $104K − $77K (savings+work) = $27K gap. Closeable with Stafford + 1yr PPLUS. 🟡 STRETCH but DOABLE. Williams need-blind + meets-full-need is real — strong fit for first-gen env advocate.</p>
+    <p><strong>4. SMITH:</strong> 4yr net $152K − $77K = $75K gap. Beyond loan capacity. 🔴 DON'T at current offer. Wait for aid letter; revisit if grant aid beats expectation.</p>
+    <p><strong>RANKED BY FAMILY VALUE:</strong> (1) SUNY Binghamton — affordable + env program + Honors merit. (2) Williams — meets-full-need real; first-gen LAC inflection point. (3) Bowdoin — only viable with aid appeal success. (4) Smith — unaffordable today.</p>
+    <p><strong>MISSING:</strong> Add SUNY Geneseo or Plattsburgh as additional financial safety (~$20K/yr after Excelsior). Important because Liam's college starts 4 yrs after Emma's — loan capacity must be preserved.</p>
+    <p><strong>LONG-TERM DEBT MATH:</strong> $31K fed + $20K PPLUS = ~$520/mo for 10-25 yrs post-grad. When Liam starts in 4 yrs and we run this again, your loan capacity is half-used. Cross-child compounding is the hidden cost of one stretch decision.</p>
+  </div>
+  <div class="footer">6 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 7 — PROMPT 5: Childcare Optimizer -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">5. Childcare Optimizer — Daycare, nanny, share, au pair, family?</h1>
+    <div class="tab-callout">Pairs with: 🧒 Childcare Cost Planner</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are picking the most cost-effective childcare for my household. Honest about trade-offs beyond month-1.
+
+CHILDREN NEEDING CARE:
+[Child label | age | hrs/wk | special-needs flag]
+
+HOUSEHOLD:
+- Adult #1 work hrs + flexibility (remote/hybrid/in-office): [details + income]
+- Adult #2 work hrs + flex (or stay-at-home / part-time): [details + income]
+- Annual household income (gross): $[amount]  Tax: fed[%] + state[%]
+- Region: [city/suburb/rural]
+- Extended family nearby + willingness: [details]
+- Employer benefits: [Dependent Care FSA? Backup care?]
+
+OPTIONS TO EVALUATE:
+1. Center daycare (full-time)
+2. In-home daycare (smaller, cheaper)
+3. Nanny (solo or shared)
+4. Au pair
+5. Family member
+6. Part-time mix (3 days center + 2 days family)
+7. One parent reduces or stops working
+
+For each option:
+1. TRUE MONTHLY COST — gross + tax-adjusted (FSA pre-tax)
+2. ANNUAL COST
+3. NON-MONETARY TRADE-OFFS — flexibility / quality consistency / sick-day coverage / relationship dynamics
+4. ONE-OFF / SETUP COSTS — registration, agency fees, deposits
+5. LONG-TERM — scales with child #2? exit cost?
+
+Rank by TRUE FAMILY-LEVEL VALUE. Recommend an option WITH backup plan.
+
+Don't recommend "one parent stops working" without modeling lifetime income loss + retirement contribution loss. Don't recommend nanny dependent on grandparents who haven't committed. Be honest about each option's failure mode.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Liam 4 + Noah 1, both 40hr/wk. Adult #1: 40hr in-office no flex, $98K. Adult #2: 32hr hybrid, $58K. Total $156K, marginal 31%. Suburban NY. Grandparents 2hr away, willing but uncommitted. FSA $5K.</p>
+    <div class="label" style="margin-top:0.08in;">Example output (abbreviated)</div>
+    <p><strong>OPTION 1 CENTER DAYCARE:</strong> $2,800/mo ($1,500 Liam + $1,300 Noah suburban NY). Annual $33,600. FSA saves $1,550 → net $32,050. Reliable hours, peer socialization. Setup ~$500-1K + deposit. Scales (toddler→preschool saves $200/mo). FAILURE: center closes for illness = no backup.</p>
+    <p><strong>OPTION 2 NANNY (solo):</strong> $24/hr × 40 × 52 + 12% employer tax = $55,900/yr. $22K more than daycare. In-home, sick-day built-in. Setup $500-1.5K agency + payroll. Scales DOWN once Liam in school. FAILURE: quits = scramble.</p>
+    <p><strong>OPTION 3 NANNY SHARE:</strong> $15/hr × 40 + tax = $33,800/yr (your half). Comparable to daycare! Care in one home, 1-to-2 ratio. FAILURE: other family pulls out.</p>
+    <p><strong>OPTION 4 AU PAIR:</strong> $22-24K/yr + housing. 45hr/wk max. Cultural exchange. Agency $8.5K first-year. 12-mo visa = annual reset. FAILURE: live-in dynamic doesn't work = lose live-in space.</p>
+    <p><strong>OPTION 5 FAMILY (2hr away):</strong> $15K/yr travel/lodging if weekly. Not viable as daily 40hr/wk solution. FAILURE: grandparents over-commit + burn out.</p>
+    <p><strong>OPTION 6 PART-TIME MIX:</strong> $20K childcare + Adult #2 income loss $29K = $40K net true cost. WORSE than full-time daycare. Don't.</p>
+    <p><strong>OPTION 7 ADULT #2 STOPS:</strong> Saves $0 childcare. Lifetime cost (5 yrs needed + 18yr career impact): ~$490K direct + ~$200K compounding = $690K. Don't model this as savings.</p>
+    <p><strong>RANKED:</strong> (1) Center daycare $32K. (2) Nanny share $32K IF partner family. (3) Au pair $23K + flexibility. (4) Solo nanny $54K premium tier. AVOID: stop working, part-time mix, family as primary.</p>
+    <p><strong>RECOMMEND:</strong> Center daycare yr 1. Year 2 switch to nanny share if you've identified partner family. Backup: Bright Horizons backup care + 3 emergency contacts + 10 PTO sick days per parent.</p>
+  </div>
+  <div class="footer">7 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 8 — PROMPT 6: Family Goals Conflict Resolver -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">6. Family Goals Conflict Resolver</h1>
+    <div class="tab-callout">Pairs with: 🎯 Savings Goals Timeline</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are looking at all my family's financial goals on one timeline and naming where they collide. Then telling me what to do.
+
+MY GOALS (from Savings Goals Timeline):
+[Goal | Target $ | Target year | Current $ | Required monthly]
+
+GOAL CATEGORIES TYPICAL FOR FAMILIES:
+- Emergency Fund · Home Purchase / Down Payment · College — per child
+- Wedding · Retirement (per parent / FIRE) · Major Vehicle · Home Renovation
+- Healthcare / Medical Reserve · Travel / Experience · Special-Needs Trust
+- Aging Parent Reserve
+
+MY ANNUAL SAVEABLE INCOME: $[amount]
+MY CURRENT MONTHLY CONTRIBUTIONS (all goals): $[amount]
+
+CONSTRAINTS:
+- Goals I can't slip: [list]
+- Goals I'd delay if needed: [list]
+- Non-negotiable relationship goals: [list]
+
+For my timeline:
+1. NEXT 24 MONTHS — all goals hitting target window. Flag overlaps.
+2. NEXT 5 YEARS — same exercise
+3. NEXT 10 YEARS — same
+4. NEXT 20 YEARS — same
+
+For each CONFLICT ZONE:
+- WHAT'S COLLIDING — name the goals
+- THE CAUSE — same year? capacity exhausted? life event?
+- THE COST OF NOT RESOLVING — what specifically breaks
+- ONE RESOLUTION (specific): rephase / reduce target / new funding / accept partial
+
+End with THREE STRUCTURAL OBSERVATIONS — patterns across the full portfolio. Specific, not motivational.
+
+Don't recommend "just save more." Don't recommend "talk to a planner" unless 4+ goal conflict where DIY can't resolve.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input (abbreviated)</div>
+    <p>EF $48K/2026/$32K/$500/mo NON-NEG · Down Payment $50K/2029/$22K/$700/mo · Emma $80K/2034/$14K/$420/mo NON-NEG · Liam $80K/2038/$3K/$300/mo NON-NEG · Noah ABLE+529 $60K/2042/$0/$250/mo NON-NEG SN · Retire $1.45M/17yr/$310K/$1,850/mo NON-NEG · Vacation $5K/recurring/$0/$400/mo · Renovation $30K/2028/$0/$1,000/mo · Health reserve $25K/forever/$0/$200/mo · Required $5,620/mo · Saveable $4,200/mo · SHORT $1,420/mo.</p>
+    <div class="label" style="margin-top:0.08in;">Example output (abbreviated)</div>
+    <p><strong>CONFLICT 1 (2026-28 SQUEEZE):</strong> EF + Down Payment + Renovation + 3 college funds + Retirement all competing. Cause: renovation $1K/mo on top of existing exceeds capacity by $1,420/mo. Cost: retirement gets slashed (your historical pattern), OR HELOC debt, OR Liam fund neglected. RESOLUTION: Delay renovation to 2031-32 (between down payment completion + Emma college start). Reduces 2026-28 load by $1K/mo. Renovation slips 4yr; kitchen still works.</p>
+    <p><strong>CONFLICT 2 (EMMA-LIAM OVERLAP 2034-38):</strong> Emma's $20K/yr 529 draw overlaps Liam's $300/mo ramp. Cost: Liam fund hits only $40K vs $80K. RESOLUTION: front-load Liam to $450/mo from age 8 (2030-34) before Emma starts. Cost $150/mo extra × 4yr = $7,200 — comes from delayed renovation.</p>
+    <p><strong>CONFLICT 3 (NOAH LIFELONG):</strong> ABLE+529 is 17yr accumulation but needs lifelong. Cost: $60K won't last middle age. RESOLUTION: Add Special-Needs Trust funded by small whole-life on each parent (~$100K each, $120/mo). This is the legitimate whole-life scenario from page 5.</p>
+    <p><strong>STRUCTURAL OBSERVATIONS:</strong></p>
+    <p><strong>(1) Retirement is the slip-prone goal.</strong> Every conflict assumes retirement stays at $1,850/mo. Historically it's first to be cut. Make it automatic payroll-deducted — out of mind protects it from reallocation.</p>
+    <p><strong>(2) College goals are over-funded vs reality.</strong> Emma $45K + Pell (first-gen middle-income) + work-study + fed loans $31K = covered for SUNY without funding more. Emma 529 can drop to $280/mo after 2028 once SUNY confirmed. Frees $140/mo.</p>
+    <p><strong>(3) Renovation is your relief valve.</strong> Every other goal has hard timing; renovation alone has flexibility. Use it as the buffer in every multi-goal conflict — kitchen will be there in 2031 or 2033.</p>
+  </div>
+  <div class="footer">8 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 9 — PROMPT 7: Financial Aid Appeal Coach -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">7. Financial Aid Appeal Coach — Draft the letter</h1>
+    <div class="tab-callout">Pairs with: 📑 Aid Letter Comparison</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are drafting my financial aid appeal letter. The aid offer is below my demonstrated need. The college's appeal window is closing.
+
+THE COLLEGE: [name]
+APPEAL DEADLINE: [date]
+STUDENT NAME: [first name only]
+STUDENT'S ACCEPTED OFFER:
+- Total cost of attendance: $[amount]
+- Grants offered: $[amount]
+- Scholarships offered: $[amount]
+- Loans offered: $[amount]
+- Work-study offered: $[amount]
+- Family expected contribution per their package: $[amount]
+- EFC / SAI per FAFSA: $[amount]
+
+THE GAP: [their expected family contribution] - [actual ability to pay] = $[gap] additional grant aid needed
+
+REASON FOR APPEAL (pick relevant):
+- CHANGE IN CIRCUMSTANCE: job loss / pay cut / medical / death / disability / divorce since FAFSA
+- ERROR ON FAFSA: asset valuation / one-time income / business loss not reflected
+- COMPETING OFFER from peer school (must be peer tier)
+- ADDITIONAL CONTEXT FAFSA doesn't capture: caretaking another dependent, aging parent, special-needs sibling, COL differential
+
+SPECIFICS TO DOCUMENT:
+[List of attachable docs — pay stubs, medical bills, peer offer letter, etc.]
+
+For my situation:
+1. THE LETTER — formal, 350-500 words: opening / specific request / documented justification / commitment + close. Addressed to financial aid office (NOT dean of admissions).
+2. ATTACHMENT LIST
+3. FOLLOW-UP CADENCE — when to call if no response, what to say
+4. ONE THING NOT TO DO (e.g., don't compare to Ivy League offers, don't threaten enrollment)
+
+Write as if student's parent is sender. Make it feel like a real human wrote it.
+
+Don't promise the aid office anything you can't deliver. Don't fabricate hardship. Don't copy a template — specific to my situation.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example output (letter, abbreviated)</div>
+    <p>Dear Bowdoin Financial Aid Officer,</p>
+    <p>I am writing to request a review of Emma [last name]'s financial aid package for the 2026-27 academic year. Emma is thrilled by her admission to Bowdoin and considers the College her first choice. However, we face a gap between Bowdoin's expected family contribution and what we can responsibly pay, and we are requesting reconsideration based on (1) a material change in circumstances since FAFSA filing, and (2) financial aid offers from peer institutions.</p>
+    <p><strong>CHANGE IN CIRCUMSTANCE:</strong> In February 2026, my spouse's part-time hours were reduced from 32 to 20 per week — a $15,000 annual income reduction not reflected in our 2025 FAFSA. Documentation including a letter from the employer and recent pay stubs is attached. Our adjusted 2026 income will be ~$141,000 rather than the $156,000 reported on FAFSA.</p>
+    <p><strong>PEER-INSTITUTION OFFER:</strong> Emma also received an offer from Williams College including $58,000 in grant aid, resulting in net family cost ~$26,000/yr. Bowdoin's current package leaves a family contribution of $27,000 — $13,000 higher than Williams. Emma's strong preference is Bowdoin; however, the gap is material at our income level.</p>
+    <p><strong>SPECIFIC REQUEST:</strong> We respectfully request Bowdoin increase Emma's grant aid by approximately $15,000/yr, bringing family contribution closer to $12,000 and aligning with our updated circumstances. We are prepared to sustain Parent PLUS for the remaining gap; Emma will contribute through work-study and federal student loans already in her package.</p>
+    <p><strong>COMMITMENT:</strong> If Bowdoin is able to revise this package, Emma will accept her admission immediately upon notification. Bowdoin is her first choice; the deciding factor at this point is the financial reality we are navigating.</p>
+    <p><strong>ATTACHMENTS:</strong> (1) Pay stubs last 3 months. (2) Letter from spouse's employer. (3) Williams aid letter. (4) Optional W-2s for baseline.</p>
+    <p><strong>FOLLOW-UP:</strong> Mail certified + email PDF on deadline day. Call 4 business days later. If no response by 5/1, ask to speak with Director of Financial Aid — polite, non-threatening.</p>
+    <p><strong>NOT TO DO:</strong> Do NOT open with enrollment threat. Tone is "we want to enroll, please help close gap" — never "give us more money or we walk." Aid officers respond to substance + documentation; ultimatums hurt appeals. Also DO NOT copy this letter verbatim — aid offices read thousands; templates are recognizable.</p>
+  </div>
+  <div class="footer">9 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 10 — PROMPT 8: State 529 Optimizer -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">8. State 529 Optimizer — In-state or out-of-state?</h1>
+    <div class="tab-callout">Pairs with: 🗺️ State 529 Tax Benefits</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are picking the best 529 plan for me given my state of residency. Comparing my in-state plan against top out-of-state plans on tax benefits + fund quality.
+
+MY CONTEXT:
+- Residency state: [state]
+- Filing status: [single / MFJ / HoH]
+- Federal tax bracket: [%]  State tax rate: [%]
+- Annual planned 529 contribution: $[amount]
+- Years until child starts college: [#]
+- Risk tolerance: [conservative / moderate / aggressive]
+- Other state-level: [other credits maxed? state-resident college discount?]
+
+For my state, give me:
+1. IN-STATE 529 PLAN — name + deduction + investment options + expense ratios
+2. TAX SAVINGS — annual deduction value at my contribution level + compound over years-to-college
+3. OUT-OF-STATE COMPARISON — top 3 alternatives (Utah / Nevada / NY Direct / CA ScholarShare) + expense ratios + investment options + tax-deduction implications
+4. THE MATH — total cost over investment window: in-state (deduction + funds + expense ratios) vs best out-of-state (no deduction but possibly better funds)
+5. RECOMMENDATION — in-state or out-of-state with $ rationale
+6. ONE TAX-PLANNING OPTIMIZATION specific to my state (e.g., contribute by April 15 next year for prior tax year)
+
+States with NO income tax: skip step 2 + 4 in-state deduction — your decision is pure fund quality + expense ratio.
+
+Don't recommend any advisor or insurance-product alternative. Just plans.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>NY resident, MFJ, 24% fed + 6.85% state. Annual contribution $5,000. 10 yrs to college (Emma). Moderate risk. No other relevant credits.</p>
+    <div class="label" style="margin-top:0.08in;">Example output (abbreviated)</div>
+    <p><strong>IN-STATE: NY 529 Direct Plan (Vanguard).</strong> Deduction $5K single / $10K MFJ. Age-based + 14 individual portfolios. Expense ratios 0.12-0.13% — one of lowest 5 in country. Funds: Vanguard Total Stock, Total Bond, International, REIT, etc.</p>
+    <p><strong>TAX SAVINGS:</strong> $5,000 × 6.85% = $342/yr direct state savings. Over 10 yrs = $3,420 lifetime. Reinvested at 6% ≈ $4,500 additional growth.</p>
+    <p><strong>OUT-OF-STATE OPTIONS:</strong></p>
+    <p>(1) Utah my529 — gold standard, expense 0.10-0.15%, Vanguard-driven menu. NO NY deduction. Lost: $3,420 over 10 yrs.</p>
+    <p>(2) California ScholarShare — expense 0.06-0.10% (slightly lower), TIAA-managed. NO NY deduction. 10-yr savings from lower expense ~$200 vs NY.</p>
+    <p>(3) Nevada Vanguard 529 — expense 0.12-0.42% (varies). NO NY deduction. No advantage over NY.</p>
+    <p><strong>THE MATH FOR YOU:</strong></p>
+    <p>NY plan: $50K contributions + $3,420 tax savings recovered − $300 expense drag = net <strong>SAVE $3,120 vs alternative</strong>.</p>
+    <p>Utah plan: $50K contributions + $0 deduction − $275 expense drag = net <strong>$3,395 WORSE than NY</strong>.</p>
+    <p><strong>RECOMMENDATION: STAY IN NY DIRECT PLAN.</strong> $3,420 lifetime state tax savings dominates any expense-ratio savings from going out-of-state. NY's expense ratios are already among the lowest 5 in the country — there's no fund-quality reason to leave.</p>
+    <p><strong>THE ONLY OUT-OF-STATE SCENARIO:</strong> if your state's plan had >0.5% expense ratios AND your state deduction was &lt;$100/yr. NY fails this test in your favor.</p>
+    <p><strong>TAX OPTIMIZATION:</strong> NY allows contributions through April 15 of following year to deduct against prior tax year (like IRA timing). Useful for year-end planning. Also SUPERFUNDING: contribute up to $95K in one year ($190K if both spouses) and elect 5-yr gift-tax spread — wealth-transfer optimization for grandparents or front-loading growth.</p>
+  </div>
+  <div class="footer">10 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 11 — TIPS -->
+<div class="page">
+  <h1 class="content-header">Which AI should I use?</h1>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>All eight prompts work in free tiers. Differences come down to output style + how each handles long family-specific data.</p>
+
+    <div class="sub-section">ChatGPT Free</div>
+    <p>Best for: Aid Appeal Coach, Life Insurance Advisor, Family Goals Conflict Resolver, Scholarship Matching Engine. Conversational tone; great at writing the actual letter, weighing trade-offs in plain English, and iteratively softening tone ("make this less aggressive" / "more humble"). Fluent at the "rewrite in our family's voice" pass.</p>
+    <p>Limit: ~3,000-4,000 word context per message. If you paste 4 children + 8 goals + full aid letter, break it into batches.</p>
+
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p>Best for: Account Type Picker, State 529 Optimizer, College Affordability Coach, Childcare Optimizer. Better at structured per-child tables, multi-scenario math, and comparison-grid output. Handles longer family-context inputs in one paste.</p>
+    <p>Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.</p>
+
+    <div class="sub-section">Paid tiers (ChatGPT Plus, Claude Pro)</div>
+    <p>Worth it if you're managing 3+ children with separate timelines + running multi-scenario college-affordability math each cycle. Skip if using these prompts once or twice a year.</p>
+
+    <div class="sub-section">Universal tips</div>
+    <ol>
+      <li><strong>Paste as text, not screenshots.</strong> Free-tier AI doesn't read spreadsheet screenshots well.</li>
+      <li><strong>Never paste kids' SSNs, full legal names, school addresses, FAFSA PINs, or brokerage logins.</strong> Use "Child A," "Target College #1," "Spouse." The AI doesn't need identifiers to model decisions.</li>
+      <li><strong>Aid appeal letters — never copy verbatim.</strong> Aid officers read thousands of appeals; template phrasing is recognizable. Rewrite specifics in your family's voice.</li>
+      <li><strong>Account type decisions</strong> — the AI's recommendation is a strong starting point, but verify with the actual 529 plan or with a fee-only financial planner if your family has special-needs / blended-family / international tax complexity.</li>
+      <li><strong>Save good output.</strong> Found a sharp scholarship-matching analysis or useful family goals reconciliation? Paste it into the matching tab's Notes column. Build your own playbook over the years.</li>
+    </ol>
+
+    <p style="margin-top:0.16in;font-style:italic;opacity:0.75;">Your family's financial data never leaves your AI conversation. The AI never sees your spreadsheet — only what you paste, only during that chat. The scholarship-marketing list will never see this.</p>
+  </div>
+  <div class="footer">11 / 12 · AI Family Finance Advisor</div>
+</div>
+
+<!-- PAGE 12 — BACK COVER -->
+<div class="page back-cover">
+  <div class="back-body">
+    <div class="back-pull-quote">"Eighteen years is a long time<br>to be paying $5 a month for an app<br>to do what a spreadsheet does once."</div>
+    <div class="back-gold-underline"></div>
+    <div class="back-mid">
+      Eight prompts. A few hours a year using them.<br>
+      Saves the alternative of paying Greenlight $1,080 over 18 years<br>
+      to gamify your kids' allowance,<br>
+      ScholarshipOwl $720 over 18 years to spam them with offers,<br>
+      and BabyMint $1,602 to track milestones they'll forget by age 8.<br><br>
+      Your family. Your sheet. Your call.
+    </div>
+    <div class="back-signoff">— Lime Premium Studios —</div>
+  </div>
+  <div class="back-footer-panel">
+    <div class="row-1">
+      <span>Family &amp; Education Planner (AI Edition)</span>
+      <span class="meta">v1.0 · Updated 2026-05</span>
+    </div>
+    <p>support@lime-premium-studios.com · Reply within 24 hours.</p>
+    <p>This PDF ships with your purchase of the Family &amp; Education Planner AI Edition. AI prompts work in ChatGPT and Claude (free or paid tiers — your choice).</p>
+    <p>12-month free updates included with AI Edition.</p>
+    <div class="page-num">12 / 12</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Investment Portfolio Tracker — Thumbnail 05 Anti-Sharesight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 130px; background: var(--primary-charcoal); color: var(--surface-white); display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .price-pill { background: var(--secondary-warm-gold); color: var(--primary-charcoal); font-size: 30px; font-weight: 700; padding: 14px 36px; border-radius: 999px; }
+  .title-block { position: absolute; top: 170px; left: 90px; right: 90px; text-align: center; }
+  .title-eyebrow { font-size: 24px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 14px; }
+  .title-main { font-size: 130px; font-weight: 800; line-height: 0.96; letter-spacing: -0.025em; }
+  .title-main em { font-style: normal; color: var(--secondary-warm-gold); }
+  .compare-grid { position: absolute; top: 530px; left: 90px; right: 90px; bottom: 380px; display: grid; grid-template-columns: 1fr 80px 1fr; align-items: center; gap: 30px; }
+  .vs-pill { width: 80px; height: 80px; background: var(--secondary-warm-gold); color: var(--primary-charcoal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+  .panel { background: var(--surface-white); border-radius: 18px; box-shadow: 0 26px 50px rgba(31,42,51,0.12); padding: 36px 40px; }
+  .panel.them { border-top: 8px solid var(--status-alert); }
+  .panel.us { border-top: 8px solid var(--secondary-warm-gold); background: var(--primary-charcoal); color: var(--surface-white); }
+  .panel-title { font-size: 30px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 20px; }
+  .panel.them .panel-title { color: var(--status-alert); }
+  .panel.us .panel-title { color: var(--secondary-warm-gold); }
+  .saas-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--neutral-grid); font-size: 22px; }
+  .saas-row:last-of-type { border-bottom: none; }
+  .saas-name { font-weight: 700; }
+  .saas-price { font-weight: 800; color: var(--status-alert); font-feature-settings: "tnum"; }
+  .saas-meta { font-size: 14px; opacity: 0.55; }
+  .total-row { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding: 20px 0; border-top: 3px solid var(--primary-charcoal); font-size: 26px; font-weight: 800; }
+  .total-amount { color: var(--status-alert); font-size: 38px; }
+  .us-feature-row { display: flex; gap: 18px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.12); font-size: 22px; }
+  .us-feature-row:last-of-type { border-bottom: none; }
+  .us-feature-check { color: var(--secondary-warm-gold); font-weight: 800; font-size: 28px; line-height: 1; }
+  .us-feature-text { flex: 1; line-height: 1.3; }
+  .us-feature-text strong { color: var(--secondary-warm-gold); }
+  .us-price-block { margin-top: 24px; padding: 24px 0 0 0; border-top: 3px solid var(--secondary-warm-gold); text-align: center; }
+  .us-price-amount { font-size: 84px; font-weight: 800; letter-spacing: -0.03em; color: var(--secondary-warm-gold); line-height: 1; font-feature-settings: "tnum"; }
+  .us-price-meta { font-size: 18px; opacity: 0.7; margin-top: 6px; }
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 320px; background: var(--secondary-warm-gold); color: var(--primary-charcoal); display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 0 90px; gap: 14px; }
+  .savings-headline { font-size: 88px; font-weight: 800; letter-spacing: -0.025em; line-height: 1; text-align: center; font-feature-settings: "tnum"; }
+  .savings-amount { color: var(--primary-charcoal); text-decoration: underline; text-decoration-color: var(--surface-white); text-decoration-thickness: 6px; text-underline-offset: 8px; }
+  .savings-sub { font-size: 26px; font-weight: 600; opacity: 0.85; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wordmark">Lime Premium Studios</div>
+  <div class="price-pill">$17 — $34 · One-time</div>
+</div>
+
+<div class="title-block">
+  <div class="title-eyebrow">No Subscription. No Plaid. No Broker Linking.</div>
+  <div class="title-main">$2,980 <em>over 5 years</em><br>vs $34 <em>once</em>.</div>
+</div>
+
+<div class="compare-grid">
+  <div class="panel them">
+    <div class="panel-title">🔒 SaaS aggregators</div>
+    <div class="saas-row">
+      <div>
+        <div class="saas-name">Sharesight</div>
+        <div class="saas-meta">Portfolio tracker · paid annually</div>
+      </div>
+      <div class="saas-price">$96/yr</div>
+    </div>
+    <div class="saas-row">
+      <div>
+        <div class="saas-name">Stock Rover</div>
+        <div class="saas-meta">Research + analytics · Premium tier</div>
+      </div>
+      <div class="saas-price">$300/yr</div>
+    </div>
+    <div class="saas-row">
+      <div>
+        <div class="saas-name">Kubera</div>
+        <div class="saas-meta">Net worth dashboard · annual</div>
+      </div>
+      <div class="saas-price">$200/yr</div>
+    </div>
+    <div class="total-row">
+      <div>5-year total</div>
+      <div class="total-amount">$2,980</div>
+    </div>
+  </div>
+
+  <div class="vs-pill">VS</div>
+
+  <div class="panel us">
+    <div class="panel-title">✓ This spreadsheet</div>
+    <div class="us-feature-row">
+      <div class="us-feature-check">✓</div>
+      <div class="us-feature-text">10 asset classes · 60 positions · <strong>Bloomberg-terminal discipline</strong></div>
+    </div>
+    <div class="us-feature-row">
+      <div class="us-feature-check">✓</div>
+      <div class="us-feature-text">GOOGLEFINANCE live prices · <strong>No broker linking, ever</strong></div>
+    </div>
+    <div class="us-feature-row">
+      <div class="us-feature-check">✓</div>
+      <div class="us-feature-text">Real Sharpe / Beta / Max DD · <strong>Wash-sale-safe TLH</strong></div>
+    </div>
+    <div class="us-feature-row">
+      <div class="us-feature-check">✓</div>
+      <div class="us-feature-text">8 AI prompts (ChatGPT + Claude free tier) · <strong>12-mo updates</strong></div>
+    </div>
+    <div class="us-price-block">
+      <div class="us-price-amount">$34</div>
+      <div class="us-price-meta">AI Edition · Once · No subscription</div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="savings-headline">Save <span class="savings-amount">$2,946</span> over 5 years.</div>
+  <div class="savings-sub">Your portfolio stays on YOUR Google Drive. Your broker credentials stay at YOUR broker.</div>
+</div>
+
+</body>
+</html>

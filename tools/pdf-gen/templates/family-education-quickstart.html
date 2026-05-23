@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Family &amp; Education Planner — Quick Start Guide</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Quick start guide for the Lime Premium Studios Family & Education Planner — Child Profiles setup, Dashboard walkthrough, and first-week plan.">
+<meta name="keywords" content="family planner, college savings, 529, EFC calculator, scholarship, life insurance, FAFSA, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Family & Education Planner Quick Start Guide v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-family: 'Inter', -apple-system, sans-serif; background: var(--background-off-white); color: var(--primary-charcoal); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { width: 8.5in; background: var(--background-off-white); }
+  .page { width: 8.5in; height: 11in; padding: 0.5in 0.55in; position: relative; page-break-after: always; background: var(--background-off-white); }
+  .page:last-child { page-break-after: auto; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.18in; }
+  .h-left { flex: 1; }
+  .eyebrow { font-size: 8pt; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.04in; }
+  .h-title { font-size: 24pt; font-weight: 700; letter-spacing: -0.02em; color: var(--primary-charcoal); line-height: 1.05; margin-bottom: 0.06in; }
+  .h-sub { font-size: 10pt; color: var(--primary-charcoal); opacity: 0.7; font-style: italic; }
+  .h-badge { background: var(--primary-charcoal); color: var(--surface-white); padding: 8pt 14pt; border-radius: 4pt; font-size: 8pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; line-height: 1.4; }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+  .gold-divider { height: 2px; background: var(--secondary-warm-gold); width: 1.6in; margin-bottom: 0.16in; }
+
+  .section-label { font-size: 9pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--secondary-warm-gold); margin-bottom: 0.07in; }
+
+  .copy-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.12in; margin-bottom: 0.2in; }
+  .step { background: var(--surface-white); border-radius: 6pt; padding: 0.14in 0.16in; border: 1px solid var(--neutral-grid); position: relative; }
+  .step-num { position: absolute; top: -10pt; left: 14pt; background: var(--secondary-warm-gold); color: var(--primary-charcoal); width: 22pt; height: 22pt; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11pt; font-weight: 700; }
+  .step-time { font-size: 7pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-warm-gold); margin-top: 0.08in; margin-bottom: 0.04in; }
+  .step-title { font-size: 10pt; font-weight: 700; color: var(--primary-charcoal); margin-bottom: 0.04in; line-height: 1.2; }
+  .step-body { font-size: 8pt; line-height: 1.4; color: var(--primary-charcoal); opacity: 0.78; }
+
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.14in; margin-bottom: 0.2in; }
+  .tier { background: var(--surface-white); border-radius: 6pt; padding: 0.16in 0.16in; border: 1px solid var(--neutral-grid); display: flex; flex-direction: column; }
+  .tier.ai { background: var(--primary-charcoal); color: var(--surface-white); border-color: var(--primary-charcoal); }
+  .tier-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.06in; }
+  .tier-name { font-size: 13pt; font-weight: 700; letter-spacing: -0.01em; }
+  .tier-price { font-size: 14pt; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; }
+  .tier-tabs { font-size: 7.5pt; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.08in; }
+  .tier ul { list-style: none; padding: 0; }
+  .tier li { font-size: 8.5pt; line-height: 1.4; padding-left: 14pt; position: relative; margin-bottom: 0.04in; }
+  .tier li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--secondary-warm-gold); font-weight: 700; }
+
+  .tips { background: var(--ivory); border-left: 3px solid var(--secondary-warm-gold); padding: 0.14in 0.18in; margin-bottom: 0.16in; }
+  .tips-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.18in; }
+  .tip { font-size: 8.5pt; line-height: 1.4; }
+  .tip-num { font-size: 14pt; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.05in; }
+  .tip-title { font-size: 9pt; font-weight: 700; color: var(--primary-charcoal); margin-bottom: 0.03in; }
+  .tip-body { color: var(--primary-charcoal); opacity: 0.78; }
+
+  .footer-band { position: absolute; bottom: 0; left: 0; right: 0; background: var(--primary-charcoal); color: var(--surface-white); padding: 0.16in 0.55in; display: flex; justify-content: space-between; align-items: center; font-size: 8.5pt; }
+  .fb-left .wordmark { font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2pt; }
+  .fb-left .meta { opacity: 0.65; font-style: italic; }
+  .fb-right { text-align: right; opacity: 0.85; }
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="header">
+  <div class="h-left">
+    <div class="eyebrow">Family &amp; Education Planner · Quick Start</div>
+    <h1 class="h-title">Pregnancy through college launch. One sheet.</h1>
+    <div class="h-sub">From "I don't know which 529 to open" to a working family dashboard — in 12 minutes.</div>
+  </div>
+  <div class="h-badge">
+    <div class="label">Edition</div>
+    <div class="ver">AI · v1.0</div>
+  </div>
+</div>
+<div class="gold-divider"></div>
+
+<div class="section-label">The 12-Minute Setup</div>
+<div class="copy-flow">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-time">~30 sec</div>
+    <div class="step-title">Open the file</div>
+    <div class="step-body">Click the link in your order email. The .xlsx opens cleanly in Excel 2016+ or imports to Google Sheets via File → Import → Replace.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-time">~4 min</div>
+    <div class="step-title">Fill Child Profiles</div>
+    <div class="step-body">Tab 2 — parent context (income / state / brackets) + up to 4 children: name, DOB, college tier, current savings, monthly contribution. Age + years-to-college auto-derive.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-time">~5 min</div>
+    <div class="step-title">Fill Family Budget</div>
+    <div class="step-body">Tab 17 — combined income + 20 expense categories. The monthly surplus row drives the Family Health Score sub-component and confirms what's actually saveable.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-time">~2 min</div>
+    <div class="step-title">Check the Dashboard</div>
+    <div class="step-body">Tab 1 — see Family Health Score 0–100 + per-child savings bars + insurance coverage donut + 10-yr trajectory + any conflict-alert ribbon.</div>
+  </div>
+</div>
+
+<div class="section-label">First Actions by Tier</div>
+<div class="tiers">
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Essentials</div>
+      <div class="tier-price">$14</div>
+    </div>
+    <div class="tier-tabs">9 Tabs · Privacy-First Core</div>
+    <ul>
+      <li>Fill Child Profiles + Family Budget</li>
+      <li>Set Life Insurance DIME inputs (Debt / Income / Mortgage / Education)</li>
+      <li>Run Account Type Comparison — confirm 529 is the right vehicle per child</li>
+    </ul>
+  </div>
+
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Pro</div>
+      <div class="tier-price">$22</div>
+    </div>
+    <div class="tier-tabs">18 Tabs · 50-State + EFC</div>
+    <ul>
+      <li>Run EFC / SAI Calculator — model your expected family contribution</li>
+      <li>Open State 529 Tax Benefits — confirm in-state plan worth claiming</li>
+      <li>Walk Savings Goals Timeline — flag the 24-month conflict window</li>
+    </ul>
+  </div>
+
+  <div class="tier ai">
+    <div class="tier-head">
+      <div class="tier-name">AI Edition</div>
+      <div class="tier-price">$32</div>
+    </div>
+    <div class="tier-tabs">19 Tabs · AI Family Finance Advisor</div>
+    <ul>
+      <li>Open AI Family Finance Advisor PDF → Account Type Picker prompt</li>
+      <li>Paste prompt + your children's profile into ChatGPT or Claude (free tier OK)</li>
+      <li>Run College Affordability Coach when first aid letters arrive senior year</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section-label">Three Things Parents Wish They'd Known on Day One</div>
+<div class="tips">
+  <div class="tips-row">
+    <div class="tip">
+      <div class="tip-num">01</div>
+      <div class="tip-title">529 wins for ~85% of families.</div>
+      <div class="tip-body">Coverdell phases out at moderate income. UTMA loses parental control at 18-21 + counts heavier on FAFSA. ABLE is for special-needs only. Default is 529; the Account Type Comparison tab tells you when the default doesn't apply (Noah's case — autism → ABLE).</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">02</div>
+      <div class="tip-title">In-state usually beats out-of-state.</div>
+      <div class="tip-body">NY's $342/yr deduction compounds to $4,500+ over 18 years. Most state plans win for residents. Only go out-of-state (Utah my529) if your home plan has >0.5% expense ratios AND no deduction. State 529 Tax Benefits tab does the math for all 50 states + DC.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Term life beats whole life 15× cheaper.</div>
+      <div class="tip-body">$1.25M of 25-yr term at age 36 ≈ $60/mo. Same coverage in whole life ≈ $1,000/mo. The agent-pitched "whole life for college" loses to 529 + term on the after-tax math. The ONE legit whole-life scenario is special-needs-trust funding. AI Life Insurance Advisor (PDF page 5) explains why.</div>
+    </div>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in;">
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">Got Stuck?</div>
+    <div style="font-size: 9pt; line-height: 1.4;">Reply to your order email. We respond within 24 hours, every time. No ticket queue, no chatbot.</div>
+  </div>
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">Updates</div>
+    <div style="font-size: 9pt; line-height: 1.4;">Bug fixes free forever. AI Edition buyers: 12 months of free template refreshes — replies will include the new link.</div>
+  </div>
+</div>
+
+<div class="footer-band">
+  <div class="fb-left" style="display: flex; align-items: center; gap: 10pt;">
+    <svg width="28" height="28" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+      <defs>
+        <linearGradient id="limeGradFooter" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradFooter)"/>
+      <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+      </g>
+    </svg>
+    <div>
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">Family &amp; Education Planner · AI Edition · v1.0 · Page 1 / 1</div>
+    </div>
+  </div>
+  <div class="fb-right">Plan once. Save 18 years of subscriptions.</div>
+</div>
+</div>
+
+</body>
+</html>
