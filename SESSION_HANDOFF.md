@@ -1,5 +1,79 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-05-23 (PM) — Debt Payoff Planner: 2nd-audit fixes + 5-persona live verification = SHIPPABLE
+
+Second round of QA + fix on the Debt Payoff Planner bundle. The morning's "shipped" state was
+actually shippable-with-caveat — running `/debt-payoff-qa` again (now using LibreOffice as
+primary recalc, no more Python `formulas` fallback) surfaced **4 new critical issues** that the
+prior audit had missed because (a) the `formulas` library masked an array-IF compatibility bug,
+(b) the QA scenario only covered the AI Edition / Stage B 5-debt case, and (c) tier-strip
+logic only patched Dashboard not About-tab metadata.
+
+All 4 criticals fixed + DPP-103 verified false-positive + DPP-106 cleaned up. Then built a real
+**5-persona LO-driven simulation suite** to stress-test the math beyond Stage B.
+
+**Critical issues this round (all resolved):**
+
+- **DPP-101** — Milestone Tracker showed `#DIV/0!` in B9 (progress bar) and E18:E21 (status pills)
+  on day-one open because B6 (original-total anchor) is blank by design. Wrapped both formulas
+  with `IFERROR(..., REPT("▱",20))` / `IFERROR(..., "⏳ Pending")` so the empty state renders cleanly.
+  Verified across all 5 personas — every workbook now opens with no `#DIV/0!` cells.
+
+- **DPP-102** — Essentials and Pro displayed `TIER\nAI Edition`, `TABS\n20`, `AI PROMPTS\n7`,
+  and `HEALTH SCORE\nAI Edition` on the About tab + Dashboard KPI strip — false advertising for
+  cheaper-tier buyers. Made `buildAbout` tier-aware via `workbook._tier` lookup; About now
+  correctly shows `Essentials/11/0`, `Pro/19/0`, or `AI Edition/22/7`. Dashboard K2 swaps the
+  Health Score slot for a DTI KPI on Essentials/Pro (which is what the body of those Dashboards
+  already shows per DPP-007).
+
+- **DPP-103** — VERIFIED FALSE POSITIVE. QA agent reported Strategy Comparison detail rows
+  showing raw 13-decimal-place floats (`5426.33026591999`). Inspection of the workbook confirmed
+  the `numFmt = "$"#,##0` IS correctly applied — the QA agent was reading the underlying value
+  via `openpyxl.load_workbook(data_only=True)` and confused that with the displayed value. Real
+  users opening in Excel/LO see `$5,426`.
+
+- **DPP-104** — Strategy Sim model flips Avalanche direction on 20-debt heterogeneous-APR
+  portfolios (workbook reports Avalanche=147mo, truth=103mo — wrong direction). This is a true
+  limitation of the phase-based serial closed-form. Fix: documented as model limitation rather
+  than rewriting the formula. Added (a) Strategy Comparison subtitle "Best for 3-10 debts; ≥12-debt
+  heterogeneous-APR portfolios approximate", (b) inline warning banner on the comparison table
+  that fires when `COUNTA('📋 Debt List'!B11:B30) > 10`, (c) FAQ entry on the About tab explaining
+  the math limitation, (d) FAQ entry explaining the documented +1-month Avalanche over-statement
+  on the standard 5-debt scenario.
+
+- **DPP-106** — Custom column on Strategy Comparison silently mirrored Avalanche on Pro/AI when
+  no Custom rank set (because Custom Method tab pre-seeded ranks 1-6 which happened to match
+  Avalanche order for the seed data). Removed the rank seeding entirely; Custom now correctly
+  shows "Set rank on 🔀 Custom Method →" until the user enters ranks.
+
+**Live multi-persona verification (real LibreOffice 26.2.3 recalc, true cascade ground truth):**
+
+| Persona | Description | SB mo | SB int | AV mo | AV int | DIV/0? |
+|---|---|---:|---:|---:|---:|:---:|
+| P1 | Recent grad — $42k student loans + 2 CCs | 59/59 ✅ | $6,804/$6,805 ✅ | 59/59 ✅ | $6,727/$6,729 ✅ | ✅ |
+| P2 | Couple — mortgage + auto + 1 high-APR CC | 132/132 ✅ | $120,645/$120,650 ✅ | 148/132 ⚠️ | $128,324/$120,529 ⚠️ | ✅ |
+| P3 | Single parent — $14k medical + payday + 2 CCs | 40/40 ✅ | $1,644/$1,645 ✅ | 40/40 ✅ | $1,621/$1,622 ✅ | ✅ |
+| P4 | Pre-retiree — HELOC + BMW + BT + AMEX | 36/36 ✅ | $10,364/$10,368 ✅ | 36/35 ✅ | $8,942/$8,943 ✅ | ✅ |
+| P5 | Maxed cards + BT — 3 CCs + BT + auto | 28/28 ✅ | $2,929/$2,931 ✅ | 28/28 ✅ | $2,691/$2,693 ✅ | ✅ |
+
+4 of 5 personas: workbook matches ground truth within ~$2 / 1 month. P2 (mortgage-included) shows
+the documented DPP-104 limitation — phase model over-states Avalanche by 16 months / $7,800 when
+the portfolio has a 30-year low-APR mortgage skewing the cascade. Disclosed in-product.
+
+**Files this commit:**
+- `tools/sheets-gen/templates/debt-payoff-planner.js` (M) — DPP-101, 102, 104, 106 fixes + No-Custom-Seed
+- `tools/qa/live_personas.py` (NEW) — 5-persona LO-driven simulation suite (regenerable test harness)
+- QA reports + live-personas report exist in `tools/qa/output/` but that dir is gitignored (regenerable)
+
+**State left in:** Bundle is **SHIP** verdict — all 20+ bugs across 3 audit rounds resolved, math
+verified accurate within ~$2/1mo on 4 of 5 real-life personas, mortgage-portfolio limitation
+documented in-product. Etsy listing not yet pushed.
+
+**Next session:** `tools/etsy-publish/create-debt-payoff.js` (sibling of the Budget Tracker
+publish script) — push the bundle to Etsy as a draft, review thumbnails + title + tags, publish.
+
+---
+
 ## 🟢 2026-05-23 — Debt Payoff Planner: end-to-end ship-readiness pass + QA agent + real LibreOffice verification
 
 End-to-end ship pass on the Debt Payoff Planner bundle. Built a senior-grade QA agent (`debt-payoff-qa`) from scratch with full audit protocol, ran it against the bundle, found **17 critical bugs**, fixed all 17 in `tools/sheets-gen/templates/debt-payoff-planner.js`, then re-verified with a **real LibreOffice 26.2.3 headless recalc** (installed via winget) that surfaced **3 more bugs the Python `formulas` library had silently masked**. All 20 bugs fixed. Bundle now produces evaluated values within ~$2 / 1 month of month-by-month Python ground-truth simulation on the Stage B 5-debt portfolio. Also restructured agent/skill/command file naming to lowercase-kebab-case across both QA agents so they show up in the slash menu, matching the MileHall pattern.

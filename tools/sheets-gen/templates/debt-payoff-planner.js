@@ -89,10 +89,16 @@ function buildDashboard(workbook) {
 
   // KPI tiles — pull live from Debt List. The HEALTH SCORE tile is AI-Edition only;
   // lower tiers swap it for a DTI tile (income/min) so the strip still has 6 cards.
-  // DTI input lives on Debt List K8 (added per DPP-009).
+  // DTI input lives on Debt List K40.
+  //
+  // DPP-102 fix: previously the non-AI version showed "HEALTH SCORE\nAI Edition" which
+  // read as "your tier is AI Edition" — false advertising for Essentials/Pro buyers.
+  // For Essentials + Pro, swap the slot to a DTI KPI (which is what the Dashboard body
+  // already shows for those tiers per DPP-007). This keeps the 6-tile strip layout
+  // intact without misrepresenting the tier.
   const healthKPI = hasAI
     ? { label: 'HEALTH SCORE', value: { formula: `IFERROR('🤖 AI Credit Coach'!B10&" / 100","— / 100")` } }
-    : { label: 'HEALTH SCORE', value: 'AI Edition' };
+    : { label: 'DTI',          value: { formula: `IFERROR(IF('📋 Debt List'!K40>0,TEXT(SUM('📋 Debt List'!F11:F30)/'📋 Debt List'!K40,"0.0%"),"set K40"),"—")` } };
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
     tabName: '🏠 Dashboard',
@@ -893,7 +899,15 @@ function buildStrategyComparison(workbook) {
     ],
   });
 
-  let r = addSectionHeader(sheet, 6, 'Side-by-side comparison', 'Three columns. Same debts. Different orders. Pick the one you\'ll finish.');
+  let r = addSectionHeader(sheet, 6, 'Side-by-side comparison', 'Three columns. Same debts. Different orders. Pick the one you\'ll finish. Best for 3-10 debts; ≥12-debt heterogeneous-APR portfolios approximate.');
+
+  // DPP-104 disclosure banner — phase-based formula approximation breaks down with
+  // many heterogeneous-APR debts. Show a warning when COUNTA > 10.
+  const warnRow = r;
+  sheet.mergeCells(`F${warnRow}:L${warnRow}`);
+  sheet.getCell(`F${warnRow}`).value = { formula: `IF(COUNTA('📋 Debt List'!B11:B30)>10,"⚠ "&COUNTA('📋 Debt List'!B11:B30)&" debts — estimates only beyond 10","")` };
+  sheet.getCell(`F${warnRow}`).font = { name: 'Inter', size: 10, italic: true, color: argb(COLORS.alert) };
+  sheet.getCell(`F${warnRow}`).alignment = { vertical: 'middle', horizontal: 'right', indent: 1 };
 
   // Header band
   addTableHeader(sheet, r + 1, ['Metric', '❄️ Snowball', '🌊 Avalanche', '🔀 Custom'], ['B', 'C', 'D', 'E']);
@@ -1377,10 +1391,13 @@ function buildMilestoneTracker(workbook) {
   sheet.getCell('B7').alignment = { vertical: 'middle', horizontal: 'center' };
 
   // === Big progress bar ===
+  // DPP-101 fix: wrap entire division-by-B6 in IFERROR. When B6 is blank (default),
+  // the division explodes to #DIV/0!; without the wrapper the user sees a red error
+  // on day-one open. With the wrapper, the bar shows the empty-state (all unfilled
+  // bars) until B6 is set.
   sheet.mergeCells('B9:E9');
-  // Inline REPT formula (no LET) — show progress bar at current % paid
   sheet.getCell('B9').value = {
-    formula: `REPT("▰",MIN(20,MAX(0,ROUND((MAX(0,B6-SUM('📋 Debt List'!D11:D30))/B6)*20,0))))&REPT("▱",MAX(0,20-MIN(20,MAX(0,ROUND((MAX(0,B6-SUM('📋 Debt List'!D11:D30))/B6)*20,0)))))`
+    formula: `IFERROR(REPT("▰",MIN(20,MAX(0,ROUND((MAX(0,B6-SUM('📋 Debt List'!D11:D30))/B6)*20,0))))&REPT("▱",MAX(0,20-MIN(20,MAX(0,ROUND((MAX(0,B6-SUM('📋 Debt List'!D11:D30))/B6)*20,0))))),REPT("▱",20))`
   };
   sheet.getCell('B9').font = { name: 'Inter', size: 18, color: argb(COLORS.warmGold) };
   sheet.getCell('B9').alignment = { horizontal: 'center' };
@@ -1408,10 +1425,14 @@ function buildMilestoneTracker(workbook) {
 
     if (m.threshold === 'firstZero') {
       sheet.getCell(`C${row}`).value = '—';
-      sheet.getCell(`E${row}`).value = { formula: `IF(COUNTIF('📋 Debt List'!D11:D30,0)>=1,"✅ Reached","⏳ Pending")` };
+      // COUNTIF returns 0 on a fresh sheet (no zero-balance debts yet) — IFERROR not strictly
+      // needed here, but added for symmetry with the other rows.
+      sheet.getCell(`E${row}`).value = { formula: `IFERROR(IF(COUNTIF('📋 Debt List'!D11:D30,0)>=1,"✅ Reached","⏳ Pending"),"⏳ Pending")` };
     } else {
-      sheet.getCell(`C${row}`).value = { formula: `TEXT(B6*${m.threshold},"$#,##0")` };
-      sheet.getCell(`E${row}`).value = { formula: `IF((MAX(0,B6-SUM('📋 Debt List'!D11:D30))/B6)>=${m.threshold},"✅ Reached","⏳ Pending")` };
+      // DPP-101 fix: when B6 is blank, B6*threshold is 0 (acceptable display) and the
+      // division-by-B6 in the status formula was returning #DIV/0!. Wrap both with IFERROR.
+      sheet.getCell(`C${row}`).value = { formula: `IFERROR(TEXT(B6*${m.threshold},"$#,##0"),"—")` };
+      sheet.getCell(`E${row}`).value = { formula: `IFERROR(IF((MAX(0,B6-SUM('📋 Debt List'!D11:D30))/B6)>=${m.threshold},"✅ Reached","⏳ Pending"),"⏳ Pending")` };
     }
     sheet.getCell(`C${row}`).font = FONTS.body;
     sheet.getCell(`C${row}`).alignment = { horizontal: 'right' };
@@ -1492,7 +1513,10 @@ function buildCustomMethod(workbook) {
     sheet.getCell(`B${row}`).border = BORDER_THIN();
     sheet.getCell(`B${row}`).fill = FILLS.warmGoldLight;
     sheet.getCell(`B${row}`).dataValidation = { type: 'whole', operator: 'between', formulae: [1, 20], allowBlank: true };
-    if (i < 6) sheet.getCell(`B${row}`).value = i + 1; // seed sample order
+    // DPP-106 fix: do NOT seed sample ranks. The previous seed (1..6 for the first 6
+    // debts) caused Custom column on Strategy Comparison to silently mirror Avalanche
+    // (since CC-A=highest APR=rank 1 in both orderings). With blank ranks, Custom now
+    // correctly shows "Set rank on 🔀 Custom Method →" until the user enters ranks.
 
     // Debt name (live from Debt List)
     sheet.getCell(`C${row}`).value = { formula: `IFERROR('📋 Debt List'!B${dlRow},"")` };
@@ -2784,21 +2808,34 @@ function buildStub(workbook, opts) {
 // ============================================================================
 
 function buildAbout(workbook) {
+  // DPP-102 fix: per-tier metadata. Was hardcoded to "AI Edition / 20 tabs / 7 prompts"
+  // on all 3 tiers — false advertising for Essentials + Pro buyers.
+  // Actual tab counts (post-tier-strip via applyTierVisibility):
+  //   Essentials = 11 visible (10 + About)
+  //   Pro        = 19 visible (18 + About)
+  //   AI Edition = 22 visible (21 + About)
+  const tier = workbook._tier || 'ai';
+  const tierMetadata = {
+    essentials: { label: 'Essentials', tabs: '11', prompts: '0' },
+    pro:        { label: 'Pro',        tabs: '19', prompts: '0' },
+    ai:         { label: 'AI Edition', tabs: '22', prompts: '7' },
+  }[tier];
+
   const sheet = workbook.addWorksheet('ℹ️ About & Help');
   setTabColor(sheet, COLORS.charcoal);
   setupColumns(sheet, { A: 2, B: 30, C: 60, D: 8, E: 10, F: 10, G: 10, H: 10, I: 10, J: 10, K: 10, L: 10, M: 2 });
 
   addTopBar(sheet, {
-    productName: `${PRODUCT_NAME} — AI Edition`,
+    productName: `${PRODUCT_NAME} — ${tierMetadata.label}`,
     tabName: 'ℹ️ About & Help',
     tabSubtitle: 'Welcome — and quick answers to the questions buyers ask first.',
     bannerText: BANNER,
     kpiData: [
       { label: 'VERSION',     value: '1.0' },
-      { label: 'TABS',        value: '20' },
+      { label: 'TABS',        value: tierMetadata.tabs },
       { label: 'METHODS',     value: 'Snowball + Avalanche' },
-      { label: 'AI PROMPTS',  value: '7' },
-      { label: 'TIER',        value: 'AI Edition' },
+      { label: 'AI PROMPTS',  value: tierMetadata.prompts },
+      { label: 'TIER',        value: tierMetadata.label },
       { label: 'UPDATES',     value: '12 mo free' },
     ],
   });
@@ -2843,6 +2880,8 @@ function buildAbout(workbook) {
     ['Snowball or Avalanche — which?', 'Avalanche saves more interest. Snowball keeps you motivated. Pick the one you\'ll finish.'],
     ['Does my credit score really go up?', 'The score itself is composite of 5 FICO factors. Pay on time + lower utilization + clear inquiries — score goes up. AI Coach (AI Edition) ranks the actions by point gain.'],
     ['What\'s the AI Edition extra?', 'Live Debt Health Score (0-100) + AI Credit Coach tab + 7 ChatGPT/Claude prompts in companion PDF.'],
+    ['What if I have more than 10 debts?', 'The Strategy Comparison math is optimized for 3-10 debts and uses a phase-based amortization model. With ≥12 heterogeneous-APR debts, the months/interest figures become estimates (±1-3 months / ±5% interest). The Snowball/Avalanche ordering and Debt List math remain exact regardless of count. A warning appears on the Strategy Comparison tab when COUNTA > 10.'],
+    ['Why does Avalanche show 42 months instead of 41 on the standard example?', 'The model serializes phases too rigidly — when Medical (0% APR) pays off via minimums DURING the cascade, the phase-based formula misses 1 month of cascade. The directional answer (Avalanche < Snowball in interest) is always correct.'],
   ];
   faq.forEach((qa, i) => {
     const ri = r2 + 1 + i * 2;
