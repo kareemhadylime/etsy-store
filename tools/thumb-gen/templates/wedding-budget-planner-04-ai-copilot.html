@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wedding Budget &amp; Planner — Thumbnail 04 AI Co-Pilot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dusty-rose: #C9A0A0;
+    --dusty-rose-light: #EDD8D8;
+    --deep-mauve: #8B5A6B;
+    --matte-black: #1A1A1A;
+    --ivory: #FAF6F1;
+    --warm-gray: #E8E2DA;
+    --sage: #8FA98F;
+    --amber: #D4A574;
+    --burgundy: #8B3A3A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--matte-black); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 130px; background: var(--matte-black); color: white; display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .ai-badge { background: var(--dusty-rose); color: white; font-size: 24px; font-weight: 700; padding: 12px 30px; border-radius: 999px; letter-spacing: 0.05em; }
+
+  .title-block { position: absolute; top: 200px; left: 90px; right: 90px; }
+  .title-eyebrow { font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusty-rose); margin-bottom: 18px; }
+  .title-main { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 156px; font-weight: 600; line-height: 0.95; color: var(--matte-black); margin-bottom: 20px; }
+  .rose-bar { width: 220px; height: 8px; background: var(--dusty-rose); margin-bottom: 20px; }
+  .title-sub { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; font-style: italic; line-height: 1.3; color: var(--deep-mauve); }
+
+  /* 4 prompt cards stacked */
+  .cards { position: absolute; left: 90px; right: 90px; top: 720px; bottom: 250px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .card { background: white; border-radius: 16px; padding: 28px 32px; border: 2px solid var(--warm-gray); display: flex; flex-direction: column; position: relative; }
+  .card .num { position: absolute; top: -16px; left: 24px; background: var(--matte-black); color: var(--dusty-rose); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; font-size: 22px; }
+  .card-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 38px; font-weight: 700; color: var(--matte-black); line-height: 1.05; margin-bottom: 10px; }
+  .card-tag { font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dusty-rose); margin-bottom: 14px; }
+  .card-body { font-size: 17px; line-height: 1.4; color: var(--matte-black); opacity: 0.78; }
+  .card .ai-tools { display: flex; gap: 10px; margin-top: 14px; }
+  .tool-pill { font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 99px; letter-spacing: 0.06em; }
+  .tool-pill.gpt { background: #f3f3f3; color: #1F4D2C; border: 1px solid #d4d4d4; }
+  .tool-pill.claude { background: #f3f3f3; color: #8B4513; border: 1px solid #d4d4d4; }
+
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: var(--matte-black); color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 90px; }
+  .b-left { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 52px; font-style: italic; color: var(--dusty-rose); line-height: 1.1; }
+  .b-right-stack { display: flex; gap: 36px; align-items: center; }
+  .b-stat { text-align: center; }
+  .b-stat-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 72px; font-weight: 700; color: var(--dusty-rose); line-height: 1.0; }
+  .b-stat-label { font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.85; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="ai-badge">AI EDITION · $49</div>
+  </div>
+
+  <div class="title-block">
+    <div class="title-eyebrow">AI Wedding Co-Pilot</div>
+    <div class="title-main">8 AI prompts.<br>No API key.</div>
+    <div class="rose-bar"></div>
+    <div class="title-sub">Designed for ChatGPT &amp; Claude free tiers. No subscription. No plug-in.</div>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="num">1</div>
+      <div class="card-title">Guest List Optimizer</div>
+      <div class="card-tag">Pairs with: 👥 Guest List</div>
+      <div class="card-body">Cut N guests fairly across both sides. Respects must-attend flags. Returns table + side-balance check + budget impact.</div>
+      <div class="ai-tools"><div class="tool-pill gpt">CHATGPT FREE</div><div class="tool-pill claude">CLAUDE FREE</div></div>
+    </div>
+    <div class="card">
+      <div class="num">2</div>
+      <div class="card-title">Vendor Cost Intel</div>
+      <div class="card-tag">Pairs with: 🤝 Vendor Tracker</div>
+      <div class="card-body">Paste 2–4 quotes. AI tags above / at / below market, lists missing deliverables, gives 2 questions per quote.</div>
+      <div class="ai-tools"><div class="tool-pill gpt">CHATGPT FREE</div><div class="tool-pill claude">CLAUDE FREE</div></div>
+    </div>
+    <div class="card">
+      <div class="num">3</div>
+      <div class="card-title">Seating Solver</div>
+      <div class="card-tag">Pairs with: 🪑 Seating Chart</div>
+      <div class="card-body">X cannot sit near Y · Z needs accessibility. AI returns a constraint-satisfying seating plan with table vibes.</div>
+      <div class="ai-tools"><div class="tool-pill gpt">CHATGPT FREE</div><div class="tool-pill claude">CLAUDE FREE</div></div>
+    </div>
+    <div class="card">
+      <div class="num">4</div>
+      <div class="card-title">RSVP Scripts</div>
+      <div class="card-tag">Pairs with: 📬 RSVP Tracker</div>
+      <div class="card-body">3 polite nudge scripts (30 / 14 / 7 days out). Warm, never guilty. Tone- and medium-tunable per guest.</div>
+      <div class="ai-tools"><div class="tool-pill gpt">CHATGPT FREE</div><div class="tool-pill claude">CLAUDE FREE</div></div>
+    </div>
+  </div>
+
+  <div class="bottom-band">
+    <div class="b-left">Vows · Speech · Negotiation ·<br>Day-of Crisis Playbook<br>...4 more prompts in the PDF.</div>
+    <div class="b-right-stack">
+      <div class="b-stat"><div class="b-stat-num">8</div><div class="b-stat-label">Prompts</div></div>
+      <div class="b-stat"><div class="b-stat-num">12</div><div class="b-stat-label">Page PDF</div></div>
+      <div class="b-stat"><div class="b-stat-num">$0</div><div class="b-stat-label">AI Cost</div></div>
+    </div>
+  </div>
+</body>
+</html>

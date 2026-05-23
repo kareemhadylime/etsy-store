@@ -2217,4 +2217,224 @@ Pick: Emma Carter. Strongest deliverables-to-price ratio, market-fair, establish
   });
 }
 
-// __END_OF_FILE_SENTINEL__
+// ============================================================================
+// TAB 20 — 🧩 AI SEATING CONSTRAINT SOLVER (AI only)
+// ============================================================================
+
+function buildAISeatingConstraintSolver(workbook) {
+  buildAIPromptTab(workbook, {
+    name: '🧩 Seating Constraint Solver',
+    tabColor: SAGE,
+    title: 'X cannot sit near Y. Z needs accessibility. Solve it.',
+    tabPairs: '🪑 Seating Chart Planner + 👥 Guest List',
+    intro: 'Paste constraints + the guest list. AI returns a constraint-satisfying seating plan with table vibes and rationale.',
+    footer: 'PDF page 5 / 12',
+    promptText:
+`You are helping me solve a wedding seating arrangement.
+
+TOTAL TABLES: [number]
+SEATS PER TABLE: [number — typically 8 or 10]
+TOTAL GUESTS TO SEAT: [number]
+
+CONSTRAINTS:
+- DO NOT SEAT TOGETHER: [pair 1 names; pair 2 names; etc.]
+- MUST SEAT TOGETHER: [pair 1; group 1; etc.]
+- ACCESSIBILITY: [name — needs wheelchair access / hearing aid side / etc.]
+- AGE CONSIDERATIONS: [name — sits with kids / no kids near speeches table / etc.]
+
+GUEST LIST WITH RELATIONSHIPS (paste from 🪑 Seating Chart Planner):
+[Name | Side | Relationship | Notes]
+[Continue list]
+
+Generate a seating plan as a numbered list of tables (Table 1, Table 2, ...) with the guests at each. For each table, give it a one-word "vibe" name (e.g., "Family", "College Friends", "Work + Plus-ones") and the rationale for who's grouped where.
+
+If any constraint cannot be satisfied with the given table count, flag it explicitly and suggest the smallest change (one more table, one fewer constraint, etc.).`,
+    exampleInput:
+`8 tables × 8 seats = 64 guests
+DO NOT SEAT TOGETHER: Uncle Bill and Cousin Marie (long-standing feud); Aunt Rose and Tom's mom (workplace history)
+MUST SEAT TOGETHER: Sarah's college roommates (4 of them); the bride's parents at head table
+ACCESSIBILITY: Grandma Pat needs aisle seat near restroom (Table 1)
+AGE: Cousin Daniel (7) and his sister (5) at the kids' table
+
+[continue with guest list paste]`,
+    exampleOutput:
+`Table 1 — "Bride's Family Core"
+  Bride's parents, Grandma Pat (aisle seat), Aunt Sue, Uncle Mark + spouse
+  Rationale: head-table-adjacent. Grandma Pat closest to restroom corridor. Bill kept on opposite side of room from Marie.
+
+Table 2 — "College Roommates"
+  Sarah's 4 roommates + their plus-ones
+  Rationale: the must-seat-together group. Younger crowd, drinks-friendly placement.
+
+[continues for all 8 tables]
+
+FLAGS: All constraints satisfied with 8 tables of 8. No changes needed.`,
+  });
+}
+
+// ============================================================================
+// TAB 21 — 📩 AI RSVP REMINDER SCRIPTS (AI only)
+// ============================================================================
+
+function buildAIRSVPReminderScripts(workbook) {
+  buildAIPromptTab(workbook, {
+    name: '📩 RSVP Reminder Scripts',
+    tabColor: DUSTY_ROSE,
+    title: 'Polite 30 / 14 / 7-day RSVP nudge scripts — warm, never guilty',
+    tabPairs: '📬 RSVP Tracker + 👥 Guest List',
+    intro: '3 scripts per guest. Each successive script is a little more direct — but always warm.',
+    footer: 'PDF page 6 / 12',
+    promptText:
+`You are writing polite reminder messages for guests who haven't RSVP'd to my wedding. Give me three scripts: one for 30 days before the RSVP deadline, one for 14 days, and one for 7 days. Each should feel a little more direct than the last — but always warm, never guilty.
+
+WEDDING DATE: [date]
+RSVP DEADLINE: [date]
+RELATIONSHIP TO GUEST: [close family / extended family / close friend / colleague / parent's friend / etc.]
+MEDIUM: [email / text message / handwritten note]
+TONE PREFERENCE: [warm-casual / formal-polite / direct-friendly]
+
+Each script should:
+- Open with a personal touch (not just "Hey, did you RSVP?")
+- State the actual ask clearly
+- Give them one easy action (link to RSVP form, reply with yes/no, etc.)
+- Close warmly, no pressure
+- Be under 80 words
+
+If the 30-day script doesn't get a response, the 14-day and 7-day scripts assume they're seeing the second/third message and reflect that.`,
+    exampleInput:
+`Wedding date: October 12, 2026 · RSVP deadline: September 15, 2026
+Relationship: close friend (haven't seen in 3 months)
+Medium: text · Tone: warm-casual`,
+    exampleOutput:
+`30 DAYS OUT (Aug 16):
+"Hey Jess! Hope summer's been good to you 🌞 Just a friendly heads-up: the RSVP deadline for our wedding (Oct 12) is Sept 15. The form's at [link]. Would love to see you there — let me know either way! xo"
+
+14 DAYS OUT (Sept 1):
+"Hi Jess — quick second nudge on the RSVP for the wedding! Deadline's two weeks out (Sept 15). I know life gets busy — totally no pressure either way, but the venue needs the count by then. [link]"
+
+7 DAYS OUT (Sept 8):
+"Hey Jess, final ping! Need to lock the venue count by Sept 15 (one week from today). Could you fire me a quick yes or no when you get a sec? Either answer is great — just need to know. ❤️"`,
+  });
+}
+
+// ============================================================================
+// TAB 22 — 🚨 AI DAY-OF CRISIS PLAYBOOK (AI only)
+// ============================================================================
+
+function buildAIDayOfCrisisPlaybook(workbook) {
+  buildAIPromptTab(workbook, {
+    name: '🚨 Day-of Crisis Playbook',
+    tabColor: BURGUNDY,
+    title: 'Calm, actionable scripts — first words, who to delegate to, what to skip',
+    tabPairs: '⏰ Day-of Schedule + 📞 Vendor Contact Sheet',
+    intro: 'Vendor late / wardrobe / weather / family / uninvited guest. AI returns first-words script + delegation map + skip-list + debrief note.',
+    footer: 'PDF page 8 / 12',
+    promptText:
+`You are helping me handle a wedding day crisis. Give me a calm, actionable script — what to say, who to delegate to, and what to skip worrying about.
+
+THE CRISIS: [describe in 1–2 sentences — vendor late / guest drama / weather / wardrobe / family / lost item / venue issue / etc.]
+TIME OF DAY: [morning / pre-ceremony / ceremony / cocktail hour / reception / late / right now]
+WHO'S INVOLVED: [name + role — bride / groom / parent / vendor / guest / coordinator]
+WHO CAN HELP RIGHT NOW: [maid of honor / best man / day-of coordinator / parent / venue manager / etc.]
+HOW URGENT: [under 5 min / under 30 min / can wait 1 hr / not urgent]
+
+Give me:
+1. THE FIRST WORDS TO SAY (literal script — what comes out of my mouth in the next 30 seconds)
+2. DELEGATE TO: who handles what so I can focus on the wedding
+3. WHAT TO SKIP: anything I'm tempted to worry about that doesn't matter right now
+4. DEBRIEF NOTE: one line for after the day, so I can revisit if it comes up later
+
+Keep tone calm-direct. No "stay positive!" — be useful.`,
+    exampleInput:
+`Crisis: My mother-in-law just arrived at the venue 2 hours before the ceremony — she wasn't invited (long story). She's at the front entrance.
+Time: pre-ceremony · Involved: mother-in-law + bride
+Who can help: maid of honor (Sara), day-of coordinator (Mike)
+Urgent: under 5 min — guests will start arriving in 90 min`,
+    exampleOutput:
+`1. FIRST WORDS: "Hey [MIL's name] — I'm getting ready and we hadn't planned for you to come today. Can we step out front and figure this out together? Give me one second to grab Sara."
+
+2. DELEGATE TO:
+   - Sara (maid of honor): stays with you while you talk to MIL — don't do this alone
+   - Mike (coordinator): keep guests at the cocktail hour space; don't let anyone wander toward the entrance for 15 min
+   - Partner: tell them what's happening in one sentence, then they go back to getting ready. Don't loop them in until the immediate moment is handled.
+
+3. WHAT TO SKIP: Whether MIL should be allowed to stay. Decide that in 15 min with a clear head. Right now you just need her out of the entry and the next 90 min protected.
+
+4. DEBRIEF NOTE: "MIL arrived uninvited at 2pm. Resolved by [outcome]. Discuss with partner Sunday — not tonight."`,
+  });
+}
+
+// ============================================================================
+// MAIN — orchestrate the build
+// ============================================================================
+
+async function buildWeddingPlanner() {
+  const t0 = Date.now();
+
+  const tierArg = process.argv.find((a) => a.startsWith('--tier='));
+  const tier = tierArg ? tierArg.split('=')[1] : 'ai';
+  if (!['essentials', 'pro', 'ai'].includes(tier)) {
+    console.error(`✗ Invalid --tier "${tier}". Use essentials | pro | ai.`);
+    process.exit(1);
+  }
+  const tierLabel = { essentials: 'Essentials', pro: 'Pro', ai: 'AI Edition' }[tier];
+  const tierTabCount = { essentials: 12, pro: 16, ai: 22 }[tier];
+  console.log(`→ Building ${PRODUCT_NAME} — ${tierLabel} (${tierTabCount} visible / 22 total)...`);
+
+  const workbook = new ExcelJS.Workbook();
+  workbook._tier = tier;
+  await registerLimeLogo(workbook);
+
+  workbook.creator = 'Lime Premium Studios';
+  workbook.lastModifiedBy = 'Lime Premium Studios';
+  workbook.company = 'Lime Premium Studios';
+  workbook.created = new Date();
+  workbook.modified = new Date();
+  workbook.title = `${PRODUCT_NAME} — ${tierLabel}`;
+  workbook.subject = 'Personal finance · Wedding budget · Wedding planner · Guest list · Seating · AI Co-Pilot';
+  workbook.category = 'Personal Finance · Wedding Planning';
+  workbook.keywords = 'wedding planner, wedding budget tracker, guest list, RSVP tracker, seating chart, vendor tracker, day-of timeline, honeymoon budget, google sheets, excel, AI wedding co-pilot, lime premium studios';
+  workbook.description = `${PRODUCT_NAME} ${tierLabel} v1.0 — Lime Premium Studios. ${tierTabCount} tabs. Privacy-first — no cloud sync, no third-party access.`;
+
+  // Build all 22 tabs in spec order
+  console.log('  • 🧭 Setup Wizard');                buildSetupWizard(workbook);
+  console.log('  • 🏠 Budget Dashboard');            buildBudgetDashboard(workbook);
+  console.log('  • 💰 Budget Categories');           buildBudgetCategories(workbook);
+  console.log('  • 🤝 Vendor Tracker');              buildVendorTracker(workbook);
+  console.log('  • 👥 Guest List');                  buildGuestList(workbook);
+  console.log('  • 📬 RSVP Tracker');                buildRsvpTracker(workbook);
+  console.log('  • 🪑 Seating Chart Planner');       buildSeatingChart(workbook);
+  console.log('  • 📅 Master Timeline');             buildMasterTimeline(workbook);
+  console.log('  • ⏰ Day-of Schedule');              buildDayOfSchedule(workbook);
+  console.log('  • 📞 Vendor Contact Sheet');        buildVendorContactSheet(workbook);
+  console.log('  • ✈️ Honeymoon Budget');             buildHoneymoonBudget(workbook);
+  console.log('  • 💌 Annual Reflection');           buildAnnualReflection(workbook);
+  console.log('  • 👤 Cost Per Guest (Pro)');        buildCostPerGuest(workbook);
+  console.log('  • ⚖️ Vendor Comparison (Pro)');     buildVendorComparison(workbook);
+  console.log('  • 💐 Bridal Party (Pro)');          buildBridalParty(workbook);
+  console.log('  • 🎁 Gift Registry (Pro)');         buildGiftRegistry(workbook);
+  console.log('  • 🤖 AI Wedding Co-Pilot (AI)');    buildAICoPilotHub(workbook);
+  console.log('  • ✂️ Guest List Optimizer (AI)');   buildAIGuestListOptimizer(workbook);
+  console.log('  • 🔍 Vendor Cost Intel (AI)');      buildAIVendorCostIntelligence(workbook);
+  console.log('  • 🧩 Seating Constraint (AI)');     buildAISeatingConstraintSolver(workbook);
+  console.log('  • 📩 RSVP Scripts (AI)');           buildAIRSVPReminderScripts(workbook);
+  console.log('  • 🚨 Day-of Crisis (AI)');          buildAIDayOfCrisisPlaybook(workbook);
+
+  applyTierVisibility(workbook, tier, { proTabs: PRO_TABS, aiTabs: AI_TABS, productName: PRODUCT_NAME });
+
+  const filename = tier === 'ai'
+    ? 'wedding-budget-planner-ai-edition.xlsx'
+    : `wedding-budget-planner-${tier}.xlsx`;
+  const outPath = resolve(OUTPUT_DIR, filename);
+  await workbook.xlsx.writeFile(outPath);
+
+  const elapsed = Date.now() - t0;
+  console.log(`\n✓ Workbook generated in ${elapsed}ms`);
+  console.log(`  Output: ${outPath}`);
+  console.log(`  Tier:   ${tierLabel} — ${tierTabCount} of 22 tabs visible`);
+}
+
+buildWeddingPlanner().catch((err) => {
+  console.error('✗ Build failed:', err);
+  process.exit(1);
+});

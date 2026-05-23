@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wedding Budget &amp; Planner — Thumbnail 03 Guest + Seating</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dusty-rose: #C9A0A0;
+    --dusty-rose-light: #EDD8D8;
+    --deep-mauve: #8B5A6B;
+    --matte-black: #1A1A1A;
+    --ivory: #FAF6F1;
+    --warm-gray: #E8E2DA;
+    --sage: #8FA98F;
+    --sage-light: #DDE6DD;
+    --amber: #D4A574;
+    --amber-light: #F1E2CE;
+    --burgundy: #8B3A3A;
+    --burgundy-light: #E6CECE;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', sans-serif; background: var(--ivory); color: var(--matte-black); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 130px; background: var(--matte-black); color: white; display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .page-tag { color: var(--dusty-rose); font-size: 24px; font-weight: 600; letter-spacing: 0.15em; }
+
+  .title-block { position: absolute; top: 195px; left: 90px; right: 90px; }
+  .title-eyebrow { font-size: 26px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusty-rose); margin-bottom: 16px; }
+  .title-main { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 132px; font-weight: 600; line-height: 0.95; color: var(--matte-black); margin-bottom: 20px; }
+  .rose-bar { width: 220px; height: 8px; background: var(--dusty-rose); margin-bottom: 20px; }
+  .title-sub { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 36px; font-style: italic; line-height: 1.3; max-width: 1700px; color: var(--deep-mauve); }
+
+  /* TWO-PANEL stitched */
+  .panels { position: absolute; left: 90px; right: 90px; top: 660px; bottom: 220px; display: grid; grid-template-rows: 1fr 1fr; gap: 24px; }
+
+  /* TOP PANEL — Guest List */
+  .panel { background: white; border-radius: 16px; padding: 28px 32px; border: 1px solid var(--warm-gray); display: flex; flex-direction: column; overflow: hidden; }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .panel-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 36px; font-weight: 600; color: var(--matte-black); }
+  .panel-kpi { display: flex; gap: 14px; }
+  .pkpi { background: var(--dusty-rose-light); border-radius: 8px; padding: 8px 14px; font-size: 14px; font-weight: 700; color: var(--deep-mauve); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .guest-table { font-size: 18px; flex: 1; }
+  .guest-row { display: grid; grid-template-columns: 200px 90px 200px 100px 1fr; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--warm-gray); align-items: center; }
+  .guest-row.header { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--matte-black); opacity: 0.55; border-bottom: 2px solid var(--matte-black); padding-bottom: 8px; }
+  .gname { font-weight: 600; color: var(--matte-black); }
+  .gside { font-size: 14px; font-weight: 600; padding: 4px 10px; border-radius: 99px; background: var(--ivory); text-align: center; }
+  .gside.his { background: var(--dusty-rose-light); color: var(--deep-mauve); }
+  .gside.hers { background: var(--sage-light); color: var(--sage); }
+  .gside.joint { background: var(--amber-light); color: var(--amber); }
+  .grel { font-size: 16px; color: var(--matte-black); opacity: 0.7; }
+  .grsvp { font-size: 14px; font-weight: 700; padding: 5px 10px; border-radius: 99px; text-align: center; }
+  .grsvp.yes { background: var(--sage-light); color: var(--sage); }
+  .grsvp.no { background: var(--burgundy-light); color: var(--burgundy); }
+  .grsvp.maybe { background: var(--amber-light); color: var(--amber); }
+  .gnote { font-size: 14px; color: var(--matte-black); opacity: 0.55; }
+
+  /* BOTTOM PANEL — Seating Chart (table circles) */
+  .seating-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; flex: 1; align-items: stretch; }
+  .table-circle { background: var(--ivory); border: 2px solid var(--dusty-rose); border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .table-circle.head { background: var(--deep-mauve); border-color: var(--deep-mauve); color: white; }
+  .table-circle.kids { background: var(--amber-light); border-color: var(--amber); }
+  .tc-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; font-weight: 700; color: var(--matte-black); }
+  .table-circle.head .tc-num { color: white; }
+  .tc-name { font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--matte-black); opacity: 0.75; margin-top: 4px; }
+  .table-circle.head .tc-name { color: white; opacity: 0.85; }
+  .tc-seats { font-size: 13px; font-weight: 600; color: var(--dusty-rose); margin-top: 6px; }
+  .table-circle.head .tc-seats { color: var(--dusty-rose); }
+  .table-circle.kids .tc-name, .table-circle.kids .tc-seats { color: var(--matte-black); opacity: 0.85; }
+
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 170px; background: var(--matte-black); color: white; display: flex; align-items: center; justify-content: space-between; padding: 0 90px; }
+  .b-left { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 50px; font-style: italic; color: var(--dusty-rose); line-height: 1.1; }
+  .b-right { font-size: 18px; font-weight: 600; opacity: 0.85; max-width: 700px; text-align: right; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="page-tag">03 · GUESTS + SEATING</div>
+  </div>
+
+  <div class="title-block">
+    <div class="title-eyebrow">Guest List + Seating Chart</div>
+    <div class="title-main">Plan 250 guests<br>without losing your mind.</div>
+    <div class="rose-bar"></div>
+    <div class="title-sub">RSVP status pills · side balance · dietary roll-up · 12-table seating grid · AI constraint solver.</div>
+  </div>
+
+  <div class="panels">
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-name">👥 Guest List</div>
+        <div class="panel-kpi">
+          <div class="pkpi">120 invited</div>
+          <div class="pkpi">84 yes</div>
+          <div class="pkpi">8 no</div>
+          <div class="pkpi">28 pending</div>
+        </div>
+      </div>
+      <div class="guest-table">
+        <div class="guest-row header"><div>Name</div><div>Side</div><div>Relationship</div><div>RSVP</div><div>Notes</div></div>
+        <div class="guest-row"><div class="gname">Sarah Chen</div><div class="gside hers">Hers</div><div class="grel">College roommate</div><div class="grsvp yes">Yes</div><div class="gnote">Vegetarian · Must-attend</div></div>
+        <div class="guest-row"><div class="gname">Aunt Linda</div><div class="gside his">His</div><div class="grel">Aunt</div><div class="grsvp yes">Yes</div><div class="gnote">Must-attend</div></div>
+        <div class="guest-row"><div class="gname">Tom &amp; Kate</div><div class="gside joint">Joint</div><div class="grel">Former colleagues</div><div class="grsvp maybe">Maybe</div><div class="gnote">+1 confirmed</div></div>
+        <div class="guest-row"><div class="gname">Grandma Pat</div><div class="gside hers">Hers</div><div class="grel">Grandmother</div><div class="grsvp yes">Yes</div><div class="gnote">Aisle seat near restroom</div></div>
+        <div class="guest-row"><div class="gname">Mike Davis</div><div class="gside his">His</div><div class="grel">High school friend</div><div class="grsvp no">No</div><div class="gnote">—</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-name">🪑 Seating Chart · 12 tables × 8 seats</div>
+        <div class="panel-kpi">
+          <div class="pkpi">96 seats</div>
+          <div class="pkpi">84 placed</div>
+          <div class="pkpi">12 open</div>
+          <div class="pkpi">✓ Fits</div>
+        </div>
+      </div>
+      <div class="seating-grid">
+        <div class="table-circle head"><div class="tc-num">1</div><div class="tc-name">Head</div><div class="tc-seats">Couple + parents</div></div>
+        <div class="table-circle"><div class="tc-num">2</div><div class="tc-name">His Family</div><div class="tc-seats">8 / 8 seated</div></div>
+        <div class="table-circle"><div class="tc-num">3</div><div class="tc-name">Hers Family</div><div class="tc-seats">8 / 8 seated</div></div>
+        <div class="table-circle"><div class="tc-num">4</div><div class="tc-name">College</div><div class="tc-seats">8 / 8 seated</div></div>
+        <div class="table-circle"><div class="tc-num">5</div><div class="tc-name">High School</div><div class="tc-seats">8 / 8 seated</div></div>
+        <div class="table-circle"><div class="tc-num">6</div><div class="tc-name">Work · His</div><div class="tc-seats">7 / 8 seated</div></div>
+        <div class="table-circle"><div class="tc-num">7</div><div class="tc-name">Work · Hers</div><div class="tc-seats">7 / 8 seated</div></div>
+        <div class="table-circle kids"><div class="tc-num">11</div><div class="tc-name">Kids</div><div class="tc-seats">4 + adult</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-band">
+    <div class="b-left">Side balance · accessibility ·<br>constraints — all solvable.</div>
+    <div class="b-right">AI Seating Constraint Solver (AI Edition).<br>Paste your no-sit-together pairs; AI returns a constraint-satisfying plan.</div>
+  </div>
+</body>
+</html>

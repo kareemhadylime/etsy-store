@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wedding Budget &amp; Planner — Thumbnail 01 Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dusty-rose: #C9A0A0;
+    --dusty-rose-light: #EDD8D8;
+    --deep-mauve: #8B5A6B;
+    --matte-black: #1A1A1A;
+    --ivory: #FAF6F1;
+    --warm-gray: #E8E2DA;
+    --sage: #8FA98F;
+    --sage-light: #DDE6DD;
+    --amber: #D4A574;
+    --burgundy: #8B3A3A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { width: 2000px; height: 2000px; font-family: 'Inter', -apple-system, sans-serif; background: var(--ivory); color: var(--matte-black); position: relative; overflow: hidden; -webkit-font-smoothing: antialiased; }
+
+  .topbar { position: absolute; top: 0; left: 0; right: 0; height: 140px; background: var(--matte-black); color: white; display: flex; justify-content: space-between; align-items: center; padding: 0 90px; }
+  .wordmark { font-size: 28px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .price-pill { background: var(--dusty-rose); color: white; font-size: 30px; font-weight: 700; padding: 14px 36px; border-radius: 999px; }
+
+  .title-block { position: absolute; top: 220px; left: 90px; right: 90px; }
+  .title-eyebrow { font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dusty-rose); margin-bottom: 20px; }
+  .title-main { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 168px; font-weight: 600; line-height: 0.95; letter-spacing: 0; margin-bottom: 22px; color: var(--matte-black); }
+  .rose-bar { width: 220px; height: 8px; background: var(--dusty-rose); margin-bottom: 24px; }
+  .title-sub { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 44px; font-weight: 400; font-style: italic; line-height: 1.25; max-width: 1600px; color: var(--deep-mauve); }
+
+  .mockup { position: absolute; left: 90px; right: 90px; bottom: 230px; height: 820px; background: white; border-radius: 20px; box-shadow: 0 30px 60px rgba(26,26,26,0.15), 0 8px 20px rgba(26,26,26,0.08); overflow: hidden; border: 1px solid rgba(26,26,26,0.06); }
+  .mockup-header { background: var(--matte-black); color: white; padding: 24px 36px; display: flex; justify-content: space-between; align-items: center; }
+  .mockup-tab { font-size: 22px; font-weight: 600; }
+  .mockup-tab-bar { display: flex; gap: 14px; }
+  .mockup-tab-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .mockup-tab-dot.active { background: var(--dusty-rose); }
+  .mockup-body { display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; padding: 36px 40px; height: calc(100% - 88px); }
+
+  .left-col { display: flex; flex-direction: column; gap: 18px; }
+  .donut-area { background: var(--dusty-rose-light); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
+  .donut-label { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--deep-mauve); margin-bottom: 8px; }
+  .donut-mock { width: 200px; height: 200px; border-radius: 50%; background: conic-gradient(var(--dusty-rose) 0% 62%, var(--ivory) 62% 100%); display: flex; align-items: center; justify-content: center; position: relative; margin: 8px 0; }
+  .donut-inner { width: 130px; height: 130px; border-radius: 50%; background: white; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .donut-days { font-size: 36px; font-weight: 700; color: var(--deep-mauve); letter-spacing: -0.02em; }
+  .donut-days-label { font-size: 12px; color: var(--matte-black); opacity: 0.7; margin-top: 2px; }
+  .donut-status { font-size: 22px; font-weight: 700; color: var(--sage); margin-top: 8px; }
+  .donut-amount { font-size: 30px; font-weight: 700; color: var(--matte-black); margin-top: 4px; letter-spacing: -0.02em; }
+
+  .right-col { display: flex; flex-direction: column; gap: 16px; }
+  .kpi-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .kpi-tile { background: white; border: 1px solid var(--warm-gray); border-radius: 10px; padding: 16px 18px; }
+  .kpi-tile.rose { background: var(--dusty-rose); border-color: var(--dusty-rose); color: white; }
+  .kpi-tile.mauve { background: var(--deep-mauve); border-color: var(--deep-mauve); color: white; }
+  .kpi-tile.sage { background: var(--sage); border-color: var(--sage); color: white; }
+  .kpi-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.55; margin-bottom: 8px; }
+  .kpi-tile.rose .kpi-label, .kpi-tile.mauve .kpi-label, .kpi-tile.sage .kpi-label { opacity: 0.75; color: white; }
+  .kpi-value { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+
+  .cats-card { background: white; border: 1px solid var(--warm-gray); border-radius: 10px; padding: 20px 22px; flex: 1; display: flex; flex-direction: column; }
+  .cats-title { font-size: 16px; font-weight: 600; margin-bottom: 14px; color: var(--matte-black); }
+  .cat-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--warm-gray); font-size: 15px; }
+  .cat-row:last-child { border-bottom: none; }
+  .cat-label { font-weight: 500; color: var(--matte-black); }
+  .cat-bar-wrap { display: flex; align-items: center; gap: 10px; }
+  .cat-bar { width: 90px; height: 8px; background: var(--warm-gray); border-radius: 999px; overflow: hidden; }
+  .cat-bar-fill { height: 100%; background: var(--dusty-rose); border-radius: 999px; }
+  .cat-val { font-weight: 700; color: var(--deep-mauve); font-size: 14px; min-width: 70px; text-align: right; }
+
+  .bottom-band { position: absolute; bottom: 0; left: 0; right: 0; height: 170px; background: var(--matte-black); color: white; display: flex; justify-content: space-around; align-items: center; padding: 0 90px; }
+  .feat-block { display: flex; flex-direction: column; align-items: center; }
+  .feat-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 64px; font-weight: 700; color: var(--dusty-rose); line-height: 1.0; }
+  .feat-label { font-size: 16px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.9; margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="price-pill">$19 · $34 · $49</div>
+  </div>
+
+  <div class="title-block">
+    <div class="title-eyebrow">Wedding Budget &amp; Planner</div>
+    <div class="title-main">22 tabs.<br>AI Co-Pilot.<br>One-time fee.</div>
+    <div class="rose-bar"></div>
+    <div class="title-sub">Guest list, seating, vendors, RSVPs, day-of timeline.<br>Excel + Google Sheets. Private. Yours forever.</div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">
+      <div class="mockup-tab">🏠 Budget Dashboard · Amelia + Daniel · Oct 12, 2026</div>
+      <div class="mockup-tab-bar">
+        <div class="mockup-tab-dot active"></div>
+        <div class="mockup-tab-dot"></div>
+        <div class="mockup-tab-dot"></div>
+      </div>
+    </div>
+    <div class="mockup-body">
+      <div class="left-col">
+        <div class="donut-area">
+          <div class="donut-label">Spent vs. remaining</div>
+          <div class="donut-mock"><div class="donut-inner"><div class="donut-days">142</div><div class="donut-days-label">days to go</div></div></div>
+          <div class="donut-status">✓ ON TRACK</div>
+          <div class="donut-amount">$19,800 / $32,000</div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="kpi-row">
+          <div class="kpi-tile rose"><div class="kpi-label">Guests</div><div class="kpi-value">120</div></div>
+          <div class="kpi-tile mauve"><div class="kpi-label">RSVPd</div><div class="kpi-value">84</div></div>
+          <div class="kpi-tile sage"><div class="kpi-label">Vendors</div><div class="kpi-value">8</div></div>
+        </div>
+        <div class="cats-card">
+          <div class="cats-title">Spend by category vs. target</div>
+          <div class="cat-row"><div class="cat-label">Venue + Rentals</div><div class="cat-bar-wrap"><div class="cat-bar"><div class="cat-bar-fill" style="width:95%"></div></div><div class="cat-val">$9,800</div></div></div>
+          <div class="cat-row"><div class="cat-label">Catering + Bar</div><div class="cat-bar-wrap"><div class="cat-bar"><div class="cat-bar-fill" style="width:74%; background:var(--sage)"></div></div><div class="cat-val">$5,200</div></div></div>
+          <div class="cat-row"><div class="cat-label">Photography</div><div class="cat-bar-wrap"><div class="cat-bar"><div class="cat-bar-fill" style="width:100%; background:var(--burgundy)"></div></div><div class="cat-val">$4,200</div></div></div>
+          <div class="cat-row"><div class="cat-label">Flowers + Decor</div><div class="cat-bar-wrap"><div class="cat-bar"><div class="cat-bar-fill" style="width:105%; background:var(--amber)"></div></div><div class="cat-val">$2,700</div></div></div>
+          <div class="cat-row"><div class="cat-label">Music + Entmt</div><div class="cat-bar-wrap"><div class="cat-bar"><div class="cat-bar-fill" style="width:96%; background:var(--sage)"></div></div><div class="cat-val">$1,850</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-band">
+    <div class="feat-block"><div class="feat-num">22</div><div class="feat-label">Tabs</div></div>
+    <div class="feat-block"><div class="feat-num">8</div><div class="feat-label">AI Prompts</div></div>
+    <div class="feat-block"><div class="feat-num">14</div><div class="feat-label">Categories</div></div>
+    <div class="feat-block"><div class="feat-num">$0</div><div class="feat-label">Subscription</div></div>
+    <div class="feat-block"><div class="feat-num">∞</div><div class="feat-label">Yours Forever</div></div>
+  </div>
+</body>
+</html>

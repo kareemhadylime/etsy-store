@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wedding Budget & Planner — AI Wedding Co-Pilot (Companion PDF)</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Companion guide for the Wedding Budget & Planner AI Edition — 8 ChatGPT/Claude prompts for guest list / seating / vendor / RSVP / vows / day-of / negotiation / speech. By Lime Premium Studios.">
+<meta name="keywords" content="AI wedding planner, wedding budget, guest list optimizer, seating chart, vendor negotiation, wedding vows, speech drafter, ChatGPT, Claude, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="AI Wedding Co-Pilot — Companion PDF v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dusty-rose: #C9A0A0;
+    --dusty-rose-light: #EDD8D8;
+    --deep-mauve: #8B5A6B;
+    --matte-black: #1A1A1A;
+    --ivory: #FAF6F1;
+    --warm-gray: #E8E2DA;
+    --sage: #8FA98F;
+    --amber: #D4A574;
+    --burgundy: #8B3A3A;
+    --text-muted: #888888;
+    --text-subtle: #666666;
+    --warm-gold: #C9A14A;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--ivory);
+    color: var(--matte-black);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 8.5in; height: 11in;
+    padding: 0.55in 0.6in 0.5in 0.6in;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+    background: var(--ivory);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* COVER PAGE */
+  .cover { background: var(--ivory); padding: 0; display: flex; flex-direction: column; }
+  .cover-body { flex: 1; padding: 2.2in 0.9in 0 0.9in; display: flex; flex-direction: column; }
+  .cover-eyebrow { font-family: 'Inter'; font-size: 9pt; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dusty-rose); margin-bottom: 0.32in; }
+  .cover-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 52pt; font-weight: 600; letter-spacing: 0.01em; line-height: 1.0; color: var(--matte-black); margin-bottom: 0.24in; }
+  .cover-rose-underline { width: 1.6in; height: 3px; background: var(--dusty-rose); margin-bottom: 0.34in; }
+  .cover-subtitle { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18pt; font-style: italic; font-weight: 400; color: var(--deep-mauve); line-height: 1.3; max-width: 5.4in; }
+  .cover-bottom-band { background: var(--matte-black); color: white; padding: 0.32in 0.9in; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; margin-top: auto; }
+  .cover-bottom-band .wordmark { font-weight: 600; letter-spacing: 0.04em; }
+  .cover-bottom-band .meta { opacity: 0.7; font-style: italic; }
+
+  /* Intro / Tips / Back layouts */
+  .content-header { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32pt; font-weight: 600; letter-spacing: 0; color: var(--matte-black); line-height: 1.1; margin-bottom: 0.10in; }
+  .content-divider { height: 2px; background: var(--dusty-rose); width: 2.4in; margin-bottom: 0.22in; }
+  .content-body p { font-size: 10.5pt; line-height: 1.55; color: var(--matte-black); margin-bottom: 0.13in; }
+  .content-body .sub-section { font-family: 'Inter'; font-size: 9pt; font-weight: 700; color: var(--dusty-rose); text-transform: uppercase; letter-spacing: 0.14em; margin-top: 0.18in; margin-bottom: 0.08in; }
+  .content-body ol, .content-body ul { padding-left: 0.28in; margin-bottom: 0.13in; }
+  .content-body li { font-size: 10.5pt; line-height: 1.55; color: var(--matte-black); margin-bottom: 0.05in; }
+  .content-body ul.bullets li { list-style: none; padding-left: 0.22in; position: relative; }
+  .content-body ul.bullets li::before { content: '✦'; color: var(--dusty-rose); font-weight: 700; position: absolute; left: 0; }
+  .content-body strong { font-weight: 600; }
+
+  /* Prompt page */
+  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.16in; }
+  .page-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24pt; font-weight: 600; letter-spacing: 0; color: var(--matte-black); line-height: 1.15; max-width: 5.4in; }
+  .tab-callout { background: var(--dusty-rose); color: white; font-size: 8.5pt; font-weight: 600; padding: 6pt 14pt; border-radius: 999px; letter-spacing: 0.02em; white-space: nowrap; }
+  .divider { height: 2px; background: var(--dusty-rose); width: 2.4in; margin-bottom: 0.16in; }
+  .section-label { font-family: 'Inter'; font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--dusty-rose); margin-bottom: 0.06in; }
+  .prompt-card { background: white; border: 1px solid var(--deep-mauve); border-radius: 4pt; padding: 0.14in 0.18in; margin-bottom: 0.14in; font-family: 'JetBrains Mono', 'Consolas', monospace; font-size: 7.5pt; line-height: 1.42; color: var(--matte-black); white-space: pre-wrap; word-wrap: break-word; }
+  .prompt-card strong { font-weight: 600; }
+  .example-card { background: var(--dusty-rose-light); border-left: 3px solid var(--dusty-rose); padding: 0.12in 0.18in; font-size: 7.3pt; line-height: 1.42; color: var(--matte-black); }
+  .example-card .ex-label { font-family: 'Inter'; font-size: 7.5pt; font-weight: 700; color: var(--deep-mauve); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.05in; }
+  .example-card .ex-content { white-space: pre-wrap; word-wrap: break-word; }
+
+  /* Footer */
+  .footer { position: absolute; bottom: 0.35in; left: 0.6in; right: 0.6in; display: flex; justify-content: space-between; align-items: center; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 9pt; color: var(--text-muted); }
+  .footer .left { letter-spacing: 0.02em; }
+  .footer .right { font-style: normal; font-family: 'Inter'; letter-spacing: 0.06em; font-size: 8pt; }
+
+  /* Back cover */
+  .back-cover { background: var(--ivory); padding: 0; display: flex; flex-direction: column; }
+  .back-top { flex: 1; padding: 2.2in 0.9in 0 0.9in; display: flex; flex-direction: column; align-items: center; }
+  .back-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32pt; font-style: italic; font-weight: 400; color: var(--deep-mauve); margin-bottom: 0.4in; text-align: center; line-height: 1.15; }
+  .back-body { font-size: 11pt; line-height: 1.55; color: var(--matte-black); text-align: center; max-width: 4.6in; }
+  .back-bottom { background: var(--matte-black); color: white; padding: 0.32in 0.9in; display: flex; flex-direction: column; align-items: flex-start; font-size: 9.5pt; line-height: 1.5; margin-top: auto; }
+  .back-bottom .b-title { font-weight: 600; letter-spacing: 0.04em; margin-bottom: 0.08in; }
+  .back-bottom .b-line { opacity: 0.85; }
+</style>
+</head>
+<body>
+
+<!-- ================================ PAGE 1 — COVER ================================ -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Companion Guide · Lime Premium Studios</div>
+    <div class="cover-title">AI Wedding<br>Co-Pilot</div>
+    <div class="cover-rose-underline"></div>
+    <div class="cover-subtitle">Eight prompts. Two AI tools.<br>One unforgettable wedding.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="meta">Wedding Budget &amp; Planner · AI Edition · v1.0</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 2 — INTRO ================================ -->
+<div class="page">
+  <div class="content-header">How to use these prompts</div>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>Eight situations every couple hits at least once during a wedding. Eight prompts you can copy, paste, and adapt — designed to work in ChatGPT's free tier or Claude.</p>
+    <p>The prompts here aren't generic. Each one is built to pair with a specific tab in your Wedding spreadsheet. You'll see the tab name listed on each page — paste the prompt, fill in the placeholders from that tab, and you'll get an answer you can actually use.</p>
+
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (Guest List Optimizer, Vendor Negotiation, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the [PLACEHOLDERS] with your data from the tab.</li>
+      <li>Paste, send, read the worked example on the same page to know what a good answer looks like.</li>
+    </ol>
+
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) <strong>OR</strong> a Claude account (free tier works)</li>
+      <li>Your Wedding spreadsheet open in another window</li>
+      <li>10 minutes per prompt for the first one; ~3 minutes once you're used to the flow</li>
+    </ul>
+
+    <div class="sub-section">What this PDF won't do</div>
+    <p>This is not an AI agent that runs by itself. You paste, you read, you decide. The AI suggests; you choose. That separation is on purpose — your wedding, your call.</p>
+    <p style="margin-top:0.2in; font-style:italic; color:var(--deep-mauve);">Turn the page when you're ready.</p>
+  </div>
+  <div class="footer">
+    <div class="left">2 / 12</div>
+    <div class="right">AI WEDDING CO-PILOT</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 3 — PROMPT 1 ================================ -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">1. Guest List Optimizer</div>
+    <div class="tab-callout">Pairs with: 👥 Guest List + ✂️ AI Guest List Optimizer</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are helping me cut my wedding guest list fairly. Here is the situation:
+
+CURRENT COUNT: [number] guests
+TARGET COUNT: [number] guests (I need to cut [N] people)
+WEDDING DATE: [date]
+BUDGET CONSTRAINT: [optional — e.g., "$30k cap, $200/head average"]
+
+Here is my guest list (paste from the Guest List tab — name, side, relationship, must-attend flag):
+
+[PASTE GUEST LIST HERE]
+
+Rules I want you to follow:
+- Cut equally from both sides where possible.
+- Never cut a "must-attend" person (those with Y in the must-attend column).
+- Prefer to cut acquaintances and plus-ones over family.
+- Treat "joint" friends as cuttable from neither side preferentially.
+- If both members of a couple are on the list, treat them as one unit.
+
+Return a table with three columns:
+1. Person/couple to cut
+2. Side (his/hers/joint)
+3. Rationale (one sentence)
+
+Then give me a one-paragraph summary of total people cut, side balance, and estimated budget impact at $200/head.</div>
+  <div class="example-card">
+    <div class="ex-label">EXAMPLE INPUT (excerpt)</div>
+    <div class="ex-content">- Mike Davis | his | high school friend | (not must-attend)
+- Sarah Chen | hers | college roommate | must-attend
+- Tom &amp; Kate | joint | colleagues from old job | (not must-attend)
+- Aunt Linda | his | aunt | must-attend
+- Jess Park | his | gym friend | (not must-attend)
+... [continue list]
+
+EXAMPLE OUTPUT:
+| Cut          | Side  | Why                                              |
+| Mike Davis   | his   | High school friend, no recent contact            |
+| Jess Park    | his   | Gym friend — current but not deep                |
+| Tom &amp; Kate | joint | Former colleagues; haven't seen them in 2+ years |
+
+Total cut: 4 guests · His side −2 · Hers side 0 · Joint −2
+Side balance: needs 2 more cuts from her side to match.
+Budget impact: ~$800 saved at $200/head.</div>
+  </div>
+  <div class="footer">
+    <div class="left">3 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">PROMPT 1 OF 8</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 4 — PROMPT 2 ================================ -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">2. Vendor Cost Intelligence</div>
+    <div class="tab-callout">Pairs with: 🤝 Vendor Tracker + 🔍 AI Vendor Cost Intelligence</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are helping me evaluate vendor quotes for my wedding. Tell me which are fair, which are red-flagged, and what questions to ask before signing.
+
+VENDOR CATEGORY: [photography / catering / florist / DJ / videography / venue / hair-makeup / etc.]
+REGION: [city, state OR metro area]
+SEASON: [spring / summer / fall / winter] / [peak or off-peak month if known]
+GUEST COUNT: [number]
+
+QUOTES (paste 2–4 from your Vendor Tracker tab):
+
+QUOTE 1
+  Vendor name: [name]
+  Total price: $[amount]
+  What's included: [deliverables — e.g., "8 hours coverage, 2 photographers, 500 edited photos, online gallery, USB"]
+  Travel fee: [yes/no — $amount]
+  Deposit required: [%]
+
+QUOTE 2
+  [same fields]
+
+[Add more quotes as needed]
+
+For each quote, tell me:
+1. Is the total price ABOVE, AT, or BELOW fair market for that region + season + category?
+2. What's missing from the deliverables that competitors usually include?
+3. Two specific questions I should ask before signing.
+4. One red flag I should look for in the contract.
+
+Then rank the quotes 1 (best value) to N (worst value) and tell me which one you'd pick and why.</div>
+  <div class="example-card">
+    <div class="ex-label">EXAMPLE — Photography · Austin, TX · October (peak) · 120 guests</div>
+    <div class="ex-content">Quote 1 — AT MARKET. Austin peak-season comp for 2-shooter, 8hr is $3,800–$4,500. Missing: engagement shoot add-on. Ask: print release vs. usage rights? backup-shooter policy if photographer is sick? Red flag: deposit &gt; 50%.
+
+Quote 2 — BELOW MARKET. Either new or underbooking. Missing: 2nd shooter (matters for 120 guests). Ask: how many weddings shot this year? sample full gallery, not highlights. Red flag: 300 edits is light.
+
+Quote 3 — ABOVE MARKET. Bundled video raises floor. Ask: same team for video + photo? drone permit included? Red flag: bundled video sometimes means weaker photo.
+
+RANK: 1 = Quote 1, 2 = Quote 3, 3 = Quote 2.</div>
+  </div>
+  <div class="footer">
+    <div class="left">4 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">PROMPT 2 OF 8</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 5 — PROMPT 3 ================================ -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">3. Seating Constraint Solver</div>
+    <div class="tab-callout">Pairs with: 🪑 Seating Chart + 🧩 AI Seating Constraint Solver</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are helping me solve a wedding seating arrangement.
+
+TOTAL TABLES: [number]
+SEATS PER TABLE: [number — typically 8 or 10]
+TOTAL GUESTS TO SEAT: [number]
+
+CONSTRAINTS:
+- DO NOT SEAT TOGETHER: [pair 1 names; pair 2 names; etc.]
+- MUST SEAT TOGETHER: [pair 1; group 1; etc.]
+- ACCESSIBILITY: [name — needs wheelchair access / hearing aid side / etc.]
+- AGE CONSIDERATIONS: [name — sits with kids / no kids near speeches table / etc.]
+
+GUEST LIST WITH RELATIONSHIPS (paste from Seating Chart Planner tab):
+[Name | Side | Relationship | Notes]
+[Continue list]
+
+Generate a seating plan as a numbered list of tables (Table 1, Table 2, ...) with the guests at each. For each table, give it a one-word "vibe" name (e.g., "Family", "College Friends", "Work + Plus-ones") and the rationale for who's grouped where.
+
+If any constraint cannot be satisfied with the given table count, flag it explicitly and suggest the smallest change (one more table, one fewer constraint, etc.).</div>
+  <div class="example-card">
+    <div class="ex-label">EXAMPLE INPUT (abbreviated) + OUTPUT (excerpt)</div>
+    <div class="ex-content">8 tables × 8 seats = 64 guests
+DO NOT: Uncle Bill ↔ Cousin Marie · Aunt Rose ↔ Tom's mom
+MUST: Sarah's 4 college roommates · bride's parents at head table
+ACCESSIBILITY: Grandma Pat needs aisle seat near restroom
+AGE: Cousin Daniel (7) + sister (5) at kids' table
+
+OUTPUT:
+Table 1 — "Bride's Family Core"
+  Bride's parents, Grandma Pat (aisle), Aunt Sue, Uncle Mark + spouse
+  Rationale: head-table-adjacent. Grandma closest to restroom. Bill on opposite side from Marie.
+
+Table 2 — "College Roommates"
+  Sarah's 4 roommates + plus-ones — must-seat-together group, younger crowd.
+
+[continues for all 8 tables]
+
+FLAGS: All constraints satisfied with 8 tables of 8. No changes needed.</div>
+  </div>
+  <div class="footer">
+    <div class="left">5 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">PROMPT 3 OF 8</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 6 — PROMPT 4 ================================ -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">4. RSVP Reminder Scripts</div>
+    <div class="tab-callout">Pairs with: 📬 RSVP Tracker + 📩 AI RSVP Scripts</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are writing polite reminder messages for guests who haven't RSVP'd to my wedding. Give me three scripts: one for 30 days before the RSVP deadline, one for 14 days, and one for 7 days. Each should feel a little more direct than the last — but always warm, never guilty.
+
+WEDDING DATE: [date]
+RSVP DEADLINE: [date]
+RELATIONSHIP TO GUEST: [close family / extended family / close friend / colleague / parent's friend / etc.]
+MEDIUM: [email / text message / handwritten note]
+TONE PREFERENCE: [warm-casual / formal-polite / direct-friendly]
+
+Each script should:
+- Open with a personal touch (not just "Hey, did you RSVP?")
+- State the actual ask clearly
+- Give them one easy action (link to RSVP form, reply with yes/no, etc.)
+- Close warmly, no pressure
+- Be under 80 words
+
+If the 30-day script doesn't get a response, the 14-day and 7-day scripts assume they're seeing the second/third message and reflect that.</div>
+  <div class="example-card">
+    <div class="ex-label">EXAMPLE — Oct 12, 2026 · close friend · text · warm-casual</div>
+    <div class="ex-content">30 DAYS OUT (Aug 16):
+"Hey Jess! Hope summer's been good to you. Just a friendly heads-up: the RSVP deadline for our wedding (Oct 12) is Sept 15. The form's at [link]. Would love to see you there — let me know either way! xo"
+
+14 DAYS OUT (Sept 1):
+"Hi Jess — quick second nudge on the RSVP for the wedding! Deadline's two weeks out (Sept 15). I know life gets busy — totally no pressure either way, but the venue needs the count by then. [link]"
+
+7 DAYS OUT (Sept 8):
+"Hey Jess, final ping! Need to lock the venue count by Sept 15 (one week from today). Could you fire me a quick yes or no when you get a sec? Either answer is great — just need to know."</div>
+  </div>
+  <div class="footer">
+    <div class="left">6 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">PROMPT 4 OF 8</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 7 — PROMPT 5 ================================ -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">5. Wedding Vows Drafter</div>
+    <div class="tab-callout">Pairs with: 🤖 AI Wedding Co-Pilot tab</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are helping me draft my wedding vows. Write three distinct drafts in the tone I specify, drawing on the relationship details I provide. Each draft should be readable in 60–90 seconds when spoken aloud.
+
+PARTNER'S NAME: [name]
+OUR STORY (paste 150–250 words):
+[How we met, a defining moment, what changed when you knew, an inside joke or shared phrase, what your partner does that you're grateful for — the more specific, the better the output]
+
+TONE: [pick one or combine — romantic / funny / heartfelt-quiet / spiritual / mixed]
+LENGTH: [60 sec / 75 sec / 90 sec — pick one]
+CULTURE OR RELIGION (optional): [Christian / Jewish / Muslim / Hindu / secular / interfaith / etc.]
+WHAT I DON'T WANT: [clichés to avoid]
+ONE VOW I MUST INCLUDE: [optional — a specific promise or phrase]
+
+Generate three distinct drafts. Each should:
+- Open differently (don't reuse the same hook)
+- Reference at least one specific detail from "Our Story"
+- End with a clear promise (not a vague sentiment)
+
+After the three drafts, tell me which one you'd pick and why — one sentence each.</div>
+  <div class="example-card">
+    <div class="ex-label">EXAMPLE OUTPUT — heartfelt-quiet + funny, 75 sec, "Long coffee, longer life"</div>
+    <div class="ex-content">DRAFT 1 (abbreviated):
+"Alex — three years ago you held the last copy of a book I'd been searching for. You said 'make it a long one.' I didn't know then that long coffee meant long life, but I'm catching on.
+
+Today I promise you the burnt pans and the Sunday cooking. The book finds. The bad jokes only one of us will laugh at. I promise to see you on the days you're tired of being seen, and to let you see me on the days I'd rather hide.
+
+Long coffee, longer life — that's the deal. I'm in."
+
+RECOMMENDATION: Draft 1 — the bookstore opening earns the inside joke without overselling it. Drafts 2 and 3 lean funnier and quieter respectively; this one balances.</div>
+  </div>
+  <div class="footer">
+    <div class="left">7 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">PROMPT 5 OF 8</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 8 — PROMPT 6 ================================ -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">6. Day-of Crisis Playbook</div>
+    <div class="tab-callout">Pairs with: ⏰ Day-of + 🚨 AI Crisis Playbook</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are helping me handle a wedding day crisis. Give me a calm, actionable script — what to say, who to delegate to, and what to skip worrying about.
+
+THE CRISIS: [describe in 1–2 sentences — vendor late / guest drama / weather / wardrobe / family / lost item / venue issue / etc.]
+TIME OF DAY: [morning / pre-ceremony / ceremony / cocktail hour / reception / late / right now]
+WHO'S INVOLVED: [name + role — bride / groom / parent / vendor / guest / coordinator]
+WHO CAN HELP RIGHT NOW: [maid of honor / best man / day-of coordinator / parent / venue manager / etc.]
+HOW URGENT: [under 5 min / under 30 min / can wait 1 hr / not urgent]
+
+Give me:
+1. THE FIRST WORDS TO SAY (literal script — what comes out of my mouth in the next 30 seconds)
+2. DELEGATE TO: who handles what so I can focus on the wedding
+3. WHAT TO SKIP: anything I'm tempted to worry about that doesn't matter right now
+4. DEBRIEF NOTE: one line for after the day, so I can revisit if it comes up later
+
+Keep tone calm-direct. No "stay positive!" — be useful.</div>
+  <div class="example-card">
+    <div class="ex-label">EXAMPLE — Uninvited MIL at venue, 2hr before ceremony</div>
+    <div class="ex-content">1. FIRST WORDS: "Hey [MIL's name] — I'm getting ready and we hadn't planned for you to come today. Can we step out front and figure this out together? Give me one second to grab Sara."
+
+2. DELEGATE TO:
+   - Sara (maid of honor): stays with you while you talk to MIL — don't do this alone
+   - Mike (coordinator): keep guests at cocktail hour space; don't let anyone wander toward the entrance for 15 min
+   - Partner: tell them what's happening in one sentence, then they go back to getting ready
+
+3. WHAT TO SKIP: Whether MIL should be allowed to stay. Decide in 15 min with a clear head. Right now just protect the next 90 min.
+
+4. DEBRIEF NOTE: "MIL arrived uninvited at 2pm. Resolved by [outcome]. Discuss with partner Sunday — not tonight."</div>
+  </div>
+  <div class="footer">
+    <div class="left">8 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">PROMPT 6 OF 8</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 9 — PROMPT 7 ================================ -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">7. Vendor Negotiation Scripts</div>
+    <div class="tab-callout">Pairs with: 🤝 Vendor Tracker + 🤖 AI Co-Pilot</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are writing a script for me to negotiate a vendor quote down without burning the relationship.
+
+VENDOR CATEGORY: [photographer / florist / caterer / DJ / etc.]
+VENDOR NAME: [name]
+CURRENT QUOTE: $[amount]
+MY TARGET: $[amount]
+GAP TO CLOSE: $[difference]
+BEST ALTERNATIVE I HAVE: [another quote at $X, or "no alternative — I want this vendor specifically"]
+RELATIONSHIP STATUS: [first inquiry / second conversation / already signed contract but quote crept up / etc.]
+WHAT I LIKE ABOUT THIS VENDOR: [one or two specifics — style, recommendation, prior work]
+MEDIUM: [email / phone / in-person meeting]
+
+Write me:
+1. The opening (don't lead with "your price is too high")
+2. The ask (one specific dollar number or trade — be concrete)
+3. Two fallback positions if they push back (e.g., remove an inclusion, extend payment terms)
+4. WALK-AWAY POINT: the price/terms below which I should politely decline and use my alternative
+
+Keep it warm. Vendors talk to each other; reputation matters.</div>
+  <div class="example-card">
+    <div class="ex-label">EXAMPLE — Florist quote $5,200 → target $4,000 · alt $3,800</div>
+    <div class="ex-content">OPENING (subject: "Re: Wedding Florals — Refining the Plan"):
+"Hi [name] — thanks again for the proposal last week. The seasonal-flower approach is exactly what we want, and your portfolio is what made you our top pick. I'm working through the budget and need to land closer to $4,000 total. Want to walk through what's possible at that number?"
+
+ASK: "Could we drop from $5,200 → $4,000 if we cut the ceremony arch and use simpler reception centerpieces? The bridal bouquet and bridesmaid bouquets we don't want to compromise on."
+
+FALLBACK 1: "What about $4,400 — same scope, but payment in two installments instead of three?"
+FALLBACK 2: "Keep the ceremony arch but single-color palette instead of multi-color."
+
+WALK-AWAY: below $4,300 with original scope — politely decline. Mention the alternative vaguely, never by name.</div>
+  </div>
+  <div class="footer">
+    <div class="left">9 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">PROMPT 7 OF 8</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 10 — PROMPT 8 ================================ -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">8. Speech Drafter (Best Man / MoH / Parent)</div>
+    <div class="tab-callout">Pairs with: 🤖 AI Wedding Co-Pilot tab</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are drafting a wedding speech. Write a full draft based on my details — I'll edit, but I want a real starting point, not a generic template.
+
+WHO I AM: [best man / maid of honor / father of bride / mother of groom / sibling / friend / etc.]
+WHO I'M TOASTING: [name — the bride? the groom? the couple?]
+RELATIONSHIP TO THEM: [how I know them, how long]
+LENGTH: [3 min / 4 min / 5 min — anything over 5 min loses the room.]
+TONE: [funny + heartfelt / mostly heartfelt / dry-witty / formal / cultural-specific]
+WHAT NOT TO SAY: [things to avoid]
+
+ANECDOTES I WANT TO INCLUDE (give me 2–4 short stories, 1–2 sentences each):
+1. [story] · 2. [story] · 3. [story] · 4. [story]
+
+ONE THING I WANT THE COUPLE/AUDIENCE TO FEEL AT THE END:
+[seen / honored / proud / hopeful / etc.]
+
+Structure the speech in four parts:
+1. Opening hook (not "Hi everyone")
+2. Who you are and your relationship to the couple (60 seconds max)
+3. Two of the anecdotes woven together with what they reveal about the couple
+4. The toast: a clear promise / wish / observation, then "raise your glasses to..."
+
+Mark word counts on each section (~150 wpm spoken pace). End with three alternate one-line toasts I can pick from if the main doesn't land in rehearsal.</div>
+  <div class="example-card">
+    <div class="ex-label">EXAMPLE — Best man · 4 min · funny + heartfelt</div>
+    <div class="ex-content">OPENING HOOK (~30 sec / 80 words):
+"For those of you who don't know me — I'm Tom. I've known Alex since we were both wearing braces and dressing badly. He's mostly grown out of one of those things. I've been waiting fifteen years to hold this microphone, which means I've had time to come up with material. I've also had time to lose it. So we're going with the truth instead."
+
+THE HEART — TWO ANECDOTES (~120 sec / 320 words):
+[Car/DMV story woven with Jordan-cooking-for-family — Alex notices what people need, picked someone who does the same. Lands on: "He spent two years saving for that car, and the first thing he did with it was give someone else a ride. Of course he ended up with Jordan."]
+
+TOAST: "To Alex and Jordan — for noticing the things most of us miss. Raise your glasses. To paying attention."
+
+ALT TOASTS: "To being noticed by the right person." · "To the people who show up." · "Long road ahead, good driver."</div>
+  </div>
+  <div class="footer">
+    <div class="left">10 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">PROMPT 8 OF 8</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 11 — TIPS ================================ -->
+<div class="page">
+  <div class="content-header">Which AI should I use?</div>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>All eight prompts work in free tiers. The differences are speed, output length, and how well the AI handles long inputs (like a full guest list or 4 quotes side-by-side).</p>
+
+    <div class="sub-section">ChatGPT Free</div>
+    <p>Best for: Speech Drafter, Vendor Negotiation, RSVP Reminders, Vows Drafter. Strength: conversational tone, good at editing and revising drafts. Limit: ~3,000–4,000 word context per message. If your guest list is 200+ names, paste it in chunks and ask it to combine results.</p>
+
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p>Best for: Guest List Optimizer, Seating Constraint Solver, Vendor Cost Intelligence. Strength: handles longer inputs in a single message. Better at structured table outputs. Limit: per-day conversation cap on free tier — if you hit a wall, wait a few hours or use ChatGPT for the next prompt.</p>
+
+    <div class="sub-section">Paid tiers (ChatGPT Plus / Claude Pro)</div>
+    <p>Worth it if you'll use these prompts heavily over 2–3 months of planning. Skip if one-off use — free tiers do the job.</p>
+
+    <div class="sub-section">Tips that apply to both</div>
+    <ol>
+      <li><strong>Paste your data as a list, not a screenshot.</strong> AI can't read photos of spreadsheets well in free tiers. Copy cells, paste as text.</li>
+      <li><strong>Read the worked example before pasting.</strong> It tells you what good output looks like — if yours doesn't match, you missed a placeholder.</li>
+      <li><strong>Iterate.</strong> First draft is rarely the final. "Make it 30 words shorter" or "make the tone warmer" — the AI will revise.</li>
+      <li><strong>Save what works.</strong> Found a great vow draft on attempt 3? Copy it into your spreadsheet's Notes column so you don't lose it.</li>
+    </ol>
+
+    <p style="margin-top: 0.16in; font-style: italic; color: var(--text-subtle);">Your wedding data never leaves your AI conversation. ChatGPT and Claude don't see your spreadsheet — only what you paste into them, and only during that conversation. Read their privacy policies if you want the details.</p>
+  </div>
+  <div class="footer">
+    <div class="left">11 / 12 · AI Wedding Co-Pilot</div>
+    <div class="right">TIPS &amp; AI CHOICE</div>
+  </div>
+</div>
+
+<!-- ================================ PAGE 12 — BACK COVER ================================ -->
+<div class="page back-cover">
+  <div class="back-top">
+    <div class="back-title">You're going to be fine.</div>
+    <div class="back-body">
+      <p style="margin-bottom: 0.14in;">Wedding planning is mostly two things: deciding,<br>and then deciding again because something changed.</p>
+      <p>These eight prompts won't decide for you.<br>They'll just make the decisions a little less lonely.</p>
+    </div>
+  </div>
+  <div class="back-bottom">
+    <div class="b-title">Wedding Budget &amp; Planner — AI Edition</div>
+    <div class="b-line">v1.0 · Lime Premium Studios</div>
+    <div class="b-line">support@limepremiumstudios.com · reply within 24 hours</div>
+    <div class="b-line" style="margin-top: 0.12in;">This PDF ships with your purchase of the Wedding AI Edition spreadsheet.</div>
+    <div class="b-line">AI prompts are designed for ChatGPT and Claude (free or paid tiers — your choice).</div>
+    <div class="b-line">12-month free updates included with AI Edition.</div>
+    <div style="display:flex; justify-content:flex-end; width:100%; margin-top:0.14in; font-style:italic; opacity:0.7; font-family:'Cormorant Garamond',Georgia,serif; font-size:9pt;">12 / 12</div>
+  </div>
+</div>
+
+</body>
+</html>

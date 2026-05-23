@@ -5981,3 +5981,91 @@ All 10 workflow prompts + 60 per-product reference prompts pulled verbatim from 
 - **Life Bundle AI:** "Premium Life Bundle AI Edition | 6 Spreadsheets + 60 ChatGPT Claude Prompts + Wedding Tools + Setup PDF | Master AI Digital Download"
 
 ### Safe to clear ✅
+
+---
+
+## 2026-05-23 (PM10) — Wedding Budget & Planner (Product 9) built end-to-end
+
+**User prompt:** "Product 8 is underway · work on Product 9 now"
+
+**Scope.** Cascade Wedding Budget & Planner (Product 9 — the wedding-tradition-agnostic spreadsheet) through the Premium Finance House pipeline in parallel to PM7's Zakat Calculator track. This unblocks the Life Bundle (Product 10, built PM9) which had a hard dependency on the Wedding xlsx being available for its `product_files` join.
+
+**Inputs read.**
+- `docs/product-proposals/wedding-budget-planner.md` — approved 2026-05-10, $19/$34/$49 lower-alternative pricing, 22-tab spec
+- `docs/product-designs/wedding-budget-planner.md` — D1 dusty-rose mood / D2 Cormorant Garamond + Inter / D3 spreadsheet visual system / D4 5-thumbnail spec / D5 12-page AI PDF spec
+- `docs/product-content/wedding-ai-prompts.md` — 12-page AI PDF content source-of-truth, 8 prompts × 1pg + intro + tips + back cover
+
+**Artifacts produced (10).**
+
+| Artifact | Size | Notes |
+|---|---|---|
+| `tools/sheets-gen/templates/wedding-budget-planner.js` | ~1,750 LOC | 22 tabs × 3 tiers via `--tier=` CLI |
+| `output/wedding-budget-planner-essentials.xlsx` | 91 KB | 12 visible / 22 (built 107 ms) |
+| `output/wedding-budget-planner-pro.xlsx` | 107 KB | 16 visible / 22 (built 124 ms) |
+| `output/wedding-budget-planner-ai-edition.xlsx` | 132 KB | 22 visible / 22 (built 125 ms) |
+| `tools/pdf-gen/templates/wedding-ai-pdf.html` | — | 12 pages verbatim from `wedding-ai-prompts.md` |
+| `output/wedding-ai-pdf.pdf` | 1.0 MB | 12 pages verified via `/Type/Page` count |
+| `tools/pdf-gen/templates/wedding-quickstart.html` | — | 1-page Setup → Dashboard → first-30-days |
+| `output/wedding-quickstart.pdf` | 446 KB | 1 page verified |
+| `tools/thumb-gen/templates/wedding-budget-planner-{01-hero,02-budget-dashboard,03-guest-seating,04-ai-copilot,05-anti-zola}.html` | — | per design brief §3 |
+| `output/wedding-budget-planner-{01–05}.png` | 187–269 KB each | 2000×2000 sRGB |
+
+**Brand override per design brief §1 / §2.**
+
+Dusty rose `#C9A0A0` + deep mauve `#8B5A6B` + sage `#8FA98F` + amber `#D4A574` + burgundy `#8B3A3A` + ivory `#FAF6F1` + matte black `#1A1A1A` per palette table. Cormorant Garamond for display (PDF covers 52pt, thumb hero titles 132–168pt) + Inter for body. Warm-gold parent-brand accent retained on PFS top-bar / footer / dividers (parent-brand continuity across the 11-product catalog).
+
+**22-tab structure.**
+
+- Essentials ($19, 12 visible): Setup Wizard · Budget Dashboard · Budget Categories (14 pre-built) · Vendor Tracker (20-row) · Guest List (50-row) · RSVP Tracker · Seating Chart Planner (12 tables × 8 seats) · Master Timeline (42 universal tasks + 8-tradition reference table) · Day-of Schedule (27-row minute-by-minute) · Vendor Contact Sheet · Honeymoon Budget · Annual Reflection
+- Pro ($34, +4 → 16): Cost Per Guest (what-if slider) · Vendor Comparison (3-way weighted-score 40-35-15-10) · Bridal Party · Gift Registry
+- AI Edition ($49, +6 → 22): AI Wedding Co-Pilot hub (2×4 grid of 8 prompt cards w/ HYPERLINK to dedicated tabs) · Guest List Optimizer · Vendor Cost Intelligence · Seating Constraint Solver · RSVP Reminder Scripts · Day-of Crisis Playbook
+
+**Cultural variants per brief §5.** No separate Muslim / Hindu tabs — embedded as an 8-row tradition reference table inside Master Timeline (Christian / Catholic / Jewish / Muslim Walima + mahr / Hindu multi-day / Sikh Anand Karaj / Buddhist / Interfaith). Religion dropdown on Setup Wizard signals the active tradition. Avoids stereotype motifs entirely.
+
+**Spine + dashboard visuals (per brief §2).**
+
+- Input: 🧭 Setup Wizard — wedding date / guest count / venue / budget cap / region / currency / income / religion / planning timeline / partner A/B names with DV dropdowns
+- Output: 🏠 Budget Dashboard — 5 required visuals:
+  1. Spent-vs-remaining with days-to-wedding center tile + budget-health gauge (✓ On Track / ◐ Near Cap / ⚠ Over with sage/amber/burgundy CF)
+  2. Stacked bar — spend by category vs target (14 categories × REPT() bar with status CF)
+  3. Top-5 vendors by spend (LARGE() ranked + concentration %)
+  4. Trajectory — expected vs actual + pace status
+  5. 5-tile RSVP-progress meter (Yes / Maybe / No / Pending + response rate)
+
+**Persona threaded across artifacts.** Amelia & Daniel, Oct 12 2026, Austin TX, 120 guests, $32,000 cap (Knot 2024 US-average), $145K household income, interfaith / secular. Names + city + budget number consistent across xlsx seeds, AI PDF worked examples, thumbnail mockups.
+
+**Banner library (rotates per tab per brief §2).**
+1. 🔒 Privacy-first — guest list never touches our servers
+2. 💸 No subscription — $20/mo SaaS × 13mo = $260+ vs $19 once (anchors thumb #5 math: $241+ saved)
+3. 🤔 Why a spreadsheet not an app — pay once, own forever, methodology-agnostic
+
+**Tooling notes.** Reuses `tools/sheets-gen/lib/premium-finance-studio.js` (PFS) for top-bar / KPI tiles / section headers / callouts / footer / tier-visibility / Lime logo embed. Per-product palette overrides layered on top — palette constants `DUSTY_ROSE`/`DEEP_MAUVE`/`SAGE`/`AMBER_WED`/`BURGUNDY` + helper `bigTile()` for dashboard KPI tiles + `repBar()` for REPT-based progress bars. All 3 tier xlsx files built first-try cleanly (107–125 ms per tier — fastest catalog cascade to date thanks to PFS reuse).
+
+**Known cosmetic / minor items for QA.**
+1. Cost Per Guest tab uses `E12` as the what-if slider cell; top-bar KPI formulas reference `E12` + `E14`. Slider works but is "free-floating" — no labeled "INPUT" pill around it. QA may want a labeled callout pointing at the cell.
+2. Budget Categories `D` column is written twice (once as % literal, immediately overridden by `C×budget_cap` formula). Second write wins; cosmetic only.
+3. Trajectory section formula assumes a >30-day-out wedding for the linear-pace baseline — IFERROR wraps prevent crashes but display value may read 0 for last-minute weddings.
+
+**Next session pickup.**
+
+1. **QA pass** — dispatch senior-grade QA agent (cascade from `net-worth-tracker-qa-expert` / `sinking-fund-qa-expert` 2-round protocol). Suggested 5 personas: destination-elopement low-budget couple / 80-guest backyard wedding / 250-guest cultural multi-day Hindu / 120-guest interfaith Christian-Jewish blend / 60-guest second-marriage with kids. Probe edge cases: guest_count=0 · wedding_date in past · cut_N > guest_count · 200-guest seating into 12×8=96-seat capacity · 4-tradition religion change mid-plan · all categories flagged variable. Validate AI advisor prompt-pair tab references.
+2. **Etsy listing** — once SHIP, push as draft via `mcp__etsy__etsy_create_listing` (taxonomy 12487, 13 tags from listing copy, 3-tier variations via property_id 513 at $19/$34/$49, new shop section "Wedding Spreadsheets").
+3. **Life Bundle unblock** — Wedding xlsx is now ready, so the Life SKUs ($99/$149) from PM9's Bundle build can ship with the constituent-file join filled in.
+4. **Supabase Storage** — upload all 5 wedding files to `downloads` bucket + create `product_files` rows.
+
+### Bundle file inventory
+- `output/wedding-budget-planner-essentials.xlsx` (91 KB)
+- `output/wedding-budget-planner-pro.xlsx` (107 KB)
+- `output/wedding-budget-planner-ai-edition.xlsx` (132 KB)
+- `output/wedding-ai-pdf.pdf` (12 pages, 1.0 MB)
+- `output/wedding-quickstart.pdf` (1 page, 446 KB)
+- `output/wedding-budget-planner-01-hero.png` (2000×2000, 214 KB)
+- `output/wedding-budget-planner-02-budget-dashboard.png` (2000×2000, 188 KB)
+- `output/wedding-budget-planner-03-guest-seating.png` (2000×2000, 219 KB)
+- `output/wedding-budget-planner-04-ai-copilot.png` (2000×2000, 208 KB)
+- `output/wedding-budget-planner-05-anti-zola.png` (2000×2000, 269 KB)
+
+### Suggested listing title (from proposal v1)
+"Wedding Budget & Planner Spreadsheet | 22 Tabs, Guest List, Seating Chart, RSVP Tracker, AI Wedding Co-Pilot, Honeymoon Budget | Excel + Google Sheets"
+
+### Safe to clear ✅

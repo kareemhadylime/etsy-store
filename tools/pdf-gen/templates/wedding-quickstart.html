@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wedding Budget &amp; Planner — Quick Start Guide</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Quick start guide for the Lime Premium Studios Wedding Budget & Planner — Setup Wizard + Budget Dashboard + Guest List workflow, tier walkthrough, and first-30-day playbook.">
+<meta name="keywords" content="wedding planner, wedding budget, google sheets, guest list, RSVP, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Wedding Budget & Planner Quick Start Guide v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dusty-rose: #C9A0A0;
+    --dusty-rose-light: #EDD8D8;
+    --deep-mauve: #8B5A6B;
+    --matte-black: #1A1A1A;
+    --ivory: #FAF6F1;
+    --warm-gray: #E8E2DA;
+    --sage: #8FA98F;
+    --amber: #D4A574;
+    --burgundy: #8B3A3A;
+    --text-muted: #888888;
+    --warm-gold: #C9A14A;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-family: 'Inter', -apple-system, sans-serif; background: var(--ivory); color: var(--matte-black); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { width: 8.5in; background: var(--ivory); }
+  .page { width: 8.5in; height: 11in; padding: 0.5in 0.55in; position: relative; background: var(--ivory); }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.16in; }
+  .h-left { flex: 1; }
+  .eyebrow { font-size: 8pt; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dusty-rose); margin-bottom: 0.04in; }
+  .h-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30pt; font-weight: 600; letter-spacing: 0; color: var(--matte-black); line-height: 1.0; margin-bottom: 0.06in; }
+  .h-sub { font-size: 10pt; color: var(--matte-black); opacity: 0.75; font-style: italic; font-family: 'Cormorant Garamond', Georgia, serif; }
+  .h-badge { background: var(--matte-black); color: white; padding: 8pt 14pt; border-radius: 4pt; font-size: 8pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; line-height: 1.4; }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--dusty-rose); }
+  .rose-divider { height: 2px; background: var(--dusty-rose); width: 1.6in; margin-bottom: 0.14in; }
+
+  .section-label { font-size: 9pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--dusty-rose); margin-bottom: 0.06in; }
+
+  .copy-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.12in; margin-bottom: 0.18in; }
+  .step { background: white; border-radius: 6pt; padding: 0.14in 0.16in; border: 1px solid var(--warm-gray); position: relative; }
+  .step-num { position: absolute; top: -10pt; left: 14pt; background: var(--dusty-rose); color: white; width: 22pt; height: 22pt; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11pt; font-weight: 700; }
+  .step-time { font-size: 7pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dusty-rose); margin-top: 0.08in; margin-bottom: 0.04in; }
+  .step-title { font-size: 10pt; font-weight: 700; color: var(--matte-black); margin-bottom: 0.04in; line-height: 1.2; }
+  .step-body { font-size: 8pt; line-height: 1.4; color: var(--matte-black); opacity: 0.78; }
+
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.14in; margin-bottom: 0.18in; }
+  .tier { background: white; border-radius: 6pt; padding: 0.16in 0.16in; border: 1px solid var(--warm-gray); display: flex; flex-direction: column; }
+  .tier.ai { background: var(--matte-black); color: white; border-color: var(--matte-black); }
+  .tier-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.05in; }
+  .tier-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16pt; font-weight: 700; letter-spacing: 0; }
+  .tier-price { font-size: 14pt; font-weight: 700; color: var(--dusty-rose); letter-spacing: -0.02em; }
+  .tier.ai .tier-price { color: var(--dusty-rose); }
+  .tier-tabs { font-size: 7.5pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dusty-rose); margin-bottom: 0.07in; }
+  .tier-list { list-style: none; padding: 0; font-size: 8pt; line-height: 1.55; }
+  .tier-list li { padding-left: 0.16in; position: relative; }
+  .tier-list li::before { content: '✦'; color: var(--dusty-rose); font-weight: 700; position: absolute; left: 0; }
+
+  .spine { background: white; border-left: 3px solid var(--dusty-rose); padding: 0.12in 0.16in; margin-bottom: 0.16in; border-radius: 0 4pt 4pt 0; }
+  .spine-head { font-size: 9pt; font-weight: 700; color: var(--deep-mauve); margin-bottom: 0.05in; text-transform: uppercase; letter-spacing: 0.1em; }
+  .spine-body { font-size: 9pt; line-height: 1.5; }
+
+  .first30 { background: var(--dusty-rose-light); border-left: 3px solid var(--dusty-rose); padding: 0.12in 0.16in; margin-bottom: 0.14in; border-radius: 0 4pt 4pt 0; }
+  .first30 ol { padding-left: 0.22in; font-size: 9pt; line-height: 1.55; }
+  .first30 li { margin-bottom: 0.04in; }
+  .first30 strong { font-weight: 700; color: var(--deep-mauve); }
+
+  .footer { position: absolute; bottom: 0.4in; left: 0.55in; right: 0.55in; display: flex; justify-content: space-between; align-items: center; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 8pt; color: var(--text-muted); }
+  .footer .right { font-family: 'Inter'; font-style: normal; letter-spacing: 0.06em; font-size: 7pt; font-weight: 600; color: var(--matte-black); opacity: 0.7; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Quick Start · Lime Premium Studios</div>
+      <div class="h-title">Wedding Budget &amp; Planner</div>
+      <div class="rose-divider"></div>
+      <div class="h-sub">Setup Wizard → Budget Dashboard → first 30 days. About 8 minutes.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Version</div>
+      <div class="ver">1.0</div>
+    </div>
+  </div>
+
+  <div class="section-label">4 steps · ~8 min to your first dashboard</div>
+  <div class="copy-flow">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-time">2 min</div>
+      <div class="step-title">Open Setup Wizard</div>
+      <div class="step-body">Enter wedding date, guest count, budget cap, region, currency, religion. The dropdowns drive every downstream tab — no formulas to learn.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-time">2 min</div>
+      <div class="step-title">Open Budget Dashboard</div>
+      <div class="step-body">5 visuals computed live: spent-vs-remaining donut · category vs. target · top-5 vendors · trajectory · RSVP meter. Read it; refine it later.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-time">2 min</div>
+      <div class="step-title">Drop in your guests</div>
+      <div class="step-body">Paste names into Guest List with side / relationship / must-attend. RSVP Tracker + Cost Per Guest + Seating Chart all update from this one tab.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-time">2 min</div>
+      <div class="step-title">List your vendors</div>
+      <div class="step-body">Vendor Tracker — name / category / deposit / balance / due date. Top-5 ranking flows to the dashboard. Status pills turn amber when due in 14 days.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Spine architecture</div>
+  <div class="spine">
+    <div class="spine-head">📥 Input — 🧭 Setup Wizard &nbsp;·&nbsp; 📊 Output — 🏠 Budget Dashboard</div>
+    <div class="spine-body">Two structural tabs anchor everything else. Edit Setup Wizard once at the start (~5 min). Budget Dashboard then recomputes the moment any downstream tab changes. The remaining 20 tabs are scaffolding around this spine — drop in / out as needed.</div>
+  </div>
+
+  <div class="section-label">3 tiers · the difference</div>
+  <div class="tiers">
+    <div class="tier">
+      <div class="tier-head"><div class="tier-name">Essentials</div><div class="tier-price">$19</div></div>
+      <div class="tier-tabs">12 tabs</div>
+      <ul class="tier-list">
+        <li>Setup Wizard + Budget Dashboard spine</li>
+        <li>Budget Categories (14)</li>
+        <li>Vendor Tracker · Guest List · RSVP</li>
+        <li>Seating · Timeline · Day-of</li>
+        <li>Vendor Contacts · Honeymoon · Reflection</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <div class="tier-head"><div class="tier-name">Pro</div><div class="tier-price">$34</div></div>
+      <div class="tier-tabs">16 tabs · +4</div>
+      <ul class="tier-list">
+        <li><strong>Everything in Essentials</strong></li>
+        <li>Cost Per Guest (what-if slider)</li>
+        <li>Vendor Comparison (3-way scored)</li>
+        <li>Bridal Party Tracker</li>
+        <li>Gift Registry + thank-you tracker</li>
+      </ul>
+    </div>
+    <div class="tier ai">
+      <div class="tier-head"><div class="tier-name">AI Edition</div><div class="tier-price">$49</div></div>
+      <div class="tier-tabs">22 tabs · +6 AI</div>
+      <ul class="tier-list">
+        <li><strong>Everything in Pro</strong></li>
+        <li>AI Wedding Co-Pilot hub</li>
+        <li>Guest List Optimizer + Vendor Cost Intel</li>
+        <li>Seating Solver + RSVP Scripts</li>
+        <li>Day-of Crisis Playbook + 12-page PDF</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">First 30 days — the suggested order</div>
+  <div class="first30">
+    <ol>
+      <li><strong>Day 1.</strong> Setup Wizard → Budget Dashboard. Read the numbers. Don't panic; you have 12+ months.</li>
+      <li><strong>Week 1.</strong> Guest List rough draft (over-include — easier to cut than add).</li>
+      <li><strong>Week 2.</strong> Tour 3 venues + sign the one you love. The venue anchors the date and the budget.</li>
+      <li><strong>Week 3.</strong> Book photographer + caterer (longest-lead vendors).</li>
+      <li><strong>Week 4.</strong> If AI Edition: run the Guest List Optimizer prompt with a tighter target — refine to the real number.</li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    <div class="left">Wedding Budget &amp; Planner · v1.0 · Lime Premium Studios</div>
+    <div class="right">YOUR WEDDING · YOUR CALL</div>
+  </div>
+</div>
+</body>
+</html>
