@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sinking Funds Planner — Thumbnail 05 Anti-Qapital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --alert-light: #F0DBD9;
+    --success-light: #D9E5DC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .title-block { position: absolute; top: 130px; left: 90px; right: 90px; text-align: center; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 96px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 22px; max-width: 1750px; margin-left: auto; margin-right: auto; }
+  .title-main .accent { color: var(--secondary-warm-gold); }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin: 0 auto 22px; }
+  .title-sub { font-size: 30px; font-weight: 500; opacity: 0.7; line-height: 1.35; max-width: 1500px; margin: 0 auto; }
+
+  .compare {
+    position: absolute; left: 90px; right: 90px; top: 700px; bottom: 220px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+  }
+  .compare-col {
+    background: var(--surface-white); border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(31,42,51,0.12), 0 6px 14px rgba(31,42,51,0.06);
+    overflow: hidden; border: 1px solid rgba(31,42,51,0.06);
+    display: flex; flex-direction: column;
+  }
+  .compare-col.bad .compare-header { background: var(--alert-light); color: var(--status-alert); }
+  .compare-col.good .compare-header { background: var(--success-light); color: var(--status-success); }
+  .compare-header {
+    padding: 32px 40px;
+    border-bottom: 1px solid var(--neutral-grid);
+    text-align: center;
+  }
+  .compare-header .label { font-size: 16px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+  .compare-header .name { font-size: 44px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .compare-header .price { font-size: 80px; font-weight: 700; letter-spacing: -0.025em; line-height: 1; }
+  .compare-header .price-sub { font-size: 24px; font-weight: 600; opacity: 0.6; margin-top: 8px; }
+
+  .compare-body { padding: 30px 40px; flex: 1; }
+  .compare-row {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 22px; font-weight: 500; padding: 12px 0;
+    border-bottom: 1px solid var(--neutral-grid);
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .icon { font-size: 26px; line-height: 1; width: 30px; text-align: center; }
+  .compare-row.bad .icon { color: var(--status-alert); }
+  .compare-row.good .icon { color: var(--status-success); }
+  .compare-row .label-text { flex: 1; }
+  .compare-row .value { font-weight: 700; opacity: 0.65; }
+
+  .savings-banner {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; padding: 0 90px;
+  }
+  .savings-text { font-size: 30px; font-weight: 500; text-align: center; max-width: 1750px; }
+  .savings-text .accent { color: var(--secondary-warm-gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <div class="title-eyebrow">Privacy-First Spreadsheet vs. App Subscription</div>
+  <div class="title-main">Qapital charges $5/mo. We charge <span class="accent">$9 once</span>.<br>4 vehicles, not 1.</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">No round-ups. No bank handshake. No Plaid. No aggregator monetizing your data.</div>
+</div>
+
+<div class="compare">
+  <div class="compare-col bad">
+    <div class="compare-header">
+      <div class="label">The App</div>
+      <div class="name">Qapital · Monarch</div>
+      <div class="price">$5 — $99</div>
+      <div class="price-sub">per month · per year</div>
+    </div>
+    <div class="compare-body">
+      <div class="compare-row bad">
+        <div class="icon">✗</div>
+        <div class="label-text">Bank-credential handshake</div>
+        <div class="value">Plaid</div>
+      </div>
+      <div class="compare-row bad">
+        <div class="icon">✗</div>
+        <div class="label-text">Vehicles supported</div>
+        <div class="value">Cash only</div>
+      </div>
+      <div class="compare-row bad">
+        <div class="icon">✗</div>
+        <div class="label-text">Your data is the product</div>
+        <div class="value">Sold to lenders</div>
+      </div>
+      <div class="compare-row bad">
+        <div class="icon">✗</div>
+        <div class="label-text">5-year cost (Qapital → Monarch)</div>
+        <div class="value">$300 — $495</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-col good">
+    <div class="compare-header">
+      <div class="label">The Spreadsheet</div>
+      <div class="name">Sinking Funds Planner</div>
+      <div class="price">$9 — $29</div>
+      <div class="price-sub">one-time · keep forever</div>
+    </div>
+    <div class="compare-body">
+      <div class="compare-row good">
+        <div class="icon">✓</div>
+        <div class="label-text">Privacy — your sheet, your drive</div>
+        <div class="value">No Plaid</div>
+      </div>
+      <div class="compare-row good">
+        <div class="icon">✓</div>
+        <div class="label-text">Vehicles supported</div>
+        <div class="value">Cash · CD · ETF · Metals</div>
+      </div>
+      <div class="compare-row good">
+        <div class="icon">✓</div>
+        <div class="label-text">Free bug fixes forever</div>
+        <div class="value">+12 mo AI refresh</div>
+      </div>
+      <div class="compare-row good">
+        <div class="icon">✓</div>
+        <div class="label-text">5-year cost</div>
+        <div class="value">$9 — $29</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="savings-banner">
+  <div class="savings-text">Saves <span class="accent">$271 vs Qapital</span> · <span class="accent">$466 vs Monarch</span> over 5 years. Same spreadsheet handles all 4 vehicles.</div>
+</div>
+
+</body>
+</html>

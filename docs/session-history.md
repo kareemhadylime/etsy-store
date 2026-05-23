@@ -5295,3 +5295,61 @@ Pushed Budget Tracker from "planning + 17-tab xlsx generated" all the way to "Et
 2. Cascade Product #2 (Debt Payoff Planner) through the same pipeline. ~3-4h.
 
 ### Safe to clear ✅
+
+---
+
+## Session 2026-05-23 (PM2) — Product 4 (Net Worth Tracker) — end-to-end cascade build
+
+### Direction
+User said: "Product 3 is completed & under Audit — work on Product 4 now." Net Worth Tracker. Cascade the Premium Finance House pipeline from Sinking Funds Planner (the most recent build).
+
+### What got built
+**Sheets template** — `tools/sheets-gen/templates/net-worth-tracker.js`. ~2,750 lines. 20 tabs across 3 tier variants:
+- Essentials ($12): 9 visible — Dashboard, Assets Summary, Liabilities Summary, NW History, Vehicle Depreciation (2 vehicles cap), FIRE Calculator (Conservative scenario only), Age Benchmark, Annual Summary, About
+- Pro ($19): 19 visible — adds Real Estate, Stocks & Funds (7-account split: 401k/IRA/Roth/SEP/HSA/529/Taxable), Metals & Crypto, Passive Income Simulator, Asset Allocation, Retirement Tracker, Tax-Loss Harvesting Log, Geographic Exposure, Insurance & Estate, Estate Access
+- AI Edition ($29): 20 visible — adds AI Wealth Intelligence hub (7 prompt cards in 2x4 grid)
+
+**Dashboard** delivers 5 required visualizations per design brief: NW Health Score composite gauge (0-100 with 5 sub-component mini-bars: savings rate / debt-to-asset / allocation drift / FIRE progress / EF coverage) + 24-month trajectory + asset mix vs target drift table + big FIRE-progress bar + 6 KPI tiles in top bar.
+
+**Tier visibility** via PFS `applyTierVisibility()`: 10 Pro tabs removed for Essentials, 1 AI tab removed for both lower tiers. Footer + product band auto-patches to actual tier label.
+
+**AI Wealth Intelligence PDF** — 11 pages. Content verbatim from `docs/product-content/net-worth-ai-prompts.md`. Same fictional persona (37yo SWE, married, 2 kids, ~$326K NW, Texas rental) threads through every prompt's worked example.
+
+**Quickstart PDF** — 1 page. 4-step setup + 3-tier first-actions + 3 day-one tips.
+
+**5 thumbnails** (2000×2000 PNG): hero / FIRE calculator / asset mix / AI advisor / anti-Plaid.
+
+### Bugs fixed in-session
+- `mergeCells("F${s.row}:F${s.row}")` self-merge in FIRE Calculator → removed.
+- Passive Income Simulator E14:F14 collided with addSectionHeader's gold-underline merge at row 14 → restructured (header at row 11 with null subtitle, placeholders at rows 13 + 15).
+
+### Files (all new)
+- `tools/sheets-gen/templates/net-worth-tracker.js`
+- `tools/sheets-gen/output/net-worth-tracker-{essentials,pro,ai-edition}.xlsx`
+- `tools/pdf-gen/templates/net-worth-ai-pdf.html` + `tools/pdf-gen/output/net-worth-ai-pdf.pdf`
+- `tools/pdf-gen/templates/net-worth-quickstart.html` + `tools/pdf-gen/output/net-worth-quickstart.pdf`
+- `tools/thumb-gen/templates/net-worth-tracker-{01..05}-*.html` (5 files)
+- `tools/thumb-gen/output/net-worth-tracker-{01..05}-*.png` (5 files)
+- `session-handshake.md` (updated)
+- `SESSION_HANDOFF.md` (updated)
+- `docs/session-history.md` (this entry)
+
+### Decisions made
+- **Same persona threads through every artifact** — 37yo SWE / married / 2 kids / ~$326K NW / Texas rental. Persona originated in `docs/product-content/net-worth-ai-prompts.md`; reused in xlsx seed data + AI PDF worked examples + dashboard mockup thumbnail. Continuity is a quality signal.
+- **Anti-Empower + anti-Monarch + anti-Kubera triple-name framing** (per listing copy v1) carried into thumbnail #5 + every tab banner + About FAQ. Strongest premium-tier conversion driver per listing copy production notes.
+- **FIRE positioning is the headline hook** for this product per design brief. Surfaces: FIRE meter prominent on Dashboard + standalone FIRE Calculator tab with 3-scenario closed-form math + thumbnail #2 + AI Edition FIRE Forecaster prompt.
+- **7-account equity split is the depth differentiator** — `Stocks & Funds` (Pro) shipped with 25 holding rows tagged across all 7 account types.
+- **No QA pass this session** — that's the next session's work (cascade from sinking-fund-qa-expert / debt-payoff-qa patterns).
+
+### Blockers / out-of-scope this session
+- No LibreOffice recalc verification → next session
+- No multi-persona simulation → next session
+- No Etsy push → next session (after QA)
+- No `net-worth-qa` agent yet → build in next session
+
+### Next session pickup
+1. Build a `net-worth-qa` agent (cascade from `sinking-fund-qa-expert`). 5 personas to probe.
+2. Edge cases: zero-asset start · negative net worth · FIRE already achieved (>100% funded) · age >= retirement · bonds-only allocation · 7-account contributions exceeding IRS limits.
+3. If SHIP → push to Etsy as draft via `mcp__etsy__etsy_create_listing` (cascade from Budget Tracker pattern — taxonomy 12487, 13 tags from listing copy v1 §5, 3-tier variations via `property_id 513`, shop section "Net Worth & FIRE Spreadsheets").
+
+### Safe to clear ✅

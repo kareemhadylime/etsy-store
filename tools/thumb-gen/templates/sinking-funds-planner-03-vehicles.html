@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sinking Funds Planner — Thumbnail 03 4 Vehicles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .title-block { position: absolute; top: 120px; left: 90px; right: 90px; text-align: center; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 110px; font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; margin-bottom: 24px; max-width: 1700px; margin-left: auto; margin-right: auto; }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin: 0 auto 24px; }
+  .title-sub { font-size: 32px; font-weight: 500; opacity: 0.7; line-height: 1.35; max-width: 1500px; margin: 0 auto; }
+
+  .vehicles-grid {
+    position: absolute; left: 90px; right: 90px; top: 680px; bottom: 220px;
+    display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 28px;
+  }
+  .vehicle-card {
+    background: var(--surface-white); border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(31,42,51,0.12), 0 6px 14px rgba(31,42,51,0.06);
+    overflow: hidden; border: 1px solid rgba(31,42,51,0.06);
+    display: flex; flex-direction: column;
+  }
+  .vehicle-header {
+    padding: 28px 32px 18px;
+    border-bottom: 2px solid var(--secondary-warm-gold);
+    display: flex; align-items: center; gap: 18px;
+  }
+  .vehicle-icon { font-size: 56px; line-height: 1; }
+  .vehicle-name { font-size: 38px; font-weight: 700; letter-spacing: -0.01em; }
+  .vehicle-body { padding: 22px 32px 26px; flex: 1; display: flex; flex-direction: column; }
+  .vehicle-metric {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 14px;
+  }
+  .vehicle-metric-label { font-size: 16px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.55; }
+  .vehicle-metric-value { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; }
+  .vehicle-feature-list { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--neutral-grid); }
+  .vehicle-feature {
+    font-size: 17px; font-weight: 500; opacity: 0.7;
+    display: flex; align-items: center; gap: 10px; margin-top: 8px;
+  }
+  .vehicle-feature::before { content: '✓'; color: var(--secondary-warm-gold); font-weight: 700; }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; padding: 0 90px;
+  }
+  .bottom-text { font-size: 32px; font-weight: 500; text-align: center; max-width: 1700px; opacity: 0.9; }
+  .bottom-text .accent { color: var(--secondary-warm-gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <div class="title-eyebrow">No competitor matches all four</div>
+  <div class="title-main">Cash, metals, CDs, ETFs —<br>one sheet handles all four.</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">Per-vehicle tracker tabs. GOOGLEFINANCE spot prices. CD ladder math. DRIP dividend calendar.</div>
+</div>
+
+<div class="vehicles-grid">
+  <div class="vehicle-card">
+    <div class="vehicle-header">
+      <div class="vehicle-icon">💵</div>
+      <div class="vehicle-name">Cash / HYSA</div>
+    </div>
+    <div class="vehicle-body">
+      <div class="vehicle-metric"><div class="vehicle-metric-label">Best for</div><div class="vehicle-metric-value">&lt; 1 yr</div></div>
+      <div class="vehicle-metric"><div class="vehicle-metric-label">Yield</div><div class="vehicle-metric-value">4–5%</div></div>
+      <div class="vehicle-feature-list">
+        <div class="vehicle-feature">Emergency Fund · Christmas · Vacation</div>
+        <div class="vehicle-feature">Liquid · zero risk · daily access</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vehicle-card">
+    <div class="vehicle-header">
+      <div class="vehicle-icon">🏦</div>
+      <div class="vehicle-name">CD Ladder</div>
+    </div>
+    <div class="vehicle-body">
+      <div class="vehicle-metric"><div class="vehicle-metric-label">Best for</div><div class="vehicle-metric-value">1–3 yr</div></div>
+      <div class="vehicle-metric"><div class="vehicle-metric-label">Yield</div><div class="vehicle-metric-value">4.5–5%</div></div>
+      <div class="vehicle-feature-list">
+        <div class="vehicle-feature">FV @ maturity formula · 10 CDs</div>
+        <div class="vehicle-feature">90-day rollover alert · auto-stacked</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vehicle-card">
+    <div class="vehicle-header">
+      <div class="vehicle-icon">📈</div>
+      <div class="vehicle-name">ETFs / Funds</div>
+    </div>
+    <div class="vehicle-body">
+      <div class="vehicle-metric"><div class="vehicle-metric-label">Best for</div><div class="vehicle-metric-value">3–10 yr</div></div>
+      <div class="vehicle-metric"><div class="vehicle-metric-label">Return</div><div class="vehicle-metric-value">6–8%</div></div>
+      <div class="vehicle-feature-list">
+        <div class="vehicle-feature">Down Payment · long-term goals</div>
+        <div class="vehicle-feature">GOOGLEFINANCE NAV · auto P/L</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="vehicle-card">
+    <div class="vehicle-header">
+      <div class="vehicle-icon">🥇</div>
+      <div class="vehicle-name">Metals · Stocks</div>
+    </div>
+    <div class="vehicle-body">
+      <div class="vehicle-metric"><div class="vehicle-metric-label">Best for</div><div class="vehicle-metric-value">5+ yr</div></div>
+      <div class="vehicle-metric"><div class="vehicle-metric-label">Income</div><div class="vehicle-metric-value">Dividends</div></div>
+      <div class="vehicle-feature-list">
+        <div class="vehicle-feature">Gold · Silver · Pt · Pd spot prices</div>
+        <div class="vehicle-feature">DRIP tracker · 12-mo div calendar</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="bottom-text">Sparse on Etsy. <span class="accent">No competitor matches all 4 vehicles</span> in one sheet. That's the depth difference.</div>
+</div>
+
+</body>
+</html>

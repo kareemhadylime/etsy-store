@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Net Worth Tracker — AI Wealth Intelligence (Companion PDF)</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Companion guide for the Net Worth Tracker AI Edition — 7 ChatGPT/Claude prompts paired with specific spreadsheet tabs, with worked examples. By Lime Premium Studios.">
+<meta name="keywords" content="AI wealth, net worth tracker, FIRE calculator, asset allocation, tax-loss harvesting, estate planning, ChatGPT, Claude, wealth strategy prompts, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Net Worth AI Wealth Intelligence — Companion PDF v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 8.5in; height: 11in;
+    padding: 0.55in 0.6in 0.5in 0.6in;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+    background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* ===== COVER PAGE ===== */
+  .cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .cover-body { flex: 1; padding: 2.2in 0.9in 0 0.9in; display: flex; flex-direction: column; }
+  .cover-eyebrow { font-size: 9pt; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-title { font-size: 48pt; font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; color: var(--primary-charcoal); margin-bottom: 0.28in; }
+  .cover-gold-underline { width: 1.6in; height: 3px; background: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-subtitle { font-size: 16pt; font-style: italic; font-weight: 400; color: var(--secondary-warm-gold); line-height: 1.3; max-width: 5.2in; }
+  .cover-bottom-band { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; margin-top: auto; }
+  .cover-bottom-band .wordmark { font-weight: 600; letter-spacing: 0.04em; }
+  .cover-bottom-band .meta { opacity: 0.7; font-style: italic; }
+
+  /* ===== Content header layout ===== */
+  .content-header { font-size: 28pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; margin-bottom: 0.12in; }
+  .content-divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.24in; }
+  .content-body p { font-size: 10.5pt; line-height: 1.55; color: var(--primary-charcoal); margin-bottom: 0.13in; }
+  .content-body .sub-section { font-size: 10pt; font-weight: 600; color: var(--secondary-warm-gold); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.16in; margin-bottom: 0.07in; }
+  .content-body ol, .content-body ul { padding-left: 0.28in; margin-bottom: 0.13in; }
+  .content-body li { font-size: 10.5pt; line-height: 1.55; color: var(--primary-charcoal); margin-bottom: 0.05in; }
+  .content-body ul { list-style: none; padding-left: 0; }
+  .content-body ul.bullets li { padding-left: 0.22in; position: relative; }
+  .content-body ul.bullets li::before { content: '•'; color: var(--secondary-warm-gold); font-weight: 700; position: absolute; left: 0.06in; }
+  .content-body strong { font-weight: 600; }
+
+  /* ===== Prompt page ===== */
+  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.18in; }
+  .page-title { font-size: 24pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; }
+  .tab-callout { background: var(--secondary-warm-gold); color: var(--surface-white); font-size: 10pt; font-weight: 600; padding: 6pt 14pt; border-radius: 999px; letter-spacing: 0.01em; white-space: nowrap; }
+  .tab-callout .emoji { margin-right: 4pt; }
+  .divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.16in; }
+  .section-label { font-size: 8pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-warm-gold); margin-bottom: 0.06in; }
+  .prompt-card { background: var(--surface-white); border: 1px solid var(--primary-charcoal); border-radius: 4pt; padding: 0.16in 0.2in; margin-bottom: 0.16in; font-family: 'JetBrains Mono', 'Inter', monospace; font-size: 8pt; line-height: 1.4; color: var(--primary-charcoal); white-space: pre-wrap; word-wrap: break-word; }
+  .prompt-card strong { font-weight: 600; }
+  .prompt-card .num { color: var(--secondary-warm-gold); font-weight: 600; }
+  .example-card { background: var(--ivory); border-left: 3px solid var(--secondary-warm-gold); padding: 0.12in 0.18in; font-size: 7.5pt; line-height: 1.4; color: var(--primary-charcoal); }
+  .example-card .label { font-size: 7pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--status-warning); margin-bottom: 3pt; }
+  .example-card .input-block, .example-card .output-block { margin-bottom: 0.07in; }
+  .example-card .sub-label { font-weight: 600; color: var(--primary-charcoal); margin-top: 0.05in; margin-bottom: 1pt; }
+  .example-card p { margin-bottom: 0.025in; }
+  .example-card .ranked-item { margin-bottom: 0.04in; }
+  .example-card strong { font-weight: 600; }
+
+  .footer { position: absolute; bottom: 0.32in; left: 0.6in; right: 0.6in; font-size: 8.5pt; font-style: italic; color: var(--primary-charcoal); opacity: 0.6; text-align: right; border-top: 1px solid var(--neutral-grid); padding-top: 0.07in; }
+
+  /* ===== Back cover ===== */
+  .back-cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .back-body { flex: 1; padding: 1.8in 0.9in 0 0.9in; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .back-pull-quote { font-size: 22pt; font-style: italic; font-weight: 400; line-height: 1.3; color: var(--primary-charcoal); max-width: 5.2in; margin-bottom: 0.45in; }
+  .back-gold-underline { width: 1.2in; height: 2px; background: var(--secondary-warm-gold); margin-bottom: 0.45in; }
+  .back-mid { font-size: 11pt; line-height: 1.6; color: var(--primary-charcoal); max-width: 5in; margin-bottom: auto; }
+  .back-signoff { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 10pt; letter-spacing: 0.04em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-top: 0.3in; }
+  .back-footer-panel { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; font-size: 9.5pt; line-height: 1.6; margin-top: auto; }
+  .back-footer-panel .row-1 { display: flex; justify-content: space-between; margin-bottom: 0.14in; font-weight: 600; }
+  .back-footer-panel .row-1 .meta { opacity: 0.7; font-style: italic; font-weight: 400; }
+  .back-footer-panel p { opacity: 0.85; font-size: 8.5pt; line-height: 1.5; }
+  .back-footer-panel .page-num { text-align: right; margin-top: 0.12in; opacity: 0.6; font-style: italic; font-size: 8.5pt; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — COVER -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Net Worth Tracker · AI Edition</div>
+    <div class="cover-title">AI Wealth<br>Intelligence</div>
+    <div class="cover-gold-underline"></div>
+    <div class="cover-subtitle">Seven prompts. One number that matters.<br>Move it on purpose.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark" style="display: flex; align-items: center; gap: 12pt;">
+      <svg width="36" height="36" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+        <defs>
+          <linearGradient id="limeGradCover" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#84CC16"/>
+            <stop offset="100%" stop-color="#059669"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradCover)"/>
+        <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+        </g>
+      </svg>
+      <span>LIME PREMIUM STUDIOS</span>
+    </div>
+    <div class="meta">net-worth-tracker · v1.0</div>
+  </div>
+</div>
+
+<!-- PAGE 2 — INTRO -->
+<div class="page">
+  <h1 class="content-header">How to use these prompts</h1>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>Seven decisions every net-worth tracker hits across a year. Seven prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.</p>
+    <p>Each prompt is built to pair with a specific tab in your Net Worth Tracker. You'll see the tab name on each page — paste, fill in placeholders, send.</p>
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (Monthly Narrative, FIRE Forecaster, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the <strong>[PLACEHOLDERS]</strong> with your data.</li>
+      <li>Read the worked example on the same page to see what good output looks like.</li>
+    </ol>
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) <strong>OR</strong> a Claude account (free tier works)</li>
+      <li>Your Net Worth Tracker open in another window</li>
+      <li>10 minutes the first time; ~3 minutes once familiar</li>
+    </ul>
+    <div class="sub-section">What this PDF won't do</div>
+    <p>It won't move money. It won't sell your gold, rebalance your 401k, file your estate paperwork, or call your insurance broker. You paste, you read, you decide. The AI proposes the move; you execute it in your brokerage, bank, or attorney's office.</p>
+    <p>Your account numbers and SSN never enter any AI tool. Use the spreadsheet's labels ("Brokerage Roth IRA," "Investment property #2") instead of account identifiers. Everything happens in your own AI account.</p>
+    <p style="margin-top: 0.18in; font-style: italic; color: var(--secondary-warm-gold);">Turn the page when you're ready.</p>
+  </div>
+  <div class="footer">2 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 3 — PROMPT 1: Monthly NW Narrative -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">1. Monthly NW Narrative</div>
+    <div class="tab-callout"><span class="emoji">🏠</span>Pairs with: Dashboard</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are writing the one-paragraph story of what happened to my net worth this month. Explain the change in plain English. Separate market movement from my actions.
+
+THIS MONTH'S DATA (paste from Dashboard + NW History tab):
+- Net worth start of month: $[amount]
+- Net worth end of month: $[amount]
+- Change: $[amount] ($/% MoM)
+- Year-to-date change: $[amount] ($/% YTD)
+
+MOVES THIS MONTH (paste from NW History driver-breakdown):
+- Savings contributions across accounts: $[amount]
+- Debt principal paid down: $[amount]
+- Market gain/loss on equities: $[amount]
+- Real estate value change (if revalued): $[amount]
+- Metals/crypto change: $[amount]
+- Large one-off events: [list]
+
+For this month, write:
+<span class="num">1.</span> ONE-PARAGRAPH NARRATIVE (60-90 words) — what happened in plain English.
+
+<span class="num">2.</span> SIGNAL VS. NOISE — which portion was YOUR action vs. MARKET MOVEMENT. Express as approximate %.
+
+<span class="num">3.</span> ONE THING TO REPEAT next month (the highest-impact action you took).
+
+<span class="num">4.</span> ONE THING TO WATCH NEXT MONTH (the variable most likely to move your number).
+
+Skip motivational closings. Skip "consult a financial advisor." This is a journal entry, not a sales pitch.</div>
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Start $312,400 · End $326,180 · Change +$13,780 (+4.4%) MoM · YTD +$28,900 (+9.7%)</p>
+      <p>Savings $2,200 · Debt paydown $1,150 · Market gain $9,800 · RE $0 · Metals +$280 · Crypto +$350 · Signing bonus $2,000 → HYSA</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">NARRATIVE:</div>
+      <p>Your net worth jumped $13,780 this month, and most of that — about 73% — came from the market doing the lifting. Broad equities rallied roughly 4%, adding $9,800 to your accounts without you touching anything. Your own moves contributed about $3,350: $2,200 in fresh savings (including the signing bonus) and $1,150 in debt principal. Metals and crypto added small gains. A good month, but you'd be wise to remember whose work showed up here.</p>
+      <div class="sub-label">SIGNAL VS. NOISE:</div>
+      <p>YOUR ACTIONS: ~24% ($3,350) — savings + debt paydown · MARKET: ~76% ($10,430) — equity rally + metals + crypto</p>
+      <div class="sub-label">THING TO REPEAT:</div>
+      <p>The signing-bonus → HYSA flow. Treating windfalls as savings deposits (not "found money") is the discipline that compounds. Do this for every bonus, refund, gift.</p>
+      <div class="sub-label">THING TO WATCH:</div>
+      <p>Equity prices. If the market gives back 4% next month, $9,800 disappears from this snapshot. Your savings + paydown rate is the only number you control — keep eyes there, not on the daily NW value.</p>
+    </div>
+  </div>
+  <div class="footer">3 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 4 — PROMPT 2: FIRE Forecaster -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">2. FIRE Forecaster</div>
+    <div class="tab-callout"><span class="emoji">🔥</span>Pairs with: FIRE Calculator</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are running the math on when I can reach Financial Independence under three scenarios. Be specific about years + months + the assumption swings that change the answer.
+
+MY CURRENT POSITION (paste from FIRE Calculator + Dashboard):
+- Current investable net worth (excludes primary residence): $[amount]
+- Current annual spend (after tax): $[amount]
+- Current monthly savings rate: $[amount]/month
+- Age: [number]
+- Target FIRE multiple: [25x = 4% rule / 28x = more conservative / 33x = ultra]
+- Expected post-FIRE spend (if different): $[amount]
+
+ASSUMPTIONS:
+- Real return: [4% conservative / 6% current / 8% aggressive]
+- Inflation: 2.5%
+- Social Security: [include from 67+ / exclude]
+
+Run THREE scenarios:
+SCENARIO A — CONSERVATIVE: 4% real, flat savings.
+SCENARIO B — CURRENT TRAJECTORY: 6% real, flat savings.
+SCENARIO C — AGGRESSIVE: 8% real + savings climbs $200/mo every 2 years.
+
+For each: <span class="num">1.</span> FIRE number, <span class="num">2.</span> Years + months to reach, <span class="num">3.</span> Age at FIRE, <span class="num">4.</span> Annual NW change needed.
+
+Then a TWO-PARAGRAPH HONEST READ — which is realistic, what the A-B gap means, what variable moves the answer most. No advisor-disclaimer ending.</div>
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>NW $284K · spend $58K · savings $1,850/mo · age 37 · 25x · SS at 67+ included</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <p><strong>FIRE NUMBER:</strong> $58K × 25 = $1,450,000</p>
+      <div class="sub-label">Scenario A — Conservative (4%):</div>
+      <p>22 years 3 months → age 59. Annual NW change ~$52,800/yr.</p>
+      <div class="sub-label">Scenario B — Current (6%):</div>
+      <p>17 years 1 month → age 54. Annual NW change ~$68,200/yr avg.</p>
+      <div class="sub-label">Scenario C — Aggressive (8% + glide):</div>
+      <p>13 years 4 months → age 50. Annual NW change ~$87,300/yr avg.</p>
+      <div class="sub-label">HONEST READ:</div>
+      <p>Scenario B is your realistic anchor — 6% real is a defensible historical assumption. Plan against age 54. The 5-year gap between A and B is mostly RETURNS — not yours to control. The 4-year gap between B and C is mostly SAVINGS RATE — yours to control.</p>
+      <p>The variable that moves the answer most is your savings rate. Adding $500/mo shaves about 2 years off every scenario. Returns are unknowable; savings rate is decided every month at the brokerage transfer.</p>
+    </div>
+  </div>
+  <div class="footer">4 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 5 — PROMPT 3: Asset Allocation Advisor -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">3. Asset Allocation Advisor</div>
+    <div class="tab-callout"><span class="emoji">📈</span>Pairs with: Asset Allocation</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are diagnosing whether my asset allocation has drifted from my target — and if so, what to rebalance and how.
+
+MY ACTUAL CURRENT ALLOCATION (paste from Asset Allocation tab):
+[Asset class | Current $ | Current % | Target %]
+- US Equities, International Equities, Bonds, Real Estate, Metals, Crypto, Cash, Other
+
+MY CONTEXT:
+- Age, Years to FIRE, Last rebalance date, Recent large drifters, Constraints (TLH ops, 401k rebalance lock, unrealized gains in taxable).
+
+For each asset class: <span class="num">1.</span> ABSOLUTE DRIFT (current % - target %), <span class="num">2.</span> STATUS (✅ ±2pp / 🟡 2-5pp / 🔴 >5pp), <span class="num">3.</span> CAUSE (price, depreciation, neglected contributions, life event).
+
+Then: <span class="num">1.</span> RANK drifts by significance. <span class="num">2.</span> RECOMMEND 1-3 rebalancing moves with $ amounts. <span class="num">3.</span> FLAG tax implications. <span class="num">4.</span> EXPLAIN trade-off if selling appreciated holdings.
+
+Don't recommend financial advisor services. Don't recommend leveraged ETFs. Don't "diversify into alts."</div>
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Total $284K · US Eq $148K/52% target 45% · Intl $34K/12% target 15% · Bonds $14K/5% target 10% · RE $43K/15% target 15% · Metals 7%/5% · Crypto 3.5%/2% · Cash 4%/5% · Other 1.5%/3%</p>
+      <p>Age 37 · 17yr to FIRE · last rebalance 8mo ago · US Eq +18% YTD · $14K unrealized gains in taxable; prefer contribution-rebalance</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">RANKED DRIFTS:</div>
+      <p>1. US Equities overweight +7pp (+$20K over target) · 2. Bonds underweight -5pp (-$14K) · 3. International -3pp (-$8.5K)</p>
+      <div class="sub-label">RECOMMENDED MOVES:</div>
+      <p><strong>Move 1 (THIS MONTH):</strong> Redirect next 4 months of new contributions ($2,200 × 4 = $8,800) entirely to bonds via 401k + Roth IRA. Closes the gap to within 2pp without selling. No tax hit.</p>
+      <p><strong>Move 2 (NEXT MONTH):</strong> Redirect 2 months of contributions ($4,400) to international equities.</p>
+      <p><strong>Move 3 (DEFER):</strong> US Eq overweight stays. Don't sell appreciated taxable shares — you'd realize $14K LTCG = ~$2,100 in federal tax.</p>
+      <div class="sub-label">ONE THING NOT TO DO:</div>
+      <p>Don't rebalance via leveraged inverse-equity ETFs to "hedge." They're not designed for multi-month holding; you'd compound your way to losses.</p>
+    </div>
+  </div>
+  <div class="footer">5 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 6 — PROMPT 4: Passive Income Blueprint -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">4. Passive Income Blueprint</div>
+    <div class="tab-callout"><span class="emoji">💰</span>Pairs with: Passive Income Simulator</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are building me a realistic passive-income profile from my current portfolio and projecting monthly income today + at FIRE.
+
+MY INCOME-GENERATING ASSETS (paste from Passive Income Simulator + Stocks & Funds):
+- Dividend stocks/ETFs: $[amount] avg yield [%]
+- Bond holdings: $[amount] yield [%]
+- REITs: $[amount] yield [%]
+- Investment real estate: $[gross rent/yr] minus [expenses]
+- Cash/HYSA: $[amount] yield [%]
+- Other (P2P, royalties, business equity dividends, annuities)
+
+TARGET POST-FIRE INCOME: $[amount]/month · TARGET YEAR · SS at 67 [include/exclude] · RISK PROFILE [4%/4.5%/5% SWR]
+
+For TODAY: <span class="num">1.</span> Current gross monthly passive income per source. <span class="num">2.</span> Total after taxes (22% federal default). <span class="num">3.</span> % of monthly spend covered.
+
+For PROJECTED FIRE-YEAR: <span class="num">1.</span> Expected monthly under 3 SWR scenarios. <span class="num">2.</span> Shortfall or surplus vs target. <span class="num">3.</span> The ONE income lever with most upside.
+
+End with TWO PRACTICAL MOVES this year. Specific to actual holdings.</div>
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Div ETFs $42K @ 3.4% · BND $14.2K @ 4.1% · VNQ $8K @ 3.8% · Rental net $1,170/mo · HYSA $11.4K @ 4.5% · Target $4,800/mo · FIRE 2043 · SS included</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">TODAY'S PROFILE:</div>
+      <p>Gross monthly $1,405 (Div $119 + Bonds $48 + REIT $25 + Rental $1,170 + HYSA $43). After tax ~$1,135/mo. Covers 24% of $4,800 spend.</p>
+      <div class="sub-label">FIRE-YEAR PROFILE (at $1.45M portfolio):</div>
+      <p>4% SWR: $4,833/mo gross → ~$3,770 net · 4.5%: ~$4,241 net · 5%: ~$4,712 net</p>
+      <p>+ Rental $1,200/mo (2043) + SS $1,800/mo from age 67. By age 54: $5,441/mo net (surplus $641 — thin). By age 67: ~$7,200/mo.</p>
+      <div class="sub-label">ONE LEVER WITH MOST UPSIDE:</div>
+      <p>Your rental property. Already 84% of gross passive today. Doubling down (acquire rental #2 via cash-out refi in 5-8 years) shifts FIRE math more than any other single move.</p>
+      <div class="sub-label">TWO MOVES THIS YEAR:</div>
+      <p>1. Move BND from taxable → Roth IRA when room allows. Saves ~$130/yr in taxes; grows.</p>
+      <p>2. Open a "Rental Property #2 Fund" sinking fund. Target $40K down in 6 years at $550/mo.</p>
+    </div>
+  </div>
+  <div class="footer">6 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 7 — PROMPT 5: Wealth Growth Coach -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">5. Wealth Growth Coach</div>
+    <div class="tab-callout"><span class="emoji">🤖</span>Pairs with: AI Hub</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are looking at my full net-worth picture and naming the ONE move that has the biggest impact over the next 12 months. Not five moves. One.
+
+MY FULL PICTURE (paste from Dashboard + Annual Summary):
+- Current NW · Annual income · Annual savings rate · Debt totals · Largest asset class · Largest gap · Tax-advantaged room not used · Major life events expected next 12 mo
+
+MY GOAL FOR NEXT 12 MO: [grow NW $X / reach FIRE % / pay off debt / build EF / increase passive income / other]
+
+Pick the ONE MOVE with most NW impact. Then:
+<span class="num">1.</span> NAME THE MOVE — specific, executable in one sentence.
+<span class="num">2.</span> ESTIMATED 12-MO NW IMPACT in dollars.
+<span class="num">3.</span> WHY THIS ONE — what makes it higher-leverage.
+<span class="num">4.</span> WHAT IT TRADES OFF — what you're choosing not to do.
+<span class="num">5.</span> THE FIRST STEP this week.
+<span class="num">6.</span> THE 90-DAY CHECKPOINT — how I know it's working.
+
+Don't recommend 5 things. Don't say "all of these matter." Pick ONE. Be confident.</div>
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>NW $326K · Income $108K · Savings $22,200/yr · Mortgage $268K @ 5.5% · Student $14,200 @ 4.8% · US Eq 52% (gap +7pp) · 401k $8K under max · Roth $1,500 under · HSA $1,200 under · 2nd kid in 18mo</p>
+      <p>Goal: Grow NW $40K in 12mo.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">THE ONE MOVE:</div>
+      <p>Max your 401k for the year — add $8,000 of contribution by year-end.</p>
+      <div class="sub-label">12-MO NW IMPACT:</div>
+      <p>$8,000 fresh contribution + $1,760 tax savings (22% bracket) + $400-800 growth = ~$10,000-10,500 NW impact for $8,000 spent.</p>
+      <div class="sub-label">WHY THIS ONE:</div>
+      <p>(1) Tax leverage — pretax dollars = $10,256 of "real" wealth. (2) Time-of-life window — 2nd kid in 18mo means tighter cash flow. Max now while income is high. (3) Loss-of-room is permanent.</p>
+      <div class="sub-label">FIRST STEP THIS WEEK:</div>
+      <p>Log into 401k portal. Calculate % bump needed for remaining paychecks to hit $23,000. Submit change today.</p>
+      <div class="sub-label">90-DAY CHECKPOINT:</div>
+      <p>Day 90 YTD contribution should be ~$5,800 more. If behind pace, year-end lump-sum from HYSA.</p>
+    </div>
+  </div>
+  <div class="footer">7 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 8 — PROMPT 6: Annual Wealth Review -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">6. Annual Wealth Review</div>
+    <div class="tab-callout"><span class="emoji">📊</span>Pairs with: Annual Summary</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are writing my year-end wealth review. Look at the full 12 months and tell me what worked, what didn't, and what to change next year.
+
+ANNUAL DATA (paste from Annual Summary tab):
+- NW start/end of year, change $/%, best/worst month, savings, debt paydown, market gain, real estate, metals/crypto, big one-offs.
+
+PROGRESS TOWARD FIRE: % funded start/end, pp change.
+PER-CLASS PERFORMANCE: Best, worst, largest rebalance moves.
+YoY: NW change, savings rate change.
+
+Give me:
+<span class="num">1.</span> THREE WINS — actions or outcomes that went better than planned.
+<span class="num">2.</span> THREE MISSES — outcomes that fell short. Honest diagnosis, not pep talk.
+<span class="num">3.</span> THREE LESSONS — structural patterns I now see.
+<span class="num">4.</span> THREE PRIORITIES NEXT YEAR — specific actions with $ targets.
+<span class="num">5.</span> ONE STRUCTURAL CHANGE.
+
+Each section under 80 words. No motivational ending.</div>
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>NW $284K → $342K (+$58.5K / +20.6%). Best March +$8.4K · Worst Oct -$3.2K · Savings $22.2K · Debt $14K · Market gain $26.8K · Bonus $2K + tax refund $1.4K + roof -$4.2K · FIRE 19.6% → 23.6% · Best US Eq +21% · Worst Bonds +0.4% · Rebalances: Mar-Jun bonds via contributions</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">THREE WINS:</div>
+      <p>1. Mortgage principal paydown crossed $10K (11mo ahead of original amortization). 2. Contribution-rebalancing into bonds worked — closed gap without tax hit. 3. Signing bonus + refund went to investments instead of lifestyle creep.</p>
+      <div class="sub-label">THREE MISSES:</div>
+      <p>1. Oct roof killed $4.2K of NW; sinking fund underfunded ($800). 2. Savings rate flat — raise absorbed by lifestyle creep. 3. International equity drifted further (12% → 11%) — never directed new money there.</p>
+      <div class="sub-label">THREE LESSONS:</div>
+      <p>1. 2x YoY came mostly from the market, not you. Strip $26.8K and growth = $31.7K (~last year). 2. Sinking funds are NW protection. 3. Raises are NW opportunities — yours wasn't.</p>
+      <div class="sub-label">THREE PRIORITIES NEXT YEAR:</div>
+      <p>1. Savings rate $1,850 → $2,250/mo (raise → savings). 2. Top up home maintenance fund to $5K by June. 3. Max 401k ($8K under, ~$10K NW impact via tax leverage).</p>
+      <div class="sub-label">ONE STRUCTURAL CHANGE:</div>
+      <p>Move BND $14.2K from taxable → Roth IRA over 2 tax years. Saves ~$130/yr tax drag. Small, permanent fix.</p>
+    </div>
+  </div>
+  <div class="footer">8 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 9 — PROMPT 7: Estate Planning Advisor -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">7. Estate Planning Advisor</div>
+    <div class="tab-callout"><span class="emoji">🤝</span>Pairs with: Estate Access</div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are auditing my estate-paperwork readiness. Not preparing documents — identifying which paperwork I have, which I'm missing, what's at risk.
+
+MY DOCUMENTATION STATUS (paste from Estate Access tab):
+- Will, Trust, Healthcare directive, POA, Beneficiary designations (401k/IRA/Roth/HSA/Brokerage TOD/Life ins/Bank POD), Asset-location reference, Trusted-angel contact, LTC insurance.
+
+MY HOUSEHOLD CONTEXT:
+- Age, marital status, dependents (ages), state, estate value, out-of-state real estate, special circumstances (special-needs dependent, blended family, non-citizen spouse, business equity, digital assets).
+
+For my situation:
+<span class="num">1.</span> PAPERWORK PRIORITY MATRIX — ✓ have / ✗ missing / ⚠️ stale (>3yr).
+<span class="num">2.</span> THE THREE HIGHEST-RISK GAPS — most likely to cause survivor problems.
+<span class="num">3.</span> EACH GAP'S CONSEQUENCE — what specifically goes wrong.
+<span class="num">4.</span> THREE THINGS IN NEXT 90 DAYS — ordered by urgency.
+<span class="num">5.</span> WHEN TO HIRE A LAWYER vs. DIY (specific to my complexity).
+
+Don't recommend specific attorneys or insurance products. Don't push financial-advisor estate bundles. Be honest about DIY-vs-pro thresholds.</div>
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Will: draft 2yr (unexecuted) · No trust · No healthcare directive · No POA · 401k beneficiary 4yr old (pre-2nd-kid) · No HSA beneficiary · No brokerage TOD · No bank POD · No asset-location ref · Partial digital legacy (spouse has PW manager only)</p>
+      <p>Age 37 · Married · Kids 4 + 2 · California · Estate $342K · Texas rental · Business equity $28K</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">THE THREE HIGHEST-RISK GAPS:</div>
+      <p><strong>1. Unexecuted will + missing guardianship.</strong> Two minor kids, no signed guardianship. If both parents die intestate, CA probate court picks the guardian — not you.</p>
+      <p><strong>2. Out-of-state rental + no trust.</strong> Texas rental goes through TX probate, separately from CA. Two probate processes, 4-8% asset value, 6-18 months each.</p>
+      <p><strong>3. Stale 401k beneficiary.</strong> Beneficiary designations override your will. If 401k still names "spouse + child" (singular), your 2nd child may inherit nothing from this account.</p>
+      <div class="sub-label">THREE THINGS IN NEXT 90 DAYS:</div>
+      <p>Day 1-7: Update 401k + HSA beneficiaries. 20 minutes. Free.</p>
+      <p>Day 30-60: Execute the draft will OR redo via DIY (Trust & Will / LegalZoom $159-399). Include executor, guardianship, beneficiary clauses. Notarize + witness.</p>
+      <p>Day 60-90: Hire estate attorney for revocable trust + Texas rental retitling. Out-of-state property + business equity pushes you off DIY. $1,500-3,000 saves survivors $15K+ in probate.</p>
+      <div class="sub-label">DIY VS. ATTORNEY:</div>
+      <p>DIY: will, healthcare directive, POA, beneficiary updates. Attorney: revocable trust + out-of-state property retitling. DON'T buy LTC insurance at 37.</p>
+    </div>
+  </div>
+  <div class="footer">9 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 10 — TIPS -->
+<div class="page">
+  <h1 class="content-header">Which AI should I use?</h1>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>All seven prompts work in free tiers. Differences come down to output style + how each handles long, structured wealth data.</p>
+    <div class="sub-section">ChatGPT Free</div>
+    <p>Best for: Monthly NW Narrative, Wealth Growth Coach, Annual Wealth Review, Estate Planning Advisor. Conversational tone; great at one-paragraph narratives + "pick ONE thing" judgement calls.</p>
+    <p>Limit: ~3,000-4,000 word context per message. If you paste 15+ holdings, do it in batches.</p>
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p>Best for: FIRE Forecaster, Asset Allocation Advisor, Passive Income Blueprint. Better at multi-scenario math, structured tables, and per-class drift analysis. Handles longer position lists in one paste.</p>
+    <p>Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT.</p>
+    <div class="sub-section">Paid tiers</div>
+    <p>Worth it if you're running multi-scenario FIRE math monthly OR managing 7+ accounts with quarterly rebalances. Skip if checking in twice a year.</p>
+    <div class="sub-section">Universal tips</div>
+    <ol>
+      <li><strong>Paste as text, not screenshots.</strong> Free-tier AI doesn't read spreadsheet screenshots well.</li>
+      <li><strong>Never paste account numbers, SSN, brokerage logins, or attorney names.</strong> Use labels ("Brokerage Roth IRA," "Texas Rental").</li>
+      <li><strong>FIRE Forecaster works best with conservative assumptions.</strong> If the AI quotes 8% real returns confidently, downshift to 6% and re-ask.</li>
+      <li><strong>Estate prompt is diagnosis, not advice.</strong> The AI surfaces gaps. Filling them is your attorney's job.</li>
+      <li><strong>Save good output.</strong> Paste sharp diagnoses into the matching tab's Notes column. Build your own playbook over the year.</li>
+    </ol>
+    <p style="margin-top: 0.16in; font-style: italic; color: var(--secondary-warm-gold);">Your wealth data never leaves your AI conversation. The AI never sees your spreadsheet — only what you paste, only during that chat.</p>
+  </div>
+  <div class="footer">10 / 11 · AI Wealth Intelligence</div>
+</div>
+
+<!-- PAGE 11 — BACK COVER -->
+<div class="page back-cover">
+  <div class="back-body">
+    <div class="back-pull-quote">"Net worth isn't a vibe.<br>It's a number. Watching it is the work."</div>
+    <div class="back-gold-underline"></div>
+    <div class="back-mid">
+      <p>Seven prompts. Maybe ninety minutes a month using them.</p>
+      <p style="margin-top: 0.16in;">Saves the alternative of letting Empower scrape your accounts to sell your wealth profile to "wealth managers," or paying Kubera $200/year to display the same numbers your own spreadsheet already shows.</p>
+      <p style="margin-top: 0.16in; font-weight: 600;">Your wealth. Your sheet. Your call.</p>
+    </div>
+    <div class="back-signoff">Lime Premium Studios</div>
+  </div>
+  <div class="back-footer-panel">
+    <div class="row-1">
+      <span>Net Worth Tracker (AI Edition)</span>
+      <span class="meta">v1.0 · Updated 2026-05-23</span>
+    </div>
+    <p>support@lime-premium-studios · Reply within 24 hours</p>
+    <p>This PDF ships with your purchase of the Net Worth Tracker AI Edition. AI prompts work in ChatGPT and Claude (free or paid tiers).</p>
+    <p>12-month free updates included with AI Edition.</p>
+    <div class="page-num">11 / 11</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sinking Funds Planner — Quick Start Guide</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Quick start guide for the Lime Premium Studios Sinking Funds Planner — Fund Manager setup, vehicle choice walkthrough, and first-30-day plan.">
+<meta name="keywords" content="sinking funds, savings tracker, emergency fund, CD ladder, dividend tracker, precious metals, personal finance, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Sinking Funds Planner Quick Start Guide v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  @page {
+    size: Letter portrait;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    width: 8.5in;
+    background: var(--background-off-white);
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.5in 0.55in;
+    position: relative;
+    page-break-after: always;
+    background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* ===== Header ===== */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.18in;
+  }
+  .h-left { flex: 1; }
+  .eyebrow {
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.04in;
+  }
+  .h-title {
+    font-size: 26pt;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--primary-charcoal);
+    line-height: 1.05;
+    margin-bottom: 0.06in;
+  }
+  .h-sub {
+    font-size: 10pt;
+    color: var(--primary-charcoal);
+    opacity: 0.7;
+    font-style: italic;
+  }
+  .h-badge {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 8pt 14pt;
+    border-radius: 4pt;
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 1.4;
+  }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+
+  .gold-divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 1.6in;
+    margin-bottom: 0.16in;
+  }
+
+  /* ===== Section: 30-second copy walkthrough ===== */
+  .section-label {
+    font-size: 9pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.07in;
+  }
+
+  .copy-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.12in;
+    margin-bottom: 0.2in;
+  }
+  .step {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.14in 0.16in;
+    border: 1px solid var(--neutral-grid);
+    position: relative;
+  }
+  .step-num {
+    position: absolute;
+    top: -10pt;
+    left: 14pt;
+    background: var(--secondary-warm-gold);
+    color: var(--primary-charcoal);
+    width: 22pt;
+    height: 22pt;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11pt;
+    font-weight: 700;
+  }
+  .step-time {
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary-warm-gold);
+    margin-top: 0.08in;
+    margin-bottom: 0.04in;
+  }
+  .step-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.04in;
+    line-height: 1.2;
+  }
+  .step-body {
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+  }
+
+  /* ===== Tier-grid: 3 columns ===== */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.14in;
+    margin-bottom: 0.2in;
+  }
+  .tier {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.16in 0.16in;
+    border: 1px solid var(--neutral-grid);
+    display: flex;
+    flex-direction: column;
+  }
+  .tier.ai {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    border-color: var(--primary-charcoal);
+  }
+  .tier-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.06in;
+  }
+  .tier-name {
+    font-size: 13pt;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .tier-price {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--secondary-warm-gold);
+    letter-spacing: -0.02em;
+  }
+  .tier-tabs {
+    font-size: 7.5pt;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.08in;
+  }
+  .tier ul {
+    list-style: none;
+    padding: 0;
+  }
+  .tier li {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    padding-left: 14pt;
+    position: relative;
+    margin-bottom: 0.04in;
+  }
+  .tier li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--secondary-warm-gold);
+    font-weight: 700;
+  }
+  .tier.ai li::before { color: var(--secondary-warm-gold); }
+
+  /* ===== Pro tips strip ===== */
+  .tips {
+    background: var(--ivory);
+    border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.14in 0.18in;
+    margin-bottom: 0.16in;
+  }
+  .tips-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.18in;
+  }
+  .tip {
+    font-size: 8.5pt;
+    line-height: 1.4;
+  }
+  .tip-num {
+    font-size: 14pt;
+    font-weight: 700;
+    color: var(--secondary-warm-gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.05in;
+  }
+  .tip-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.03in;
+  }
+  .tip-body {
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+  }
+
+  /* ===== Footer band ===== */
+  .footer-band {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.16in 0.55in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+  }
+  .fb-left .wordmark {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2pt;
+  }
+  .fb-left .meta { opacity: 0.65; font-style: italic; }
+  .fb-right { text-align: right; opacity: 0.85; }
+  /* ===== Page-2 walkthrough table ===== */
+  .field-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.18in;
+    font-size: 9pt;
+  }
+  .field-table th {
+    text-align: left;
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 6pt 9pt;
+    font-size: 8.5pt;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .field-table td {
+    padding: 7pt 9pt;
+    border-bottom: 1px solid var(--neutral-grid);
+    line-height: 1.4;
+    vertical-align: top;
+    background: var(--surface-white);
+  }
+  .field-table td.col-field {
+    font-weight: 700;
+    width: 1in;
+  }
+  .field-table td.col-fmt {
+    width: 1.4in;
+    color: var(--secondary-warm-gold);
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+  }
+  .field-table td.col-trap {
+    color: var(--status-alert);
+    font-weight: 600;
+    width: 1.5in;
+  }
+
+  /* ===== Decision flow ===== */
+  .decision-flow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.16in;
+    margin-bottom: 0.16in;
+  }
+  .decision-card {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.16in 0.18in;
+    border: 1px solid var(--neutral-grid);
+    border-left-width: 3pt;
+  }
+  .decision-card.snowball { border-left-color: var(--status-success); }
+  .decision-card.avalanche { border-left-color: var(--status-alert); }
+  .decision-title {
+    font-size: 12pt;
+    font-weight: 700;
+    margin-bottom: 0.06in;
+    letter-spacing: -0.01em;
+  }
+  .decision-when {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    margin-bottom: 0.06in;
+    color: var(--primary-charcoal);
+  }
+  .decision-when strong { color: var(--secondary-warm-gold); }
+  .decision-math {
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    opacity: 0.78;
+  }
+
+  /* ===== Week-by-week ===== */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.12in;
+    margin-bottom: 0.16in;
+  }
+  .week-card {
+    background: var(--surface-white);
+    border-radius: 6pt;
+    padding: 0.14in 0.14in;
+    border: 1px solid var(--neutral-grid);
+  }
+  .week-num {
+    font-size: 8pt;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.04in;
+  }
+  .week-title {
+    font-size: 10pt;
+    font-weight: 700;
+    margin-bottom: 0.05in;
+    line-height: 1.2;
+  }
+  .week-body {
+    font-size: 8pt;
+    line-height: 1.45;
+    opacity: 0.85;
+  }
+  .week-body ul { padding-left: 12pt; }
+  .week-body li { margin-bottom: 0.03in; }
+</style>
+</head>
+<body>
+
+<div class="page">
+<div class="header">
+  <div class="h-left">
+    <div class="eyebrow">Sinking Funds Planner · Quick Start</div>
+    <h1 class="h-title">List every fund. Pick a vehicle.</h1>
+    <div class="h-sub">From "I don't know where to start" to a working savings plan — in 5 minutes.</div>
+  </div>
+  <div class="h-badge">
+    <div class="label">Edition</div>
+    <div class="ver">AI · v1.0</div>
+  </div>
+</div>
+<div class="gold-divider"></div>
+
+<!-- 4-step setup -->
+<div class="section-label">The 5-Minute Setup</div>
+<div class="copy-flow">
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-time">~5 sec</div>
+    <div class="step-title">Open the file</div>
+    <div class="step-body">Click the link in your order email. The .xlsx opens cleanly in Excel 2016+ or imports to Google Sheets via File → Import → Replace.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-time">~3 min</div>
+    <div class="step-title">Fill the Fund Manager</div>
+    <div class="step-body">Tab 2 — enter every fund. Name, category (17 pre-built), target $, target date, vehicle, current balance, monthly contribution. Up to 17 funds.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-time">~30 sec</div>
+    <div class="step-title">Check the Dashboard</div>
+    <div class="step-body">Tab 1 — see Funds by % funded · 4-vehicle allocation · top 3 next-dollar funds. Status pills (🟢/🟡/🔴) flag where you're behind.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-time">~30 sec</div>
+    <div class="step-title">Open Priority Matrix</div>
+    <div class="step-body">Tab 4 — sees which fund needs your next dollar. Algorithm: (1 − funding%) × urgency × override. Pick the top fund and bump its monthly contribution.</div>
+  </div>
+</div>
+
+<!-- Three tiers — first actions per tier -->
+<div class="section-label">First Three Actions by Tier</div>
+<div class="tiers">
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Essentials</div>
+      <div class="tier-price">$9</div>
+    </div>
+    <div class="tier-tabs">6 Tabs · Cash + Manual Tracking</div>
+    <ul>
+      <li>Fill the Fund Manager with every fund you're saving for</li>
+      <li>Set monthly contributions matching your savings budget</li>
+      <li>Open Priority Matrix — bump the top-ranked fund's $/mo</li>
+    </ul>
+  </div>
+
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Pro</div>
+      <div class="tier-price">$19</div>
+    </div>
+    <div class="tier-tabs">15 Tabs · 4 Vehicle Trackers</div>
+    <ul>
+      <li>Open CD Ladder + ETF + Metals + Dividend trackers</li>
+      <li>Run Tax Efficiency Analyzer → reclassify to Roth/HSA/529 where it pays</li>
+      <li>Use Wealth Glide Path for any volatile-vehicle fund with &lt;24mo to target</li>
+    </ul>
+  </div>
+
+  <div class="tier ai">
+    <div class="tier-head">
+      <div class="tier-name">AI Edition</div>
+      <div class="tier-price">$29</div>
+    </div>
+    <div class="tier-tabs">16 Tabs · AI Savings Advisor</div>
+    <ul>
+      <li>Open AI Savings Advisor PDF → Reallocation prompt</li>
+      <li>Paste prompt + your fund list into ChatGPT or Claude (free tier OK)</li>
+      <li>Run Neglected Fund Detector quarterly — catches stale funds early</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Tips strip -->
+<div class="section-label">Three Things People Wish They'd Known on Day One</div>
+<div class="tips">
+  <div class="tips-row">
+    <div class="tip">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Vehicle matters more than discipline.</div>
+      <div class="tip-body">A 4-year Down Payment fund in HYSA earns 4.5%. The same fund in a 60/40 ETF/bond mix earns 6–8% expected. Over $25K × 4 years that's $2,000–3,000. Pick the right vehicle FIRST; auto-contribute SECOND.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Auto-contribute or the fund decays.</div>
+      <div class="tip-body">Manual top-ups fail beyond 3 months. Every "I'll add to it next month" is a fund you'll forget by month 6. Set autopay from checking → fund account on payday. Neglected Fund Detector (AI) catches the ones you missed.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Glide volatile vehicles 24 months out.</div>
+      <div class="tip-body">Stock-funded Down Payment with 12 months to closing is one bad quarter from missing the date. The Wealth Glide Path tab tells you exactly when to shift volatile → safe. You stay in control of trades; we flag the deadlines.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Need help block -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in;">
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">Got Stuck?</div>
+    <div style="font-size: 9pt; line-height: 1.4;">Reply to your order email. We respond within 24 hours, every time. No ticket queue, no chatbot.</div>
+  </div>
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">Updates</div>
+    <div style="font-size: 9pt; line-height: 1.4;">Bug fixes free forever. AI Edition buyers: 12 months of free template refreshes — replies will include the new link.</div>
+  </div>
+</div>
+
+<!-- Footer band -->
+<div class="footer-band">
+  <div class="fb-left" style="display: flex; align-items: center; gap: 10pt;">
+    <svg width="28" height="28" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+      <defs>
+        <linearGradient id="limeGradFooter" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradFooter)"/>
+      <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+      </g>
+    </svg>
+    <div>
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">Sinking Funds Planner · AI Edition · v1.0 · Page 1 / 3</div>
+    </div>
+  </div>
+  <div class="fb-right">Set them up. Auto-contribute. Watch the bars fill.</div>
+</div>
+</div>
+
+<!-- ============================================================================ -->
+<!-- PAGE 2 — Debt List field-by-field walkthrough + Strategy decision tree       -->
+<!-- ============================================================================ -->
+<div class="page">
+<div class="header">
+  <div class="h-left">
+    <div class="eyebrow">Page 2 · Setup Walkthrough</div>
+    <h1 class="h-title">Filling the Fund Manager, field by field.</h1>
+    <div class="h-sub">The single tab that drives every other number in the workbook. Get this right and the rest is automatic.</div>
+  </div>
+  <div class="h-badge">
+    <div class="label">Time</div>
+    <div class="ver">~3 min</div>
+  </div>
+</div>
+<div class="gold-divider"></div>
+
+<div class="section-label">The 10 fields on each fund row</div>
+<table class="field-table">
+  <thead>
+    <tr><th>Field</th><th>Format</th><th>Why it matters</th><th>Watch out for</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="col-field">Fund Name</td>
+      <td class="col-fmt">Free text</td>
+      <td>Identifies the fund across every tab. Use the name your future self will recognize ("Maui 2027" not "Travel").</td>
+      <td class="col-trap">Avoid account numbers — use the goal, not the bank.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Category</td>
+      <td class="col-fmt">Dropdown (17)</td>
+      <td>Drives Tax Efficiency placement (Medical → HSA, Education → 529) + 17-category match.</td>
+      <td class="col-trap">Pick from the list — Custom is fine, but loses smart tax placement.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Vehicle</td>
+      <td class="col-fmt">Dropdown (5)</td>
+      <td>Cash / CD / ETF / Metal / Stock. Drives the 4-vehicle Dashboard donut + per-vehicle tracker tabs.</td>
+      <td class="col-trap">Match horizon to vehicle: under 1yr → Cash; 5+yr → ETF/Stock.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Target</td>
+      <td class="col-fmt">$#,##0</td>
+      <td>Where you want this fund to land. Drives % funded + Priority Matrix scoring.</td>
+      <td class="col-trap">Be specific — "Maui trip $3,000" beats "Travel some amount."</td>
+    </tr>
+    <tr>
+      <td class="col-field">Saved</td>
+      <td class="col-fmt">$#,##0</td>
+      <td>Your current balance for this fund. Updates as you log contributions.</td>
+      <td class="col-trap">Keep this fresh — stale balances = wrong status pills.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Target Date</td>
+      <td class="col-fmt">mmm d, yyyy</td>
+      <td>When you need the money. Drives months-remaining + Status pill calc.</td>
+      <td class="col-trap">Leave blank for "forever" funds (Emergency Fund) — Status shows "—".</td>
+    </tr>
+    <tr>
+      <td class="col-field">Monthly</td>
+      <td class="col-fmt">$#,##0</td>
+      <td>What you contribute per month. Status pill compares this to required-to-hit-target.</td>
+      <td class="col-trap">Use actual auto-deposit amount, not aspirational.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Growth %</td>
+      <td class="col-fmt">0.045 = 4.5%</td>
+      <td>Expected annual return. Decimal format. HYSA 0.045 · CD 0.048 · ETF 0.065 · Metals 0.</td>
+      <td class="col-trap">DECIMAL not percent — 4.5% APY is 0.045, NOT 4.5.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Status</td>
+      <td class="col-fmt">Auto-calculated</td>
+      <td>🟢 Funded / 🟢 On Track / 🟡 At Risk / 🔴 Behind. Pulled from monthly contribution vs. required.</td>
+      <td class="col-trap">Don't edit — formula recomputes when you change Target/Saved/Monthly/Date.</td>
+    </tr>
+    <tr>
+      <td class="col-field">Notes</td>
+      <td class="col-fmt">Free text</td>
+      <td>Anything you want surfaced when you scan the Fund Manager.</td>
+      <td class="col-trap">Keep it tight — long notes hide the math.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Setup Section (rows 6–7, above the fund table)</div>
+<div class="tips" style="margin-bottom: 0.18in;">
+  <div style="font-size: 9.5pt; line-height: 1.5;">
+    <strong style="color: var(--secondary-warm-gold);">Three one-time choices:</strong> Currency (USD default · drives $ formatting across all tabs) · Household mode (Solo / Shared · toggles Pro features) · Metals Live (ON / OFF · enables GOOGLEFINANCE spot-price lookups in Sheets only · Excel users keep OFF and enter spot prices manually monthly).
+  </div>
+</div>
+
+<div class="section-label">Pick a vehicle — match horizon to volatility</div>
+<div class="decision-flow">
+  <div class="decision-card snowball">
+    <div class="decision-title">💵 Cash / HYSA — pick this if…</div>
+    <div class="decision-when">…the fund is <strong>under 12 months</strong> from target. Emergency Fund · Christmas · Vacation · Wedding Gift · Car Repair (annual). 4–5% APY, liquid, zero risk.</div>
+    <div class="decision-math">Math: a HYSA at 4.5% on $9,000 = $405/yr. Same money in checking earns ~$5. The Vehicle Advisor AI prompt names the wrong-placement funds in your sheet.</div>
+  </div>
+  <div class="decision-card avalanche">
+    <div class="decision-title">📈 ETF / Stock — pick this if…</div>
+    <div class="decision-when">…the fund is <strong>3+ years</strong> out and you can stomach 20–30% short-term drawdowns. Down Payment · Retirement supplement · long-term college.</div>
+    <div class="decision-math">Math: 60/40 ETF/bond on $25K over 4 years vs HYSA = ~$2,000–3,000 difference. But: glide to cash starting T-24 months per the Wealth Glide Path tab. CDs fill the 1–3yr middle.</div>
+  </div>
+</div>
+
+<!-- Footer band -->
+<div class="footer-band">
+  <div class="fb-left" style="display: flex; align-items: center; gap: 10pt;">
+    <svg width="28" height="28" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+      <defs>
+        <linearGradient id="limeGradFooter2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradFooter2)"/>
+      <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+      </g>
+    </svg>
+    <div>
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">Sinking Funds Planner · AI Edition · v1.0 · Page 2 / 3</div>
+    </div>
+  </div>
+  <div class="fb-right">Priority Matrix is on tab 4 (🎯).</div>
+</div>
+</div>
+
+<!-- ============================================================================ -->
+<!-- PAGE 3 — First 30 days, week by week                                         -->
+<!-- ============================================================================ -->
+<div class="page">
+<div class="header">
+  <div class="h-left">
+    <div class="eyebrow">Page 3 · Your First 30 Days</div>
+    <h1 class="h-title">A week-by-week playbook.</h1>
+    <div class="h-sub">Day-one momentum matters more than perfection. This is the schedule that gets you to month-end with every fund auto-funded.</div>
+  </div>
+  <div class="h-badge">
+    <div class="label">Cadence</div>
+    <div class="ver">Weekly · ~15 min</div>
+  </div>
+</div>
+<div class="gold-divider"></div>
+
+<div class="section-label">Week-by-week — print this and pin it on the fridge</div>
+<div class="week-grid">
+  <div class="week-card">
+    <div class="week-num">Week 1</div>
+    <div class="week-title">Inventory + setup</div>
+    <div class="week-body">
+      <ul>
+        <li>Fill every Fund Manager row from a list of your real savings goals.</li>
+        <li>Set Currency · Household · Metals Live in the Setup section.</li>
+        <li>Open Dashboard — read the "Top 3 next-dollar funds" strip.</li>
+        <li>Set autopay from checking → fund sub-accounts on payday.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="week-card">
+    <div class="week-num">Week 2</div>
+    <div class="week-title">Vehicle audit</div>
+    <div class="week-body">
+      <ul>
+        <li>Open Priority Matrix — confirm the top-ranked fund's $/mo.</li>
+        <li>(Pro+) Review each fund's vehicle vs. its target date.</li>
+        <li>(Pro+) Move misplaced funds (HYSA → CD, HYSA → ETF, etc.).</li>
+        <li>(AI Edition) Run the Vehicle Advisor prompt for any unclear funds.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="week-card">
+    <div class="week-num">Week 3</div>
+    <div class="week-title">Tax + glide path</div>
+    <div class="week-body">
+      <ul>
+        <li>(Pro+) Open Tax Efficiency Analyzer — set Federal + State rate.</li>
+        <li>(Pro+) Move Medical/Dental to HSA · Education to 529 if eligible.</li>
+        <li>(Pro+) Open Wealth Glide Path — note any 🔴 Glide-now flags.</li>
+        <li>(AI Edition) Run the Reallocation prompt for monthly budgeting.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="week-card">
+    <div class="week-num">Week 4</div>
+    <div class="week-title">Lock in the rhythm</div>
+    <div class="week-body">
+      <ul>
+        <li>Update Fund Manager Saved balances from this month's statements.</li>
+        <li>Log contributions on Contribution Tracker — pattern feeds AI prompts.</li>
+        <li>(AI Edition) Run Neglected Fund Detector at month-end.</li>
+        <li>Calendar a 15-min recurring monthly slot — same day each month.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Three vehicle moves that actually pay off</div>
+<div class="tips">
+  <div class="tips-row">
+    <div class="tip">
+      <div class="tip-num">01</div>
+      <div class="tip-title">Emergency Fund: checking → HYSA.</div>
+      <div class="tip-body">Move it this week. A $9,000 EF sitting in checking earns ~$5/year. The same money in a 4.5% HYSA earns $405/year — for the same liquidity. Ally / Marcus / Discover all offer no-minimum HYSAs. 10-minute setup.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">02</div>
+      <div class="tip-title">Multi-year funds: HYSA → CD Ladder.</div>
+      <div class="tip-body">Got a Down Payment with 3-year horizon? Stagger 4 CDs (12 / 18 / 24 / 36 mo) so one matures each year. CD APYs run 0.3–0.5 ppt above HYSA. Use the CD Ladder tab — FV @ maturity formula is auto-calculated.</div>
+    </div>
+    <div class="tip">
+      <div class="tip-num">03</div>
+      <div class="tip-title">Long-horizon: ETF in taxable, not Roth.</div>
+      <div class="tip-body">5+ year fund in 60/40 ETF/bond mix outperforms HYSA by ~$2K–3K over 5 years on a $25K base. Use taxable brokerage — don't burn Roth IRA room on a Down Payment when retirement needs that space.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Pro tier callout block -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in; margin-bottom: 0.16in;">
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">When you withdraw</div>
+    <div style="font-size: 9pt; line-height: 1.45;">Use the Spending Tracker (Pro+) to log withdrawals. Rebuild Timeline column tells you exactly how many months at current contribution rate to replace what you pulled. Don't beat yourself up — funds exist to be spent. Just log the spend.</div>
+  </div>
+  <div style="background: var(--surface-white); border: 1px solid var(--neutral-grid); border-radius: 6pt; padding: 0.14in 0.16in;">
+    <div class="section-label" style="margin-bottom: 0.04in;">What we are NOT</div>
+    <div style="font-size: 9pt; line-height: 1.45;">This isn't investment advice or tax advice. The Vehicle Advisor + Tax Efficiency tabs give educated defaults; your situation may differ. For complex tax moves (529 / HSA optimization beyond contribution limits), consult a CPA.</div>
+  </div>
+</div>
+
+<!-- Footer band -->
+<div class="footer-band">
+  <div class="fb-left" style="display: flex; align-items: center; gap: 10pt;">
+    <svg width="28" height="28" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+      <defs>
+        <linearGradient id="limeGradFooter3" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/>
+          <stop offset="100%" stop-color="#059669"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradFooter3)"/>
+      <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+      </g>
+    </svg>
+    <div>
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">Sinking Funds Planner · AI Edition · v1.0 · Page 3 / 3</div>
+    </div>
+  </div>
+  <div class="fb-right">15 min a month. Every fund. Every vehicle.</div>
+</div>
+</div>
+
+</body>
+</html>

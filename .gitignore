@@ -60,3 +60,10 @@ __pycache__/
 
 # QA scratch dir — ad-hoc Stage-B fixtures, recalc dumps, debug logs (regeneratable)
 tools/qa/scratch/
+
+# QA agent working directories — regenerable persona simulations + recalc + fix workbenches
+tools/qa/round1/
+tools/qa/round2/
+tools/qa/round3/
+tools/qa/fixed/
+tools/qa/backups/

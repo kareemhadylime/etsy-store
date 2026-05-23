@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sinking Funds Planner — AI Savings Advisor (Companion PDF)</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Companion guide for the Sinking Funds Planner AI Edition — 7 ChatGPT/Claude prompts paired with specific spreadsheet tabs, with worked examples. By Lime Premium Studios.">
+<meta name="keywords" content="AI savings, sinking funds, emergency fund, CD ladder, dividend tracker, precious metals, ChatGPT, Claude, savings strategy prompts, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Sinking Funds AI Savings Advisor — Companion PDF v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== Lime Premium Studios — palette ===== */
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+
+  @page {
+    size: Letter portrait;
+    margin: 0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ===== Page wrapper — every page is 8.5x11 with manual page break ===== */
+  .page {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.55in 0.6in 0.5in 0.6in;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+    background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* ===== COVER PAGE (page 1) ===== */
+  .cover {
+    background: var(--background-off-white);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-body {
+    flex: 1;
+    padding: 2.2in 0.9in 0 0.9in;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-eyebrow {
+    font-size: 9pt;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.32in;
+  }
+  .cover-title {
+    font-size: 48pt;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.28in;
+  }
+  .cover-gold-underline {
+    width: 1.6in;
+    height: 3px;
+    background: var(--secondary-warm-gold);
+    margin-bottom: 0.32in;
+  }
+  .cover-subtitle {
+    font-size: 16pt;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--secondary-warm-gold);
+    line-height: 1.3;
+    max-width: 5.2in;
+  }
+  .cover-bottom-band {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.32in 0.9in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10pt;
+    margin-top: auto;
+  }
+  .cover-bottom-band .wordmark {
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .cover-bottom-band .meta {
+    opacity: 0.7;
+    font-style: italic;
+  }
+
+  /* ===== INTRO / TIPS / BACK COVER shared layout ===== */
+  .content-header {
+    font-size: 28pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--primary-charcoal);
+    line-height: 1.15;
+    margin-bottom: 0.12in;
+  }
+  .content-divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 2.4in;
+    margin-bottom: 0.24in;
+  }
+  .content-body p {
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.13in;
+  }
+  .content-body .sub-section {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--secondary-warm-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.16in;
+    margin-bottom: 0.07in;
+  }
+  .content-body ol,
+  .content-body ul {
+    padding-left: 0.28in;
+    margin-bottom: 0.13in;
+  }
+  .content-body li {
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: var(--primary-charcoal);
+    margin-bottom: 0.05in;
+  }
+  .content-body ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .content-body ul.bullets li {
+    padding-left: 0.22in;
+    position: relative;
+  }
+  .content-body ul.bullets li::before {
+    content: '•';
+    color: var(--secondary-warm-gold);
+    font-weight: 700;
+    position: absolute;
+    left: 0.06in;
+  }
+  .content-body strong { font-weight: 600; }
+
+  /* ===== PROMPT PAGE layout (pages 3-9) ===== */
+  .prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.18in;
+  }
+  .page-title {
+    font-size: 24pt;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--primary-charcoal);
+    line-height: 1.15;
+  }
+  .tab-callout {
+    background: var(--secondary-warm-gold);
+    color: var(--surface-white);
+    font-size: 10pt;
+    font-weight: 600;
+    padding: 6pt 14pt;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+  .tab-callout .emoji { margin-right: 4pt; }
+
+  .divider {
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    width: 2.4in;
+    margin-bottom: 0.16in;
+  }
+
+  .section-label {
+    font-size: 8pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--secondary-warm-gold);
+    margin-bottom: 0.06in;
+  }
+
+  .prompt-card {
+    background: var(--surface-white);
+    border: 1px solid var(--primary-charcoal);
+    border-radius: 4pt;
+    padding: 0.16in 0.2in;
+    margin-bottom: 0.16in;
+    font-family: 'JetBrains Mono', 'Inter', monospace;
+    font-size: 8pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .prompt-card strong { font-weight: 600; }
+  .prompt-card .num {
+    color: var(--secondary-warm-gold);
+    font-weight: 600;
+  }
+
+  .example-card {
+    background: var(--ivory);
+    border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.12in 0.18in;
+    font-size: 7.5pt;
+    line-height: 1.4;
+    color: var(--primary-charcoal);
+  }
+  .example-card .label {
+    font-size: 7pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--status-warning);
+    margin-bottom: 3pt;
+  }
+  .example-card .input-block,
+  .example-card .output-block { margin-bottom: 0.07in; }
+  .example-card .sub-label {
+    font-weight: 600;
+    color: var(--primary-charcoal);
+    margin-top: 0.05in;
+    margin-bottom: 1pt;
+  }
+  .example-card p { margin-bottom: 0.025in; }
+  .example-card .ranked-item { margin-bottom: 0.04in; }
+  .example-card strong { font-weight: 600; }
+
+  /* ===== Footer (used on most pages) ===== */
+  .footer {
+    position: absolute;
+    bottom: 0.32in;
+    left: 0.6in;
+    right: 0.6in;
+    font-size: 8.5pt;
+    font-style: italic;
+    color: var(--primary-charcoal);
+    opacity: 0.6;
+    text-align: right;
+    border-top: 1px solid var(--neutral-grid);
+    padding-top: 0.07in;
+  }
+
+  /* ===== BACK COVER (page 11) ===== */
+  .back-cover {
+    background: var(--background-off-white);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .back-body {
+    flex: 1;
+    padding: 1.8in 0.9in 0 0.9in;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .back-pull-quote {
+    font-size: 22pt;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--primary-charcoal);
+    max-width: 5.2in;
+    margin-bottom: 0.45in;
+  }
+  .back-gold-underline {
+    width: 1.2in;
+    height: 2px;
+    background: var(--secondary-warm-gold);
+    margin-bottom: 0.45in;
+  }
+  .back-mid {
+    font-size: 11pt;
+    line-height: 1.6;
+    color: var(--primary-charcoal);
+    max-width: 5in;
+    margin-bottom: auto;
+  }
+  .back-signoff {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 10pt;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--secondary-warm-gold);
+    margin-top: 0.3in;
+  }
+  .back-footer-panel {
+    background: var(--primary-charcoal);
+    color: var(--surface-white);
+    padding: 0.32in 0.9in;
+    font-size: 9.5pt;
+    line-height: 1.6;
+    margin-top: auto;
+  }
+  .back-footer-panel .row-1 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.14in;
+    font-weight: 600;
+  }
+  .back-footer-panel .row-1 .meta {
+    opacity: 0.7;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .back-footer-panel p {
+    opacity: 0.85;
+    font-size: 8.5pt;
+    line-height: 1.5;
+  }
+  .back-footer-panel .page-num {
+    text-align: right;
+    margin-top: 0.12in;
+    opacity: 0.6;
+    font-style: italic;
+    font-size: 8.5pt;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================== -->
+<!-- PAGE 1 — COVER                                                 -->
+<!-- ============================================================== -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Sinking Funds Planner · AI Edition</div>
+    <div class="cover-title">AI Savings<br>Advisor</div>
+    <div class="cover-gold-underline"></div>
+    <div class="cover-subtitle">Seven prompts. Four savings vehicles.<br>Every fund handled.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark" style="display: flex; align-items: center; gap: 12pt;">
+      <svg width="36" height="36" viewBox="0 0 64 64" role="img" aria-label="Lime Premium Studios" style="flex-shrink: 0;">
+        <defs>
+          <linearGradient id="limeGradCover" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#84CC16"/>
+            <stop offset="100%" stop-color="#059669"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#limeGradCover)"/>
+        <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+        </g>
+      </svg>
+      <span>LIME PREMIUM STUDIOS</span>
+    </div>
+    <div class="meta">sinking-funds-planner · v1.0</div>
+  </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 2 — INTRO / How to use these prompts                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <h1 class="content-header">How to use these prompts</h1>
+  <div class="content-divider"></div>
+
+  <div class="content-body">
+    <p>Seven decisions every sinking-fund saver hits. Seven prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.</p>
+
+    <p>Each prompt is built to pair with a specific tab in your Sinking Funds Planner. You'll see the tab name on each page — paste, fill in placeholders, send.</p>
+
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (Reallocation, Vehicle Advisor, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the <strong>[PLACEHOLDERS]</strong> with your data.</li>
+      <li>Read the worked example on the same page to see what good output looks like.</li>
+    </ol>
+
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) <strong>OR</strong> a Claude account (free tier works)</li>
+      <li>Your Sinking Funds Planner open in another window</li>
+      <li>10 minutes the first time; ~3 minutes once familiar</li>
+    </ul>
+
+    <div class="sub-section">What this PDF won't do</div>
+    <p>It won't buy the gold, transfer the CD, or rebalance your ETFs. You paste, you read, you decide. The AI proposes the move; you execute it in your brokerage or bank.</p>
+
+    <p>Your account numbers never enter any AI tool. Use the spreadsheet's fund names ("Christmas fund," "Down Payment fund") instead of account identifiers. Everything happens in your own AI account.</p>
+
+    <p style="margin-top: 0.18in; font-style: italic; color: var(--secondary-warm-gold);">Turn the page when you're ready.</p>
+  </div>
+
+  <div class="footer">2 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 3 — PROMPT 1: Smart Spending Advisor                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">1. Reallocation</div>
+    <div class="tab-callout"><span class="emoji">🎯</span>Pairs with: Priority Matrix</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are telling me which sinking fund needs my next dollar this month. Rank by urgency × funding gap.
+
+MY ACTIVE FUNDS (paste from Fund Manager):
+[Fund | Target | Target date | Current balance | Vehicle | Monthly contribution]
+
+MY AVAILABLE TO SAVE THIS MONTH: $[amount]
+NEW MONEY SOURCES (if any): [bonus / tax refund / freelance / etc.]
+
+CONSTRAINTS:
+- Goals I cannot delay: [list — e.g., car insurance due Sept]
+- Goals I'm willing to slip: [list, if any]
+
+For each fund, calculate:
+- Months remaining until target date
+- Monthly contribution needed to fully fund
+- Urgency score (1–10) based on how close to target + consequence of miss
+- Whether I'm ON TRACK / AT RISK / FALLING BEHIND at current pace
+
+Then:
+
+<span class="num">1.</span> RANK funds by where the next dollar should go.
+
+<span class="num">2.</span> RECOMMEND the specific $ amount to each top fund this month.
+
+<span class="num">3.</span> FLAG any fund I should reduce or pause to fund the priority.
+
+<span class="num">4.</span> EXPLAIN the trade-off if there's tension (you delay X to fund Y — what does that cost).
+
+Use concrete dates and dollar amounts. Skip "consult a financial planner."</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Christmas · Target $1,200 · Dec 15 · Balance $200 · Cash · $100/mo</p>
+      <p>Car repair (annual) · $1,500 · Mar 31 (next year) · $450 · HYSA · $90/mo</p>
+      <p>Vacation · $3,000 · Jun 30 (next year) · $600 · ETF · $200/mo</p>
+      <p>Down payment · $40,000 · 5 years · $8,200 · ETF mix · $500/mo</p>
+      <p style="margin-top: 0.05in;"><em>Available: $890/mo total. Bonus $1,800 expected Nov 15.</em></p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Per-fund analysis (today = mid-August):</div>
+      <p><strong>Christmas:</strong> 4 mo. Need $250/mo. Currently $100. ⚠️ AT RISK.</p>
+      <p><strong>Car repair:</strong> 7.5 mo. Need $140/mo. Currently $90. ⚠️ AT RISK (mild).</p>
+      <p><strong>Vacation:</strong> 10.5 mo. Need $228/mo. Currently $200. ✓ ON TRACK (mild gap).</p>
+      <p><strong>Down payment:</strong> 60 mo. Need $530/mo. Currently $500. ✓ ON TRACK.</p>
+      <div class="sub-label">Ranked — where next dollar goes:</div>
+      <div class="ranked-item"><strong>1. Christmas (+$150/mo):</strong> fixed date, can't slip. Total $250/mo through Dec.</div>
+      <div class="ranked-item"><strong>2. Car repair (+$50/mo):</strong> consequence-of-miss is real. Total $140/mo.</div>
+      <div class="ranked-item"><strong>3. Vacation (+$28/mo):</strong> small bump to stay on track. Total $228/mo.</div>
+      <div class="ranked-item"><strong>4. Down payment (-$28/mo temporarily):</strong> slowest target, easiest to defer. Drop to $472/mo through Dec.</div>
+      <div class="sub-label">This month's totals:</div>
+      <p>$250 + $140 + $228 + $472 = $1,090 vs your $890 available = $200 short.</p>
+      <div class="sub-label">Budget reconciliation options:</div>
+      <p><strong>A.</strong> Reduce Down payment by $200/mo Aug–Dec (5 × $200 = $1,000 deferred). Apply Nov 15 bonus to recover.</p>
+      <p><strong>B.</strong> Reduce Vacation by $100 + Down payment by $100. Both still on track.</p>
+      <div class="sub-label">Trade-off note:</div>
+      <p>Option A delays home target ~1–2 months ($1,000 × 5% = ~$50 of growth foregone). Worth it to keep Christmas on track.</p>
+      <div class="sub-label">November bonus play:</div>
+      <p>$1,800 → $1,000 Down payment (catch up), $400 Christmas (overshoot = buffer), $400 Car repair (fully funds 3 mo ahead).</p>
+    </div>
+  </div>
+
+  <div class="footer">3 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 4 — PROMPT 2: Scenario Simulator                          -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">2. Vehicle Advisor</div>
+    <div class="tab-callout"><span class="emoji">🪣</span>Pairs with: Fund Manager</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are picking the right savings vehicle for each of my funds. Cash, CD ladder, ETF, money market, or precious metal. Base it on time horizon + risk tolerance + tax situation.
+
+MY FUNDS (paste from Fund Manager):
+[Fund | Target | Target date | Current balance | Current vehicle | Monthly contribution]
+
+MY CONTEXT:
+- Risk tolerance for each fund (some funds I'd never put in stocks): [brief notes]
+- Tax bracket (rough): [federal % + state %]
+- Available accounts: [taxable / Roth IRA / HSA / 529 / etc.]
+- Current rates I have access to: [HYSA APY %, CD rates %, etc.]
+
+For each fund, recommend:
+
+<span class="num">1.</span> THE VEHICLE — cash / HYSA / CD / short bond / ETF mix / dividend stocks / precious metal.
+
+<span class="num">2.</span> WHY — based on time horizon (under 1yr → cash/HYSA; 1–3yr → CD or short bond; 3–5yr → ETF mix; 5+yr → growth ETF; metal/crypto only for diversification, not primary).
+
+<span class="num">3.</span> WHERE — Roth IRA / HSA / Taxable / 529 / etc., based on tax efficiency.
+
+<span class="num">4.</span> ONE TRADE-OFF specific to this fund (e.g., "ETF carries 20–30% short-term volatility; if your target is firm, this is risk").
+
+End with TWO FUNDS where I'm in the WRONG vehicle currently + what to switch to + how soon.
+
+Don't recommend life insurance or annuities. Don't push paid services.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Emergency Fund · $9,000 target · forever · $3,200 · checking · $300/mo</p>
+      <p>Christmas · $1,200 · Dec 15 · $400 · HYSA · $100/mo</p>
+      <p>Vacation · $3,000 · Jun 30 next year · $600 · HYSA · $200/mo</p>
+      <p>New Car · $25,000 · 4 years · $5,500 · HYSA · $400/mo</p>
+      <p>Retirement supplement · (annual top-up) · $0 · none · $200/mo new</p>
+      <p style="margin-top: 0.05in;"><em>Risk-averse on EF + Christmas. ETF OK for 3+ yr. Tax bracket 22% federal + 5% state. HYSA 4.5%. 3-yr CD 4.8%. Roth IRA $6,500 room. HSA $3,000 room.</em></p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <p><strong>1. Emergency Fund</strong> — HYSA (not checking — you're losing $144/yr at 4.5%). &lt;1yr horizon. Trade-off: T-Bill MMF pays ~0.3% more but adds friction; not worth it for $9K.</p>
+      <p><strong>2. Christmas</strong> — HYSA ✓ already correct. 4-mo horizon = cash only.</p>
+      <p><strong>3. Vacation</strong> — HYSA ✓. 10.5-mo horizon. A 6-mo CD at 4.85% beats 4.5% marginally — only worth it if you can lock $600 and not touch.</p>
+      <p><strong>4. New Car</strong> — ⚠️ WRONG. HYSA too conservative for 4yr. Switch to 60% ETF + 40% short-bond/CD ladder in taxable brokerage. Expected real return 3–7% vs 4.5%. Over 4yr × $25K = ~$2K–3K difference. Glide to cash starting month 36.</p>
+      <p><strong>5. Retirement supplement</strong> — Index ETF in Roth IRA ($6,500 room is exactly what Roth is for). $200/mo × 32yr × 7% real = ~$280K tax-free.</p>
+      <div class="sub-label">Two wrong-vehicle switches:</div>
+      <div class="ranked-item"><strong>1. Emergency Fund:</strong> checking → HYSA this week. Earn the extra $144/yr.</div>
+      <div class="ranked-item"><strong>2. New Car:</strong> HYSA → 60/40 ETF/bond mix in taxable brokerage within the month. Auto-invest $400/mo split appropriately.</div>
+    </div>
+  </div>
+
+  <div class="footer">4 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 5 — PROMPT 3: Bill Negotiation Scripts                    -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">3. Metals Coach</div>
+    <div class="tab-callout"><span class="emoji">🥇</span>Pairs with: Precious Metals Tracker</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are interpreting this month's precious metals price moves for me. Explain what happened, why (briefly), and whether my position needs action.
+
+MY HOLDINGS (paste from Precious Metals Tracker):
+[Metal | Ounces | Cost basis avg | Storage location]
+
+THIS MONTH'S DATA:
+- Gold spot (current): $[amount]/oz vs. last month $[amount]/oz vs. 12-mo average $[amount]/oz
+- Silver spot (current): $[amount]/oz vs. last month $[amount]/oz vs. 12-mo average $[amount]/oz
+- Platinum / palladium (if I hold): [same format]
+
+MY METALS-IN-PORTFOLIO ALLOCATION TARGET: [%, default 5–10%]
+MY CURRENT METALS % OF NW: [%]
+
+Give me:
+
+<span class="num">1.</span> WHAT HAPPENED — month-over-month price move per metal, plain English (% change + $ value of my position).
+
+<span class="num">2.</span> WHY (BRIEFLY) — 2–3 sentence narrative. Macro driver (rates / dollar / geopolitical / sentiment). Skip the bull/bear essays.
+
+<span class="num">3.</span> POSITION CHECK — am I over, at, or under my allocation target?
+
+<span class="num">4.</span> RECOMMENDATION — do nothing / add / trim / rebalance. Be specific.
+
+<span class="num">5.</span> ONE THING I SHOULDN'T DO this month even though it might be tempting.
+
+Skip "consult a precious metals dealer." I'm asking you because I already own this.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Holdings: Gold 8 oz @ $1,920 avg cost. Silver 80 oz @ $24.50 avg cost.</p>
+      <p>This month: Gold $2,640 (vs $2,580 last mo, $2,490 12mo avg). Silver $30.20 (vs $29.50 last mo, $27 12mo avg).</p>
+      <p>Allocation target: 7%. Current metals % of NW: 9.5%.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">What happened:</div>
+      <p><strong>Gold:</strong> +2.3% MoM, +6.0% vs 12mo avg. Your 8 oz now $21,120 (vs $20,640) — gained $480.</p>
+      <p><strong>Silver:</strong> +2.4% MoM, +11.9% vs 12mo avg. Your 80 oz now $2,416 (vs $2,360) — gained $56.</p>
+      <p>Total metals: $23,536. Up $536 this month.</p>
+      <div class="sub-label">Why (briefly):</div>
+      <p>Gold continues its slow rally driven by Fed rate-cut expectations + persistent dollar weakness. Silver is following gold higher but also benefiting from industrial demand in semis + solar. No single dramatic catalyst — just continuation.</p>
+      <div class="sub-label">Position check:</div>
+      <p>9.5% vs 7% target. Over by 2.5 ppt. Over-allocation is from appreciation (not buying) — both metals rose faster than the rest.</p>
+      <div class="sub-label">Recommendation:</div>
+      <p>Trim 1.5–2 oz of gold. Selling 2 oz at $2,640 = $5,280 cash. Redeploy: refill HYSA emergency fund if below target, OR add to broad-market ETF. Don't sell silver — small position; trimming both is unnecessary.</p>
+      <div class="sub-label">One thing not to do:</div>
+      <p>Don't buy more gold this month. Already over target. The "metals will keep climbing" story is the same one the 2011 silver-top buyers told themselves. Rebalancing on the way up matters more than on the way down.</p>
+    </div>
+  </div>
+
+  <div class="footer">5 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 6 — PROMPT 4: Cash Flow Intelligence                      -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">4. Dividend Planner</div>
+    <div class="tab-callout"><span class="emoji">📊</span>Pairs with: Stocks &amp; Dividends</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are looking at my dividend calendar and flagging months where dividend income won't cover the spending I've planned against it. Then recommending action.
+
+MY DIVIDEND HOLDINGS (paste from Stocks &amp; Dividends tab):
+[Ticker | Shares | Payout schedule | Last payout amount | Next ex-dividend date]
+
+MY DIVIDEND-FUNDED OBLIGATIONS:
+- Recurring monthly use of dividends: $[amount] (e.g., HYSA top-up, income supplement)
+- Planned big-spend items in next 12 months funded by dividends: [list — what, when, $ amount]
+
+MY GOAL FOR DIVIDENDS: [reinvest all / pay out all / split — what %?]
+
+For each of the next 12 months:
+
+<span class="num">1.</span> ESTIMATED DIVIDEND INCOME (last known per-share × shares for each ticker).
+
+<span class="num">2.</span> PLANNED OBLIGATIONS hitting that month.
+
+<span class="num">3.</span> NET CASH FLOW — surplus or shortfall.
+
+Then:
+
+<span class="num">4.</span> FLAG cash-gap months (negative net) with specific reasons.
+
+<span class="num">5.</span> RECOMMEND fixes — DRIP some payouts off / shift big-spend to surplus months / hold cash for a specific month.
+
+<span class="num">6.</span> ONE TICKER you might consider adding to fill a gap month. Quarterly cycles cluster; some tickers pay off-cycle to smooth this.
+
+Don't recommend specific stock purchases beyond the "fill the gap" suggestion. I'll evaluate.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>KO (Coca-Cola) · 200 sh · Quarterly (Apr/Jul/Oct/Jan) · $0.485/sh</p>
+      <p>VYM (high-div ETF) · 80 sh · Quarterly (Mar/Jun/Sep/Dec) · $0.92/sh</p>
+      <p>O (Realty Income, monthly REIT) · 60 sh · Monthly · $0.265/sh</p>
+      <p>SCHD · 50 sh · Quarterly (Mar/Jun/Sep/Dec) · $0.78/sh</p>
+      <p style="margin-top: 0.05in;"><em>Obligations: $80/mo to HYSA + $500 Dec gifts + $400 Apr vacation deposit + $600 May car insurance. Goal: 50% DRIP / 50% payout.</em></p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Monthly projection (50% payout):</div>
+      <p><strong>Jan:</strong> KO $97 + O $16 = $113 → $56.50 cash. Obligations $80. ⚠️ -$23.50.</p>
+      <p><strong>Feb:</strong> O $16 → $8. Obligations $80. ⚠️ -$72.</p>
+      <p><strong>Mar / Jun / Sep / Dec:</strong> VYM $74 + SCHD $39 + O $16 = $129 → $64.25. Mar/Jun/Sep -$16. Dec -$516 (gifts).</p>
+      <p><strong>Apr / Jul / Oct:</strong> KO + O = $113 → $56.50. Apr -$424 (vacation). Jul/Oct -$23.50.</p>
+      <p><strong>May / Aug / Nov:</strong> O only → $8. May -$672 (insurance). Aug/Nov -$72.</p>
+      <div class="sub-label">Pattern:</div>
+      <p>Hilariously seasonal. Mar/Jun/Sep/Dec higher; Feb/May/Aug/Nov tiny. Obligations mostly flat. Chronic shortfalls.</p>
+      <div class="sub-label">Fixes:</div>
+      <div class="ranked-item"><strong>1. Raise DRIP to 70/30.</strong> Your stream isn't enough for $80/mo + big spends. Currently 50% out = ~$507/yr. The $80/mo recurring needs $960/yr. Fund HYSA from paycheck; DRIP more dividends.</div>
+      <div class="ranked-item"><strong>2. Shift vacation deposit Apr → Jun.</strong> June has $64 cash; April only $56 vs $400 hit.</div>
+      <div class="ranked-item"><strong>3. Shift car insurance.</strong> May is worst ($8 vs $600). If renewable Apr or Jun, switch. If not, build $600 line-item in Bill Calendar treating May as known gap.</div>
+      <div class="sub-label">Add-one-ticker suggestion:</div>
+      <p>Consider MAIN (Main Street Capital, monthly BDC) or another monthly payer. 30–50 shares → $50–90/mo evenly, smoothing Feb/May/Aug/Nov. Just one ticker to evaluate; do your own research.</p>
+    </div>
+  </div>
+
+  <div class="footer">6 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 7 — PROMPT 5: Annual Money Review                         -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">5. Life Stage Advisor</div>
+    <div class="tab-callout"><span class="emoji">🤖</span>Pairs with: AI Savings Advisor (hub)</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are detecting my current life stage and suggesting the next sinking fund I should open. Don't recommend funds I already have. Don't recommend generic categories — be specific.
+
+MY CURRENT FUNDS (paste from Fund Manager):
+[list of fund names + targets + balances]
+
+MY LIFE CONTEXT:
+- Age: [number]
+- Household: [single / partnered / married / kids count + ages]
+- Career stage: [early / mid / late / transition / business owner]
+- Housing: [renting / owning + remaining mortgage]
+- Health considerations (if relevant): [brief]
+- Big life events expected next 18 months: [list — wedding / new baby / job change / move / parent eldercare / retirement / etc.]
+
+For my detected life stage:
+
+<span class="num">1.</span> WHAT FUNDS ARE TYPICAL for someone in my exact stage (be specific — not "save more" but "Emergency Fund 3-month coverage" / "Specific Vehicle Replacement Fund" / "Property Tax Fund").
+
+<span class="num">2.</span> WHICH ONES I'M MISSING — checking against my current list.
+
+<span class="num">3.</span> THE TOP 3 to open NOW, ranked by priority.
+
+<span class="num">4.</span> FOR EACH RECOMMENDED FUND: target amount + target date + suggested vehicle (paired with Vehicle Advisor logic from page 4).
+
+Skip "talk to a financial advisor." Skip insurance products unless directly relevant (e.g., HSA contribution fund makes sense; whole-life insurance doesn't).</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Current funds: Emergency Fund $4,500/$9,000 · Vacation $1,200/$3,000 · Christmas $400/$1,200 · Down payment $12,000/$40,000.</p>
+      <p>Age: 33. Married, 1 kid (age 2). Mid-career SWE at public co. Renting in suburb. Health: kid has mild asthma. Expected: considering 2nd kid in 18mo; wife's job may shift to part-time after.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Life stage detection:</div>
+      <p>"Young family + accumulating + planning major transition." Young kid, considering 2nd, dual income trending to 1.5, pre-home, mid-career stability.</p>
+      <div class="sub-label">Funds typical for your stage:</div>
+      <p>Emergency Fund (3–6 mo) · Income transition buffer · Childcare reserve · Medical out-of-pocket (HSA) · Vacation · Home down payment · Christmas/gifts · Vehicle replacement · Second-child fund · Aging parent contingency.</p>
+      <div class="sub-label">Missing (vs your current list):</div>
+      <p>Income transition buffer · Childcare reserve · Medical/HSA · Vehicle replacement · Second-child fund · Aging parent contingency.</p>
+      <div class="sub-label">Top 3 to open now:</div>
+      <div class="ranked-item"><strong>1. Income Transition Buffer.</strong> Target $14,400 ($1,200/mo × 12 mo of wife's expected drop). Date: 18 months. Vehicle: HYSA + Roth IRA contributions. Start $200/mo from Vacation surplus + $200 redirected from Down Payment temporarily.</div>
+      <div class="ranked-item"><strong>2. Second Child Fund.</strong> Target $8,000 (birth OOP $3K + first-year gear/medical $5K). Date: 18 months. Vehicle: HSA if max-able, else HYSA. Start $400/mo. Pause when not actively trying.</div>
+      <div class="ranked-item"><strong>3. Vehicle Replacement Fund.</strong> Target $15,000 (used kid-hauler within 5 years). Date: 4 years. Vehicle: ETF + bond mix. Start $150/mo.</div>
+      <div class="sub-label">Don't open yet:</div>
+      <p>Aging Parent Contingency — relevant, but defer until tier-1 funds in place. Retirement supplement — belongs in 401k/Roth via paycheck, not sinking funds.</p>
+      <div class="sub-label">Adjustment:</div>
+      <p>Pause Down Payment for next 18 months. Income transition is more urgent than home-purchase timeline. Resume after Income Transition is funded. Home purchase delays ~2 years; financial stability through 2nd-kid transition is solid.</p>
+    </div>
+  </div>
+
+  <div class="footer">7 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 8 — PROMPT 6: Category Advisor                            -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">6. Annual Fund Review</div>
+    <div class="tab-callout"><span class="emoji">📊</span>Pairs with: Annual Summary</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are writing my year-end review of sinking funds. Look at the full 12 months across all funds and tell me what worked, what didn't, and what to change next year.
+
+ANNUAL DATA (paste from Annual Summary tab):
+- Total contributed across all funds this year: $[amount]
+- Total withdrawn (used as planned + emergencies): $[amount]
+- Funds that hit their target on time: [list]
+- Funds that missed target (or moved date): [list with notes — why missed]
+- New funds opened this year: [list]
+- Funds closed/completed: [list]
+- Largest single withdrawal: $[amount] for [reason]
+
+PER-VEHICLE PERFORMANCE (paste if Pro tier):
+- Cash/HYSA: total earned interest $[amount]
+- CDs: maturity gains $[amount]
+- ETFs: net gain/loss $[amount]
+- Metals: net gain/loss $[amount]
+
+YoY (vs last year if available):
+- Total saved difference
+- Funds completed difference
+
+Give me:
+
+<span class="num">1.</span> THREE WINS — funds that went better than planned. Specific.
+
+<span class="num">2.</span> THREE MISSES — funds that fell short. Honest diagnosis, not pep talk.
+
+<span class="num">3.</span> THREE LESSONS — structural patterns. Not "save more" but observations about HOW I save.
+
+<span class="num">4.</span> THREE PRIORITIES NEXT YEAR — specific funds with target $ + vehicle + monthly contribution.
+
+<span class="num">5.</span> ONE STRUCTURAL CHANGE to consider (move vehicles, change frequency, automate, etc.).
+
+Each section under 80 words. No motivational ending.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Contributed: $9,600. Withdrawn: $4,700 ($3,800 planned + $900 furnace emergency).</p>
+      <p>Hit: Vacation, Christmas. Missed: Down Payment (-$1,200), Vehicle Replacement (-$600, paused).</p>
+      <p>Opened: Vehicle Replacement (Mar). Largest withdrawal: $2,400 vacation in Aug.</p>
+      <p>Vehicles: Cash $215 · CDs $340 · ETF +$190 (volatile yr). YoY: +$1,400 saved vs LY; +1 fund completed.</p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <div class="sub-label">Three wins:</div>
+      <p>1. Christmas hit with $300 to spare — Jan–Mar front-load pattern, second year confirming. 2. Vacation paid in cash for the first time, $200 left over. 3. Furnace $900 absorbed by EF without touching sinking funds — EF is doing its job.</p>
+      <div class="sub-label">Three misses:</div>
+      <p>1. Down Payment fell $1,200 short — Sep/Oct extra-deposits stopped while auto-contribution held. 2. Vehicle Replacement paused mid-year, lost momentum by July. 3. ETF allocation underperformed (~$100 of expected gain lost to volatility).</p>
+      <div class="sub-label">Three lessons:</div>
+      <p>1. Auto-contribution works for consistency. Manual/discretionary fails beyond 3 months. 2. Funds need a "next milestone" checkpoint inside the 12-month plan, not just the end-target date. 3. ETF-based funds need a longer runway; Wealth Glide Path's T-24mo rule is the right discipline.</p>
+      <div class="sub-label">Three priorities next year:</div>
+      <p>1. Re-anchor Down Payment with auto $500/mo. No more manual top-ups. 2. Vehicle Replacement with $150/mo auto + quarterly check-in. 3. Open Property Tax Fund — your peers miss this every first year of homeownership.</p>
+      <div class="sub-label">One structural change:</div>
+      <p>Move ETF-based Down Payment to 70/30 (ETF/short bond) instead of 100% ETF. Cuts volatility in half for ~1–2 ppt of expected return. With 3 years to target and a real deadline, this matters.</p>
+    </div>
+  </div>
+
+  <div class="footer">8 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 9 — PROMPT 7: Health Score Coach                          -->
+<!-- ============================================================== -->
+<div class="page">
+  <div class="prompt-header">
+    <div class="page-title">7. Neglected Fund Detector</div>
+    <div class="tab-callout"><span class="emoji">📉</span>Pairs with: Funding Gap Analyzer</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The Prompt</div>
+  <div class="prompt-card">You are scanning my funds for ones I stopped contributing to without realizing. Catch the neglected before the target date catches me.
+
+MY FUNDS (paste from Funding Gap Analyzer or Contribution Tracker):
+[Fund | Target | Target date | Current balance | Last contribution date | Last contribution amount | Required monthly to hit target]
+
+Look at each fund's contribution pattern. Flag any fund where:
+- LAST CONTRIBUTION was more than 60 days ago
+- TARGET DATE is approaching but FUNDING IS BEHIND
+- AUTO-CONTRIBUTION was set up but the transfer might have failed silently
+- LIFE EVENT (mentioned below) might have disrupted the contribution
+
+LIFE EVENTS THAT MIGHT HAVE DISRUPTED THIS YEAR: [brief — moved, job change, illness, big purchase, etc.]
+
+For each neglected fund:
+
+<span class="num">1.</span> WHEN it was last contributed to + how long since.
+
+<span class="num">2.</span> WHY (your best guess based on contribution pattern + life events I named).
+
+<span class="num">3.</span> STATUS — Recoverable / Date Slip Likely / Already Missed.
+
+<span class="num">4.</span> RECOVERY PLAN if recoverable — specific catch-up contribution path.
+
+<span class="num">5.</span> HONEST RECOMMENDATION if not — close the fund, defer the goal, or accept partial?
+
+Don't recommend "just contribute more." Be specific about what to do this month.</div>
+
+  <div class="section-label">Worked Example</div>
+  <div class="example-card">
+    <div class="input-block">
+      <div class="label">Example Input</div>
+      <p>Emergency Fund · $9,000 target · forever · $7,200 · last $200 (3wk ago) · monthly $200</p>
+      <p>Vacation · $3,000 · Jun 30 next yr · $2,800 · $200 (last mo) · monthly $200</p>
+      <p>Wedding Gift Fund · $1,500 · Sep 15 · $300 · $100 (8wk ago) · monthly $100</p>
+      <p>Vehicle Replacement · $15,000 · 4yr · $900 · $0 (5mo ago) · was monthly $150 first 4 mo</p>
+      <p>Pet Vet Fund · $1,800 · forever · $400 · $50 (4mo ago) · irregular $50</p>
+      <p style="margin-top: 0.05in;"><em>Life events this year: job change in May, moved apartments in July.</em></p>
+    </div>
+    <div class="output-block">
+      <div class="label">Example Output</div>
+      <p><strong>1. Emergency Fund:</strong> ✅ Healthy. Last 3 wk ago, pattern intact.</p>
+      <p><strong>2. Vacation:</strong> ✅ Healthy. Will hit target with mild buffer.</p>
+      <p><strong>3. Wedding Gift Fund — ⚠️ Neglected.</strong> Last 8 weeks. Target ~2 months out. At $300/$1,500, need $600/mo to recover vs $100 pattern. Job change likely broke autopay; apartment move compounded.</p>
+      <p>Status: <strong>Date Slip Likely.</strong> Wedding isn't moving — either short the gift or pull from another fund.</p>
+      <p>Recommendation: <strong>Accept partial.</strong> Target $800–$1,000 (normal gift) vs $1,500. Catch up at $250/mo × 2 → hits $800 by Sep 15.</p>
+      <p><strong>4. Vehicle Replacement — 🔴 Severely neglected.</strong> Last contribution 5 months ago — basically stopped after 4 months. Out of sight, out of mind + life events.</p>
+      <p>Status: <strong>Recoverable</strong> — 4-year horizon means catch-up is feasible. Re-anchor with $200/mo auto-contribution this week (vs original $150). Extra $50/mo recovers the gap over 18 months. Quarterly calendar reminder.</p>
+      <p><strong>5. Pet Vet Fund — ⚠️ Neglected, low priority.</strong> Last 4 months. Irregular even before. Never on auto-contribution.</p>
+      <p>Recommendation: <strong>Either commit ($50/mo auto-pay) OR fold $400 into EF and close the fund.</strong> Half-existing funds imply coverage you don't actually have.</p>
+      <div class="sub-label">Two actions this month:</div>
+      <div class="ranked-item"><strong>1.</strong> Set up auto-contribution to Vehicle Replacement Fund ($200/mo). One Tuesday afternoon.</div>
+      <div class="ranked-item"><strong>2.</strong> Decide on Pet Vet — automate it or close it. Don't leave it half-existing.</div>
+    </div>
+  </div>
+
+  <div class="footer">9 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 10 — TIPS: Which AI should I use?                         -->
+<!-- ============================================================== -->
+<div class="page">
+  <h1 class="content-header">Which AI should I use?</h1>
+  <div class="content-divider"></div>
+
+  <div class="content-body">
+    <p>All seven prompts work in free tiers. Differences come down to output style + how each handles long structured data.</p>
+
+    <div class="sub-section">ChatGPT Free</div>
+    <p><strong>Best for:</strong> Annual Fund Review, Life Stage Advisor, Metals Coach. Conversational tone; great at multi-part narratives + iterative editing ("make this shorter," "more specific to my situation").</p>
+    <p><strong>Limit:</strong> ~3,000–4,000 word context per message. If you paste 15+ funds, do it in batches.</p>
+
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p><strong>Best for:</strong> Reallocation, Vehicle Advisor, Dividend Planner, Neglected Fund Detector. Better at table-formatted output, ranking lists, and structured per-fund analysis. Handles longer fund portfolios in one paste.</p>
+    <p><strong>Limit:</strong> Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.</p>
+
+    <div class="sub-section">Paid tiers (ChatGPT Plus, Claude Pro)</div>
+    <p>Worth it if you're rebalancing monthly across 8+ funds OR running dividend analysis quarterly. Skip if checking in twice a year.</p>
+
+    <div class="sub-section">Universal tips</div>
+    <ol>
+      <li><strong>Paste as text, not screenshots.</strong> Free-tier AI doesn't read spreadsheet screenshots reliably.</li>
+      <li><strong>Never paste account numbers or brokerage logins.</strong> Use the spreadsheet's fund names instead of account identifiers.</li>
+      <li><strong>Metals Coach works better with current data.</strong> Spot prices change daily — if you're rerunning after market hours, expect stale-data caveats.</li>
+      <li><strong>Save good output.</strong> Found a great fund-priority recommendation? Paste it into the matching fund's Notes column. Build your own playbook over the year.</li>
+    </ol>
+
+    <p style="margin-top: 0.14in; font-style: italic; opacity: 0.75;">Your fund data never leaves your AI conversation. The AI never sees your spreadsheet — only what you paste, only during that chat.</p>
+  </div>
+
+  <div class="footer">10 / 11 · AI Savings Advisor</div>
+</div>
+
+<!-- ============================================================== -->
+<!-- PAGE 11 — BACK COVER                                           -->
+<!-- ============================================================== -->
+<div class="page back-cover">
+  <div class="back-body">
+    <div class="back-pull-quote">A fund is a decision you made in advance<br>so the future you doesn't have to.</div>
+    <div class="back-gold-underline"></div>
+    <div class="back-mid">
+      Seven prompts. Maybe an hour a month using them. Saves the alternative of paying Qapital $60/year to round up your coffee purchases while their app sells you to lenders.
+    </div>
+    <div class="back-signoff">Your money. Your funds. Your call.</div>
+  </div>
+  <div class="back-footer-panel">
+    <div class="row-1">
+      <span>Sinking Funds Planner · AI Edition</span>
+      <span class="meta">v1.0</span>
+    </div>
+    <p>12-month free updates included. Support replies within 24 hours.</p>
+    <p>AI prompts work in ChatGPT and Claude (free or paid tiers — your choice).</p>
+    <div class="page-num">11 / 11</div>
+  </div>
+</div>
+
+</body>
+</html>

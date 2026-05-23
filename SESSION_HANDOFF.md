@@ -1,5 +1,95 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-05-23 (PM2) — Net Worth Tracker (Product 4): end-to-end build complete, ready for QA
+
+User direction at session start: "Product 3 is completed & under Audit — work on Product 4 now." Cascade
+session: applied the same Premium Finance House pipeline used for Budget Tracker / Debt Payoff Planner /
+Sinking Funds Planner to Product 4 — Net Worth Tracker. No QA pass yet; that's the next session's work.
+
+**What got built:**
+
+- **Sheets template** — `tools/sheets-gen/templates/net-worth-tracker.js` (~2,750 lines). 20 tabs
+  (19 core + About). Tier-aware via `workbook._tier` + `applyTierVisibility()`. CLI: `--tier=essentials|pro|ai`.
+  Tab counts after tier patch:
+  - Essentials ($12): 9 visible (Dashboard, Assets Summary, Liabilities Summary, NW History, Vehicle
+    Depreciation [2 vehicles], FIRE Calculator [Conservative scenario only], Age Benchmark, Annual
+    Summary, About)
+  - Pro ($19): 19 visible (all above expanded + Real Estate, Stocks & Funds, Metals & Crypto,
+    Passive Income Simulator, Asset Allocation, Retirement Tracker, Tax-Loss Harvesting Log,
+    Geographic Exposure, Insurance & Estate, Estate Access)
+  - AI Edition ($29): 20 visible (Pro + AI Wealth Intelligence hub)
+- **AI Wealth Intelligence PDF** — `tools/pdf-gen/templates/net-worth-ai-pdf.html`. 11 pages: cover
+  + intro + 7 prompts (Monthly NW Narrative · FIRE Forecaster · Asset Allocation Advisor · Passive
+  Income Blueprint · Wealth Growth Coach · Annual Wealth Review · Estate Planning Advisor) + tips +
+  back cover. Content verbatim from `docs/product-content/net-worth-ai-prompts.md`. Same fictional
+  persona (37yo SWE, married, 2 kids, ~$326K NW, Texas rental) threads through every prompt's
+  worked example for narrative continuity.
+- **Quick-start PDF** — `tools/pdf-gen/templates/net-worth-quickstart.html`. 1 page. 4-step setup
+  walkthrough + 3-tier first-actions cards + 3 day-one tips. Anti-Empower/Monarch/Kubera framing.
+- **5 Etsy thumbnails** — all in `tools/thumb-gen/templates/`, 2000×2000 PNG output:
+  - `net-worth-tracker-01-hero.html` — Dashboard mockup with NW Health Score 82/100 gauge,
+    $326,180 with +9.7% YTD, FIRE 23.6% funded / 14 yrs row, 24-month trajectory SVG line chart
+    with gold-dashed projection ahead. Hero text "Net Worth Tracker · 19 tabs · FIRE calculator ·
+    AI Wealth Intelligence". Cover image.
+  - `net-worth-tracker-02-fire-calculator.html` — FIRE Calculator close-up. $1.45M FIRE number
+    panel + 3 scenario rows (Conservative 22.3yr → age 59 / Current Trajectory 17.1yr → age 54
+    [highlighted] / Aggressive 13.4yr → age 50). Hero text "See exactly when you can stop working."
+  - `net-worth-tracker-03-asset-mix.html` — Donut chart (6 colored segments) + drift table
+    side-by-side. Drift status pills (🔴/🟡/✅). Hero text "Every asset class. Every liability.
+    One sheet."
+  - `net-worth-tracker-04-ai-advisor.html` — 3 prompt cards diagonally stacked with ChatGPT/Claude/
+    FREE TIER OK badges. Hero text "7 AI prompts. Free-tier ready. FIRE-savvy."
+  - `net-worth-tracker-05-anti-plaid.html` — Two-column comparison. Left: EMPOWER / MONARCH / KUBERA
+    pills + 4 strikes (Plaid handshake, Zillow API, Empower-as-advisor-funnel, subscription
+    forever) + "$495–$1,000 5-year cost". Right: Lime tier pills + 4 checks + "$12–$29". Hero
+    text "Empower scrapes your accounts. We don't."
+
+**Bugs encountered & fixed in-session:**
+
+- FIRE Calculator template: `mergeCells("F${s.row}:F${s.row}")` (merging a single cell to itself)
+  threw "Cannot merge already merged cells" — removed.
+- Passive Income Simulator: addSectionHeader at row 12 with subtitle consumes rows 12-14 (title +
+  subtitle + gold underline merge across A:M). My subsequent E14:F14 merge collided with the
+  underline merge. Restructured to call addSectionHeader at row 11 with null subtitle (which
+  collapses to rows 11-12), then placed "Required portfolio" at row 13 + "Years from today" at
+  row 15. Added backwards-compat formulas at E14/E16 so the KPI references in the top bar still
+  resolve.
+
+**Files this session (all new, none modified beyond handshake/handoff):**
+
+- `tools/sheets-gen/templates/net-worth-tracker.js` (NEW)
+- `tools/sheets-gen/output/net-worth-tracker-essentials.xlsx` (NEW)
+- `tools/sheets-gen/output/net-worth-tracker-pro.xlsx` (NEW)
+- `tools/sheets-gen/output/net-worth-tracker-ai-edition.xlsx` (NEW)
+- `tools/pdf-gen/templates/net-worth-ai-pdf.html` (NEW)
+- `tools/pdf-gen/templates/net-worth-quickstart.html` (NEW)
+- `tools/pdf-gen/output/net-worth-ai-pdf.pdf` (NEW)
+- `tools/pdf-gen/output/net-worth-quickstart.pdf` (NEW)
+- `tools/thumb-gen/templates/net-worth-tracker-01-hero.html` (NEW)
+- `tools/thumb-gen/templates/net-worth-tracker-02-fire-calculator.html` (NEW)
+- `tools/thumb-gen/templates/net-worth-tracker-03-asset-mix.html` (NEW)
+- `tools/thumb-gen/templates/net-worth-tracker-04-ai-advisor.html` (NEW)
+- `tools/thumb-gen/templates/net-worth-tracker-05-anti-plaid.html` (NEW)
+- `tools/thumb-gen/output/net-worth-tracker-{01..05}-*.png` (5 NEW)
+
+**State left in:** Net Worth Tracker bundle assembled but **not yet QA'd**. Math is plausible
+(formulas reference the named persona's numbers; KPI strip pulls live from Assets/Liabilities
+totals; FIRE Calculator scenarios use a defensible compound-growth closed-form). But no
+LibreOffice recalc verification, no edge-case probes, no persona simulation. The Sinking Funds
+audit pattern (debt-payoff-qa style — 5 personas, edge cases, conditional-formatting fire tests)
+is the obvious next step.
+
+**Next session:** Build / dispatch a senior-grade `net-worth-qa` agent (cascade from
+`sinking-fund-qa-expert` + `debt-payoff-qa`) for ship-readiness audit. Personas to drive: (1)
+recent-grad early-FIRE saver, (2) mid-career dual-income with kids + rental, (3) pre-retiree
+with concentrated equities, (4) variable-income freelancer with crypto exposure, (5) high-LTV
+homeowner with stale 401k beneficiary. Edge cases: zero-asset start, negative net worth, FIRE
+already achieved (% funded > 100%), age >= retirement age (years-to-FIRE NaN), bonds-only
+allocation (TLH window logic), 7-account contributions exceeding IRS limits. Then if SHIP →
+push to Etsy as draft via `mcp__etsy__etsy_create_listing` (cascade from Budget Tracker pattern).
+
+---
+
 ## 🟢 2026-05-23 (PM) — Debt Payoff Planner: 2nd-audit fixes + 5-persona live verification = SHIPPABLE
 
 Second round of QA + fix on the Debt Payoff Planner bundle. The morning's "shipped" state was
