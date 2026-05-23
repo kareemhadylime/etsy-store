@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Small Business Finance Kit — AI Business Co-Pilot (Companion PDF)</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Companion guide for the Small Business Finance Kit AI Edition — 8 ChatGPT/Claude prompts paired with specific spreadsheet tabs, with worked examples drawn from a single fictional persona (custom signage shop). By Lime Premium Studios.">
+<meta name="keywords" content="small business, P&L, payroll, depreciation, supplier negotiation, tax prep, pricing strategy, customer concentration, ChatGPT, Claude, AI business prompts, Lime Premium Studios">
+<meta name="creator" content="Lime Premium Studios">
+<meta name="subject" content="Small Business AI Business Co-Pilot — Companion PDF v1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white); color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .page {
+    width: 8.5in; height: 11in; padding: 0.5in 0.55in 0.45in 0.55in;
+    position: relative; page-break-after: always; break-after: page;
+    overflow: hidden; background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+
+  /* COVER */
+  .cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .cover-body { flex: 1; padding: 2.2in 0.9in 0 0.9in; display: flex; flex-direction: column; }
+  .cover-eyebrow { font-size: 9pt; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-title { font-size: 46pt; font-weight: 600; letter-spacing: -0.02em; line-height: 1.05; color: var(--primary-charcoal); margin-bottom: 0.28in; }
+  .cover-gold-underline { width: 1.6in; height: 3px; background: var(--secondary-warm-gold); margin-bottom: 0.32in; }
+  .cover-subtitle { font-size: 15pt; font-style: italic; font-weight: 400; color: var(--secondary-warm-gold); line-height: 1.3; max-width: 5.2in; }
+  .cover-bottom-band { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; display: flex; justify-content: space-between; align-items: center; font-size: 10pt; margin-top: auto; }
+  .cover-bottom-band .wordmark { font-weight: 600; letter-spacing: 0.04em; }
+  .cover-bottom-band .meta { opacity: 0.7; font-style: italic; }
+
+  /* Content header */
+  .content-header { font-size: 26pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; margin-bottom: 0.1in; }
+  .content-divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.2in; }
+  .content-body p { font-size: 10pt; line-height: 1.5; color: var(--primary-charcoal); margin-bottom: 0.1in; }
+  .content-body .sub-section { font-size: 9.5pt; font-weight: 600; color: var(--secondary-warm-gold); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.14in; margin-bottom: 0.06in; }
+  .content-body ol, .content-body ul { padding-left: 0.28in; margin-bottom: 0.1in; }
+  .content-body li { font-size: 10pt; line-height: 1.5; color: var(--primary-charcoal); margin-bottom: 0.04in; }
+  .content-body ul { list-style: none; padding-left: 0; }
+  .content-body ul.bullets li { padding-left: 0.22in; position: relative; }
+  .content-body ul.bullets li::before { content: '•'; color: var(--secondary-warm-gold); font-weight: 700; position: absolute; left: 0.06in; }
+  .content-body strong { font-weight: 600; }
+
+  /* PROMPT PAGE */
+  .prompt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.12in; }
+  .page-title { font-size: 19pt; font-weight: 600; letter-spacing: -0.01em; color: var(--primary-charcoal); line-height: 1.15; max-width: 5.4in; }
+  .tab-callout { background: var(--secondary-warm-gold); color: var(--surface-white); font-size: 9pt; font-weight: 600; padding: 5pt 12pt; border-radius: 999px; white-space: nowrap; }
+  .divider { height: 2px; background: var(--secondary-warm-gold); width: 2.4in; margin-bottom: 0.14in; }
+  .section-label { font-size: 8pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-warm-gold); margin-bottom: 0.05in; }
+
+  .prompt-card {
+    background: var(--surface-white); border: 1px solid var(--primary-charcoal); border-radius: 4pt;
+    padding: 0.12in 0.16in; margin-bottom: 0.12in;
+    font-family: 'JetBrains Mono', 'Inter', monospace; font-size: 7.5pt; line-height: 1.35;
+    color: var(--primary-charcoal); white-space: pre-wrap; word-wrap: break-word;
+  }
+  .prompt-card strong { font-weight: 600; }
+
+  .example-card {
+    background: var(--ivory); border-left: 3px solid var(--secondary-warm-gold);
+    padding: 0.1in 0.16in; font-size: 7pt; line-height: 1.4; color: var(--primary-charcoal);
+  }
+  .example-card .label { font-size: 6.5pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--status-warning); margin-bottom: 3pt; }
+  .example-card .input-block, .example-card .output-block { margin-bottom: 0.06in; }
+  .example-card .sub-label { font-weight: 600; color: var(--primary-charcoal); margin-top: 0.05in; margin-bottom: 1pt; }
+  .example-card p { margin-bottom: 0.025in; }
+  .example-card strong { font-weight: 600; }
+
+  /* Footer */
+  .footer {
+    position: absolute; bottom: 0.28in; left: 0.55in; right: 0.55in;
+    font-size: 8pt; font-style: italic; color: var(--primary-charcoal); opacity: 0.6;
+    text-align: right; border-top: 1px solid var(--neutral-grid); padding-top: 0.06in;
+  }
+
+  /* BACK COVER */
+  .back-cover { background: var(--background-off-white); padding: 0; display: flex; flex-direction: column; }
+  .back-body { flex: 1; padding: 1.6in 0.9in 0 0.9in; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .back-pull-quote { font-size: 22pt; font-style: italic; font-weight: 400; line-height: 1.3; color: var(--primary-charcoal); max-width: 5.2in; margin-bottom: 0.4in; }
+  .back-gold-underline { width: 1.2in; height: 2px; background: var(--secondary-warm-gold); margin-bottom: 0.4in; }
+  .back-mid { font-size: 10.5pt; line-height: 1.55; color: var(--primary-charcoal); max-width: 5in; margin-bottom: auto; }
+  .back-signoff { font-weight: 600; font-size: 9.5pt; letter-spacing: 0.04em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-top: 0.3in; }
+  .back-footer-panel { background: var(--primary-charcoal); color: var(--surface-white); padding: 0.32in 0.9in; font-size: 9pt; line-height: 1.55; margin-top: auto; }
+  .back-footer-panel .row-1 { display: flex; justify-content: space-between; margin-bottom: 0.12in; font-weight: 600; }
+  .back-footer-panel .row-1 .meta { opacity: 0.7; font-style: italic; font-weight: 400; }
+  .back-footer-panel p { opacity: 0.85; font-size: 8.5pt; line-height: 1.5; }
+  .back-footer-panel .page-num { text-align: right; margin-top: 0.1in; opacity: 0.6; font-style: italic; font-size: 8pt; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — COVER -->
+<div class="page cover">
+  <div class="cover-body">
+    <div class="cover-eyebrow">Small Business Finance Kit · AI Edition</div>
+    <div class="cover-title">AI Business<br>Co-Pilot</div>
+    <div class="cover-gold-underline"></div>
+    <div class="cover-subtitle">Eight prompts. The numbers a CFO would ask for.<br>Without the consulting bill.</div>
+  </div>
+  <div class="cover-bottom-band">
+    <div class="wordmark" style="display:flex;align-items:center;gap:12pt;">
+      <svg width="36" height="36" viewBox="0 0 64 64" style="flex-shrink:0;">
+        <defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#84CC16"/><stop offset="100%" stop-color="#059669"/>
+        </linearGradient></defs>
+        <rect x="0" y="0" width="64" height="64" rx="14" ry="14" fill="url(#lg1)"/>
+        <g transform="translate(12,12) scale(1.667)" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19.2 2.96c1.4 2.04 2.04 3.96 1.84 5.96-.2 1.96-1.04 4.04-2.16 5.96"/>
+          <path d="M2 21c0-3 1.85-5.36 5.08-6"/>
+        </g>
+      </svg>
+      <span>LIME PREMIUM STUDIOS</span>
+    </div>
+    <div class="meta">small-business-finance-kit · v1.0</div>
+  </div>
+</div>
+
+<!-- PAGE 2 — INTRO -->
+<div class="page">
+  <h1 class="content-header">How to use these prompts</h1>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>Eight decisions every small-business operator hits across a fiscal year. Eight prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.</p>
+    <p>Each prompt pairs with a specific tab in your Small Business Finance Kit. You'll see the tab name on each page — paste, fill in placeholders, send.</p>
+
+    <div class="sub-section">How it works</div>
+    <ol>
+      <li>Open the prompt page you need (P&L Analyst, Cash Flow Coach, etc.).</li>
+      <li>Open the matching tab in your spreadsheet.</li>
+      <li>Copy the prompt into ChatGPT or Claude.</li>
+      <li>Replace the <strong>[PLACEHOLDERS]</strong> with your data.</li>
+      <li>Read the worked example on the same page to see what good output looks like.</li>
+    </ol>
+
+    <div class="sub-section">What you'll need</div>
+    <ul class="bullets">
+      <li>A ChatGPT account (free tier works) <strong>OR</strong> a Claude account (free tier works)</li>
+      <li>Your Small Business Finance Kit open in another window</li>
+      <li>15 minutes the first time; ~5 minutes once familiar</li>
+    </ul>
+
+    <div class="sub-section">What this PDF won't do</div>
+    <p>It won't file your taxes, sign your invoices, negotiate with your supplier, or pay your employees. You paste, you read, you decide. The AI proposes the move; you execute it with your accountant, supplier, or bank.</p>
+    <p>Your customer names, bank account numbers, EIN, and employee SSNs never enter any AI tool. Use the spreadsheet's labels ("Customer A," "Supplier 3," "Employee #7") when full identifiers aren't needed. Everything happens in your own AI account.</p>
+    <p>This PDF is a thinking partner. Your accountant is your accountant. Use both.</p>
+    <p style="margin-top:0.16in;font-style:italic;opacity:0.75;">Turn the page when you're ready.</p>
+  </div>
+  <div class="footer">2 / 12</div>
+</div>
+
+<!-- PAGE 3 — PROMPT 1: P&L Analyst -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">1. P&L Analyst — What's actually driving this month's number?</h1>
+    <div class="tab-callout">Pairs with: 📊 P&L Statement</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are reading my month's P&amp;L line by line and explaining what the number means. Not just summarizing — diagnosing.
+
+MY P&amp;L THIS MONTH (paste from P&amp;L Statement, both monthly + YTD columns):
+[Line item | This month $ | This month % of revenue | YTD $ | YTD % of revenue | Last month $ | Same month last year $]
+
+For each major section (Revenue / COGS / Gross Profit / Operating Expenses / Net Profit), give me:
+
+1. THE NUMBER — what it is this month, MoM change, YoY change
+2. ANOMALY CHECK — is any line item more than 15% off its 12-month trailing average? Flag it.
+3. RATIO HEALTH — gross margin %, operating margin %, net margin %. How those compare to prior 6 months.
+4. PLAIN-ENGLISH SENTENCE per anomaly — what likely caused it (use line item names, not generic explanations)
+
+Then write THE BOTTOM LINE — one paragraph (60-80 words):
+- Did I make money this month?
+- Did I make more or less than last month, and why?
+- Is the trend going the right direction?
+- ONE specific number to watch next month.
+
+End with TWO things to verify with my accountant or my own records before treating any anomaly as real (could be a coding error in the spreadsheet, a timing issue, etc.).
+
+Don't recommend "talk to a CFO." Don't push paid services. Be the CFO.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Revenue $48,200 (last mo $42,800, same mo LY $39,100) | 100% · COGS $19,800 (last mo $16,400) | 41.1% · Gross Profit $28,400 | 58.9% · OpEx: Rent $3,200 · Payroll $14,400 (last mo $11,800) · Marketing $2,100 (last mo $4,800) · Software $890 · Travel $1,400 (last mo $200) · Other $1,650 · Operating Income $4,760 | 9.9% · Net $4,760 | 9.9%. YTD Rev $397K, Net $42K (10.6%).</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>REVENUE:</strong> $48,200 (+12.6% MoM, +23.3% YoY). Strongest month of Q3 so far. YoY signal is the one that matters — you're meaningfully above where you were a year ago at the same seasonal point.</p>
+    <p><strong>COGS:</strong> $19,800 = 41.1% of revenue. ⚠️ Jumped from 38.3% (12-mo avg) to 41.1% — 2.8 pp higher. On $48K of revenue that's ~$1,350 of margin gone. LIKELY: supplier price increase took hold, OR you bought ahead at higher cost for a project that won't ship until next month. Worth checking which.</p>
+    <p><strong>GROSS PROFIT:</strong> $28,400 = 58.9% (vs. 61.7% trailing). Compressed by the COGS jump above.</p>
+    <p><strong>OPEX anomalies:</strong> Payroll +$2,600 MoM (hired or bonus?); Marketing -$2,700 MoM (campaign moved or canceled?); Travel +$1,200 MoM (conference, client visit, one-time?).</p>
+    <p><strong>RATIOS:</strong> Gross margin 58.9% (vs 61.7% 6-mo) DOWN; Op margin 9.9% (vs 11.2%) DOWN. Trend: revenue strong, margins compressing. Classic "growing into a problem" signal.</p>
+    <p><strong>BOTTOM LINE:</strong> You made $4,760 — about $400 less than last month despite $5,400 more revenue. The COGS jump (+2.8pp) ate the revenue growth and then some. Next month's number to watch: gross margin %. If it stays at 41% COGS, treat as the new normal and reprice. If it pops back to 38%, this month was a one-off.</p>
+    <p><strong>VERIFY WITH ACCOUNTANT:</strong> (1) COGS spike — was a supplier invoice double-coded, or did one project's materials hit this month with revenue still in WIP? (2) Travel +$1,200 — confirm this isn't a reimbursable client expense booked as your cost.</p>
+  </div>
+  <div class="footer">3 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 4 — PROMPT 2: Cash Flow Coach -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">2. Cash Flow Coach — Will I run short in the next 90 days?</h1>
+    <div class="tab-callout">Pairs with: 🔮 Cash Flow Forecast</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are looking at my 90-day forward cash flow and flagging the weeks where I'm at risk of running short. Then telling me what to do about each one.
+
+MY POSITION (paste from Cash Flow Forecast tab):
+- Current cash balance: $[amount]
+- Minimum operating buffer: $[amount]
+
+NEXT 90 DAYS — WEEK BY WEEK (paste forecast grid):
+[Week start date | Expected inflows $ | Expected outflows $ | Running balance $]
+
+INFLOW DETAIL: Top 5 customers expected to pay + amount + invoice date + due date · Recurring revenue $/mo · Other expected (loans, refunds)
+OUTFLOW DETAIL: Payroll dates · Recurring (rent, software, insurance) · Top 5 suppliers · Quarterly tax dates · Other one-offs
+
+CONFIDENCE TIERS for inflows:
+- HIGH: contracted / locked / standing customer, no payment history issues
+- MEDIUM: invoiced but slow payer / customer with 1-2 late incidents
+- LOW: not yet invoiced / verbal commit only
+
+For each of the next 12 weeks, give me:
+1. NET CASH FLOW (inflow − outflow)
+2. ENDING BALANCE projected
+3. RISK STATUS — Safe (&gt;1.5x buffer) / Tight (1.0–1.5x) / Danger (&lt;1x) / Critical (negative)
+
+Then:
+1. FLAG the 1-3 highest-risk weeks with specific causes
+2. RECOMMEND mitigations PER risk week
+3. If LOC draw is warranted, AMOUNT
+4. ONE STRUCTURAL change to make the forecast less brittle long-term
+
+Don't recommend "consult a CFO." Don't push factoring. Be specific.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Current cash $58K. Buffer $25K. Forecast W1-12 (inflow/outflow → balance): W1 14/18→54 · W2 8/22(payroll 16)→40 · W3 12/9→43 · W4 6/24(payroll+Q3 tax+rent)→25 · W5 18/11→32 · W6 9/22(payroll+insurance 4)→19 · W7 14/9→24 · W8 7/20(payroll)→11 ⚠️ · W9 22/11→22 · W10 11/20→13 ⚠️ · W11 8/10→11 ⚠️ · W12 19/20(payroll+supplier prepay 10)→10 ⚠️. Inflows: 60% Customer A (HIGH), 25% B (MEDIUM, late 2/6), 15% LOW.</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>PER-WEEK:</strong> W1-3 Safe · W4 Tight (lands at buffer) · W5 Safe · W6 Tight · W7 Tight · W8 🔴 Danger ($11K, ~$14K below buffer) · W9 Tight · W10 🔴 · W11 🔴 · W12 🔴 sustained below.</p>
+    <p><strong>3 HIGHEST-RISK WEEKS:</strong></p>
+    <p><strong>W8 ($11K, ~$14K below buffer):</strong> Three slow-inflow weeks compounding into payroll week. Customer B's MEDIUM $12K invoice expected W7 — if it slips one week, ~$3K cash on payroll Friday. MITIGATION: Email B today asking confirmation of W7 payment. Offer 2% early-pay on A's W6 invoice ($14K) — pulls it into W6 instead of W7. Takes W8 risk off the table for ~$280 cost.</p>
+    <p><strong>W10-W12 (sustained below buffer):</strong> Four consecutive payroll weeks with mostly MEDIUM-confidence inflows + Q4 supplier prepay $10K in W12. MITIGATION: Negotiate net-45 with the W12 supplier — shifts to W2 of next quarter when Customer A's renewal $24K hits. Single move flips W12 from $10K end → $20K end.</p>
+    <p><strong>LOC CALL:</strong> If you have $25K LOC, DON'T draw preemptively. Forecast shows you stay positive, just below buffer. LOC is for actual crisis (below $0), not buffer dips. If updates later show W8 sliding negative, draw $15K then.</p>
+    <p><strong>STRUCTURAL CHANGE:</strong> Forecast brittleness is concentrated in Customer A (60% of inflows). Even at HIGH confidence, the concentration itself is the risk. Customer Concentration Risk prompt (page 10) is where to take this thread.</p>
+  </div>
+  <div class="footer">4 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 5 — PROMPT 3: Depreciation Assistant -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">3. Depreciation Assistant — Am I taking depreciation correctly?</h1>
+    <div class="tab-callout">Pairs with: 🏗️ Asset Depreciation</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are reviewing my asset depreciation schedule and checking my math + my method choices. Not preparing the tax return — auditing my schedule against IRS Section 179 / bonus depreciation / MACRS basics.
+
+MY ASSETS (paste from Asset Depreciation tab):
+[Asset name | Class (Vehicle/Equipment/Furniture/Software/Building/Other) | Purchase date | Purchase cost | Method (SL/MACRS/179/Bonus) | Useful life | Salvage value | Depreciation this year | Accumulated depreciation | Net book value]
+
+MY CONTEXT:
+- Business entity: [Sole Prop / S-Corp / C-Corp / LLC taxed as: ___]
+- Tax year: [year]
+- De minimis safe harbor election ($2,500): [yes/no]
+- Partial-personal-use assets: [list]
+- Last year's total depreciation: $[amount]
+
+For each asset, check:
+1. METHOD APPROPRIATENESS — is the chosen method appropriate for the class + use?
+2. USEFUL-LIFE PLAUSIBILITY — does the life match IRS class life? (Computers 5yr, furniture 7yr, vehicles 5yr, residential rental 27.5yr, etc.)
+3. THIS-YEAR DEPRECIATION MATH — does my number match what the method produces?
+4. SECTION 179 LIMITS — am I within annual 179 limit + phase-out + business-income limit?
+5. PARTIAL-USE FLAG — any asset where I should be applying business-use %?
+
+Then:
+1. FLAG ANY ERRORS WITH SPECIFIC FIX
+2. SUGGEST OPTIMIZATION if I'm leaving depreciation on the table ($ impact)
+3. FLAG anything for accountant review (cars w/ personal use, etc.)
+
+End with: depreciation strategy must be coordinated with my CPA. This is a diagnostic, not a tax filing.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>S-Corp, 2026, de minimis: yes. Assets: Laptop $2,800 MACRS 5yr · Office desk $1,800 de minimis · Pickup $42,000 75% biz Bonus+MACRS 5yr salvage $4K (this yr $7,600 depr) · Leased office N/A · Wave software $0 · NEW CNC $58,000 §179 7yr (taking $58K this yr). Last yr depr $4,400.</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>1. Laptop ($2,800, MACRS 5yr):</strong> ✅ Method appropriate. ⚠️ Math: 5yr MACRS year-1 is 20% (=$560 ✓). Year-2 MACRS rate is 32% → $896 expected, not $560. FIX: Adjust this-year depreciation to $896 (+$336 deduction).</p>
+    <p><strong>2. Office desk ($1,800, de minimis):</strong> ✅ Correct. Under $2,500 with election. Fully expensed.</p>
+    <p><strong>3. Pickup ($42,000, 75% biz):</strong> ⚠️ Math + ⚠️ partial-use. Bonus eligible basis = $42K × 75% = $31,500 NOT $42K. Your $7,600 suggests bonus was taken on full $42K. FIX: Recompute as $31,500 basis. Also ensure you're proportioning gas/maintenance at 75% if using actual-expense method. MAJOR — REVIEW WITH ACCOUNTANT before filing.</p>
+    <p><strong>4. Building (leased):</strong> N/A. ✓</p>
+    <p><strong>5. Wave software ($0):</strong> N/A. ✓</p>
+    <p><strong>6. CNC ($58,000, §179 full):</strong> ⚠️ §179 LIMIT CHECK. 2026 §179 max ~$1.16M — well within. Phase-out ~$2.89M — nowhere near. <strong>BUSINESS INCOME LIMIT:</strong> §179 can't create a loss. S-Corp must have ≥$58K of business income to take the full $58K. If profit before 179 is $42K, you can only take $42K and carry $16K forward. FLAG: Verify business-income limit before electing full 179.</p>
+    <p><strong>ERRORS TO FIX:</strong> Laptop year-2 $560 → $896 (+$336 deduction); Pickup basis 100% → 75% ($31,500).</p>
+    <p><strong>OPTIMIZATION:</strong> Aggressive on 179/bonus already. The laptop fix adds $336 of deduction.</p>
+    <p><strong>REVIEW WITH CPA:</strong> (1) Pickup partial-use treatment + vehicle expense method (actual vs mileage). (2) CNC §179 business-income limit — confirm profit supports full $58K election; otherwise split §179 + Bonus + MACRS.</p>
+  </div>
+  <div class="footer">5 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 6 — PROMPT 4: Supplier Negotiation Brief -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">4. Supplier Negotiation Brief — Get me a better price or better terms</h1>
+    <div class="tab-callout">Pairs with: 🏭 Supplier & PO Manager</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are writing the brief I'll use to negotiate with this supplier. Not a sales pitch, not a threat — a professional ask grounded in numbers.
+
+THE SUPPLIER:
+- Name (or label): [Supplier identifier]
+- What they supply: [category]
+- Annual spend last 12 mo: $[amount]
+- % of total COGS or operating spend they represent: [%]
+- Years of relationship: [number]
+- Payment terms current: [net-30 / net-45 / 2/10 net-30 / etc.]
+- Average days I take to pay: [number]
+- Outstanding balance: $[amount]
+- Recent issues: [list]
+
+MY GOAL: [pick one or two]
+- Reduce unit price X%
+- Extend payment terms to net-X
+- Volume rebate at X threshold
+- Lock current price for X months
+- Eliminate setup fees / minimums
+- Other: [specific ask]
+
+MY LEVERAGE:
+- Alternative supplier quotes: [list]
+- My growth this year: [revenue %, volume %]
+- Future commitments offered: [longer contract / higher volume / annual prepay]
+
+For my situation, write:
+1. THE OPENING EMAIL — professional, 4-6 sentences
+2. THE SPECIFIC ASK — one sentence
+3. THE JUSTIFICATION — 3 bullets grounded in my numbers
+4. THE CONCESSION I CAN OFFER
+5. THE WALK-AWAY (at what $ threshold)
+6. THREE OBJECTIONS they'll raise + how I respond
+
+Skip "build the relationship." This is a transaction.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Supplier: Acme Corrugated (boxes + packing). Spend $54K/yr (~14% COGS). 4 yrs. Net-30, pay in 28. Outstanding $4,200. One quality batch 6 mo ago, resolved. Last price increase 3 mo ago +6%. GOAL: -4-5% OR net-45. LEVERAGE: Competitor quote -7% net-30. Revenue +23% YoY. Can commit 18-mo.</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>OPENING EMAIL</strong> (subject: "Q4 review + 2027 planning, Acme Corrugated"):</p>
+    <p>"Hi [contact name], I'd like to schedule 20 minutes to review our partnership heading into Q4 + plan our 2027 volume forecast. Acme has been our packaging partner for 4 years and our spend has grown ~23% YoY. As we plan for next year, we're at a point where we'd like to formalize our commitment to a supplier — and discuss the structure that makes sense for both sides at this volume. We've also been approached by alternative suppliers given our growth profile, and rather than respond quietly we wanted to bring the conversation to Acme first. We'd prefer to extend the relationship. When works for a call this week or next? Thanks, [your name]"</p>
+    <p><strong>THE ASK (in the call):</strong> "On current pricing, we're paying ~5% above what we've been quoted by [alternative — don't name yet]. With our growth + an 18-month commitment, we'd like to bring pricing down 4% OR extend to net-45. Either works for us; we'd defer to your preference."</p>
+    <p><strong>JUSTIFICATION:</strong> 4 years of consistent on-time payment (avg 28 days) · $54K spend, projected $66K next year · Competing quotes 5-7% lower on equivalent specs · Single quality incident in 4 years, resolved professionally.</p>
+    <p><strong>CONCESSION:</strong> 18-month firm commitment (vs. month-to-month) · Quarterly volume forecasts shared · Auto-pay setup on net-30 if pricing concession given instead of terms concession.</p>
+    <p><strong>WALK-AWAY:</strong> If Acme can't move on either lever and alternative holds at 5%+ savings, re-evaluate at next inventory turn (~6 weeks). $54K × 5% = $2,700 margin recovery annually + $1,500 transition cost = payback ~7 months.</p>
+    <p><strong>3 OBJECTIONS:</strong> (1) "Material costs went up; we took 6% on you." → "Not asking to roll back June. Asking that our 18-month commitment is reflected going forward. The 4% can be against the new baseline." (2) "Net-45 is hard." → "That's fair — pick the pricing-concession alternative; we'll bring 18-month commitment to it." (3) "Need to think about it." → "Could we agree on a target date — say two weeks? We need to finalize 2027 budgeting by [date]."</p>
+    <p><strong>DON'T:</strong> Name the alternative supplier in the first conversation. Hold that card.</p>
+  </div>
+  <div class="footer">6 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 7 — PROMPT 5: Tax Prep Advisor -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">5. Tax Prep Advisor — Am I ready to hand off to my accountant?</h1>
+    <div class="tab-callout">Pairs with: 🧮 Tax Prep Summary</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are auditing whether my year's books are ready to hand to my accountant. Not preparing the return — diagnosing gaps.
+
+MY YEAR-END (paste from Tax Prep Summary):
+- Entity: [Sole Prop Sch C / Partnership 1065 / S-Corp 1120-S / C-Corp 1120 / LLC taxed as: ___]
+- Tax year: [year]
+- Total revenue: $[amount]
+- Total expenses by Sch-C category: [list with $]
+- Estimated tax payments Q1/Q2/Q3/Q4: [list dates + amounts]
+- Net profit before depr: $[amount]
+- Depreciation total: $[amount]
+- Owner draws / distributions / salary: [amount + classification]
+
+DOCUMENTS CHECKLIST:
+- 1099s issued to contractors: [count + $]
+- 1099s received from clients: [count + $]
+- W-2s issued to employees: [count]
+- Year-end bank reconciliation done: [yes/no]
+- Mileage log (if vehicle deduction): [yes/no/partial]
+- Home-office sq ft calc: [yes/no/n/a]
+- Quarterly state filings: [up to date / behind — which Q]
+- Sales tax filings: [up to date / behind]
+- Retirement plan contributions: [Solo 401k / SEP / SIMPLE / none]
+
+For my situation:
+1. READINESS SCORE — 0-100 with gating gaps named
+2. MISSING DOCUMENTS — must be in package before they can start
+3. CATEGORY-MAPPING ISSUES — expenses mis-coded or need clarification
+4. RED-FLAG ITEMS — IRS Letter triggers (round-number, hobby-loss, home-office overreach)
+5. LAST-MINUTE MOVES BEFORE DEC 31 (or for next year if past)
+
+End with THREE specific questions for the accountant meeting. Not "how can I save tax" — specific.
+
+Don't recommend "consult a CPA." I'm preparing for the meeting WITH the CPA.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>S-Corp, 2026. Rev $397K. Expenses: Payroll $148K (officer + 2 employees) · COGS $156K · Rent $36K · Software $11K · Travel $14K · Meals $4.2K · Marketing $18K · Equipment $58K (CNC §179) · Other $8K. Est tax Q1 $0, Q2 $4K, Q3 $6K, Q4 unpaid. Net before depr $4K. Owner $66K W-2 + $24K distributions. Docs: 4 1099s issued ($28K). 2 W-2s. Bank rec Oct done, Nov-Dec pending. No mileage (no biz vehicle). Home-office sq-ft done. State Q3 filed. Solo 401k $18K contributed.</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>READINESS SCORE: 72/100.</strong> Gaps: Bank rec Nov-Dec pending (-12) · Q4 est tax not paid (-8) · Officer reasonable-comp analysis not documented (-8).</p>
+    <p><strong>MISSING DOCS:</strong> Bank rec Nov 1 – Dec 31 · 1099-NEC for 4 contractors (Jan 31 deadline, no extension) · K-1 prep (verify basis tracking current) · Form 5500-EZ if Solo 401k balance &gt; $250K.</p>
+    <p><strong>CATEGORY-MAPPING ISSUES:</strong> Meals $4.2K — confirm 50%-deductible vs. 100%-deductible-with-employees-only · Travel $14K — high vs revenue, verify per-trip business-purpose docs · CNC $58K §179 — may be capped by business-income limit (see Depreciation prompt) · Software $11K — confirm no personal (Adobe family plan etc.).</p>
+    <p><strong>RED-FLAG ITEMS:</strong></p>
+    <p><strong>1. OFFICER REASONABLE COMP (S-Corp):</strong> $66K W-2 + $24K distribution. Distribution-heavy ratio = IRS audit trigger. Industry benchmark for your role + revenue is closer to $85-95K W-2. RECOMMEND: bump to $80K via bonus payroll before Dec 31.</p>
+    <p><strong>2. NET $4K AFTER §179:</strong> Very low net relative to gross. §179 may have over-zeroed S-Corp income. Confirm business-income limit not broken.</p>
+    <p><strong>3. NO MILEAGE LOG (vehicle $0):</strong> Clean. No flag.</p>
+    <p><strong>4. HOME OFFICE:</strong> Confirm exclusive-use rule. Easiest audit win for IRS if the room is also non-business.</p>
+    <p><strong>LAST-MINUTE MOVES BEFORE DEC 31</strong> (assuming mid-Nov):</p>
+    <p>(1) <strong>Run bonus payroll</strong> — bump officer W-2 from $66K → $80K. Adds ~$14K gross wages. Tax cost: ~$2,100 employer SS/Medicare. Audit-defense benefit: substantial. (2) <strong>Solo 401(k) top-up</strong> — at new $80K salary, ~$5K employee + ~$20K employer side. Combined ~$25K more pre-tax shelter. (3) <strong>Pay Q4 estimate by Jan 15</strong> to avoid underpayment penalty. (4) <strong>Put Nov-Dec bank rec on calendar this week.</strong></p>
+    <p><strong>3 QUESTIONS FOR ACCOUNTANT MEETING:</strong></p>
+    <p>(1) Given $80K planned W-2 + $24K distribution + S-Corp net estimate, do I qualify for the QBI deduction (20%) this year? Cleanest path? (2) Should the CNC be partial §179 + Bonus + MACRS split rather than full §179, given business-income limit? (3) Am I a candidate for the Augusta Rule (renting my home to my S-Corp ≤14 days/yr tax-free)? Documentation?</p>
+  </div>
+  <div class="footer">7 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 8 — PROMPT 6: Pricing Strategist -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">6. Pricing Strategist — Am I leaving margin on the table?</h1>
+    <div class="tab-callout">Pairs with: 📊 P&L Statement (+ Inventory + Customer Profitability)</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are analyzing my pricing across product/service lines and telling me which are mis-priced. Not "raise prices" — specific moves with $ impact.
+
+MY CURRENT PRICING (paste from P&amp;L + Customer Profitability):
+[Product/service | Unit price | Unit COGS or delivery cost | Gross margin per unit % | Units sold last 12 mo | Revenue contribution | Margin contribution]
+
+MY CONTEXT:
+- Business model: [products / services / mix / subscription / one-off]
+- Pricing model: [cost-plus / value-based / market-based / hourly / project / tiered]
+- Last price change date + which: [date + lines]
+- Customer feedback on price: [brief]
+- Competitive — what alternatives charge: [list 2-3 if available]
+- Market position aspirational: [budget / mid-market / premium]
+
+For each line:
+1. CURRENT MARGIN % — calculated from data
+2. MARGIN RELATIVE TO CATEGORY AVG — flag &gt;5pp below avg
+3. VOLUME × MARGIN matrix — bucket each:
+   - HIGH VOL + HIGH MARGIN = protect
+   - HIGH VOL + LOW MARGIN = price-raise candidate
+   - LOW VOL + HIGH MARGIN = scale candidate
+   - LOW VOL + LOW MARGIN = discontinue or reprice
+4. PRICE-SENSITIVITY READ for raise candidates — defensible % given competitive position
+
+Then:
+1. THE THREE PRICING MOVES with biggest $ impact (12-month projection)
+2. ONE product/service to consider discontinuing or repackaging
+3. ONE PRICING-MODEL SHIFT (cost-plus → value-based, hourly → fixed-fee, etc.) if it unlocks margin
+
+Don't recommend "raise all prices." Don't recommend "find your ideal customer." Be specific.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Custom signage shop. Products: Standard sign $480/$260 COGS 45.8% 124u $59.5K · Premium illum sign $1,800/$720 60% 28u $50.4K · Window decal $85/$32 62.4% 240u · A-frame $140/$88 37.1% 88u. Services: Design $85/hr 100% 380hr · Installation $350 avg/$185 cost 47.1% 64 jobs. Last change 8 mo +5% on standard. Customer: "installation is half what I thought." Competitive: storefront $520-680 / design $95-150 / A-frame $120-180. Mid-market premium position.</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>MARGINS:</strong> Standard 45.8% ⚠️ (avg ~51%) · Premium 60% ✓ · Decal 62.4% ✓ · A-frame 37.1% ⚠️ 14pp below · Design 100% ✓ · Installation 47.1% — low for skilled service.</p>
+    <p><strong>VOL × MARGIN:</strong> HIGH+HIGH: decals, design hours · HIGH+LOW: Standard signs ← raise · LOW+HIGH: Premium ← scale · LOW+LOW: A-frame ← reprice/discontinue · Installation outside matrix ← reprice per customer feedback.</p>
+    <p><strong>3 MOVES:</strong></p>
+    <p><strong>1. RAISE INSTALLATION 30% ($350 → $455).</strong> Volume neutral (customer explicitly said it felt low). Margin: $270/job × 64 = $17,280 (up from $10,560). <strong>+$6,720/year.</strong> Lowest-risk move in your data.</p>
+    <p><strong>2. RAISE STANDARD SIGN 8% ($480 → $520).</strong> Margin: $260/$520 = 50% (up from 45.8%). Volume risk ~10%. Net on 124→112 units: $52K × 50% = $26K (vs current $27.3K). Wash on margin BUT positions you in competitor range $520-$680. Strategic, not just dollar.</p>
+    <p><strong>3. RAISE DESIGN HOUR 30% ($85 → $110).</strong> Competitive $95-$150; you're below floor. Volume risk minimal — only shop in your $85 segment, move pulls you to peer pricing. <strong>+$9,500</strong> of new high-margin revenue (380 hrs × $25).</p>
+    <p><strong>TOTAL 12-MO IMPACT:</strong> $6,720 + ~$0 + $9,500 ≈ <strong>$16,000 of additional margin</strong> with minimal volume risk. Plus option value for a second standard-sign raise next year.</p>
+    <p><strong>DISCONTINUE OR REPACKAGE:</strong> A-frame sandwich boards (37.1% margin = worst category). Two options: (a) Discontinue if A-frames don't draw customers who then buy higher-margin signs (check cross-purchase). (b) Reprice to $175, reposition as "premium A-frame" (range $120-$180; sit at top). Net: 88 × $87 = $7,656 vs current $4,576. <strong>+$3,080</strong> if volume holds.</p>
+    <p><strong>PRICING-MODEL SHIFT:</strong> Move Design from hourly to fixed-fee for projects &gt;5 hours. Hourly creates ceiling at "how long it takes" + customer meter-anxiety. Fixed-fee on a 5-hour project at $700 (vs $425 hourly at $85, or $550 at $110) gives you more margin AND removes meter-anxiety. Bigger projects benefit most.</p>
+  </div>
+  <div class="footer">8 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 9 — PROMPT 7: Annual Business Review -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">7. Annual Business Review</h1>
+    <div class="tab-callout">Pairs with: 🤖 AI Business Co-Pilot (hub) + 📊 P&L Statement</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are writing my business's year-end review. Look at the full 12 months and tell me what worked, what didn't, and what to change next year.
+
+ANNUAL DATA (paste from P&amp;L year-end + KPI Dashboard + Project Costing):
+- Revenue: $[amount] (vs LY $[amount], change %)
+- Gross profit: $[amount] (margin %)
+- Operating profit: $[amount] (margin %)
+- Net profit: $[amount] (margin %)
+- Largest customer concentration: [customer + % of revenue]
+- Best-performing product/service line: [line + revenue + margin]
+- Worst-performing line: [line + revenue + margin]
+- Employee headcount change: [start → end]
+- Largest expense growth: [category + $ + %]
+- Largest expense reduction: [category + $ + %]
+- New customers acquired: [count]
+- Customers lost or churned: [count + value]
+- Major one-offs: [list]
+
+KPI YOY CHANGES:
+- Gross margin %: [LY → this year]
+- Net margin %: [LY → this year]
+- Revenue per employee: [LY → this year]
+- Days sales outstanding: [LY → this year]
+- Customer concentration top-1: [LY → this year]
+
+Give me:
+1. THREE WINS — outcomes better than planned. Specific names.
+2. THREE MISSES — outcomes that fell short. Honest, not pep talk.
+3. THREE LESSONS — structural patterns. Not "grow more" but observations about HOW the business made money.
+4. THREE PRIORITIES NEXT YEAR — specific targets ($ revenue / $ margin / new customers / cost reductions).
+5. ONE STRUCTURAL CHANGE to consider (hire decision, line discontinuation, pricing model shift, etc.).
+
+Each section under 80 words. No motivational ending. No "you've got this."</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>Signage shop. Rev $197K (LY $172K +14.5%). GP $112K (56.9% LY 54.1%). Op profit $24K (12.2% LY 9.8%). Net $19K (9.6%). Largest cust Acme 22% (LY 18%). Best Premium signs $50K/60%. Worst A-frames $12K/37%. Headcount 3→4 (installer mid-year). Largest growth Payroll +$22K. Largest reduction Marketing -$4K. New 38 customers. Churned 9 (~$11K). Lost $34K Q2 project (canceled). Won Acme preferred-vendor. KPI: GM 54.1→56.9 · NM 4.5→9.6 · Rev/emp 57→49K · DSO 34→28 · Top-1 18→22%.</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>3 WINS:</strong> (1) Net margin more than doubled (4.5%→9.6%) on 14% revenue growth — operating leverage is real. (2) Acme preferred-vendor contract — locked recurring volume + let you cut $4K paid marketing without losing pipeline. (3) Premium signs went from 22% of margin contribution to 35%. Your scale candidate is scaling.</p>
+    <p><strong>3 MISSES:</strong> (1) Customer concentration moved wrong direction (18%→22% from Acme). Higher revenue, higher fragility. One Acme decision changes your year. (2) Revenue per employee dropped $57K→$49K (installer hire mid-year — should normalize Q2). (3) Lost $34K Q2 cancellation. Customer's office expansion got pulled. Pipeline replacement took 2 months you should have spent on Acme expansion.</p>
+    <p><strong>3 LESSONS:</strong> (1) Referral-driven pipeline &gt; paid ads at your shop size. $4K marketing cut went straight to bottom line; volume didn't suffer. Don't re-add until you have a reason. (2) Single-customer growth fragility. Acme growth is real revenue but you're now structurally exposed. (3) Premium-line margin compounds when scaled. 28 units of premium delivered more margin than 124 standard. Mix-shift is the lever.</p>
+    <p><strong>3 PRIORITIES NEXT YEAR:</strong> (1) <strong>Revenue $235K (+19%)</strong>: premium volume 28→40 + installation rate raise. (2) <strong>Acme below 18% by EOY</strong>: 2-3 "Acme-sized" customers ($35K+). Different sales motion. (3) <strong>Net margin 12%</strong>: pricing moves (~$16K), discontinue A-frame OR reprice ($3K), no marketing creep.</p>
+    <p><strong>STRUCTURAL CHANGE:</strong> Hire part-time bookkeeper OR shift to fractional CFO at ~$1,200/mo. You're running monthly P&amp;L on your own; data quality shows it (depreciation method errors, mis-categorized meals, missing bank rec). At $19K net, $14K/yr in cleaner books pays for itself in tax-prep quality + decision speed.</p>
+  </div>
+  <div class="footer">9 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 10 — PROMPT 8: Customer Concentration Risk -->
+<div class="page">
+  <div class="prompt-header">
+    <h1 class="page-title">8. Customer Concentration Risk — Who can break my business?</h1>
+    <div class="tab-callout">Pairs with: 📊 Customer Profitability</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="section-label">The prompt</div>
+  <div class="prompt-card">You are auditing my customer concentration and naming the specific customers I'm dangerously exposed to. Then telling me what to do about it.
+
+MY CUSTOMER REVENUE (paste from Customer Profitability tab):
+[Customer name or label | Revenue last 12 mo | % of total revenue | Margin contribution | Years as customer | Payment behavior (on-time / chronically late / disputes) | Contract type (one-off / project / retainer / preferred-vendor)]
+
+MY BUSINESS CONTEXT:
+- Number of active customers last 12 months: [count]
+- Total revenue: $[amount]
+- Breakeven monthly revenue: $[amount]
+- Operating cash buffer if top customer lost tomorrow: [number of months]
+
+For my customer base:
+1. CONCENTRATION RATIOS — top-1 %, top-3 %, top-5 %, top-10 %
+2. RED-FLAG THRESHOLDS — flag against rules-of-thumb:
+   - Top-1 &gt;20% = moderate risk
+   - Top-1 &gt;30% = high risk
+   - Top-3 &gt;50% = high risk
+   - Concentration trend YoY (going up + at what rate)
+3. PAYMENT-BEHAVIOR DOUBLE-RISK — high-concentration AND chronically-late = compounding
+4. CONTRACT-PROTECTION CHECK — top customer contractually protected (MSA, retainer) or month-to-month?
+
+Then:
+1. NAME THE TOP 3 RISK EXPOSURES with specific $ at stake
+2. RECOMMEND 3 CONCRETE MOVES — diversification (specific customer types/sectors), contract negotiations, revenue-mix shifts
+3. CALCULATE BREAKEVEN CUSTOMER COUNT — if biggest = X% of rev, minimum count of "average" customers to be diversified (top-1 under 15%)
+4. ONE MOVE TO MAKE THIS QUARTER — not next year
+
+Don't suggest "find more customers" generically. Be specific about customer type, sector, size.</div>
+
+  <div class="section-label">Worked example</div>
+  <div class="example-card">
+    <div class="label">Example input</div>
+    <p>47 active customers. Total $197K. Breakeven $13K/mo. Buffer 2.5 mo. Top 10: 1.Acme Realty $43,340 (22%) 3yr On-time Preferred 18-mo · 2.Beechwood Cafe $18K (9.1%) 4yr On-time M2M · 3.Downtown Auto $14.2K (7.2%) 2yr Late 45-60 M2M · 4.Riverdale Spa $11.8K (6%) 5yr On-time M2M · 5.Mr. Hardware $9.4K (4.8%) 1yr On-time M2M · 6.Sunset Realty $8.7K (4.4%) 2yr On-time M2M · 7-10. ($4-7K each). Other 37: ~$71K total avg $1,900 each, mostly one-off.</p>
+    <div class="label" style="margin-top:0.08in;">Example output</div>
+    <p><strong>CONCENTRATION RATIOS:</strong> Top-1 22.0% ⚠️ moderate-high · Top-3 38.3% ✓ · Top-5 49.1% ⚠️ moderate · Top-10 ~63% ⚠️ smaller base than ideal.</p>
+    <p><strong>YoY trend:</strong> Top-1 was 18% LY, now 22% — INCREASING 4pp/yr. If trajectory continues: 26% next year + 30% the year after. Two years from a high-risk position.</p>
+    <p><strong>RED-FLAG TRIGGERS:</strong> Acme 22% past moderate threshold (15-20% is comfort zone for services biz with month-to-month). BUT Acme has preferred-vendor 18-mo contract — substantially reduces structural risk.</p>
+    <p><strong>PAYMENT-BEHAVIOR DOUBLE-RISK:</strong> Downtown Auto: 7.2% of revenue + chronically 45-60 days = compounding scenario. If they default, you lose $14K AND it's been outstanding for 1.5-2 months when you find out.</p>
+    <p><strong>CONTRACT-PROTECTION:</strong> Acme ✓ preferred-vendor 18-mo. All other top-10 ❌ month-to-month.</p>
+    <p><strong>TOP 3 RISK EXPOSURES:</strong></p>
+    <p><strong>1. ACME REALTY $43,340</strong> — even with contract, losing them means replacing $43K. Buffer 2.5 mo = ~$33K OpEx coverage. Survivable if you replace within 6-8 mo.</p>
+    <p><strong>2. DOWNTOWN AUTO $14,200</strong> — payment behavior creates compounding. Tighten terms or build contingency.</p>
+    <p><strong>3. CUSTOMER COUNT AGE</strong> — 37 of 47 are one-off / small ($1,900 avg). They're spot transactions, not a base. If Acme churns AND a top-3 churns simultaneously (sectors correlate), you've lost 40% of revenue with no recurring base to absorb.</p>
+    <p><strong>3 CONCRETE MOVES:</strong></p>
+    <p>(1) <strong>Negotiate retainer with Beechwood OR Riverdale</strong> (5+ years, on-time, recurring need). $1,500-2K/mo for ongoing refreshes / decals / seasonal swaps. Converts M2M to contracted + lowers churn risk. Same playbook for Sunset.</p>
+    <p>(2) <strong>Tighten Downtown Auto's terms NOW.</strong> Move from net-30 to "50% deposit, 50% before installation" given history. If they balk and walk, you replace $14K with cleaner customers; if they accept, you remove the compounding risk.</p>
+    <p>(3) <strong>Target the next 2 Acme-size customers.</strong> Acme is real estate. Specifically target 2-3 mid-size brokerages or property-management firms with $25-40K annual signage budgets. One LinkedIn campaign + one referral ask to Acme can produce introductions.</p>
+    <p><strong>BREAKEVEN DIVERSIFICATION:</strong> For top-1 &lt;15% at your size: ~8-10 customers each at $20-25K/year. You have 1 (Acme). Building this tier is a 2-3 year project, not a quarter.</p>
+    <p><strong>ONE MOVE THIS QUARTER:</strong> Retainer conversation with Beechwood (or whichever of Beechwood/Riverdale/Sunset is most receptive). One conversation, possibly one negotiation, converts a top-5 customer from M2M to contracted. <strong>Most leverage per minute spent</strong> of any move on this list.</p>
+  </div>
+  <div class="footer">10 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 11 — TIPS -->
+<div class="page">
+  <h1 class="content-header">Which AI should I use?</h1>
+  <div class="content-divider"></div>
+  <div class="content-body">
+    <p>All eight prompts work in free tiers. Differences come down to output style + how each handles long, structured business data.</p>
+
+    <div class="sub-section">ChatGPT Free</div>
+    <p><strong>Best for:</strong> Supplier Negotiation Brief, Pricing Strategist, Annual Business Review, Customer Concentration Risk. Conversational tone; great at narrative + writing the actual email or script you'll use. Fluent at the "make this sound less aggressive" iteration loop.</p>
+    <p><strong>Limit:</strong> ~3,000-4,000 word context per message. If you paste a 50-customer list + a 30-line P&amp;L, break into batches.</p>
+
+    <div class="sub-section">Claude Free (claude.ai)</div>
+    <p><strong>Best for:</strong> P&amp;L Analyst, Cash Flow Coach, Depreciation Assistant, Tax Prep Advisor. Better at multi-row table analysis, line-by-line audit, and structured numeric output. Handles longer P&amp;Ls + customer lists in one paste. Shows its arithmetic more reliably.</p>
+    <p><strong>Limit:</strong> Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.</p>
+
+    <div class="sub-section">Paid tiers (ChatGPT Plus, Claude Pro)</div>
+    <p>Worth it if you run monthly P&amp;L analysis + quarterly tax planning + weekly cash flow forecasting. For a small-business operator, $20/mo typically pays for itself in 2-3 hours of recovered admin time per month. Skip if you run these prompts twice a year.</p>
+
+    <div class="sub-section">Universal tips</div>
+    <ul class="bullets">
+      <li><strong>Paste as text, not screenshots.</strong> Free-tier AI doesn't read P&amp;L screenshots well.</li>
+      <li><strong>Never paste customer full names, EIN, bank routing/account, employee SSNs.</strong> Use spreadsheet labels ("Customer A," "Supplier 3," "Employee #7"). The AI doesn't need the SSN to analyze a P&amp;L.</li>
+      <li><strong>Prompts are thinking partners, not tax filings.</strong> Your accountant signs off on the final treatment. The AI surfaces issues; the CPA decides the method.</li>
+      <li><strong>Save good output.</strong> Found a sharp pricing analysis? Paste into the matching tab's Notes column or save the conversation. Build your own playbook over the year.</li>
+      <li><strong>Escalate to a real human</strong> for anything tax-strategy (CPA), legal (attorney), or HR-employment (HR consultant). AI is the first 80%; the last 20% goes to a professional.</li>
+    </ul>
+
+    <p style="margin-top:0.16in;font-style:italic;opacity:0.75;">Your business data never leaves your AI conversation. The AI never sees your spreadsheet — only what you paste, only during that chat.</p>
+  </div>
+  <div class="footer">11 / 12 · AI Business Co-Pilot</div>
+</div>
+
+<!-- PAGE 12 — BACK COVER -->
+<div class="page back-cover">
+  <div class="back-body">
+    <div class="back-pull-quote">"Profit isn't a feeling.<br>It's what's left after the bills."</div>
+    <div class="back-gold-underline"></div>
+    <div class="back-mid">
+      <p>Eight prompts. Roughly two hours a month using them.</p>
+      <p style="margin-top:0.12in;">Saves the alternative of paying QuickBooks Advanced $235/month for the same numbers your own spreadsheet already shows, or paying a fractional CFO $1,200/month to do the analysis this PDF walks you through.</p>
+      <p style="margin-top:0.18in;font-weight:600;">Your business. Your sheet. Your call.</p>
+    </div>
+    <div class="back-signoff">Lime Premium Studios · v1.0</div>
+  </div>
+  <div class="back-footer-panel">
+    <div class="row-1">
+      <span>Small Business Finance Kit (AI Edition)</span>
+      <span class="meta">v1.0 · 2026</span>
+    </div>
+    <p>This PDF ships with your purchase of the Small Business Finance Kit AI Edition. AI prompts work in ChatGPT and Claude (free or paid tiers — your choice). 12 months of free template updates included with AI Edition. Reply to your order email for support — 24-hour response.</p>
+    <div class="page-num">12 / 12</div>
+  </div>
+</div>
+
+</body>
+</html>
