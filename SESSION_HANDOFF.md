@@ -1,5 +1,17 @@
 # Etsy Store — Session Handoff
 
+## 🧹 2026-05-23 — Sweep-up: QA scripts + thumbnail template + unpushed commit (no new work this session)
+
+End-of-session housekeeping pass — no new work in `etsy-store` this session (session was Finance morning brief trim in `kareemhady`). Sweeping up 3 untracked files and pushing the 1 unpushed commit (`79c92ef`) per cross-project standing-order.
+
+**Files swept up:** `tools/qa/scripts/bundle_personas_r1.py`, `tools/qa/wedding_qa_full.py`, `tools/thumb-gen/templates/notion-life-os-04-feature-highlight.html`
+
+**State left in:** deployed (push triggers GitHub→Vercel auto-deploy)
+
+**Next session:** nothing pending in etsy-store
+
+---
+
 ## 🧹 2026-05-17 — Sweep-up: bundle-audit QA + Notion-banner thumb templates (no new work this session)
 
 End-of-session housekeeping pass — no new work in `etsy-store` this session (the session was a Beithady `/pace` route build in `kareemhady`). But the working tree had accumulated 20 untracked/modified files from prior sessions that never got committed. Sweeping them up now per cross-project standing-order so origin reflects local state.
