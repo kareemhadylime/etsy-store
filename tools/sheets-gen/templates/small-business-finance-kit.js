@@ -124,15 +124,15 @@ function buildDashboard(workbook) {
     tabSubtitle: 'Your business at a glance — updates the moment you log revenue or expenses.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'MTD REVENUE',     value: { formula: `TEXT(SUMIFS('💵 Revenue Tracker'!E12:E111,'💵 Revenue Tracker'!B12:B111,">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1),'💵 Revenue Tracker'!B12:B111,"<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1)),"$#,##0")` } },
-      { label: 'MTD NET PROFIT',  value: { formula: `TEXT(SUMIFS('💵 Revenue Tracker'!E12:E111,'💵 Revenue Tracker'!B12:B111,">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1),'💵 Revenue Tracker'!B12:B111,"<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1))-SUMIFS('💸 Expense Tracker'!E12:E161,'💸 Expense Tracker'!B12:B161,">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1),'💸 Expense Tracker'!B12:B161,"<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1)),"$#,##0")` } },
-      { label: 'CASH ON HAND',    value: { formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'RUNWAY (MOS)',    value: { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💸 Expense Tracker'!E12:E161)/12),"0.0")&" mo","—")` } },
+      { label: 'MTD REVENUE',     value: { formula: `TEXT(SUMIFS('💵 Revenue Tracker'!F12:F111,'💵 Revenue Tracker'!C12:C111,">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1),'💵 Revenue Tracker'!C12:C111,"<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1)),"$#,##0")` } },
+      { label: 'MTD NET PROFIT',  value: { formula: `TEXT(SUMIFS('💵 Revenue Tracker'!F12:F111,'💵 Revenue Tracker'!C12:C111,">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1),'💵 Revenue Tracker'!C12:C111,"<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1))-SUMIFS('💸 Expense Tracker'!F12:F161,'💸 Expense Tracker'!C12:C161,">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1),'💸 Expense Tracker'!C12:C161,"<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1)),"$#,##0")` } },
+      { label: 'CASH ON HAND',    value: { formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'RUNWAY (MOS)',    value: { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💸 Expense Tracker'!F12:F161)/12),"0.0")&" mo","—")` } },
       { label: 'RECEIVABLES',     value: { formula: `TEXT(SUMIFS('🧾 Invoice Tracker'!F11:F60,'🧾 Invoice Tracker'!H11:H60,"<>Paid",'🧾 Invoice Tracker'!H11:H60,"<>Cancelled"),"$#,##0")` } },
       { label: tier === 'ai' ? 'HEALTH SCORE' : 'BIZ MARGIN',
         value: tier === 'ai'
-          ? { formula: `IFERROR(ROUND(MIN(100,MAX(0,(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💵 Revenue Tracker'!E12:E111))*100+30)),0),"—")` }
-          : { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),"0.0%"),"—")` } },
+          ? { formula: `IFERROR(ROUND(MIN(100,MAX(0,(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💵 Revenue Tracker'!F12:F111))*100+30)),0),"—")` }
+          : { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),"0.0%"),"—")` } },
     ],
   });
 
@@ -148,7 +148,7 @@ function buildDashboard(workbook) {
     const scoreCell = sheet.getCell(`B${r + 1}`);
     scoreCell.value = { formula:
       `IFERROR(ROUND(MIN(100,MAX(0,` +
-      `(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💵 Revenue Tracker'!E12:E111))*100+30` +
+      `(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💵 Revenue Tracker'!F12:F111))*100+30` +
       `)),0)&" / 100","—")` };
     scoreCell.font = { name: 'Inter', size: 56, bold: true, color: argb(COLORS.success) };
     scoreCell.alignment = { vertical: 'middle', horizontal: 'center' };
@@ -158,11 +158,11 @@ function buildDashboard(workbook) {
 
     // 5 sub-gauges
     const subs = [
-      { label: 'Gross Margin',       formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),"0.0%"),"—")` },
-      { label: 'Net Margin',         formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),"0.0%"),"—")` },
-      { label: 'Runway',             formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💸 Expense Tracker'!E12:E161)/12),"0.0")&" mo","—")` },
+      { label: 'Gross Margin',       formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),"0.0%"),"—")` },
+      { label: 'Net Margin',         formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),"0.0%"),"—")` },
+      { label: 'Runway',             formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💸 Expense Tracker'!F12:F161)/12),"0.0")&" mo","—")` },
       { label: 'Receivables Health', formula: `IFERROR(TEXT(1-SUMIFS('🧾 Invoice Tracker'!F11:F60,'🧾 Invoice Tracker'!H11:H60,"Overdue")/MAX(1,SUMIFS('🧾 Invoice Tracker'!F11:F60,'🧾 Invoice Tracker'!H11:H60,"<>Paid",'🧾 Invoice Tracker'!H11:H60,"<>Cancelled")),"0%"),"—")` },
-      { label: 'Cash Flow Trend',    formula: `IFERROR(IF((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))>0,"Positive","Negative"),"—")` },
+      { label: 'Cash Flow Trend',    formula: `IFERROR(IF((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))>0,"Positive","Negative"),"—")` },
     ];
     subs.forEach((s, i) => {
       const ri = r + 7 + i;
@@ -182,11 +182,11 @@ function buildDashboard(workbook) {
   } else {
     // Non-AI: simpler 2-row margin block
     const lines = [
-      { label: 'Gross Margin %',     formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),"0.0%"),"—")` },
-      { label: 'Net Margin %',       formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),"0.0%"),"—")` },
-      { label: 'YTD Revenue',        formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111),"$#,##0")` },
-      { label: 'YTD Expenses',       formula: `TEXT(SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` },
-      { label: 'YTD Net Profit',     formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` },
+      { label: 'Gross Margin %',     formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),"0.0%"),"—")` },
+      { label: 'Net Margin %',       formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),"0.0%"),"—")` },
+      { label: 'YTD Revenue',        formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111),"$#,##0")` },
+      { label: 'YTD Expenses',       formula: `TEXT(SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` },
+      { label: 'YTD Net Profit',     formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` },
     ];
     lines.forEach((s, i) => {
       const ri = r + 1 + i;
@@ -225,18 +225,18 @@ function buildDashboard(workbook) {
     // Top-N customer via array formula — Sheets/Excel both support this pattern.
     sheet.mergeCells(`H${ri}:I${ri}`);
     sheet.getCell(`H${ri}`).value = { formula:
-      `IFERROR(INDEX('💵 Revenue Tracker'!C12:C111,MATCH(LARGE(IFERROR(SUMIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!E12:E111)/COUNTIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111),0),${i + 1}),IFERROR(SUMIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!E12:E111)/COUNTIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111),0),0)),"—")` };
+      `IFERROR(INDEX('💵 Revenue Tracker'!D12:D111,MATCH(LARGE(IFERROR(SUMIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!F12:F111)/COUNTIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111),0),${i + 1}),IFERROR(SUMIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!F12:F111)/COUNTIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111),0),0)),"—")` };
     sheet.getCell(`H${ri}`).font = FONTS.body;
     sheet.getCell(`H${ri}`).border = BORDER_THIN();
 
     sheet.mergeCells(`J${ri}:K${ri}`);
-    sheet.getCell(`J${ri}`).value = { formula: `IFERROR(SUMIF('💵 Revenue Tracker'!C12:C111,H${ri},'💵 Revenue Tracker'!E12:E111),0)` };
+    sheet.getCell(`J${ri}`).value = { formula: `IFERROR(SUMIF('💵 Revenue Tracker'!D12:D111,H${ri},'💵 Revenue Tracker'!F12:F111),0)` };
     sheet.getCell(`J${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`J${ri}`).font = FONTS.body;
     sheet.getCell(`J${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`J${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`L${ri}`).value = { formula: `IFERROR(J${ri}/SUM('💵 Revenue Tracker'!E12:E111),0)` };
+    sheet.getCell(`L${ri}`).value = { formula: `IFERROR(J${ri}/SUM('💵 Revenue Tracker'!F12:F111),0)` };
     sheet.getCell(`L${ri}`).numFmt = '0.0%';
     sheet.getCell(`L${ri}`).font = FONTS.bodyBold;
     sheet.getCell(`L${ri}`).alignment = { horizontal: 'right' };
@@ -280,7 +280,7 @@ function buildDashboard(workbook) {
 
   sheet.mergeCells(`B${rR + 3}:E${rR + 3}`);
   const runwayCell = sheet.getCell(`B${rR + 3}`);
-  runwayCell.value = { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💸 Expense Tracker'!E12:E161)/12),"0.0")&" months","—")` };
+  runwayCell.value = { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💸 Expense Tracker'!F12:F161)/12),"0.0")&" months","—")` };
   runwayCell.font = { name: 'Inter', size: 32, bold: true, color: argb(COLORS.charcoal) };
   runwayCell.alignment = { horizontal: 'center', vertical: 'middle' };
   runwayCell.fill = FILLS.ivory;
@@ -290,8 +290,8 @@ function buildDashboard(workbook) {
   sheet.mergeCells(`F${rR + 3}:L${rR + 3}`);
   const runwayBar = sheet.getCell(`F${rR + 3}`);
   runwayBar.value = { formula:
-    `IFERROR(IF((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💸 Expense Tracker'!E12:E161)/12)>=12,REPT("█",20),` +
-    `REPT("█",MAX(1,MIN(20,ROUND((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💸 Expense Tracker'!E12:E161)/12)*1.667,0))))&REPT("░",20-MAX(1,MIN(20,ROUND((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💸 Expense Tracker'!E12:E161)/12)*1.667,0))))),"░░░░░░░░░░░░░░░░░░░░")` };
+    `IFERROR(IF((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💸 Expense Tracker'!F12:F161)/12)>=12,REPT("█",20),` +
+    `REPT("█",MAX(1,MIN(20,ROUND((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💸 Expense Tracker'!F12:F161)/12)*1.667,0))))&REPT("░",20-MAX(1,MIN(20,ROUND((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💸 Expense Tracker'!F12:F161)/12)*1.667,0))))),"░░░░░░░░░░░░░░░░░░░░")` };
   runwayBar.font = { name: 'Inter', size: 18, color: argb(COLORS.success) };
   runwayBar.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
   runwayBar.fill = FILLS.white;
@@ -375,12 +375,12 @@ function buildRevenueTracker(workbook) {
     tabSubtitle: 'Every dollar in. Log here; P&L, Cash Flow, Profitability + Dashboard all derive from this tab.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'YTD REVENUE',    value: { formula: `TEXT(SUM(E12:E111),"$#,##0")` } },
+      { label: 'YTD REVENUE',    value: { formula: `TEXT(SUM(F12:F111),"$#,##0")` } },
       { label: 'ENTRIES',        value: { formula: `COUNTA(B12:B111)` } },
-      { label: 'AVG TICKET',     value: { formula: `IFERROR(TEXT(AVERAGE(E12:E111),"$#,##0"),"—")` } },
-      { label: 'LARGEST',        value: { formula: `IFERROR(TEXT(MAX(E12:E111),"$#,##0"),"—")` } },
+      { label: 'AVG TICKET',     value: { formula: `IFERROR(TEXT(AVERAGE(F12:F111),"$#,##0"),"—")` } },
+      { label: 'LARGEST',        value: { formula: `IFERROR(TEXT(MAX(F12:F111),"$#,##0"),"—")` } },
       { label: 'UNIQUE CLIENTS', value: { formula: `IFERROR(SUMPRODUCT((C12:C111<>"")/COUNTIF(C12:C111,C12:C111&"")),0)` } },
-      { label: 'CASH RECEIVED',  value: { formula: `TEXT(SUMIF(G12:G111,"Received",E12:E111),"$#,##0")` } },
+      { label: 'CASH RECEIVED',  value: { formula: `TEXT(SUMIF(G12:G111,"Received",F12:F111),"$#,##0")` } },
     ],
   });
 
@@ -540,12 +540,12 @@ function buildExpenseTracker(workbook) {
     tabSubtitle: 'Every dollar out. Tax-deductible flag + Schedule C category feed the Tax Prep Summary.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'YTD EXPENSES',     value: { formula: `TEXT(SUM(E12:E161),"$#,##0")` } },
+      { label: 'YTD EXPENSES',     value: { formula: `TEXT(SUM(F12:F161),"$#,##0")` } },
       { label: 'ENTRIES',          value: { formula: `COUNTA(B12:B161)` } },
-      { label: 'AVG EXPENSE',      value: { formula: `IFERROR(TEXT(AVERAGE(E12:E161),"$#,##0"),"—")` } },
-      { label: 'TAX-DEDUCTIBLE',   value: { formula: `TEXT(SUMIF(G12:G161,"✅",E12:E161),"$#,##0")` } },
-      { label: 'COGS',             value: { formula: `TEXT(SUMIF(I12:I161,"COGS",E12:E161),"$#,##0")` } },
-      { label: 'OPEX',             value: { formula: `TEXT(SUM(E12:E161)-SUMIF(I12:I161,"COGS",E12:E161),"$#,##0")` } },
+      { label: 'AVG EXPENSE',      value: { formula: `IFERROR(TEXT(AVERAGE(F12:F161),"$#,##0"),"—")` } },
+      { label: 'TAX-DEDUCTIBLE',   value: { formula: `TEXT(SUMIF(G12:G161,"✅",F12:F161),"$#,##0")` } },
+      { label: 'COGS',             value: { formula: `TEXT(SUMIF(I12:I161,"COGS",F12:F161),"$#,##0")` } },
+      { label: 'OPEX',             value: { formula: `TEXT(SUM(F12:F161)-SUMIF(I12:I161,"COGS",F12:F161),"$#,##0")` } },
     ],
   });
 
@@ -673,12 +673,12 @@ function buildPLStatement(workbook) {
     tabSubtitle: 'Standard accounting format: Revenue → COGS → Gross → Opex → EBITDA → Tax → Net. Monthly + YTD.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'YTD REVENUE',  value: { formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111),"$#,##0")` } },
-      { label: 'YTD COGS',     value: { formula: `TEXT(SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'YTD GROSS',    value: { formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'GROSS MARGIN', value: { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),"0.0%"),"—")` } },
-      { label: 'YTD NET',      value: { formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'NET MARGIN',   value: { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),"0.0%"),"—")` } },
+      { label: 'YTD REVENUE',  value: { formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111),"$#,##0")` } },
+      { label: 'YTD COGS',     value: { formula: `TEXT(SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'YTD GROSS',    value: { formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'GROSS MARGIN', value: { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),"0.0%"),"—")` } },
+      { label: 'YTD NET',      value: { formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'NET MARGIN',   value: { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),"0.0%"),"—")` } },
     ],
   });
 
@@ -712,10 +712,10 @@ function buildPLStatement(workbook) {
 
   // Line items
   const lines = [
-    { label: 'Revenue',          row: 'rev',   formulaForMonth: (mIdx) => `SUMIFS('💵 Revenue Tracker'!E12:E111,'💵 Revenue Tracker'!B12:B111,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💵 Revenue Tracker'!B12:B111,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1))`, bold: true },
-    { label: 'COGS',             row: 'cogs',  formulaForMonth: (mIdx) => `SUMIFS('💸 Expense Tracker'!E12:E161,'💸 Expense Tracker'!B12:B161,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💸 Expense Tracker'!B12:B161,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1),'💸 Expense Tracker'!I12:I161,"COGS")` },
+    { label: 'Revenue',          row: 'rev',   formulaForMonth: (mIdx) => `SUMIFS('💵 Revenue Tracker'!F12:F111,'💵 Revenue Tracker'!C12:C111,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💵 Revenue Tracker'!C12:C111,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1))`, bold: true },
+    { label: 'COGS',             row: 'cogs',  formulaForMonth: (mIdx) => `SUMIFS('💸 Expense Tracker'!F12:F161,'💸 Expense Tracker'!C12:C161,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💸 Expense Tracker'!C12:C161,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1),'💸 Expense Tracker'!I12:I161,"COGS")` },
     { label: 'Gross Profit',     row: 'gross', formulaForMonth: (mIdx, cellRef) => `${cellRef.replace(/\d+/, String(r + 2))}-${cellRef.replace(/\d+/, String(r + 3))}`, bold: true, color: COLORS.success, isDerived: true },
-    { label: 'Operating Expense',row: 'opex',  formulaForMonth: (mIdx) => `SUMIFS('💸 Expense Tracker'!E12:E161,'💸 Expense Tracker'!B12:B161,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💸 Expense Tracker'!B12:B161,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1),'💸 Expense Tracker'!I12:I161,"<>COGS")` },
+    { label: 'Operating Expense',row: 'opex',  formulaForMonth: (mIdx) => `SUMIFS('💸 Expense Tracker'!F12:F161,'💸 Expense Tracker'!C12:C161,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💸 Expense Tracker'!C12:C161,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1),'💸 Expense Tracker'!I12:I161,"<>COGS")` },
     { label: 'EBITDA',           row: 'ebitda',formulaForMonth: (mIdx, cellRef) => `${cellRef.replace(/\d+/, String(r + 4))}-${cellRef.replace(/\d+/, String(r + 5))}`, bold: true, isDerived: true },
     { label: 'Tax estimate (25%)',row: 'tax',  formulaForMonth: (mIdx, cellRef) => `MAX(0,${cellRef.replace(/\d+/, String(r + 6))})*0.25`, isDerived: true },
     { label: 'Net Profit',       row: 'net',   formulaForMonth: (mIdx, cellRef) => `${cellRef.replace(/\d+/, String(r + 6))}-${cellRef.replace(/\d+/, String(r + 7))}`, bold: true, color: COLORS.charcoal, isDerived: true },
@@ -785,12 +785,12 @@ function buildCashFlowStatement(workbook) {
     tabSubtitle: '3-section split: Operating · Investing · Financing. Rolling 3-mo avg row at bottom.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'YTD CASH IN',   value: { formula: `TEXT(SUMIF('💵 Revenue Tracker'!G12:G111,"Received",'💵 Revenue Tracker'!E12:E111),"$#,##0")` } },
-      { label: 'YTD CASH OUT',  value: { formula: `TEXT(SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'NET CASH FLOW', value: { formula: `TEXT(SUMIF('💵 Revenue Tracker'!G12:G111,"Received",'💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'CASH ON HAND',  value: { formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'BURN RATE/MO',  value: { formula: `IFERROR(TEXT(SUM('💸 Expense Tracker'!E12:E161)/12,"$#,##0"),"—")` } },
-      { label: 'RUNWAY (MOS)',  value: { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💸 Expense Tracker'!E12:E161)/12),"0.0")&" mo","—")` } },
+      { label: 'YTD CASH IN',   value: { formula: `TEXT(SUMIF('💵 Revenue Tracker'!G12:G111,"Received",'💵 Revenue Tracker'!F12:F111),"$#,##0")` } },
+      { label: 'YTD CASH OUT',  value: { formula: `TEXT(SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'NET CASH FLOW', value: { formula: `TEXT(SUMIF('💵 Revenue Tracker'!G12:G111,"Received",'💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'CASH ON HAND',  value: { formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'BURN RATE/MO',  value: { formula: `IFERROR(TEXT(SUM('💸 Expense Tracker'!F12:F161)/12,"$#,##0"),"—")` } },
+      { label: 'RUNWAY (MOS)',  value: { formula: `IFERROR(TEXT((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💸 Expense Tracker'!F12:F161)/12),"0.0")&" mo","—")` } },
     ],
   });
 
@@ -825,9 +825,9 @@ function buildCashFlowStatement(workbook) {
       name: 'OPERATING ACTIVITIES',
       rows: [
         { label: 'Cash received from customers', auto: true, posSign: true,
-          formulaForMonth: (mIdx) => `SUMIFS('💵 Revenue Tracker'!E12:E111,'💵 Revenue Tracker'!B12:B111,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💵 Revenue Tracker'!B12:B111,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1),'💵 Revenue Tracker'!G12:G111,"Received")` },
+          formulaForMonth: (mIdx) => `SUMIFS('💵 Revenue Tracker'!F12:F111,'💵 Revenue Tracker'!C12:C111,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💵 Revenue Tracker'!C12:C111,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1),'💵 Revenue Tracker'!G12:G111,"Received")` },
         { label: 'Cash paid for operating expenses', auto: true, posSign: false,
-          formulaForMonth: (mIdx) => `-SUMIFS('💸 Expense Tracker'!E12:E161,'💸 Expense Tracker'!B12:B161,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💸 Expense Tracker'!B12:B161,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1))` },
+          formulaForMonth: (mIdx) => `-SUMIFS('💸 Expense Tracker'!F12:F161,'💸 Expense Tracker'!C12:C161,">="&DATE(YEAR(TODAY()),${mIdx + 1},1),'💸 Expense Tracker'!C12:C161,"<"&DATE(YEAR(TODAY()),${mIdx + 2},1))` },
       ],
     },
     {
@@ -1009,7 +1009,7 @@ function buildBalanceSheet(workbook) {
 
   const assetRows = [
     { label: 'CURRENT ASSETS',     header: true },
-    { label: 'Cash + bank accounts',     formula: `SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161)` },
+    { label: 'Cash + bank accounts',     formula: `SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161)` },
     { label: 'Accounts receivable',      formula: `SUMIFS('🧾 Invoice Tracker'!F11:F60,'🧾 Invoice Tracker'!H11:H60,"<>Paid",'🧾 Invoice Tracker'!H11:H60,"<>Cancelled")` },
     { label: 'Inventory',                formula: `IFERROR(SUM('📦 Inventory Tracker'!F12:F61),0)` },
     { label: 'Prepaid expenses',         formula: null },
@@ -1066,7 +1066,7 @@ function buildBalanceSheet(workbook) {
     { label: 'Loans outstanding',          formula: `IFERROR(SUM('💰 Loan Amortization'!E12:E16),0)` },
     { label: 'EQUITY',               header: true },
     { label: 'Owner contributions',        formula: null },
-    { label: 'Retained earnings',          formula: `SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161)` },
+    { label: 'Retained earnings',          formula: `SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161)` },
     { label: 'Common stock',               formula: null },
   ];
 
@@ -1838,12 +1838,12 @@ function buildCustomerProfitability(workbook) {
     const ri = 12 + i;
 
     sheet.getCell(`B${ri}`).value = { formula:
-      `IFERROR(INDEX('💵 Revenue Tracker'!C12:C111,MATCH(LARGE(IFERROR(SUMIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!E12:E111)/COUNTIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111),0),${i + 1}),IFERROR(SUMIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!E12:E111)/COUNTIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111),0),0)),"")` };
+      `IFERROR(INDEX('💵 Revenue Tracker'!D12:D111,MATCH(LARGE(IFERROR(SUMIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!F12:F111)/COUNTIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111),0),${i + 1}),IFERROR(SUMIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!F12:F111)/COUNTIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111),0),0)),"")` };
     sheet.getCell(`B${ri}`).font = FONTS.body;
     sheet.getCell(`B${ri}`).fill = FILLS.white;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`C${ri}`).value = { formula: `IFERROR(SUMIF('💵 Revenue Tracker'!C12:C111,B${ri},'💵 Revenue Tracker'!E12:E111),0)` };
+    sheet.getCell(`C${ri}`).value = { formula: `IFERROR(SUMIF('💵 Revenue Tracker'!D12:D111,B${ri},'💵 Revenue Tracker'!F12:F111),0)` };
     sheet.getCell(`C${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`C${ri}`).font = FONTS.body;
     sheet.getCell(`C${ri}`).alignment = { horizontal: 'right' };
@@ -1851,7 +1851,7 @@ function buildCustomerProfitability(workbook) {
     sheet.getCell(`C${ri}`).border = BORDER_THIN();
 
     // COGS estimate — per-customer COGS isn't tracked at row level, so we apportion blended COGS
-    sheet.getCell(`D${ri}`).value = { formula: `IFERROR(C${ri}*SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!E12:E161)/SUM('💵 Revenue Tracker'!E12:E111),0)` };
+    sheet.getCell(`D${ri}`).value = { formula: `IFERROR(C${ri}*SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!F12:F161)/SUM('💵 Revenue Tracker'!F12:F111),0)` };
     sheet.getCell(`D${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`D${ri}`).font = FONTS.body;
     sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
@@ -2854,12 +2854,12 @@ function buildTaxPrepSummary(workbook) {
     tabSubtitle: 'Year-end summary mapped to Schedule C. Auto-populates from Expense Tracker.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'YTD REVENUE',     value: { formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111),"$#,##0")` } },
-      { label: 'YTD EXPENSES',    value: { formula: `TEXT(SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'NET PROFIT',      value: { formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'TAX-DEDUCTIBLE',  value: { formula: `TEXT(SUMIF('💸 Expense Tracker'!G12:G161,"✅",'💸 Expense Tracker'!E12:E161),"$#,##0")` } },
-      { label: 'EST. TAX @25%',   value: { formula: `TEXT(MAX(0,(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))*0.25),"$#,##0")` } },
-      { label: 'QUARTERLY EST',   value: { formula: `TEXT(MAX(0,(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))*0.25/4),"$#,##0")` } },
+      { label: 'YTD REVENUE',     value: { formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111),"$#,##0")` } },
+      { label: 'YTD EXPENSES',    value: { formula: `TEXT(SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'NET PROFIT',      value: { formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'TAX-DEDUCTIBLE',  value: { formula: `TEXT(SUMIF('💸 Expense Tracker'!G12:G161,"✅",'💸 Expense Tracker'!F12:F161),"$#,##0")` } },
+      { label: 'EST. TAX @25%',   value: { formula: `TEXT(MAX(0,(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))*0.25),"$#,##0")` } },
+      { label: 'QUARTERLY EST',   value: { formula: `TEXT(MAX(0,(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))*0.25/4),"$#,##0")` } },
     ],
   });
 
@@ -2912,10 +2912,10 @@ function buildTaxPrepSummary(workbook) {
       const startMonth = qIdx * 3 + 1;
       const endMonth = startMonth + 3;
       sheet.getCell(`${col}${ri}`).value = { formula:
-        `SUMIFS('💸 Expense Tracker'!E12:E161,` +
+        `SUMIFS('💸 Expense Tracker'!F12:F161,` +
         `'💸 Expense Tracker'!I12:I161,B${ri},` +
-        `'💸 Expense Tracker'!B12:B161,">="&DATE(YEAR(TODAY()),${startMonth},1),` +
-        `'💸 Expense Tracker'!B12:B161,"<"&DATE(YEAR(TODAY()),${endMonth},1))` };
+        `'💸 Expense Tracker'!C12:C161,">="&DATE(YEAR(TODAY()),${startMonth},1),` +
+        `'💸 Expense Tracker'!C12:C161,"<"&DATE(YEAR(TODAY()),${endMonth},1))` };
       sheet.getCell(`${col}${ri}`).numFmt = '"$"#,##0';
       sheet.getCell(`${col}${ri}`).font = FONTS.body;
       sheet.getCell(`${col}${ri}`).alignment = { horizontal: 'right' };
@@ -2995,8 +2995,8 @@ function buildTaxPrepSummary(workbook) {
     const startMonth = i * 3 + 1;
     const endMonth = startMonth + 3;
     sheet.getCell(`F${ri}`).value = { formula:
-      `SUMIFS('💵 Revenue Tracker'!E12:E111,'💵 Revenue Tracker'!B12:B111,">="&DATE(YEAR(TODAY()),${startMonth},1),'💵 Revenue Tracker'!B12:B111,"<"&DATE(YEAR(TODAY()),${endMonth},1))` +
-      `-SUMIFS('💸 Expense Tracker'!E12:E161,'💸 Expense Tracker'!B12:B161,">="&DATE(YEAR(TODAY()),${startMonth},1),'💸 Expense Tracker'!B12:B161,"<"&DATE(YEAR(TODAY()),${endMonth},1))` };
+      `SUMIFS('💵 Revenue Tracker'!F12:F111,'💵 Revenue Tracker'!C12:C111,">="&DATE(YEAR(TODAY()),${startMonth},1),'💵 Revenue Tracker'!C12:C111,"<"&DATE(YEAR(TODAY()),${endMonth},1))` +
+      `-SUMIFS('💸 Expense Tracker'!F12:F161,'💸 Expense Tracker'!C12:C161,">="&DATE(YEAR(TODAY()),${startMonth},1),'💸 Expense Tracker'!C12:C161,"<"&DATE(YEAR(TODAY()),${endMonth},1))` };
     sheet.getCell(`F${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`F${ri}`).font = FONTS.body;
     sheet.getCell(`F${ri}`).alignment = { horizontal: 'right' };
@@ -3056,14 +3056,14 @@ function buildKPIDashboard(workbook) {
 
   // 8 KPIs in 2×4 grid (B–I cols, two rows)
   const kpis = [
-    { label: 'Gross Margin %',   formula: `IFERROR((SUM('💵 Revenue Tracker'!E12:E111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),0)`, fmt: '0.0%', context: 'Revenue − COGS, divided by revenue. Healthy: >40% products / >60% services.' },
-    { label: 'Net Margin %',     formula: `IFERROR((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/SUM('💵 Revenue Tracker'!E12:E111),0)`, fmt: '0.0%', context: 'After everything. Healthy small biz: 8–15%.' },
-    { label: 'EBITDA',           formula: `SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161)`, fmt: '"$"#,##0', context: 'Approx. — no depreciation broken out here. Use P&L Statement for true EBITDA.' },
-    { label: 'Burn Rate / mo',   formula: `SUM('💸 Expense Tracker'!E12:E161)/12`, fmt: '"$"#,##0', context: 'YTD expenses ÷ 12. Monthly OpEx baseline.' },
-    { label: 'Runway (months)',  formula: `IFERROR((SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161))/MAX(1,SUM('💸 Expense Tracker'!E12:E161)/12),0)`, fmt: '0.0" mo"', context: 'Months of OpEx coverage. Healthy: 6+. Risk: <3.' },
-    { label: 'Revenue / Client', formula: `IFERROR(SUM('💵 Revenue Tracker'!E12:E111)/SUMPRODUCT((('💵 Revenue Tracker'!C12:C111<>"")/COUNTIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111&""))),0)`, fmt: '"$"#,##0', context: 'YTD revenue ÷ unique clients. Trend up = bigger deals.' },
-    { label: 'CAC (estimated)',  formula: `IFERROR(SUMIF('💸 Expense Tracker'!D12:D161,"Marketing",'💸 Expense Tracker'!E12:E161)/MAX(1,SUMPRODUCT((('💵 Revenue Tracker'!C12:C111<>"")/COUNTIF('💵 Revenue Tracker'!C12:C111,'💵 Revenue Tracker'!C12:C111&"")))),0)`, fmt: '"$"#,##0', context: 'Marketing spend ÷ unique clients YTD. Manual override recommended.' },
-    { label: 'MoM Growth %',     formula: `IFERROR(SUMIFS('💵 Revenue Tracker'!E12:E111,'💵 Revenue Tracker'!B12:B111,">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1),'💵 Revenue Tracker'!B12:B111,"<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1))/SUMIFS('💵 Revenue Tracker'!E12:E111,'💵 Revenue Tracker'!B12:B111,">="&DATE(YEAR(TODAY()),MONTH(TODAY())-1,1),'💵 Revenue Tracker'!B12:B111,"<"&DATE(YEAR(TODAY()),MONTH(TODAY()),1))-1,0)`, fmt: '0.0%', context: 'This month vs. last. Volatile in small biz — read trends, not single months.' },
+    { label: 'Gross Margin %',   formula: `IFERROR((SUM('💵 Revenue Tracker'!F12:F111)-SUMIF('💸 Expense Tracker'!I12:I161,"COGS",'💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),0)`, fmt: '0.0%', context: 'Revenue − COGS, divided by revenue. Healthy: >40% products / >60% services.' },
+    { label: 'Net Margin %',     formula: `IFERROR((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/SUM('💵 Revenue Tracker'!F12:F111),0)`, fmt: '0.0%', context: 'After everything. Healthy small biz: 8–15%.' },
+    { label: 'EBITDA',           formula: `SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161)`, fmt: '"$"#,##0', context: 'Approx. — no depreciation broken out here. Use P&L Statement for true EBITDA.' },
+    { label: 'Burn Rate / mo',   formula: `SUM('💸 Expense Tracker'!F12:F161)/12`, fmt: '"$"#,##0', context: 'YTD expenses ÷ 12. Monthly OpEx baseline.' },
+    { label: 'Runway (months)',  formula: `IFERROR((SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161))/MAX(1,SUM('💸 Expense Tracker'!F12:F161)/12),0)`, fmt: '0.0" mo"', context: 'Months of OpEx coverage. Healthy: 6+. Risk: <3.' },
+    { label: 'Revenue / Client', formula: `IFERROR(SUM('💵 Revenue Tracker'!F12:F111)/SUMPRODUCT((('💵 Revenue Tracker'!D12:D111<>"")/COUNTIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111&""))),0)`, fmt: '"$"#,##0', context: 'YTD revenue ÷ unique clients. Trend up = bigger deals.' },
+    { label: 'CAC (estimated)',  formula: `IFERROR(SUMIF('💸 Expense Tracker'!E12:E161,"Marketing",'💸 Expense Tracker'!F12:F161)/MAX(1,SUMPRODUCT((('💵 Revenue Tracker'!D12:D111<>"")/COUNTIF('💵 Revenue Tracker'!D12:D111,'💵 Revenue Tracker'!D12:D111&"")))),0)`, fmt: '"$"#,##0', context: 'Marketing spend ÷ unique clients YTD. Manual override recommended.' },
+    { label: 'MoM Growth %',     formula: `IFERROR(SUMIFS('💵 Revenue Tracker'!F12:F111,'💵 Revenue Tracker'!C12:C111,">="&DATE(YEAR(TODAY()),MONTH(TODAY()),1),'💵 Revenue Tracker'!C12:C111,"<"&DATE(YEAR(TODAY()),MONTH(TODAY())+1,1))/SUMIFS('💵 Revenue Tracker'!F12:F111,'💵 Revenue Tracker'!C12:C111,">="&DATE(YEAR(TODAY()),MONTH(TODAY())-1,1),'💵 Revenue Tracker'!C12:C111,"<"&DATE(YEAR(TODAY()),MONTH(TODAY()),1))-1,0)`, fmt: '0.0%', context: 'This month vs. last. Volatile in small biz — read trends, not single months.' },
   ];
 
   // Render 2×4 grid: 4 KPIs across row 1, 4 across row 2
@@ -3138,7 +3138,7 @@ function buildCashFlowForecast(workbook) {
     tabSubtitle: '90-day forward projection. Top 5 customers + top 5 suppliers segmented. Danger ribbon fires below buffer.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'CURRENT CASH',    value: { formula: `TEXT(SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161),"$#,##0")` } },
+      { label: 'CURRENT CASH',    value: { formula: `TEXT(SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161),"$#,##0")` } },
       { label: 'BUFFER MIN',      value: { formula: `TEXT(C7,"$#,##0")` } },
       { label: 'PROJECTED LOW',   value: { formula: `TEXT(MIN(C19:N19),"$#,##0")` } },
       { label: 'PROJECTED END',   value: { formula: `TEXT(N19,"$#,##0")` } },
@@ -3153,7 +3153,7 @@ function buildCashFlowForecast(workbook) {
   sheet.getCell(`B${r + 1}`).value = 'Starting cash today';
   sheet.getCell(`B${r + 1}`).font = FONTS.bodyBold;
   sheet.getCell(`B${r + 1}`).alignment = { horizontal: 'left', indent: 1 };
-  sheet.getCell(`C${r + 1}`).value = { formula: `SUM('💵 Revenue Tracker'!E12:E111)-SUM('💸 Expense Tracker'!E12:E161)` };
+  sheet.getCell(`C${r + 1}`).value = { formula: `SUM('💵 Revenue Tracker'!F12:F111)-SUM('💸 Expense Tracker'!F12:F161)` };
   sheet.getCell(`C${r + 1}`).numFmt = '"$"#,##0';
   sheet.getCell(`C${r + 1}`).font = FONTS.body;
   sheet.getCell(`C${r + 1}`).alignment = { horizontal: 'right' };
@@ -3280,12 +3280,12 @@ function buildBreakEvenCalculator(workbook) {
     tabSubtitle: 'Enter fixed costs · variable cost/unit · price/unit. Output: units + $ to break even.',
     bannerText: BANNER,
     kpiData: [
-      { label: 'BE UNITS',         value: { formula: `IFERROR(TEXT(C12/(D12-C13),"#,##0")&" units","—")` } },
-      { label: 'BE REVENUE',       value: { formula: `IFERROR(TEXT(C12/(D12-C13)*D12,"$#,##0"),"—")` } },
-      { label: 'CONTRIBUTION $',   value: { formula: `IFERROR(TEXT(D12-C13,"$#,##0"),"—")` } },
-      { label: 'CONTRIBUTION %',   value: { formula: `IFERROR(TEXT((D12-C13)/D12,"0.0%"),"—")` } },
-      { label: 'MARGIN OF SAFETY', value: { formula: `IFERROR(TEXT(C14-C12/(D12-C13),"#,##0")&" units","—")` } },
-      { label: 'STATUS',           value: { formula: `IF(C14>C12/(D12-C13),"✓ Profitable","⚠ Below break-even")` } },
+      { label: 'BE UNITS',         value: { formula: `IFERROR(TEXT(C10/(D11-C11),"#,##0")&" units","—")` } },
+      { label: 'BE REVENUE',       value: { formula: `IFERROR(TEXT(C10/(D11-C11)*D11,"$#,##0"),"—")` } },
+      { label: 'CONTRIBUTION $',   value: { formula: `IFERROR(TEXT(D11-C11,"$#,##0"),"—")` } },
+      { label: 'CONTRIBUTION %',   value: { formula: `IFERROR(TEXT((D11-C11)/D11,"0.0%"),"—")` } },
+      { label: 'MARGIN OF SAFETY', value: { formula: `IFERROR(TEXT(C12-C10/(D11-C11),"#,##0")&" units","—")` } },
+      { label: 'STATUS',           value: { formula: `IFERROR(IF(C12>C10/(D11-C11),"✓ Profitable","⚠ Below break-even"),"—")` } },
     ],
   });
 
@@ -3336,12 +3336,12 @@ function buildBreakEvenCalculator(workbook) {
   let oR = addSectionHeader(sheet, 6, 'Output', 'Break-even, margin of safety, what-if scenarios.', 'F:H');
 
   const outputs = [
-    { label: 'Break-even units',       formula: `IFERROR(C12/(D12-C13),0)`, fmt: '#,##0' },
-    { label: 'Break-even revenue',     formula: `IFERROR(C12/(D12-C13)*D12,0)`, fmt: '"$"#,##0' },
-    { label: 'Contribution / unit',    formula: `IFERROR(D12-C13,0)`, fmt: '"$"#,##0' },
-    { label: 'Contribution margin %',  formula: `IFERROR((D12-C13)/D12,0)`, fmt: '0.0%' },
-    { label: 'Current monthly profit', formula: `IFERROR(C14*(D12-C13)-C12,0)`, fmt: '"$"#,##0' },
-    { label: 'Margin of safety (units)', formula: `IFERROR(C14-C12/(D12-C13),0)`, fmt: '#,##0' },
+    { label: 'Break-even units',       formula: `IFERROR(C10/(D11-C11),0)`, fmt: '#,##0' },
+    { label: 'Break-even revenue',     formula: `IFERROR(C10/(D11-C11)*D11,0)`, fmt: '"$"#,##0' },
+    { label: 'Contribution / unit',    formula: `IFERROR(D11-C11,0)`, fmt: '"$"#,##0' },
+    { label: 'Contribution margin %',  formula: `IFERROR((D11-C11)/D11,0)`, fmt: '0.0%' },
+    { label: 'Current monthly profit', formula: `IFERROR(C12*(D11-C11)-C10,0)`, fmt: '"$"#,##0' },
+    { label: 'Margin of safety (units)', formula: `IFERROR(C12-C10/(D11-C11),0)`, fmt: '#,##0' },
   ];
   outputs.forEach((o, i) => {
     const ri = oR + 1 + i;
@@ -3388,29 +3388,29 @@ function buildBreakEvenCalculator(workbook) {
     sheet.getCell(`B${ri}`).fill = FILLS.white;
     sheet.getCell(`B${ri}`).border = BORDER_THIN();
 
-    const priceFormula = `$D$12*(1+B${ri})`;
-    sheet.getCell(`D${ri}`).value = { formula: `IFERROR($C$12/(${priceFormula}-$C$13),0)` };
+    const priceFormula = `$D$11*(1+B${ri})`;
+    sheet.getCell(`D${ri}`).value = { formula: `IFERROR($C$10/(${priceFormula}-$C$11),0)` };
     sheet.getCell(`D${ri}`).numFmt = '#,##0';
     sheet.getCell(`D${ri}`).font = FONTS.body;
     sheet.getCell(`D${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`D${ri}`).fill = FILLS.white;
     sheet.getCell(`D${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`F${ri}`).value = { formula: `IFERROR($C$12/(${priceFormula}-$C$13)*${priceFormula},0)` };
+    sheet.getCell(`F${ri}`).value = { formula: `IFERROR($C$10/(${priceFormula}-$C$11)*${priceFormula},0)` };
     sheet.getCell(`F${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`F${ri}`).font = FONTS.body;
     sheet.getCell(`F${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`F${ri}`).fill = FILLS.white;
     sheet.getCell(`F${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`G${ri}`).value = { formula: `IFERROR(${priceFormula}-$C$13,0)` };
+    sheet.getCell(`G${ri}`).value = { formula: `IFERROR(${priceFormula}-$C$11,0)` };
     sheet.getCell(`G${ri}`).numFmt = '"$"#,##0';
     sheet.getCell(`G${ri}`).font = FONTS.body;
     sheet.getCell(`G${ri}`).alignment = { horizontal: 'right' };
     sheet.getCell(`G${ri}`).fill = FILLS.white;
     sheet.getCell(`G${ri}`).border = BORDER_THIN();
 
-    sheet.getCell(`H${ri}`).value = { formula: `IFERROR($C$14*(${priceFormula}-$C$13)-$C$12,0)` };
+    sheet.getCell(`H${ri}`).value = { formula: `IFERROR($C$12*(${priceFormula}-$C$11)-$C$10,0)` };
     sheet.getCell(`H${ri}`).numFmt = '"$"#,##0;("$"#,##0)';
     sheet.getCell(`H${ri}`).font = FONTS.bodyBold;
     sheet.getCell(`H${ri}`).alignment = { horizontal: 'right' };
@@ -3521,8 +3521,8 @@ function buildAbout(workbook) {
   const tier = workbook._tier || 'ai';
   const tierMetadata = {
     essentials: { label: 'Essentials', tabs: '9',  prompts: '0' },
-    pro:        { label: 'Pro',        tabs: '22', prompts: '0' },
-    ai:         { label: 'AI Edition', tabs: '23', prompts: '8' },
+    pro:        { label: 'Pro',        tabs: '24', prompts: '0' },
+    ai:         { label: 'AI Edition', tabs: '25', prompts: '8' },
   }[tier];
 
   const sheet = workbook.addWorksheet('ℹ️ About & Help');
@@ -3625,7 +3625,7 @@ async function buildSmallBusinessFinanceKit() {
   //   Essentials =  9 visible (+ About = 10)
   //   Pro        = 22 visible (+ About = 23)
   //   AI Edition = 23 visible (+ About = 24)
-  const tierTabCount = { essentials: 9, pro: 22, ai: 23 }[tier];
+  const tierTabCount = { essentials: 9, pro: 24, ai: 25 }[tier];
   console.log(`→ Building ${PRODUCT_NAME} — ${tierLabel} (${tierTabCount} visible / 23 total + About)...`);
 
   const workbook = new ExcelJS.Workbook();
