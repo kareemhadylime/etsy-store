@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Small Business Finance Kit — Thumbnail 03 Invoice + Forecast</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --alert-light: #F0DBD9;
+    --success-light: #D9E5DC;
+    --warning-light: #F5E5D0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .title-block { position: absolute; top: 130px; left: 90px; right: 90px; text-align: center; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 92px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 22px; max-width: 1750px; margin-left: auto; margin-right: auto; }
+  .title-main .accent { color: var(--secondary-warm-gold); }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin: 0 auto 22px; }
+  .title-sub { font-size: 30px; font-weight: 500; opacity: 0.7; line-height: 1.35; max-width: 1500px; margin: 0 auto; }
+
+  .panels {
+    position: absolute; left: 90px; right: 90px; top: 660px; bottom: 220px;
+    display: grid; grid-template-rows: 1fr 1fr; gap: 28px;
+  }
+  .panel {
+    background: var(--surface-white); border-radius: 18px; overflow: hidden;
+    box-shadow: 0 16px 32px rgba(31,42,51,0.10), 0 4px 12px rgba(31,42,51,0.06);
+    border: 1px solid rgba(31,42,51,0.06);
+  }
+  .panel-header {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 18px 28px; display: flex; justify-content: space-between; align-items: center;
+  }
+  .panel-tab { font-size: 22px; font-weight: 600; }
+  .panel-meta { font-size: 16px; opacity: 0.65; }
+
+  /* Invoice Tracker panel */
+  .inv-table { padding: 14px 28px; }
+  .inv-row {
+    display: grid; grid-template-columns: 140px 1fr 120px 100px;
+    align-items: center; padding: 14px 0; border-bottom: 1px solid var(--neutral-grid);
+    font-size: 18px;
+  }
+  .inv-row:last-child { border-bottom: none; }
+  .inv-row.head { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.55; padding: 10px 0; }
+  .inv-client { font-weight: 600; }
+  .inv-amount { font-weight: 700; text-align: right; }
+  .inv-status {
+    text-align: center; padding: 5px 12px; border-radius: 999px;
+    font-size: 14px; font-weight: 700;
+  }
+  .inv-status.paid { background: var(--success-light); color: var(--status-success); }
+  .inv-status.sent { background: var(--warning-light); color: var(--status-warning); }
+  .inv-status.overdue { background: var(--alert-light); color: var(--status-alert); }
+
+  /* Cash Flow Forecast panel */
+  .cf-body { padding: 22px 28px; display: grid; grid-template-columns: 1.7fr 1fr; gap: 28px; align-items: center; }
+  .cf-chart {
+    height: 220px; position: relative;
+    padding: 10px 4px;
+    border-bottom: 2px solid var(--neutral-grid);
+  }
+  .cf-bars { display: flex; align-items: flex-end; height: 100%; gap: 6px; }
+  .cf-bar {
+    flex: 1; border-radius: 4px 4px 0 0;
+    background: var(--status-success);
+    display: flex; align-items: flex-start; justify-content: center; font-size: 10px;
+    color: white; font-weight: 700; padding-top: 3px;
+  }
+  .cf-bar.tight { background: var(--status-warning); }
+  .cf-bar.danger { background: var(--status-alert); }
+  .cf-week-labels { display: flex; gap: 6px; margin-top: 8px; }
+  .cf-week-label { flex: 1; text-align: center; font-size: 11px; font-weight: 600; opacity: 0.5; }
+
+  .cf-side { display: flex; flex-direction: column; gap: 14px; }
+  .cf-callout {
+    background: var(--alert-light); color: var(--status-alert);
+    padding: 16px 20px; border-radius: 12px; border-left: 4px solid var(--status-alert);
+  }
+  .cf-callout .icon-text { font-size: 16px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .cf-callout .body { font-size: 16px; line-height: 1.35; opacity: 0.85; }
+  .cf-action {
+    background: var(--ivory); border-radius: 12px; padding: 14px 18px;
+    font-size: 16px; line-height: 1.35;
+  }
+  .cf-action .label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.5; margin-bottom: 4px; }
+  .cf-action strong { color: var(--secondary-warm-gold); }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; padding: 0 90px;
+  }
+  .savings-text { font-size: 30px; font-weight: 500; text-align: center; max-width: 1700px; }
+  .savings-text .accent { color: var(--secondary-warm-gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <div class="title-eyebrow">Invoice Tracker + 90-Day Forecast · Pro Edition</div>
+  <div class="title-main">See danger months <span class="accent">60 days</span> early.<br>Get paid on time.</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">Track 50 invoices live · 12-week cash forecast · DSO + aging at a glance.</div>
+</div>
+
+<div class="panels">
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-tab">🧾 Invoice Tracker</div>
+      <div class="panel-meta">$8,330 outstanding · DSO 28 days</div>
+    </div>
+    <div class="inv-table">
+      <div class="inv-row head">
+        <span>Invoice</span><span>Client</span><span>Amount</span><span style="text-align:center;">Status</span>
+      </div>
+      <div class="inv-row">
+        <span>INV-2026-0042</span>
+        <span class="inv-client">Acme Realty</span>
+        <span class="inv-amount">$4,200</span>
+        <span class="inv-status paid">Paid</span>
+      </div>
+      <div class="inv-row">
+        <span>INV-2026-0043</span>
+        <span class="inv-client">Beechwood Cafe</span>
+        <span class="inv-amount">$890</span>
+        <span class="inv-status paid">Paid</span>
+      </div>
+      <div class="inv-row">
+        <span>INV-2026-0044</span>
+        <span class="inv-client">Downtown Auto</span>
+        <span class="inv-amount">$1,420</span>
+        <span class="inv-status overdue">Overdue</span>
+      </div>
+      <div class="inv-row">
+        <span>INV-2026-0045</span>
+        <span class="inv-client">Riverdale Spa</span>
+        <span class="inv-amount">$1,980</span>
+        <span class="inv-status sent">Sent</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-tab">🔮 Cash Flow Forecast — 12 weeks</div>
+      <div class="panel-meta">Buffer $25K · projected low W8</div>
+    </div>
+    <div class="cf-body">
+      <div>
+        <div class="cf-chart">
+          <div class="cf-bars">
+            <div class="cf-bar" style="height:75%;">W1</div>
+            <div class="cf-bar" style="height:55%;">W2</div>
+            <div class="cf-bar" style="height:60%;">W3</div>
+            <div class="cf-bar tight" style="height:35%;">W4</div>
+            <div class="cf-bar" style="height:45%;">W5</div>
+            <div class="cf-bar tight" style="height:28%;">W6</div>
+            <div class="cf-bar" style="height:34%;">W7</div>
+            <div class="cf-bar danger" style="height:18%;">W8</div>
+            <div class="cf-bar" style="height:31%;">W9</div>
+            <div class="cf-bar danger" style="height:20%;">W10</div>
+            <div class="cf-bar danger" style="height:18%;">W11</div>
+            <div class="cf-bar danger" style="height:17%;">W12</div>
+          </div>
+        </div>
+        <div class="cf-week-labels">
+          <div class="cf-week-label">W1</div><div class="cf-week-label">W2</div><div class="cf-week-label">W3</div><div class="cf-week-label">W4</div>
+          <div class="cf-week-label">W5</div><div class="cf-week-label">W6</div><div class="cf-week-label">W7</div><div class="cf-week-label">W8</div>
+          <div class="cf-week-label">W9</div><div class="cf-week-label">W10</div><div class="cf-week-label">W11</div><div class="cf-week-label">W12</div>
+        </div>
+      </div>
+      <div class="cf-side">
+        <div class="cf-callout">
+          <div class="icon-text">⚠️ Danger · W8</div>
+          <div class="body">$11K projected — $14K below buffer</div>
+        </div>
+        <div class="cf-action">
+          <div class="label">AI Cash Flow Coach</div>
+          Pull Customer A's W6 invoice forward with a <strong>2% early-pay discount</strong> · negotiate net-45 with W12 supplier
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="savings-text">
+    <span class="accent">82%</span> of small-business failures are caused by cash flow. Catch them 60 days out — for <span class="accent">$39 once</span>.
+  </div>
+</div>
+
+</body>
+</html>

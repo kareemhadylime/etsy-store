@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Small Business Finance Kit — Quick Start Guide</title>
+<meta name="author" content="Lime Premium Studios">
+<meta name="description" content="Quick start guide for the Lime Premium Studios Small Business Finance Kit — first-30-day setup walkthrough, tier comparison, and per-tier action playbook.">
+<meta name="keywords" content="small business finance, P&L, payroll, invoicing, QuickBooks alternative, Lime Premium Studios">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  @page { size: Letter portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white); color: var(--primary-charcoal);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  body { width: 8.5in; background: var(--background-off-white); }
+
+  .page {
+    width: 8.5in; height: 11in; padding: 0.5in 0.55in;
+    position: relative; page-break-after: always; background: var(--background-off-white);
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.18in; }
+  .h-left { flex: 1; }
+  .eyebrow { font-size: 8pt; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.04in; }
+  .h-title { font-size: 26pt; font-weight: 700; letter-spacing: -0.02em; color: var(--primary-charcoal); line-height: 1.05; margin-bottom: 0.06in; }
+  .h-sub { font-size: 10pt; color: var(--primary-charcoal); opacity: 0.7; font-style: italic; }
+  .h-badge { background: var(--primary-charcoal); color: var(--surface-white); padding: 8pt 14pt; border-radius: 4pt; font-size: 8pt; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; text-align: right; line-height: 1.4; }
+  .h-badge .label { opacity: 0.6; }
+  .h-badge .ver { color: var(--secondary-warm-gold); }
+
+  .gold-divider { height: 2px; background: var(--secondary-warm-gold); width: 1.6in; margin-bottom: 0.16in; }
+
+  .section-label { font-size: 9pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--secondary-warm-gold); margin-bottom: 0.07in; }
+
+  /* 4-step quickstart */
+  .copy-flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.12in; margin-bottom: 0.2in; }
+  .step { background: var(--surface-white); border-radius: 6pt; padding: 0.14in 0.16in; border: 1px solid var(--neutral-grid); position: relative; }
+  .step-num { position: absolute; top: -10pt; left: 14pt; background: var(--secondary-warm-gold); color: var(--primary-charcoal); width: 22pt; height: 22pt; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11pt; font-weight: 700; }
+  .step-time { font-size: 7pt; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--secondary-warm-gold); margin-top: 0.08in; margin-bottom: 0.04in; }
+  .step-title { font-size: 10pt; font-weight: 700; color: var(--primary-charcoal); margin-bottom: 0.04in; line-height: 1.2; }
+  .step-body { font-size: 8pt; line-height: 1.4; color: var(--primary-charcoal); opacity: 0.78; }
+
+  /* tier grid */
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.14in; margin-bottom: 0.2in; }
+  .tier { background: var(--surface-white); border-radius: 6pt; padding: 0.16in; border: 1px solid var(--neutral-grid); display: flex; flex-direction: column; }
+  .tier.ai { background: var(--primary-charcoal); color: var(--surface-white); border-color: var(--primary-charcoal); }
+  .tier-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.06in; }
+  .tier-name { font-size: 13pt; font-weight: 700; letter-spacing: -0.01em; }
+  .tier-price { font-size: 14pt; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; }
+  .tier-tabs { font-size: 7.5pt; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--secondary-warm-gold); margin-bottom: 0.08in; }
+  .tier ul { list-style: none; padding: 0; }
+  .tier li { font-size: 8.5pt; line-height: 1.4; padding-left: 14pt; position: relative; margin-bottom: 0.04in; }
+  .tier li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--secondary-warm-gold); font-weight: 700; }
+
+  /* tips strip */
+  .tips { background: var(--ivory); border-left: 3px solid var(--secondary-warm-gold); padding: 0.14in 0.18in; margin-bottom: 0.16in; }
+  .tips-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.18in; }
+  .tip-num { font-size: 14pt; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; line-height: 1; margin-bottom: 0.05in; }
+  .tip-title { font-size: 9pt; font-weight: 700; color: var(--primary-charcoal); margin-bottom: 0.03in; }
+  .tip-body { font-size: 8.5pt; line-height: 1.4; color: var(--primary-charcoal); opacity: 0.78; }
+
+  .footer-band {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 0.16in 0.55in; display: flex; justify-content: space-between; align-items: center; font-size: 8.5pt;
+  }
+  .fb-left .wordmark { font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2pt; }
+  .fb-left .meta { opacity: 0.65; font-style: italic; }
+  .fb-right { text-align: right; opacity: 0.85; }
+
+  /* page-2 field table */
+  .field-table { width: 100%; border-collapse: collapse; margin-bottom: 0.18in; font-size: 9pt; }
+  .field-table th { text-align: left; background: var(--primary-charcoal); color: var(--surface-white); padding: 8pt 10pt; font-size: 8.5pt; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .field-table td { padding: 7pt 10pt; border-bottom: 1px solid var(--neutral-grid); }
+  .field-table tr:last-child td { border-bottom: none; }
+  .field-table td.tab-name { font-weight: 600; color: var(--secondary-warm-gold); width: 1.8in; }
+  .field-table td.cell { font-family: 'JetBrains Mono', monospace; font-size: 8.5pt; color: var(--primary-charcoal); width: 0.8in; }
+  .field-table td.note { font-size: 8.5pt; color: var(--primary-charcoal); opacity: 0.8; }
+
+  /* page-3 first month playbook */
+  .week-card { background: var(--surface-white); border-radius: 6pt; padding: 0.14in 0.18in; border: 1px solid var(--neutral-grid); margin-bottom: 0.1in; }
+  .week-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.06in; }
+  .week-num { font-size: 11pt; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: 0.04em; text-transform: uppercase; }
+  .week-title { font-size: 11pt; font-weight: 700; color: var(--primary-charcoal); }
+  .week-body { font-size: 8.5pt; line-height: 1.45; color: var(--primary-charcoal); opacity: 0.85; }
+  .week-body ul { margin-top: 0.04in; padding-left: 0.18in; list-style: none; }
+  .week-body li { padding-left: 12pt; position: relative; margin-bottom: 0.02in; }
+  .week-body li::before { content: '→'; position: absolute; left: 0; color: var(--secondary-warm-gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 — Quick Start -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Lime Premium Studios · Small Business Finance Kit</div>
+      <div class="h-title">Quick Start</div>
+      <div class="h-sub">Make a copy in 30 seconds. Log your first transaction in 60.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">v1.0</div>
+      <div class="ver">2026</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">30-Second Setup</div>
+  <div class="copy-flow">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-time">15 sec</div>
+      <div class="step-title">Make a Copy</div>
+      <div class="step-body">File → Make a copy. Save to your Drive. The original stays as a clean reference; your copy is yours forever.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-time">10 sec</div>
+      <div class="step-title">Open Dashboard</div>
+      <div class="step-body">Tab #1 (🏠 Dashboard) is the read-only output spine. Every number here derives from the two Input tabs.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-time">30 sec</div>
+      <div class="step-title">Log first revenue + expense</div>
+      <div class="step-body">Open 💵 Revenue Tracker and 💸 Expense Tracker. Replace the seed rows with your own data. Dashboard updates live.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-time">5 sec</div>
+      <div class="step-title">Bookmark</div>
+      <div class="step-body">Bookmark your copy in the browser. You'll open it 3× a week — at the start, the end, and one mid-week check.</div>
+    </div>
+  </div>
+
+  <div class="section-label">Three tiers — same file, more tabs visible</div>
+  <div class="tiers">
+    <div class="tier">
+      <div class="tier-head">
+        <div class="tier-name">Essentials</div>
+        <div class="tier-price">$24</div>
+      </div>
+      <div class="tier-tabs">9 tabs</div>
+      <ul>
+        <li>🏠 Dashboard · 💵 Revenue · 💸 Expense</li>
+        <li>📊 P&amp;L Statement · 💧 Cash Flow</li>
+        <li>🧾 Invoice Tracker (50)</li>
+        <li>📄 5 Invoice Templates</li>
+        <li>🧮 Tax Prep Summary</li>
+        <li>⚖️ Break-Even Calculator</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <div class="tier-head">
+        <div class="tier-name">Pro</div>
+        <div class="tier-price">$39</div>
+      </div>
+      <div class="tier-tabs">22 tabs · +13</div>
+      <ul>
+        <li>+ 🏦 Balance Sheet</li>
+        <li>+ 10 Invoice Templates</li>
+        <li>+ Receivables &amp; Payables Aging</li>
+        <li>+ 📦 Inventory · 🏭 Supplier/PO</li>
+        <li>+ 💰 Payroll &amp; Payslips (10 emp.)</li>
+        <li>+ 📈 KPI Dashboard (8 KPIs)</li>
+        <li>+ 🔮 Cash Flow Forecast</li>
+      </ul>
+    </div>
+    <div class="tier ai">
+      <div class="tier-head">
+        <div class="tier-name">AI Edition</div>
+        <div class="tier-price">$54</div>
+      </div>
+      <div class="tier-tabs">23 tabs · + AI PDF</div>
+      <ul>
+        <li>+ 🤖 AI Business Co-Pilot tab</li>
+        <li>+ 12-page Companion PDF</li>
+        <li>+ 8 ChatGPT/Claude prompts:</li>
+        <li>P&amp;L · Cash Flow · Depreciation · Supplier</li>
+        <li>· Tax Prep · Pricing · Annual Review · Concentration</li>
+        <li>+ 12 months of free updates</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tips">
+    <div class="section-label">Pro tips before you start</div>
+    <div class="tips-row">
+      <div>
+        <div class="tip-num">1</div>
+        <div class="tip-title">Privacy is the gate</div>
+        <div class="tip-body">No bank sync. No Plaid. You enter transactions manually (or paste CSV). 30 min/week vs. handing your books to a SaaS aggregator.</div>
+      </div>
+      <div>
+        <div class="tip-num">2</div>
+        <div class="tip-title">Set up the Schedule C category column</div>
+        <div class="tip-body">In 💸 Expense Tracker col I, pick the IRS category for each expense. Tax Prep Summary auto-rolls these into your year-end handoff to your CPA.</div>
+      </div>
+      <div>
+        <div class="tip-num">3</div>
+        <div class="tip-title">Open Dashboard 3× a week</div>
+        <div class="tip-body">Start of week (review last week's misses), mid-week (catch invoices about to age), end of week (log Friday's revenue + Sunday-night close).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">small-business-finance-kit · v1.0 · Page 1 of 3</div>
+    </div>
+    <div class="fb-right">Privacy-first. No bank sync. Your books stay yours.</div>
+  </div>
+</div>
+
+<!-- PAGE 2 — Field-by-field setup -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Page 2 · Setup Walkthrough</div>
+      <div class="h-title">Field-by-field</div>
+      <div class="h-sub">Where to enter what — the cells you fill in your first hour.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Pages</div>
+      <div class="ver">2 of 3</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="section-label">First-hour setup map</div>
+  <table class="field-table">
+    <thead>
+      <tr>
+        <th>Tab</th>
+        <th>Cells</th>
+        <th>What to enter</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tab-name">💵 Revenue Tracker</td>
+        <td class="cell">C12:I111</td>
+        <td class="note">One row per revenue transaction. Date · Client · Product/Service · Amount · Status (Received/Pending/Refunded) · Stream (Direct/Etsy/Wholesale) · Payment method. <strong>Drives P&amp;L, Cash Flow, Profitability, and every Dashboard KPI.</strong></td>
+      </tr>
+      <tr>
+        <td class="tab-name">💸 Expense Tracker</td>
+        <td class="cell">C12:J161</td>
+        <td class="note">One row per expense. Date · Category · Vendor · Amount · Tax-deductible flag (✅) · 📎 receipt-attached marker · Schedule C category · Notes. <strong>Tax flag + Schedule C category drive the Tax Prep Summary auto-roll.</strong></td>
+      </tr>
+      <tr>
+        <td class="tab-name">🧾 Invoice Tracker</td>
+        <td class="cell">B11:J60</td>
+        <td class="note">Invoice # · Client · Issue date · Due date · Amount · Paid date · Status (Draft/Sent/Paid/Overdue/Cancelled) · Notes. Days outstanding auto-calcs. DSO at top of tab.</td>
+      </tr>
+      <tr>
+        <td class="tab-name">📄 Invoice Templates</td>
+        <td class="cell">B7:J28</td>
+        <td class="note">Replace [YOUR LOGO] · [Your Business Name] · [Your Address] with your details. Duplicate the entire template sub-sheet for each new invoice. Print to PDF, send via email.</td>
+      </tr>
+      <tr>
+        <td class="tab-name">🏦 Balance Sheet <em>(Pro)</em></td>
+        <td class="cell">C13:G33</td>
+        <td class="note">Monthly snapshot of Assets · Liabilities + Equity. Some lines auto-pull (cash, AR, inventory, retained earnings); others (prepaid, AP, owner contrib) are manual entry. Auto-balance verification row at bottom.</td>
+      </tr>
+      <tr>
+        <td class="tab-name">💰 Loan Amortization <em>(Pro)</em></td>
+        <td class="cell">B12:J16</td>
+        <td class="note">Up to 5 loans. Loan name · Origin date · APR (as decimal — 7.5% = 0.075) · Original principal · Term in months. Monthly payment + outstanding balance + payoff date auto-calc.</td>
+      </tr>
+      <tr>
+        <td class="tab-name">👥 HR Records <em>(Pro)</em></td>
+        <td class="cell">B12:J21</td>
+        <td class="note">ID · Name · Role · Start · Type (FT/PT/Contractor) · Pay rate · Tax code · Leave days · Bank reference. <strong>Use REFERENCE values for bank account ("Chase ••••4242"). Never paste full account numbers or SSNs.</strong></td>
+      </tr>
+      <tr>
+        <td class="tab-name">💰 Payroll <em>(Pro)</em></td>
+        <td class="cell">B12:J21</td>
+        <td class="note">Hours · Gross · Federal · State · FICA (auto 7.65%) · Other · Net (auto-calc). This kit CALCULATES; it doesn't FILE or REMIT. Use Gusto/Justworks for the deposit + filing piece.</td>
+      </tr>
+      <tr>
+        <td class="tab-name">🤖 AI Co-Pilot <em>(AI)</em></td>
+        <td class="cell">B8:E47</td>
+        <td class="note">8 prompt cards in 2×4 grid. Each card pairs with a tab + a page in the companion AI PDF. Copy prompt → paste into ChatGPT/Claude → paste output back into the card's collection cell.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tips">
+    <div class="section-label">Anti-foot-gun reminders</div>
+    <div class="tips-row">
+      <div>
+        <div class="tip-num">⚠</div>
+        <div class="tip-title">APR as decimal</div>
+        <div class="tip-body">In 💰 Loan Amortization col D, 7.5% = <strong>0.075</strong> (not 7.5). The input validation will reject anything &gt; 0.99. Same rule for Asset Depreciation methods.</div>
+      </div>
+      <div>
+        <div class="tip-num">⚠</div>
+        <div class="tip-title">COGS vs OpEx coding</div>
+        <div class="tip-body">In 💸 Expense Tracker col I, use "COGS" exactly (case-sensitive) for direct cost-of-goods. Anything else = OpEx. The P&amp;L Gross Margin calc splits on this string.</div>
+      </div>
+      <div>
+        <div class="tip-num">⚠</div>
+        <div class="tip-title">Don't paste SSNs / EINs</div>
+        <div class="tip-body">When using the AI prompts (AI Edition), use the spreadsheet's labels ("Customer A," "Employee #7"). The AI doesn't need full identifiers to analyze your books.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">small-business-finance-kit · v1.0 · Page 2 of 3</div>
+    </div>
+    <div class="fb-right">Anti-QuickBooks: $24 once vs. $35–$235/mo.</div>
+  </div>
+</div>
+
+<!-- PAGE 3 — First-month playbook -->
+<div class="page">
+  <div class="header">
+    <div class="h-left">
+      <div class="eyebrow">Page 3 · First-30-Day Playbook</div>
+      <div class="h-title">Your first month</div>
+      <div class="h-sub">Week-by-week. End at first month-close + handoff-ready Tax Prep Summary.</div>
+    </div>
+    <div class="h-badge">
+      <div class="label">Pages</div>
+      <div class="ver">3 of 3</div>
+    </div>
+  </div>
+  <div class="gold-divider"></div>
+
+  <div class="week-card">
+    <div class="week-head">
+      <div class="week-num">Week 1</div>
+      <div class="week-title">Migrate + log</div>
+    </div>
+    <div class="week-body">
+      <ul>
+        <li>Make a copy → save to Drive → bookmark.</li>
+        <li>Replace seed rows in 💵 Revenue Tracker and 💸 Expense Tracker with the last 30 days from your bank statements. Use Schedule C categories on every expense.</li>
+        <li>Open 🏠 Dashboard. Verify the 6 KPI tiles populate. If MTD Revenue shows $0, you skipped the date column on Revenue rows.</li>
+        <li>Set up Invoice Templates (📄) with your logo placeholder, business address, and a sample line-item rate sheet.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="week-card">
+    <div class="week-head">
+      <div class="week-num">Week 2</div>
+      <div class="week-title">Receivables + recurring</div>
+    </div>
+    <div class="week-body">
+      <ul>
+        <li>Load 🧾 Invoice Tracker with every outstanding invoice. Set status pills accurately (Draft / Sent / Paid / Overdue).</li>
+        <li>(Pro+) Set up 📅 Recurring Invoice Schedule for monthly/quarterly retainers. Mark them Active and pick a next-generate date.</li>
+        <li>(Pro+) Pull your last 90 days of overdue invoices into ⏳ Receivables Aging by bucket. Anything &gt; 60 days: send a polite follow-up email this week.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="week-card">
+    <div class="week-head">
+      <div class="week-num">Week 3</div>
+      <div class="week-title">Operations</div>
+    </div>
+    <div class="week-body">
+      <ul>
+        <li>(Pro+) Build out 📦 Inventory Tracker if you sell physical product. Set reorder points; the low-stock pill fires automatically.</li>
+        <li>(Pro+) Load 👥 HR Records + 💰 Payroll for the next pay period. Verify net pay against your last paycheck/Gusto run before relying on it.</li>
+        <li>(Pro+) Load 🏗️ Asset Depreciation. Use straight-line as the default; replace with MACRS/§179 figures from your last tax return.</li>
+        <li>(Pro+) Load 💰 Loan Amortization for every business loan. Monthly payment auto-calcs from APR + term.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="week-card">
+    <div class="week-head">
+      <div class="week-num">Week 4</div>
+      <div class="week-title">First month-close</div>
+    </div>
+    <div class="week-body">
+      <ul>
+        <li>📊 P&amp;L Statement: verify your gross margin % matches your gut. If COGS is materially off, check the Schedule C coding in 💸 Expense Tracker.</li>
+        <li>💧 Cash Flow Statement: check the danger ribbon at the bottom. Two consecutive negative months = it fires red.</li>
+        <li>(Pro+) 📈 KPI Dashboard: read all 8 KPIs. Note your gross margin %, net margin %, runway. These become next month's baseline.</li>
+        <li>(Pro+) 🔮 Cash Flow Forecast: set your minimum buffer. Fill in expected inflows/outflows for the next 12 weeks. The status pills surface danger weeks immediately.</li>
+        <li>🧮 Tax Prep Summary: should be 80% populated. Export as PDF; email to your accountant. Schedule a 30-min call.</li>
+        <li>(AI Edition) Run the <strong>Annual Business Review</strong> prompt on your first full month's data — it sets the targets you'll measure against for the rest of the year.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-band">
+    <div class="fb-left">
+      <div class="wordmark">Lime Premium Studios</div>
+      <div class="meta">small-business-finance-kit · v1.0 · Page 3 of 3</div>
+    </div>
+    <div class="fb-right">Reply to your order email for support — 24-hour response.</div>
+  </div>
+</div>
+
+</body>
+</html>

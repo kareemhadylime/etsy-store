@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Small Business Finance Kit — Thumbnail 02 KPI Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .title-block { position: absolute; top: 130px; left: 90px; right: 90px; text-align: center; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 92px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 22px; max-width: 1750px; margin-left: auto; margin-right: auto; }
+  .title-main .accent { color: var(--secondary-warm-gold); }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin: 0 auto 22px; }
+  .title-sub { font-size: 30px; font-weight: 500; opacity: 0.7; line-height: 1.35; max-width: 1500px; margin: 0 auto; }
+
+  .grid {
+    position: absolute; left: 90px; right: 90px; top: 680px; bottom: 220px;
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr;
+    gap: 26px;
+  }
+  .kpi-card {
+    background: var(--surface-white); border-radius: 18px; padding: 36px 32px;
+    box-shadow: 0 16px 32px rgba(31,42,51,0.10), 0 4px 12px rgba(31,42,51,0.06);
+    border: 1px solid rgba(31,42,51,0.06);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .kpi-card.gold { background: var(--primary-charcoal); color: var(--surface-white); border-color: var(--primary-charcoal); }
+  .kpi-card.gold .kpi-card-label { color: var(--secondary-warm-gold); }
+  .kpi-card.gold .kpi-card-context { color: rgba(255,255,255,0.7); }
+
+  .kpi-card-label {
+    font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 12px;
+  }
+  .kpi-card-value {
+    font-size: 64px; font-weight: 700; letter-spacing: -0.025em; line-height: 1;
+    margin-bottom: 12px;
+  }
+  .kpi-card-trend {
+    font-size: 18px; font-weight: 600; color: var(--status-success); margin-bottom: 14px;
+    letter-spacing: 0.02em;
+  }
+  .kpi-card-trend.down { color: var(--status-alert); }
+  .kpi-card-spark {
+    font-size: 26px; color: var(--secondary-warm-gold); letter-spacing: 2px; line-height: 1;
+    margin-bottom: 12px;
+  }
+  .kpi-card-context {
+    font-size: 14px; font-weight: 500; opacity: 0.6; line-height: 1.3;
+  }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; padding: 0 90px;
+  }
+  .savings-text { font-size: 28px; font-weight: 500; text-align: center; max-width: 1700px; }
+  .savings-text .accent { color: var(--secondary-warm-gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <div class="title-eyebrow">KPI Dashboard · 8 Metrics · Pro + AI Edition</div>
+  <div class="title-main">Every number a <span class="accent">CFO</span> would ask for.<br>None of the consulting fees.</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">8 KPIs in one screen. Updates live as you log revenue and expenses.</div>
+</div>
+
+<div class="grid">
+  <div class="kpi-card">
+    <div>
+      <div class="kpi-card-label">Gross Margin</div>
+      <div class="kpi-card-value">58.9%</div>
+      <div class="kpi-card-trend">▲ +2.8 pp vs LY</div>
+    </div>
+    <div>
+      <div class="kpi-card-spark">▁▂▄▅▆▇█▇</div>
+      <div class="kpi-card-context">Revenue − COGS / Revenue. Healthy services: &gt;60%.</div>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <div>
+      <div class="kpi-card-label">Net Margin</div>
+      <div class="kpi-card-value">9.9%</div>
+      <div class="kpi-card-trend">▲ +5.1 pp YoY</div>
+    </div>
+    <div>
+      <div class="kpi-card-spark">▁▁▂▃▅▆▇█</div>
+      <div class="kpi-card-context">After everything. Healthy small biz: 8–15%.</div>
+    </div>
+  </div>
+
+  <div class="kpi-card gold">
+    <div>
+      <div class="kpi-card-label">EBITDA</div>
+      <div class="kpi-card-value">$42K</div>
+      <div class="kpi-card-trend">▲ +47% YoY</div>
+    </div>
+    <div>
+      <div class="kpi-card-spark">▂▃▄▅▆▇█▇</div>
+      <div class="kpi-card-context">Earnings before int / tax / depr / amort.</div>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <div>
+      <div class="kpi-card-label">Runway</div>
+      <div class="kpi-card-value">8.4mo</div>
+      <div class="kpi-card-trend">▲ +2.1 mo</div>
+    </div>
+    <div>
+      <div class="kpi-card-spark">▃▅▆▆▇█▇█</div>
+      <div class="kpi-card-context">Months of OpEx coverage. Risk: &lt;3.</div>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <div>
+      <div class="kpi-card-label">Burn Rate</div>
+      <div class="kpi-card-value">$6.8K</div>
+      <div class="kpi-card-trend down">▲ +12% MoM</div>
+    </div>
+    <div>
+      <div class="kpi-card-spark">▅▆▆▇▆▇▇█</div>
+      <div class="kpi-card-context">Monthly OpEx baseline. Trend up = watch.</div>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <div>
+      <div class="kpi-card-label">Rev / Client</div>
+      <div class="kpi-card-value">$4.2K</div>
+      <div class="kpi-card-trend">▲ +18% YoY</div>
+    </div>
+    <div>
+      <div class="kpi-card-spark">▂▃▄▅▅▆▇█</div>
+      <div class="kpi-card-context">YTD revenue ÷ unique clients. Trend up = bigger deals.</div>
+    </div>
+  </div>
+
+  <div class="kpi-card">
+    <div>
+      <div class="kpi-card-label">CAC</div>
+      <div class="kpi-card-value">$473</div>
+      <div class="kpi-card-trend">▼ −$120 YoY</div>
+    </div>
+    <div>
+      <div class="kpi-card-spark">█▇▆▆▅▄▃▂</div>
+      <div class="kpi-card-context">Marketing ÷ new clients. Down is good.</div>
+    </div>
+  </div>
+
+  <div class="kpi-card gold">
+    <div>
+      <div class="kpi-card-label">MoM Growth</div>
+      <div class="kpi-card-value">+12.6%</div>
+      <div class="kpi-card-trend">▲ best Q3 mo</div>
+    </div>
+    <div>
+      <div class="kpi-card-spark">▂▃▅▆▆▇█▇</div>
+      <div class="kpi-card-context">This month vs. last. Volatile — read the trend.</div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="savings-text">
+    The AI <span class="accent">Annual Business Review</span> prompt reads these 8 KPIs and tells you what to fix next year. <span class="accent">$54 once.</span>
+  </div>
+</div>
+
+</body>
+</html>

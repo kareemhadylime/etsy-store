@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Small Business Finance Kit — Thumbnail 04 AI Co-Pilot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .title-block { position: absolute; top: 130px; left: 90px; right: 90px; text-align: center; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 92px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 22px; max-width: 1750px; margin-left: auto; margin-right: auto; }
+  .title-main .accent { color: var(--secondary-warm-gold); }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin: 0 auto 22px; }
+  .title-sub { font-size: 30px; font-weight: 500; opacity: 0.7; line-height: 1.35; max-width: 1500px; margin: 0 auto; }
+
+  .cards-container {
+    position: absolute; left: 0; right: 0; top: 640px; bottom: 220px;
+    overflow: hidden;
+  }
+  .prompt-card {
+    position: absolute; width: 760px; height: 420px;
+    background: var(--surface-white); border-radius: 18px;
+    box-shadow: 0 30px 60px rgba(31,42,51,0.18), 0 6px 18px rgba(31,42,51,0.08);
+    overflow: hidden; border: 1px solid rgba(31,42,51,0.08);
+    display: flex; flex-direction: column;
+  }
+  .prompt-card.c1 { left: 110px;  top: 30px;  transform: rotate(-3deg); z-index: 1; }
+  .prompt-card.c2 { left: 620px;  top: 130px; transform: rotate(0deg);  z-index: 3; }
+  .prompt-card.c3 { left: 1130px; top: 30px;  transform: rotate(3deg);  z-index: 1; }
+  .prompt-card.c4 { left: 380px;  top: 540px; transform: rotate(2deg);  z-index: 2; }
+  .prompt-card.c5 { left: 880px;  top: 540px; transform: rotate(-2deg); z-index: 2; }
+
+  .card-head {
+    background: var(--primary-charcoal); color: var(--surface-white);
+    padding: 22px 30px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .card-num {
+    background: var(--secondary-warm-gold); color: var(--primary-charcoal);
+    width: 48px; height: 48px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 700;
+  }
+  .card-title { font-size: 26px; font-weight: 700; line-height: 1.1; }
+  .card-tab { font-size: 16px; color: var(--secondary-warm-gold); font-weight: 600; margin-top: 4px; }
+
+  .card-body { padding: 28px 30px; flex: 1; }
+  .card-desc { font-size: 19px; font-weight: 500; line-height: 1.4; color: var(--primary-charcoal); opacity: 0.85; }
+  .card-output {
+    margin-top: 18px;
+    background: var(--ivory); border-left: 4px solid var(--secondary-warm-gold);
+    padding: 16px 20px; border-radius: 6px;
+    font-size: 16px; line-height: 1.4; opacity: 0.8;
+    font-family: 'JetBrains Mono', 'Inter', monospace;
+  }
+  .card-output .label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--status-warning); margin-bottom: 6px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .ai-logos {
+    position: absolute; bottom: 240px; left: 0; right: 0; text-align: center;
+    font-size: 22px; font-weight: 600; opacity: 0.65;
+    letter-spacing: 0.04em;
+  }
+  .ai-logos .free-pill {
+    display: inline-block;
+    background: var(--success-light, #D9E5DC); color: var(--status-success);
+    padding: 6px 16px; border-radius: 999px; font-size: 18px; font-weight: 700;
+    margin: 0 12px; vertical-align: middle;
+  }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; padding: 0 90px;
+  }
+  .savings-text { font-size: 32px; font-weight: 500; text-align: center; max-width: 1700px; }
+  .savings-text .accent { color: var(--secondary-warm-gold); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <div class="title-eyebrow">AI Business Co-Pilot · 8 Prompts · AI Edition</div>
+  <div class="title-main"><span class="accent">8 AI prompts.</span> Thinks like a CFO.<br>Free-tier ready.</div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">P&amp;L Analyst · Cash Flow Coach · Depreciation · Supplier · Tax · Pricing · Concentration · Annual Review.</div>
+</div>
+
+<div class="cards-container">
+  <div class="prompt-card c1">
+    <div class="card-head">
+      <div class="card-num">1</div>
+      <div>
+        <div class="card-title">P&amp;L Analyst</div>
+        <div class="card-tab">Pairs with: 📊 P&amp;L Statement</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Reads each line. Flags anomalies vs. 12-mo trailing. Diagnoses margin compression.</div>
+      <div class="card-output">
+        <div class="label">Sample output</div>
+        COGS jumped 2.8 pp → ~$1,350 of margin gone. Likely: supplier price increase OR project timing mismatch.
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card c2">
+    <div class="card-head">
+      <div class="card-num">2</div>
+      <div>
+        <div class="card-title">Cash Flow Coach</div>
+        <div class="card-tab">Pairs with: 🔮 Cash Flow Forecast</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Forecasts 90 days. Names danger weeks. Recommends invoice + supplier moves to fix each one.</div>
+      <div class="card-output">
+        <div class="label">Sample output</div>
+        Week 8 = DANGER ($11K, ~$14K below buffer). Pull Customer A's W6 invoice forward with 2% early-pay discount.
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card c3">
+    <div class="card-head">
+      <div class="card-num">8</div>
+      <div>
+        <div class="card-title">Concentration Risk</div>
+        <div class="card-tab">Pairs with: 📊 Customer Profitability</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Names the top 3 customers that can break your business. Recommends specific diversification moves.</div>
+      <div class="card-output">
+        <div class="label">Sample output</div>
+        Acme is 22% (was 18% LY). 2 years from high-risk. Target 2-3 mid-size brokerages with $25-40K signage budgets.
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card c4">
+    <div class="card-head">
+      <div class="card-num">5</div>
+      <div>
+        <div class="card-title">Tax Prep Advisor</div>
+        <div class="card-tab">Pairs with: 🧮 Tax Prep Summary</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Scores readiness 0–100. Flags red items. Names Q4 bonus payroll + Solo 401k top-up moves before Dec 31.</div>
+      <div class="card-output">
+        <div class="label">Sample output</div>
+        72/100. S-Corp officer comp $66K W-2 + $24K distribution = audit trigger. Bump W-2 to $80K via bonus payroll before Dec 31.
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-card c5">
+    <div class="card-head">
+      <div class="card-num">6</div>
+      <div>
+        <div class="card-title">Pricing Strategist</div>
+        <div class="card-tab">Pairs with: 📊 P&amp;L Statement</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-desc">Volume × margin matrix. Three pricing moves with $ impact. One repricing or discontinue call.</div>
+      <div class="card-output">
+        <div class="label">Sample output</div>
+        Raise installation 30% ($350→$455). Volume neutral per customer feedback. +$6,720/year. Lowest-risk move.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-band">
+  <div class="savings-text">
+    Works with <span class="accent">ChatGPT Free</span> or <span class="accent">Claude Free</span>. No data leaves your AI conversation. Your books stay yours.
+  </div>
+</div>
+
+</body>
+</html>

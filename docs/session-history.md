@@ -5353,3 +5353,173 @@ User said: "Product 3 is completed & under Audit — work on Product 4 now." Net
 3. If SHIP → push to Etsy as draft via `mcp__etsy__etsy_create_listing` (cascade from Budget Tracker pattern — taxonomy 12487, 13 tags from listing copy v1 §5, 3-tier variations via `property_id 513`, shop section "Net Worth & FIRE Spreadsheets").
 
 ### Safe to clear ✅
+
+---
+
+## Session 2026-05-23 (PM3) — Product 5 (Small Business Finance Kit) — end-to-end cascade build
+
+### Direction
+User said: "Product 4 is underway, work on Product 5 now." Small Business Finance Kit — largest + highest-priced standalone in the catalog. Cascade Premium Finance House pipeline from Net Worth Tracker (last build).
+
+### What got built
+**Sheets template** — `tools/sheets-gen/templates/small-business-finance-kit.js`. ~2,200 lines. 24 tabs across 3 tier variants:
+- Essentials ($24): 9 visible — 🏠 Dashboard, 💵 Revenue Tracker, 💸 Expense Tracker, 📊 P&L Statement, 💧 Cash Flow Statement, 🧾 Invoice Tracker (50), 📄 Invoice Templates (5), 🧮 Tax Prep Summary, ⚖️ Break-Even Calculator (+ About)
+- Pro ($39): 22 visible — adds 🏦 Balance Sheet, 📅 Recurring Invoice Schedule, ⏳ Receivables Aging, ⏳ Payables Aging, 📊 Customer Profitability, 📦 Inventory Tracker, 🏭 Supplier & PO Manager, 🏗️ Asset Depreciation, 💰 Loan Amortization, 👥 HR Employee Records (10), 💰 Payroll & Payslips (FICA auto-calc), 🌐 Social Security Tracker (with wage-base alert), 📋 Project Costing, 📈 KPI Dashboard (8 KPIs in 2×4), 🔮 Cash Flow Forecast (12-week)
+- AI Edition ($54): 23 visible — adds 🤖 AI Business Co-Pilot hub (8 prompt cards in 2×4 grid)
+
+**Per-product visual restraint overrides applied** per design brief §1 (small-business buyer expectations): mandatory numeric right-alignment everywhere, no emoji in content rows (only in tab names), KPI tile fills via border-only treatment (no heavy shadow opacity).
+
+**Dashboard** delivers 5 required visualizations per design brief: Business Health Score gauge (0–100 with 5 sub-component gauges: gross margin · net margin · runway · receivables health · cash flow trend) + Top-5 customers by revenue with concentration-risk pill at >30% threshold + Runway/burn meter with color thresholds + Receivables aging buckets (0–30/31–60/61–90/90+) with CF amber/red.
+
+**Dual-cohort positioning** in Dashboard + KPI Dashboard: anti-QuickBooks volume buyers see the Health Score; sophisticated founders see the 8 KPIs (gross margin · net margin · EBITDA · burn · runway · revenue/client · CAC · MoM growth).
+
+**Tier-aware metadata** via `workbook._tier`: About-tab KPI strip + Dashboard 6th KPI tile both switch (AI = "HEALTH SCORE 82/100" vs. non-AI = "BIZ MARGIN 9.9%"). About "TABS" + "AI PROMPTS" reflect actual tier counts.
+
+**Loan Amortization** uses closed-form PMT formula with guards for zero APR (interest-free → P/n) + zero term. Remaining balance is closed-form `P × (1+r)^n − PMT × ((1+r)^n − 1) / r` with `DATEDIF` for months elapsed. APR validation rejects > 0.99 (decimal foot-gun guard cascade from DPP-004).
+
+**Asset Depreciation** ships straight-line as default (cost − salvage / life), with §179 / De minimis branches. AI PDF Depreciation Assistant prompt is what handles MACRS / Bonus / partial-use auditing.
+
+**Payroll & Payslips** computes FICA 7.65% automatically; Federal + State columns are manual entry (W-4-dependent). In-tab callout makes "this calculates, doesn't file" explicit — protects against "I thought this would pay my employees" expectation drift.
+
+**Social Security Tracker** caps the SS portion at 2026 wage base ($168,600). Wage-base-alert column fires "🔴 At cap" / "⚠ Approaching" / "✓ OK" pills. In-tab callout requires annual rate refresh.
+
+**Tax Prep Summary** auto-rolls every Schedule C category × Q1/Q2/Q3/Q4 from 💸 Expense Tracker via SUMIFS-by-month. IRS line number printed for each row (Line 8 Advertising, Line 24a Travel, etc.). Quarterly estimated tax section at bottom with Apr 15 / Jun 15 / Sep 15 / Jan 15 due dates.
+
+**Cash Flow Forecast (12-week)** uses status pills (Safe / Tight / Danger / Critical) driven by current cash vs. buffer. Danger ribbon at bottom auto-triggers different copy depending on whether projection goes negative (CRITICAL) or just dips below buffer (TIGHT).
+
+**Break-Even Calculator** ships with 6-row what-if matrix (price -10% / -5% / baseline / +5% / +10% / +15%) showing BE units / BE revenue / contribution per unit / profit at current volume.
+
+**AI Business Co-Pilot hub** — 8 prompt cards in 2×4 grid. Each card: number-pilled title + "Pairs with: <tab>" callout + 1-line description + "📄 PDF page N · Paste AI output ↓" link + collection cell for pasted output.
+
+**AI Business Co-Pilot PDF** — 12 pages (one more than other finance products' 11 since 8 prompts vs. 7). Content verbatim from `docs/product-content/small-business-ai-prompts.md`. Same fictional signage-shop persona threads every worked example (Acme Realty 22% top customer · 4 employees · $197K revenue). Persona continuity is a quality signal per Net Worth pattern.
+
+**Quickstart PDF** — 3 pages (vs. 1 page for prior products — Small Business is the largest + most complex, justifies field-by-field map + first-30-day playbook):
+- P1: 30-second setup (4 steps) + 3-tier comparison + 3 pro tips
+- P2: Field-by-field setup map (10 critical tabs × cells × what-to-enter) + 3 anti-foot-gun reminders (APR decimal · COGS string · don't paste SSNs)
+- P3: First-30-day week-by-week playbook (Week 1 migrate → Week 2 receivables → Week 3 operations → Week 4 first month-close)
+
+**5 thumbnails** (all 2000×2000 PNG, sRGB):
+1. **Hero** — Dashboard mockup with Business Health Score 82/100 + runway meter + receivables aging bars. "$24 — $54 · One-time" pill in topbar. "23 tabs · 8 AI Prompts · 10 Invoice Templates · $24 Once" feature band.
+2. **KPI Dashboard close-up** — 8 KPI cards in 2×4 grid (Gross Margin / Net Margin / EBITDA / Runway / Burn Rate / Rev/Client / CAC / MoM Growth), each with value + trend + sparkline + context. Headline: "Every number a CFO would ask for. None of the consulting fees."
+3. **Invoice Tracker + Cash Flow Forecast** — 2-panel split: top = Invoice Tracker with status pills (Paid/Sent/Overdue), bottom = 12-week cash flow bar chart with W8 + W10–W12 marked danger red + AI Cash Flow Coach callout. Headline: "See danger months 60 days early."
+4. **AI Co-Pilot preview** — 5 prompt cards laid out diagonally (P&L Analyst / Cash Flow Coach / Concentration Risk / Tax Prep / Pricing Strategist), each with sample output. Headline: "8 AI prompts. Thinks like a CFO. Free-tier ready."
+5. **Anti-QuickBooks** — Side-by-side compare card (bad/good): QuickBooks $35–$235/mo (6 cons) vs. Small Business Finance Kit $24–$54 once (6 pros). Bottom banner: "Save $2,046 vs basic — or $14,046 vs Advanced over 5 years." Largest savings claim in the catalog.
+
+### Verification (in-session smoke test)
+- All 3 xlsx tiers built cleanly first try (179ms AI / 165ms Pro / 119ms Essentials).
+- AI PDF rendered 12 pages (verified via pypdf).
+- Quickstart rendered 3 pages.
+- All 5 thumbnails rendered at 2000×2000 RGB.
+- No formula errors during ExcelJS write.
+
+### Files (all new)
+- `tools/sheets-gen/templates/small-business-finance-kit.js`
+- `tools/sheets-gen/output/small-business-finance-kit-{essentials,pro,ai-edition}.xlsx`
+- `tools/pdf-gen/templates/small-business-ai-pdf.html` + `tools/pdf-gen/output/small-business-ai-pdf.pdf` (12 pages)
+- `tools/pdf-gen/templates/small-business-quickstart.html` + `tools/pdf-gen/output/small-business-quickstart.pdf` (3 pages)
+- `tools/thumb-gen/templates/small-business-finance-kit-{01-hero, 02-kpi-dashboard, 03-invoice-forecast, 04-ai-copilot, 05-anti-quickbooks}.html` (5 files)
+- `tools/thumb-gen/output/small-business-finance-kit-{01..05}-*.png` (5 files @ 2000×2000)
+- `session-handshake.md` (updated)
+- `docs/session-history.md` (this entry)
+
+### Decisions made
+- **Restraint overrides applied** per design brief §1 — small-business buyers want "professional accounting tool" aesthetics, not personal-finance warmth. Numeric right-alignment everywhere, emoji only in tab names, KPI tiles use thin borders rather than shadow opacity.
+- **Same fictional signage-shop persona** threads xlsx seed rows + AI PDF worked examples (Acme Realty 22% · 4 employees · $197K revenue). Persona continuity proven as a quality signal in Net Worth — retroactive across the catalog when iterating.
+- **Quickstart expanded to 3 pages** vs prior products' 1 page — Small Business is the largest + most complex product. Field-by-field setup map (page 2) + first-30-day playbook (page 3) reduce first-week support friction.
+- **Loan Amortization closed-form PMT** with zero-APR + zero-term guards (cascade of foot-gun lessons from DPP). APR validation 0–0.99 decimal range with stop errorStyle.
+- **Customer Profitability blended COGS apportionment** — per-customer COGS isn't tracked at row level, so we apportion the workbook's blended COGS rate to each customer's revenue. Acknowledged limitation; "Fire client" / "Star" pills still produce useful ranking even with the approximation.
+- **Anti-QuickBooks $2,046 / $14,046 savings math** carries from listing copy production notes into thumbnail #5 bottom banner — strongest verifiable savings claim in the catalog (QuickBooks pricing is famously public).
+- **No QA pass this session** — that's the next session's work (cascade from sinking-fund-qa-expert / debt-payoff-qa / net-worth-qa patterns).
+
+### Blockers / out-of-scope this session
+- No LibreOffice recalc verification → next session
+- No multi-persona simulation → next session
+- No Etsy push → next session (after QA)
+- No `small-business-qa` agent yet → build in next session
+
+### Next session pickup
+1. Build a `small-business-qa` agent (cascade from `net-worth-qa` / `sinking-fund-qa-expert`). Suggested 5 personas:
+   - Etsy seller (single proprietor, no payroll, single-channel)
+   - Service business (consultant, 1099-heavy, hourly billing, retainer)
+   - Trades / contractor (project costing, 2-3 employees, materials COGS-heavy)
+   - Early-stage product startup (inventory, multi-channel, growth phase)
+   - Mature small business (10 employees, payroll, multi-loan, recurring revenue)
+2. Edge cases to probe: zero-revenue start · negative net cash (multiple months) · §179 over-election (CNC scenario from AI PDF) · vehicle 75% biz-use math · payroll for contractor (no FICA) · SS wage-base hit (high earner) · invoice 90+ days · concentration > 50% (single-customer dependence) · A/R inflated by uncollectable receivables.
+3. If SHIP → push to Etsy as draft via `mcp__etsy__etsy_create_listing` (cascade from Budget Tracker pattern — taxonomy 12487 likely needs check since Small Business may map differently, 13 tags from listing copy v1 §5, 3-tier variations via `property_id 513`, new shop section "Small Business Spreadsheets").
+4. Storage upload all files (3 xlsx + 2 PDFs) to Supabase `downloads` bucket. Create `product_files` rows for each tier.
+
+### Safe to clear ✅
+
+---
+
+## Session 2026-05-23 (PM4) — Product 4 (Net Worth Tracker) — QA agent + 2-round audit
+
+### Direction
+User said: "Create a specialized QA subagent named 'net-worth-tracker-qa-expert' and run it against the Net Worth Tracker product bundle through TWO complete QA rounds with a fix-and-complement step between them."
+
+### What got built
+**New senior-grade QA agent** — `C:\Users\karee\.claude\agents\net-worth-tracker-qa-expert.md`. Cascade from `sinking-fund-qa-expert` adapted for personal-balance-sheet methodology (asset/liability taxonomy, home equity, multi-currency FX, snapshot time-series, FIRE 25× / 4% ratios, liquidity ratio, debt-to-asset, period-over-period CAGR). 5 persona templates baked in (Yusuf negative-NW EGP / Mariam & Tarek dual-income family / Kareem HNW multi-currency / Hany pre-retiree FI / Layla volatile crypto). Dispatchable as a proper `subagent_type` next session.
+
+**QA agent dispatched** in background via `general-purpose` (the new agent type wasn't loaded mid-session). Ran for ~33 minutes through the full 2-round protocol.
+
+### Findings
+**Round 1 verdict: HOLD.** 34 issues identified:
+- **6 Critical** — FIRE Number formula referenced wrong cells (`C8*C9` instead of computed value, returned $0 on every persona); FIRE scenarios Aggressive + Current missing entirely; Years-to-FIRE used age cell not savings cell; Age-at-FIRE referenced a section subtitle row; pervasive KPI banner off-by-one across 52 formulas / 12 sheets (caused most downstream KPI emptiness); Dashboard "Asset mix" malformed range `N14:14` returned 0.
+- **9 High** — including Stocks COST BASIS misusing SUMPRODUCT; TROUGH MIN(IF()) non-portable; debt/asset shows 0% when assets=0; Vehicle Depreciation empty rows show $0; NW History future rows show $0 NW; Real Estate KPI totals exclude Primary; no FX / multi-currency support at all (closed via complement).
+- **13 Medium, 6 Low**.
+
+### Fix-and-Complement step
+22 fixes + 5 high-value complements applied to `tools/qa/fixed/net-worth-tracker-{essentials,pro,ai-edition}.xlsx`. Originals in `tools/sheets-gen/output/` UNTOUCHED per QA protocol (awaiting approval to promote into the source template).
+
+**5 complements added:**
+1. **⚙️ Settings & FX tab with 10 currencies** (USD/EUR/GBP/CAD/AUD/AED/SAR/EGP/INR/JPY) — closes the multi-currency gap that blocked Persona 3 / HNW use case
+2. **📄 One-page printable Statement tab** for advisor / underwriter / lender handoff
+3. **Dashboard four-cell Liquidity & FI snapshot block** (Months of Expenses · Liquid NW · FI Progress · NW Delta MoM) — addresses NWT-022 + NWT-023
+4. **Tooltips on every input cell** (currency, valuation date, category)
+5. **Widened 8-digit-safe columns** for HNW use (Persona 3's $5.2M displays as `$5,208,454` cleanly)
+
+### Round 2 verdict: SHIP-WITH-FIXES
+- **22 FIXED** (incl. all 6 Critical + all 9 High Round-1 issues)
+- **2 PARTIALLY FIXED** (NWT-010 8-digit live GUI render deferred; NWT-032 snapshot-capture macro still MISSING)
+- **10 NOT FIXED** (all deferred Medium/Low, none ship-blocking — listed in residual table in the Round 2 report)
+- **0 REGRESSED**
+- **1 NEW** (NWT-037 Low: "Years to FIRE: -2.1 yrs" should read "FI Achieved" when NW>=FIRE Number — cosmetic v1.1 polish)
+
+**Persona re-run on fixed files** — all 5 personas pass end-to-end. Reference values from the agent definition file match evaluated values within rounding tolerance:
+- P1 Yusuf: NW = -EGP 122,000 ✓ · FIRE Number EGP 4,500,000 ✓ · Health Score 33 (correctly low for negative NW)
+- P2 Mariam & Tarek: NW = $421,000 ✓ · FIRE Number $2,250,000 ✓ · FI% 18.7% ✓ · Health Score 40
+- P3 Kareem: NW = $4,731,694 ✓ · FIRE Number $6,250,000 ✓ · FI% 75.7% ✓ · FX table 10 currencies ✓ · 8-digit values render cleanly ✓ · Health Score 85
+- P4 Hany: NW = $2,729,700 ✓ · **FIRE Number $2,375,000 ✓ · FI% 114.9% ✓** (this was THE Round-1 failure — every value returned 0%) · Health Score 94
+- P5 Layla: NW = $162,000 ✓ · FIRE Number $1,875,000 ✓ · FI% 8.6% ✓ · Health Score 36
+
+### Files (deliverables in `tools/qa/output/` — gitignored, regenerable)
+- `tools/qa/output/net-worth-tracker-qa-round1-report.md` (37 KB) — Round 1 findings
+- `tools/qa/output/net-worth-tracker-fix-changelog.md` (13 KB) — every [FIX] + [COMPLEMENT]
+- `tools/qa/output/net-worth-tracker-qa-round2-report.md` (21 KB) — final verdict + listing-readiness + suggested listing copy
+
+### Files (committed sources)
+- `C:\Users\karee\.claude\agents\net-worth-tracker-qa-expert.md` (NEW) — agent definition (lives in user-global `~/.claude/agents/`, NOT in this repo)
+- `tools/qa/scripts/nwt_*.py` (NEW, 8 scripts) — reproducible test harness (stage A scaffolding, persona drivers, edge probes, CF audit, PDF/thumb checker, round 2 personas/edges, apply_fixes orchestrator)
+- `tools/qa/fixed/net-worth-tracker-{essentials,pro,ai-edition}.xlsx` (NEW) — fixed copies awaiting promotion. Note: tools/qa/fixed is now in .gitignore per prior session's policy, so these stay local until promoted to source.
+- `session-handshake.md` (updated — PM4 layered on top of PM3)
+- `docs/session-history.md` (this entry)
+
+### Decisions made
+- **Cell-by-cell promotion path** chosen for next session — rather than swapping the fixed xlsx into `tools/sheets-gen/output/` (which would orphan the JS template), port each of the 22 fixes back into `tools/sheets-gen/templates/net-worth-tracker.js` so future regenerations stay correct. The changelog at `tools/qa/output/net-worth-tracker-fix-changelog.md` is the authoritative diff.
+- **Two unsubstantiated marketing claims must be stripped** before Etsy push: "One-click snapshot capture" (no macro present) and "Auto-converts currencies" (FX table present; consumer-cell wiring deferred). Replace with: "Multi-currency-ready with editable FX table" — accurate.
+- **Suggested listing title from QA**: "Net Worth Tracker — FIRE Calculator, Multi-Currency, Asset Allocation Drift Alerts | Excel + Google Sheets | AI Edition" — 137 chars, within Etsy's 140-char limit.
+
+### Blockers / out-of-scope this session
+- Promotion of fixes from `tools/qa/fixed/*.xlsx` back into `tools/sheets-gen/templates/net-worth-tracker.js` → next session
+- Etsy push of Net Worth → next session (after promotion)
+- Live CF firing PNG render (NWT-027) → requires GUI workflow, deferred
+- Snapshot-capture macro + workbook-wide currency-aware number format → v1.1
+
+### Next session pickup
+1. **Promote fixes** — open `tools/qa/output/net-worth-tracker-fix-changelog.md`, walk through the 22 [FIX] entries cell-by-cell, port each into `tools/sheets-gen/templates/net-worth-tracker.js`. Regenerate 3 tiers, smoke-test against persona inputs.
+2. **Strip 2 unsubstantiated claims** from listing copy + thumbnails before Etsy push.
+3. **Push to Etsy as draft** via `mcp__etsy__etsy_create_listing` cascade from Budget Tracker pattern (taxonomy 12487 Personal Finance Templates, 13 tags from QA's final suggested listing copy, 3-tier variations via property_id 513, new shop section "Net Worth & FIRE Spreadsheets").
+4. **Storage upload** all 5 files (3 xlsx + 2 PDFs) to Supabase `downloads` bucket. Create `product_files` rows.
+5. After NWT ships → cascade Small Business Finance Kit (Product 5) through the same QA pattern (PM3 sibling already built the bundle; needs the QA pass).
+
+### Safe to clear ✅

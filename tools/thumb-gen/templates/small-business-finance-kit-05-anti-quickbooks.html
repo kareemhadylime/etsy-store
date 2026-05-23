@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Small Business Finance Kit — Thumbnail 05 Anti-QuickBooks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary-charcoal: #1F2A33;
+    --secondary-warm-gold: #C9A14A;
+    --background-off-white: #F7F5F0;
+    --surface-white: #FFFFFF;
+    --status-success: #3F6B4D;
+    --status-warning: #B57A2A;
+    --status-alert: #9B3A30;
+    --neutral-grid: #D8DCDF;
+    --ivory: #FAF7F0;
+    --alert-light: #F0DBD9;
+    --success-light: #D9E5DC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--background-off-white);
+    color: var(--primary-charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .title-block { position: absolute; top: 130px; left: 90px; right: 90px; text-align: center; }
+  .title-eyebrow {
+    font-size: 28px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--secondary-warm-gold); margin-bottom: 24px;
+  }
+  .title-main { font-size: 100px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 22px; max-width: 1750px; margin-left: auto; margin-right: auto; }
+  .title-main .accent { color: var(--secondary-warm-gold); }
+  .gold-bar { width: 220px; height: 8px; background: var(--secondary-warm-gold); margin: 0 auto 22px; }
+  .title-sub { font-size: 30px; font-weight: 500; opacity: 0.7; line-height: 1.35; max-width: 1500px; margin: 0 auto; }
+
+  .compare {
+    position: absolute; left: 90px; right: 90px; top: 680px; bottom: 220px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
+  }
+  .compare-col {
+    background: var(--surface-white); border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(31,42,51,0.12), 0 6px 14px rgba(31,42,51,0.06);
+    overflow: hidden; border: 1px solid rgba(31,42,51,0.06);
+    display: flex; flex-direction: column;
+  }
+  .compare-col.bad .compare-header { background: var(--alert-light); color: var(--status-alert); }
+  .compare-col.good .compare-header { background: var(--success-light); color: var(--status-success); }
+  .compare-header {
+    padding: 32px 40px;
+    border-bottom: 1px solid var(--neutral-grid);
+    text-align: center;
+  }
+  .compare-header .label { font-size: 16px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 12px; opacity: 0.7; }
+  .compare-header .name { font-size: 44px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 14px; }
+  .compare-header .price { font-size: 72px; font-weight: 700; letter-spacing: -0.025em; line-height: 1; }
+  .compare-header .price-sub { font-size: 22px; font-weight: 600; opacity: 0.65; margin-top: 8px; }
+
+  .compare-body { padding: 26px 36px; flex: 1; }
+  .compare-row {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 21px; font-weight: 500; padding: 12px 0;
+    border-bottom: 1px solid var(--neutral-grid);
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .icon { font-size: 24px; line-height: 1; width: 30px; text-align: center; }
+  .compare-row.bad .icon { color: var(--status-alert); }
+  .compare-row.good .icon { color: var(--status-success); }
+  .compare-row .label-text { flex: 1; }
+  .compare-row .value { font-weight: 700; opacity: 0.6; font-size: 18px; }
+
+  .savings-banner {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+    background: var(--primary-charcoal); color: var(--surface-white);
+    display: flex; justify-content: center; align-items: center; padding: 0 90px;
+  }
+  .savings-text { font-size: 32px; font-weight: 500; text-align: center; max-width: 1750px; line-height: 1.3; }
+  .savings-text .accent { color: var(--secondary-warm-gold); font-weight: 700; }
+  .savings-text .big-num { font-size: 48px; font-weight: 700; color: var(--secondary-warm-gold); letter-spacing: -0.02em; }
+</style>
+</head>
+<body>
+
+<div class="title-block">
+  <div class="title-eyebrow">Anti-Subscription · Privacy-First Spreadsheet</div>
+  <div class="title-main">QuickBooks: $35 — $235/mo.<br>Us: <span class="accent">$24 once.</span></div>
+  <div class="gold-bar"></div>
+  <div class="title-sub">Same P&amp;L. Same payroll. Same tax prep. No SaaS lock-in. No data harvesting.</div>
+</div>
+
+<div class="compare">
+  <div class="compare-col bad">
+    <div class="compare-header">
+      <div class="label">The App</div>
+      <div class="name">QuickBooks Online</div>
+      <div class="price">$35 — $235</div>
+      <div class="price-sub">per month · forever</div>
+    </div>
+    <div class="compare-body">
+      <div class="compare-row bad">
+        <span class="icon">✕</span>
+        <span class="label-text">Monthly subscription that creeps every year</span>
+        <span class="value">$420 — $2,820 / yr</span>
+      </div>
+      <div class="compare-row bad">
+        <span class="icon">✕</span>
+        <span class="label-text">Bank sync requires handing over credentials</span>
+      </div>
+      <div class="compare-row bad">
+        <span class="icon">✕</span>
+        <span class="label-text">Stop paying → your data is held hostage</span>
+      </div>
+      <div class="compare-row bad">
+        <span class="icon">✕</span>
+        <span class="label-text">Payroll add-on: extra $45 — $125/mo</span>
+      </div>
+      <div class="compare-row bad">
+        <span class="icon">✕</span>
+        <span class="label-text">AI features locked behind highest tier</span>
+      </div>
+      <div class="compare-row bad">
+        <span class="icon">✕</span>
+        <span class="label-text">Data monetized to lenders + payroll partners</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="compare-col good">
+    <div class="compare-header">
+      <div class="label">Small Business Finance Kit</div>
+      <div class="name">Lime Premium Studios</div>
+      <div class="price">$24 — $54</div>
+      <div class="price-sub">one-time · forever</div>
+    </div>
+    <div class="compare-body">
+      <div class="compare-row good">
+        <span class="icon">✓</span>
+        <span class="label-text">Pay once. Use forever. No surprise tier changes</span>
+        <span class="value">$24 — $54</span>
+      </div>
+      <div class="compare-row good">
+        <span class="icon">✓</span>
+        <span class="label-text">No bank sync. No Plaid. Your credentials stay yours</span>
+      </div>
+      <div class="compare-row good">
+        <span class="icon">✓</span>
+        <span class="label-text">It's a Google Sheet. Export anywhere. Forever</span>
+      </div>
+      <div class="compare-row good">
+        <span class="icon">✓</span>
+        <span class="label-text">Payroll included in Pro (10 employees)</span>
+      </div>
+      <div class="compare-row good">
+        <span class="icon">✓</span>
+        <span class="label-text">8 AI prompts work with ChatGPT/Claude free tier</span>
+      </div>
+      <div class="compare-row good">
+        <span class="icon">✓</span>
+        <span class="label-text">Your books stay yours. We never see your data</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="savings-banner">
+  <div class="savings-text">
+    Over 5 years, you save <span class="big-num">$2,046</span> vs QuickBooks basic — or <span class="big-num">$14,046</span> vs QuickBooks Advanced.
+  </div>
+</div>
+
+</body>
+</html>
