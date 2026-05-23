@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notion Life OS — Thumb 05 Comparison Strip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #1F2A33;
+    --gold: #C9A14A;
+    --ivory: #F7F5F0;
+    --grid: #D8DCDF;
+    --notion-blue: #2383E2;
+    --notion-blue-soft: #E7F1FB;
+    --success: #3F6B4D;
+    --warn: #B57A2A;
+    --alert: #9B3A30;
+    --muted: #94918A;
+    --plain: #F2F1EE;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--ivory);
+    color: var(--charcoal);
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 140px;
+    background: var(--charcoal); color: white;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 90px;
+  }
+  .wordmark { font-size: 26px; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; }
+  .vs-pill {
+    background: var(--gold); color: var(--charcoal);
+    font-size: 28px; font-weight: 800; padding: 12px 36px; border-radius: 999px;
+  }
+
+  .headline {
+    position: absolute; top: 180px; left: 90px; right: 90px; text-align: center;
+  }
+  .eyebrow {
+    font-size: 24px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px;
+  }
+  .h-main {
+    font-size: 140px; font-weight: 800; line-height: 0.95; letter-spacing: -0.035em;
+    color: var(--charcoal);
+  }
+  .h-main .gold { color: var(--gold); }
+  .gold-bar { width: 180px; height: 6px; background: var(--gold); margin: 22px auto 16px; }
+  .h-sub {
+    font-size: 26px; font-weight: 500; line-height: 1.35;
+    opacity: 0.78; max-width: 1500px; margin: 0 auto;
+  }
+
+  /* Side-by-side */
+  .strip {
+    position: absolute;
+    left: 90px; right: 90px;
+    top: 760px; height: 1010px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  .pane {
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(31,42,51,0.10);
+    display: flex; flex-direction: column;
+  }
+  .pane.bad {
+    background: var(--plain);
+    border: 1px solid var(--grid);
+  }
+  .pane.good {
+    background: white;
+    border: 2px solid var(--gold);
+  }
+  .pane-label {
+    padding: 22px 28px;
+    font-size: 22px; font-weight: 800; letter-spacing: -0.01em;
+    border-bottom: 1px solid var(--grid);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .pane.bad .pane-label { color: var(--muted); }
+  .pane.good .pane-label { color: var(--charcoal); background: var(--gold); border-color: var(--gold); }
+  .pane.good .pane-label .price { color: var(--charcoal); }
+  .pane .pane-label .price {
+    font-size: 26px; font-weight: 800;
+  }
+  .pane.bad .pane-label .price { color: var(--muted); text-decoration: line-through; }
+
+  .pane-body { padding: 28px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+  /* BAD pane content — minimalist / empty feel */
+  .bad-page {
+    background: white; border: 1px solid var(--grid); border-radius: 6px;
+    padding: 22px; flex: 1; display: flex; flex-direction: column;
+  }
+  .bad-h1 {
+    font-size: 32px; font-weight: 700; color: var(--charcoal);
+    margin-bottom: 22px; opacity: 0.4;
+  }
+  .bad-empty-db {
+    border: 2px dashed var(--grid);
+    border-radius: 6px; padding: 26px;
+    text-align: center; color: var(--muted);
+    font-size: 18px; flex: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px;
+  }
+  .bad-empty-db .plus { font-size: 48px; color: var(--grid); }
+  .bad-empty-db .label { font-size: 16px; }
+  .bad-empty-db .sub { font-size: 13px; opacity: 0.6; max-width: 360px; line-height: 1.4; }
+  .bad-list { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .bad-list li { padding-left: 16px; position: relative; list-style: none; }
+  .bad-list li::before { content: '·'; position: absolute; left: 0; font-weight: 800; }
+
+  /* GOOD pane content — same wireframe pattern as thumb #1 */
+  .good-page {
+    background: white; border: 1px solid var(--grid); border-radius: 6px;
+    padding: 18px; flex: 1; display: flex; flex-direction: column; gap: 12px;
+  }
+  .gp-banner {
+    height: 60px; border-radius: 4px;
+    background: linear-gradient(135deg, #1F2A33 0%, #8C7235 75%, #C9A14A 100%);
+  }
+  .gp-h1 { font-size: 24px; font-weight: 800; }
+  .gp-call {
+    background: var(--notion-blue-soft); border-left: 3px solid var(--notion-blue);
+    padding: 8px 12px; border-radius: 4px;
+    font-size: 13px;
+  }
+  .gp-kpis { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .gp-k { background: white; border: 1px solid var(--grid); border-left: 3px solid var(--notion-blue); border-radius: 4px; padding: 8px 10px; }
+  .gp-k .l { font-size: 9px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; opacity: 0.55; }
+  .gp-k .v { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
+  .gp-rows { background: white; border: 1px solid var(--grid); border-radius: 4px; overflow: hidden; flex: 1; }
+  .gp-row { display: grid; grid-template-columns: 1.6fr 0.9fr 0.9fr; padding: 7px 10px; border-bottom: 1px solid var(--grid); font-size: 12px; align-items: center; }
+  .gp-row:last-child { border-bottom: none; }
+  .gp-row .nm { font-weight: 700; }
+  .gp-row .nm .ic { margin-right: 4px; }
+  .gp-row .vn { font-weight: 700; font-size: 12px; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 700; }
+  .pill.g { background: #E5F0E8; color: var(--success); }
+  .pill.y { background: #FBEDD1; color: var(--warn); }
+  .pill.r { background: #F5DDD9; color: var(--alert); }
+
+  .feats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px;
+    margin-top: 4px;
+    font-size: 12px;
+  }
+  .feats .ft { background: #FBFAF8; border-radius: 4px; padding: 6px 8px; }
+  .feats .ft .x { color: var(--alert); font-weight: 800; margin-right: 4px; }
+  .feats .ft .ck { color: var(--success); font-weight: 800; margin-right: 4px; }
+
+  /* Bottom band — the pointed caption */
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 170px;
+    background: var(--charcoal); color: white;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 0 90px;
+    text-align: center;
+  }
+  .bb-main {
+    font-size: 32px; font-weight: 800; letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .bb-main .gold { color: var(--gold); }
+  .bb-sub {
+    font-size: 22px; font-weight: 500; color: rgba(255,255,255,0.78);
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="vs-pill">$9 vs $24</div>
+  </div>
+
+  <div class="headline">
+    <div class="eyebrow">Why pay $24 instead of $9?</div>
+    <div class="h-main">Same Notion.<br><span class="gold">15× more workspace.</span></div>
+    <div class="gold-bar"></div>
+    <div class="h-sub">The cheap ones are empty pages. This one already has the dashboard, rollups, formulas, views, and 25 rows of realistic data.</div>
+  </div>
+
+  <div class="strip">
+    <!-- BAD pane -->
+    <div class="pane bad">
+      <div class="pane-label">
+        <div>Generic Notion budget template</div>
+        <div class="price">$9</div>
+      </div>
+      <div class="pane-body">
+        <div class="bad-page">
+          <div class="bad-h1">Budget Tracker</div>
+          <div class="bad-empty-db">
+            <div class="plus">+</div>
+            <div class="label">Empty database</div>
+            <div class="sub">Add expenses · Add categories · Add views · Add rollups · Wire relations · Write formulas. ~4–6 hours to make it usable.</div>
+          </div>
+          <ul class="bad-list" style="margin-top:14px">
+            <li>1 database (no relations)</li>
+            <li>No rollups, no progress bars, no status formulas</li>
+            <li>No dashboard, no KPIs, no linked views</li>
+            <li>No seed data — blank from minute 1</li>
+            <li>One screenshot for marketing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOOD pane -->
+    <div class="pane good">
+      <div class="pane-label">
+        <div>Notion Life OS · Essentials</div>
+        <div class="price">$24</div>
+      </div>
+      <div class="pane-body">
+        <div class="good-page">
+          <div class="gp-banner"></div>
+          <div class="gp-h1">💰 Notion Budget OS</div>
+          <div class="gp-call">💡 Your monthly money brain — already wired.</div>
+          <div class="gp-kpis">
+            <div class="gp-k"><div class="l">Spent</div><div class="v">$535</div></div>
+            <div class="gp-k"><div class="l">Budget</div><div class="v">$1,180</div></div>
+            <div class="gp-k"><div class="l">Remaining</div><div class="v" style="color:var(--success)">$644</div></div>
+          </div>
+          <div class="gp-rows">
+            <div class="gp-row"><div class="nm"><span class="ic">🛒</span>Groceries</div><div class="vn">▰▰▰▰▱▱▱▱▱▱ 44%</div><div><span class="pill g">🟢 On track</span></div></div>
+            <div class="gp-row"><div class="nm"><span class="ic">🚗</span>Transport</div><div class="vn">▰▰▰▱▱▱▱▱▱▱ 38%</div><div><span class="pill g">🟢 On track</span></div></div>
+            <div class="gp-row"><div class="nm"><span class="ic">🛍️</span>Shopping</div><div class="vn">▰▰▰▰▰▰▰▰▱▱ 82%</div><div><span class="pill y">🟡 Watch</span></div></div>
+            <div class="gp-row"><div class="nm"><span class="ic">📺</span>Subscriptions</div><div class="vn">▰▰▰▰▰▰▰▰▰▰ 120%</div><div><span class="pill r">🔴 Over</span></div></div>
+          </div>
+          <div class="feats">
+            <div class="ft"><span class="ck">✓</span>5 databases + relations</div>
+            <div class="ft"><span class="ck">✓</span>13 pre-built views</div>
+            <div class="ft"><span class="ck">✓</span>Rollups + status formulas</div>
+            <div class="ft"><span class="ck">✓</span>25 rows of seed data</div>
+            <div class="ft"><span class="ck">✓</span>6 custom page banners</div>
+            <div class="ft"><span class="ck">✓</span>5-page Setup PDF</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-band">
+    <div class="bb-main">Because $9 templates are <span class="gold">empty pages with a header.</span></div>
+    <div class="bb-sub">The $20 difference = 4–6 hours you don't have to spend building rollups yourself.</div>
+  </div>
+</body>
+</html>

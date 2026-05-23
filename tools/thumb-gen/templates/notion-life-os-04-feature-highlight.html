@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notion Life OS — Thumb 04 Feature Highlight</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #1F2A33;
+    --gold: #C9A14A;
+    --ivory: #F7F5F0;
+    --grid: #D8DCDF;
+    --notion-blue: #2383E2;
+    --notion-blue-soft: #E7F1FB;
+    --success: #3F6B4D;
+    --warn: #B57A2A;
+    --alert: #9B3A30;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 2000px; height: 2000px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: linear-gradient(170deg, #1F2A33 0%, #2A3540 60%, #3A4954 100%);
+    color: white;
+    position: relative; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(135deg, rgba(255,255,255,0.012) 0 2px, transparent 2px 100px);
+    pointer-events: none;
+  }
+
+  .topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 130px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 90px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+  }
+  .wordmark { font-size: 24px; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; color: white; }
+  .price-pill {
+    background: var(--gold); color: var(--charcoal);
+    font-size: 26px; font-weight: 800; padding: 12px 30px; border-radius: 999px;
+  }
+
+  .headline {
+    position: absolute; top: 180px; left: 90px; right: 90px; text-align: center;
+  }
+  .eyebrow {
+    font-size: 24px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 14px;
+  }
+  .h-main {
+    font-size: 132px; font-weight: 800; line-height: 0.95; letter-spacing: -0.035em;
+    color: white;
+  }
+  .h-main .gold { color: var(--gold); }
+  .gold-bar { width: 180px; height: 6px; background: var(--gold); margin: 22px auto 16px; }
+  .h-sub {
+    font-size: 28px; font-weight: 500; line-height: 1.35;
+    color: rgba(255,255,255,0.78); max-width: 1500px; margin: 0 auto;
+  }
+
+  /* Floating mockup of Budget by Category page */
+  .mock-shell {
+    position: absolute;
+    left: 200px; right: 200px;
+    top: 770px; height: 880px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.50), 0 12px 30px rgba(0,0,0,0.30);
+    overflow: hidden;
+    color: var(--charcoal);
+  }
+  .mock-chrome {
+    background: #FBFAF8;
+    border-bottom: 1px solid var(--grid);
+    padding: 16px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 16px;
+  }
+  .mc-left { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+  .mc-icon { font-size: 20px; }
+  .mc-views {
+    display: flex; gap: 16px; font-size: 13px; opacity: 0.7;
+  }
+  .mc-views .v.active { color: var(--notion-blue); font-weight: 700; opacity: 1; border-bottom: 2px solid var(--notion-blue); padding-bottom: 2px; }
+
+  .mock-body { padding: 28px 36px; }
+
+  /* Filter pills */
+  .filter-row { display: flex; gap: 10px; margin-bottom: 22px; }
+  .pill-filter {
+    background: white; border: 1px solid var(--grid);
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 14px; font-weight: 600;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .pill-filter.active { background: var(--notion-blue); border-color: var(--notion-blue); color: white; }
+
+  /* Big table */
+  .tbl { background: white; border: 1px solid var(--grid); border-radius: 8px; overflow: hidden; }
+  .tbl-hdr, .tbl-row {
+    display: grid;
+    grid-template-columns: 60px 1.6fr 0.9fr 0.9fr 1.8fr 1fr;
+    align-items: center;
+    padding: 16px 22px;
+    font-size: 16px;
+  }
+  .tbl-hdr {
+    background: #FBFAF8;
+    border-bottom: 1px solid var(--grid);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase; opacity: 0.65;
+  }
+  .tbl-row { border-bottom: 1px solid var(--grid); }
+  .tbl-row:last-child { border-bottom: none; }
+  .tbl-row .icon { font-size: 22px; }
+  .tbl-row .name { font-weight: 700; font-size: 18px; }
+  .tbl-row .num { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+  .tbl-row .bar { font-family: 'Inter', monospace; font-size: 15px; color: var(--charcoal); letter-spacing: -0.02em; font-weight: 600; }
+  .pill {
+    display: inline-block; padding: 4px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 700;
+  }
+  .pill.g { background: #E5F0E8; color: var(--success); }
+  .pill.y { background: #FBEDD1; color: var(--warn); }
+  .pill.r { background: #F5DDD9; color: var(--alert); }
+
+  .bottom-band {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 170px;
+    background: var(--charcoal); color: white;
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 0 90px;
+  }
+  .feat { display: flex; flex-direction: column; align-items: center; }
+  .feat-num { font-size: 56px; font-weight: 800; color: var(--gold); line-height: 1.0; letter-spacing: -0.02em; }
+  .feat-label { font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; margin-top: 6px; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wordmark">LIME PREMIUM STUDIOS</div>
+    <div class="price-pill">Notion Life OS · $24</div>
+  </div>
+
+  <div class="headline">
+    <div class="eyebrow">Real Notion formulas. Real rollups.</div>
+    <div class="h-main">Pre-built rollups.<br><span class="gold">Not blank pages.</span></div>
+    <div class="gold-bar"></div>
+    <div class="h-sub">Every category rolls up its actual spending. Progress bars render in Notion. Status pills change colour as you spend.</div>
+  </div>
+
+  <div class="mock-shell">
+    <div class="mock-chrome">
+      <div class="mc-left"><span class="mc-icon">🎯</span>Budget by Category</div>
+      <div class="mc-views">
+        <div class="v active">⊞ Gallery</div>
+        <div class="v">≡ Table</div>
+        <div class="v">⚠ Over Budget Only</div>
+      </div>
+    </div>
+    <div class="mock-body">
+      <div class="filter-row">
+        <div class="pill-filter active">📅 This Month</div>
+        <div class="pill-filter">Sort: Target ↓</div>
+        <div class="pill-filter">All categories</div>
+        <div class="pill-filter">+ Add filter</div>
+      </div>
+
+      <div class="tbl">
+        <div class="tbl-hdr">
+          <div>ICON</div><div>NAME</div><div>TARGET</div><div>SPENT</div><div>PROGRESS</div><div>STATUS</div>
+        </div>
+        <div class="tbl-row">
+          <div class="icon">🛒</div><div class="name">Groceries</div>
+          <div class="num">$500</div><div class="num">$218.45</div>
+          <div class="bar">▰▰▰▰▱▱▱▱▱▱ 44%</div>
+          <div><span class="pill g">🟢 On track</span></div>
+        </div>
+        <div class="tbl-row">
+          <div class="icon">🚗</div><div class="name">Transport</div>
+          <div class="num">$250</div><div class="num">$94.05</div>
+          <div class="bar">▰▰▰▱▱▱▱▱▱▱ 38%</div>
+          <div><span class="pill g">🟢 On track</span></div>
+        </div>
+        <div class="tbl-row">
+          <div class="icon">🍽️</div><div class="name">Dining</div>
+          <div class="num">$200</div><div class="num">$76.70</div>
+          <div class="bar">▰▰▰▰▱▱▱▱▱▱ 38%</div>
+          <div><span class="pill g">🟢 On track</span></div>
+        </div>
+        <div class="tbl-row">
+          <div class="icon">🛍️</div><div class="name">Shopping</div>
+          <div class="num">$150</div><div class="num">$123.00</div>
+          <div class="bar">▰▰▰▰▰▰▰▰▱▱ 82%</div>
+          <div><span class="pill y">🟡 Watch</span></div>
+        </div>
+        <div class="tbl-row">
+          <div class="icon">📺</div><div class="name">Subscriptions</div>
+          <div class="num">$80</div><div class="num">$95.97</div>
+          <div class="bar">▰▰▰▰▰▰▰▰▰▰ 120%</div>
+          <div><span class="pill r">🔴 Over</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-band">
+    <div class="feat"><div class="feat-num">▰▱</div><div class="feat-label">Unicode<br>Progress Bars</div></div>
+    <div class="feat"><div class="feat-num">∑</div><div class="feat-label">Auto<br>Rollups</div></div>
+    <div class="feat"><div class="feat-num">🟢🟡🔴</div><div class="feat-label">Status<br>Formulas</div></div>
+    <div class="feat"><div class="feat-num">📱</div><div class="feat-label">Mobile<br>Ready</div></div>
+    <div class="feat"><div class="feat-num">🆓</div><div class="feat-label">Free<br>Notion Tier</div></div>
+  </div>
+</body>
+</html>

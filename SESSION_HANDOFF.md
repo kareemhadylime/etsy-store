@@ -1,5 +1,24 @@
 # Etsy Store — Session Handoff
 
+## 🧹 2026-05-17 — Sweep-up: bundle-audit QA + Notion-banner thumb templates (no new work this session)
+
+End-of-session housekeeping pass — no new work in `etsy-store` this session (the session was a Beithady `/pace` route build in `kareemhady`). But the working tree had accumulated 20 untracked/modified files from prior sessions that never got committed. Sweeping them up now per cross-project standing-order so origin reflects local state.
+
+**Files swept up:**
+
+- **Modified (5):** `docs/session-history.md`, `session-handshake.md`, `tools/sheets-gen/templates/family-education-planner.js`, `tools/thumb-gen/templates/family-education-planner-01-hero.html`, `tools/thumb-gen/templates/family-education-planner-03-efc-aid.html`
+- **New (15):**
+  - `tools/qa/bundle-audit/` (whole directory)
+  - `tools/qa/scripts/bundle_audit.py`, `bundle_smoke.py`, `dig_failures.py`, `persona1_yusuf.py`
+  - `tools/thumb-gen/generate-banners.js` + 6 Notion banner templates (budget / expense / home / income / recurring / subscriptions)
+  - 3 Notion Life-OS thumbnail templates (01-hero, 02-page-tour, 03-duplicate-flow)
+
+**State left in:** Files committed locally and pushed to `main`. Vercel auto-deploy unaffected (no app code changed; this is QA tooling + asset generation only).
+
+**Next session:** Nothing pending in this repo.
+
+---
+
 ## 🧹 2026-05-23 (PM3) — Sweep-up push: 7 prior-session commits never reached origin
 
 End-of-session housekeeping pass — no new work this session (the session was MileHall-focused), but `git rev-list origin/main..HEAD --count` returned **7** unpushed commits from the earlier Net Worth Tracker work + the subsequent Wedding Planner / All-in-One Bundle builds. Pushing them now per the cross-project standing-order so origin reflects the actual local state and Vercel auto-deploy can pick them up.
