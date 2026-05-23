@@ -562,7 +562,14 @@ function buildCashAndFX(workbook) {
   sheet.getRow(r + 14).height = 30;
   sheet.getRow(r + 15).height = 30;
 
-  addFooter(sheet, r + 19, { productName: PRODUCT_NAME });
+  // [FIX-BNDL-006] BUNDLE NOTE — FX rates must stay in sync with Net Worth Tracker (B26)
+  addCallout(sheet, `B${r + 17}:L${r + 17}`,
+    '🔗',
+    'BUNDLE NOTE — FX rates must match Net Worth Tracker',
+    'If you also own the Net Worth Tracker (bundled), the FX rates above MUST match the NWT ⚙️ Settings & FX rate table. Each workbook keeps an independent table so each remains usable standalone — but for the bundle to reconcile, edits must be mirrored. Alternative: use =GOOGLEFINANCE("CURRENCY:USDEUR") in both workbooks (Google Sheets only).');
+  sheet.getRow(r + 17).height = 40;
+
+  addFooter(sheet, r + 20, { productName: PRODUCT_NAME });
 }
 
 // ============================================================================
@@ -2188,8 +2195,8 @@ function buildScenarioSimulator(workbook) {
       { label: 'CURRENT $', value: { formula: `TEXT(SUM('📊 Holdings Master'!J${HOLDINGS.FIRST_ROW}:J${HOLDINGS.LAST_ROW}),"$#,##0")` } },
       { label: 'SCENARIO',  value: { formula: `IFERROR(C5,"—")` } },
       { label: 'POST-SHOCK',value: { formula: `TEXT(IFERROR(C8,0),"$#,##0")` } },
-      { label: 'RECOVERY',  value: { formula: `IFERROR(C11&" mo",—)` } },
-      { label: 'FIRE DELAY',value: { formula: `IFERROR(C13&" mo",—)` } },
+      { label: 'RECOVERY',  value: { formula: `IFERROR(C11&" mo","—")` } },
+      { label: 'FIRE DELAY',value: { formula: `IFERROR(C13&" mo","—")` } },
       { label: 'RETURN ASS',value: '6% real' },
     ],
   });

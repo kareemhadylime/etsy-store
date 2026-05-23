@@ -473,6 +473,11 @@ function buildAssetsSummary(workbook) {
     // Sage column-A 12px accent strip per design brief
     sheet.getCell(`A${ri}`).fill = FILLS.successLight;
 
+    // [FIX-BNDL-005] Cross-SKU cell comment on Stocks & Funds row → IPT linkage
+    if (i === 7) {
+      sheet.getCell(`B${ri}`).note = 'BUNDLE NOTE — If you also own the Investment Portfolio Tracker (bundled), this row should equal IPT 🏠 Dashboard → Total MV. The two workbooks intentionally do NOT auto-link so each remains usable standalone. Update at month-end after editing IPT.';
+    }
+
     allMonthCols.forEach((col, mi) => {
       const val = row[monthKeys[mi]];
       sheet.getCell(`${col}${ri}`).value = val || null;
@@ -507,7 +512,21 @@ function buildAssetsSummary(workbook) {
   sheet.getRow(ASSETS.TOTAL_ROW + 2).height = 28;
   sheet.getRow(ASSETS.TOTAL_ROW + 3).height = 28;
 
-  addFooter(sheet, ASSETS.TOTAL_ROW + 7, { productName: PRODUCT_NAME });
+  // [FIX-BNDL-005] Visible BUNDLE NOTE — Investment Portfolio link (B30)
+  addCallout(sheet, `B${ASSETS.TOTAL_ROW + 4}:N${ASSETS.TOTAL_ROW + 4}`,
+    '🔗',
+    'BUNDLE NOTE — Investment Portfolio link',
+    'If you also own the Investment Portfolio Tracker (bundled), the "Stocks & Funds (Taxable)" row above (row 16) should equal your IPT 🏠 Dashboard → Total MV. Update at month-end. The two workbooks intentionally do NOT auto-link (so each remains usable standalone).');
+  sheet.getRow(ASSETS.TOTAL_ROW + 4).height = 36;
+
+  // [FIX-BNDL-015] About the Dashboard headline (Dec-only by design) (B31)
+  addCallout(sheet, `B${ASSETS.TOTAL_ROW + 5}:N${ASSETS.TOTAL_ROW + 5}`,
+    'ℹ️',
+    'About the Dashboard headline — TOTAL ASSETS',
+    'The TOTAL ASSETS KPI on the Dashboard reflects the December (year-end) column by design — net worth at end of fiscal year. If you start tracking mid-year, fill the December column with your CURRENT balances to see the headline number; expand monthly as you complete months. The NW History tab tracks month-over-month deltas independently.');
+  sheet.getRow(ASSETS.TOTAL_ROW + 5).height = 36;
+
+  addFooter(sheet, ASSETS.TOTAL_ROW + 9, { productName: PRODUCT_NAME });
 }
 
 // ============================================================================
@@ -2748,7 +2767,14 @@ function buildSettingsAndFX(workbook) {
   sheet.getRow(r + 13).height = 32;
   sheet.getRow(r + 14).height = 32;
 
-  addFooter(sheet, r + 18, { productName: PRODUCT_NAME });
+  // [FIX-BNDL-006] BUNDLE NOTE — FX rates must stay in sync with IPT (B25)
+  addCallout(sheet, `B${r + 16}:L${r + 16}`,
+    '🔗',
+    'BUNDLE NOTE — FX rates must match Investment Portfolio Tracker',
+    'If you also own the Investment Portfolio Tracker (bundled), the FX rates above MUST match the IPT 💵 Cash & FX Holdings rate table. Each workbook keeps an independent table so each remains usable standalone — but for the bundle to reconcile, edits must be mirrored. Alternative: use =GOOGLEFINANCE("CURRENCY:USDEUR") in both workbooks (Google Sheets only).');
+  sheet.getRow(r + 16).height = 40;
+
+  addFooter(sheet, r + 19, { productName: PRODUCT_NAME });
 }
 
 // ============================================================================

@@ -6215,3 +6215,92 @@ Reports:
 3. **Unblock Life Bundle (Product 10)** — its constituent file list includes family-education-planner-{essentials,pro,ai-edition}.xlsx so the Life SKUs can now ship.
 
 ### Safe to clear ✅
+
+---
+
+## Session 2026-05-23 (PM10) — Bundle QA Audit + Fix Promotion + Doc Adoption
+
+### Status
+🟢 **ALL-IN-ONE PREMIUM BUNDLE — QA COMPLETE, FIXES PROMOTED, DOCS ADOPTED, SHIP-WITH-FIXES.** Created new senior-grade QA agent `all-in-one-bundle-qa-expert` (file at `C:\Users\karee\.claude\agents\all-in-one-bundle-qa-expert.md` + slash wrapper at `C:\Users\karee\.claude\commands\all-in-one-bundle-qa-expert.md`) and ran it through the full 2-round protocol via general-purpose runtime (the agent file lives on disk but the harness only registers agents at session start). Agent ran ~28 min, burned 216K tokens, 74 tool calls, 0 regressions.
+
+### Round 1 verdict: HOLD → Round 2 verdict: SHIP-WITH-FIXES
+**20 R1 issues** (5 Critical / 4 High / 8 Medium / 3 Low) → **12 FIXED / 5 PARTIAL / 3 DEFERRED / 0 REGRESSED**. All 5 Critical fixed.
+
+### 5 Critical R1 issues — all fixed in Round 2
+1. **BNDL-001 IPT Scenario Simulator G2/I2** — broken formula em-dash + unmatched parens producing `#N/A` → clean `IFERROR(...,"—")` formula
+2. **BNDL-005 NWT Stocks & Funds row 16 → IPT linkage** — no cross-SKU instruction → cell comment on B16 + visible BUNDLE NOTE merged callout at B30 (TOTAL_ROW+4)
+3. **BNDL-006 NWT & IPT independent FX tables** — no cross-reference → matching BUNDLE NOTE callouts on NWT Settings & FX B25 and IPT Cash & FX Holdings B26 (TOTAL_ROW+5 / r+17 respectively)
+4. **BNDL-009 Bundle README missing** → `tools/sheets-gen/output/bundle/README.md` created (200+ lines, 6 SKUs explained, recommended order, 5 cross-SKU manual-sync points)
+5. **BNDL-010 Where-to-Start missing** → `tools/sheets-gen/output/bundle/WHERE-TO-START.md` (90+ lines, decision tree by "top financial worry")
+
+### Plus BNDL-015 (Medium → fixed) — NWT Dec-only Dashboard headline note
+Explanatory BUNDLE NOTE callout at B31 (Assets Summary) clarifying that the "TOTAL ASSETS" KPI reflects the December year-end column by design — mid-year starters fill column N with current balances to see the headline.
+
+### Promoted into source generators (NOT just qa/fixed/)
+Per the QA report recommendation: "Replace the originals at `tools/sheets-gen/output/` with the contents of `tools/qa/fixed/`, OR apply the same patches to the generator source." Chose the second path — promoted fixes into `.js` templates so regenerated outputs ship the fixes:
+
+- `tools/sheets-gen/templates/investment-portfolio-tracker.js`:
+  - G2/I2 KPI formulas: `IFERROR(C11&" mo",—)` → `IFERROR(C11&" mo","—")` (quoted the em-dash, removed stray parens)
+  - Cash & FX Holdings tab: new BUNDLE NOTE callout at row r+17 (= B26) about FX sync with NWT
+- `tools/sheets-gen/templates/net-worth-tracker.js`:
+  - Assets Summary tab: B16 cell comment (note) on Stocks & Funds row (i===7 in the seed loop)
+  - Assets Summary tab: new BUNDLE NOTE callout at TOTAL_ROW+4 (= B30) about IPT linkage
+  - Assets Summary tab: new "About Dashboard headline" callout at TOTAL_ROW+5 (= B31) about Dec-only design
+  - Settings & FX tab: new BUNDLE NOTE callout at r+16 (= B25) about FX sync with IPT
+  - Footers pushed down 2 rows on each tab to accommodate new callouts
+
+### Regenerated outputs
+All 6 affected files cleanly rebuilt in `tools/sheets-gen/output/`:
+- net-worth-tracker-{essentials,pro,ai-edition}.xlsx (110ms / 137ms / 231ms)
+- investment-portfolio-tracker-{essentials,pro,ai-edition}.xlsx (108ms / 143ms / 148ms)
+
+Post-regen LibreOffice headless recalc verification confirms all fixes landed:
+- NWT B16 cell comment present (truncated to "BUNDLE NOTE — If you also own the Investment Portfolio Tracker...")
+- NWT B30 evaluates to "🔗  BUNDLE NOTE — Investment Portfolio link..."
+- NWT B31 evaluates to "ℹ️  About the Dashboard headline — TOTAL ASSETS..."
+- NWT Settings & FX B25 evaluates to "🔗  BUNDLE NOTE — FX rates must match Investment Portfolio Tracker..."
+- IPT Scenario Simulator G2 = "RECOVERY\n1 mo" (was `#N/A`)
+- IPT Scenario Simulator I2 = "FIRE DELAY\n1800 mo" (was `#N/A`)
+- IPT Cash & FX Holdings B26 evaluates to "🔗  BUNDLE NOTE — FX rates must match Net Worth Tracker..."
+
+### Adopted 4 bundle docs into delivery package
+- `tools/sheets-gen/output/bundle/README.md` (9KB) — customer-facing bundle intro
+- `tools/sheets-gen/output/bundle/WHERE-TO-START.md` (3.4KB) — decision tree
+- `tools/sheets-gen/output/bundle/MANIFEST.txt` (5KB) — file inventory with size + SHA-256 hash prefixes + descriptions; **regenerated** from current `tools/sheets-gen/output/` + `tools/pdf-gen/output/` (not just copied — hashes reflect the post-promote files)
+- `docs/listing-copy/bundle-listing-copy-v1-draft.md` — PM artifact for Etsy listing copy review (separate from customer delivery)
+
+The 18 xlsx + 17 PDF + 3 bundle docs are now ready to ship as a unified bundle package via `deliver.ts` (TICKET-004).
+
+### New QA agent infrastructure
+- `C:\Users\karee\.claude\agents\all-in-one-bundle-qa-expert.md` (25.7 KB) — agent persona definition, 8 mandatory gates, Part A smoke tests, Part B bundle audit (B1-B6), Part C 5 multi-SKU personas
+- `C:\Users\karee\.claude\commands\all-in-one-bundle-qa-expert.md` (11.2 KB) — slash dispatch wrapper with Windows-specific pre-flight, LibreOffice 26.x quirks, anti-patterns
+- Sibling to existing per-SKU QA agents (`/etsy-budget-qa`, `/debt-payoff-qa`, `/sinking-fund-qa-expert`, `/qa-investment-portfolio`, plus 4 agent-only-no-slash files for family-education / net-worth / small-business / wedding)
+
+### 5 PARTIAL + 3 DEFERRED issues (not blocking ship)
+**PARTIAL** (addressed in docs, would be fully fixed by a future content regen):
+- BNDL-002 brand-drift palette divergence across 6 SKUs (intentional per-SKU identity; README explains)
+- BNDL-003 "Monthly savings" definition drift (README documents the 3 conventions)
+- BNDL-004 Total debt no auto-link DPP↔NWT (README documents manual-sync at first Saturday)
+- BNDL-008 Per-PDF cross-references missing in 6 AI advisor PDFs (README has cross-nav; per-PDF inline cross-refs deferred — content regen task)
+- BNDL-016 No consolidated cashflow sheet (README explains workflow; full consolidated tab is a future release)
+
+**DEFERRED** (low-severity cosmetic):
+- BNDL-012 `-v2` suffix on Budget Tracker AI Edition (legacy naming)
+- BNDL-013 orphan `-poc` file in output dir
+- BNDL-020 IPT GOOGLEFINANCE instruction (was already acceptable)
+
+### QA gate status — all 8 ticked ✅
+GATE 1 composition discovered · GATE 2 6 SKU smoke tests R1 · GATE 3 Bundle audit B1-B6 R1 · GATE 4 5 multi-SKU personas R1 (Yusuf / Mohamed & Heba / Karim / Hany / Sara 6-month timeline) · GATE 5 all Crit+High fixed in `tools/qa/fixed/` · GATE 6 R2 re-runs against fixed files · GATE 7 round-trip static-detection (gspread N/A, documented scan instead) · GATE 8 per-persona checklists (5 R1 + 5 R2 = 10 filled).
+
+### Next session pickup
+1. **Etsy listing creation** — push 4 bundle SKUs (Finance Pro $79 / Finance AI $119 / Life Pro $99 / Life AI $149) via `mcp__etsy__etsy_create_listing`. Use the listing copy at `docs/listing-copy/bundle-{finance-pro,finance-ai,life-pro,life-ai}.md` (the v1 listing-copy files) — `bundle-listing-copy-v1-draft.md` is the QA agent's PM-review reconciliation draft, not the final.
+2. **Supabase Storage upload** — push the 18 xlsx + 17 PDF + 3 bundle docs to `downloads` bucket. Create `product_files` rows per bundle SKU with `bundle_includes` array pointing to constituent product file IDs (delivery layer joins these at fulfillment time).
+3. **Pre-launch dependency** — Wedding Product 9 xlsx must ship before Life Bundle goes live (Finance Bundle ships independent of Wedding).
+4. **Optional v1.1 polish** — close the 5 PARTIAL issues with a content-regen of the 6 AI advisor PDFs adding inline sibling-SKU cross-references. ~4 hours.
+
+### Three artifacts (QA report set)
+1. `tools/qa/output/all-in-one-bundle-qa-round1-report.md` (26KB, 416 lines)
+2. `tools/qa/output/bundle-fix-changelog.md` (14KB, 145 lines)
+3. `tools/qa/output/all-in-one-bundle-qa-round2-report.md` (14KB, 283 lines)
+
+### Safe to clear ✅

@@ -57,6 +57,14 @@ METADATA = {
         '/Creator':  'Lime Premium Studios',
         '/Producer': 'Lime Premium Studios',
     },
+    'notion-life-os-setup.pdf': {
+        '/Title':    'Notion Budget OS — Setup Guide',
+        '/Author':   'Lime Premium Studios',
+        '/Subject':  'Notion Life OS Essentials — Setup Guide v1.0',
+        '/Keywords': 'notion, notion template, budget template, life os, setup guide, personal finance, Lime Premium Studios',
+        '/Creator':  'Lime Premium Studios',
+        '/Producer': 'Lime Premium Studios',
+    },
 }
 
 
