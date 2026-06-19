@@ -61,5 +61,11 @@ Alternates: "Beautiful spreadsheets for every money goal" · "Budget, debt & net
 
 Short variants: 1) From numbers to a plan in ten honest minutes. 2) One calm system for every money goal. 3) Essentials, Pro, or AI — your call. 4) Your numbers, instantly visual. 5) Buy once. Own it forever.
 
+### Featured video caption / title
+- **Title:** Your numbers, instantly visual
+- **Caption:** Enter your numbers and watch the Dashboard do the rest — one clean spreadsheet, ten honest minutes, every money goal. Buy once, own it forever.
+- Short: One spreadsheet. Ten honest minutes. Every money goal.
+- Title alternates: "Meet Lime Studios" · "Money, made clear" · "From numbers to a plan"
+
 ## Status (2026-06-19)
 All 5 "Customize your shop" tasks + Featured photos + Featured video have ready deliverables (icon, banner, tagline, story, seller photo, 5 featured photos, shop video). Open: optimized 600×600 seller-photo crop (needs source file path); search-visibility listing audit (needs Etsy token reconnected — currently expired).
