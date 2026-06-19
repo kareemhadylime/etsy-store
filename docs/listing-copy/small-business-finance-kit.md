@@ -36,7 +36,7 @@ Built for solopreneurs, Etsy/e-commerce sellers, service businesses (trades, sal
 
 ▸ PRO ($39) — Everything in Essentials + 15 more tabs (24 total): Balance Sheet, 10 invoice templates (vs. 5), Recurring Invoice Schedule (set-once monthly bills), Receivables + Payables Aging (0–30 / 31–60 / 61–90 / 90+ buckets), Customer/Vendor Profitability pivot, Inventory Tracker + Supplier/PO Manager, Asset Depreciation, Loan Amortization, HR Employee Records, Payroll & Payslips (up to 10 employees), Social Security Tracker, Project/Job Costing, KPI Dashboard (gross margin, net margin, EBITDA, runway, CAC, MoM growth), 90-day Cash Flow Forecast (segmented by top 5 customers). Multi-currency + multi-rate sales tax. Dark mode.
 
-▸ AI EDITION ($54) — Everything in Pro + AI Business Co-Pilot tab with 8 ChatGPT/Claude prompts: P&L Analyst (flags margin compression + cost anomalies) / Cash Flow Coach (predicts danger months 60 days ahead) / Depreciation Assistant / Supplier Negotiation Brief / Tax Prep Advisor / Pricing Strategist (models price-change impact on profit) / Annual Business Review / Customer Concentration Risk (flags when one client > 30% of revenue). 25 tabs total.
+▸ AI EDITION ($54) — Everything in Pro + AI Business Advisor tab with 8 AI advisor prompts you can use with any AI assistant: P&L Analyst (flags margin compression + cost anomalies) / Cash Flow Coach (predicts danger months 60 days ahead) / Depreciation Assistant / Supplier Negotiation Brief / Tax Prep Advisor / Pricing Strategist (models price-change impact on profit) / Annual Business Review / Customer Concentration Risk (flags when one client > 30% of revenue). 25 tabs total.
 
 — Every number a CFO would ask for —
 
@@ -46,7 +46,7 @@ Built for solopreneurs, Etsy/e-commerce sellers, service businesses (trades, sal
 ✓ Customer concentration · Top 5 customers by gross margin
 ✓ Cash flow forecast 90 days forward, segmented by top 5 customers + suppliers
 
-The KPI Dashboard (Pro+) puts all of these on one screen. The AI Business Co-Pilot (AI Edition) tells you which ones to fix first.
+The KPI Dashboard (Pro+) puts all of these on one screen. The AI Business Advisor (AI Edition) tells you which ones to fix first.
 
 — Why a spreadsheet, not an app —
 
@@ -86,7 +86,7 @@ Single variation type — **Tier**. 3 values.
 |---|---|---|---|
 | Tier | Essentials | $24.00 | 9 tabs — Dashboard, Revenue Tracker, Expense Tracker (with tax-deductible flag), P&L Statement (monthly + annual), Cash Flow Statement, Invoice Tracker (up to 50) + 5 invoice templates, Break-Even Calculator, Tax Prep Summary |
 | Tier | Pro | $39.00 | 24 tabs — All Essentials + Balance Sheet + 10 invoice templates + Recurring Invoice Schedule + Receivables/Payables Aging + Customer/Vendor Profitability + Inventory Tracker + Supplier/PO Manager + Asset Depreciation + Loan Amortization + HR Employee Records + Payroll & Payslips (up to 10) + Social Security Tracker + Project/Job Costing + KPI Dashboard + 90-day Cash Flow Forecast. Multi-currency + multi-rate sales tax. Dark mode. |
-| Tier | AI Edition | $54.00 | 25 tabs — All Pro + AI Business Co-Pilot with 8 prompts (P&L Analyst / Cash Flow Coach / Depreciation Assistant / Supplier Negotiation / Tax Prep Advisor / Pricing Strategist / Annual Business Review / Customer Concentration Risk). Includes 12-month free template refreshes. |
+| Tier | AI Edition | $54.00 | 25 tabs — All Pro + AI Business Advisor with 8 prompts (P&L Analyst / Cash Flow Coach / Depreciation Assistant / Supplier Negotiation / Tax Prep Advisor / Pricing Strategist / Annual Business Review / Customer Concentration Risk). Includes 12-month free template refreshes. |
 
 ## 5. Tags (13, all under 20 char)
 
@@ -120,7 +120,7 @@ Single variation type — **Tier**. 3 values.
 ## 6. Materials / attributes
 
 - **Type:** Digital download
-- **File format:** Google Sheets (link) + .pdf (AI Business Co-Pilot — AI Edition only) + .xlsx (Excel courtesy export, all tiers)
+- **File format:** Google Sheets (link) + .pdf (AI Business Advisor — AI Edition only) + .xlsx (Excel courtesy export, all tiers)
 - **Languages:** English (multi-currency + multi-rate sales tax in Pro+)
 - **Primary use:** Small business bookkeeping, P&L tracking, invoicing, payroll, cash flow management
 - **Recipient:** Solopreneurs, Etsy sellers, freelancers, service business owners, early-stage startups, side hustlers
@@ -148,8 +148,8 @@ Single variation type — **Tier**. 3 values.
 > **Q: Customer Concentration Risk — what does that flag exactly?**
 > A: The AI Edition prompt analyzes your Revenue Tracker by customer. If one client represents > 30% of your YTD revenue, it flags the concentration risk (losing that client = financial crisis) and suggests specific diversification plays based on your current mix. Most agencies + freelancers fall into this trap without realizing. The prompt catches it before it bites.
 
-> **Q: Do I need ChatGPT Plus or Claude Pro for AI features?**
-> A: No. The 8 AI prompts (AI Edition only) work in ChatGPT free tier or Claude free tier. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data to any AI service — the AI part happens in your own browser, in your own account.
+> **Q: Do I need a paid AI plan for AI features?**
+> A: No. The 8 AI advisor prompts (AI Edition only) work in the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data to any AI service — the AI part happens in your own browser, in your own account.
 
 > **Q: Will my accountant accept this for tax prep?**
 > A: Yes. The Tax Prep Summary tab maps expenses to Schedule C categories (sole prop) with quarterly estimated tax calc. Your accountant gets a clean hand-off doc. We've designed this to be the input layer for your accountant, not a replacement.
@@ -164,7 +164,7 @@ Per design brief Section 3 — designer pulls strings from here:
 - **Thumbnail #1 (hero — Dashboard):** "**Small Business Finance Kit · $24 — $54**" + "25 tabs · P&L · Payroll · AI CFO · Anti-QuickBooks"
 - **Thumbnail #2 (KPI Dashboard close-up — 8 KPIs in 2×4 grid):** "**Every number a CFO would ask for. None of the consulting fees.**"
 - **Thumbnail #3 (Invoice Tracker + Cash Flow Forecast 2-panel):** "**See danger months 60 days early. Get paid on time.**"
-- **Thumbnail #4 (AI Business Co-Pilot preview):** "**8 AI prompts. Thinks like a CFO. Free-tier ready.**"
+- **Thumbnail #4 (AI Business Advisor preview):** "**8 AI prompts. Thinks like a CFO. Free-tier ready.**"
 - **Thumbnail #5 (Anti-QuickBooks comparison):** "**QuickBooks: $35–$235/mo. Us: $24 once.**"
 
 ## 9. Production notes
@@ -172,7 +172,7 @@ Per design brief Section 3 — designer pulls strings from here:
 - **Pricing locked** per catalog-wide lower-alternative rule applied 2026-05-11. Highest-priced standalone product in the catalog ($24–$54). Title's "$24 — $54" overlay matches the Tier variations.
 - **Cover image = thumbnail #1.** Same per-tier-cover pattern as other Premium Finance House products.
 - **Category** on Etsy: `Business & Money` → custom shop section `Small Business Spreadsheets`.
-- **AI Business Co-Pilot PDF** ships as a separate `.pdf` file in the AI Edition variant only. 12 pages (1 more than other finance AI PDFs since 8 prompts vs. 7).
+- **AI Business Advisor PDF** ships as a separate `.pdf` file in the AI Edition variant only. 12 pages (1 more than other finance AI PDFs since 8 prompts vs. 7).
 - **Excel courtesy file** flagged in README: GOOGLEFINANCE-driven cells (multi-currency live FX, sales-tax-rate lookups) need Sheets.
 - **"QuickBooks $35–$235/mo" comparison stat** is dated — verify annually per proposal's "Disclosed Dated Claims" section. Currently accurate as of 2026-01.
 - **Dual-cohort positioning** is the structural strength of this listing — speaks to volume buyers (escaping QuickBooks SaaS) AND sophisticated founders (using KPIs). Thumbnail #2 + Description body "Every number a CFO would ask for" section + Thumbnail #5 + concrete savings math all dual-hook.

@@ -96,7 +96,7 @@ const standalone = specs.map((s) => {
 const SHARED_BUNDLE_IMAGES = [
   { file: 'bundle-02-cross-product.png', rank: 2, alt: 'How the spreadsheets share data across the bundle' },
   { file: 'bundle-03-setup-wizard.png', rank: 3, alt: 'Setup wizard PDF — page-by-page walkthrough' },
-  { file: 'bundle-04-ai-library.png', rank: 4, alt: '60+ ChatGPT and Claude prompts + cross-product workflows' },
+  { file: 'bundle-04-ai-library.png', rank: 4, alt: 'AI Planning Guide + cross-product workflows' },
   { file: 'bundle-05-life-stage.png', rank: 5, alt: 'Life-stage journey from engagement to first business' },
 ];
 const bundleQuickstart = { path: 'tools/pdf-gen/output/bundle-quickstart.pdf', name: 'Premium Bundle Quick Start.pdf', type: 'application/pdf' };

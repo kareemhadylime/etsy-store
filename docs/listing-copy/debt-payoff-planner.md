@@ -18,7 +18,7 @@ Debt Payoff Planner Spreadsheet | 10-21 Tabs, Snowball + Avalanche, AI Credit Co
 ## 2. Subtitle / promotional teaser (159 char)
 
 ```
-Get out of debt AND raise your credit score in one sheet. Up to 21 tabs, 8 debt types, 3 strategies, 7 AI prompts. One-time fee. Privacy-first.
+Get out of debt AND raise your credit score in one sheet. Up to 21 tabs, 8 debt types, 3 strategies, AI Credit Coach. One-time fee. Privacy-first.
 ```
 
 ## 3. Description (~3,200 char)
@@ -34,7 +34,7 @@ Tally charged $25/month to do this (now shut down). Credit Karma is free but mon
 
 ▸ PRO ($19) — Everything in Essentials + 8 more tabs (18 total): Custom Method (your rank-driven order), Debt Consolidation (3-way Personal Loan / Balance Transfer / HELOC comparison with break-even math), Balance Transfer Analyzer (5-input promo calculator), Credit Score Tracker (3 bureaus × 12 months + FICO factor weights), Credit Score Simulator (5 levers with point-gain projection), Credit Utilization Optimizer (per-card statement-close-day timing), On-Time Payment Streak (3/6/12/24-month milestone badges), Refinance Radar (current market rates vs your APRs + Strong/Maybe/Stay candidacy flags).
 
-▸ AI EDITION ($29) — Everything in Pro + 3 more tabs (21 total): AI Credit Coach (weighted Debt Health Score 0-100 + dynamic "Path to 100" coach + 7 prompts hub), Inquiry & Marks Tracker (2-year hard-inquiry countdown + 7-10 year derogatory falloff dates), Student Loan Tab (Federal vs Private split + PSLF eligibility tracker + IDR plan picker). Companion AI Credit Coach PDF ships with 7 prompts: Payoff Strategy Optimizer / AI Credit Score Coach / Utilization Timing Advisor / Consolidation Intelligence / Income Acceleration Coach / Settlement Letter Generator / Debt Health Score Coach. Works on ChatGPT or Claude free tier.
+▸ AI EDITION ($29) — Everything in Pro + 3 more tabs (21 total): AI Credit Coach (weighted Debt Health Score 0-100 + dynamic "Path to 100" coach + 7 prompts hub), Inquiry & Marks Tracker (2-year hard-inquiry countdown + 7-10 year derogatory falloff dates), Student Loan Tab (Federal vs Private split + PSLF eligibility tracker + IDR plan picker). Companion AI Planning Guide PDF ships with 7 guided AI workflows: Payoff Strategy Optimizer / AI Credit Score Coach / Utilization Timing Advisor / Consolidation Intelligence / Income Acceleration Coach / Settlement Letter Generator / Debt Health Score Coach. Works on the free tier of your AI assistant.
 
 — 3 payoff strategies, side-by-side —
 
@@ -136,8 +136,8 @@ Single variation type — **Tier**. 3 values.
 > **Q: Credit Score Simulator — is it real or just educational?**
 > A: It's a real model based on FICO's published weighting (35% payment history / 30% utilization / 15% length / 10% mix / 10% inquiries). The simulator uses your inputs to project a point range — not a guaranteed number, but a realistic estimate of impact. It can't predict the bureau's exact calculation (no one can — they keep that proprietary). Use it for "should I pay Card A or Card B first?" type decisions; it gives you the answer.
 
-> **Q: Do I need ChatGPT Plus or Claude Pro for AI features?**
-> A: No. The 7 AI prompts (AI Edition only) work in ChatGPT's free tier or Claude's free tier. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data to any AI service — the AI part happens in your own browser, in your own account.
+> **Q: Do I need a paid AI plan for AI features?**
+> A: No. The 7 AI advisor prompts (AI Edition only) work on the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data to any AI service — the AI part happens in your own browser, in your own account.
 
 > **Q: How many debts can I track?**
 > A: Essentials supports up to 10 debts. Pro and AI Edition support up to 20. For most buyers, 10 is plenty (mortgage + car + 2 credit cards + student loan + medical = 6). If you have more than 20, you might be a candidate for the Bundle which includes the Net Worth Tracker (which handles unlimited liabilities).
@@ -158,7 +158,7 @@ Per design brief Section 3 — designer pulls strings from here:
 - **Thumbnail #1 (hero — Dashboard):** "**Debt Payoff Planner · $12 — $29**" + "18 tabs · Snowball + Avalanche + Custom · AI Credit Score Coach"
 - **Thumbnail #2 (Strategy Comparison close-up):** "**See exactly which strategy gets you out faster.**"
 - **Thumbnail #3 (Credit Score Simulator preview):** "**Pay $X. Gain Y points. Done.**"
-- **Thumbnail #4 (AI Credit Score Coach preview):** "**7 AI prompts. Free-tier ready. Score-impact-ranked.**"
+- **Thumbnail #4 (AI Credit Score Coach preview):** "**7 AI advisor prompts. Free-tier ready. Score-impact-ranked.**"
 - **Thumbnail #5 (Anti-Tally / Anti-Credit-Karma):** "**Tally charges $25/mo. We charge $12 once.**"
 
 ## 9. Production notes

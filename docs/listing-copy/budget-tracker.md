@@ -18,7 +18,7 @@ Budget Tracker Spreadsheet | 11-17 Tabs, AI Money Advisor, Privacy-First | Googl
 ## 2. Subtitle / promotional teaser (159 char)
 
 ```
-A real budget brain — not a single-tab template. Up to 17 tabs, live 50/30/20 split, 7 AI prompts, Financial Health Score. One-time fee. Privacy-first.
+A real budget brain — not a single-tab template. Up to 17 tabs, live 50/30/20 split, AI Money Advisor, Financial Health Score. One-time fee. Privacy-first.
 ```
 
 ## 3. Description (3,294 char)
@@ -34,7 +34,7 @@ YNAB charges $109/year. Monarch charges $99/year. This is $9 (Essentials), $19 (
 
 ▸ PRO ($19) — Everything in Essentials + 4 more tabs (15 total): Recurring Templates (set-once monthly bills + subscriptions), Refund Tracker (aged receivables with live Days-Out aging), Mileage Tracker (live IRS 2025 rate $0.70/mi with editable tax-bracket cell), Household Mode (two-income split with live settlement math).
 
-▸ AI EDITION ($29) — Everything in Pro + 2 more tabs (17 total): Financial Health Score (live 0–100 composite weighted 25/25/20/15/15 from Savings Rate, Emergency Fund, DTI, Credit Utilization, On-Time Payment), AI Money Advisor (7 ChatGPT/Claude prompts). The 7 AI prompts work on ChatGPT free tier or Claude — no subscription needed. You paste your data + the prompt; you get specific dollar recommendations back.
+▸ AI EDITION ($29) — Everything in Pro + 2 more tabs (17 total): Financial Health Score (live 0–100 composite weighted 25/25/20/15/15 from Savings Rate, Emergency Fund, DTI, Credit Utilization, On-Time Payment), AI Money Advisor (7 AI advisor prompts you can use with any AI assistant). The 7 AI advisor prompts work on the free tier of your AI assistant — no subscription needed. You paste your data + the prompt; you get specific dollar recommendations back.
 
 — Budget method —
 
@@ -51,7 +51,7 @@ The Setup Wizard captures your preferred method as a label; the live computation
 
 — Borrowed from the best —
 
-We engineered features inspired by Monarch (Budget vs. Actual dashboard), Copilot (Subscription audit via Recurring Templates), Simplifi (Refund Tracker with live aging), and Quicken (Mileage Tracker with IRS-rate calc). None of them put it all in one spreadsheet you can own outright.
+We engineered features inspired by Monarch (Budget vs. Actual dashboard), leading subscription-audit apps (Subscription audit via Recurring Templates), Simplifi (Refund Tracker with live aging), and Quicken (Mileage Tracker with IRS-rate calc). None of them put it all in one spreadsheet you can own outright.
 
 — What this spreadsheet doesn't do —
 
@@ -76,7 +76,7 @@ Single variation type — **Tier**. 3 values.
 |---|---|---|---|
 | Tier | Essentials | $9.00 | 11 tabs — Setup Wizard, Dashboard, Income Tracker, Expense Tracker, Expense Categories, Credit Card Manager (up to 6 cards), Bill Calendar (monthly), Savings Goals, Emergency Fund, Annual Summary, About & Help |
 | Tier | Pro | $19.00 | 15 tabs — All Essentials + Recurring Templates, Refund Tracker (live aging), Mileage Tracker (IRS 2025 $0.70/mi + tax-bracket input), Household Mode (live settlement) |
-| Tier | AI Edition | $29.00 | 17 tabs — All Pro + Financial Health Score (live 0–100 weighted composite) + AI Money Advisor (7 ChatGPT/Claude prompts in companion PDF). Includes 12-month free template refreshes. |
+| Tier | AI Edition | $29.00 | 17 tabs — All Pro + Financial Health Score (live 0–100 weighted composite) + AI Money Advisor (7 AI advisor prompts in companion PDF you can use with any AI assistant). Includes 12-month free template refreshes. |
 
 ## 5. Tags (13, all under 20 char)
 
@@ -123,8 +123,8 @@ Ordered by SEO priority:
 > **Q: How is this different from YNAB or Monarch?**
 > A: Three things. (1) Price — $9–$29 once vs. $99–$109/year. (2) Privacy — your data lives in your Google Drive, not on a SaaS server. (3) Flexibility — it's a spreadsheet. Add categories. Change formulas. Edit anything. YNAB and Monarch are great apps; they're also locked-in apps. If you outgrow them, your data is harder to move. This is yours, forever.
 
-> **Q: Do I need ChatGPT Plus or Claude Pro for the AI features?**
-> A: No. The 7 AI prompts (AI Edition only) work in ChatGPT's free tier or Claude's free tier. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data to any AI — the AI part happens in your own browser, in your own account. Paid AI tiers are optional and only marginally faster.
+> **Q: Do I need a paid AI plan for the AI features?**
+> A: No. The 7 AI advisor prompts (AI Edition only) work in the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data to any AI — the AI part happens in your own browser, in your own account. Paid AI plans are optional and only marginally faster.
 
 > **Q: Can I customize the categories and budget method?**
 > A: Yes — everything is editable. Add or rename categories on the Expense Categories tab. Tag each one Need / Want / Savings to drive the live 50/30/20 split. Add tabs. Delete what you don't need. The formulas use named ranges (BudgetMethod, MonthlyIncome, HouseholdSize, TargetSavingsRate, EmergencyFundCurrent) so customization doesn't break the dashboard.
@@ -133,7 +133,7 @@ Ordered by SEO priority:
 > A: It's a real composite that updates live from your data — 5 components weighted (savings rate 25%, emergency fund cover 25%, debt-to-income 20%, credit utilization 15%, on-time payment rate 15%). Each component pulls from a specific cell range (Income / Expense / Credit Card / Bill Calendar / Emergency Fund). The "Path to 100" callout names your weakest sub-score and the action that moves it most. It's not fortune-telling; it's a structured way to see what's actually working and what isn't.
 
 > **Q: What's the difference between Essentials, Pro, and AI Edition?**
-> A: Essentials (11 tabs) covers the basics for a single income with a live 50/30/20 split, Credit Card Manager, Bill Calendar, Savings Goals, Emergency Fund, and Annual Summary. Pro (15 tabs) adds Recurring Templates, Refund Tracker (live aging), Mileage Tracker (IRS 2025 rate, editable tax bracket), and Household Mode (live two-partner settlement). AI Edition (17 tabs) adds the live Financial Health Score (0-100, weighted composite) and 7 ChatGPT/Claude prompts in a companion PDF that turn the spreadsheet into a coach instead of just a ledger.
+> A: Essentials (11 tabs) covers the basics for a single income with a live 50/30/20 split, Credit Card Manager, Bill Calendar, Savings Goals, Emergency Fund, and Annual Summary. Pro (15 tabs) adds Recurring Templates, Refund Tracker (live aging), Mileage Tracker (IRS 2025 rate, editable tax bracket), and Household Mode (live two-partner settlement). AI Edition (17 tabs) adds the live Financial Health Score (0-100, weighted composite) and 7 AI advisor prompts in a companion PDF — usable with any AI assistant — that turn the spreadsheet into a coach instead of just a ledger.
 
 > **Q: Will this still work in 5 years?**
 > A: Google Sheets has been around since 2006 and isn't going anywhere. The features we use (formulas, conditional formatting, named ranges) are stable across versions. We ship updates for any feature that breaks, free, forever. AI Edition adds 12 months of free template refreshes — so if we improve a tab or add a feature, you get the new version.

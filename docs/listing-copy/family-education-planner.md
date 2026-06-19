@@ -36,7 +36,7 @@ The cost to raise a child to age 18 is $310,000 (USDA / Brookings 2024). Average
 
 ▸ PRO ($22) — Everything in Essentials + 9 more tabs (18 total): Up to 4 children, dark mode, State 529 Tax Benefits lookup (all 50 states + 18-year compounding), EFC / SAI Calculator (replicates FAFSA formula), Scholarship Tracker + deadline calendar, Financial Aid Letter Comparison (side-by-side colleges with appeal deadlines), Childcare Cost Planner (daycare / nanny / family / school by age band), Family Health Budget + HSA tracker, Retirement Impact (shows the trade-off between college funding and your retirement), Savings Goals Timeline (conflict alerts when goals overlap), Financial Literacy Milestones (per-child curriculum from age 5 to 18).
 
-▸ AI EDITION ($32) — Everything in Pro + AI Family Finance Advisor tab with 8 ChatGPT/Claude prompts:
+▸ AI EDITION ($32) — Everything in Pro + AI Family Finance Advisor tab with 8 AI advisor prompts you can use with any AI assistant:
 ✓ Account Type Picker — recommends 529 vs. Coverdell vs. UTMA vs. ABLE per child based on profile
 ✓ Scholarship Matching Engine — student profile → 5–7 most-likely scholarships + positioning tips
 ✓ Life Insurance Advisor — DIME method → recommended benefit + term, honest about whole-life
@@ -142,8 +142,8 @@ Single variation type — **Tier**. 3 values.
 > **Q: State 529 Tax Benefits — how does that work?**
 > A: All 50 states are in a lookup table (Pro+). Select your residency state, and the tab shows your state's 529 deduction ($235–$540 annually for most states) and projects the compound benefit over 18 years. The State 529 Optimizer prompt (AI Edition) recommends in-state vs. out-of-state 529 plans — sometimes another state's plan has better funds even after losing your home-state deduction.
 
-> **Q: Do I need ChatGPT Plus or Claude Pro for AI features?**
-> A: No. The 8 AI prompts (AI Edition only) work in ChatGPT free tier or Claude free tier. You paste the prompt + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI — the AI part happens in your own browser, in your own account. Your kids' information stays on your device.
+> **Q: Do I need a paid AI plan for AI features?**
+> A: No. The 8 AI advisor prompts (AI Edition only) work on the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI — the AI part happens in your own browser, in your own account. Your kids' information stays on your device.
 
 > **Q: Will it work if I'm planning for a second child?**
 > A: Yes. The Family Goals Conflict Resolver prompt (AI Edition) is specifically designed for this scenario — it flags when planned timelines collide (e.g., new baby cost + first kid's college start + your retirement contributions). The Income Transition Buffer pattern is documented in the AI PDF worked examples for households planning a partner switching to part-time after a second child.

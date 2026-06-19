@@ -17,7 +17,7 @@ Wedding Budget Spreadsheet + Planner | 22 Tabs, Guest List, Seating Chart, Vendo
 ## 2. Subtitle / promotional teaser (158 char)
 
 ```
-The wedding planner that lives in your spreadsheet, not someone else's app. 22 tabs, AI prompts, no monthly fees, no SaaS sharing your guest list. Forever yours.
+The wedding planner that lives in your spreadsheet, not someone's app. 22 tabs, AI Planning Guide, no fees, no SaaS sharing your guest list. Forever yours.
 ```
 
 ## 3. Description (3,217 char)
@@ -25,7 +25,7 @@ The wedding planner that lives in your spreadsheet, not someone else's app. 22 t
 ```
 A wedding budget + planning spreadsheet for couples who'd rather own their wedding plan than rent one.
 
-The average US wedding costs ~$30,000 (The Knot 2025). Wedding planning SaaS (Zola, Joy, The Knot) runs $20–$40/month. Over an 18-month engagement that's $360+ on top of the wedding itself. This is $19 once. You keep it forever.
+The average US wedding costs ~$30,000 (2025). Wedding planning apps run $20–$40/month. Over an 18-month engagement that's $360+ on top of the wedding itself. This is $19 once. You keep it forever.
 
 — What you get —
 
@@ -42,7 +42,7 @@ The average US wedding costs ~$30,000 (The Knot 2025). Wedding planning SaaS (Zo
 
 ▸ ESSENTIALS ($19) — 12 tabs. Everything you need to plan, budget, and run the day.
 ▸ PRO ($34) — adds Cost Per Guest calculator, Vendor Comparison Matrix, Bridal Party Tracker, Gift Registry. 16 tabs total.
-▸ AI EDITION ($49) — adds 6 AI-assisted tabs with ChatGPT/Claude prompts: Guest List Optimizer, Vendor Cost Intelligence, Seating Constraint Solver, RSVP Reminder Scripts, Day-of Crisis Playbook, plus dedicated Muslim (mahr, walima) and Hindu (multi-day) cultural variant tabs. 22 tabs total. No AI subscription needed — works with ChatGPT free tier or Claude.
+▸ AI EDITION ($49) — adds 6 AI-assisted tabs with an AI Planning Guide of prompts you can use with any AI assistant: Guest List Optimizer, Vendor Cost Intelligence, Seating Constraint Solver, RSVP Reminder Scripts, Day-of Crisis Playbook, plus dedicated Muslim (mahr, walima) and Hindu (multi-day) cultural variant tabs. 22 tabs total. No AI subscription needed — works with the free tier of your favourite AI assistant.
 
 — Why a spreadsheet, not an app —
 
@@ -95,7 +95,7 @@ Ordered by SEO priority. Targeted mix of head terms + buyer-intent long-tails:
 10. `wedding google sheet`
 11. `engagement gift`
 12. `wedding day timeline`
-13. `wedding ai prompts`
+13. `wedding ai planner`
 
 **Why these:**
 - 1–3: head terms that match the title keyword
@@ -108,7 +108,7 @@ Ordered by SEO priority. Targeted mix of head terms + buyer-intent long-tails:
 ## 6. Materials / attributes
 
 - **Type:** Digital download
-- **File format:** Google Sheets (link), .pdf (Day-of Schedule + AI Co-Pilot prompts, AI Edition only)
+- **File format:** Google Sheets (link), .pdf (Day-of Schedule + AI Planning Guide prompts, AI Edition only)
 - **Languages:** English
 - **Primary use:** Wedding planning, budgeting, guest management
 - **Recipient:** Couples, brides, grooms, wedding planners
@@ -120,14 +120,14 @@ Ordered by SEO priority. Targeted mix of head terms + buyer-intent long-tails:
 > **Q: Is this a Google Sheet or an Excel file?**
 > A: Google Sheets for v1. After purchase you'll get a "Make a Copy" link — it lives in your Drive. If you only use Excel, message us and we'll send the .xlsx export as a courtesy. Native Excel parity is on the v2 roadmap.
 
-> **Q: Do the AI features cost extra? Do I need ChatGPT Plus?**
-> A: No. The AI Edition includes prompt templates that work in ChatGPT's free tier or Claude. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data anywhere — the AI part happens in your own browser, in your own account.
+> **Q: Do the AI features cost extra? Do I need a paid AI plan?**
+> A: No. The AI Edition includes an AI Planning Guide of prompt templates that work in the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data anywhere — the AI part happens in your own browser, in your own account.
 
 > **Q: Can I customize the categories and tabs?**
 > A: Yes. Everything is editable. Add, rename, delete categories. Add tabs. Reorder them. The formulas use Google Sheets named ranges so customization doesn't break the dashboard.
 
 > **Q: What's the difference between Essentials, Pro, and AI Edition?**
-> A: Essentials (12 tabs) covers the core of planning a wedding — budget, guests, vendors, timeline, seating. Pro (16 tabs) adds the comparison + per-guest math that helps with tradeoff decisions. AI Edition (22 tabs) layers ChatGPT/Claude prompts on top for the harder problems (cutting the guest list fairly, solving seating constraints, drafting vows). AI Edition is the only tier with the Muslim and Hindu cultural variant tabs.
+> A: Essentials (12 tabs) covers the core of planning a wedding — budget, guests, vendors, timeline, seating. Pro (16 tabs) adds the comparison + per-guest math that helps with tradeoff decisions. AI Edition (22 tabs) layers an AI Planning Guide of prompts on top — usable with any AI assistant — for the harder problems (cutting the guest list fairly, solving seating constraints, drafting vows). AI Edition is the only tier with the Muslim and Hindu cultural variant tabs.
 
 > **Q: I'm planning a Muslim / Hindu / non-Western wedding. Does this work?**
 > A: Yes. The Essentials and Pro tiers are deliberately religion-agnostic — no assumptions about ceremony style, side-of-the-aisle, or vendor categories beyond what's editable. The AI Edition adds dedicated tabs for Muslim (mahr, walima logistics) and Hindu (multi-day functions — mehndi, sangeet, ceremony, reception) weddings. We added these because no competitor on Etsy includes them.
@@ -135,7 +135,7 @@ Ordered by SEO priority. Targeted mix of head terms + buyer-intent long-tails:
 > **Q: Will this still work after my wedding?**
 > A: Yes. Buyers use it for anniversaries (the Annual Reflection tab), hosting friends' weddings, vow renewals, and even baby showers (the budget + vendor + guest tabs port cleanly). One-time purchase, lifetime access.
 
-> **Q: How is this different from Zola / Joy / The Knot?**
+> **Q: How is this different from wedding planning apps?**
 > A: Three things. (1) Privacy — your guest list and budget stay in your Drive, never on our servers. (2) Price — $19 once vs. $20–$40/month × 18 months. (3) Flexibility — those apps lock you into one budget categorization, one timeline structure, one guest list format. This is a spreadsheet. Edit anything.
 
 > **Q: Do I need to know spreadsheets to use this?**
@@ -154,13 +154,13 @@ These strings appear on listing thumbnails (per the design brief's 5-thumbnail s
 - **Thumbnail #1 (hero):** "Plan the wedding. Keep the spreadsheet." + "22 tabs · $19 — $49"
 - **Thumbnail #2 (Budget Dashboard close-up):** "Where your $30k actually goes."
 - **Thumbnail #3 (Guest + Seating combined):** "RSVPs, seating, dietary, kids — one tab each."
-- **Thumbnail #4 (AI prompts page from PDF):** "8 AI prompts. No subscription. Works with ChatGPT free."
+- **Thumbnail #4 (AI prompts page from PDF):** "8 AI workflows. No subscription. Works with any AI assistant."
 - **Thumbnail #5 (Cultural variants):** "Muslim & Hindu weddings included in AI Edition."
 
 ## 9. Production notes
 
 - Cover image (= thumbnail #1) gets the tier+price range as overlay. Variation prices show in Etsy's UI; the overlay's job is to communicate value range at a glance.
-- The Day-of Schedule and AI Co-Pilot prompts ship as .pdf alongside the Google Sheets link. Note this in the file delivery email (TICKET-004).
+- The Day-of Schedule and AI Planning Guide prompts ship as .pdf alongside the Google Sheets link. Note this in the file delivery email (TICKET-004).
 - Etsy doesn't natively support per-tier images. Recommend uploading the cover variant per "Tier" via Etsy's variation-image feature if available, otherwise all variants share the same cover.
 - "Section" on Etsy: `Wedding & Engagement` (will be created via TICKET-005 sync route).
 - After Wedding ships standalone, this listing also feeds the Premium Life Bundle ($129/$189) as the 6th SKU. Listing copy on the bundle references back to this listing's tier features.

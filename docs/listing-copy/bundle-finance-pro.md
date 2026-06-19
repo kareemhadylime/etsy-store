@@ -70,7 +70,7 @@ Already own one or two of these products? Email proof of purchase and we'll cred
 
 — Want AI features? —
 
-The AI Edition of this same bundle is $119 and adds a 28-page master AI prompt library covering 10 cross-product workflows (e.g., "Pay off debt + save for a goal simultaneously," "Build a 10-year net worth roadmap") plus dense per-product reference prompts. If you live in ChatGPT or Claude, that's the version to get.
+The AI Edition of this same bundle is $119 and adds a 28-page AI Planning Guide covering 10 cross-product workflows (e.g., "Pay off debt + save for a goal simultaneously," "Build a 10-year net worth roadmap") plus dense per-product reference prompts. If you live in your favourite AI assistant, that's the version to get.
 
 — Updates & support —
 
@@ -115,7 +115,7 @@ Single-tier listing (Pro only). The AI Edition is a separate listing.
 > A: Not directly — Etsy's checkout doesn't support partial bundles. What we do instead: email us proof of your prior purchase (the Etsy order number is enough) and we'll send you a coupon code for the difference. Net: you don't pay twice for the same spreadsheet. We process within 24 hours.
 
 > **Q: What's the difference between this and the AI Edition bundle ($119)?**
-> A: This Pro bundle = the 5 Pro-tier spreadsheets only. The AI Edition bundle = the same 5 spreadsheets + a 28-page master AI prompt library covering 10 cross-product workflows and ~60 per-product reference prompts. If you actively use ChatGPT/Claude, the $40 gap is the AI library. If you don't, save the $40.
+> A: This Pro bundle = the 5 Pro-tier spreadsheets only. The AI Edition bundle = the same 5 spreadsheets + a 28-page AI Planning Guide covering 10 cross-product workflows and ~60 per-product reference prompts. If you actively use your favourite AI assistant, the $40 gap is the AI Planning Guide. If you don't, save the $40.
 
 > **Q: Are these the same spreadsheets you sell individually?**
 > A: Yes, exactly the same Pro-tier files. Sold individually they're $115 total. Bundled, $79. The discount comes from bundling and saves you a step (one purchase vs. five).
@@ -162,5 +162,5 @@ Per Bundle design brief Section 2 — designer pulls from here. Brief Section 2 
 - Bundle assembly file delivery uses TICKET-004 (signed URLs + Resend) with all 5 files zipped. The Setup Wizard PDF + Quick-start are in the same zip.
 - "Section" on Etsy: `Finance Bundles` (will be created via TICKET-005 sync route).
 - All-or-nothing refund policy must appear in listing description — consult Etsy seller guidelines re digital-bundle refund enforcement before live.
-- Thumbnail #4 shares the "AI library preview" composition with the AI Edition listing's thumbnail #4 — designer reuses the asset but overlay treatments differ (this listing presents it as upsell; AI listing presents it as included).
-- Setup Wizard is the **Finance variant** (9 pages, no Wedding setup page) per Bundle brief Section 3. AI library is the **Finance variant** (~28 pages, no Wedding ref prompts) per Section 4.
+- Thumbnail #4 shares the "AI Planning Guide preview" composition with the AI Edition listing's thumbnail #4 — designer reuses the asset but overlay treatments differ (this listing presents it as upsell; AI listing presents it as included).
+- Setup Wizard is the **Finance variant** (9 pages, no Wedding setup page) per Bundle brief Section 3. AI Planning Guide is the **Finance variant** (~28 pages, no Wedding ref prompts) per Section 4.

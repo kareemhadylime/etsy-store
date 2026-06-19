@@ -18,7 +18,7 @@ Sinking Funds Planner Spreadsheet | 17 Fund Categories, 4 Savings Vehicles, AI R
 ## 2. Subtitle / promotional teaser (159 char)
 
 ```
-Save smarter across cash, CDs, ETFs, and metals. 17 fund categories, 4 vehicles, 7 AI prompts. The only sinking funds spreadsheet that handles all four vehicles.
+Save smarter across cash, CDs, ETFs, and metals. 17 fund categories, 4 vehicles, AI fund advisor. The only sinking funds spreadsheet handling all 4 vehicles.
 ```
 
 ## 3. Description (3,243 char)
@@ -34,7 +34,7 @@ Qapital charges $5/month for round-up automation. Monarch charges $99/year and a
 
 ▸ PRO ($19) — Everything in Essentials + 9 more tabs (15 total): Goal Scoring Dashboard, 4 vehicle-specific trackers (Precious Metals / Fixed Return CD Ladder / Variable Fund ETFs / Stocks & Dividends), Income Allocation Wheel, Wealth Glide Path (auto-shifts volatile→safe near maturity), Tax Efficiency Analyzer (Roth vs. HSA vs. taxable placement), Spending Tracker, Budget Integration export. Unlimited custom funds. Multi-currency. Shared household mode. Dark mode.
 
-▸ AI EDITION ($29) — Everything in Pro + AI Savings Advisor tab with 7 ChatGPT/Claude prompts: Reallocation (which fund needs your next dollar) / Vehicle Advisor / Metals Coach / Dividend Planner / Life Stage Advisor / Annual Fund Review / Neglected Fund Detector (catches under-funded goals you stopped contributing to).
+▸ AI EDITION ($29) — Everything in Pro + AI Savings Advisor tab with 7 AI advisor prompts you can use with any AI assistant: Reallocation (which fund needs your next dollar) / Vehicle Advisor / Metals Coach / Dividend Planner / Life Stage Advisor / Annual Fund Review / Neglected Fund Detector (catches under-funded goals you stopped contributing to).
 
 — 4 savings vehicles, one sheet —
 
@@ -141,8 +141,8 @@ Single variation type — **Tier**. 3 values.
 > **Q: What's the Neglected Fund Detector?**
 > A: The AI Edition's secret weapon. The prompt scans your contribution history and flags goals you stopped contributing to without realizing — e.g., "You haven't added to the Wedding fund in 4 months; your target date is 8 months out; you're now $1,800 behind plan." Most people don't notice neglected goals until the deadline. This catches them at month 4, not month 12.
 
-> **Q: Do I need ChatGPT Plus or Claude Pro for the AI features?**
-> A: No. The 7 AI prompts (AI Edition only) work in ChatGPT's free tier or Claude's free tier. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data to any AI service — the AI part happens in your own browser, in your own account.
+> **Q: Do I need a paid AI plan for the AI features?**
+> A: No. The 7 AI advisor prompts (AI Edition only) work on the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in this spreadsheet sends data to any AI service — the AI part happens in your own browser, in your own account.
 
 > **Q: Can I share with my partner / household?**
 > A: Yes (Pro+). Household Mode supports shared funds, individual funds, and a settlement row. Both partners can edit via Google Sheets sharing — invite them with edit access. Essentials supports 1 user.
@@ -160,7 +160,7 @@ Per design brief Section 3 — designer pulls strings from here:
 - **Thumbnail #1 (hero — Dashboard):** "**Sinking Funds Planner · $9 — $29**" + "16 tabs · 4 savings vehicles · AI Reallocation"
 - **Thumbnail #2 (Goal Scoring Dashboard close-up):** "**See exactly which fund needs your next dollar.**"
 - **Thumbnail #3 (4 Savings Vehicles — 4 mockup cards):** "**Cash, metals, CDs, ETFs — one sheet handles all four.**"
-- **Thumbnail #4 (AI Savings Advisor preview):** "**7 AI prompts. Free-tier ready. Reallocation-savvy.**"
+- **Thumbnail #4 (AI Savings Advisor preview):** "**7 AI advisor prompts. Free-tier ready. Reallocation-savvy.**"
 - **Thumbnail #5 (Anti-Qapital comparison):** "**Qapital charges $5/mo. We charge $9 once. 4 vehicles, not 1.**"
 
 ## 9. Production notes

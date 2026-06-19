@@ -71,7 +71,7 @@ One-time purchase. Bug fixes free forever. If Notion changes their UI or formula
 
 — About the future —
 
-This is the Essentials tier (Budget Tracker port). Once it sells through, we ship Pro (adds Net Worth + Investment Portfolio databases) and AI Edition (adds 30+ Notion AI prompts + ChatGPT/Claude prompt sidebar). Buy now, get the foundation; upgrade later if we ship the expansions.
+This is the Essentials tier (Budget Tracker port). Once it sells through, we ship Pro (adds Net Worth + Investment Portfolio databases) and AI Edition (adds 30+ Notion AI prompts + an AI assistant prompt sidebar). Buy now, get the foundation; upgrade later if we ship the expansions.
 ```
 
 ## 4. Variations
@@ -133,10 +133,10 @@ Single tier for MVP. No Etsy variations needed.
 > A: The Setup PDF is written for someone who has a Notion account and has used databases at least once. If you've literally never opened Notion, you can absolutely still use this — read the PDF first, then duplicate. Notion's own learning curve is the actual barrier, not this template.
 
 > **Q: Does this connect to my bank?**
-> A: No. Notion can't connect to banks — that's a Plaid feature, and Notion doesn't support Plaid. This is a manual-entry budget tracker for people who'd rather see their numbers in Notion than in Mint/Copilot/YNAB. The trade-off is privacy + Notion-native vs. automatic imports.
+> A: No. Notion can't connect to banks — that's a Plaid feature, and Notion doesn't support Plaid. This is a manual-entry budget tracker for people who'd rather see their numbers in Notion than in Mint/YNAB. The trade-off is privacy + Notion-native vs. automatic imports.
 
 > **Q: What's coming in Pro and AI Edition?**
-> A: Pro ($39, planned) adds the Net Worth + Investment Portfolio databases — same Notion-native design, more financial coverage. AI Edition ($54, planned) adds 30+ Notion AI prompts saved as templates inside the workspace + a sidebar of ChatGPT/Claude prompts for people who use external AI. Both tiers ship after Essentials hits sustained sales — so buying Essentials is a vote for the expansion roadmap.
+> A: Pro ($39, planned) adds the Net Worth + Investment Portfolio databases — same Notion-native design, more financial coverage. AI Edition ($54, planned) adds 30+ Notion AI prompts saved as templates inside the workspace + a sidebar of AI advisor prompts for people who use an external AI assistant. Both tiers ship after Essentials hits sustained sales — so buying Essentials is a vote for the expansion roadmap.
 
 > **Q: Will I get the Pro and AI Editions free if I buy Essentials now?**
 > A: Pro and AI will be paid upgrades when they ship. We'll offer Essentials buyers a discount equal to your Essentials purchase price (so you don't pay twice for what you already own). Watch for the email when they launch.

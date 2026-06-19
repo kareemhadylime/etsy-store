@@ -93,6 +93,6 @@ Every listing doc follows the same skeleton:
 | "33M+ small businesses in the US" | SB listing description (implicit context) | SB proposal "Disclosed Dated Claims" — SBA 2024 |
 | "Every number a CFO would ask for. None of the consulting fees." | SB listing thumbnail #2 | SB design brief Section 3 (dual-cohort thumbnail strategy) |
 
-**Pricing rule (catalog-wide):** "low alternative" — always pick the lower viable price while staying above the "doesn't look cheap" floor. See `~/.claude/projects/C--ETSY/memory/feedback_pricing_lower_alternative.md`. If any price needs to change, update the proposal + brief + listing + handshake together.
+**Pricing rule (catalog-wide):** "low alternative" — always pick the lower viable price while staying above the "doesn't look cheap" floor. See the project memory file `feedback_pricing_lower_alternative.md`. If any price needs to change, update the proposal + brief + listing + handshake together.
 
-**Input/Output Tab spine rule (catalog-wide):** every spreadsheet listing description should reference the visual dashboard if a screenshot is part of the listing. See `~/.claude/projects/C--ETSY/memory/feedback_spreadsheet_input_output_dashboard.md`.
+**Input/Output Tab spine rule (catalog-wide):** every spreadsheet listing description should reference the visual dashboard if a screenshot is part of the listing. See the project memory file `feedback_spreadsheet_input_output_dashboard.md`.

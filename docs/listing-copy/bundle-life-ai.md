@@ -11,7 +11,7 @@ _Reference: [proposal](../product-proposals/all-in-one-premium-bundle.md) · [de
 ## 1. Title (140 char)
 
 ```
-Premium Life Bundle AI Edition | 6 Spreadsheets + 60 ChatGPT Claude Prompts + Wedding Tools + Setup PDF | Master AI Digital Download
+Premium Life Bundle AI Edition | 6 Spreadsheets + 60 AI Planning Prompts + Wedding Tools + Setup PDF | AI Planning Guide Digital Download
 ```
 
 ## 2. Subtitle / promotional teaser (160 char)
@@ -23,7 +23,7 @@ Six spreadsheets + sixty AI prompts for the engagement-to-business arc. Wedding,
 ## 3. Description (3,348 char)
 
 ```
-Six spreadsheets covering the life-stage arc most couples actually live + a 30-page master AI prompt library that ties them together. Built for buyers who use ChatGPT or Claude as a daily tool — now with the prompts to make them useful for real money decisions.
+Six spreadsheets covering the life-stage arc most couples actually live + a 30-page AI Planning Guide that ties them together. Built for buyers who use their favourite AI assistant as a daily tool — now with the prompts to make them useful for real money decisions.
 
 Buy them individually at $219 (AI Edition across all six). Buy the bundle at $149. Save $70.
 
@@ -36,12 +36,12 @@ Buy them individually at $219 (AI Edition across all six). Buy the bundle at $14
 → Net Worth Tracker (AI Edition) — $29 standalone
 → Small Business Finance Kit (AI Edition) — $54 standalone
 
-Plus the bundle-only Master AI Prompt Library:
+Plus the bundle-only AI Planning Guide:
 
-📚 30-page master prompt library PDF (Life variant — includes Wedding section)
+📚 30-page AI Planning Guide PDF (Life variant — includes Wedding section)
 🔁 10 cross-product workflows on the front pages (including 3 Wedding-specific)
 📋 60+ per-product reference prompts at the back
-💡 Tips page: ChatGPT free vs. Claude vs. paid tiers
+💡 Tips page: free tier vs. a paid AI plan
 
 — The 10 cross-product workflows (Life variant) —
 
@@ -61,7 +61,7 @@ Each workflow ships as a 1-page card: prompt sequence, copy-paste ready, sample 
 — Why $149 instead of $219 —
 
 ▸ Buy together and save $70 (32% off the unbundled price)
-▸ Master prompt library is bundle-exclusive — not sold separately
+▸ AI Planning Guide is bundle-exclusive — not sold separately
 ▸ Wedding cross-product workflows (#2, #7) only make sense when you own Wedding + the finance spreadsheets together
 ▸ One Drive folder, one purchase, one consistent design system
 
@@ -74,7 +74,7 @@ Side business launches → Small Business Finance Kit + AI tax-prep prompt chain
 
 — Who this is for —
 
-✓ Engaged couples who use ChatGPT or Claude regularly
+✓ Engaged couples who use their favourite AI assistant regularly
 ✓ Buyers planning weddings with non-Western elements (the Wedding AI Edition includes dedicated Muslim and Hindu variant tabs)
 ✓ People who tried "AI for personal finance apps" and want something deeper
 ✓ Anyone who'd buy the standalone Wedding AI Edition ($49) + Finance AI Bundle ($119) separately — saves $19 buying them together as this bundle
@@ -88,7 +88,7 @@ Side business launches → Small Business Finance Kit + AI tax-prep prompt chain
 — What you get on delivery —
 
 📦 6 AI Edition Google Sheets (the full AI tier of each)
-📚 Master AI Prompt Library PDF (30 pages, Life variant)
+📚 AI Planning Guide PDF (30 pages, Life variant)
 📖 Setup Wizard PDF (10 pages, includes Wedding setup)
 📋 Quick-start 1-pager
 🔗 Cross-product reference diagram
@@ -99,7 +99,7 @@ All-or-nothing refund policy. Email proof of prior purchase for cross-credit (24
 
 — Updates & support —
 
-One-time purchase + 12 months of free template refreshes (AI Edition tier benefit). Reply to your order email for support — 24-hour response. AI prompt library updates ship when AI tools make changes that affect prompt patterns; you're flagged for proactive updates.
+One-time purchase + 12 months of free template refreshes (AI Edition tier benefit). Reply to your order email for support — 24-hour response. AI Planning Guide updates ship when AI tools make changes that affect prompt patterns; you're flagged for proactive updates.
 ```
 
 ## 4. Variations
@@ -108,20 +108,20 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 
 | Variation | Value | Price | What's included |
 |---|---|---|---|
-| (none) | AI Edition Life Bundle | $149.00 | 6 AI Edition spreadsheets (incl. Wedding) + 30-page Master AI Prompt Library PDF + 10-page Setup Wizard PDF + Quick-start 1-pager + 12-mo free refresh |
+| (none) | AI Edition Life Bundle | $149.00 | 6 AI Edition spreadsheets (incl. Wedding) + 30-page AI Planning Guide PDF + 10-page Setup Wizard PDF + Quick-start 1-pager + 12-mo free refresh |
 
 ## 5. Tags (13, all under 20 char)
 
 1. `life bundle`
 2. `wedding ai`
-3. `chatgpt finance`
-4. `claude prompts`
+3. `finance planner`
+4. `ai planner`
 5. `ai wedding planner`
 6. `couples ai`
 7. `ai budget`
 8. `finance ai`
 9. `wedding bundle`
-10. `prompt library`
+10. `finance bundle`
 11. `engaged couple`
 12. `ai spreadsheet`
 13. `newlywed gift`
@@ -131,10 +131,10 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 ## 6. Materials / attributes
 
 - **Type:** Digital download (bundle)
-- **File format:** Google Sheets (6 sheets) + .pdf (Master AI Library + Setup Wizard + Quick-start)
+- **File format:** Google Sheets (6 sheets) + .pdf (AI Planning Guide + Setup Wizard + Quick-start)
 - **Languages:** English (Wedding AI Edition includes Muslim and Hindu cultural variant tabs — content in English with terminology notes)
 - **Primary use:** Wedding planning, personal finance, AI-assisted couples planning
-- **Recipient:** ChatGPT/Claude users, engaged couples, newlyweds, couples combining finances
+- **Recipient:** AI assistant users, engaged couples, newlyweds, couples combining finances
 
 ## 7. FAQs (10)
 
@@ -144,17 +144,17 @@ Single-tier listing (AI Edition only). The Pro tier is a separate listing.
 > **Q: What are the "Muslim and Hindu cultural variant tabs"?**
 > A: The Wedding AI Edition (included in this bundle) has two dedicated tabs that none of our competitors offer: a Muslim wedding variant (mahr, walima logistics) and a Hindu wedding variant (multi-day functions — mehndi, sangeet, ceremony, reception). Tabs in English with terminology notes. We added these because the cohort planning Muslim/Hindu weddings is real and underserved on Etsy.
 
-> **Q: Do I need ChatGPT Plus or Claude Pro?**
-> A: No. All prompts work in the free tiers. Paid tiers run faster and let you upload files (some workflows benefit), but the core prompts work either way. The library's tips page breaks this down per-prompt.
+> **Q: Do I need a paid AI plan?**
+> A: No. All prompts work in the free tier of your AI assistant. Paid tiers run faster and let you upload files (some workflows benefit), but the core prompts work either way. The guide's tips page breaks this down per-prompt.
 
 > **Q: What are the 3 Wedding-specific AI workflows?**
-> A: (1) "Pay off debt + save for wedding simultaneously" — Debt + Sinking + Wedding triangle. (2) "Wedding-budget reverse-engineering: from total → per-vendor" — paste your max budget, AI suggests per-vendor allocations based on regional/seasonal benchmarks. (3) "Combine finances after marriage" — uses Wedding's "what we ended up spending" + Budget + Net Worth to build a post-wedding monthly plan. All three are on 1-page cards in the master library.
+> A: (1) "Pay off debt + save for wedding simultaneously" — Debt + Sinking + Wedding triangle. (2) "Wedding-budget reverse-engineering: from total → per-vendor" — paste your max budget, AI suggests per-vendor allocations based on regional/seasonal benchmarks. (3) "Combine finances after marriage" — uses Wedding's "what we ended up spending" + Budget + Net Worth to build a post-wedding monthly plan. All three are on 1-page cards in the AI Planning Guide.
 
-> **Q: Will the prompts work with Gemini or local LLMs?**
-> A: Probably, with adjustments. Written for ChatGPT and Claude because that's the cohort we know. Gemini handles most; local LLMs depend on which model — smaller open-source models struggle with multi-step workflows.
+> **Q: Will the prompts work with other AI assistants and local models?**
+> A: Probably, with adjustments. Written for the major AI assistants because that's the cohort we know. Most handle the majority of prompts; local models depend on which model — smaller open-source models struggle with multi-step workflows.
 
 > **Q: 12-month free refresh — what does that actually mean?**
-> A: AI Edition tier (this listing) gets free template updates for 12 months from purchase. If we ship a Wedding update, a new prompt library version, a Notion-style page redesign — you get it free for 12 months. After that, major updates are paid; bug fixes remain free forever. (Pro tier is one-time purchase with bug fixes free, no refresh window.)
+> A: AI Edition tier (this listing) gets free template updates for 12 months from purchase. If we ship a Wedding update, a new AI Planning Guide version, a Notion-style page redesign — you get it free for 12 months. After that, major updates are paid; bug fixes remain free forever. (Pro tier is one-time purchase with bug fixes free, no refresh window.)
 
 > **Q: I already own the standalone Wedding AI Edition ($49). Can I get credit?**
 > A: Yes. Email us the Etsy order number(s) for what you already own — Wedding, any of the finance spreadsheets, the Wedding+Sinking combo, anything. We send a coupon code for the difference within 24 hours.
@@ -182,7 +182,7 @@ Per Bundle design brief Section 2:
 
 - Pricing math (catalog-wide reset 2026-05-11): $219 unbundled ($29 + $29 + $29 + $29 + $54 + $49 Wedding AI) − $149 bundle = $70 saved (32%). Brief Section 2 confirms.
 - Wedding tile in hero stack uses **dusty-rose header bar** (only place dusty rose appears in Life Bundle).
-- Master AI Library PDF is the **Life variant** (~30 pages, includes Wedding section per brief Section 4). Finance variant is ~28 pages.
+- AI Planning Guide PDF is the **Life variant** (~30 pages, includes Wedding section per brief Section 4). Finance variant is ~28 pages.
 - Setup Wizard PDF is the **Life variant** (10 pages, includes Wedding setup page on page 8 per brief Section 3).
 - 12-month refresh window is the AI Edition tier benefit (per Notion proposal sign-off decision 4, generalized across all AI Editions). Track buyers by purchase date.
 - "Section" on Etsy: `Life & Finance Bundles` (same section as Life Pro listing).

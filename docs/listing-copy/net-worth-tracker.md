@@ -36,7 +36,7 @@ This is the spreadsheet 908,000+ Etsy buyers already chose over apps. Ours is th
 
 ▸ PRO ($19) — Everything in Essentials + 10 more tabs (18 total): Vehicle Depreciation (up to 5 + TCO + lease vs. own), Real Estate (primary + vacation + investment with equity / LTV / appreciation), Stocks & Funds (7-account split: 401k / IRA / Roth / SEP / HSA / 529 / Taxable + RSU vesting), Metals & Crypto, Passive Income Simulator, Asset Allocation (current vs. target with drift alerts), Retirement Tracker (employer match + contribution room), Tax-Loss Harvesting Log (wash-sale window), Geographic & Currency Exposure, Insurance & Estate, Beneficiary & Estate Access template. Household mode + multi-currency.
 
-▸ AI EDITION ($29) — Everything in Pro + AI Wealth Intelligence tab with 7 ChatGPT/Claude prompts: Monthly NW Narrative (plain-English explanation of what drove change) / FIRE Forecaster (personalized number with inflation + risk) / Asset Allocation Advisor / Passive Income Blueprint / Wealth Growth Coach (top 3 actions this month) / Annual Wealth Review / Estate Planning Advisor.
+▸ AI EDITION ($29) — Everything in Pro + AI Wealth Intelligence tab with 7 AI advisor prompts you can use with any AI assistant: Monthly NW Narrative (plain-English explanation of what drove change) / FIRE Forecaster (personalized number with inflation + risk) / Asset Allocation Advisor / Passive Income Blueprint / Wealth Growth Coach (top 3 actions this month) / Annual Wealth Review / Estate Planning Advisor.
 
 — Asset coverage (no spreadsheet on Etsy goes this deep) —
 
@@ -135,8 +135,8 @@ Single variation type — **Tier**. 3 values.
 > **Q: What's the FIRE Calculator actually doing?**
 > A: It computes your FIRE number (your annual expenses × 25, adjustable for inflation + life expectancy + risk tolerance) and projects years-to-FIRE under 3 scenarios: conservative / current pace / aggressive. The AI FIRE Forecaster (AI Edition) gives you a personalized narrative — "At your current savings rate, you'll hit FIRE in 14 years assuming 7% real returns; if you raised your savings rate by 5 percentage points, that drops to 11 years."
 
-> **Q: Do I need ChatGPT Plus or Claude Pro for AI features?**
-> A: No. The 7 AI prompts (AI Edition only) work in ChatGPT free tier or Claude free tier. You paste the prompt + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI — the AI part happens in your own browser, in your own account.
+> **Q: Do I need a paid AI plan for AI features?**
+> A: No. The 7 AI advisor prompts (AI Edition only) work on the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI — the AI part happens in your own browser, in your own account.
 
 > **Q: Will it work for all 7 retirement account types (401k / IRA / Roth / SEP / HSA / 529 / Taxable)?**
 > A: Yes (Pro+). Each gets its own section in the Stocks & Funds tab. Per-account: contribution room, employer match utilization (401k), tax treatment notes, RSU vesting calendar (Taxable). The Retirement Tracker tab consolidates all 7 with projected balance at age 65 + total household contribution.

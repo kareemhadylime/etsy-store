@@ -36,7 +36,7 @@ This is the first AI-powered portfolio tracker on Etsy and the only one with blo
 
 ▸ PRO ($24) — Everything in Essentials + 10 more tabs (17 total): Up to 60 positions, dark mode, Bonds & Fixed Income (maturity calendar + YTM), Precious Metals (gold/silver/platinum/palladium spot log), Crypto Tracker (BTC/ETH/altcoins by exchange/wallet), REITs Tracker (FFO + sector breakdown), Options & RSUs (strike/expiry/delta + vesting calendar + concentration alert >10%), Performance & Returns (CAGR + TWR + MWR vs custom benchmark), Risk Metrics (Sharpe, beta, max drawdown, volatility), Tax Lot Tracker (FIFO/LIFO/specific), Tax-Loss Harvesting (wash-sale window + replacement suggestions), Scenario Simulator (drop 20%? add $5k/mo? instant impact + recovery timeline).
 
-▸ AI EDITION ($34) — Everything in Pro + AI Portfolio Intelligence tab with 8 ChatGPT/Claude prompts + Region tax toggle (US/UK/EU/AU/CA):
+▸ AI EDITION ($34) — Everything in Pro + AI Portfolio Intelligence tab with 8 AI advisor prompts you can use with any AI assistant + Region tax toggle (US/UK/EU/AU/CA):
 ✓ Allocation Advisor — current vs age-appropriate model + rebalancing trades
 ✓ Tax-Loss Harvesting Scout — wash-sale-safe sell/buy pairs + estimated tax savings
 ✓ Concentration Risk Alerter — single position >20%, sector >40%, employer stock >10%
@@ -152,8 +152,8 @@ Single variation type — **Tier**. 3 values.
 > **Q: Tax-Loss Harvesting — does it execute trades for me?**
 > A: No (privacy + control gate). It surfaces opportunities. The Tax-Loss Harvesting tab (Pro+) tracks per-position cost basis vs current value, flags positions with unrealized losses, and shows the wash-sale window (30 days before/after a buy of the same or substantially identical security). The AI Edition Tax-Loss Harvesting Scout prompt suggests sell/buy pairs that avoid wash-sale violations. YOU execute the trades at your broker.
 
-> **Q: Do I need ChatGPT Plus or Claude Pro for the AI features?**
-> A: No. The 8 AI prompts (AI Edition only) work in ChatGPT free tier or Claude free tier. You paste the prompt + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI — the AI part happens in your own browser, in your own account. The Quarterly Portfolio Review prompt + multi-position Look-Through Analyzer benefit from a paid tier's longer context window if you have 30+ positions, but free works for most users.
+> **Q: Do I need a paid AI plan for the AI features?**
+> A: No. The 8 AI advisor prompts (AI Edition only) work on the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI — the AI part happens in your own browser, in your own account. The Quarterly Portfolio Review prompt + multi-position Look-Through Analyzer benefit from a paid AI plan's longer context window if you have 30+ positions, but free works for most users.
 
 > **Q: Region tax toggle — what does that do?**
 > A: AI Edition includes 5 regional tax-treatment modes: US (federal short-term/long-term + state add-ons) / UK (CGT + ISA wrappers) / EU (varies by member state, defaults to Germany rules) / AU (CGT + 12-month discount + super) / CA (50% inclusion rule + RRSP/TFSA wrappers). The Tax Lot Tracker and Tax-Loss Harvesting tabs adjust accounting rules based on your selection.

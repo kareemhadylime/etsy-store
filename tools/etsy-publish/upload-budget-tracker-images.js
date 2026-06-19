@@ -26,7 +26,7 @@ const IMAGES = [
   { rank: 1, file: 'budget-tracker-01-hero.png',         alt: 'Budget Tracker dashboard with Financial Health Score 72 and budget vs actual chart' },
   { rank: 2, file: 'budget-tracker-02-health-score.png', alt: 'Financial Health Score breakdown: 5 weighted components' },
   { rank: 3, file: 'budget-tracker-03-methods.png',      alt: '4 budget methods: 50/30/20, Zero-Based, Envelope, Pay Yourself First' },
-  { rank: 4, file: 'budget-tracker-04-ai-advisor.png',   alt: '7 AI prompts for ChatGPT and Claude - no subscription required' },
+  { rank: 4, file: 'budget-tracker-04-ai-advisor.png',   alt: 'AI Money Advisor - 7 guided AI prompts, no subscription required' },
   { rank: 5, file: 'budget-tracker-05-privacy.png',      alt: 'Privacy comparison: your bank credentials never leave your bank' },
 ];
 

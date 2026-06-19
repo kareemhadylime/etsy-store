@@ -136,13 +136,13 @@ const listings = [
   {
     sku: 'Premium Finance Bundle — AI Edition ($119)',
     descriptionFile: '.tmp-bundle-finance-ai-description.txt',
-    title: 'Premium Finance Bundle AI Edition | 5 Spreadsheets + 60 ChatGPT Claude Prompts + 10 Cross-Product Workflows | Master AI Digital Download',
+    title: 'Premium Finance Bundle AI Edition | 5 Spreadsheets + 60 AI Planning Prompts + 10 Cross-Product Workflows | Digital Download',
     price: 119,
     sectionId: financeSectionId,
     tags: [
-      'finance bundle', 'ai bundle', 'chatgpt prompts', 'claude prompts',
+      'finance bundle', 'ai bundle', 'budget spreadsheet', 'money tracker',
       'budget ai', 'debt ai', 'net worth ai', 'finance ai',
-      'ai spreadsheet', 'prompt library', 'ai planner', 'small business ai',
+      'ai spreadsheet', 'personal finance', 'ai planner', 'small business ai',
       'finance kit',
     ],
   },
@@ -162,13 +162,13 @@ const listings = [
   {
     sku: 'Premium Life Bundle — AI Edition ($149)',
     descriptionFile: '.tmp-bundle-life-ai-description.txt',
-    title: 'Premium Life Bundle AI Edition | 6 Spreadsheets + 60 ChatGPT Claude Prompts + Wedding Tools + Setup PDF | Master AI Digital Download',
+    title: 'Premium Life Bundle AI Edition | 6 Spreadsheets + 60 AI Planning Prompts + Wedding Tools + Setup PDF | Digital Download',
     price: 149,
     sectionId: lifeSectionId,
     tags: [
-      'life bundle', 'wedding ai', 'chatgpt finance', 'claude prompts',
+      'life bundle', 'wedding ai', 'finance bundle', 'wedding planner',
       'ai wedding planner', 'couples ai', 'ai budget', 'finance ai',
-      'wedding bundle', 'prompt library', 'engaged couple', 'ai spreadsheet',
+      'wedding bundle', 'ai planner', 'engaged couple', 'ai spreadsheet',
       'newlywed gift',
     ],
   },

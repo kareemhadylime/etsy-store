@@ -10,10 +10,10 @@ _References: [proposal](../product-proposals/zakat-calculator.md) · [design bri
 ## 1. Title (138 char)
 
 ```
-Zakat Calculator Spreadsheet | 4 Madhhabs, Nisab + Hawl Tracker, Crypto + EOSB + Sukuk, 8 AI Prompts Citing Fatwas | Scholar-Aware
+Zakat Calculator Spreadsheet | 4 Madhhabs, Nisab + Hawl Tracker, Crypto + EOSB + Sukuk, AI Zakat Advisor | Scholar-Aware
 ```
 
-**SEO notes:** Front-loads "Zakat Calculator Spreadsheet" — primary head term covering both annual-calculator-user cohort and complex-asset Muslim cohort. "4 Madhhabs" + "Nisab + Hawl Tracker" + "Crypto + EOSB + Sukuk" surface depth signals practicing Muslims search by name. "AI Prompts Citing Fatwas" hooks AI differentiator + signals scholarly accuracy (the unique trust-marker in this category). "Scholar-Aware" closes the credibility loop in the title itself.
+**SEO notes:** Front-loads "Zakat Calculator Spreadsheet" — primary head term covering both annual-calculator-user cohort and complex-asset Muslim cohort. "4 Madhhabs" + "Nisab + Hawl Tracker" + "Crypto + EOSB + Sukuk" surface depth signals practicing Muslims search by name. "AI Zakat Advisor" hooks the AI differentiator + signals scholarly accuracy (the unique trust-marker in this category). "Scholar-Aware" closes the credibility loop in the title itself.
 
 ## 2. Subtitle / promotional teaser (155 char)
 
@@ -36,7 +36,7 @@ This is the most thorough Zakat tool anywhere — and it stays on your device. R
 
 ▸ PRO ($19) — Everything in Essentials + 9 more tabs (19 total): Gold vs. Silver Nisab toggle + live spot via GOOGLEFINANCE, Hawl Tracker per asset (Hijri ↔ Gregorian conversion), Rental Property Zakat (annual net income method, multi-property), Agricultural Zakat (5%/10% by irrigation method, livestock), Sukuk Tracker (Ijarah rental / Musharakah ownership / Murabahah receivable — auto-applies correct rule), Stocks Zakat (intent toggle + full balance-sheet method), EOSB & Provident Fund (DB/DC/SIPP detection, voluntary vs compulsory), Qada Zakat (missed years tracker + recovery payment plan), Distribution Tracker (8 eligible categories per Surah At-Tawbah 9:60 + 5-year history), Partial Payment Planner (monthly equivalent vs annual obligation), Family Consolidation (spouse + dependents, per-person Nisab), Niyyah column on ambiguous assets, debt deduction nuance (12-month rule), multi-currency expansion (PKR, INR, CAD).
 
-▸ AI EDITION ($29) — Everything in Pro + AI Zakat Advisor tab with 8 ChatGPT/Claude prompts (every response cites scholarly sources):
+▸ AI EDITION ($29) — Everything in Pro + AI Zakat Advisor tab with 8 AI advisor prompts you can use with any AI assistant (every response cites scholarly sources):
 ✓ Setup Wizard — guided onboarding by Madhhab + scholar preference
 ✓ Crypto/DeFi Zakat — BTC, staked positions, liquidity pool guidance
 ✓ Nisab Method Picker — gold vs silver, pros/cons per scholar

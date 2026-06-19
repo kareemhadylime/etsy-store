@@ -80,7 +80,7 @@ Already own one or two? Email proof of purchase and we'll send a coupon for the 
 
 — Want AI features? —
 
-The AI Edition of this same bundle is $149 and adds a 30-page master AI prompt library covering 10 cross-product workflows (including 3 Wedding-specific ones) plus ~60 per-product reference prompts.
+The AI Edition of this same bundle is $149 and adds a 30-page AI Planning Guide covering 10 cross-product workflows (including 3 Wedding-specific ones) plus ~60 per-product reference prompts.
 
 — Updates & support —
 

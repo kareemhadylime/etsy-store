@@ -28,7 +28,7 @@ const THUMB_DIR = resolve(ETSY_ROOT, 'tools/thumb-gen/output');
 const SHARED = [
   { rank: 2, file: 'bundle-02-cross-product.png', alt: 'Cross-product workflow diagram showing how the 6 spreadsheets share data' },
   { rank: 3, file: 'bundle-03-setup-wizard.png',  alt: 'Setup wizard PDF preview - linear page-by-page walkthrough' },
-  { rank: 4, file: 'bundle-04-ai-library.png',    alt: '60+ ChatGPT and Claude prompts + 10 cross-product workflows' },
+  { rank: 4, file: 'bundle-04-ai-library.png',    alt: 'AI Planning Guide + 10 cross-product workflows' },
   { rank: 5, file: 'bundle-05-life-stage.png',    alt: 'Life-stage journey: from engagement to first business' },
 ];
 
