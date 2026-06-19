@@ -1,0 +1,12 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="500" fill="#F2EEE3"/>
+  <circle cx="250" cy="205" r="150" fill="#5A6E52"/>
+  <g fill="#F2EEE3">
+    <rect x="200" y="200" width="24" height="58" rx="8"/>
+    <rect x="238" y="178" width="24" height="80" rx="8"/>
+    <rect x="276" y="150" width="24" height="108" rx="8"/>
+  </g>
+  <path d="M288 150 C 312 132, 314 104, 296 92 C 282 108, 276 134, 288 150 Z" fill="#A9B89E"/>
+  <path d="M288 150 C 292 128, 296 112, 300 100" stroke="#5A6E52" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <text x="250" y="432" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="600" letter-spacing="4" fill="#2B3327">LIME STUDIOS</text>
+</svg>

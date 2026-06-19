@@ -1,5 +1,15 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-06-19 — Lime Studios shop branding kit (icon + banner + story + tagline)
+
+Built the full "Customize your shop" asset set for the **LimeStudiosCo** Etsy storefront (https://limestudiosco.etsy.com) — sage + cream, minimal. New `brand/` folder: shop icon `lime-studios-icon.png` (500×500), banner `lime-studios-banner.png` (3360×840), editable `.svg` sources, `gen.cjs` regenerator (renders via the repo's `sharp`), and `lime-studios-shop-copy.md` (finalized Tagline + About-story signed by founder Karim Hady + seller-photo guidance). Logo mark = leaf-on-rising-bars ("finance + growth"). Assets were authored in `C:\ETSY\brand` (outside the repo) and relocated here so they persist.
+
+**State left in:** committed + pushed. This push also carries the prior unpushed commit `2c32bdd` ("Publish full catalog to Etsy as drafts (13 listings)"), which never reached origin. GitHub→Vercel auto-deploy picks it up (brand assets only — no app-code change).
+
+**Next session:** (1) optimized 600×600 seller-photo crop — needs the source headshot file path; (2) the "1 factor risks lowering search visibility" warning — listing-level SEO audit, **needs the Etsy API token reconnected** (currently expired, 401).
+
+---
+
 ## 🧹 2026-05-23 — Sweep-up: QA scripts + thumbnail template + unpushed commit (no new work this session)
 
 End-of-session housekeeping pass — no new work in `etsy-store` this session (session was Finance morning brief trim in `kareemhady`). Sweeping up 3 untracked files and pushing the 1 unpushed commit (`79c92ef`) per cross-project standing-order.
