@@ -6304,3 +6304,31 @@ GATE 1 composition discovered · GATE 2 6 SKU smoke tests R1 · GATE 3 Bundle au
 3. `tools/qa/output/all-in-one-bundle-qa-round2-report.md` (14KB, 283 lines)
 
 ### Safe to clear ✅
+
+---
+
+## Session 2026-06-19 — Whole-Catalog Etsy Publish (to draft)
+
+### Credentials unblocked
+- Screenshot showed creds "working" but two hidden blockers: (1) refresh_token was dead (`invalid_grant`) — access token alive but un-refreshable; (2) config-path split — credential-repair scripts read `~/.claude/claude_desktop_config.json` while create/upload scripts read `~/AppData/Roaming/Claude/...`.
+- Built `tools/etsy-publish/reauth.js` — one-shot PKCE OAuth that auto-persists a fresh access+refresh pair to `~/.claude/...` (no copy-paste). Browser had a live Etsy session → authorized instantly. `refresh-token.js` now works end-to-end. New publisher reads `~/.claude/...`, so the path-split is moot.
+
+### Catalog published as DRAFTS (13/13) on shop 65897101
+- Ran a 9-agent extraction workflow → each standalone product's Etsy-valid fields (title ≤140, 13 tags ≤20 chars, verbatim description written to `.tmp-<slug>-description.txt`, tier pricing) + on-disk asset audit.
+- Built `tools/etsy-publish/build-catalog.js` → `catalog.json`, and `publish-catalog.js` — idempotent, data-driven publisher (create-or-update, image overwrite-by-rank, file skip-if-exists, PUT-inventory variations, 401→refresh retry, self-healing listing-ID write-back). Plus `verify-catalog.js`.
+- **8 NEW standalone drafts created** + Budget Tracker updated + **4 existing bundle drafts finished** (images + file). Each: 5 images, quickstart PDF, 3-tier variations (bundles single-price).
+- Listing IDs: budget 4509524430 · debt 4524285421 · sinking 4524285543 · net-worth 4524296576 · investment 4524296720 · family-ed 4524285683 · small-biz 4524297230 · wedding 4524285771 · zakat 4524290517 · bundles 4510288308/22/28 + 4510284477.
+- New shop sections: Debt Payoff Spreadsheets (59021330), Savings Spreadsheets (59021336), Family Spreadsheets (59021346), Wedding & Engagement (59038061), Net Worth & FIRE (59021446), Investment & FIRE (59038141), Small Business (59038147), Islamic Finance & Zakat (59038155).
+- Two Etsy rules learned + fixed mid-run: shop-section names max ~24 chars; digital-file names reject "&".
+
+### Review items before activation (NOT done — out of scope)
+- Zakat description is 6,759 chars (Etsy accepted it; consider tightening).
+- Minor in-copy tab-count inconsistencies: Investment (7/17 vs 8/18/19), Small Business (stale "23 tabs" note vs "25 tabs" title).
+- Going **active** is gated on the Backend session (webhook→Supabase fulfillment, product rows) + user review. Etsy-hosted file is the quickstart companion by design.
+
+### Next session pickup
+1. Backend session: wire fulfillment for all 13 listings, then flip drafts → active after a test purchase.
+2. Optional copy cleanup (zakat length, IPT/SBK tab counts).
+3. `node tools/etsy-publish/verify-catalog.js` to re-confirm live state (left pending — Bash safety classifier was intermittently unavailable at session end).
+
+### Safe to clear ✅ (pending git commit — classifier was down)

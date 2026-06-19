@@ -1,0 +1,818 @@
+{
+  "generated": "catalog build from etsy-catalog-extract specs",
+  "products": [
+    {
+      "slug": "budget-tracker",
+      "productName": "Budget Tracker",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4509524430,
+      "title": "Budget Tracker Spreadsheet | 11-17 Tabs, AI Money Advisor, Privacy-First | Google Sheets + Excel Digital Download",
+      "subtitle": "A real budget brain — not a single-tab template. Up to 17 tabs, live 50/30/20 split, 7 AI prompts, Financial Health Score. One-time fee. Privacy-first.",
+      "descriptionFile": ".tmp-budget-tracker-description.txt",
+      "tags": [
+        "budget spreadsheet",
+        "budget tracker",
+        "monthly budget",
+        "money planner",
+        "personal finance",
+        "expense tracker",
+        "budget planner",
+        "google sheets",
+        "budget template",
+        "savings tracker",
+        "money management",
+        "ai budget",
+        "finance spreadsheet"
+      ],
+      "sectionTitle": "Budget Spreadsheets",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 9,
+        "pro": 19,
+        "ai": 29
+      },
+      "skuPrefix": "BT",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "budget-tracker-01-hero.png",
+          "rank": 1,
+          "alt": "Budget Tracker — hero"
+        },
+        {
+          "file": "budget-tracker-02-health-score.png",
+          "rank": 2,
+          "alt": "Budget Tracker — health score"
+        },
+        {
+          "file": "budget-tracker-03-methods.png",
+          "rank": 3,
+          "alt": "Budget Tracker — methods"
+        },
+        {
+          "file": "budget-tracker-04-ai-advisor.png",
+          "rank": 4,
+          "alt": "Budget Tracker — ai advisor"
+        },
+        {
+          "file": "budget-tracker-05-privacy.png",
+          "rank": 5,
+          "alt": "Budget Tracker — privacy"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/budget-tracker-quickstart.pdf",
+          "name": "Budget Tracker Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "slug": "debt-payoff-planner",
+      "productName": "Debt Payoff Planner",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4524285421,
+      "title": "Debt Payoff Planner Spreadsheet | 10-21 Tabs, Snowball + Avalanche, AI Credit Coach | Google Sheets + Excel Digital Download",
+      "subtitle": "Get out of debt AND raise your credit score in one sheet. Up to 21 tabs, 8 debt types, 3 strategies, 7 AI prompts. One-time fee. Privacy-first.",
+      "descriptionFile": ".tmp-debt-payoff-planner-description.txt",
+      "tags": [
+        "debt payoff",
+        "debt tracker",
+        "snowball method",
+        "credit score",
+        "debt planner",
+        "avalanche method",
+        "credit card payoff",
+        "debt free",
+        "student loan tracker",
+        "google sheets",
+        "credit utilization",
+        "ai debt tracker",
+        "personal finance"
+      ],
+      "sectionTitle": "Debt Payoff Spreadsheets",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 12,
+        "pro": 19,
+        "ai": 29
+      },
+      "skuPrefix": "DP",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "debt-payoff-planner-01-hero.png",
+          "rank": 1,
+          "alt": "Debt Payoff Planner — hero"
+        },
+        {
+          "file": "debt-payoff-planner-02-strategy-comparison.png",
+          "rank": 2,
+          "alt": "Debt Payoff Planner — strategy comparison"
+        },
+        {
+          "file": "debt-payoff-planner-03-health-score.png",
+          "rank": 3,
+          "alt": "Debt Payoff Planner — health score"
+        },
+        {
+          "file": "debt-payoff-planner-04-methods.png",
+          "rank": 4,
+          "alt": "Debt Payoff Planner — methods"
+        },
+        {
+          "file": "debt-payoff-planner-05-privacy.png",
+          "rank": 5,
+          "alt": "Debt Payoff Planner — privacy"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/debt-payoff-quickstart.pdf",
+          "name": "Debt Payoff Planner Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "slug": "sinking-funds-planner",
+      "productName": "Sinking Funds Planner",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4524285543,
+      "title": "Sinking Funds Planner Spreadsheet | 17 Fund Categories, 4 Savings Vehicles, AI Reallocation | Privacy-First Google Sheets Download",
+      "subtitle": "Save smarter across cash, CDs, ETFs, and metals. 17 fund categories, 4 vehicles, 7 AI prompts. The only sinking funds sheet that handles all four vehicles.",
+      "descriptionFile": ".tmp-sinking-funds-planner-description.txt",
+      "tags": [
+        "sinking funds",
+        "savings tracker",
+        "savings planner",
+        "emergency fund",
+        "goal tracker",
+        "money planner",
+        "cd ladder",
+        "dividend tracker",
+        "google sheets",
+        "precious metals",
+        "personal finance",
+        "ai savings",
+        "budget planner"
+      ],
+      "sectionTitle": "Savings Spreadsheets",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 9,
+        "pro": 19,
+        "ai": 29
+      },
+      "skuPrefix": "SF",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "sinking-funds-planner-01-hero.png",
+          "rank": 1,
+          "alt": "Sinking Funds Planner — hero"
+        },
+        {
+          "file": "sinking-funds-planner-02-priority-matrix.png",
+          "rank": 2,
+          "alt": "Sinking Funds Planner — priority matrix"
+        },
+        {
+          "file": "sinking-funds-planner-03-vehicles.png",
+          "rank": 3,
+          "alt": "Sinking Funds Planner — vehicles"
+        },
+        {
+          "file": "sinking-funds-planner-04-ai-advisor.png",
+          "rank": 4,
+          "alt": "Sinking Funds Planner — ai advisor"
+        },
+        {
+          "file": "sinking-funds-planner-05-anti-qapital.png",
+          "rank": 5,
+          "alt": "Sinking Funds Planner — anti qapital"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/sinking-funds-quickstart.pdf",
+          "name": "Sinking Funds Planner Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": [
+        "Subtitle in source copy was 161 chars (over Etsy 159 limit); trimmed to 155 chars by changing 'sinking funds spreadsheet' to 'sinking funds sheet'. Key keywords (cash/CDs/ETFs/metals, 17 fund categories, 4 vehicles, 7 AI prompts, all four vehicles) preserved."
+      ]
+    },
+    {
+      "slug": "net-worth-tracker",
+      "productName": "Net Worth Tracker",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4524296576,
+      "title": "Net Worth Tracker Spreadsheet | 19 Tabs, FIRE Calculator, All Asset Classes, AI Wealth Intelligence | Privacy-First Google Sheets",
+      "subtitle": "Every asset class. Every liability. FIRE projection. AI tells you what's driving your wealth and how to grow it faster. No Plaid. No aggregator. $12 once.",
+      "descriptionFile": ".tmp-net-worth-tracker-description.txt",
+      "tags": [
+        "net worth tracker",
+        "fire calculator",
+        "wealth tracker",
+        "asset tracker",
+        "financial dashboard",
+        "retirement planner",
+        "investment tracker",
+        "personal finance",
+        "google sheets",
+        "passive income",
+        "estate planning",
+        "ai wealth",
+        "fi planner"
+      ],
+      "sectionTitle": "Net Worth & FIRE",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 12,
+        "pro": 19,
+        "ai": 29
+      },
+      "skuPrefix": "NW",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "net-worth-tracker-01-hero.png",
+          "rank": 1,
+          "alt": "Net Worth Tracker — hero"
+        },
+        {
+          "file": "net-worth-tracker-02-fire-calculator.png",
+          "rank": 2,
+          "alt": "Net Worth Tracker — fire calculator"
+        },
+        {
+          "file": "net-worth-tracker-03-asset-mix.png",
+          "rank": 3,
+          "alt": "Net Worth Tracker — asset mix"
+        },
+        {
+          "file": "net-worth-tracker-04-ai-advisor.png",
+          "rank": 4,
+          "alt": "Net Worth Tracker — ai advisor"
+        },
+        {
+          "file": "net-worth-tracker-05-anti-plaid.png",
+          "rank": 5,
+          "alt": "Net Worth Tracker — anti plaid"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/net-worth-quickstart.pdf",
+          "name": "Net Worth Tracker Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "slug": "investment-portfolio-tracker",
+      "productName": "Investment Portfolio Tracker",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4524296720,
+      "title": "Investment Portfolio Tracker Spreadsheet | 19 Tabs, 10 Asset Classes, Live GOOGLEFINANCE Prices, AI Portfolio Intelligence | No Broker Sync",
+      "subtitle": "Track stocks, ETFs, bonds, crypto, metals, REITs, options. Live prices via GOOGLEFINANCE. AI tells you what to rebalance. $17 once vs $596/year SaaS.",
+      "descriptionFile": ".tmp-investment-portfolio-tracker-description.txt",
+      "tags": [
+        "portfolio tracker",
+        "stock tracker",
+        "investment tracker",
+        "dividend tracker",
+        "crypto tracker",
+        "etf tracker",
+        "wealth dashboard",
+        "tax loss harvest",
+        "google sheets",
+        "fire calculator",
+        "passive income",
+        "ai portfolio",
+        "googlefinance"
+      ],
+      "sectionTitle": "Investment & FIRE",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 17,
+        "pro": 24,
+        "ai": 34
+      },
+      "skuPrefix": "IPT",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "investment-portfolio-tracker-01-hero.png",
+          "rank": 1,
+          "alt": "Investment Portfolio Tracker — hero"
+        },
+        {
+          "file": "investment-portfolio-tracker-02-holdings.png",
+          "rank": 2,
+          "alt": "Investment Portfolio Tracker — holdings"
+        },
+        {
+          "file": "investment-portfolio-tracker-03-risk-allocation.png",
+          "rank": 3,
+          "alt": "Investment Portfolio Tracker — risk allocation"
+        },
+        {
+          "file": "investment-portfolio-tracker-04-ai-advisor.png",
+          "rank": 4,
+          "alt": "Investment Portfolio Tracker — ai advisor"
+        },
+        {
+          "file": "investment-portfolio-tracker-05-anti-sharesight.png",
+          "rank": 5,
+          "alt": "Investment Portfolio Tracker — anti sharesight"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/investment-portfolio-quickstart.pdf",
+          "name": "Investment Portfolio Tracker Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": [
+        "Internal copy inconsistency (does not affect extracted fields): the Section 3 description body labels Essentials as '7 tabs' and PRO as '17 total', but the Section 4 variations table and FAQs label them '8 tabs' and '18 tabs' respectively (AI Edition consistently 19). Title/subtitle/tags/pricing all OK. Pricing 17/24/34 matches the copy exactly — no pricing mismatch. All 3 xlsx tiers, AI PDF + quickstart PDF, and all 5 thumbnails are present on disk."
+      ]
+    },
+    {
+      "slug": "family-education-planner",
+      "productName": "Family & Education Planner",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4524285683,
+      "title": "Family & Education Planner Spreadsheet | 18 Tabs, 529 vs UTMA, EFC Calculator, Scholarship Tracker, AI Family Finance Advisor",
+      "subtitle": "Plan every dollar from pregnancy through college launch. AI picks the right account per child. Privacy-first — no app tracking your kids. $14 once.",
+      "descriptionFile": ".tmp-family-education-planner-description.txt",
+      "tags": [
+        "family planner",
+        "college savings",
+        "529 calculator",
+        "efc calculator",
+        "scholarship tracker",
+        "child budget",
+        "family budget",
+        "parent planner",
+        "google sheets",
+        "fafsa planner",
+        "education savings",
+        "ai planner",
+        "new parent"
+      ],
+      "sectionTitle": "Family Spreadsheets",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 14,
+        "pro": 22,
+        "ai": 32
+      },
+      "skuPrefix": "FED",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "family-education-planner-01-hero.png",
+          "rank": 1,
+          "alt": "Family & Education Planner — hero"
+        },
+        {
+          "file": "family-education-planner-02-account-comparison.png",
+          "rank": 2,
+          "alt": "Family & Education Planner — account comparison"
+        },
+        {
+          "file": "family-education-planner-03-efc-aid.png",
+          "rank": 3,
+          "alt": "Family & Education Planner — efc aid"
+        },
+        {
+          "file": "family-education-planner-04-ai-advisor.png",
+          "rank": 4,
+          "alt": "Family & Education Planner — ai advisor"
+        },
+        {
+          "file": "family-education-planner-05-anti-greenlight.png",
+          "rank": 5,
+          "alt": "Family & Education Planner — anti greenlight"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/family-education-quickstart.pdf",
+          "name": "Family and Education Planner Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "slug": "small-business-finance-kit",
+      "productName": "Small Business Finance Kit",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4524297230,
+      "title": "Small Business Finance Kit Spreadsheet | 25 Tabs, P&L, Payroll, Invoicing, AI CFO | QuickBooks Alternative Google Sheets Download",
+      "subtitle": "The complete financial back-office in one spreadsheet. P&L, invoicing, payroll, project costing, tax prep, AI CFO. $24 once vs. QuickBooks $35–$235/month. Forever.",
+      "descriptionFile": ".tmp-small-business-finance-kit-description.txt",
+      "tags": [
+        "small business",
+        "bookkeeping",
+        "quickbooks alt",
+        "business spreadsheet",
+        "p and l statement",
+        "invoice tracker",
+        "payroll template",
+        "business finance",
+        "google sheets",
+        "etsy seller",
+        "freelancer tools",
+        "ai business",
+        "accounting template"
+      ],
+      "sectionTitle": "Small Business",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 24,
+        "pro": 39,
+        "ai": 54
+      },
+      "skuPrefix": "SBK",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "small-business-finance-kit-01-hero.png",
+          "rank": 1,
+          "alt": "Small Business Finance Kit — hero"
+        },
+        {
+          "file": "small-business-finance-kit-02-kpi-dashboard.png",
+          "rank": 2,
+          "alt": "Small Business Finance Kit — kpi dashboard"
+        },
+        {
+          "file": "small-business-finance-kit-03-invoice-forecast.png",
+          "rank": 3,
+          "alt": "Small Business Finance Kit — invoice forecast"
+        },
+        {
+          "file": "small-business-finance-kit-04-ai-copilot.png",
+          "rank": 4,
+          "alt": "Small Business Finance Kit — ai copilot"
+        },
+        {
+          "file": "small-business-finance-kit-05-anti-quickbooks.png",
+          "rank": 5,
+          "alt": "Small Business Finance Kit — anti quickbooks"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/small-business-quickstart.pdf",
+          "name": "Small Business Finance Kit Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": [
+        "Minor copy inconsistency (not blocking): the Title and Description state '25 Tabs', but the SEO notes under Section 1 reference '23 Tabs', and the Pro tier text says 'Everything in Essentials + 15 more tabs (24 total)' while Essentials lists 9 tabs (9+15=24, consistent), then AI Edition adds the AI Co-Pilot tab for 25 total — title's '25 Tabs' is correct, the SEO-note '23 Tabs' is a stale figure."
+      ]
+    },
+    {
+      "slug": "wedding-budget-planner",
+      "productName": "Wedding Budget & Planner",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4524285771,
+      "title": "Wedding Budget Spreadsheet + Planner | 22 Tabs, Guest List, Seating Chart, Vendor Tracker | Google Sheets Digital Download",
+      "subtitle": "The wedding planner that lives in your spreadsheet, not someone else's app. 22 tabs, AI prompts, no SaaS sharing your guest list. Forever yours.",
+      "descriptionFile": ".tmp-wedding-budget-planner-description.txt",
+      "tags": [
+        "wedding spreadsheet",
+        "wedding budget",
+        "wedding planner",
+        "guest list template",
+        "seating chart",
+        "wedding checklist",
+        "wedding tracker",
+        "vendor tracker",
+        "bridal planner",
+        "wedding google sheet",
+        "engagement gift",
+        "wedding day timeline",
+        "wedding ai prompts"
+      ],
+      "sectionTitle": "Wedding & Engagement",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 19,
+        "pro": 34,
+        "ai": 49
+      },
+      "skuPrefix": "WED",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "wedding-budget-planner-01-hero.png",
+          "rank": 1,
+          "alt": "Wedding Budget & Planner — hero"
+        },
+        {
+          "file": "wedding-budget-planner-02-budget-dashboard.png",
+          "rank": 2,
+          "alt": "Wedding Budget & Planner — budget dashboard"
+        },
+        {
+          "file": "wedding-budget-planner-03-guest-seating.png",
+          "rank": 3,
+          "alt": "Wedding Budget & Planner — guest seating"
+        },
+        {
+          "file": "wedding-budget-planner-04-ai-copilot.png",
+          "rank": 4,
+          "alt": "Wedding Budget & Planner — ai copilot"
+        },
+        {
+          "file": "wedding-budget-planner-05-anti-zola.png",
+          "rank": 5,
+          "alt": "Wedding Budget & Planner — anti zola"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/wedding-quickstart.pdf",
+          "name": "Wedding Budget and Planner Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": [
+        "Source subtitle in copy was 161 chars (exceeds Etsy 159 cap); trimmed to 144 chars by dropping the redundant 'no monthly fees' phrase while preserving 'Forever yours.'"
+      ]
+    },
+    {
+      "slug": "zakat-calculator",
+      "productName": "Zakat Calculator",
+      "isBundle": false,
+      "finishOnly": false,
+      "listingId": 4524290517,
+      "title": "Zakat Calculator Spreadsheet | 4 Madhhabs, Nisab + Hawl Tracker, Crypto + EOSB + Sukuk, 8 AI Prompts Citing Fatwas | Scholar-Aware",
+      "subtitle": "Hanafi, Maliki, Shafi'i, Hanbali. Modern assets: crypto, EOSB, Sukuk, rental property. AI Zakat Advisor cites NZF + AAOIFI. $9 once. Privacy-first.",
+      "descriptionFile": ".tmp-zakat-calculator-description.txt",
+      "tags": [
+        "zakat calculator",
+        "islamic finance",
+        "muslim planner",
+        "ramadan planner",
+        "nisab calculator",
+        "hawl tracker",
+        "zakat al fitr",
+        "madhhab",
+        "google sheets",
+        "ai zakat",
+        "crypto zakat",
+        "qada zakat",
+        "sukuk tracker"
+      ],
+      "sectionTitle": "Islamic Finance & Zakat",
+      "taxonomyId": 12487,
+      "pricing": {
+        "essentials": 9,
+        "pro": 19,
+        "ai": 29
+      },
+      "skuPrefix": "ZAK",
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "zakat-calculator-01-hero.png",
+          "rank": 1,
+          "alt": "Zakat Calculator — hero"
+        },
+        {
+          "file": "zakat-calculator-02-madhhab-selector.png",
+          "rank": 2,
+          "alt": "Zakat Calculator — madhhab selector"
+        },
+        {
+          "file": "zakat-calculator-03-asset-coverage.png",
+          "rank": 3,
+          "alt": "Zakat Calculator — asset coverage"
+        },
+        {
+          "file": "zakat-calculator-04-ai-advisor.png",
+          "rank": 4,
+          "alt": "Zakat Calculator — ai advisor"
+        },
+        {
+          "file": "zakat-calculator-05-privacy-fiqh.png",
+          "rank": 5,
+          "alt": "Zakat Calculator — privacy fiqh"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/zakat-quickstart.pdf",
+          "name": "Zakat Calculator Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ],
+      "notes": [
+        "Description body is 6759 chars, exceeding Etsy's 6000-char maximum (descriptionOk=false). The source header in section ## 3 claims '3,486 char' but the actual verbatim body is 6759 chars — the header badly undercounts. Description must be trimmed by ~760+ chars before publishing.",
+        "Section header '## 1. Title (138 char)' overstates length — actual title is 130 chars (still well under 140, titleOk=true).",
+        "Subtitle header says '155 char' but actual is 147 chars (under 159, fine)."
+      ]
+    },
+    {
+      "slug": "bundle-finance-pro",
+      "productName": "Premium Finance Bundle — Pro",
+      "isBundle": true,
+      "finishOnly": true,
+      "listingId": 4510288308,
+      "sectionTitle": "Finance Bundles",
+      "price": 79,
+      "taxonomyId": 12487,
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "bundle-finance-pro-01-hero.png",
+          "rank": 1,
+          "alt": "Premium Finance Bundle — Pro — hero"
+        },
+        {
+          "file": "bundle-02-cross-product.png",
+          "rank": 2,
+          "alt": "How the spreadsheets share data across the bundle"
+        },
+        {
+          "file": "bundle-03-setup-wizard.png",
+          "rank": 3,
+          "alt": "Setup wizard PDF — page-by-page walkthrough"
+        },
+        {
+          "file": "bundle-04-ai-library.png",
+          "rank": 4,
+          "alt": "60+ ChatGPT and Claude prompts + cross-product workflows"
+        },
+        {
+          "file": "bundle-05-life-stage.png",
+          "rank": 5,
+          "alt": "Life-stage journey from engagement to first business"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/bundle-quickstart.pdf",
+          "name": "Premium Bundle Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ]
+    },
+    {
+      "slug": "bundle-finance-ai",
+      "productName": "Premium Finance Bundle — AI Edition",
+      "isBundle": true,
+      "finishOnly": true,
+      "listingId": 4510288322,
+      "sectionTitle": "Finance Bundles",
+      "price": 119,
+      "taxonomyId": 12487,
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "bundle-finance-ai-01-hero.png",
+          "rank": 1,
+          "alt": "Premium Finance Bundle — AI Edition — hero"
+        },
+        {
+          "file": "bundle-02-cross-product.png",
+          "rank": 2,
+          "alt": "How the spreadsheets share data across the bundle"
+        },
+        {
+          "file": "bundle-03-setup-wizard.png",
+          "rank": 3,
+          "alt": "Setup wizard PDF — page-by-page walkthrough"
+        },
+        {
+          "file": "bundle-04-ai-library.png",
+          "rank": 4,
+          "alt": "60+ ChatGPT and Claude prompts + cross-product workflows"
+        },
+        {
+          "file": "bundle-05-life-stage.png",
+          "rank": 5,
+          "alt": "Life-stage journey from engagement to first business"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/bundle-quickstart.pdf",
+          "name": "Premium Bundle Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ]
+    },
+    {
+      "slug": "bundle-life-pro",
+      "productName": "Premium Life Bundle — Pro",
+      "isBundle": true,
+      "finishOnly": true,
+      "listingId": 4510288328,
+      "sectionTitle": "Life & Finance Bundles",
+      "price": 99,
+      "taxonomyId": 12487,
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "bundle-life-pro-01-hero.png",
+          "rank": 1,
+          "alt": "Premium Life Bundle — Pro — hero"
+        },
+        {
+          "file": "bundle-02-cross-product.png",
+          "rank": 2,
+          "alt": "How the spreadsheets share data across the bundle"
+        },
+        {
+          "file": "bundle-03-setup-wizard.png",
+          "rank": 3,
+          "alt": "Setup wizard PDF — page-by-page walkthrough"
+        },
+        {
+          "file": "bundle-04-ai-library.png",
+          "rank": 4,
+          "alt": "60+ ChatGPT and Claude prompts + cross-product workflows"
+        },
+        {
+          "file": "bundle-05-life-stage.png",
+          "rank": 5,
+          "alt": "Life-stage journey from engagement to first business"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/bundle-quickstart.pdf",
+          "name": "Premium Bundle Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ]
+    },
+    {
+      "slug": "bundle-life-ai",
+      "productName": "Premium Life Bundle — AI Edition",
+      "isBundle": true,
+      "finishOnly": true,
+      "listingId": 4510284477,
+      "sectionTitle": "Life & Finance Bundles",
+      "price": 149,
+      "taxonomyId": 12487,
+      "thumbDir": "tools/thumb-gen/output",
+      "thumbnails": [
+        {
+          "file": "bundle-life-ai-01-hero.png",
+          "rank": 1,
+          "alt": "Premium Life Bundle — AI Edition — hero"
+        },
+        {
+          "file": "bundle-02-cross-product.png",
+          "rank": 2,
+          "alt": "How the spreadsheets share data across the bundle"
+        },
+        {
+          "file": "bundle-03-setup-wizard.png",
+          "rank": 3,
+          "alt": "Setup wizard PDF — page-by-page walkthrough"
+        },
+        {
+          "file": "bundle-04-ai-library.png",
+          "rank": 4,
+          "alt": "60+ ChatGPT and Claude prompts + cross-product workflows"
+        },
+        {
+          "file": "bundle-05-life-stage.png",
+          "rank": 5,
+          "alt": "Life-stage journey from engagement to first business"
+        }
+      ],
+      "digitalFiles": [
+        {
+          "path": "tools/pdf-gen/output/bundle-quickstart.pdf",
+          "name": "Premium Bundle Quick Start.pdf",
+          "type": "application/pdf"
+        }
+      ]
+    }
+  ]
+}

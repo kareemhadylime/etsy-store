@@ -251,3 +251,17 @@ _Sweep-up: 2026-05-23 (handoff-push-all) — 🧹 No new work this session. Comm
 **State left in:** All 10 products shipped or QA-validated. No open decisions.
 
 **Next session:** Nothing pending.
+
+---
+
+## 2026-06-19 — Whole catalog PUBLISHED TO ETSY (drafts)
+
+- [x] **Etsy credentials re-authed & made refreshable ✅** — refresh_token was dead; built `tools/etsy-publish/reauth.js` (one-shot PKCE → auto-persists to `~/.claude/claude_desktop_config.json`). `refresh-token.js` verified working. Config-path split resolved (publisher reads `~/.claude/...`).
+- [x] **All 13 listings live as DRAFTS on shop 65897101 ✅** — 9 standalone (3-tier variations) + 4 bundles (single-price), each with 5 images + quickstart PDF. IDs: budget 4509524430 · debt 4524285421 · sinking 4524285543 · net-worth 4524296576 · investment 4524296720 · family-ed 4524285683 · small-biz 4524297230 · wedding 4524285771 · zakat 4524290517 · bundle-finance-pro 4510288308 · bundle-finance-ai 4510288322 · bundle-life-pro 4510288328 · bundle-life-ai 4510284477.
+- [x] **Idempotent publisher tooling ✅** — `tools/etsy-publish/{reauth,build-catalog,publish-catalog,verify-catalog}.js` + `catalog.json`. Re-run-safe (self-heals listing IDs; never duplicates).
+- [ ] **Activation (draft → active)** — gated on Backend session (webhook→Supabase fulfillment + product rows) and user review. NOT this session's scope.
+- [ ] **Optional copy polish** — zakat description length (6,759 chars), Investment/Small-Business in-body tab-count inconsistencies.
+
+**State left in:** Entire catalog published as private Etsy drafts, fully populated (copy + images + file + variations). Nothing active/public. Pending git commit (Bash safety classifier was intermittently down at session end).
+
+**Next session:** Backend fulfillment wiring → test purchase → flip drafts to active.

@@ -10,7 +10,7 @@
  */
 import { readFileSync, writeFileSync } from 'fs';
 
-const CONFIG_PATH = 'C:\\Users\\karee\\AppData\\Roaming\\Claude\\claude_desktop_config.json';
+const CONFIG_PATH = 'C:\\Users\\karee\\.claude\\claude_desktop_config.json';
 const cfg = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
 const env = cfg.mcpServers.etsy.env;
 const { ETSY_API_KEY, ETSY_REFRESH_TOKEN } = env;
