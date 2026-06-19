@@ -1,5 +1,17 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-06-19 (PM) — Seller-Policy follow-up: AI thumbnails regenerated (listing images now clean)
+
+Closed item #1 of the remediation below. Scrubbed visible AI-brand text from 14 thumbnail templates (`tools/thumb-gen/templates/`) — both AI-bundle HERO images ("60 ChatGPT Prompts"→"60 AI Prompts"), the wedding HERO ("AI Co-Pilot"→"AI Advisor"), and all `-04-ai-advisor/-copilot` cards (ChatGPT/Claude badges → "Any AI"/"Free tier", "AI Co-Pilot"→"AI Advisor", "ChatGPT or Claude"→"any AI assistant"). Only invisible CSS class names (`.claude`/`.gpt`) remain. Re-rendered all 14 to 2000×2000 PNGs via puppeteer (`output/` is gitignored — PNGs are on disk ready to upload). Visually verified 4 (layout intact). Competitor comparisons (QuickBooks/Sharesight/Copilot Money/Zola) intentionally kept.
+
+**Observation (not done):** thumbnails still show the OLD brand name **"LIME PREMIUM STUDIOS"** in the header band — inconsistent with the new **Lime Studios** shop identity. Separate from compliance; flag for a brand-name pass across all 64 thumbnails if wanted.
+
+**State left in:** templates committed + pushed; regenerated PNGs in `tools/thumb-gen/output/` ready to re-upload to Etsy.
+
+**Next session:** items #2 (`.tmp` descriptions regen) + #3 (product PDFs/sheets) below still open.
+
+---
+
 ## 🔴 2026-06-19 (PM) — Seller-Policy remediation: scrub ChatGPT/Claude + prompt-pack framing from the whole catalog
 
 Etsy **removed 2 listings** (Premium Finance Bundle AI Edition + Wedding Budget Planner) under **Seller Policy** — cause: third-party AI **trademarks** (ChatGPT/Claude) used in titles/tags/descriptions + selling **"AI prompt packs/libraries."** Appeals unavailable; removed listings can't be relisted (must create NEW compliant ones). Systemic across the AI-Edition catalog → suspension risk. Did a full text scrub:
