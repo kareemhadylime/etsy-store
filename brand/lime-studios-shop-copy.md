@@ -47,5 +47,10 @@ Alternates: "Beautiful spreadsheets for every money goal" · "Budget, debt & net
 - Photo: founder headshot (provided 2026-06-19). Crop tight to face on upload.
 - Member name: **Lime Studios** (alt pairing: "Karim Hady · Founder").
 
+## Featured (Shop home → About your shop)
+- `featured/featured-1-how-it-works.png` … `featured-5-promise.png` (1600×1200) — **Featured photos** (Etsy allows up to 5). Order as listed: How it works · Range · Editions · Dashboard · Promise.
+- `lime-studios-shop-video.mp4` (1080×1080, 8s, silent, H.264) — **Featured video**. Etsy spec: 5–15s, ≤100MB — well within.
+- Regenerate: `node featured.cjs` (photos) · `node video.cjs` (video) — both use the repo's `sharp`; video also needs `ffmpeg` on PATH.
+
 ## Status (2026-06-19)
-All 5 "Customize your shop" tasks have ready deliverables (icon, banner, tagline, story, seller photo). Open: optimized 600×600 seller-photo crop (needs source file path); search-visibility listing audit (needs Etsy token reconnected — currently expired).
+All 5 "Customize your shop" tasks + Featured photos + Featured video have ready deliverables (icon, banner, tagline, story, seller photo, 5 featured photos, shop video). Open: optimized 600×600 seller-photo crop (needs source file path); search-visibility listing audit (needs Etsy token reconnected — currently expired).

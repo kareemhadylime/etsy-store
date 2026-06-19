@@ -1,0 +1,46 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1600" height="1200" fill="#F2EEE3"/>
+    
+    <text x="800" y="180" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="76" font-weight="700" fill="#2B3327">Ten honest minutes</text>
+    <text x="800" y="248" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="36" fill="#6E7A66">From numbers to a plan — in three simple steps.</text>
+    <g>
+      <rect x="140" y="360" width="400" height="460" rx="26" fill="#FBFAF5" stroke="#A9B89E" stroke-width="2"/>
+      <circle cx="340" cy="480" r="64" fill="#5A6E52"/>
+      <g transform="translate(310,450)" fill="none" stroke="#F2EEE3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 50 L40 16 L52 28 L18 62 L4 64 Z" fill="#F2EEE3" stroke="none"/>
+    <rect x="40" y="6" width="14" height="14" rx="3" transform="rotate(45 47 13)" fill="#F2EEE3" stroke="none"/>
+    <line x1="2" y1="64" x2="58" y2="64" stroke="#A9B89E"/>
+  </g>
+      <text x="340" y="610" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="3" fill="#7E9170">1 · ENTER</text>
+      <text x="340" y="672" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#2B3327"><tspan x="340" dy="0">Type your numbers</tspan><tspan x="340" dy="39">into one clean</tspan><tspan x="340" dy="39">Input tab.</tspan></text>
+    </g><g>
+      <rect x="600" y="360" width="400" height="460" rx="26" fill="#FBFAF5" stroke="#A9B89E" stroke-width="2"/>
+      <circle cx="800" cy="480" r="64" fill="#5A6E52"/>
+      <g transform="translate(770,452)" fill="#F2EEE3">
+    <rect x="2" y="34" width="13" height="22" rx="3"/>
+    <rect x="22" y="20" width="13" height="36" rx="3"/>
+    <rect x="42" y="6" width="13" height="50" rx="3"/>
+  </g>
+      <text x="800" y="610" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="3" fill="#7E9170">2 · SEE</text>
+      <text x="800" y="672" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#2B3327"><tspan x="800" dy="0">A colourful</tspan><tspan x="800" dy="39">Dashboard shows</tspan><tspan x="800" dy="39">where you stand.</tspan></text>
+    </g><g>
+      <rect x="1060" y="360" width="400" height="460" rx="26" fill="#FBFAF5" stroke="#A9B89E" stroke-width="2"/>
+      <circle cx="1260" cy="480" r="64" fill="#5A6E52"/>
+      <g transform="translate(1260,480)" fill="none" stroke="#F2EEE3" stroke-width="6">
+    <circle r="30"/><circle r="16"/><circle r="3" fill="#F2EEE3"/>
+  </g>
+      <text x="1260" y="610" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="3" fill="#7E9170">3 · DECIDE</text>
+      <text x="1260" y="672" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="600" fill="#2B3327"><tspan x="1260" dy="0">Know exactly what</tspan><tspan x="1260" dy="39">to do next.</tspan></text>
+    </g>
+    <g transform="translate(110,1120) scale(0.7)">
+    <circle cx="0" cy="0" r="50" fill="#5A6E52"/>
+    <g fill="#F2EEE3">
+      <rect x="-22" y="-2" width="9" height="24" rx="3"/>
+      <rect x="-8" y="-12" width="9" height="34" rx="3"/>
+      <rect x="6" y="-22" width="9" height="44" rx="3"/>
+    </g>
+    <path d="M14 -22 C 24 -30, 25 -42, 17 -47 C 11 -39, 8 -30, 14 -22 Z" fill="#A9B89E"/>
+  </g>
+    <text x="155" y="1130" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="600" fill="#2B3327">Lime Studios</text>
+    <text x="1510" y="1130" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#6E7A66">limestudiosco.etsy.com</text>
+  </svg>

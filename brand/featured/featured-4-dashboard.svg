@@ -1,0 +1,45 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1600" height="1200" fill="#F2EEE3"/>
+    
+    <text x="800" y="150" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="70" font-weight="700" fill="#2B3327">Your numbers, instantly visual</text>
+    <rect x="150" y="250" width="1300" height="820" rx="30" fill="#FBFAF5" stroke="#A9B89E" stroke-width="2"/>
+    <circle cx="184" cy="286" r="8" fill="#D9655B"/><circle cx="212" cy="286" r="8" fill="#D9B36A"/><circle cx="240" cy="286" r="8" fill="#7E9170"/>
+    <text x="1410" y="296" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="600" fill="#6E7A66">Budget Dashboard · June</text>
+    <g>
+      <rect x="190" y="340" width="380" height="150" rx="18" fill="#F2EEE3"/>
+      <rect x="190" y="340" width="10" height="150" rx="5" fill="#5A6E52"/>
+      <text x="226" y="396" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#6E7A66">Income</text>
+      <text x="226" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="700" fill="#2B3327">$7,500</text>
+    </g><g>
+      <rect x="600" y="340" width="380" height="150" rx="18" fill="#F2EEE3"/>
+      <rect x="600" y="340" width="10" height="150" rx="5" fill="#C57B57"/>
+      <text x="636" y="396" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#6E7A66">Spent</text>
+      <text x="636" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="700" fill="#2B3327">$5,240</text>
+    </g><g>
+      <rect x="1010" y="340" width="380" height="150" rx="18" fill="#F2EEE3"/>
+      <rect x="1010" y="340" width="10" height="150" rx="5" fill="#D9B36A"/>
+      <text x="1046" y="396" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#6E7A66">Saved</text>
+      <text x="1046" y="456" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="700" fill="#2B3327">$2,260</text>
+    </g>
+    <text x="380" y="580" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="600" fill="#6E7A66">Where it goes</text>
+    <path d="M380.0 650.0 A120 120 0 0 1 437.8 875.2" fill="none" stroke="#5A6E52" stroke-width="54"/><path d="M437.8 875.2 A120 120 0 0 1 265.9 807.1" fill="none" stroke="#C57B57" stroke-width="54"/><path d="M265.9 807.1 A120 120 0 0 1 287.5 693.5" fill="none" stroke="#D9B36A" stroke-width="54"/><path d="M287.5 693.5 A120 120 0 0 1 380.0 650.0" fill="none" stroke="#6E8BA3" stroke-width="54"/>
+    <text x="380" y="784" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="700" fill="#2B3327">100%</text>
+    <text x="690" y="580" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="600" fill="#6E7A66">Spending by month</text>
+    <rect x="690" y="766.5" width="40" height="103.5" rx="7" fill="#7E9170"/><rect x="754" y="727.4" width="40" height="142.6" rx="7" fill="#7E9170"/><rect x="818" y="755" width="40" height="115" rx="7" fill="#7E9170"/><rect x="882" y="690.6" width="40" height="179.4" rx="7" fill="#7E9170"/><rect x="946" y="718.2" width="40" height="151.8" rx="7" fill="#7E9170"/><rect x="1010" y="663" width="40" height="207" rx="7" fill="#5A6E52"/>
+    <text x="1110" y="580" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="600" fill="#6E7A66">Savings trend</text>
+    <path d="M1110 870 L1110 824 L1160 790 L1210 801 L1260 755 L1310 727 L1360 737 L1410 686 L1410 870 Z" fill="#5A6E52" opacity="0.12"/>
+    <path d="M1110 824 L1160 790 L1210 801 L1260 755 L1310 727 L1360 737 L1410 686" fill="none" stroke="#5A6E52" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1110" cy="824" r="6" fill="#5A6E52"/><circle cx="1160" cy="790" r="6" fill="#5A6E52"/><circle cx="1210" cy="801" r="6" fill="#5A6E52"/><circle cx="1260" cy="755" r="6" fill="#5A6E52"/><circle cx="1310" cy="727" r="6" fill="#5A6E52"/><circle cx="1360" cy="737" r="6" fill="#5A6E52"/><circle cx="1410" cy="686" r="6" fill="#5A6E52"/>
+  
+    <g transform="translate(110,1120) scale(0.7)">
+    <circle cx="0" cy="0" r="50" fill="#5A6E52"/>
+    <g fill="#F2EEE3">
+      <rect x="-22" y="-2" width="9" height="24" rx="3"/>
+      <rect x="-8" y="-12" width="9" height="34" rx="3"/>
+      <rect x="6" y="-22" width="9" height="44" rx="3"/>
+    </g>
+    <path d="M14 -22 C 24 -30, 25 -42, 17 -47 C 11 -39, 8 -30, 14 -22 Z" fill="#A9B89E"/>
+  </g>
+    <text x="155" y="1130" font-family="Segoe UI, Arial, sans-serif" font-size="34" font-weight="600" fill="#2B3327">Lime Studios</text>
+    <text x="1510" y="1130" text-anchor="end" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#6E7A66">limestudiosco.etsy.com</text>
+  </svg>
