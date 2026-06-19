@@ -11,7 +11,7 @@ _Reference: [proposal](../product-proposals/all-in-one-premium-bundle.md) · [de
 ## 1. Title (140 char)
 
 ```
-Premium Life Bundle AI Edition | 6 Spreadsheets + 60 AI Planning Prompts + Wedding Tools + Setup PDF | AI Planning Guide Digital Download
+Premium Life Bundle AI Edition | 6 Spreadsheets + 60 AI Planning Prompts + Wedding Tools + Setup Guide | Digital Download
 ```
 
 ## 2. Subtitle / promotional teaser (160 char)

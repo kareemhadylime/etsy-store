@@ -162,7 +162,7 @@ const listings = [
   {
     sku: 'Premium Life Bundle — AI Edition ($149)',
     descriptionFile: '.tmp-bundle-life-ai-description.txt',
-    title: 'Premium Life Bundle AI Edition | 6 Spreadsheets + 60 AI Planning Prompts + Wedding Tools + Setup PDF | Digital Download',
+    title: 'Premium Life Bundle AI Edition | 6 Spreadsheets + 60 AI Planning Prompts + Wedding Tools + Setup Guide | Digital Download',
     price: 149,
     sectionId: lifeSectionId,
     tags: [

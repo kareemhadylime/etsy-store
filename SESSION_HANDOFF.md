@@ -1,5 +1,21 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-06-19 (PM) — Pushed the compliant copy + thumbnails to all 11 LIVE Etsy listings
+
+Refreshed the Etsy OAuth token (`refresh-token.js` — written to `~/.claude/claude_desktop_config.json`; MCP `etsy_*` tools still cache the OLD token until a restart, so used raw-API scripts). Then:
+- **Text:** new `tools/etsy-publish/update-listings-from-catalog.mjs` — pulls cleaned title/tags/description from `docs/listing-copy/*.md`, sanitizes tags (`&`→`and`), caps desc at 6000, dry-run gated. PATCHed all **11 active listings**; verified `brandClean=true`. (Zakat desc truncated to 5987 to fit Etsy's 6000 cap — tail dropped.)
+- **Images:** new `tools/etsy-publish/reupload-fixed-thumbnails.mjs` — re-uploaded the **13 scrubbed thumbnails** with `overwrite=true`; verified listings still have exactly 5 images at ranks [1..5] (replaced, not duplicated).
+- **Title fix:** Life-Bundle-AI title hit Etsy's "≤3 words with 2 sequential caps" rule (had AI·AI·PDF·AI); dropped `PDF`→`Setup Guide` + removed the redundant `AI Planning Guide` tail (md + create-bundle-listings.js). Re-pushed OK.
+
+**State left in:** 10 listings `active` + `bundle-life-ai` shows `state=edit` (re-uploaded its cover → confirm it's published). All committed/pushed.
+
+**Next session:**
+1. **Recreate the 2 REMOVED listings as NEW ones** (wedding `4524285771`, finance-ai bundle `4510288322` — can't be edited). Cleaned copy + thumbnails are ready; `create-bundle-listings.js` would re-create the AI bundles but **also duplicates life-ai** — needs a targeted create to avoid dupes.
+2. Confirm `bundle-life-ai` is `active` (not stuck in `edit`).
+3. Lower priority: delivered product PDFs/sheets still reference brands (not Etsy-visible).
+
+---
+
 ## 🟢 2026-06-19 (PM) — Seller-Policy follow-up: AI thumbnails regenerated (listing images now clean)
 
 Closed item #1 of the remediation below. Scrubbed visible AI-brand text from 14 thumbnail templates (`tools/thumb-gen/templates/`) — both AI-bundle HERO images ("60 ChatGPT Prompts"→"60 AI Prompts"), the wedding HERO ("AI Co-Pilot"→"AI Advisor"), and all `-04-ai-advisor/-copilot` cards (ChatGPT/Claude badges → "Any AI"/"Free tier", "AI Co-Pilot"→"AI Advisor", "ChatGPT or Claude"→"any AI assistant"). Only invisible CSS class names (`.claude`/`.gpt`) remain. Re-rendered all 14 to 2000×2000 PNGs via puppeteer (`output/` is gitignored — PNGs are on disk ready to upload). Visually verified 4 (layout intact). Competitor comparisons (QuickBooks/Sharesight/Copilot Money/Zola) intentionally kept.
