@@ -11,7 +11,7 @@ _Re-priced 2026-05-11 under catalog-wide "low alternative" rule. Earlier draft u
 ## 1. Title (140 char)
 
 ```
-Premium Finance Bundle AI Edition | 5 Spreadsheets + 60 AI Planning Prompts + Setup PDF | AI Planning Guide Digital Download
+Premium Finance Bundle AI Edition | 5 Spreadsheets + 60 AI Planning Prompts + Setup Guide | Digital Download
 ```
 
 ## 2. Subtitle / promotional teaser (159 char)

@@ -1,5 +1,19 @@
 # Etsy Store — Session Handoff
 
+## 🔴 2026-06-19 (PM) — 3 listings FROZEN by Etsy (now compliant, but Etsy-locked)
+
+The shop's 13 listings = **10 active + 3 "Deactivated By Etsy"**: Wedding (`4524285771`), Finance Bundle AI (`4510288322`), Life Bundle AI (`4510284477`) — all the AI-prompt ones. Earlier I'd excluded Wedding + Finance-AI as "removed," but they're actually **editable Inactive** listings. So I pushed cleaned title/tags/description (via update-listings-from-catalog.mjs, multi-slug filter) AND cleaned thumbnails (hero + AI cards) to all 3 — text/image updates SUCCEEDED (all editable). Fixed Finance-AI title caps-rule (PDF→Guide).
+
+**BUT** all 3 reject `state=active` with **`403 — not publishable because it's frozen`**. A frozen listing can't be reactivated by API or by the seller in the UI — only Etsy clears it. Appeals are unavailable for this shop.
+
+**Path to get them live (pick one):**
+1. **Contact Etsy Support** (Help → contact; appeals route is closed) — now that content is compliant, ask for re-review/restore of the 3. Preserves listing age + stats. **Try this first.**
+2. **Recreate as NEW listings** from the cleaned sources — surest way to relist, but loses history. `create-bundle-listings.js` can't be run as-is (would duplicate the active Pro bundles); needs a targeted create for finance-ai + life-ai + a variation-based wedding build. Not yet done — awaiting go-ahead.
+
+**State left in:** 10 active+clean; 3 compliant-but-frozen. All scripts committed.
+
+---
+
 ## 🟢 2026-06-19 (PM) — Pushed the compliant copy + thumbnails to all 11 LIVE Etsy listings
 
 Refreshed the Etsy OAuth token (`refresh-token.js` — written to `~/.claude/claude_desktop_config.json`; MCP `etsy_*` tools still cache the OLD token until a restart, so used raw-API scripts). Then:

@@ -38,11 +38,21 @@ const JOBS = [
     { rank: 1, file: 'bundle-life-ai-01-hero.png', alt: 'Premium Life Bundle AI Edition' },
     { rank: 4, file: 'bundle-04-ai-library.png', alt: 'AI Planning Guide preview' },
   ] },
+  { id: 4510288322, imgs: [
+    { rank: 1, file: 'bundle-finance-ai-01-hero.png', alt: 'Premium Finance Bundle AI Edition' },
+    { rank: 4, file: 'bundle-04-ai-library.png', alt: 'AI Planning Guide preview' },
+  ] },
+  { id: 4524285771, imgs: [
+    { rank: 1, file: 'wedding-budget-planner-01-hero.png', alt: 'Wedding Budget Spreadsheet and Planner' },
+    { rank: 4, file: 'wedding-budget-planner-04-ai-copilot.png', alt: 'Wedding AI advisor preview' },
+  ] },
 ];
 
-console.log(`Mode: ${EXECUTE ? 'EXECUTE (uploading)' : 'DRY-RUN'}\n`);
+const ONLY = process.argv[2] ? new Set(process.argv[2].split(',').map(Number)) : null;
+console.log(`Mode: ${EXECUTE ? 'EXECUTE (uploading)' : 'DRY-RUN'}${ONLY ? ` — ids ${[...ONLY].join(',')}` : ''}\n`);
 let missing = 0, ok = 0, fail = 0;
 for (const job of JOBS) {
+  if (ONLY && !ONLY.has(job.id)) continue;
   for (const img of job.imgs) {
     const path = resolve(THUMB, img.file);
     if (!existsSync(path)) { console.log(`  ✗ MISSING FILE: ${img.file}`); missing++; continue; }

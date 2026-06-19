@@ -38,6 +38,9 @@ const LISTINGS = [
   { slug: 'bundle-finance-pro', id: 4510288308 },
   { slug: 'bundle-life-pro', id: 4510288328 },
   { slug: 'bundle-life-ai', id: 4510284477 },
+  // Etsy-deactivated (not permanently removed) — editable to fix violations + retry activation:
+  { slug: 'wedding-budget-planner', id: 4524285771 },
+  { slug: 'bundle-finance-ai', id: 4510288322 },
 ];
 
 function fenced(md, heading) {
@@ -64,9 +67,9 @@ const headers = {
   'Content-Type': 'application/x-www-form-urlencoded',
 };
 
-const ONLY = process.argv[2];
-const TARGETS = ONLY ? LISTINGS.filter((l) => l.slug === ONLY) : LISTINGS;
-console.log(`Mode: ${EXECUTE ? 'EXECUTE (will PATCH live listings)' : 'DRY-RUN (preview only)'}${ONLY ? ` — only ${ONLY}` : ''}\n`);
+const ONLY = process.argv[2] ? new Set(process.argv[2].split(',')) : null;
+const TARGETS = ONLY ? LISTINGS.filter((l) => ONLY.has(l.slug)) : LISTINGS;
+console.log(`Mode: ${EXECUTE ? 'EXECUTE (will PATCH live listings)' : 'DRY-RUN (preview only)'}${ONLY ? ` — only ${[...ONLY].join(',')}` : ''}\n`);
 let problems = 0;
 
 for (const { slug, id } of TARGETS) {
