@@ -1,5 +1,20 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-06-20 — Recreated the 3 frozen listings as fresh compliant DRAFTS
+
+Since the 3 frozen listings can't be unfrozen via API, recreated them as NEW listings via `tools/etsy-publish/recreate-frozen-listings.mjs` (reads cleaned title/tags/desc from md, creates `type=download` draft, uploads 5 thumbnails, sets wedding 3-tier variations). New draft IDs:
+- **Premium Finance Bundle AI Edition** `4524986765` — $119, 5 imgs
+- **Premium Life Bundle AI Edition** `4524986789` — $149, 5 imgs
+- **Wedding Budget + Planner** `4524993902` — 3 tiers $19/$34/$49, 5 imgs
+
+Left as **DRAFT** on purpose: each needs the **digital product file attached** (Etsy won't activate a download listing without one — bundle zips aren't in the repo) then **Publish**. All brand-clean.
+
+**Next session:**
+1. Attach digital file(s) to each draft + Publish (3 edit URLs in chat / `recreate-frozen-listings.mjs` output).
+2. Delete the 3 FROZEN originals (`4524285771`, `4510288322`, `4510284477`) once the new ones are live, to avoid dupes.
+
+---
+
 ## 🔴 2026-06-19 (PM) — 3 listings FROZEN by Etsy (now compliant, but Etsy-locked)
 
 The shop's 13 listings = **10 active + 3 "Deactivated By Etsy"**: Wedding (`4524285771`), Finance Bundle AI (`4510288322`), Life Bundle AI (`4510284477`) — all the AI-prompt ones. Earlier I'd excluded Wedding + Finance-AI as "removed," but they're actually **editable Inactive** listings. So I pushed cleaned title/tags/description (via update-listings-from-catalog.mjs, multi-slug filter) AND cleaned thumbnails (hero + AI cards) to all 3 — text/image updates SUCCEEDED (all editable). Fixed Finance-AI title caps-rule (PDF→Guide).
