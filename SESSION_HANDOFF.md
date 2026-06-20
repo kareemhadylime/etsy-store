@@ -1,5 +1,11 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-06-20 — Clean downloads swapped onto the 10 ACTIVE listings too
+
+Extended the delivered-file fix to the live listings. They each delivered a brand-laden quickstart PDF (built from the old templates). Regenerated all 25 PDFs from the scrubbed templates, then `replace-active-quickstarts.mjs` (upload clean FIRST → delete old, so a selling listing never hits zero files) swapped a clean quickstart onto all 10 active listings (budget/debt/sinking/net-worth/investment/family/small-biz/zakat + finance-pro + life-pro bundles). **Every listing stayed `state=active`** — editing files on already-active listings does NOT trip the enforcement freeze (only re-publishing removed items does). Whole shop now brand-clean across listing text + images + downloads. Frozen originals (`4524285771`/`4510288322`/`4510284477`) left as-is (user deletes).
+
+---
+
 ## 🟢 2026-06-20 — Delivered product files scrubbed + re-attached (downloads now brand-clean)
 
 Closed the last brand-exposure surface. A 5-agent workflow scrubbed **43 source files** — sheets-gen generators (tab names + help text), pdf-gen guide/quickstart templates, docs/product-content prompt sources — of all ChatGPT/Claude/OpenAI/Anthropic/Gemini/Llama, "AI Co-Pilot", and "AI Prompt Library"/prompt-pack framing (→ "AI assistant"/"AI Advisor"/"AI Planning Guide"). Independent verify: **0 real matches** (commit `18014e7`). 6 internal code identifiers (function names like `buildAICoPilotHub`, comments, console.logs) left — never shipped in any deliverable.
