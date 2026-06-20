@@ -67,3 +67,6 @@ tools/qa/round2/
 tools/qa/round3/
 tools/qa/fixed/
 tools/qa/backups/
+
+# generated bundle zips for Etsy uploads
+tools/etsy-publish/.bundles/
