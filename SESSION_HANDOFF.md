@@ -1,5 +1,13 @@
 # Etsy Store — Session Handoff
 
+## 🔴 2026-06-20 — CONCLUSIVE: freeze is account/duplicate enforcement, NOT content (fresh-listing test)
+
+User asked to test whether a fully-clean fresh listing would pass. Ran a controlled single test: created a brand-new Finance Bundle AI from the scrubbed copy + clean images + the clean zip, published it → PATCH returned `state=active` (accepted), but **within ~45s Etsy auto-flipped it to `state=edit` (frozen)** — same behavior as the recreations. (Test listing `4525189417` — left frozen; **API token lacks `listings_d` scope so couldn't delete it — delete manually in Shop Manager.**)
+
+**Verdict:** the freeze is **automated account/duplicate (anti-evasion) enforcement**, independent of content. Cleaning text/images/downloads does NOT unfreeze, and fresh compliant listings get re-frozen in seconds. **Creating more listings is futile and risks evasion escalation — STOP.** Only Etsy Support (manual human review) can lift it. Updated `docs/etsy-policy-appeal.md` with this proof point.
+
+---
+
 ## 🟢 2026-06-20 — Clean downloads swapped onto the 10 ACTIVE listings too
 
 Extended the delivered-file fix to the live listings. They each delivered a brand-laden quickstart PDF (built from the old templates). Regenerated all 25 PDFs from the scrubbed templates, then `replace-active-quickstarts.mjs` (upload clean FIRST → delete old, so a selling listing never hits zero files) swapped a clean quickstart onto all 10 active listings (budget/debt/sinking/net-worth/investment/family/small-biz/zakat + finance-pro + life-pro bundles). **Every listing stayed `state=active`** — editing files on already-active listings does NOT trip the enforcement freeze (only re-publishing removed items does). Whole shop now brand-clean across listing text + images + downloads. Frozen originals (`4524285771`/`4510288322`/`4510284477`) left as-is (user deletes).
