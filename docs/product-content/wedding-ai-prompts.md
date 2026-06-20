@@ -1,4 +1,4 @@
-# Wedding AI Co-Pilot — 8-Prompt PDF Content
+# Wedding AI Advisor — 8-Prompt PDF Content
 
 _Drafted: 2026-05-11_
 _Status: v1 — content ready for PDF production_
@@ -6,7 +6,7 @@ _Tier: AI Edition ($49) only_
 _References: [proposal](../product-proposals/wedding-budget-planner.md) · [design brief](../product-designs/wedding-budget-planner.md) Section 4_
 _PDF format: US Letter portrait, 12 pages (cover + intro + 8 prompts × 1 page + tips + back cover)_
 
-This file is the **content source of truth** for the AI Co-Pilot PDF. Visual layout rules live in the design brief; copy lives here.
+This file is the **content source of truth** for the AI Advisor PDF. Visual layout rules live in the design brief; copy lives here.
 
 ---
 
@@ -14,7 +14,7 @@ This file is the **content source of truth** for the AI Co-Pilot PDF. Visual lay
 
 ### Title (Cormorant Garamond 36pt, centered)
 ```
-AI Wedding Co-Pilot
+AI Wedding Advisor
 ```
 
 ### Subtitle (Cormorant Garamond italic 18pt, dusty-rose, centered)
@@ -40,7 +40,7 @@ How to use these prompts
 
 ### Body (Inter 11pt, 1.4 line-height)
 ```
-Eight situations every couple hits at least once during a wedding. Eight prompts you can copy, paste, and adapt — designed to work in ChatGPT's free tier or Claude.
+Eight situations every couple hits at least once during a wedding. Eight prompts you can copy, paste, and adapt — designed to work in the free tier of your favourite AI assistant.
 
 The prompts here aren't generic. Each one is built to pair with a specific tab in your Wedding spreadsheet. You'll see the tab name listed on each page — paste the prompt, fill in the placeholders from that tab, and you'll get an answer you can actually use.
 
@@ -48,13 +48,13 @@ The prompts here aren't generic. Each one is built to pair with a specific tab i
 
 1. Open the prompt page you need (Guest List Optimizer, Vendor Negotiation, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data from the tab.
 5. Paste, send, read the worked example on the same page to know what a good answer looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Wedding spreadsheet open in another window
 • 10 minutes per prompt for the first one; ~3 minutes once you're used to the flow
 
@@ -136,7 +136,7 @@ Budget impact: ~$800 saved at $200/head.
 
 ### Footer
 ```
-3 / 12 · AI Wedding Co-Pilot
+3 / 12 · AI Wedding Advisor
 ```
 
 ---
@@ -206,7 +206,7 @@ Pick: Emma Carter. Strongest deliverables-to-price ratio, market-fair, establish
 
 ### Footer
 ```
-4 / 12 · AI Wedding Co-Pilot
+4 / 12 · AI Wedding Advisor
 ```
 
 ---
@@ -271,7 +271,7 @@ FLAGS: All constraints satisfied with 8 tables of 8. No changes needed.
 
 ### Footer
 ```
-5 / 12 · AI Wedding Co-Pilot
+5 / 12 · AI Wedding Advisor
 ```
 
 ---
@@ -328,7 +328,7 @@ EXAMPLE OUTPUT:
 
 ### Footer
 ```
-6 / 12 · AI Wedding Co-Pilot
+6 / 12 · AI Wedding Advisor
 ```
 
 ---
@@ -391,7 +391,7 @@ RECOMMENDATION: Draft 1 — the bookstore opening earns the inside joke without 
 
 ### Footer
 ```
-7 / 12 · AI Wedding Co-Pilot
+7 / 12 · AI Wedding Advisor
 ```
 
 ---
@@ -451,7 +451,7 @@ EXAMPLE OUTPUT:
 
 ### Footer
 ```
-8 / 12 · AI Wedding Co-Pilot
+8 / 12 · AI Wedding Advisor
 ```
 
 ---
@@ -521,7 +521,7 @@ Below $4,300 with original scope — politely decline. "We've decided to go a di
 
 ### Footer
 ```
-9 / 12 · AI Wedding Co-Pilot
+9 / 12 · AI Wedding Advisor
 ```
 
 ---
@@ -604,12 +604,12 @@ ALTERNATE ONE-LINE TOASTS:
 
 ### Footer
 ```
-10 / 12 · AI Wedding Co-Pilot
+10 / 12 · AI Wedding Advisor
 ```
 
 ---
 
-## Page 11 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 11 — Tips: free vs. paid AI plans
 
 ### Page title (Cormorant Garamond 24pt)
 ```
@@ -620,19 +620,19 @@ Which AI should I use?
 ```
 All eight prompts work in free tiers. The differences are speed, output length, and how well the AI handles long inputs (like a full guest list or 4 quotes side-by-side).
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Speech Drafter, Vendor Negotiation, RSVP Reminders, Vows Drafter.
 Strength: Conversational tone. Good at editing and revising drafts when you ask.
 Limit: ~3,000–4,000 word context per message in free tier. If your guest list is 200+ names, paste it in chunks and ask it to combine results.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: Guest List Optimizer, Seating Constraint Solver, Vendor Cost Intelligence.
 Strength: Handles longer inputs in a single message. Better at structured table outputs (great for guest lists and seating).
-Limit: Conversation limits per day on the free tier. If you hit a wall, wait a few hours or use ChatGPT for the next prompt.
+Limit: Conversation limits per day on the free tier. If you hit a wall, wait a few hours or use another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
 Worth it if: You're going to use these prompts heavily over 2–3 months of planning.
 Skip if: One-off use. Free tiers do the job.
@@ -644,12 +644,12 @@ Skip if: One-off use. Free tiers do the job.
 3. **Iterate.** First draft is rarely the final. "Make it 30 words shorter" or "make the tone warmer" — the AI will revise.
 4. **Save what works.** Found a great vow draft on attempt 3? Copy it into your spreadsheet's Notes column so you don't lose it.
 
-Your wedding data never leaves your AI conversation. ChatGPT and Claude don't see your spreadsheet — only what you paste into them, and only during that conversation. (Read their privacy policies if you want the details.)
+Your wedding data never leaves your AI conversation. AI assistants don't see your spreadsheet — only what you paste into them, and only during that conversation. (Read their privacy policies if you want the details.)
 ```
 
 ### Footer
 ```
-11 / 12 · AI Wedding Co-Pilot
+11 / 12 · AI Wedding Advisor
 ```
 
 ---
@@ -678,7 +678,7 @@ support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Wedding
 AI Edition spreadsheet. AI prompts are designed for
-ChatGPT and Claude (free or paid tiers — your choice).
+AI assistants (free or paid tiers — your choice).
 
 12-month free updates included with AI Edition.
 weddingbudgetplanner.com/updates
@@ -696,13 +696,13 @@ weddingbudgetplanner.com/updates
 - **Page count: 12 total** (cover + intro + 8 prompts + tips + back). Matches design brief Section 4 spec.
 - **Visual rules:** all type styling, palette, border treatments, and layout per design brief Section 4. This file is *content only*.
 - **PDF tool:** Figma → PDF export per locked production decision P3. Same Figma "Wedding Brand Kit" file holds palette + components + 5 thumbnails + this PDF.
-- **Page numbering convention:** "N / 12 · AI Wedding Co-Pilot" in Cormorant italic 9pt, right-aligned at footer. Cover (page 1) and back cover (page 12) follow the same numbering for buyer reference.
+- **Page numbering convention:** "N / 12 · AI Wedding Advisor" in Cormorant italic 9pt, right-aligned at footer. Cover (page 1) and back cover (page 12) follow the same numbering for buyer reference.
 - **Placeholders** in prompt blocks use ALL-CAPS bracketed strings (`[DATE]`, `[NUMBER]`, `[GUEST LIST HERE]`) — visually distinct from regular prompt text so the buyer knows what to replace.
 - **Each prompt page includes a tab callout** identifying which Wedding spreadsheet tab the prompt pairs with. This is the bridge between the PDF and the spreadsheet — buyers should never wonder "where does this go?"
 - **Worked examples use realistic but anonymized data.** Names (Mike, Sarah, Emma, Alex, Jordan, Tom) are common across cultures; no surnames in vow/speech examples that imply specific religions or origins. Cultural-specific wording stays in the dedicated Muslim Walima / Hindu Multi-day tabs (Wedding AI Edition only).
-- **Update cadence:** AI prompt patterns are stable enough that this PDF rarely needs full refresh. If ChatGPT/Claude ship a major model update that breaks any prompt, ship an updated version under the same 12-month free-update window AI Edition buyers receive.
-- **Cross-reference with spreadsheet:** When the Wedding spreadsheet build ticket-breakdown happens (next session option), each of the 6 AI Edition tabs (Guest List Optimizer / Vendor Cost Intelligence / Seating / RSVP / Crisis Playbook / Vows) gets a "Open the AI Co-Pilot PDF, page N" button that opens the PDF or a deep-linked anchor.
+- **Update cadence:** AI prompt patterns are stable enough that this PDF rarely needs full refresh. If your favourite AI assistant ship a major model update that breaks any prompt, ship an updated version under the same 12-month free-update window AI Edition buyers receive.
+- **Cross-reference with spreadsheet:** When the Wedding spreadsheet build ticket-breakdown happens (next session option), each of the 6 AI Edition tabs (Guest List Optimizer / Vendor Cost Intelligence / Seating / RSVP / Crisis Playbook / Vows) gets a "Open the AI Advisor PDF, page N" button that opens the PDF or a deep-linked anchor.
 
 ## Catalog-wide patterns this informs
 
-When the Bundle AI Library content (60+ prompts + 10 cross-product workflows) gets written next, reuse this file's structure: title + tab callout + copy-paste prompt + worked example + footer page number. The Bundle's prompts will lean more on cross-product workflows (e.g., "Plan a year of sinking funds while saving for wedding"), but the per-prompt structure stays identical so buyers who own both products experience consistency.
+When the AI Planning Guide content (60+ prompts + 10 cross-product workflows) gets written next, reuse this file's structure: title + tab callout + copy-paste prompt + worked example + footer page number. The Bundle's prompts will lean more on cross-product workflows (e.g., "Plan a year of sinking funds while saving for wedding"), but the per-prompt structure stays identical so buyers who own both products experience consistency.

@@ -2267,12 +2267,12 @@ function buildAIPortfolioIntelligence(workbook) {
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
     tabName: '🤖 AI Portfolio Intelligence',
-    tabSubtitle: '8 prompts for ChatGPT / Claude free tier. Paste prompt + your data; the AI never sees your spreadsheet.',
+    tabSubtitle: '8 prompts for any AI assistant free tier. Paste prompt + your data; the AI never sees your spreadsheet.',
     bannerText: BANNER,
     kpiData: [
       { label: 'PROMPTS',     value: '8' },
       { label: 'PAGE COUNT',  value: '12' },
-      { label: 'WORKS WITH',  value: 'ChatGPT + Claude' },
+      { label: 'WORKS WITH',  value: 'Any AI assistant' },
       { label: 'TIER',        value: 'Free works ✓' },
       { label: 'PAIRS WITH',  value: '8 tabs' },
       { label: 'UPDATES',     value: '12 mo free' },
@@ -2352,7 +2352,7 @@ function buildAIPortfolioIntelligence(workbook) {
   addCallout(sheet, `B${r + 16}:M${r + 17}`,
     '🤖',
     'How to use these prompts',
-    'All 8 prompts work in ChatGPT free + Claude free. Paste the prompt + your data into the AI tool. Read the worked example on the matching PDF page first. Save useful output into the "Paste output" cell so it stays with your spreadsheet. Your account numbers never enter any AI tool — use the labels ("Brokerage Taxable," "Roth IRA") instead. Ticker symbols are public info — safe to share freely.');
+    'All 8 prompts work on any AI assistant, including free tiers. Paste the prompt + your data into the AI tool. Read the worked example on the matching PDF page first. Save useful output into the "Paste output" cell so it stays with your spreadsheet. Your account numbers never enter any AI tool — use the labels ("Brokerage Taxable," "Roth IRA") instead. Ticker symbols are public info — safe to share freely.');
   sheet.getRow(r + 16).height = 32;
   sheet.getRow(r + 17).height = 32;
 
@@ -2447,7 +2447,7 @@ function buildAbout(workbook) {
     ['How many positions can I track?',         'Essentials supports up to 30 positions. Pro and AI Edition support up to 60. If you have more than 60 positions, contact us — we\'ll send a custom version (free for AI Edition buyers).'],
     ['Are Sharpe / Beta / Max Drawdown real or simplified?', 'Real (Pro+). Sharpe uses your portfolio\'s returns vs risk-free rate (10-yr UST) and stdev. Beta is calculated against your benchmark (S&P 500 default; configurable). Same formulas Sharesight + Stock Rover use — we show them in cells you can verify.'],
     ['Tax-Loss Harvesting — does it execute trades for me?', 'No (privacy + control). It surfaces opportunities. The Tax-Loss Harvesting tab tracks per-position basis vs current value, flags positions with unrealized losses, and shows the wash-sale window. YOU execute trades at your broker.'],
-    ['Do I need ChatGPT Plus or Claude Pro for AI features?', 'No. The 8 prompts work in ChatGPT free + Claude free. Paste prompt + your data into your own AI. The spreadsheet sends nothing.'],
+    ['Do I need a paid AI plan for AI features?', 'No. The 8 prompts work on the free tier of your AI assistant. Paste prompt + your data into your own AI. The spreadsheet sends nothing.'],
   ];
   faq.forEach((qa, i) => {
     const ri = r2 + 1 + i * 2;

@@ -338,7 +338,7 @@ function buildDashboard(workbook) {
   addCallout(sheet, `B${fR + 9}:L${fR + 10}`,
     '🔥',
     'How the meter works',
-    'FIRE number = your annual spend × 25 (the 4% rule). Years-to-FIRE assumes your current savings rate continues. Adjust inputs on the FIRE Calculator tab to model conservative / current / aggressive scenarios. AI Edition adds the FIRE Forecaster prompt — paste your numbers into ChatGPT/Claude for a personalized read.');
+    'FIRE number = your annual spend × 25 (the 4% rule). Years-to-FIRE assumes your current savings rate continues. Adjust inputs on the FIRE Calculator tab to model conservative / current / aggressive scenarios. AI Edition adds the FIRE Forecaster prompt — paste your numbers into your favourite AI assistant for a personalized read.');
   sheet.getRow(fR + 9).height = 28;
   sheet.getRow(fR + 10).height = 28;
 
@@ -2564,12 +2564,12 @@ function buildAIWealthIntelligence(workbook) {
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
     tabName: '🤖 AI Wealth Intelligence',
-    tabSubtitle: '7 prompts for ChatGPT / Claude free tier. Paste the prompt + your data; the AI never sees your spreadsheet.',
+    tabSubtitle: '7 prompts for any AI assistant free tier. Paste the prompt + your data; the AI never sees your spreadsheet.',
     bannerText: BANNER,
     kpiData: [
       { label: 'PROMPTS',     value: '7' },
       { label: 'PAGE COUNT',  value: '11' },
-      { label: 'WORKS WITH',  value: 'ChatGPT + Claude' },
+      { label: 'WORKS WITH',  value: 'Any AI assistant' },
       { label: 'TIER',        value: 'Free works ✓' },
       { label: 'PAIRS WITH',  value: '7 tabs' },
       { label: 'UPDATES',     value: '12 mo free' },
@@ -2664,7 +2664,7 @@ function buildAIWealthIntelligence(workbook) {
   addCallout(sheet, `B${r + 16}:M${r + 17}`,
     '🤖',
     'How to use these',
-    'All 7 prompts work in ChatGPT free + Claude free. Paste the prompt + your data into the AI tool. Read the worked example on the matching PDF page first to see what good output looks like. Save useful output into the "Paste output here" cell so it stays with your spreadsheet. Your account numbers never enter any AI tool — use labels ("Brokerage Roth IRA," "Texas Rental") instead.');
+    'All 7 prompts work on any AI assistant, including free tiers. Paste the prompt + your data into the AI tool. Read the worked example on the matching PDF page first to see what good output looks like. Save useful output into the "Paste output here" cell so it stays with your spreadsheet. Your account numbers never enter any AI tool — use labels ("Brokerage Roth IRA," "Texas Rental") instead.');
   sheet.getRow(r + 16).height = 32;
   sheet.getRow(r + 17).height = 32;
 
@@ -2993,7 +2993,7 @@ function buildAbout(workbook) {
     ['What\'s the 7-account split?',                'Stocks & Funds (Pro+) separates 401k / IRA / Roth IRA / SEP IRA / HSA / 529 / Taxable. Each has different contribution limits + tax treatment + RMD rules. Lumping them obscures meaningful information — we keep them distinct.'],
     ['Does it work in Excel?',                      'Yes, with caveats. GOOGLEFINANCE cells (live equity prices, metals spot, FX) only run in Google Sheets — Excel users enter manually monthly. Everything else works in both.'],
     ['What\'s Tax-Loss Harvesting actually doing?', 'It tracks per-position cost basis vs. current value, flags positions with unrealized losses, and shows the wash-sale window (30 days before/after most recent buy). You see opportunities; you decide whether to execute. We surface; you trade.'],
-    ['Do I need ChatGPT Plus or Claude Pro for AI features?', 'No. The 7 AI prompts (AI Edition) work in ChatGPT free tier or Claude free tier. You paste the prompt + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI.'],
+    ['Do I need a paid AI plan for AI features?', 'No. The 7 AI prompts (AI Edition) work on the free tier of your AI assistant. You paste the prompt + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI.'],
   ];
   faq.forEach((qa, i) => {
     const ri = r2 + 1 + i * 2;

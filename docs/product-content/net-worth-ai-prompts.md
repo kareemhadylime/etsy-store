@@ -40,7 +40,7 @@ How to use these prompts
 
 ### Body
 ```
-Seven decisions every net-worth tracker hits across a year. Seven prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.
+Seven decisions every net-worth tracker hits across a year. Seven prompts you can copy, paste, and adapt — designed for the free tier of your favourite AI assistant.
 
 Each prompt is built to pair with a specific tab in your Net Worth Tracker. You'll see the tab name on each page — paste, fill in placeholders, send.
 
@@ -48,13 +48,13 @@ Each prompt is built to pair with a specific tab in your Net Worth Tracker. You'
 
 1. Open the prompt page you need (Monthly Narrative, FIRE Forecaster, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data.
 5. Read the worked example on the same page to see what good output looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Net Worth Tracker open in another window
 • 10 minutes the first time; ~3 minutes once familiar
 
@@ -750,7 +750,7 @@ DON'T BUY long-term-care insurance at age 37. Premiums are wasted; revisit at ag
 
 ---
 
-## Page 10 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 10 — Tips: free vs. paid AI plans
 
 ### Page title (Inter 24pt semibold)
 ```
@@ -761,17 +761,17 @@ Which AI should I use?
 ```
 All seven prompts work in free tiers. Differences come down to output style + how each handles long, structured wealth data.
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Monthly NW Narrative, Wealth Growth Coach, Annual Wealth Review, Estate Planning Advisor. Conversational tone; great at one-paragraph narratives + the "pick ONE thing" judgement calls. Fluent at the iterative "make this shorter / sharper" follow-ups.
 Limit: ~3,000-4,000 word context per message. If you paste 15+ holdings, do it in batches.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: FIRE Forecaster, Asset Allocation Advisor, Passive Income Blueprint. Better at multi-scenario math, structured tables, and per-class drift analysis. Handles longer position lists in one paste and shows its arithmetic more reliably.
-Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.
+Limit: Daily conversation limit on free tier. If you hit it, switch to another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
 Worth it if you're running multi-scenario FIRE math monthly OR managing 7+ accounts with quarterly rebalances. Skip if checking in twice a year.
 
@@ -819,8 +819,8 @@ v1.0 · Updated [DATE]
 support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Net Worth
-Tracker AI Edition. AI prompts work in ChatGPT and
-Claude (free or paid tiers — your choice).
+Tracker AI Edition. AI prompts work in AI assistants
+(free or paid tiers — your choice).
 
 12-month free updates included with AI Edition.
 net-worth-tracker.com/updates
@@ -854,4 +854,4 @@ Mirrors Wedding + Budget + Debt + Sinking Funds templates. Small Business will f
 
 ## What's left in the AI content cascade
 
-- Small Business AI Business Co-Pilot — `docs/product-content/small-business-ai-prompts.md`, 12 pages (8 prompts + cover + intro + tips + back cover), unblocks SB14
+- Small Business AI Business Advisor — `docs/product-content/small-business-ai-prompts.md`, 12 pages (8 prompts + cover + intro + tips + back cover), unblocks SB14

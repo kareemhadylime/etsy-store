@@ -40,7 +40,7 @@ How to use these prompts
 
 ### Body
 ```
-Seven decisions every sinking-fund saver hits. Seven prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.
+Seven decisions every sinking-fund saver hits. Seven prompts you can copy, paste, and adapt — designed for the free tier of your favourite AI assistant.
 
 Each prompt is built to pair with a specific tab in your Sinking Funds Planner. You'll see the tab name on each page — paste, fill in placeholders, send.
 
@@ -48,13 +48,13 @@ Each prompt is built to pair with a specific tab in your Sinking Funds Planner. 
 
 1. Open the prompt page you need (Reallocation, Vehicle Advisor, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data.
 5. Read the worked example on the same page to see what good output looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Sinking Funds Planner open in another window
 • 10 minutes the first time; ~3 minutes once familiar
 
@@ -678,7 +678,7 @@ TWO ACTIONS THIS MONTH:
 
 ---
 
-## Page 10 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 10 — Tips: free vs. paid AI plans
 
 ### Page title (Inter 24pt semibold)
 ```
@@ -689,17 +689,17 @@ Which AI should I use?
 ```
 All seven prompts work in free tiers. Differences come down to output style + how each handles long structured data.
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Annual Fund Review, Life Stage Advisor, Metals Coach. Conversational tone; great at multi-part narratives + iterative editing ("make this shorter," "more specific to my situation").
 Limit: ~3,000-4,000 word context per message. If you paste 15+ funds, do it in batches.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: Reallocation, Vehicle Advisor, Dividend Planner, Neglected Fund Detector. Better at table-formatted output, ranking lists, and structured per-fund analysis. Handles longer fund portfolios in one paste.
-Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.
+Limit: Daily conversation limit on free tier. If you hit it, switch to another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
 Worth it if you're rebalancing monthly across 8+ funds OR running dividend analysis quarterly. Skip if checking in twice a year.
 
@@ -745,8 +745,8 @@ v1.0 · Updated [DATE]
 support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Sinking Funds
-Planner AI Edition. AI prompts work in ChatGPT and
-Claude (free or paid tiers — your choice).
+Planner AI Edition. AI prompts work in AI assistants
+(free or paid tiers — your choice).
 
 12-month free updates included with AI Edition.
 sinking-funds-planner.com/updates

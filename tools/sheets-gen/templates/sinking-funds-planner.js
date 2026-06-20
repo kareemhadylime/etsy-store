@@ -2260,19 +2260,19 @@ function buildAISavingsAdvisor(workbook) {
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
     tabName: '🤖 AI Savings Advisor',
-    tabSubtitle: '7 ChatGPT/Claude prompts. Free-tier friendly. Each card → matching tab in your spreadsheet.',
+    tabSubtitle: '7 AI assistant prompts. Free-tier friendly. Each card → matching tab in your spreadsheet.',
     bannerText: BANNER,
     kpiData: [
       { label: 'PROMPTS',     value: '7' },
       { label: 'PDF PAGES',   value: '11' },
       { label: 'FREE-TIER',   value: '✓' },
-      { label: 'CHATGPT',     value: '✓' },
-      { label: 'CLAUDE',      value: '✓' },
+      { label: 'ANY AI',      value: '✓' },
+      { label: 'LOCAL OK',    value: '✓' },
       { label: 'UPDATES',     value: '12 mo free' },
     ],
   });
 
-  let r = addSectionHeader(sheet, 6, '7 AI prompts — pair each card with the matching tab', 'Open the AI Savings Advisor PDF (shipped with your purchase). Each prompt page = one card below. Paste the prompt into ChatGPT or Claude with your data filled in. Output goes into the "Paste output here" cell.');
+  let r = addSectionHeader(sheet, 6, '7 AI prompts — pair each card with the matching tab', 'Open the AI Savings Advisor PDF (shipped with your purchase). Each prompt page = one card below. Paste the prompt into your favourite AI assistant with your data filled in. Output goes into the "Paste output here" cell.');
 
   // 7 prompt cards in 2×4 grid (4+3 layout)
   const prompts = [
@@ -2338,7 +2338,7 @@ function buildAISavingsAdvisor(workbook) {
   addCallout(sheet, `B${r + 18}:M${r + 19}`,
     '🤖',
     'How to use these',
-    'All 7 prompts work in ChatGPT free + Claude free. Paste the prompt + your data into the AI tool. Read the worked example on the matching PDF page first to see what good output looks like. Save useful output into the "Paste output here" cell so it stays with your spreadsheet.');
+    'All 7 prompts work on any AI assistant, including free tiers. Paste the prompt + your data into the AI tool. Read the worked example on the matching PDF page first to see what good output looks like. Save useful output into the "Paste output here" cell so it stays with your spreadsheet.');
   sheet.getRow(r + 18).height = 28;
   sheet.getRow(r + 19).height = 28;
 
@@ -2396,7 +2396,7 @@ function buildAbout(workbook) {
     ['📉 Funding Gap Analyzer',   'Per-fund: required vs. actual. Monthly shortfall + status pill.'],
     ['🥇 Precious Metals Tracker (Pro)', 'Gold/silver/platinum/palladium with GOOGLEFINANCE spot pricing.'],
     ['🏦 Fixed Return Tracker (Pro)',   'CD Ladder. FV @ maturity formula + auto-rollover alerts.'],
-    ['🤖 AI Savings Advisor (AI)', '7 ChatGPT/Claude prompts in companion PDF — Reallocation / Vehicle Advisor / Metals Coach / Dividend Planner / Life Stage / Annual Review / Neglected Fund Detector.'],
+    ['🤖 AI Savings Advisor (AI)', '7 AI assistant prompts in companion PDF — Reallocation / Vehicle Advisor / Metals Coach / Dividend Planner / Life Stage / Annual Review / Neglected Fund Detector.'],
   ];
   explainerRows.forEach((er, i) => {
     const ri = r + 1 + i;
@@ -2420,7 +2420,7 @@ function buildAbout(workbook) {
     ['What\'s the 4-vehicle claim?',     'Most savings spreadsheets handle cash only. This one handles cash + CDs (with maturity calendar + FV math) + ETFs (with cost-basis tracking) + precious metals (with GOOGLEFINANCE spot pricing) — all linked to fund-level placement.'],
     ['Does it work in Excel?',           'Yes, with caveats. GOOGLEFINANCE cells (metals + ETF prices) only run in Google Sheets — Excel users enter monthly manually. Everything else works in both.'],
     ['What\'s the Neglected Fund Detector?', 'The AI Edition\'s secret weapon. The prompt scans your contribution history and flags goals you stopped contributing to — "You haven\'t added to Wedding Gift in 4 months; target is 8 months out; $1,800 behind." Catches it at month 4, not month 12.'],
-    ['How does the AI work?',            'You paste the prompt + your data into ChatGPT or Claude (free tiers work). The spreadsheet never sends data anywhere. AI lives in your own browser, your own account.'],
+    ['How does the AI work?',            'You paste the prompt + your data into your favourite AI assistant (free tiers work). The spreadsheet never sends data anywhere. AI lives in your own browser, your own account.'],
   ];
   faq.forEach((qa, i) => {
     const ri = r2 + 1 + i * 2;

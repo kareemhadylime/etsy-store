@@ -599,8 +599,8 @@ Documented here so the build doesn't accidentally include them and confuse buyer
 - Cross-product linking — Net Worth pulls assets-minus-liabilities into the Home dashboard
 
 **AI Edition tier additions:**
-- Dedicated `🤖 AI Co-Pilot` page in the workspace tree
-- 30+ Notion AI prompts saved as templates (dual format — Notion AI flavor + ChatGPT/Claude flavor in a 2-column database)
+- Dedicated `🤖 AI Advisor` page in the workspace tree
+- 30+ Notion AI prompts saved as templates (dual format — Notion AI flavor + your favourite AI assistant flavor in a 2-column database)
 - AI Coach page with a monthly review template that uses Notion AI to summarize workspace data
 - The AI page banner uses charcoal→Notion-blue gradient (inverted from gold-default) to flag "this is the AI room"
 

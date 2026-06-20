@@ -32,7 +32,7 @@
  *   - Essentials ($19) — 12 tabs visible (the spine + 10 core planners)
  *   - Pro ($34)        — 16 tabs visible (+ Cost Per Guest / Vendor Comparison /
  *                                         Bridal Party / Gift Registry)
- *   - AI Edition ($49) — 22 tabs visible (+ AI Co-Pilot hub + 5 dedicated AI tabs)
+ *   - AI Edition ($49) — 22 tabs visible (+ AI Advisor hub + 5 dedicated AI tabs)
  *
  * Cultural variants: Master Timeline embeds optional Muslim-Walima / Hindu-
  * multi-day sections at AI tier (callout-style), driven by the religion
@@ -100,7 +100,7 @@ const PRO_TABS = new Set([
 
 // AI tabs — hidden for Pro + Essentials
 const AI_TABS = new Set([
-  '🤖 AI Wedding Co-Pilot',
+  '🤖 AI Wedding Advisor',
   '✂️ Guest List Optimizer',
   '🔍 Vendor Cost Intelligence',
   '🧩 Seating Constraint Solver',
@@ -337,8 +337,8 @@ function buildSetupWizard(workbook) {
   const faq = [
     ['Does this work in Excel + Google Sheets?',
      'Yes — both. Excel keeps the file on your Mac/PC. Google Sheets adds real-time co-edit (the killer feature for couples + parents + planner working together on the same file). We recommend Google Sheets for the collaborative use case.'],
-    ['Will the AI prompts work in ChatGPT free tier?',
-     'All 8 AI prompts (AI Edition) work in ChatGPT free tier OR Claude free tier — your choice. No API key, no plug-in, no monthly fee. You paste a prompt + your data into your AI tool of choice. The spreadsheet contains the prompt template + a worked example so you know what good output looks like.'],
+    ['Will the AI prompts work on a free AI plan?',
+     'All 8 AI prompts (AI Edition) work on the free tier of your AI assistant — your choice of tool. No API key, no plug-in, no monthly fee. You paste a prompt + your data into your AI tool of choice. The spreadsheet contains the prompt template + a worked example so you know what good output looks like.'],
     ['What does this NOT do?',
      'Does not print invitations — pair with a designer / Etsy stationer / Canva. Does not auto-collect RSVPs — you fill them in (Why: prevents SaaS lock-in; works across religions and platforms). Does not book vendors for you — you negotiate (Why: nobody knows your trade-offs better than you).'],
   ];
@@ -1068,7 +1068,7 @@ function buildSeatingChart(workbook) {
   addCallout(sheet, `B${r + 2}:L${r + 3}`,
     '🧩',
     'Have constraints? (X cannot sit near Y, Z needs accessibility)',
-    'AI Edition includes a Seating Constraint Solver tab — paste your constraints + this layout into ChatGPT or Claude, get back a constraint-satisfying seating plan in 30 seconds.');
+    'AI Edition includes a Seating Constraint Solver tab — paste your constraints + this layout into your favourite AI assistant, get back a constraint-satisfying seating plan in 30 seconds.');
   sheet.getRow(r + 2).height = 30; sheet.getRow(r + 3).height = 30;
 
   addFooter(sheet, r + 6, { productName: PRODUCT_NAME });
@@ -1204,7 +1204,7 @@ function buildMasterTimeline(workbook) {
   addCallout(sheet, `B${nextR + 11}:L${nextR + 12}`,
     '🤝',
     'No single tradition assumed',
-    'Every wedding is different. The universal checklist works for any tradition; the table above highlights tradition-specific milestones to layer on. The AI Co-Pilot prompts (AI Edition) adapt to the religion you set on Setup Wizard.');
+    'Every wedding is different. The universal checklist works for any tradition; the table above highlights tradition-specific milestones to layer on. The AI Advisor prompts (AI Edition) adapt to the religion you set on Setup Wizard.');
   sheet.getRow(nextR + 11).height = 30; sheet.getRow(nextR + 12).height = 30;
 
   addFooter(sheet, nextR + 15, { productName: PRODUCT_NAME });
@@ -1428,7 +1428,7 @@ function buildHoneymoonBudget(workbook) {
   sheet.getRow(8).height = 24;
 
   let r = addSectionHeader(sheet, 6, 'Honeymoon budget breakdown',
-    '7 line items + a target. Adjust to your trip. AI Co-Pilot can suggest a budget split by destination.', 'B:L');
+    '7 line items + a target. Adjust to your trip. AI Advisor can suggest a budget split by destination.', 'B:L');
 
   addTableHeader(sheet, 9, ['Line item', 'Notes', 'Estimate', '', 'Booked', 'Per person', 'Status'],
     ['B', 'C', 'D', 'E', 'F', 'G', 'H']);
@@ -1746,7 +1746,7 @@ function buildVendorComparison(workbook) {
   addCallout(sheet, `B22:L23`,
     '🔍',
     'AI Vendor Cost Intelligence (AI Edition)',
-    'Paste these quotes into ChatGPT or Claude with the AI Vendor Cost Intelligence prompt. AI tells you above / at / below market, lists missing deliverables, and gives you 2 questions to ask before signing.');
+    'Paste these quotes into your favourite AI assistant with the AI Vendor Cost Intelligence prompt. AI tells you above / at / below market, lists missing deliverables, and gives you 2 questions to ask before signing.');
   sheet.getRow(22).height = 30; sheet.getRow(23).height = 30;
 
   addFooter(sheet, 26, { productName: PRODUCT_NAME });
@@ -1923,18 +1923,18 @@ function buildGiftRegistry(workbook) {
 // ============================================================================
 
 function buildAICoPilotHub(workbook) {
-  const sheet = workbook.addWorksheet('🤖 AI Wedding Co-Pilot');
+  const sheet = workbook.addWorksheet('🤖 AI Wedding Advisor');
   setTabColor(sheet, MATTE_BLACK);
   setupColumns(sheet, { A: 2, B: 20, C: 20, D: 20, E: 20, F: 20, G: 20, H: 20, I: 12, J: 12, K: 12, L: 12, M: 2 });
 
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
-    tabName: '🤖 AI Wedding Co-Pilot',
-    tabSubtitle: '8 ChatGPT/Claude prompts. Works in free tiers — no API key. Each prompt pairs with a tab below.',
+    tabName: '🤖 AI Wedding Advisor',
+    tabSubtitle: '8 AI assistant prompts. Works in free tiers — no API key. Each prompt pairs with a tab below.',
     bannerText: BANNERS.whyXls,
     kpiData: [
       { label: 'PROMPTS',     value: '8' },
-      { label: 'AI TOOLS',    value: 'ChatGPT / Claude' },
+      { label: 'AI TOOLS',    value: 'Any AI assistant' },
       { label: 'API KEY?',    value: 'No' },
       { label: 'COST',        value: 'Free tier' },
       { label: 'PDF',         value: '12-page companion' },
@@ -1943,7 +1943,7 @@ function buildAICoPilotHub(workbook) {
   });
 
   let r = addSectionHeader(sheet, 6, '8 prompt cards — 2 × 4 grid',
-    'Click a card to jump to that prompt\'s tab (linked tabs marked with ↗). Cards without a linked tab are in the AI Co-Pilot PDF only.', 'B:L');
+    'Click a card to jump to that prompt\'s tab (linked tabs marked with ↗). Cards without a linked tab are in the AI Advisor PDF only.', 'B:L');
 
   const cards = [
     { title: '1. Guest List Optimizer',     tab: "'✂️ Guest List Optimizer'!A1",
@@ -2002,16 +2002,16 @@ function buildAICoPilotHub(workbook) {
 
   addCallout(sheet, `B${r}:L${r + 1}`,
     '📄',
-    'Companion PDF — `AI Wedding Co-Pilot` (12 pages)',
-    'All 8 prompts ship as a separate PDF with full prompt templates + worked examples. Open the PDF + the matching tab side-by-side, fill in placeholders, paste into ChatGPT or Claude. Free tiers work.');
+    'Companion PDF — `AI Wedding Advisor` (12 pages)',
+    'All 8 prompts ship as a separate PDF with full prompt templates + worked examples. Open the PDF + the matching tab side-by-side, fill in placeholders, paste into your favourite AI assistant. Free tiers work.');
   sheet.getRow(r).height = 30; sheet.getRow(r + 1).height = 30;
 
   r = addSectionHeader(sheet, r + 4, 'Which AI should I use?',
-    'Both work in their free tiers. Different strengths.', 'B:L');
+    'Most AI assistants work in their free tiers. Different strengths.', 'B:L');
 
   const aiTips = [
-    ['ChatGPT (free)', 'Best for: Speech Drafter, Vendor Negotiation, RSVP Reminders, Vows Drafter. Strength: conversational tone, easy to revise. Limit: ~3–4K word context per message.'],
-    ['Claude (free)',  'Best for: Guest List Optimizer, Seating Constraint Solver, Vendor Cost Intelligence. Strength: longer inputs in one message, clean table output. Limit: per-day message cap on free tier.'],
+    ['Conversational AI (free)', 'Best for: Speech Drafter, Vendor Negotiation, RSVP Reminders, Vows Drafter. Strength: conversational tone, easy to revise. Limit: ~3–4K word context per message.'],
+    ['Long-context AI (free)',  'Best for: Guest List Optimizer, Seating Constraint Solver, Vendor Cost Intelligence. Strength: longer inputs in one message, clean table output. Limit: per-day message cap on free tier.'],
     ['Paid tiers',     'Worth it if you\'ll use the prompts heavily over 2–3 months. Skip if one-off use — free tiers do the job.'],
   ];
   aiTips.forEach((t, i) => {
@@ -2043,7 +2043,7 @@ function buildAIPromptTab(workbook, opts) {
     bannerText: BANNERS.privacy,
     kpiData: [
       { label: 'PROMPT',      value: title },
-      { label: 'AI TOOL',     value: 'ChatGPT / Claude (free tier)' },
+      { label: 'AI TOOL',     value: 'Any AI assistant (free tier)' },
       { label: 'PAIRS WITH',  value: tabPairs },
       { label: 'TIME',        value: '~3 min' },
       { label: 'OUTPUT',      value: 'Structured' },
@@ -2061,7 +2061,7 @@ function buildAIPromptTab(workbook, opts) {
   sheet.getRow(6).height = 24;
 
   let r = addSectionHeader(sheet, 8, title,
-    'Copy-paste-ready. Replace the [PLACEHOLDERS] with your data, then paste into ChatGPT or Claude.', 'B:L');
+    'Copy-paste-ready. Replace the [PLACEHOLDERS] with your data, then paste into your favourite AI assistant.', 'B:L');
 
   // Prompt card
   setCell(sheet, `B${r + 1}`, '📋 PROMPT',
@@ -2102,7 +2102,7 @@ function buildAIGuestListOptimizer(workbook) {
     name: '✂️ Guest List Optimizer',
     tabColor: DUSTY_ROSE,
     title: 'Cut N guests fairly across both sides',
-    tabPairs: '👥 Guest List + 🤖 AI Wedding Co-Pilot',
+    tabPairs: '👥 Guest List + 🤖 AI Wedding Advisor',
     intro: 'Paste your guest list + a target cut count. AI returns a cut list with rationale, side-balance check, and budget impact.',
     footer: 'PDF page 3 / 12',
     promptText:
@@ -2391,9 +2391,9 @@ async function buildWeddingPlanner() {
   workbook.created = new Date();
   workbook.modified = new Date();
   workbook.title = `${PRODUCT_NAME} — ${tierLabel}`;
-  workbook.subject = 'Personal finance · Wedding budget · Wedding planner · Guest list · Seating · AI Co-Pilot';
+  workbook.subject = 'Personal finance · Wedding budget · Wedding planner · Guest list · Seating · AI Advisor';
   workbook.category = 'Personal Finance · Wedding Planning';
-  workbook.keywords = 'wedding planner, wedding budget tracker, guest list, RSVP tracker, seating chart, vendor tracker, day-of timeline, honeymoon budget, google sheets, excel, AI wedding co-pilot, lime premium studios';
+  workbook.keywords = 'wedding planner, wedding budget tracker, guest list, RSVP tracker, seating chart, vendor tracker, day-of timeline, honeymoon budget, google sheets, excel, AI wedding advisor, lime premium studios';
   workbook.description = `${PRODUCT_NAME} ${tierLabel} v1.0 — Lime Premium Studios. ${tierTabCount} tabs. Privacy-first — no cloud sync, no third-party access.`;
 
   // Build all 22 tabs in spec order
@@ -2413,7 +2413,7 @@ async function buildWeddingPlanner() {
   console.log('  • ⚖️ Vendor Comparison (Pro)');     buildVendorComparison(workbook);
   console.log('  • 💐 Bridal Party (Pro)');          buildBridalParty(workbook);
   console.log('  • 🎁 Gift Registry (Pro)');         buildGiftRegistry(workbook);
-  console.log('  • 🤖 AI Wedding Co-Pilot (AI)');    buildAICoPilotHub(workbook);
+  console.log('  • 🤖 AI Wedding Advisor (AI)');    buildAICoPilotHub(workbook);
   console.log('  • ✂️ Guest List Optimizer (AI)');   buildAIGuestListOptimizer(workbook);
   console.log('  • 🔍 Vendor Cost Intel (AI)');      buildAIVendorCostIntelligence(workbook);
   console.log('  • 🧩 Seating Constraint (AI)');     buildAISeatingConstraintSolver(workbook);

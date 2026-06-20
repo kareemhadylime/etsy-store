@@ -6,7 +6,7 @@ _Tier: AI Edition ($29) only_
 _References: [proposal](../product-proposals/budget-tracker.md) · [design brief](../product-designs/budget-tracker.md) Section 4 · build ticket [BT11](../budget-tracker-build-tickets.md)_
 _PDF format: US Letter portrait, 11 pages (cover + intro + 7 prompts × 1 page + tips + back cover)_
 
-This file is the **content source of truth** for the AI Money Advisor PDF. Visual layout rules live in the design brief; copy lives here. Mirrors the Wedding AI Co-Pilot pattern from `wedding-ai-prompts.md`.
+This file is the **content source of truth** for the AI Money Advisor PDF. Visual layout rules live in the design brief; copy lives here. Mirrors the Wedding AI Advisor pattern from `wedding-ai-prompts.md`.
 
 ---
 
@@ -40,7 +40,7 @@ How to use these prompts
 
 ### Body (Inter 11pt, 1.4 line-height)
 ```
-Seven questions every budget hits at least once. Seven prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.
+Seven questions every budget hits at least once. Seven prompts you can copy, paste, and adapt — designed for the free tier of your favourite AI assistant.
 
 These aren't generic. Each prompt is built to pair with a specific tab in your Budget Tracker. You'll see the tab name on each page — paste the prompt, fill in the placeholders from that tab, send.
 
@@ -48,13 +48,13 @@ These aren't generic. Each prompt is built to pair with a specific tab in your B
 
 1. Open the prompt page you need (Smart Spending Advisor, Cash Flow Intelligence, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data from that tab.
 5. Read the worked example on the same page to know what good output looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Budget Tracker open in another window
 • 10 minutes the first time; ~3 minutes once you're used to the flow
 
@@ -395,7 +395,7 @@ Income $62,000. Expenses $48,400. Savings rate 22% (up from 14% last year).
 EF $3,800 → $6,400 (added $2,600 of $7,500 target).
 Top categories: Rent $18,000 · Groceries $5,200 · Dining $3,400 · Transport $2,800 · Subscriptions $1,150.
 Top vendors: Landlord, Whole Foods, Trader Joe's, Spotify, Hulu.
-Subscription audit: cancelled Hulu + WSJ ($28/mo), added Notion AI + Claude Pro ($30/mo), kept Spotify + Netflix + NYT.
+Subscription audit: cancelled Hulu + WSJ ($28/mo), added Notion AI + a paid AI plan ($30/mo), kept Spotify + Netflix + NYT.
 Big purchases: $1,400 winter coat, $900 weekend trip to Vermont, $480 new running shoes (3 pairs spread out).
 YoY: +8% income, +1% spending, savings rate up from 14% → 22%.
 
@@ -586,7 +586,7 @@ Months 10-12: EF hits $5,500 (71%). Debt $6,500. Score holds at 82-84.
 
 ---
 
-## Page 10 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 10 — Tips: free vs. paid AI plans
 
 ### Page title (Inter 24pt semibold)
 ```
@@ -597,17 +597,17 @@ Which AI should I use?
 ```
 All seven prompts work in free tiers. The differences are output style, input length, and how well the AI handles structured-data pastes.
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Smart Spending Advisor, Bill Negotiation Scripts, Annual Money Review, Category Advisor. Conversational tone; good at editing on follow-up ("make this shorter," "more direct," "less corporate").
 Limit: ~3,000–4,000 word context per message. If your expense data is huge, paste in batches.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: Scenario Simulator, Cash Flow Intelligence, Health Score Coach. Handles longer structured input (expense lists, multiple scenarios) cleanly. Better at table-formatted output.
-Limit: Conversation limits per day on free tier. If you hit a wall, switch to ChatGPT for the next prompt.
+Limit: Conversation limits per day on free tier. If you hit a wall, switch to another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
 Worth it if you're actively running the budget weekly. Skip if monthly.
 
@@ -618,7 +618,7 @@ Worth it if you're actively running the budget weekly. Skip if monthly.
 3. ITERATE. First response is rarely the keeper. "Make it shorter" / "be more specific" / "rerun with this new constraint" — the AI revises on request.
 4. SAVE WHAT WORKS. Found a great negotiation script? Paste it into your spreadsheet's Notes column so it doesn't disappear with the conversation.
 
-Your budget data never leaves your AI conversation. ChatGPT and Claude don't see your spreadsheet — only what you paste, and only during that chat. (Read their privacy policies for the details.)
+Your budget data never leaves your AI conversation. AI assistants don't see your spreadsheet — only what you paste, and only during that chat. (Read their privacy policies for the details.)
 ```
 
 ### Footer
@@ -653,7 +653,7 @@ v1.0 · Updated [DATE]
 support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Budget Tracker
-AI Edition. AI prompts work in ChatGPT and Claude
+AI Edition. AI prompts work in AI assistants
 (free or paid tiers — your choice).
 
 12-month free updates included with AI Edition.
@@ -676,11 +676,11 @@ budget-tracker.com/updates
 - **Placeholders** in prompt blocks use ALL-CAPS bracketed strings (`[VENDOR]`, `[amount]`, `[PASTE TABLE]`) — visually distinct from regular prompt text.
 - **Each prompt page includes a tab callout** identifying which Budget Tracker spreadsheet tab the prompt pairs with — bridges PDF ↔ spreadsheet so buyers know where each prompt belongs.
 - **Worked examples use realistic but anonymized data.** Vendors named are commonly known (Whole Foods, Uber Eats, Spotify, Verizon) and don't imply specific socioeconomic context beyond what the buyer would already know about themselves.
-- **Anti-pep-talk discipline.** The Wedding AI Co-Pilot ("you're going to be fine") used a tiny humanizing moment on the back cover. The Budget Tracker version goes a different direction: cold-practical ("Your money. Your sheet. Your call."). Matches the Premium Finance House restraint discipline.
+- **Anti-pep-talk discipline.** The Wedding AI Advisor ("you're going to be fine") used a tiny humanizing moment on the back cover. The Budget Tracker version goes a different direction: cold-practical ("Your money. Your sheet. Your call."). Matches the Premium Finance House restraint discipline.
 
 ## Catalog-wide patterns this confirms
 
-The Wedding AI Co-Pilot template (`wedding-ai-prompts.md`) established the per-prompt skeleton: title + tab callout + copy-paste block + worked example + footer. Budget Tracker reuses it exactly. The remaining 4 finance AI prompts files (Debt / Sinking / NW / Small Biz) will follow the same skeleton with per-product variations:
+The Wedding AI Advisor template (`wedding-ai-prompts.md`) established the per-prompt skeleton: title + tab callout + copy-paste block + worked example + footer. Budget Tracker reuses it exactly. The remaining 4 finance AI prompts files (Debt / Sinking / NW / Small Biz) will follow the same skeleton with per-product variations:
 
 - Number of prompts per product: 7 for Budget/Debt/Sinking/NW, 8 for Small Business (one more = 12-page PDF instead of 11)
 - Tab callouts match each product's spine tab names

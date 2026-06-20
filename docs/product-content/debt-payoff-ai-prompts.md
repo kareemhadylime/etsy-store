@@ -40,7 +40,7 @@ How to use these prompts
 
 ### Body (Inter 11pt, 1.4 line-height)
 ```
-Seven decisions every debt-payoff hits. Seven prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.
+Seven decisions every debt-payoff hits. Seven prompts you can copy, paste, and adapt — designed for the free tier of your favourite AI assistant.
 
 Each prompt is built to pair with a specific tab in your Debt Payoff Planner. You'll see the tab name on each page — paste, fill in the placeholders from that tab, send.
 
@@ -48,13 +48,13 @@ Each prompt is built to pair with a specific tab in your Debt Payoff Planner. Yo
 
 1. Open the prompt page you need (Payoff Strategy Optimizer, Credit Score Coach, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data.
 5. Read the worked example on the same page to see what good output looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Debt Payoff Planner open in another window
 • 10 minutes the first time; ~3 minutes once you're used to the flow
 
@@ -648,7 +648,7 @@ Month 10-12: $400/mo extra to next debt. Score 82-88 range. Debt-free trajectory
 
 ---
 
-## Page 10 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 10 — Tips: free vs. paid AI plans
 
 ### Page title (Inter 24pt semibold)
 ```
@@ -659,17 +659,17 @@ Which AI should I use?
 ```
 All seven prompts work in free tiers. Differences come down to output style + how each handles structured debt data.
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Payoff Strategy Optimizer, Settlement Letter Generator, Income Acceleration Coach. Conversational tone; great at editing the letter or strategy on follow-up ("make this firmer," "less corporate," "shorter").
 Limit: ~3,000–4,000 word context per message. If you paste 15+ debts, do it in batches.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: AI Credit Score Coach, Utilization Timing Advisor, Consolidation Intelligence, Health Score Coach. Better at table-formatted output + math accuracy. Handles longer debt portfolios in one paste.
-Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.
+Limit: Daily conversation limit on free tier. If you hit it, switch to another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
 Worth it if you're running debt-payoff math weekly during refinance prep or active negotiation. Skip if quarterly check-ins.
 
@@ -680,7 +680,7 @@ Worth it if you're running debt-payoff math weekly during refinance prep or acti
 3. NEGOTIATION LETTERS GET BETTER ON ITERATION. First draft is rarely the keeper. "Make this firmer about the walk-away" / "remove the hardship framing if I want it to sound like a business decision" — iterate before sending.
 4. SAVE WHAT WORKS. The Negotiation Script that closed your settlement? Paste it back into your spreadsheet's Notes column on that debt's row. Build your own library.
 
-Your debt data never leaves your AI conversation. ChatGPT and Claude don't see your spreadsheet — only what you paste, only during that chat. Read their privacy policies for the details.
+Your debt data never leaves your AI conversation. AI assistants don't see your spreadsheet — only what you paste, only during that chat. Read their privacy policies for the details.
 ```
 
 ### Footer
@@ -715,8 +715,8 @@ v1.0 · Updated [DATE]
 support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Debt Payoff
-Planner AI Edition. AI prompts work in ChatGPT and
-Claude (free or paid tiers — your choice).
+Planner AI Edition. AI prompts work in AI assistants
+(free or paid tiers — your choice).
 
 12-month free updates included with AI Edition.
 debt-payoff-planner.com/updates

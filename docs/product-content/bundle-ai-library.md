@@ -1,11 +1,11 @@
-# Bundle AI Master Prompt Library — Content
+# Bundle AI Planning Guide — Content
 
 _Drafted: 2026-05-11_
 _Status: v1 — content ready for PDF production_
 _Tier: AI Edition only (Premium Finance Bundle AI $119, Premium Life Bundle AI $149)_
 _References: [proposal](../product-proposals/all-in-one-premium-bundle.md) · [design brief](../product-designs/all-in-one-premium-bundle.md) Section 4 · [listing](../listing-copy/bundle-finance-ai.md) · [Life listing](../listing-copy/bundle-life-ai.md)_
 
-This file is the **content source of truth** for the Bundle AI Master Prompt Library PDF. Two variants ship:
+This file is the **content source of truth** for the Bundle AI Planning Guide PDF. Two variants ship:
 
 - **Finance variant** (~28 pages, no Wedding section) — bundled with Premium Finance Bundle AI Edition
 - **Life variant** (~30 pages, includes Wedding section) — bundled with Premium Life Bundle AI Edition
@@ -18,12 +18,12 @@ Content is written in Life-variant flavor below. Finance-variant substitutions d
 
 ### Title (Inter 36pt semibold, charcoal `#1F2A33`)
 ```
-AI Master Prompt Library
+AI Planning Guide
 ```
 
 ### Subtitle (Inter italic 18pt, warm-gold `#C9A14A`)
 ```
-60+ prompts. 10 cross-product workflows. Built for buyers who live in ChatGPT or Claude.
+60+ prompts. 10 cross-product workflows. Built for buyers who live in your favourite AI assistant.
 ```
 
 ### Tier badge (warm-gold rounded rect, white type, Inter 14pt semibold)
@@ -71,7 +71,7 @@ Pages 14 onward. Each spreadsheet gets 2–3 pages. Each page has 4 prompts in a
 
 — Where these run —
 
-All prompts work in ChatGPT's free tier or Claude's free tier. Some workflows (anything weaving 4+ products together with long data) run better in paid tiers — flagged where it matters. See the Tips section on page [N] for guidance.
+All prompts work in the free tier of your favourite AI assistant. Some workflows (anything weaving 4+ products together with long data) run better in paid tiers — flagged where it matters. See the Tips section on page [N] for guidance.
 
 — What this PDF won't do —
 
@@ -82,7 +82,7 @@ Turn the page when you're ready.
 
 ### Footer
 ```
-2 / [30 Life | 28 Finance] · AI Master Prompt Library
+2 / [30 Life | 28 Finance] · AI Planning Guide
 ```
 
 ---
@@ -104,7 +104,7 @@ Per Bundle brief Section 1 — charcoal page background with a warm-gold horizon
 
 ### Footer
 ```
-3 / [30 | 28] · AI Master Prompt Library
+3 / [30 | 28] · AI Planning Guide
 ```
 
 ---
@@ -1045,7 +1045,7 @@ Per-Product Reference
 
 ### Footer
 ```
-14 / [30 | 28] · AI Master Prompt Library
+14 / [30 | 28] · AI Planning Guide
 ```
 
 ---
@@ -1872,10 +1872,10 @@ _(Finance variant: skip pages 28–29; finish at page 27 + adjust subsequent pag
 
 ### Page 28 — Wedding, prompts 1–4
 
-(All 8 Wedding prompts here are condensed versions of the prompts in `wedding-ai-prompts.md` — same prompt body, compact 2×2 grid format instead of full-page treatment. The full versions stay in the Wedding AI Co-Pilot PDF that ships with the standalone Wedding AI Edition product.)
+(All 8 Wedding prompts here are condensed versions of the prompts in `wedding-ai-prompts.md` — same prompt body, compact 2×2 grid format instead of full-page treatment. The full versions stay in the Wedding AI Advisor PDF that ships with the standalone Wedding AI Edition product.)
 
 #### W1. Guest List Optimizer
-See full prompt in Wedding AI Co-Pilot PDF page 3. Compact version:
+See full prompt in Wedding AI Advisor PDF page 3. Compact version:
 ```
 Cut my list by [N] guests fairly. Paste guest list (name | side | relationship | must-attend). Rules: balance sides, never cut must-attends, prefer acquaintances over family. Output: cut list with rationale + side balance summary + budget impact at $200/head.
 ```
@@ -1934,26 +1934,26 @@ _Tab: 🎤 AI Speech Drafter_
 Where to run these prompts
 ```
 
-### Body — ChatGPT Free section (Inter 11pt)
+### Body — Free Tier section (Inter 11pt)
 ```
-— ChatGPT Free Tier —
+— Free Tier —
 
 Best for: speech drafts, vendor negotiations, RSVP scripts, vows, prompt iteration. Conversational tone, fast revisions.
 
 Limit: ~3,000–4,000 word context per single message in the free tier. If you paste a 200-name guest list, split it: paste batch 1, get analysis, paste batch 2, ask AI to combine.
 
-Free tier as of 2026 includes GPT-4o-mini for free, GPT-4o for limited daily messages. Both handle these prompts.
+Free tier as of 2026 includes a fast lightweight model for free, a more capable model for limited daily messages. Both handle these prompts.
 ```
 
-### Claude Free section
+### Second AI assistant Free section
 ```
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: guest list optimization, seating constraints, vendor cost intelligence, anything that benefits from longer input + structured table output.
 
-Limit: daily message limit on the free tier; if you hit it, wait a few hours or switch to ChatGPT for the next prompt.
+Limit: daily message limit on the free tier; if you hit it, wait a few hours or switch to another AI assistant for the next prompt.
 
-Strength: Claude handles very long pastes in a single message — particularly useful for the cross-product workflows where you're pasting data from 3+ spreadsheets at once.
+Strength: Some AI assistants handle very long pastes in a single message — particularly useful for the cross-product workflows where you're pasting data from 3+ spreadsheets at once.
 ```
 
 ### Notion AI section (relevant for Notion Life OS buyers via the cross-bundle)
@@ -1964,12 +1964,12 @@ Notion AI lives inside your Notion workspace. Most of the per-product reference 
 
 Cost: $10/month add-on to Notion. Worth it if you're using the Notion Life OS template — Notion AI can read your databases in-context without you re-pasting data.
 
-What it doesn't do: anything Claude/ChatGPT can do better with the full context (e.g., 10-year net-worth projections). Use Notion AI for in-context Notion tasks; use Claude/ChatGPT for everything else.
+What it doesn't do: anything your favourite AI assistant can do better with the full context (e.g., 10-year net-worth projections). Use Notion AI for in-context Notion tasks; use your favourite AI assistant for everything else.
 ```
 
 ### Paid tier guidance
 ```
-— Should I pay for ChatGPT Plus / Claude Pro? —
+— Should I pay for an AI plan? —
 
 Worth it if you're going to use these prompts heavily over 2–3 months (active wedding planning, year-end tax prep, post-marriage finance merge). The paid tiers run faster, allow larger uploads (helpful for the Cross-Product Workflows), and have higher daily limits.
 
@@ -2059,7 +2059,7 @@ Replace Wedding-specific allocation with a general goal allocation framework. Sa
 - Single content source (this file) drives both PDFs via the substitution notes above
 
 ### Cross-references
-- Wedding prompts on pages 28–29 are compact versions of the 8 prompts in [`wedding-ai-prompts.md`](./wedding-ai-prompts.md) — buyers who own both products get full-page treatment for Wedding (in the Wedding AI Co-Pilot PDF) and compact reference (in the Bundle AI Library PDF). No content duplication; the Wedding PDF goes deeper, the Bundle PDF surfaces the same prompts in a quick-reference format.
+- Wedding prompts on pages 28–29 are compact versions of the 8 prompts in [`wedding-ai-prompts.md`](./wedding-ai-prompts.md) — buyers who own both products get full-page treatment for Wedding (in the Wedding AI Advisor PDF) and compact reference (in the AI Planning Guide PDF). No content duplication; the Wedding PDF goes deeper, the Bundle PDF surfaces the same prompts in a quick-reference format.
 - Workflow page template (Section "Workflows — Pages 4 through 13") matches the per-prompt structure used in `wedding-ai-prompts.md` — same skeleton, same voice.
 
 ### Voice consistency check
@@ -2093,6 +2093,6 @@ This file completes the content production phase for product-track session work.
 - Wedding spreadsheet build ticket breakdown (planning artifact)
 - Visual production (Figma → covers + thumbnails + PDFs)
 
-Both are downstream of this content. Wedding build tickets reference the AI Co-Pilot tab specs in Wedding's design brief; visual production for the Bundle library PDFs pulls layout rules from the Bundle design brief Section 4.
+Both are downstream of this content. Wedding build tickets reference the AI Advisor tab specs in Wedding's design brief; visual production for the Bundle library PDFs pulls layout rules from the Bundle design brief Section 4.
 
 All content needed for the AI Edition tier products is now written.

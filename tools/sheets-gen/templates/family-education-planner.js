@@ -2971,12 +2971,12 @@ function buildAIFamilyFinanceAdvisor(workbook) {
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
     tabName: '🤖 AI Family Finance Advisor',
-    tabSubtitle: '8 prompts for ChatGPT / Claude free tier. Paste the prompt + your data; the AI never sees your spreadsheet.',
+    tabSubtitle: '8 prompts for any AI assistant free tier. Paste the prompt + your data; the AI never sees your spreadsheet.',
     bannerText: BANNER,
     kpiData: [
       { label: 'PROMPTS',     value: '8' },
       { label: 'PAGE COUNT',  value: '12' },
-      { label: 'WORKS WITH',  value: 'ChatGPT + Claude' },
+      { label: 'WORKS WITH',  value: 'Any AI assistant' },
       { label: 'TIER',        value: 'Free works ✓' },
       { label: 'PAIRS WITH',  value: '8 tabs' },
       { label: 'UPDATES',     value: '12 mo free' },
@@ -3063,7 +3063,7 @@ function buildAIFamilyFinanceAdvisor(workbook) {
   addCallout(sheet, `B${r + 16}:M${r + 17}`,
     '🤖',
     'How to use these prompts',
-    'All 8 work in ChatGPT free + Claude free. Paste the prompt + your data; read the worked example on the matching PDF page first to see what good output looks like. Save useful output into the "Paste output here" cell so it stays with your spreadsheet. Your kids\' SSNs / school names / FAFSA PINs / brokerage logins never enter any AI tool — use labels ("Child A," "Target College #1") instead.');
+    'All 8 work on any AI assistant, including free tiers. Paste the prompt + your data; read the worked example on the matching PDF page first to see what good output looks like. Save useful output into the "Paste output here" cell so it stays with your spreadsheet. Your kids\' SSNs / school names / FAFSA PINs / brokerage logins never enter any AI tool — use labels ("Child A," "Target College #1") instead.');
   sheet.getRow(r + 16).height = 32;
   sheet.getRow(r + 17).height = 32;
 
@@ -3336,7 +3336,7 @@ function buildAbout(workbook) {
     ['Does the scholarship tab apply for me?',  'No. It tracks the scholarships YOU\'RE applying to + flags deadlines <30 days. The AI Scholarship Matching Engine (PDF page 4) recommends 5-7 realistic candidates based on your child\'s profile — you apply directly through each scholarship\'s official portal or FastWeb/Bold.org (both free).'],
     ['What if my child has special needs?',  'Flag "Yes — ABLE eligible" in the Child Profiles Special Needs column. The Account Type Comparison tab pivots to recommend ABLE + 529 split; the Life Insurance Calculator surfaces the one legitimate whole-life scenario (special-needs trust funding). All math accounts for it.'],
     ['Does it work in Excel?',  'Yes, with caveats. Most formulas work in both Google Sheets and Excel; some date-math functions render slightly differently. Excel users may need to re-enter dates in their locale format. AI prompts in the PDF work the same regardless of spreadsheet platform.'],
-    ['Can I use the AI prompts in ChatGPT or Claude free tier?',  'Yes — all 8 prompts work in free tiers. ChatGPT is slightly better at the Aid Appeal Coach + Scholarship Matching Engine (conversational + voice rewriting). Claude is slightly better at Account Type Picker + State 529 Optimizer + Childcare Optimizer (structured tables + multi-scenario math). Both work; use whichever you already have access to.'],
+    ['Can I use the AI prompts on a free AI plan?',  'Yes — all 8 prompts work in free tiers. Conversational AI assistants are slightly better at the Aid Appeal Coach + Scholarship Matching Engine (conversational + voice rewriting). Long-context AI assistants are slightly better at Account Type Picker + State 529 Optimizer + Childcare Optimizer (structured tables + multi-scenario math). Both work; use whichever you already have access to.'],
   ];
   faq.forEach((qa, i) => {
     const ri = r2 + 1 + i * 2;

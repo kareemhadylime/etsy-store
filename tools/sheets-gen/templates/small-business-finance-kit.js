@@ -76,7 +76,7 @@ const PRO_TABS = new Set([
 
 // AI tabs — removed for Pro + Essentials
 const AI_TABS = new Set([
-  '🤖 AI Business Co-Pilot',
+  '🤖 AI Business Advisor',
 ]);
 
 // Schedule C expense categories (for tax prep auto-mapping)
@@ -2242,7 +2242,7 @@ function buildAssetDepreciation(workbook) {
   addCallout(sheet, `B28:L29`,
     '⚠️',
     'Depreciation method matters — verify with your CPA',
-    'This tab uses straight-line as the default approximation. MACRS, Section 179, and Bonus depreciation produce different year-1 numbers (often dramatically). The AI Business Co-Pilot Depreciation Assistant prompt (page 5) audits each asset against IRS class life + business-income limit before filing.');
+    'This tab uses straight-line as the default approximation. MACRS, Section 179, and Bonus depreciation produce different year-1 numbers (often dramatically). The AI Business Advisor Depreciation Assistant prompt (page 5) audits each asset against IRS class life + business-income limit before filing.');
   sheet.getRow(28).height = 28;
   sheet.getRow(29).height = 28;
 
@@ -3428,26 +3428,26 @@ function buildBreakEvenCalculator(workbook) {
 // ============================================================================
 
 function buildAIBusinessCoPilot(workbook) {
-  const sheet = workbook.addWorksheet('🤖 AI Business Co-Pilot');
+  const sheet = workbook.addWorksheet('🤖 AI Business Advisor');
   setTabColor(sheet, COLORS.warmGold);
   setupColumns(sheet, { A: 2, B: 32, C: 32, D: 32, E: 32, F: 2, G: 2, H: 2, I: 2, J: 2, K: 2, L: 2, M: 2 });
 
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
-    tabName: '🤖 AI Business Co-Pilot',
-    tabSubtitle: '8 prompts in 2×4 grid. Each pairs with a tab + a page in the AI PDF. Free-tier ChatGPT or Claude.',
+    tabName: '🤖 AI Business Advisor',
+    tabSubtitle: '8 prompts in 2×4 grid. Each pairs with a tab + a page in the AI PDF. Works with any free-tier AI assistant.',
     bannerText: BANNER,
     kpiData: [
       { label: 'PROMPTS',     value: '8' },
       { label: 'PDF PAGES',   value: '12' },
-      { label: 'AI TOOLS',    value: 'ChatGPT · Claude' },
+      { label: 'AI TOOLS',    value: 'Any AI assistant' },
       { label: 'TIER',        value: 'AI Edition' },
       { label: 'COST TO USE', value: 'Free tier OK' },
       { label: 'UPDATES',     value: '12 mo' },
     ],
   });
 
-  let r = addSectionHeader(sheet, 6, 'The 8 prompts', 'Click each card to find the matching page in the AI Business Co-Pilot PDF.');
+  let r = addSectionHeader(sheet, 6, 'The 8 prompts', 'Click each card to find the matching page in the AI Business Advisor PDF.');
 
   const prompts = [
     { num: 1, title: 'P&L Analyst',                  tab: '📊 P&L Statement',           desc: 'Read each line. Flag anomalies vs. 12-mo trailing. Diagnose margin compression.' },
@@ -3508,7 +3508,7 @@ function buildAIBusinessCoPilot(workbook) {
   addCallout(sheet, `B${r + 22}:E${r + 23}`,
     '🤖',
     'How to use these',
-    'All 8 prompts work in ChatGPT free + Claude free. Open the matching PDF page, copy the prompt, paste it into the AI tool with your data. The worked example on each PDF page shows what good output looks like. Save sharp output into the "Paste output here" cell so it stays with your spreadsheet.');
+    'All 8 prompts work on any AI assistant, including free tiers. Open the matching PDF page, copy the prompt, paste it into the AI tool with your data. The worked example on each PDF page shows what good output looks like. Save sharp output into the "Paste output here" cell so it stays with your spreadsheet.');
   sheet.getRow(r + 22).height = 28;
   sheet.getRow(r + 23).height = 28;
 
@@ -3569,7 +3569,7 @@ function buildAbout(workbook) {
     ['📄 Invoice Templates',       `${tier === 'essentials' ? '5' : '10'} print-ready invoice templates. Edit, export to PDF, send.`],
     ['📈 KPI Dashboard (Pro)',     '8 KPIs CFO would ask for: gross margin · net margin · EBITDA · burn · runway · revenue/client · CAC · MoM growth.'],
     ['🔮 Cash Flow Forecast (Pro)', '12-week forward projection with danger ribbon when below buffer.'],
-    ['🤖 AI Business Co-Pilot (AI)', '8 ChatGPT/Claude prompts in companion PDF — P&L Analyst · Cash Flow Coach · Depreciation · Supplier · Tax Prep · Pricing · Annual Review · Concentration.'],
+    ['🤖 AI Business Advisor (AI)', '8 AI assistant prompts in companion PDF — P&L Analyst · Cash Flow Coach · Depreciation · Supplier · Tax Prep · Pricing · Annual Review · Concentration.'],
   ];
 
   explainer.forEach((er, i) => {
@@ -3672,7 +3672,7 @@ async function buildSmallBusinessFinanceKit() {
   console.log('  • 📈 KPI Dashboard (Pro)');                buildKPIDashboard(workbook);
   console.log('  • 🔮 Cash Flow Forecast (Pro)');           buildCashFlowForecast(workbook);
   console.log('  • ⚖️ Break-Even Calculator');              buildBreakEvenCalculator(workbook);
-  console.log('  • 🤖 AI Business Co-Pilot (AI)');          buildAIBusinessCoPilot(workbook);
+  console.log('  • 🤖 AI Business Advisor (AI)');          buildAIBusinessCoPilot(workbook);
   console.log('  • ℹ️ About & Help');                       buildAbout(workbook);
 
   applyTierVisibility(workbook, tier, { proTabs: PRO_TABS, aiTabs: AI_TABS, productName: PRODUCT_NAME });

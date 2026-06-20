@@ -43,7 +43,7 @@ How to use these prompts
 
 ### Body
 ```
-Eight decisions every practicing Muslim hits across a Hijri year. Eight prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.
+Eight decisions every practicing Muslim hits across a Hijri year. Eight prompts you can copy, paste, and adapt — designed for the free tier of your favourite AI assistant.
 
 Each prompt is built to pair with a specific tab in your Zakat Calculator. You'll see the tab name on each page — paste, fill in placeholders, send.
 
@@ -51,13 +51,13 @@ Each prompt is built to pair with a specific tab in your Zakat Calculator. You'l
 
 1. Open the prompt page you need (Setup Wizard, Crypto/DeFi Zakat, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data.
 5. Read the worked example on the same page to see what good output looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Zakat Calculator open in another window
 • Your Madhhab selected on the Madhhab Settings tab (this drives ruling logic across every prompt)
 • 15 minutes the first time; ~5 minutes once familiar
@@ -1013,7 +1013,7 @@ NZF UK Zakat Guide (calculations + 8 categories), AAOIFI Standard 21 (Sukuk + EO
 
 ---
 
-## Page 11 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 11 — Tips: free vs. paid AI plans
 
 ### Page title (Inter 24pt semibold)
 ```
@@ -1024,17 +1024,17 @@ Which AI should I use?
 ```
 All eight prompts work in free tiers. Differences come down to handling of citations + multi-asset complexity.
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Setup Wizard, Distribution Planner, Qada Recovery Coach, Annual Report PDF. Conversational tone; writes narrative summaries + emotional framings cleanly. Fluent at iterating tone and softening difficult content (Qada is a sensitive topic).
 Limit: ~3,000-4,000 word context per message. The longer prompts with many citations + complex worked examples may stretch context — batch large portfolios across multiple turns.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: Crypto/DeFi Zakat, Nisab Method Picker, Stocks Method Picker, Pension Analyser. Better at structured per-asset analysis, multi-source citation, and Madhhab-comparison tables. Handles longer scholarly citation traces in one paste.
-Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.
+Limit: Daily conversation limit on free tier. If you hit it, switch to another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
 Worth it if you're running complex multi-asset analysis annually + tracking missed years across multiple Hijri cycles. For straightforward annual calculation (simple cash + gold + silver), free tier is fully sufficient.
 
@@ -1089,8 +1089,8 @@ v1.0 · Updated [DATE — pre-Ramadan each Hijri year]
 support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Zakat
-Calculator AI Edition. AI prompts work in ChatGPT
-and Claude (free or paid tiers — your choice).
+Calculator AI Edition. AI prompts work in AI assistants
+(free or paid tiers — your choice).
 
 12-month free updates included with AI Edition —
 each update ships in time for Ramadan.

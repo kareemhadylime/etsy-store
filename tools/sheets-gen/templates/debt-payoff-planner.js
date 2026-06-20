@@ -2511,7 +2511,7 @@ function buildAICreditCoach(workbook) {
   addCallout(sheet, `B${r2 + 10}:F${r2 + 11}`,
     '💡',
     'How to use the AI prompts',
-    'Open the AI Credit Coach PDF (shipped with your AI Edition purchase). Each page has one prompt + a worked example. Paste your data into ChatGPT or Claude (free tiers work), paste the prompt, read the output, apply what makes sense.');
+    'Open the AI Credit Coach PDF (shipped with your AI Edition purchase). Each page has one prompt + a worked example. Paste your data into your favourite AI assistant (free tiers work), paste the prompt, read the output, apply what makes sense.');
   sheet.getRow(r2 + 10).height = 30;
   sheet.getRow(r2 + 11).height = 30;
 
@@ -2858,7 +2858,7 @@ function buildAbout(workbook) {
     ['❄️ Snowball Method',          'Pays smallest balance first. Best for psychological wins.'],
     ['🌊 Avalanche Method',         'Pays highest APR first. Saves the most total interest.'],
     ['📊 Strategy Comparison',      'Snowball vs Avalanche vs Custom — months + dollars delta.'],
-    ['🤖 AI Credit Coach (AI)',     '7 ChatGPT/Claude prompts in companion PDF. Move the score 10 points with structured prompts.'],
+    ['🤖 AI Credit Coach (AI)',     '7 AI assistant prompts in companion PDF. Move the score 10 points with structured prompts.'],
   ];
   explainerRows.forEach((er, i) => {
     const ri = r + 1 + i;
@@ -2879,7 +2879,7 @@ function buildAbout(workbook) {
     ['Does this connect to my bank?', 'No. Privacy-first by design. No Plaid, no aggregator. You enter debts manually or paste a CSV from your bank statement.'],
     ['Snowball or Avalanche — which?', 'Avalanche saves more interest. Snowball keeps you motivated. Pick the one you\'ll finish.'],
     ['Does my credit score really go up?', 'The score itself is composite of 5 FICO factors. Pay on time + lower utilization + clear inquiries — score goes up. AI Coach (AI Edition) ranks the actions by point gain.'],
-    ['What\'s the AI Edition extra?', 'Live Debt Health Score (0-100) + AI Credit Coach tab + 7 ChatGPT/Claude prompts in companion PDF.'],
+    ['What\'s the AI Edition extra?', 'Live Debt Health Score (0-100) + AI Credit Coach tab + 7 AI assistant prompts in companion PDF.'],
     ['What if I have more than 10 debts?', 'The Strategy Comparison math is optimized for 3-10 debts and uses a phase-based amortization model. With ≥12 heterogeneous-APR debts, the months/interest figures become estimates (±1-3 months / ±5% interest). The Snowball/Avalanche ordering and Debt List math remain exact regardless of count. A warning appears on the Strategy Comparison tab when COUNTA > 10.'],
     ['Why does Avalanche show 42 months instead of 41 on the standard example?', 'The model serializes phases too rigidly — when Medical (0% APR) pays off via minimums DURING the cascade, the phase-based formula misses 1 month of cascade. The directional answer (Avalanche < Snowball in interest) is always correct.'],
   ];

@@ -2322,7 +2322,7 @@ function buildAIZakatAdvisor(workbook) {
   addTopBar(sheet, {
     productName: `${PRODUCT_NAME} — AI Edition`,
     tabName: '🤖 AI Zakat Advisor',
-    tabSubtitle: '8 ChatGPT/Claude prompts citing NZF UK, AAOIFI Standard 21, Islamic Relief, AMP India. Open the companion PDF for the full prompts.',
+    tabSubtitle: '8 AI assistant prompts citing NZF UK, AAOIFI Standard 21, Islamic Relief, AMP India. Open the companion PDF for the full prompts.',
     bannerText: BANNER,
     kpiData: [
       { label: 'PROMPTS',         value: '8' },
@@ -2330,11 +2330,11 @@ function buildAIZakatAdvisor(workbook) {
       { label: 'MADHHABS',        value: 'All 4' },
       { label: 'PERSONAS IN PDF', value: '2 (annual / complex)' },
       { label: 'PDF PAGES',       value: '12' },
-      { label: 'COMPATIBLE WITH', value: 'ChatGPT free + Claude free' },
+      { label: 'COMPATIBLE WITH', value: 'Any AI free tier' },
     ],
   });
 
-  let r = addSectionHeader(sheet, 6, 'AI prompt hub — pair with the companion PDF', 'Each prompt pairs with a specific tab in this sheet. Copy → paste into ChatGPT or Claude → replace placeholders → read the response. Every response includes fatwa citations.', 'B:L');
+  let r = addSectionHeader(sheet, 6, 'AI prompt hub — pair with the companion PDF', 'Each prompt pairs with a specific tab in this sheet. Copy → paste into your favourite AI assistant → replace placeholders → read the response. Every response includes fatwa citations.', 'B:L');
 
   addTableHeader(sheet, r + 1,
     ['Prompt', 'Pairs with tab', 'What it does', 'Citations', '—', '—', '—', '—', '—', '—'],
@@ -2387,7 +2387,7 @@ function buildAIZakatAdvisor(workbook) {
   addCallout(sheet, `B${r + 15}:L${r + 16}`,
     '🔒',
     'Privacy discipline',
-    'Use the spreadsheet labels ("Cash Account A", "Gulf EOSB") when pasting into ChatGPT or Claude. The AI doesn\'t need real identifiers to do the math. Your wealth details, family details, and Madhhab selection never leave your AI conversation.');
+    'Use the spreadsheet labels ("Cash Account A", "Gulf EOSB") when pasting into your AI assistant. The AI doesn\'t need real identifiers to do the math. Your wealth details, family details, and Madhhab selection never leave your AI conversation.');
   sheet.getRow(r + 15).height = 36;
   sheet.getRow(r + 16).height = 36;
 
@@ -2472,7 +2472,7 @@ function buildAbout(workbook) {
     ['How is this different from free online Zakat calculators?',  '(1) Depth — 18 product tabs covering crypto, Sukuk, EOSB, rental, agricultural, Qada. Free calculators handle 5% of modern asset complexity. (2) Madhhab-aware — 4 Madhhabs with ruling differences surfaced. (3) Citations — every AI response cites NZF UK / AAOIFI / Islamic Relief / AMP India. (4) Privacy — your wealth profile stays on your device. (5) Hawl tracker — per-account 12-lunar-month tracking, not just point-in-time.'],
     ['Which Madhhab should I select?',  'Your tradition. Hanafi → silver Nisab default + aggregate Hawl. Maliki/Shafi\'i/Hanbali → gold Nisab default + per-asset Hawl. If unsure, follow your family tradition or local mosque\'s convention.'],
     ['How do I update gold and silver spot prices?',  'Google Sheets: GOOGLEFINANCE handles it (formulae shown on ⚖️ Nisab Calculator). Excel: enter manually on your Hawl date — once a year. Check kitco.com or your local jewelry shop.'],
-    ['Do I need ChatGPT Plus or Claude Pro?',  'No. The 8 AI prompts (AI Edition) work in ChatGPT free tier or Claude free tier. You paste prompts + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI.'],
+    ['Do I need a paid AI plan?',  'No. The 8 AI prompts (AI Edition) work on the free tier of your AI assistant. You paste prompts + your data into your own AI tool. Nothing in the spreadsheet sends data to any AI.'],
     ['Is Khums included?',  'No. This is Sunni Zakat al-Mal only. Khums (Shia framework) is a separate product. See "What This Sheet Doesn\'t Do" in the listing copy.'],
   ];
   faq.forEach((qa, i) => {

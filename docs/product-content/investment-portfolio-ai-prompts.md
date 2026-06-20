@@ -41,7 +41,7 @@ How to use these prompts
 
 ### Body
 ```
-Eight decisions every self-directed investor hits across a fiscal year. Eight prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.
+Eight decisions every self-directed investor hits across a fiscal year. Eight prompts you can copy, paste, and adapt — designed for the free tier of your favourite AI assistant.
 
 Each prompt is built to pair with a specific tab in your Investment Portfolio Tracker. You'll see the tab name on each page — paste, fill in placeholders, send.
 
@@ -49,13 +49,13 @@ Each prompt is built to pair with a specific tab in your Investment Portfolio Tr
 
 1. Open the prompt page you need (Allocation Advisor, Tax-Loss Harvesting Scout, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data.
 5. Read the worked example on the same page to see what good output looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Investment Portfolio Tracker open in another window
 • 15 minutes the first time; ~3-5 minutes once familiar
 
@@ -1019,7 +1019,7 @@ Set a CALENDAR-BASED REBALANCE RULE: end-of-Q4 every year, regardless of opinion
 
 ---
 
-## Page 11 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 11 — Tips: free vs. paid AI plans
 
 ### Page title (Inter 24pt semibold)
 ```
@@ -1030,19 +1030,19 @@ Which AI should I use?
 ```
 All eight prompts work in free tiers. Differences come down to output style + how each handles long position data.
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Market Scenario Analyst, Quarterly Portfolio Review, Position Health Check, Dividend Income Optimizer. Conversational tone; writes narrative summaries + recommendations cleanly. Fluent at the "explain this differently" iteration loop.
 Limit: ~3,000-4,000 word context per message. If you paste 20+ positions across multiple ETFs with top-10 holdings each, you'll exceed context. Batch by category.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: Allocation Advisor, Tax-Loss Harvesting Scout, Concentration Risk Alerter, Look-Through Analyzer. Better at multi-position tables, structured calculations, and the wash-sale-window checks that need precise rule application. Handles longer portfolio data in one paste.
-Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.
+Limit: Daily conversation limit on free tier. If you hit it, switch to another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
-Worth it if you're running quarterly reviews + monthly TLH scans across 30+ positions. The longer context window matters here — paid Claude can ingest your full 30-position Holdings Master + 5-fund top-10 disclosures in one paste. For ≤20 positions, free works.
+Worth it if you're running quarterly reviews + monthly TLH scans across 30+ positions. The longer context window matters here — a paid AI plan can ingest your full 30-position Holdings Master + 5-fund top-10 disclosures in one paste. For ≤20 positions, free works.
 
 — Universal tips —
 
@@ -1090,7 +1090,7 @@ support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Investment
 Portfolio Tracker AI Edition. AI prompts work in
-ChatGPT and Claude (free or paid tiers — your choice).
+AI assistants (free or paid tiers — your choice).
 
 12-month free updates included with AI Edition.
 investment-portfolio-tracker.com/updates

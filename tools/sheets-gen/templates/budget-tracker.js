@@ -2434,7 +2434,7 @@ function buildAIAdvisor(workbook) {
     { label: 'PROMPTS',       value: '7' },
     { label: 'PAGES IN PDF',  value: '11' },
     { label: 'PAIRS WITH',    value: '7 tabs' },
-    { label: 'AI TOOLS',      value: 'ChatGPT / Claude' },
+    { label: 'AI TOOLS',      value: 'Any AI assistant' },
     { label: 'TIER',          value: 'AI Edition' },
     { label: 'UPDATES',       value: '12 mo free' },
   ]);
@@ -2488,13 +2488,13 @@ function buildAIAdvisor(workbook) {
   addCallout(sheet, `B${r + 2 + prompts.length + 2}:F${r + 2 + prompts.length + 3}`,
     '💡',
     'How to use the AI prompts',
-    'Open the AI Money Advisor PDF (shipped with your AI Edition purchase). Each page has one prompt + a worked example. Paste your data, paste into ChatGPT/Claude, read the output, apply what makes sense.');
+    'Open the AI Money Advisor PDF (shipped with your AI Edition purchase). Each page has one prompt + a worked example. Paste your data, paste into your favourite AI assistant, read the output, apply what makes sense.');
 
   // What the AI won't do
   addCallout(sheet, `B${r + 2 + prompts.length + 5}:F${r + 2 + prompts.length + 6}`,
     '🔒',
     'What the AI won\'t see',
-    'The AI only sees what you paste — usually summary numbers, not transaction-level data. Your bank credentials never enter any AI tool. Everything happens in your own ChatGPT or Claude account.');
+    'The AI only sees what you paste — usually summary numbers, not transaction-level data. Your bank credentials never enter any AI tool. Everything happens in your own AI assistant account.');
 
   addFooter(sheet, r + 2 + prompts.length + 9);
 }
@@ -2543,9 +2543,9 @@ function buildAbout(workbook) {
     { q: 'Can I add more categories?',
       a: 'Yes. Edit the 📂 Expense Categories tab. The Expense Tracker dropdown updates automatically.' },
     { q: 'How do the AI prompts work?',
-      a: 'AI Edition only. Open the AI Money Advisor PDF (shipped with your purchase). Copy a prompt, paste it + your data into ChatGPT or Claude (free tier works), read the output.' },
+      a: 'AI Edition only. Open the AI Money Advisor PDF (shipped with your purchase). Copy a prompt, paste it + your data into your favourite AI assistant (the free tier works), read the output.' },
     { q: 'Will my data ever leave my computer?',
-      a: 'Nothing in this spreadsheet sends data anywhere. The AI features run in your own ChatGPT/Claude account — only what you paste.' },
+      a: 'Nothing in this spreadsheet sends data anywhere. The AI features run in your own AI assistant account — only what you paste.' },
     { q: 'Where do I get help?',
       a: 'Reply to your order email. 24-hour response, 7 days a week. Bug fixes are always free; AI Edition buyers get 12 months of template refreshes.' },
     { q: 'Can I share this with my partner?',

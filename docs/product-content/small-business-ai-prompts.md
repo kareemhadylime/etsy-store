@@ -1,4 +1,4 @@
-# Small Business AI Business Co-Pilot — 12-Page PDF Content
+# Small Business AI Business Advisor — 12-Page PDF Content
 
 _Drafted: 2026-05-11_
 _Status: v1 — content ready for PDF production_
@@ -16,7 +16,7 @@ Per the brief Section 4 visual restraint dial: pushed further than other finance
 
 ### Title (Inter 36pt semibold, charcoal)
 ```
-AI Business Co-Pilot
+AI Business Advisor
 ```
 
 ### Subtitle (Inter italic 18pt, warm gold)
@@ -43,7 +43,7 @@ How to use these prompts
 
 ### Body
 ```
-Eight decisions every small-business operator hits across a fiscal year. Eight prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.
+Eight decisions every small-business operator hits across a fiscal year. Eight prompts you can copy, paste, and adapt — designed for the free tier of your favourite AI assistant.
 
 Each prompt is built to pair with a specific tab in your Small Business Finance Kit. You'll see the tab name on each page — paste, fill in placeholders, send.
 
@@ -51,13 +51,13 @@ Each prompt is built to pair with a specific tab in your Small Business Finance 
 
 1. Open the prompt page you need (P&L Analyst, Cash Flow Coach, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data.
 5. Read the worked example on the same page to see what good output looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Small Business Finance Kit open in another window
 • 15 minutes the first time; ~5 minutes once familiar
 
@@ -164,7 +164,7 @@ VERIFY WITH ACCOUNTANT OR RECORDS:
 
 ### Footer
 ```
-3 / 12 · AI Business Co-Pilot
+3 / 12 · AI Business Advisor
 ```
 
 ---
@@ -275,7 +275,7 @@ Your forecast brittleness is concentrated in Customer A (60% of inflows). Even a
 
 ### Footer
 ```
-4 / 12 · AI Business Co-Pilot
+4 / 12 · AI Business Advisor
 ```
 
 ---
@@ -379,7 +379,7 @@ This is a diagnostic. Section 179 elections + bonus depreciation choices + parti
 
 ### Footer
 ```
-5 / 12 · AI Business Co-Pilot
+5 / 12 · AI Business Advisor
 ```
 
 ---
@@ -494,7 +494,7 @@ Don't name the alternative supplier in the first conversation. Saying "we've bee
 
 ### Footer
 ```
-6 / 12 · AI Business Co-Pilot
+6 / 12 · AI Business Advisor
 ```
 
 ---
@@ -606,7 +606,7 @@ THREE QUESTIONS FOR THE ACCOUNTANT MEETING:
 
 ### Footer
 ```
-7 / 12 · AI Business Co-Pilot
+7 / 12 · AI Business Advisor
 ```
 
 ---
@@ -713,7 +713,7 @@ Move Design from hourly to fixed-fee for projects over 5 hours. Why: hourly crea
 
 ### Footer
 ```
-8 / 12 · AI Business Co-Pilot
+8 / 12 · AI Business Advisor
 ```
 
 ---
@@ -727,7 +727,7 @@ Move Design from hourly to fixed-fee for projects over 5 hours. Why: hourly crea
 
 ### Tab callout
 ```
-Pairs with: AI Business Co-Pilot (hub) + P&L Statement
+Pairs with: AI Business Advisor (hub) + P&L Statement
 ```
 
 ### The prompt
@@ -814,7 +814,7 @@ Hire a part-time bookkeeper or shift to a fractional CFO arrangement at ~$1,200/
 
 ### Footer
 ```
-9 / 12 · AI Business Co-Pilot
+9 / 12 · AI Business Advisor
 ```
 
 ---
@@ -925,12 +925,12 @@ Have the retainer conversation with Beechwood Cafe (or whichever of Beechwood/Ri
 
 ### Footer
 ```
-10 / 12 · AI Business Co-Pilot
+10 / 12 · AI Business Advisor
 ```
 
 ---
 
-## Page 11 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 11 — Tips: free vs. paid AI plans
 
 ### Page title (Inter 24pt semibold)
 ```
@@ -941,17 +941,17 @@ Which AI should I use?
 ```
 All eight prompts work in free tiers. Differences come down to output style + how each handles long, structured business data.
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Supplier Negotiation Brief, Pricing Strategist, Annual Business Review, Customer Concentration Risk. Conversational tone; great at narrative + writing the actual email or script you'll use. Fluent at the "make this sound less aggressive" iteration loop.
 Limit: ~3,000-4,000 word context per message. If you paste a 50-customer list + a 30-line P&L, break it into batches.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: P&L Analyst, Cash Flow Coach, Depreciation Assistant, Tax Prep Advisor. Better at multi-row table analysis, line-by-line audit, and structured numeric output. Handles longer P&Ls and customer lists in one paste. Shows its arithmetic more reliably.
-Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.
+Limit: Daily conversation limit on free tier. If you hit it, switch to another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
 Worth it if you're running monthly P&L analysis + quarterly tax planning + cash flow forecasting weekly. For a small business operator, the $20/mo subscription typically pays for itself in 2-3 hours of recovered admin time per month. Skip if you're running these prompts twice a year.
 
@@ -968,7 +968,7 @@ Your business data never leaves your AI conversation. The AI never sees your spr
 
 ### Footer
 ```
-11 / 12 · AI Business Co-Pilot
+11 / 12 · AI Business Advisor
 ```
 
 ---
@@ -999,8 +999,8 @@ v1.0 · Updated [DATE]
 support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Small Business
-Finance Kit AI Edition. AI prompts work in ChatGPT and
-Claude (free or paid tiers — your choice).
+Finance Kit AI Edition. AI prompts work in AI assistants
+(free or paid tiers — your choice).
 
 12-month free updates included with AI Edition.
 small-business-finance-kit.com/updates
@@ -1018,7 +1018,7 @@ small-business-finance-kit.com/updates
 - **Page count: 12** — one more than the other 4 finance products (8 prompts vs. 7). Matches design brief Section 4.
 - **Visual rules:** Premium Finance House (Bundle brief Section 1) + Small Business brief Section 4 visual restraint dial pushed further (5% shadow opacity, mandatory numeric right-alignment, no emoji in content rows). This file is content only — visual treatments live in the design brief + Figma.
 - **PDF tool:** Figma → PDF export per Premium Finance Brand Kit page 06.5.
-- **Page numbering convention:** "N / 12 · AI Business Co-Pilot"
+- **Page numbering convention:** "N / 12 · AI Business Advisor"
 - **Placeholders** in prompts: ALL-CAPS bracketed strings.
 - **Each prompt page includes tab callout** — bridges PDF ↔ spreadsheet.
 - **Worked examples use one consistent fictional business** (custom signage shop) threading prompts 1-8 with realistic numbers ($197K revenue, 56.9% gross margin, Acme Realty as biggest customer, etc.). The persona thread makes the PDF read as one coherent advisor instead of eight disconnected prompts — proven pattern from Net Worth content.
@@ -1046,10 +1046,10 @@ AI content cascade is COMPLETE. All 5 AI PDF build tickets unblocked:
 - DP11 (Debt Payoff AI Credit Score Coach PDF)
 - SF11 (Sinking Funds AI Savings Advisor PDF)
 - NW12 (Net Worth AI Wealth Intelligence PDF)
-- SB14 (Small Business AI Business Co-Pilot PDF)
+- SB14 (Small Business AI Business Advisor PDF)
 
-Plus Wedding W14 (AI Co-Pilot PDF) — pre-existing.
-Plus Bundle AI Library — pre-existing.
+Plus Wedding W14 (AI Advisor PDF) — pre-existing.
+Plus AI Planning Guide — pre-existing.
 Plus Notion Life OS template spec — pre-existing.
 
 Next bucket = deferred briefs (Family/Investment/Zakat) + external execution playbook.

@@ -41,7 +41,7 @@ How to use these prompts
 
 ### Body
 ```
-Eight decisions every parent hits across the 18 years from pregnancy through college launch. Eight prompts you can copy, paste, and adapt — designed for ChatGPT's free tier or Claude's free tier.
+Eight decisions every parent hits across the 18 years from pregnancy through college launch. Eight prompts you can copy, paste, and adapt — designed for the free tier of your favourite AI assistant.
 
 Each prompt is built to pair with a specific tab in your Family & Education Planner. You'll see the tab name on each page — paste, fill in placeholders, send.
 
@@ -49,13 +49,13 @@ Each prompt is built to pair with a specific tab in your Family & Education Plan
 
 1. Open the prompt page you need (Account Type Picker, Aid Appeal Coach, etc.).
 2. Open the matching tab in your spreadsheet.
-3. Copy the prompt into ChatGPT or Claude.
+3. Copy the prompt into your favourite AI assistant.
 4. Replace the [PLACEHOLDERS] with your data.
 5. Read the worked example on the same page to see what good output looks like.
 
 — What you'll need —
 
-• A ChatGPT account (free tier works) OR a Claude account (free tier works)
+• An AI assistant account (free tier works)
 • Your Family & Education Planner open in another window
 • 15 minutes the first time; ~5 minutes once familiar
 
@@ -1040,7 +1040,7 @@ NY allows contributions through April 15 of the following year to be deducted ag
 
 ---
 
-## Page 11 — Tips: ChatGPT free vs. Claude vs. paid
+## Page 11 — Tips: free vs. paid AI plans
 
 ### Page title (Inter 24pt semibold)
 ```
@@ -1051,17 +1051,17 @@ Which AI should I use?
 ```
 All eight prompts work in free tiers. Differences come down to output style + how each handles long family-specific data.
 
-— ChatGPT Free —
+— Free Tier —
 
 Best for: Aid Appeal Coach, Life Insurance Advisor, Family Goals Conflict Resolver, Scholarship Matching Engine. Conversational tone; great at writing the actual letter, weighing trade-offs in plain English, and iteratively softening tone ("make this less aggressive" / "more humble"). Fluent at the "rewrite in our family's voice" pass.
 Limit: ~3,000-4,000 word context per message. If you paste 4 children + 8 goals + full aid letter, break it into batches.
 
-— Claude Free (claude.ai) —
+— Another AI Assistant (Free) —
 
 Best for: Account Type Picker, State 529 Optimizer, College Affordability Coach, Childcare Optimizer. Better at structured per-child tables, multi-scenario math, and the comparison-grid output. Handles longer family-context inputs in one paste.
-Limit: Daily conversation limit on free tier. If you hit it, switch to ChatGPT for the next prompt.
+Limit: Daily conversation limit on free tier. If you hit it, switch to another AI assistant for the next prompt.
 
-— Paid tiers (ChatGPT Plus, Claude Pro) —
+— Paid AI Plans —
 
 Worth it if you're managing 3+ children with separate timelines + running multi-scenario college-affordability math each cycle. Skip if you're using these prompts once or twice a year.
 
@@ -1112,7 +1112,7 @@ support@[studio-domain] · Reply within 24 hours
 
 This PDF ships with your purchase of the Family &
 Education Planner AI Edition. AI prompts work in
-ChatGPT and Claude (free or paid tiers — your choice).
+AI assistants (free or paid tiers — your choice).
 
 12-month free updates included with AI Edition.
 family-education-planner.com/updates
