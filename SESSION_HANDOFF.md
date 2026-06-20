@@ -1,5 +1,15 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-06-20 — Branded delivery PDFs for the 3 new draft listings
+
+Built `tools/pdf-gen/gen-delivery.mjs` — renders one US-Letter "Start Here" delivery PDF per listing (Lime Studios sage+cream): Make-a-Copy steps, Excel note, per-file link rows, first-10-min setup, support. Data-driven links via `tools/pdf-gen/delivery-links.json` (paste real Google-Sheets `/copy` links → re-run → clickable links baked in; empty = fill-in placeholder). Output (gitignored): `output/delivery-{finance-bundle-ai,life-bundle-ai,wedding}.pdf`.
+
+Ran a 3-agent adversarial verify workflow (policy/brand/composition/quality) — all 3 **policyClean + brandCorrect + compositionAccurate = true**. Fixed the nits it found: price moved to a gold chip, added Quick-start + Cross-product-diagram rows (match listing "what you get"), smoothed wedding blurb, tightened so all 3 stay 1 page.
+
+**Next session:** paste real `/copy` links into `delivery-links.json` → `node gen-delivery.mjs` → attach each PDF to its draft (`4524986765` / `4524986789` / `4524993902`) → Publish. Then delete the 3 frozen originals.
+
+---
+
 ## 🟢 2026-06-20 — Recreated the 3 frozen listings as fresh compliant DRAFTS
 
 Since the 3 frozen listings can't be unfrozen via API, recreated them as NEW listings via `tools/etsy-publish/recreate-frozen-listings.mjs` (reads cleaned title/tags/desc from md, creates `type=download` draft, uploads 5 thumbnails, sets wedding 3-tier variations). New draft IDs:

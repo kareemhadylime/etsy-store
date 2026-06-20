@@ -1,0 +1,31 @@
+{
+  "_README": "Paste each product's real Google-Sheets 'Make a Copy' link (and PDF links) below, then run: node gen-delivery.mjs — the delivery PDFs regenerate with the links baked in (clickable). Leave a value as \"\" to keep the fill-in placeholder. A Sheets copy link looks like https://docs.google.com/spreadsheets/d/FILE_ID/copy",
+  "delivery-finance-bundle-ai": {
+    "Budget Tracker — AI Edition": "",
+    "Debt Payoff Planner — AI Edition": "",
+    "Sinking Funds Planner — AI Edition": "",
+    "Net Worth Tracker — AI Edition": "",
+    "Small Business Finance Kit — AI Edition": "",
+    "AI Planning Guide": "",
+    "Setup Wizard": "",
+    "Quick-start (1-pager)": "",
+    "Cross-product reference diagram": ""
+  },
+  "delivery-life-bundle-ai": {
+    "Budget Tracker — AI Edition": "",
+    "Debt Payoff Planner — AI Edition": "",
+    "Sinking Funds Planner — AI Edition": "",
+    "Net Worth Tracker — AI Edition": "",
+    "Small Business Finance Kit — AI Edition": "",
+    "Wedding Budget & Planner — AI Edition": "",
+    "AI Planning Guide": "",
+    "Setup Wizard": "",
+    "Quick-start (1-pager)": "",
+    "Cross-product reference diagram": ""
+  },
+  "delivery-wedding": {
+    "Wedding Budget & Planner (your tier)": "",
+    "Day-of Schedule": "",
+    "AI Planning Guide (AI Edition only)": ""
+  }
+}
