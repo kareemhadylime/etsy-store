@@ -21,6 +21,7 @@ Use the **Support message** below verbatim (Help → Contact us). The **Remediat
 >    - Example title before: "Premium Finance Bundle AI Edition | 5 Spreadsheets + 60 ChatGPT Claude Prompts + Setup PDF | Master AI Library Digital Download"
 >    - Example title after: "Premium Finance Bundle AI Edition | 5 Spreadsheets + 60 AI Planning Prompts + Setup Guide | Digital Download"
 > 2. Listing images (thumbnails) — the visible text no longer shows any third-party AI brand name. Badges/pills that previously read "CHATGPT" / "CLAUDE" now read generic terms such as "ANY AI" / "FREE TIER."
+> 3. Downloadable product files — I also removed all third-party AI brand names and "prompt pack/library" framing from the files buyers actually download (spreadsheet tab names + in-app help text, and the included AI guide PDFs), and re-attached the corrected files to the listings. Nothing in the product now references ChatGPT, Claude, or any other third-party AI tool.
 >
 > **Re-created compliant listings:** After correcting the content, I published fully compliant re-creations (4524986765, 4524986789, 4524993902) built from the scrubbed copy and images — yet these were also auto-frozen. Because appeals are currently disabled in-app, I'm raising this here.
 >
@@ -57,6 +58,9 @@ Use the **Support message** below verbatim (Help → Contact us). The **Remediat
 - "AI Edition Built for ChatGPT and Claude" → "AI Edition Built for any AI assistant"
 - Pills "CHATGPT FREE / CLAUDE FREE" → "ANY AI / FREE TIER"
 
-**Out of scope (intentionally not changed):** the downloadable product files (spreadsheet tab names, in-tab help text, the AI-prompt PDFs) still reference third-party AI tools. Etsy does not crawl inside delivered files, so they are not part of the listing-facing review. *(Recommended hardening: scrub these too, in case a reviewer downloads a file.)*
+**3. Downloadable product files (also cleaned)**
+- Removed all third-party AI brand names + prompt-pack framing from the actual deliverables — spreadsheet tab names + in-app help text and the included AI guide PDFs.
+- Examples: "AI Business Co-Pilot" tab → "AI Business Advisor"; "Master AI Prompt Library" PDF → "AI Planning Guide"; "paste into ChatGPT/Claude" → "paste into your AI assistant."
+- Files regenerated from the cleaned templates and **re-attached to the listings**; a grep inside the rebuilt `.xlsx`/`.pdf` confirms **zero** brand references.
 
 **Change record:** listing copy/payloads scrubbed in `08cf277`; listing images in `c7b2a15`; pushed live in `a78ebae` + `b56cac1`.

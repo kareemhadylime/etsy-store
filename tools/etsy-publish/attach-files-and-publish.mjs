@@ -90,6 +90,14 @@ for (const L of LISTINGS) {
   if (!EXECUTE) { console.log(''); continue; }
   if (!present.length) { console.log('    ✗ no files found — skipped\n'); continue; }
 
+  if (process.env.REPLACE === '1') {
+    const fr = await fetch(`https://openapi.etsy.com/v3/application/shops/${SHOP_ID}/listings/${L.id}/files`, { headers: { 'x-api-key': KEY, Authorization: AUTH } });
+    for (const ef of (JSON.parse(await fr.text()).results || [])) {
+      const dr = await fetch(`https://openapi.etsy.com/v3/application/shops/${SHOP_ID}/listings/${L.id}/files/${ef.listing_file_id}`, { method: 'DELETE', headers: { 'x-api-key': KEY, Authorization: AUTH } });
+      console.log(`    ${dr.ok ? '✓ deleted old' : '✗ delete ' + dr.status} file ${ef.listing_file_id}`);
+    }
+  }
+
   let uploads = [];
   if (L.mode === 'zip') {
     const zipPath = resolve(ZIP_DIR, L.zipName);

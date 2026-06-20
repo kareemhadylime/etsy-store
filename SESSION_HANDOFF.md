@@ -1,5 +1,17 @@
 # Etsy Store — Session Handoff
 
+## 🟢 2026-06-20 — Delivered product files scrubbed + re-attached (downloads now brand-clean)
+
+Closed the last brand-exposure surface. A 5-agent workflow scrubbed **43 source files** — sheets-gen generators (tab names + help text), pdf-gen guide/quickstart templates, docs/product-content prompt sources — of all ChatGPT/Claude/OpenAI/Anthropic/Gemini/Llama, "AI Co-Pilot", and "AI Prompt Library"/prompt-pack framing (→ "AI assistant"/"AI Advisor"/"AI Planning Guide"). Independent verify: **0 real matches** (commit `18014e7`). 6 internal code identifiers (function names like `buildAICoPilotHub`, comments, console.logs) left — never shipped in any deliverable.
+
+Regenerated all 9 product xlsx (`node templates/*.js`) + the bundle/wedding PDFs (`node generate.js <name>`) from the clean templates; **grep INSIDE the rebuilt `.xlsx`/`.pdf` confirms 0 brand refs**. Added a `REPLACE=1` mode to `attach-files-and-publish.mjs` (delete existing listing files → upload clean) — **file edits work on FROZEN listings**, so swapped the clean files onto all 3 recreations (`4524986765`/`89`, `4524993902`): old brand zips/files deleted, brand-neutral ones uploaded.
+
+Updated `docs/etsy-policy-appeal.md` — the appeal now truthfully states **every** surface (listing text + images + downloadable files) is free of third-party AI brand names.
+
+**Still blocked:** the Etsy account-enforcement **freeze** on the 6 listings (3 originals + 3 recreations) — only Etsy Support can lift it. Everything on our side is now 100% compliant top to bottom.
+
+---
+
 ## 🔴 2026-06-20 — Recreations ALSO frozen + 50% shop sale live
 
 **50% LAUNCH sale is LIVE** (whole shop, Jun 20–22, name LAUNCH50, set up via Chrome Marketing→Run a sale; includes current+future listings so anything published auto-joins).
