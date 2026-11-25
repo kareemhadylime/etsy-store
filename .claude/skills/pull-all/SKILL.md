@@ -1,6 +1,7 @@
 ---
 name: pull-all
-description: Pull and sync the latest commits from origin/main for all five Lime Investments projects — fmplus-beta, voltauto-pricing, kareemhady, etsy, and voltauto-website. Handles common local-only .gitignore diffs by stashing, pulling, then popping. Reports the final safety status of each repo. Use before starting any new work session.
+description: >-
+  [lime] Pull and sync the latest commits from origin/main for all five Lime Investments projects — fmplus-beta, voltauto-pricing, kareemhady, etsy, and voltauto-website. Handles common local-only .gitignore diffs by stashing, pulling, then popping. Reports the final safety status of each repo. Use before starting any new work session.
 ---
 
 # /pull-all — sync all Lime projects to latest
