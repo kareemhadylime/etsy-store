@@ -1,6 +1,7 @@
 ---
 name: handoff
-description: End-of-session skill — updates SESSION_HANDOFF.md in every active project with a summary of work done this session, commits and pushes each to GitHub, deploys kareemhady to Vercel, then prints a single confirmation message declaring the session safe to /clear. Trigger when the user says any of "handoff", "session handoff", "update handoff", "wrap up", "safe to clear", "end session", "commit and close", or "push and close".
+description: >-
+  [lime] End-of-session skill — updates SESSION_HANDOFF.md in every active project with a summary of work done this session, commits and pushes each to GitHub, deploys kareemhady to Vercel, then prints a single confirmation message declaring the session safe to /clear. Trigger when the user says any of "handoff", "session handoff", "update handoff", "wrap up", "safe to clear", "end session", "commit and close", or "push and close".
 ---
 
 # /handoff — session close + deploy
